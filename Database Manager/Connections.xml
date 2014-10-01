@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Connections>
+  <Connection>
+    <ConnectionID>4</ConnectionID>
+    <Nome>FashionERP</Nome>
+    <DBType>sqlserver</DBType>
+    <BancoDeDados>FashionERP</BancoDeDados>
+    <Servidor>.\SQLEXPRESS</Servidor>
+    <Porta></Porta>
+    <Usuario>sa</Usuario>
+    <Senha>123456</Senha>
+  </Connection>
+  <Connection>
+    <ConnectionID>5</ConnectionID>
+    <Nome>FashionERP Servidor</Nome>
+    <DBType>sqlserver</DBType>
+    <BancoDeDados>FashionERP</BancoDeDados>
+    <Servidor>192.168.123.55\SQLEXPRESS</Servidor>
+    <Porta></Porta>
+    <Usuario>sa</Usuario>
+    <Senha>123456</Senha>
+  </Connection>
+  <Connection>
+    <ConnectionID>6</ConnectionID>
+    <Nome>NovaModa</Nome>
+    <DBType>sqlserver</DBType>
+    <BancoDeDados>NovaModa</BancoDeDados>
+    <Servidor>.\SQLEXPRESS</Servidor>
+    <Porta></Porta>
+    <Usuario>sa</Usuario>
+    <Senha>123</Senha>
+  </Connection>
+  <Connection>
+    <ConnectionID>7</ConnectionID>
+    <Nome>NovaModa Servidor</Nome>
+    <DBType>sqlserver</DBType>
+    <BancoDeDados>NovaModa</BancoDeDados>
+    <Servidor>192.168.123.55\SQLEXPRESS</Servidor>
+    <Porta />
+    <Usuario>sa</Usuario>
+    <Senha>123456</Senha>
+  </Connection>
+</Connections>

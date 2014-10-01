@@ -1,0 +1,9 @@
+Os scripts de criação do banco tem os seguintes objetivos:
+
+1executaExcluiBanco.bat : Deletar o banco de dados.
+2executaCriaBanco.bat: Cria uma instância vazia do banco de dados.
+3populaBanco.bat: Usa as definições do Fashion.ERP.Migrator para criar a estrutura de tabelas e popular os banco de acordo com a última versão do banco.
+
+O script EXECUTETUDO.bat executa os 3 scripts anteriores.
+--
+Para que os scripts funcionem é necessário que a variável de ambiente "%FASHION.ERP_SOURCE%" seja criada. A mesma deverá apontar para a pasta Source que se encontra dentro da pasta onde está localizada a solução do visual studio do projeto Fashion.ERP.
