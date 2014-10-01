@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridPrestadorServicoModel>
+<div id="modal-prestadorservico" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar prestador de serviço</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Comum.PrestadorServico.Pesquisar()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-prestadorservico" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
+                <input name="valor" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-prestador" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-prestadorservico"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-prestadorservico" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id do prestador vier preenchido, preencher o código e descrição
+        var prestadorId = $('#prestadorservico').val();
+
+        if (prestadorId) {
+            $.getJSON('/Comum/PrestadorServico/PesquisarId/' + prestadorId, function (data) {
+                if (data.Id) {
+                    $('#codigo-prestadorservico').val(data.Codigo);
+                    $('#descricao-prestadorservico').text(data.Nome);
+                }
+            });
+        }
+
+        $('#submit-pesquisar-prestador').off('click').on('click', function () {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "/Comum/PrestadorServico/PesquisarFiltro",
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    var grid = $("#grid-pesquisa-prestadorservico").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Codigo", title: "Código" },
+                            { field: "CpfCnpj", title: "CPF/CNPJ" },
+                            { field: "Nome", title: "Nome" }
+                        ],
+                        dataSource: data,
+                    });
+                    
+                    grid.delegate("tbody>tr", "dblclick", selecionarPrestador);
+                }
+            });
+
+            return false;
+        });
+        $('#pesquisar-prestadorservico').on('click', function () {
+            $('#modal-prestadorservico').modal('show').one('hidden', function () {
+                $('#Coluna')[0].selectedIndex = 0;
+                $('input[name$="valor"]').val('');
+                $('#grid-pesquisa-prestadorservico').empty();
+            });
+        });
+        var pesquisaPrestadorServico = function (codigo) {
+            if (codigo) {
+                var url = '/Comum/PrestadorServico/PesquisarCodigo?codigo=' + codigo;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#prestadorservico').val('').trigger('change');
+                        $('#codigo-prestadorservico').val('');
+                        $('#descricao-prestadorservico').text('');
+                    } else {
+                        $('#prestadorservico').val(data.Id).trigger('change');
+                        $('#codigo-prestadorservico').val(data.Codigo);
+                        $('#descricao-prestadorservico').text(data.Nome);
+                    }
+                });
+            } else {
+                $('#prestadorservico').val('').trigger('change');
+                $('#codigo-prestadorservico').val('');
+                $('#descricao-prestadorservico').text('');
+            }
+        };
+        $('#codigo-prestadorservico').on({
+            keydown: function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaPrestadorServico($(this).val());
+                }
+            }
+        });
+        $('#selecionar-prestadorservico').on('click', selecionarPrestador);
+        function selecionarPrestador() {
+            var grid = $('#grid-pesquisa-prestadorservico').data("kendoGrid");
+            
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#prestadorservico').val(data.Id).trigger('change');
+                $('#codigo-prestadorservico').val(data.Codigo);
+                $('#descricao-prestadorservico').text(data.Nome);
+
+                $('#modal-prestadorservico').modal('hide');
+            }
+        }
+    });
+</script>

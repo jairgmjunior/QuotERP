@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="true">
+ 
+  <sql-query name="SaldoEstoqueMaterial">
+    exec uspSaldoEstoqueMaterial :IdMaterial, :IdDepositoMaterial, :Data
+  </sql-query>
+ 
+</hibernate-mapping>

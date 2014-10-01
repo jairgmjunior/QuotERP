@@ -1,0 +1,66 @@
+﻿@{
+    var siteMap = Html.MvcSiteMap();
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Fashion ERP - @(ViewBag.Title ?? siteMap.SiteMapTitle())</title>
+    <link rel="shortcut icon" href="~/favicon.png" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @RenderSection("css")
+    @RenderSection("javascript")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="~/"><img src="~/Content/images/logo.png" /></a>
+                <div class="nav-collapse" style="height: auto;">
+                    @siteMap.Menu()
+                </div>
+                
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">@HttpContext.Current.User.Identity.Name<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLinkAuth("Alterar senha", MVC.Comum.Usuario.AlterarSenha())</li>
+                                <li>@Html.ActionLink("Sair", MVC.Home.Logout())</li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                
+                <img src="/Content/images/ajax-loader.gif" class="ajax-loading pull-right" />
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        @if (Request.RawUrl != "/")
+        {
+            @siteMap.SiteMapPath()
+        }
+        @Html.Partial("_Message")
+        @RenderBody()
+    </div>
+    <footer class="container-fluid">
+        <div class="row-fluid">
+            <div class="pull-left">
+                Fashion ERP © 2013 | <i class="icon-envelope icon-white"></i>&nbsp;contato@fashionsistemas.com.br
+            </div>
+            <div class="pull-right">
+                Powered by <a href="http://www.fashionsistemas.com.br" target="_blank">Fashion Consultoria &amp; Sistemas</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

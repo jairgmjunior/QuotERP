@@ -1,0 +1,87 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.EditarUsuarioModel
+
+@using (Html.BeginForm("Editar", "Usuario", FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Nome)
+        <div class="controls">
+            @Html.EditorFor(x => x.Nome)
+            @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Login)
+        <div class="controls">
+            @Html.EditorFor(x => x.Login)
+            @Html.ValidationMessageFor(x => x.Login, null, new { @class = "help-block" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.PerfisDeAcesso)
+        <div class="controls">
+            @Html.CheckBoxListFor(x => x.PerfisDeAcesso, Model.PerfisDeAcessoList, new { @class = "checkbox" })
+            @Html.ValidationMessageFor(x => x.PerfisDeAcesso, null, new { @class = "help-block" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.ResetarSenha)
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">
+                    <label class="checkbox">
+                        @Html.CheckBoxFor(x => x.ResetarSenha)
+                    </label>
+                </span>
+                @Html.PasswordFor(x => x.NovaSenha, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(x => x.NovaSenha, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+        
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Permissoes)
+        <div class="controls">
+            @(Html.TreeView(Model.PermissoesList)
+                      .EmptyContent("Não há permissões!")
+                      .Children(m => m.Itens)
+                      .HtmlAttributes(new { id = "treeview" })
+                      .ChildrenHtmlAttributes(new { @class = "subItem" })
+                      .ItemText(m => m.Name)
+                      .ItemTemplate(
+                          @<text>
+            <input type="checkbox" value="@item.Id" @(item.IsChecked ? "checked='ckecked'" : string.Empty) name="Permissoes"/>@item.Name
+            </text>)
+                      )
+
+            @Html.ValidationMessageFor(x => x.Permissoes, null, new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @Html.ExcluirAuth(MVC.Comum.Usuario.Excluir(Model.Id))
+    </div>
+
+    <script>
+        $(function () {
+            $("#treeview").kendoTreeView({
+                checkboxes: {
+                    checkChildren: true,
+                }
+            }).data("kendoTreeView");
+        });
+        $('#ResetarSenha').change(function () {
+            if ($(this).is(":checked")) {
+                $('#NovaSenha').removeAttr('disabled').focus();
+            } else {
+                $('#NovaSenha').attr('disabled', 'disabled');
+            }
+        });
+    </script>
+}
+@{ Html.RenderPartial("_ConfirmDelete");}

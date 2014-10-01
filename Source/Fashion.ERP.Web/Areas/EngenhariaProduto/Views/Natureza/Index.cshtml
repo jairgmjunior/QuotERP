@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.GridNaturezaModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Natureza.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Descricao);
+        columns.Template(item => Html.EditarAuth(MVC.EngenhariaProduto.Natureza.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.EngenhariaProduto.Natureza.EditarSituacao(item.Id), item.Ativo)).Width(80);
+    })
+)

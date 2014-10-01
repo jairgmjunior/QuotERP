@@ -1,0 +1,11 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.CentroCustoModel
+
+@Html.HiddenFor(x => x.Codigo)
+
+<div class="control-group">
+	@Html.LabelForRequired(x => x.Nome)
+	<div class="controls">
+		@Html.EditorFor(x => x.Nome)
+		@Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+	</div>
+</div>

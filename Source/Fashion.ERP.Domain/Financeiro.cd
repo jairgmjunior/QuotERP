@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Fashion.ERP.Domain.Financeiro.BaixaChequeRecebido">
+    <Position X="1.75" Y="0.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQEAAAgAAAAQAgAEAAAAQDAAAAEBIAAAAgA=</HashCode>
+      <FileName>Financeiro\BaixaChequeRecebido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.CompensacaoCheque">
+    <Position X="9.75" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Financeiro\CompensacaoCheque.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.ChequeRecebido">
+    <Position X="5.75" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEABAgAAACQAAAAgGAqAAIQFESgQAAAIoAYBQQgAgkA=</HashCode>
+      <FileName>Financeiro\ChequeRecebido.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Emitente" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="BaixaChequeRecebidos" />
+      <Property Name="OcorrenciaCompensacoes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.Emitente">
+    <Position X="9.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAEgAAAAAQkAAgAQAAAAgAAAwAI=</HashCode>
+      <FileName>Financeiro\Emitente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.OcorrenciaCompensacao">
+    <Position X="5.75" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAABAAAAIgA=</HashCode>
+      <FileName>Financeiro\OcorrenciaCompensacao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ChequeSituacao" />
+      <Property Name="CompensacaoCheque" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.ContaBancaria">
+    <Position X="12.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAgAAAAAAEAAAAAAAAAQgAAAAAAAAAAAAAgEA=</HashCode>
+      <FileName>Financeiro\ContaBancaria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.ExtratoBancario">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAgABBAAAACAAAAAAEACAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Financeiro\ExtratoBancario.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ContaBancaria" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Financeiro.RecebimentoChequeRecebido">
+    <Position X="1.75" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Financeiro\RecebimentoChequeRecebido.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BaixaChequeRecebido" />
+      <Property Name="MeioPagamento" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Comum.MeioPagamento" Collapsed="true">
+    <Position X="2.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comum\MeioPagamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Fashion.ERP.Domain.Financeiro.ChequeSituacao" Collapsed="true">
+    <Position X="2.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAQAAAAACAAAAAAAIAAAAAAACAQgA=</HashCode>
+      <FileName>Financeiro\ChequeSituacao.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

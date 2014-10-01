@@ -1,0 +1,77 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.ExtratoItemModel
+
+@{ Layout = null; }
+
+<div class="detail">
+    <div class="row">
+        <div class="span5">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            <div class="control-group">
+                @Html.LabelFor(x => x.Unidade, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.Unidade)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Deposito, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.Deposito)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Material, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.Material)
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="control-group">
+                @Html.LabelFor(x => x.DataInicial, new { @class = "title-label " })
+                <div class="controls">
+                    @Html.EditorFor(x => x.DataInicial, new { @class = "input-small" })
+                    @Html.EditorFor(x => x.DataFinal, new { @class = "input-small" })
+                    <input id="filtrar-extratoitem" type="button" value="Filtrar" class="btn input-mini" data-loading-text="Aguarde..." />
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="control-group">
+                @Html.LabelFor(x => x.SaldoInicial, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.SaldoInicial, "{0:N4}")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @(Html.Kendo().Grid(Model.Grid)
+          .Name("grid-extratoitem")
+          .Columns(columns =>
+                       {
+                           columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}");
+                           columns.Bound(x => x.Entrada).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
+                           columns.Bound(x => x.Saida).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
+                       })
+          )
+    
+    <div class="row">
+        <div class="span5">
+            <div class="control-group">
+                @Html.LabelFor(x => x.SaldoFinal, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.SaldoFinal, "{0:N4}")
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="control-group">
+                @Html.LabelFor(x => x.UnidadeMedida, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.UnidadeMedida)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

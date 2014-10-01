@@ -1,0 +1,173 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModelagemModeloModel
+<hr />
+<div class="detail">
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloReferencia)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDescricao)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloEstilistaNome)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDataCriacao)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.Modelo.Modelagem(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.ModeloId)
+    @Html.HiddenFor(x => x.ModeloReferencia)
+    @Html.HiddenFor(x => x.ModeloDescricao)
+    @Html.HiddenFor(x => x.ModeloEstilistaNome)
+    @Html.HiddenFor(x => x.ModeloDataCriacao)
+
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Modelista)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.Modelista, new { id = "funcionario" })
+                    <div class="input-append">
+                        <input id="codigo-funcionario" class="input-small" type="text" />
+                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-funcionario" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DataModelagem)
+                <div class="controls">
+                    @Html.EditorFor(x => x.DataModelagem)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <fieldset>
+                <legend>Detalhamento técnico</legend>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Tecido)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Tecido)
+                        @Html.ValidationMessageFor(x => x.Tecido, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Cos)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Cos, "numeric")
+                        @Html.ValidationMessageFor(x => x.Cos, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Passante)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Passante, "numeric")
+                        @Html.ValidationMessageFor(x => x.Passante, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Entrepernas)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Entrepernas, "numeric")
+                        @Html.ValidationMessageFor(x => x.Entrepernas, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Boca)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Boca, "numeric")
+                        @Html.ValidationMessageFor(x => x.Boca, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Modelagem)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Modelagem)
+                        @Html.ValidationMessageFor(x => x.Modelagem, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Tamanho)
+                    <div class="controls">
+                        @Html.DropDownList("Tamanho", null, "-- Selecione --", new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.Tamanho, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Localizacao)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Localizacao)
+                        @Html.ValidationMessageFor(x => x.Localizacao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Observacao)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Observacao)
+                        @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="span6">
+            <fieldset>
+                <legend>Localizações de etiquetas</legend>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.EtiquetaMarca)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.EtiquetaMarca)
+                        @Html.ValidationMessageFor(x => x.EtiquetaMarca, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.EtiquetaComposicao)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.EtiquetaComposicao)
+                        @Html.ValidationMessageFor(x => x.EtiquetaComposicao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Tag)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Tag)
+                        @Html.ValidationMessageFor(x => x.Tag, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+@{
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "Modelista" });
+}

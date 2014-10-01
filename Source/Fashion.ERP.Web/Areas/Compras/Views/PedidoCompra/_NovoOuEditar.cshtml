@@ -1,0 +1,432 @@
+﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.UnidadeEstocadora)
+            <div class="controls">
+                @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.UnidadeEstocadora, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Numero)
+            <div class="controls">
+                @Html.EditorFor(x => x.Numero)
+                @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.SituacaoCompra)
+            <div class="controls">
+                @Html.EditorFor(x => x.SituacaoCompra)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Fornecedor)
+            <div class="controls">
+                @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                <div class="input-append">
+                    <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-fornecedor" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Contato)
+            <div class="controls">
+                @Html.EditorFor(x => x.Contato)
+                @Html.ValidationMessageFor(x => x.Contato, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.DataCompra)
+            <div class="controls">
+                @Html.EditorFor(x => x.DataCompra)
+                @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Prazo)
+            <div class="controls">
+                @Html.DropDownList("PrazoDescricao", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.Prazo, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.PrevisaoFaturamento)
+            <div class="controls">
+                @Html.EditorFor(x => x.PrevisaoFaturamento)
+                @Html.ValidationMessageFor(x => x.PrevisaoFaturamento, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.MeioPagamento)
+            <div class="controls">
+                @Html.DropDownList("MeioPagamento", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.MeioPagamento, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.PrevisaoEntrega)
+            <div class="controls">
+                @Html.EditorFor(x => x.PrevisaoEntrega)
+                @Html.ValidationMessageFor(x => x.PrevisaoEntrega, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.TipoCobrancaFrete)
+            <div class="controls">
+                @Html.DropDownListFor(x => x.TipoCobrancaFrete, Model.TipoCobrancaFrete.ToSelectList())
+                @Html.ValidationMessageFor(x => x.TipoCobrancaFrete, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Comprador)
+            <div class="controls">
+                @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
+                <div class="input-append">
+                    <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-funcionario" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorFrete)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorFrete)
+                @Html.ValidationMessageFor(x => x.ValorFrete, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorDesconto)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorDesconto)
+                @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorCompra)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorCompra)
+                @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Observacao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Observacao)
+                @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<fieldset>
+    <legend></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("referencia-material", "Referência", new { @class = "control-label" })
+                <div class="controls">
+                    @Html.Hidden("Material")
+                    <div class="input-append">
+                        <input id="referencia-material" class="input-small" type="text" />
+                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-material" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("referencia-externa-material", "Referência externa", new { @class = "control-label" })
+                <div class="controls">
+                    <div class="input-append">
+                        <input id="referencia-referencia-externa" class="input-small" type="text" />
+                        <button id="pesquisar-referencia-externa" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-referencia-externa" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("UnidadeMedida", "Unidade", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("UnidadeMedida", new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("Quantidade", "Quantidade", new { @class = "control-label"})
+                <div class="controls">
+                    @(Html.Kendo().NumericTextBox()
+                          .Name("Quantidade")
+                          .Format("n5").Decimals(5)
+                          .Min(0)
+                          .HtmlAttributes(new { @class = "numeric input-small" }))
+                    @Html.ValidationMessage("Quantidade", new { @class="help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            @Html.Label("ValorUnitario", "Valor unitário", new { @class = "control-label"})
+            <div class="controls">
+                @(Html.Kendo().NumericTextBox()
+                      .Name("ValorUnitario")
+                      .Format("c5").Decimals(5)
+                      .Min(0)
+                      .HtmlAttributes(new { @class = "numeric input-small" }))
+                @Html.ValidationMessage("ValorUnitario", new { @class="help-block" })
+            </div>
+        </div>
+        <div class="span6">
+            @Html.Label("ValorTotal", "Valor total", new { @class = "control-label"})
+            <div class="controls">
+                @(Html.Kendo().NumericTextBox()
+                      .Name("ValorTotal")
+                      .Format("c5").Decimals(5)
+                      .Min(0)
+                      .HtmlAttributes(new { @class = "numeric input-small", @readonly = "readonly", tabindex = "-1" }))
+                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+                @Html.ValidationMessage("ValorTotal", new { @class="help-block" })
+            </div>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
+                <thead>
+                    <tr>
+                        <th>Referência</th>
+                        @*<th>Referência Ext.</th>*@
+                        <th>Descrição</th>
+                        <th>UND</th>
+                        <th>Quantidade</th>
+                        <th>Valor unitário</th>
+                        <th>Valor total</th>
+                        <th>Situação</th>
+                        <th style="width: 16px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Materiais != null)
+                    {
+                        for (int i = 0; i < Model.Materiais.Count; i++)
+                        {
+                            var pedidoItem = Model.PedidoCompraItens[i];
+                            var material = Model.Materiais[i];
+                            var unidadeMedida = Model.UnidadeMedidas[i];
+                            var quantidade = Model.Quantidades[i];
+                            var valorUnitario = Model.ValorUnitarios[i];
+                            var valorTotal = Model.ValorTotais[i];
+                            var situacao = Model.SituacaoCompras[i];
+
+                            <tr>
+                                <td>
+                                    @ViewBag.MaterialReferenciasDicionario[material]
+                                    <input type="hidden" name="PedidoCompraItens" value="@pedidoItem"/>
+                                    <input type="hidden" name="Materiais" value="@material"/>
+                                </td>
+                                <td>
+                                    @ViewBag.MaterialDescricoesDicionario[material]
+                                </td>
+                                <td>
+                                    @ViewBag.UnidadeMedidasDicionario[unidadeMedida]
+                                    <input type="hidden" name="UnidadeMedidas" value="@unidadeMedida"/>
+                                </td>
+                                <td>
+                                    @quantidade.ToString("N5")
+                                    <input type="hidden" name="Quantidades" value="@quantidade"/>
+                                </td>
+                                <td>
+                                    @valorUnitario.ToString("C5")
+                                    <input type="hidden" name="ValorUnitarios" value="@valorUnitario"/>
+                                </td>
+                                <td>
+                                    @valorTotal.ToString("C5")
+                                    <input type="hidden" name="ValorTotais" value="@valorTotal"/>
+                                </td>
+                                <td>
+                                    @ViewBag.SituacoesDicionario[situacao]
+                                    <input type="hidden" name="SituacaoCompras" value="@situacao"/>
+                                </td>
+                                <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</fieldset>
+<script>
+    $(function() {
+
+        $('#btn-add').on('click', function() {
+
+            // Validações
+            // UnidadeEstocadora
+            if ($("#UnidadeEstocadora").prop("selectedIndex") < 0) {
+                $('#UnidadeEstocadora').addClass('input-validation-error');
+                alert('Selecione uma unidade estocadora.');
+                $('#UnidadeEstocadora').focus();
+                return;
+            }
+
+            // Fornecedor 
+            if ($("#Fornecedor").prop("selectedIndex") < 0) {
+                $('#Fornecedor').addClass('input-validation-error');
+                alert('Selecione um fornecedor.');
+                $('#codigo-fornecedor').focus();
+                return;
+            }
+
+            // Quantidade
+            var quantidade = $('#Quantidade').val();
+            if (quantidade <= 0) {
+                $('#Quantidade').addClass('input-validation-error');
+                alert('Informe a quantidade.');
+                $('#Quantidade').focus();
+                return;
+            }
+
+            var materialId = $('#Material').val();
+            var referencia = $('#referencia-material').val();
+            var descricao = $('#descricao-material').text();
+            var unidadeMedidaId = $('#UnidadeMedida').val();
+            var unidadeMedida = $('#UnidadeMedida option:selected').text();
+            var valorUnitario = $('#ValorUnitario').val();
+            var valorTotal = $('#ValorTotal').val();
+
+            // Material
+            if (materialId == '') {
+                $('#Material').addClass('input-validation-error');
+                alert('Selecione uma referência');
+                $('#referencia-material').focus();
+                return;
+            }
+
+            // UnidadeMedida 
+            if ($("#UnidadeMedida").prop("selectedIndex") < 0) {
+                $('#UnidadeMedida').addClass('input-validation-error');
+                alert('Selecione uma unidade de medida.');
+                $('#UnidadeMedida').focus();
+                return;
+            }
+
+            // Verificar se já está na lista
+            var cadastrado = false;
+            $('input[name=Materiais]').each(function() {
+                if ($(this).val() == materialId) {
+                    alert("O produto selecionado já foi incluído na lista.");
+                    $('#referencia-material').focus();
+                    cadastrado = true;
+                    return;
+                }
+            });
+
+            if (cadastrado == false) {
+                $('#table-sequencia tbody').append(
+                    '<tr>\
+                    <td>' + referencia + '<input type="hidden" name="PedidoCompraItens" /><input type="hidden" name="Materiais" value="' + materialId + '"/></td>\
+                    <td>' + descricao + '</td>\
+                    <td>' + unidadeMedida + '<input type="hidden" name="UnidadeMedidas" value="' + unidadeMedidaId + '"/></td>\
+                    <td>' + quantidade + '<input type="hidden" name="Quantidades" value="' + quantidade + '"/></td>\
+                    <td>' + valorUnitario + '<input type="hidden" name="ValorUnitarios" value="' + valorUnitario + '"/></td>\
+                    <td>' + valorTotal + '<input type="hidden" name="ValorTotais" value="' + valorTotal + '"/></td>\
+                    <td>Não Atendido <input type="hidden" name="SituacaoCompras" value="NaoAtendido"/></td>\
+                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                </tr>'
+                );
+
+                // limpar formulário
+                $('#referencia-material').val('');
+                $('#Material').val('');
+                $('#descricao-material').text('');
+                $('#Quantidade').data("kendoNumericTextBox").value(0);
+                $('#UnidadeMedida')[0].selectedIndex = 0;
+                $('#ValorUnitario').data("kendoNumericTextBox").value(0);
+                $('#ValorTotal').data("kendoNumericTextBox").value(0);
+            }
+
+        });
+    });
+
+    $('#Quantidade, #ValorUnitario').on('change', function () {
+        var quantidade = $('#Quantidade').data("kendoNumericTextBox").value();
+        var valorUnitario = $('#ValorUnitario').data("kendoNumericTextBox").value();
+
+        $('#ValorTotal').data("kendoNumericTextBox").value(quantidade * valorUnitario);
+    });
+    
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+
+        // Validar
+        var situacao = row.find("input[name=SituacaoCompras]").val();
+        if (situacao != 'NaoAtendido') {
+            alert('Não é possível excluir este item.\r\nSó é possível excluir itens com situação: "Não atendido".');
+            return;
+        }
+
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+</script>

@@ -1,0 +1,214 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaProducaoModeloModel
+
+<hr/>
+<div class="detail">
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloReferencia)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDescricao)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloEstilistaNome)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDataCriacao)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.ModeloId)
+    @Html.HiddenFor(x => x.ModeloReferencia)
+    @Html.HiddenFor(x => x.ModeloDescricao)
+    @Html.HiddenFor(x => x.ModeloEstilistaNome)
+    @Html.HiddenFor(x => x.ModeloDataCriacao)
+
+    <div class="control-group">
+        @Html.Label("Sequências de Produção", new { @class = "title-label" })
+        <div class="controls" style="width: 800px">
+            @(Html.Kendo().Grid(Model.SequenciasProducao)
+                  .Name("Grid")
+                  .Columns(columns =>
+                      {
+                          columns.Bound(x => x.Id).Hidden();
+                          columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
+                          columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #").Width(325);
+                          columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
+                          columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
+                          columns.Command(command => command.Destroy());
+                      }
+                  )
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Batch(true)
+                      .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                      .Model(model =>
+                      {
+                           model.Id(e => e.Id);
+                           model.Field(product => product.ModeloId).DefaultValue(@Model.ModeloId);
+                      })
+                      .Create(create => create.Action("SalveSequenciaProducao", "SequenciaProducao"))
+                      .Update(update => update.Action("AtualizeSequenciaProducao", "SequenciaProducao"))
+                      .Destroy(destroy => destroy.Action("ExcluaSequenciaProducao", "SequenciaProducao"))
+                  )
+                  .ToolBar(toolbar =>
+                      {
+                          toolbar.Create();
+                          toolbar.Save();
+                      }
+                  )
+                  .Editable(editable => editable.Mode(GridEditMode.InCell))
+                  .Events(e => e.DataBound("onDataBound"))
+            )
+        </div>                    
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        //$(".k-grid-save-changes").hide();
+    });
+
+    $(".k-grid-save-changes").on("click", function () {
+        var datasourcedata = $("#Grid").data("kendoGrid").dataSource.data();
+
+        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
+        for (var i = 0; i < datasourcedata.length; i++) {
+            datasourcedata[i].id = null;
+        }
+    });
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+    function filtroSetores() {
+        var grid = $("#Grid").data("kendoGrid");
+        //get the row in edit mode and its item
+        var editRow = grid.tbody.find("tr:has(.k-edit-cell)");
+        var model = grid.dataItem(editRow);
+        return {
+            NomeDepartamento: model.NomeDepartamento
+        };
+    }
+
+    function up(e) {
+        e.preventDefault();
+        var dataItemSelecionado = this.dataItem($(e.currentTarget).closest("tr"));
+        var index = this.dataSource.indexOf(dataItemSelecionado);
+        
+        if (index == 0) {
+            return false;
+        }
+
+        var dataItemSuperior = this.dataSource.at(index - 1);
+
+        var aux = {
+            Id: dataItemSuperior.Id,
+            ModeloId: dataItemSuperior.ModeloId,
+            NomeDepartamento: dataItemSuperior.NomeDepartamento,
+            NomeSetor: dataItemSuperior.NomeSetor
+        };
+
+        dataItemSuperior.Id = dataItemSelecionado.Id;
+        dataItemSuperior.ModeloId = dataItemSelecionado.ModeloId;
+        dataItemSuperior.NomeDepartamento = dataItemSelecionado.NomeDepartamento;
+        dataItemSuperior.NomeSetor = dataItemSelecionado.NomeSetor;
+        
+        dataItemSelecionado.Id = aux.Id;
+        dataItemSelecionado.ModeloId = aux.ModeloId;
+        dataItemSelecionado.NomeDepartamento = aux.NomeDepartamento;
+        dataItemSelecionado.NomeSetor = aux.NomeSetor;
+        
+        this.refresh();
+
+        return false;
+    }
+
+    function down(e) {
+        e.preventDefault();
+        var dataItemSelecionado = this.dataItem($(e.currentTarget).closest("tr"));
+        var index = this.dataSource.indexOf(dataItemSelecionado);
+
+        if (index == this.dataSource.total() - 1) {
+            return false;
+        }
+        
+        var dataItemInferior = this.dataSource.at(index + 1);
+
+        var aux = {
+            Id: dataItemInferior.Id,
+            ModeloId: dataItemInferior.ModeloId,
+            NomeDepartamento: dataItemInferior.NomeDepartamento,
+            NomeSetor: dataItemInferior.NomeSetor,
+        };
+
+        dataItemInferior.Id = dataItemSelecionado.Id;
+        dataItemInferior.ModeloId = dataItemSelecionado.ModeloId;
+        dataItemInferior.NomeDepartamento = dataItemSelecionado.NomeDepartamento;
+        dataItemInferior.NomeSetor = dataItemSelecionado.NomeSetor;
+
+        dataItemSelecionado.Id = aux.Id;
+        dataItemSelecionado.ModeloId = aux.ModeloId;
+        dataItemSelecionado.NomeDepartamento = aux.NomeDepartamento;
+        dataItemSelecionado.NomeSetor = aux.NomeSetor;
+
+        this.refresh();
+
+        return false;
+    }
+  
+    function onDataBound(e) {
+        $(".k-grid-Up").find("span").addClass("icon-chevron-up");
+        $(".k-grid-Up").removeClass("k-button");
+        $(".k-grid-Down").find("span").addClass("icon-chevron-down");
+        $(".k-grid-Down").removeClass("k-button");
+    }
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+    
+    function onRequestEnd(e) {
+        if ((e.type == "create" || e.type == "update") && !e.response.Errors) {
+            var returnUrl = '@Html.GetUrl(MVC.EngenhariaProduto.Modelo.Detalhar(Model.ModeloId))';
+            window.location.href = returnUrl;
+        }
+    }
+</script>

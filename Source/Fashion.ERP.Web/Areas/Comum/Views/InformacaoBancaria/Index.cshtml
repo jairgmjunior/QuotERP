@@ -1,0 +1,31 @@
+﻿@using Fashion.ERP.Web.Areas.Comum.Models
+@using Fashion.Framework.Mvc.Extensions
+@using Kendo.Mvc.UI
+
+@{
+    Layout = null;
+}
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid<GridInformacaoBancariaModel>()
+    .Name("grid-informacao-bancaria")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Titular).Width(150);
+        columns.Bound(p => p.TipoConta);
+        columns.Bound(p => p.Banco).Width(50);
+        columns.Bound(p => p.Agencia);
+        columns.Bound(p => p.Conta);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+    })
+    .Pageable(x => x.Refresh(true))
+    .Scrollable(x => x.Height(100))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m => m.Id(p => p.Id))
+        .Read(builder => builder.Action("LerInformacaoBancarias", "InformacaoBancaria", new {pessoaId = TempData["pessoaId"]}).Type(HttpVerbs.Get))
+        .Destroy("Excluir", "InformacaoBancaria")
+        .Events(e => e.Error("onKendoGridError"))
+    )
+    .AutoBind(true)
+    .EnableCustomBinding(true)
+)

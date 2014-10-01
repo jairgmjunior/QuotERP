@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.GridEmitenteModel>
+<input id="Emitente" name="Emitente" type="hidden" value="@ViewBag.Id" />
+<table class="table table-hover table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>CPF/CNPJ</th>
+            <th>Nome</th>
+            <th>Documento</th>
+            <th>Órgão Expeditor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var model in Model)
+        {
+            <tr>
+                <td>@(model.CpfCnpj)</td>
+                <td>@(model.Nome)</td>
+                <td>@(model.Documento)</td>
+                <td>@(model.OrgaoExpedidor)</td>
+            </tr>
+        }
+    </tbody>
+</table>

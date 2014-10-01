@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Compras.Models.GridAutorizacoesModel>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Procedimento);
+        columns.Template(item => Html.ActionLinkAuth("Autorizar", MVC.Compras.Autorizacoes.Autorizar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);
+	})
+)

@@ -1,0 +1,47 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ProgramacaoBordadoModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.ArquivoUpload)}
+
+<div class="detail">
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.Label("Referência", new { @class = "title-label" })
+                <div class="value-label">
+                    @ViewBag.ModeloReferencia
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Descrição", new { @class = "title-label" })
+                <div class="value-label">
+                    @ViewBag.ModeloDescricao
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.Label("Estilista", new { @class = "title-label" })
+                <div class="value-label">
+                    @ViewBag.ModeloEstilistaNome
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Criação", new { @class = "title-label" })
+                <div class="value-label">
+                    @ViewBag.ModeloDataCriacao
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(MVC.EngenhariaProduto.Modelo.NovoProgramacaoBordado(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.Partial("_NovoOuEditarProgramacaoBordado", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}
+@{
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "ProgramadorBordado" });
+}

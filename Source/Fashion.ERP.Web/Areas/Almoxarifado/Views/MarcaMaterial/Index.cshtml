@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridMarcaMaterialModel>
+@using Kendo.Mvc.UI
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.MarcaMaterial.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Nome);
+        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.MarcaMaterial.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.MarcaMaterial.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	})
+)

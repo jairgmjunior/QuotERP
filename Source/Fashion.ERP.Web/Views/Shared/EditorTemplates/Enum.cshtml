@@ -1,0 +1,9 @@
+﻿@using Fashion.Framework.Common.Utils
+@model Enum
+
+@{
+    var display = Model.GetDisplay();
+    var displayText = display != null ? display.Name.ToUpper() : Model.ToString().ToUpper();
+}
+
+@Html.Label(string.Empty, displayText, new { @class = "label"})

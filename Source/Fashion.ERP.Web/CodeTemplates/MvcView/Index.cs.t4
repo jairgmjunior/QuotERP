@@ -1,0 +1,35 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+<#
+string typeName = ViewDataTypeShortName.Replace("Grid", "").Replace("Model", "");
+string areaName = Crop(ViewDataTypeName, "Areas.", ".Models");
+#>
+@model IEnumerable<<#= ViewDataTypeName #>>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.<#= areaName#>.<#= typeName #>.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+<#
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+	foreach (PropertyMetadata property in properties) {
+		if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+		// This is a temporary work around until core scaffolding provides support for independent associations.
+		if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+			continue;
+		}
+#>
+		columns.Bound(x => x.<#= GetValueExpression(property) #>);
+<#
+		}
+	}
+#>
+		columns.Template(item => Html.EditarAuth(MVC.<#= areaName#>.<#= typeName #>.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.<#= areaName#>.<#= typeName #>.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	})
+)
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

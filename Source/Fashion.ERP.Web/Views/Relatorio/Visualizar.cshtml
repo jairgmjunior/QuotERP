@@ -1,0 +1,75 @@
+﻿@using Fashion.ERP.Domain
+@model Fashion.ERP.Web.Models.VisualizarRelatorioModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@{
+    ViewBag.Title = Model.Nome;
+}
+
+@using (Html.BeginForm(MVC.Relatorio.Visualizar(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="accordion" id="accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span10">
+                            <h2>@Model.Nome</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            @if (Model != null && Model.NomeParametro != null && Model.NomeParametro.Any())
+                            {
+                                <div class="control-group">
+                                    <label class="control-label">Parâmetros</label>
+
+                                    @for (int i = 0; i < Model.NomeParametro.Count; i++)
+                                    {
+                                        <div class="controls">
+                                            <div class="input-append">
+                                                @Model.NomeParametro[i]
+                                            </div>
+                                            <div class="input-prepend">
+                                                @switch (Model.TipoParametro[i])
+                                                {
+                                                    case TipoRelatorioParametro.Boolean:
+                                                    @Html.TextBox("ValorParametro", null, new { id = (string)null })
+                                                        break;
+                                                    case TipoRelatorioParametro.DateTime:
+                                                    @Html.TextBox("ValorParametro", null, new { id = (string)null })
+                                                        break;
+                                                    case TipoRelatorioParametro.Integer:
+                                                    @Html.TextBox("ValorParametro", null, new { id = (string)null })
+                                                        break;
+                                                    case TipoRelatorioParametro.Float:
+                                                    @Html.TextBox("ValorParametro", null, new { id = (string)null })
+                                                        break;
+                                                    default: // Inclui TipoRelatorioParametro.String
+                                                    @Html.TextBox("ValorParametro", null, new { id = (string)null })
+                                                        break;
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="span2">
+                            <div class="pull-right">
+                                <button id="pesquisar-relatorio" class="btn btn-info" type="button" data-loading-text="Aguarde...">Visualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="pdf"></div>

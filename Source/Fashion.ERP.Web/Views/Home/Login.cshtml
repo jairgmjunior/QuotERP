@@ -1,0 +1,72 @@
+﻿@model Fashion.ERP.Web.Models.LoginModel
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <title>Fashion ERP - Login</title>
+        <link rel="shortcut icon" href="~/favicon.png" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        @Styles.Render(Links.Bundles.Styles.Bootstrap,
+                       Links.Bundles.Styles.Kendo,
+                       Links.Bundles.Styles.Login)
+
+        @Scripts.Render(Links.Bundles.Scripts.Jquery,
+                        Links.Bundles.Scripts.JqueryValidation,
+                        Links.Bundles.Scripts.JqueryGlobalize,
+                        Links.Bundles.Scripts.Bootstrap,
+                        Links.Bundles.Scripts.Kendo,
+                        Links.Bundles.Scripts.FashionErp)
+    </head>
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="/">
+                    <img src="@Url.Content("~/Content/images/logo.png")" alt="ERP - Fashion"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div id="login-wraper">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "form", @class = "form login-form" }))
+            {
+                <legend>Login <span class="blue">Fashion ERP</span></legend>
+
+                <div class="body">
+                    @Html.LabelForRequired(x => x.Usuario)
+                    @Html.TextBoxFor(x => x.Usuario)
+
+                    @Html.LabelForRequired(x => x.Senha)
+                    @Html.PasswordFor(x => x.Senha)
+                    
+                    @Html.Partial("_MessagePopup")
+                </div>
+
+                <div class="footer">
+                    @*<label class="checkbox inline">
+                        @Html.CheckBoxFor(x => x.PermanecerLogado)
+                        Permanecer logado
+                    </label>*@
+
+                    <button type="submit" class="btn btn-success" data-loading-text="Aguarde...">Login</button>
+                </div>
+            }
+        </div>
+
+    </div>
+
+    <footer class="white navbar-fixed-bottom">
+        Fashion ERP - Powered by <a href="http://www.fashionsistemas.com.br" target="_blank">Fashion Consultoria e Sistemas</a>
+    </footer>
+
+</body>
+</html>

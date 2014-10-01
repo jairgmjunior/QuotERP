@@ -1,0 +1,12 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.ExtratoBancarioModel
+
+@using (Html.BeginForm(MVC.Financeiro.ExtratoBancario.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @Html.ExcluirAuth(MVC.Financeiro.ExtratoBancario.Excluir(Model.Id))
+	</div>
+}
+@{Html.RenderPartial("_ConfirmDelete");}

@@ -1,0 +1,118 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaAprovarModeloModel
+@Html.ValidationSummaryEx()
+@using (Html.BeginForm(MVC.EngenhariaProduto.AprovarModelo.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.Referencia, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Descricao)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.Descricao, new { @class = "input-xlarge" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span2">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Aprovado)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Aprovado)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Estilista)
+                                <div class="controls">
+                                    @Html.DropDownList("Estilista", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Marca)
+                                <div class="controls">
+                                    @Html.DropDownList("Marca", "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Colecao)
+                                <div class="controls">
+                                    @Html.DropDownList("Colecao", "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="row">
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                    <div class="controls">
+                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                    <div class="controls">
+                                        <select name="OrdenarEm">
+                                            <option value="asc">Ascendente</option>
+                                            <option value="desc">Descendente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@(Html.Kendo().Grid(Model.Grid)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Referencia);
+		columns.Bound(x => x.Descricao);
+        columns.Bound(x => x.Estilista);
+		columns.Bound(x => x.Marca);
+		columns.Bound(x => x.Colecao);
+        columns.Template(item => item.Aprovado.HasValue == false
+            ? Html.ActionLinkAuth("Reprovar", MVC.EngenhariaProduto.AprovarModelo.Reprovar(item.Id), new { @class = "confirm btn btn-small btn-danger", titulo = "Reprovar", mensagem = "Você deseja realmente reprovar este modelo?" })
+            : item.Aprovado.Value ? new MvcHtmlString("Aprovado") : new MvcHtmlString("Reprovado"))
+            .Width(80).Title("Status");
+		columns.Template(item => item.Aprovado ?? false
+            ? Html.ActionLinkAuth("Desaprovar", MVC.EngenhariaProduto.AprovarModelo.Desaprovar(item.Id), new { @class = "confirm btn btn-small btn-primary", titulo = "Desaprovar", mensagem = "Você deseja realmente desaprovar este modelo?" })
+            : Html.ActionLinkAuth("Aprovar", MVC.EngenhariaProduto.AprovarModelo.Aprovar(item.Id), new { @class = "btn btn-small btn-primary" }))
+            .Width(80).HtmlAttributes(new { @class = "text-center" });
+    })
+)
+@{
+    Html.RenderPartial("_Confirm");
+}

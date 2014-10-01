@@ -1,0 +1,227 @@
+﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraCancelamentoModel
+
+@using (Html.BeginForm(MVC.Compras.PedidoCompraCancelamento.CancelamentoPedido(), FormMethod.Post, new { id = "form", @class = "form-horizontal", autocomplete = "off" }))
+{
+    <legend><small>Pedido de Compra</small></legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.UnidadeEstocadoraNomeFantasia, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.UnidadeEstocadoraNomeFantasia)
+                        @Html.HiddenFor(x => x.UnidadeEstocadoraNomeFantasia)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Numero)
+                        @Html.HiddenFor(x => x.Numero)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.FornecedorNome, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.FornecedorNome)
+                        @Html.HiddenFor(x => x.FornecedorNome)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.CompradorNome, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.CompradorNome)
+                        @Html.HiddenFor(x => x.CompradorNome)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.PrazoDescricao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.PrazoDescricao)
+                        @Html.HiddenFor(x => x.PrazoDescricao)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Observacao)
+                        @Html.HiddenFor(x => x.Observacao)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.SituacaoCompraDescricao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.SituacaoCompraDescricao)
+                        @Html.HiddenFor(x => x.SituacaoCompraDescricao)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.DataCompra)
+                        @Html.HiddenFor(x => x.DataCompra)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.PrevisaoEntrega)
+                        @Html.HiddenFor(x => x.PrevisaoEntrega)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.MeioPagamentoDescricao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.MeioPagamentoDescricao)
+                        @Html.HiddenFor(x => x.MeioPagamentoDescricao)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.ValorCompra, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.ValorCompra)
+                        @Html.HiddenFor(x => x.ValorCompra)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend><small>Dados do Cancelamento</small></legend>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.MotivoCancelamento)
+                    <div class="controls">
+                        @Html.DropDownList("MotivoCancelamento", null, "-- Selecione --", new {@class = "input-large"})
+                        @Html.ValidationMessageFor(x => x.MotivoCancelamento, null, new {@class = "help-block"})
+                    </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ObservacaoCancelamento)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.ObservacaoCancelamento)
+                    </div>
+            </div>
+        </div>
+    </fieldset>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    
+    @(Html.Kendo().Grid(Model.GridItemCancelado)
+        .Name("GridItemCancelado")
+        .Columns(columns =>
+            {
+                columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Id' value='#= Id #' />");
+                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Referencia' value='#= Referencia #' />");
+                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(p => p.UND).ClientTemplate("#= UND #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].UND' value='#= UND #' />");
+                columns.Bound(p => p.Qtde).ClientTemplate("#= Qtde #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Qtde' value='#= Qtde #' />");
+                columns.Bound(p => p.Entregue).ClientTemplate("#= Entregue #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Entregue' value='#= Entregue #' />");
+                columns.Bound(p => p.Diferenca).ClientTemplate("#= Diferenca #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Diferenca' value='#= Diferenca #' />");
+                columns.Bound(p => p.Preco).ClientTemplate("#= kendo.toString(Preco, 'c') #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Preco' value='#= Preco #' />");
+                columns.Bound(p => p.Desconto).ClientTemplate("#= kendo.toString(Desconto, 'c') #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Desconto' value='#= Desconto #' />");
+                columns.Bound(p => p.ValorTotal).ClientTemplate("#= kendo.toString(ValorTotal, 'c') #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].ValorTotal' value='#= ValorTotal #' />");
+                columns.Bound(p => p.SituacaoCompraDescricao).ClientTemplate("#= SituacaoCompraDescricao #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].SituacaoCompraDescricao' value='#= SituacaoCompraDescricao #' />");
+                
+                columns.Bound(x => x.Check).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                    .Title("Select").
+                        ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/><input type='hidden' name='GridItemCancelado[#= index(data)#].Check' value='#= Check #' /></div>");
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model => model.Id(e => e.Id))
+            )
+            .Events(events => events.DataBound("onDataBound"))
+    )
+    
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Cancelar Selecionados</button>
+    </div>
+ }
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            if (possuiSelecionados()) {
+                return true;
+            } else {
+                alert("É necessário selecionar ao menos um item do pedido de compra.");
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+        });
+
+        $('#checkAll').click(function () {
+            if ($(this).attr('checked')) {
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    marqueCheckBox($('.chkbx')[i]);
+                }
+            } else {
+                desmarqueCheckBox($('.chkbx'));
+            }
+        });
+    });
+
+    function onDataBound() {
+        $('.chkbx').each(function (index, element) {
+            var grid = $('#GridItemCancelado').data().kendoGrid;
+            var dataItem = grid.dataItem($(element).closest('tr'));
+            if (dataItem.SituacaoCompraDescricao == 'CANCELADO' || dataItem.SituacaoCompraDescricao == 'ATENDIDO TOTAL') {
+                $(element).attr('disabled', 'disabled');
+            }
+        });
+    }
+
+    function clicouCheckBox(a) {
+        var checked = $(a).is(':checked');
+
+        if (!checked)
+            desmarqueCheckBox($(a));
+        else marqueCheckBox($(a));
+
+        var numChkBoxes = $('.chkbx').length;
+        var numChkBoxesChecked = $('.chkbx:checked').length;
+        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
+            $('#checkAll').attr('checked', 'checked');
+        }
+        else {
+            $('#checkAll').removeAttr('checked');
+        }
+    }
+
+    function marqueCheckBox(checkBoxElement) {
+        if (checkBoxElement.disabled) return;
+        $(checkBoxElement).parent().find('input[type=hidden]').val(true);
+        $(checkBoxElement).attr('checked', 'checked');
+    }
+
+    function desmarqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(false);
+        $(checkBoxElement).removeAttr('checked');
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItemCancelado").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+    
+    function possuiSelecionados() {
+        return $('.chkbx:checked').length != 0;
+    }
+</script>

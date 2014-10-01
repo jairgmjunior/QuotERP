@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.GridExtratoBancarioModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Financeiro.ExtratoBancario.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+        columns.Bound(x => x.Descricao);
+		columns.Bound(x => x.TipoLancamento);
+		columns.Bound(x => x.Emissao).Format("{0:dd/MM/yyyy}");
+		columns.Bound(x => x.Compensacao).Format("{0:dd/MM/yyyy}");
+		columns.Bound(x => x.Valor).Format("{0:F2}");
+		columns.Bound(x => x.Compensado);
+		columns.Bound(x => x.ContaBancaria);
+        columns.Template(item => Html.EditarAuth(MVC.Financeiro.ExtratoBancario.Editar(item.Id))).Width(80);
+	})
+)

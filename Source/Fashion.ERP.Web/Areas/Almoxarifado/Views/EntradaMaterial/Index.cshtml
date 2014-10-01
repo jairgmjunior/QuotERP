@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridEntradaMaterialModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.EntradaMaterial.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+        columns.Bound(x => x.DataEntrada).Format("{0:dd/MM/yyyy}");
+        columns.Bound(x => x.UnidadeDestino);
+        columns.Bound(x => x.DepositoMaterialDestino);
+		columns.Bound(x => x.OrigemFornecedor);
+		columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.EntradaMaterial.Editar(item.Id))).Width(80);
+	})
+)

@@ -1,0 +1,30 @@
+﻿@using Fashion.ERP.Web.Areas.Comum.Models
+@using Fashion.Framework.Mvc.Extensions
+@using Kendo.Mvc.UI
+
+@{
+    Layout = null;
+}
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid<GridEnderecoModel>()
+    .Name("grid-endereco")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.TipoEndereco);
+        columns.Bound(p => p.Logradouro);
+        columns.Bound(p => p.Cep);
+        columns.Bound(p => p.Cidade);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+    })
+    .Pageable(x => x.Refresh(true))
+    .Scrollable(x => x.Height(100))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m => m.Id(p => p.Id))
+        .Read(builder => builder.Action("LerEnderecos", "Endereco", new {pessoaId = TempData["pessoaId"]}).Type(HttpVerbs.Get))
+        .Destroy("Excluir", "Endereco")
+        .Events(e => e.Error("onKendoGridError"))
+    )
+    .AutoBind(true)
+    .EnableCustomBinding(true)
+)

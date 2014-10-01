@@ -1,0 +1,20 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+<#
+string typeName = ViewDataTypeShortName.Replace("Grid", "").Replace("Model", "");
+string areaName = Crop(ViewDataTypeName, "Areas.", ".Models");
+#>
+@model <#= ViewDataTypeName #>
+@using (Html.BeginForm(MVC.<#= areaName #>.<#= typeName #>.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+		@Html.ExcluirAuth(MVC.<#= areaName #>.<#= typeName #>.Excluir(Model.Id))
+	</div>
+}
+@{Html.RenderPartial("_ConfirmDelete");}
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

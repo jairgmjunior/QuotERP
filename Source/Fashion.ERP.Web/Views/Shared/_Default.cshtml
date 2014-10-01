@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    @Styles.Render(Links.Bundles.Styles.Bootstrap,
+                   Links.Bundles.Styles.Kendo,
+                   Links.Bundles.Styles.JasnyBootstrap,
+                   Links.Bundles.Styles.Lightbox,
+                   Links.Bundles.Styles.Layout)
+    @RenderSection("css", false)
+}
+
+@section javascript{
+    @Scripts.Render(Links.Bundles.Scripts.Jquery,
+                    Links.Bundles.Scripts.JqueryValidation,
+                    Links.Bundles.Scripts.JqueryGlobalize,
+                    Links.Bundles.Scripts.Modernizr,
+                    Links.Bundles.Scripts.Bootstrap,
+                    Links.Bundles.Scripts.Kendo,
+                    Links.Bundles.Scripts.JasnyBootstrap,
+                    Links.Bundles.Scripts.JqueryForm,
+                    Links.Bundles.Scripts.Lightbox,
+                    Links.Bundles.Scripts.FashionErp)
+    @RenderSection("javascript", false)
+}
+
+@RenderBody()

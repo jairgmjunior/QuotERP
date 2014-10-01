@@ -1,0 +1,31 @@
+﻿@using Fashion.ERP.Web.Areas.Comum.Models
+@using Fashion.Framework.Mvc.Extensions
+@using Kendo.Mvc.UI
+
+@{
+    Layout = null;
+}
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid<GridContatoModel>()
+    .Name("grid-contato")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.TipoContato);
+        columns.Bound(p => p.Nome);
+        columns.Bound(p => p.Telefone);
+        columns.Bound(p => p.Operadora);
+        columns.Bound(p => p.Email);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+    })
+    .Pageable(x => x.Refresh(true))
+    .Scrollable(x => x.Height(100))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(m => m.Id(p => p.Id))
+        .Read(builder => builder.Action("LerContatos", "Contato", new {pessoaId = TempData["pessoaId"]}).Type(HttpVerbs.Get))
+        .Destroy("Excluir", "Contato")
+        .Events(e => e.Error("onKendoGridError"))
+    )
+    .AutoBind(true)
+    .EnableCustomBinding(true)
+)

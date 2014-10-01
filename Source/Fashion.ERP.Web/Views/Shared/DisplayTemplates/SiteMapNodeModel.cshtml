@@ -1,0 +1,14 @@
+﻿@model SiteMapNodeModel
+
+@if (Model.IsCurrentNode && Model.SourceMetadata["HtmlHelper"].ToString() != "MvcSiteMapProvider.Web.Html.MenuHelper")
+{ 
+    <a href="">@Model.Title</a>
+}
+else if (Model.IsClickable)
+{ 
+    <a href="@Model.Url">@Model.Title</a>
+}
+else
+{ 
+    <a @Html.Raw(Model.IsRootNode ? "" : "data-toggle=\"dropdown\" class=\"dropdown-toggle\"") href="">@Model.Title</a>
+}

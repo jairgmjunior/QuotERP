@@ -1,0 +1,360 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.MaterialComposicaoModeloModel
+
+<hr/>
+<div class="detail">
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloReferencia)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDescricao)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloEstilistaNome)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDataCriacao)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.MaterialComposicaoModelo.MaterialComposicaoModelo(), FormMethod.Post, new { id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.ModeloId)
+    @Html.HiddenFor(x => x.ModeloReferencia)
+    @Html.HiddenFor(x => x.ModeloDescricao)
+    @Html.HiddenFor(x => x.ModeloEstilistaNome)
+    @Html.HiddenFor(x => x.ModeloDataCriacao)
+    
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("Departamento", "Departamento", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("Departamento", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("Departamento", new { @class = "help-block" })
+                </div>
+            </div>
+            <div id="setor-control" class="control-group" style="display: none">
+                @Html.Label("Setor", "Setor", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("Setor", null, "-- Selecione --", new { @class = "input-large"}).
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Variacao", "Variação", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("Variacao", new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Cor", "Cor", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("Cor", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("Cor", new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Tamanho", "Tamanho", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("Tamanho", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("Tamanho", new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Material", "Referência material", new { @class = "control-label" })
+                <div class="controls">
+                    @Html.Hidden("Material")
+                    <div class="input-append">
+                        <input id="referencia-material" class="input-small" type="text" />
+                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-material" class="add-on"></span>
+                    </div>
+                    @Html.ValidationMessage("Material", new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("UnidadeMedida", "Unidade de consumo", new { @class = "control-label"})
+                <div class="controls">
+                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("UnidadeMedida", new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("Quantidade", "Quantidade", new { @class = "control-label"})
+                <div class="controls">
+                    @(Html.Kendo().NumericTextBox()
+                          .Name("Quantidade")
+                          .Format("n4").Decimals(4).Value(1)
+                          .HtmlAttributes(new { @class = "numeric input-medium" }))
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+                    @Html.ValidationMessage("Quantidade", new { @class = "help-block" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
+                <thead>
+                    <tr>
+                        <th>Departamento</th>
+                        <th>Setor</th>
+                        <th>Variação</th>
+                        <th>Cor</th>
+                        <th>Tamanho</th>
+                        <th>Referência</th>
+                        <th>Unidade</th>
+                        <th>Quantidade</th>
+                        <th style="width: 16px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Grid != null)
+                    {
+                        for (int i = 0; i < Model.Grid.Count; i++)
+                        {
+                            var materialComposicao = Model.Grid[i];
+                            
+                            <tr>
+                                @Html.HiddenFor(x => Model.Grid[i].Id)
+                                <input type="hidden" name="Grid.Index" value="@i" />
+                                <td>
+                                    @ViewBag.DepartamentosDicionario[materialComposicao.Departamento]
+                                    @Html.HiddenFor(m => Model.Grid[i].Departamento)
+                                </td>
+                                <td>
+                                    @if (materialComposicao.IdSetor != null) { @ViewBag.SetoresDicionario[materialComposicao.IdSetor] }
+                                    @Html.HiddenFor(m => Model.Grid[i].IdSetor)                                    
+                                </td>
+                                <td>
+                                    @if (materialComposicao.Variacao != null) { @ViewBag.VariacoesDicionario[materialComposicao.Variacao] }
+                                    @Html.HiddenFor(m => Model.Grid[i].Variacao)                                    
+                                </td>
+                                <td>
+                                    @if (materialComposicao.Cor != null) { @ViewBag.CoresDicionario[materialComposicao.Cor] }
+                                    @Html.HiddenFor(m => Model.Grid[i].Cor)                                    
+                                </td>
+                                <td>
+                                    @if (materialComposicao.Tamanho != null) { @ViewBag.TamanhosDicionario[materialComposicao.Tamanho] }
+                                    @Html.HiddenFor(m => Model.Grid[i].Tamanho)                                    
+                                </td>
+                                <td>
+                                    @ViewBag.MateriaisDicionario[materialComposicao.Referencia]
+                                    @Html.HiddenFor(m => Model.Grid[i].Referencia)                                    
+                                </td>
+                                <td>
+                                    @ViewBag.UnidadeMedidasDicionario[materialComposicao.UnidadeMedida]
+                                    @Html.HiddenFor(m => Model.Grid[i].UnidadeMedida)                                    
+                                </td>
+                                <td>
+                                    @materialComposicao.Quantidade
+                                    @Html.HiddenFor(m => Model.Grid[i].Quantidade)                                    
+                                </td>
+                                <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        
+        $.data($('form')[0], 'validator').settings.ignore = "input:hidden:not(#Quantidade):not(#Material), select[id = 'Setor']";
+
+        $('#Departamento').rules("add", {
+            required: true,
+            messages: { required: "Informe o departamento de produção." }
+        });
+
+        $('#Material').rules("add", {
+            required: true,
+            messages: { required: "Informe o catálogo de material." }
+        });
+
+        $('#UnidadeMedida').rules("add", {
+            required: true,
+            messages: { required: "Informe a unidade de consumo." }
+        });
+
+        $('#Quantidade').rules("add", {
+            required: true,
+            number: true,
+            messages: {
+                required: "Informe a quantidade.",
+                number: "Informe um número válido."
+            }
+        });
+
+        $("#Departamento").on('change', function () {
+            var setores = $('#Setor');
+            setores.empty();
+
+            var departamento = $(this).val();
+            if (departamento == '') {
+                $('#setor-control').hide('fast');
+                return;
+            }
+
+            var url = '@Html.GetUrl(MVC.EngenhariaProduto.SetorProducao.SetoresDepartamento())/' + departamento + '?modeloId=@Model.ModeloId';
+
+            $.getJSON(url, function (result) {
+
+                if (result.length !== 0) {
+                    var show = false;
+                    $.each(result, function (index, item) {
+                        if (item.Id == null) {
+                            setores.append($('<option value="">-- Selecione --</option>'));
+                        } else {
+                            setores.append($('<option />').val(item.Id).text(item.Nome));
+                            show = true;
+                        }
+                    });
+                    if (show) {
+                        $('#setor-control').show('fast');
+                    } else {
+                        $('#setor-control').hide('fast');
+                    }
+                } else {
+                    $('#setor-control').hide('fast');
+                }
+
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        });
+
+        $("#Variacao").on('change', function () {
+
+            var cores = $('#Cor');
+            cores.empty();
+            cores.append($('<option value="">-- Selecione --</option>'));
+
+            var variacao = $(this).val();
+
+            if (variacao == '') {
+                return;
+            }
+
+            var url = '@Html.GetUrl(MVC.EngenhariaProduto.MaterialComposicaoModelo.CoresVariacao())/' + variacao;
+
+            $.getJSON(url, function (result) {
+
+                if (result.length !== 0) {
+                    $.each(result, function (index, item) {
+                        cores.append($('<option />').val(item.Id).text(item.Nome));
+                    });
+                }
+
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+
+        });
+
+        $('#btn-add').on('click', function () {
+
+            // Validar
+            var form = $(this).closest("form");
+
+            if (!form.valid()) {
+                return;
+            }
+
+            var materialId = $('#Material').val();
+
+            // Validar se o produto já foi cadastrado
+            var cadastrado = false;
+            $('input[name=Materiais]').each(function () {
+                if ($(this).val() == materialId) {
+                    alert("O produto escolhido já está cadastrado.");
+                    cadastrado = true;
+                    return;
+                }
+            });
+
+            if (cadastrado == false) {
+                var departamentoId = $('#Departamento').val();
+                var departamento = $('#Departamento option:selected').text();
+                var setorId = $('#Setor').val() == null ? '' : $('#Setor').val();
+                var setor = setorId != '' ? $('#Setor option:selected').text() : '';
+                var variacaoId = $('#Variacao').val();
+                var variacao = variacaoId != '' ? $('#Variacao option:selected').text() : '';
+                var corId = $('#Cor').val();
+                var cor = corId != '' ? $('#Cor option:selected').text() : '';
+                var tamanhoId = $('#Cor').val();
+                var tamanho = tamanhoId != '' ? $('#Cor option:selected').text() : '';
+                var material = $('#referencia-material').val();
+                var unidadeMedidaId = $('#UnidadeMedida').val();
+                var unidadeMedida = $('#UnidadeMedida option:selected').text();
+                var quantidade = $('#Quantidade').val();
+
+                var ultimoIndiceTabela = $('#table-sequencia input[name= "Grid.Index"]:last').val() + 1;
+
+                $('#table-sequencia tbody').append(
+                    '<tr>' + '<input type="hidden" name="Grid.Index" value="' + ultimoIndiceTabela + '" /> ' + '\
+                    <td>' + departamento + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Departamento" value="' + departamentoId + '"/></td>\
+                    <td>' + setor + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].IdSetor" value="' + setorId + '"/></td>\
+                    <td>' + variacao + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Variacao" value="' + variacaoId + '"/></td>\
+                    <td>' + cor + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Cor" value="' + corId + '"/></td>\
+                    <td>' + tamanho + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Tamanho" value="' + tamanhoId + '"/></td>\
+                    <td>' + material + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Referencia" value="' + materialId + '"/></td>\
+                    <td>' + unidadeMedida + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].UnidadeMedida" value="' + unidadeMedidaId + '"/></td>\
+                    <td>' + quantidade + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Quantidade" value="' + quantidade + '"/></td>\
+                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                </tr>'
+                );
+
+                // limpar formulário
+                clearForm($('form')[0]);
+                $('#Departamento').change();
+                $('#Variacao').change();
+                $("#Quantidade").data("kendoNumericTextBox").value(1);
+                $('#Material').val('');
+            }
+        });
+
+    });
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+        Grid_0__Id
+    }
+</script>
+@{
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}

@@ -1,0 +1,124 @@
+﻿select {
+    width: 150px;
+}
+
+/*#imagem-avatar {
+    background-image: url(images/avatar_unknown.jpg);
+    width: 150px;
+    height: 150px;
+}*/
+
+.width10 {
+    width: 10%;
+}
+
+.width20 {
+    width: 20%;
+}
+
+.width30 {
+    width: 30%;
+}
+
+.width40 {
+    width: 40%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width60 {
+    width: 60%;
+}
+
+.width70 {
+    width: 70%;
+}
+
+.width80 {
+    width: 80%;
+}
+
+.width90 {
+    width: 90%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+/* formata input text como número (autoNumeric.js) */
+/*.currency { text-align: right; } 
+.numeric { text-align: right; } 
+.percent { text-align: right; }*/
+
+/* pdf : estilo para exibição de pdf na tela. */
+#pdf {
+    text-align: center;
+}
+
+    #pdf object {
+        display: block;
+        min-height: 400px;
+    }
+
+/* Ajax Loading */
+.ajax-loading {
+    display: none;
+    height: 30px;
+    width: 30px;
+    padding: 5px 0;
+}
+body.loading .ajax-loading {
+    display: block;
+}
+
+/* Colore o kendoui Grid ao passar o mouse sobre uma linha */
+.k-grid > table > tbody > tr:hover,
+.k-grid-content > table > tbody > tr:hover
+{
+    background-color: #a9d0f3;
+}
+
+/* Coloca um asterisco antes dos campos obrigatórios */
+.required-label:before { content:"* "; color: #f00; }
+
+/* Formata as telas de detalhes */
+.detail {
+    margin-bottom: 20px;
+    *zoom: 1;
+}
+
+.detail:before,
+.detail:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.detail:after {
+  clear: both;
+}
+
+.detail .control-group {
+    clear: left;
+    margin-bottom: 0;
+}
+
+.detail .title-label {
+    float: left;
+    padding-top: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+}
+
+    .detail .title-label:after {
+        content: ":";
+    }
+
+.detail .value-label {
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+/* Fim: .detail */

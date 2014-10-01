@@ -1,0 +1,60 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.InformacaoBancariaModel
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Pessoa)
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Titular)
+        <div class="controls">
+            @Html.TextBoxFor(x => x.Titular)
+            @Html.ValidationMessageFor(x => x.Titular, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Banco)
+        <div class="controls">
+            @Html.DropDownList("Banco")
+            @Html.ValidationMessageFor(x => x.Banco, null, new { @class="help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Agencia)
+        <div class="controls">
+            @Html.TextBoxFor(x => x.Agencia)
+            @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Conta)
+        <div class="controls">
+            @Html.TextBoxFor(x => x.Conta)
+            @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.TipoConta)
+        <div class="controls">
+            @Html.DropDownListFor(p => p.TipoConta, Model.TipoConta.ToSelectList(), "Selecione")
+            @Html.ValidationMessageFor(x => x.TipoConta, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.DataAbertura)
+        <div class="controls">
+            @Html.EditorFor(x => x.DataAbertura)
+            @Html.ValidationMessageFor(x => x.DataAbertura, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Telefone)
+        <div class="controls">
+            @Html.TextBoxFor(x => x.Telefone)
+            @Html.ValidationMessageFor(x => x.Telefone, null, new { @class = "help-block" })
+        </div>
+    </div>
+</div>

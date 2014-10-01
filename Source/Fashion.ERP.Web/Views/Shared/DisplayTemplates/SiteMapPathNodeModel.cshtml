@@ -1,0 +1,10 @@
+﻿@model SiteMapNodeModel
+
+@if (Model.IsClickable)
+{ 
+    <a href="@Model.Url">@Model.Title</a>
+}
+else
+{ 
+    @Model.Title
+}

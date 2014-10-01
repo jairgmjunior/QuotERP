@@ -1,0 +1,14 @@
+﻿@model Fashion.ERP.Web.Areas.Compras.Models.OrdemEntradaCompraModel
+@using (Html.BeginForm(MVC.Compras.OrdemEntradaCompra.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}
+@{
+    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
+    Html.RenderAction("SelecionarPedidoCompra", "OrdemEntradaCompra", new { area = "Compras" });
+}

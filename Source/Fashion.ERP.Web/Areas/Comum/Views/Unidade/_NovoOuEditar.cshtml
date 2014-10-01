@@ -1,0 +1,76 @@
+﻿@using Fashion.ERP.Domain.Comum
+@model Fashion.ERP.Web.Areas.Comum.Models.UnidadeModel
+@Html.Hidden("TipoPessoa", TipoPessoa.Juridica)
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Nome)
+    <div class="controls">
+        @Html.EditorFor(x => x.Nome)
+        @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Cnpj)
+    <div class="controls">
+        @Html.EditorFor(x => x.Cnpj)
+        @Html.ValidationMessageFor(x => x.Cnpj, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.NomeFantasia)
+    <div class="controls">
+        @Html.EditorFor(x => x.NomeFantasia)
+        @Html.ValidationMessageFor(x => x.NomeFantasia, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.UnidadeDataAbertura)
+    <div class="controls">
+        @Html.EditorFor(x => x.UnidadeDataAbertura)
+        @Html.ValidationMessageFor(x => x.UnidadeDataAbertura, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.InscricaoEstadual)
+    <div class="controls">
+        @Html.EditorFor(x => x.InscricaoEstadual)
+        @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.InscricaoMunicipal)
+    <div class="controls">
+        @Html.EditorFor(x => x.InscricaoMunicipal)
+        @Html.ValidationMessageFor(x => x.InscricaoMunicipal, null, new { @class="help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.InscricaoSuframa)
+    <div class="controls">
+        @Html.EditorFor(x => x.InscricaoSuframa)
+        @Html.ValidationMessageFor(x => x.InscricaoSuframa, null, new { @class="help-block" })
+    </div>
+</div>
+<script>
+    $(function() {
+        var verificarCpfCnpj = function () {
+            var url = "/Comum/Unidade/VerificarCpfCnpj?cpfCnpj=" + $(this).val();
+            $.getJSON(url, function (result) {
+                console.log(JSON.stringify(result));
+                if (result.existeFornecedor) {
+                    alert("Já existe uma unidade com este cpf/cnpj cadastrado no sistema.");
+                    document.location.href = "/Comum/Unidade/Editar/" + result.pessoaId;
+                } else if (result.existePessoa) {
+                    if (confirm("Já existe uma pessoa com este cpf/cnpj cadastrada no sistema. Deseja usar os dados para este cadastro?")) {
+                        document.location.href = "/Comum/Unidade/Editar/" + result.pessoaId;
+                    } else {
+                        document.location.href = "/Comum/Unidade";
+                    }
+                }
+                // Criar uma tela modal e perguntar ao usuário o q fazer
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        };
+        $("#Cnpj").on("change", verificarCpfCnpj);
+    })
+</script>

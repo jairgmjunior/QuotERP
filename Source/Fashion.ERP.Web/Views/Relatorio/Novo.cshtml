@@ -1,0 +1,12 @@
+﻿@using Fashion.Framework.Mvc.Extensions
+@model Fashion.ERP.Web.Models.RelatorioModel
+
+@using (Html.BeginForm(MVC.Relatorio.Novo(), FormMethod.Post, new { id = "form", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}

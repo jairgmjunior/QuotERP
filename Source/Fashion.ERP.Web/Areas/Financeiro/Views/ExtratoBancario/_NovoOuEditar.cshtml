@@ -1,0 +1,44 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.ExtratoBancarioModel
+@Html.HiddenFor(x => x.Cancelado)
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Emissao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Emissao)
+        @Html.ValidationMessageFor(x => x.Emissao, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Compensacao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Compensacao)
+        @Html.ValidationMessageFor(x => x.Compensacao, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.TipoLancamento)
+    <div class="controls">
+        @Html.DropDownListFor(x => x.TipoLancamento, Model.TipoLancamento.ToSelectList())
+        @Html.ValidationMessageFor(x => x.TipoLancamento, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Descricao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Descricao)
+        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Valor)
+    <div class="controls">
+        @Html.EditorFor(x => x.Valor)
+        @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.ContaBancaria)
+    <div class="controls">
+        @Html.DropDownList("ContaBancaria")
+        @Html.ValidationMessageFor(x => x.ContaBancaria, null, new { @class = "help-block" })
+    </div>
+</div>

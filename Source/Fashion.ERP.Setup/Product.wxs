@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:ui="http://schemas.microsoft.com/wix/UIExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+
+  <!-- The upgrade GUID ** DO NOT CHANGE!! **-->
+  <?define ProductUpgradeCode="d248f854-01a3-46e6-812f-cda31dce6e0a"?>
+  <!-- The product name as it's used numerous places. -->
+  <?define BaseProductName="FashionERP"?>
+  <?define BaseProductNameUI="Fashion ERP"?>
+  <!-- The registry key for saving setup info. -->
+  <?define DefaultRegistryKey="SOFTWARE\Fashion\FashionERP\Setup"?>
+  <!-- The sql server connection string. -->
+  <?define ConnectionStringProperty="Server=.\SQLEXPRESS;Database=FashionERP;User Id=sa;Password=123456;"?>
+  <!-- The backup path. -->
+  <?define BackupProperty="C:\backup"?>
+  <!-- The web site name registry value. -->
+  <?define WebSiteProperty="Default Web Site"?>
+  <!-- The virtual directory app pool value.-->
+  <?define VDirAppPoolProperty="DefaultAppPool"?>
+
+  <Product Id="*" Codepage="1252" Name="Fashion ERP"
+           Language="1046" Version="!(bind.FileVersion.filA2F53915BEF2D834A3C52CDB0ABF9AFB)"
+           Manufacturer="Fashion Consultoria e Sistemas Ltda" UpgradeCode="$(var.ProductUpgradeCode)">
+    <Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="Uma nova versão do [ProductName] já está instalada." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Check to see if IIS is installed. It it's not, error out. -->
+    <Property Id="IIS_MAJOR_VERSION">
+      <RegistrySearch Id="CheckIISVersion"
+                      Root="HKLM"
+                      Key="SOFTWARE\Microsoft\InetStp"
+                      Name="MajorVersion"
+                      Type="raw"/>
+    </Property>
+
+    <Condition Message="IIS must be installed of at least IIS 7 or higher.">
+      <![CDATA[Installed OR (IIS_MAJOR_VERSION >= "#7")]]>
+    </Condition>
+
+    <!-- Verifica a versão do .NET Framewok ( = 4.5 ) -->
+    <PropertyRef Id="NETFRAMEWORK45" />
+
+    <!-- Guardar o nome do site no registro para futuras instalações -->
+    <Property Id='WEBSITE_NAME' Value='$(var.WebSiteProperty)'>
+      <RegistrySearch Id='WebSiteProperty'
+                      Root='HKLM'
+                      Key='$(var.DefaultRegistryKey)'
+                      Name='$(var.WebSiteProperty)'
+                      Type='raw' />
+    </Property>
+    <Property Id="CONNECTION_STRING" Value="$(var.ConnectionStringProperty)">
+      <RegistrySearch Id='ConnectionStringProperty'
+                      Root='HKLM'
+                      Key='$(var.DefaultRegistryKey)'
+                      Name='$(var.ConnectionStringProperty)'
+                      Type='raw' />
+    </Property>
+    <Property Id="BACKUP_LOCATION" Value="$(var.BackupProperty)">
+      <RegistrySearch Id='BackupProperty'
+                      Root='HKLM'
+                      Key='$(var.DefaultRegistryKey)'
+                      Name='$(var.BackupProperty)'
+                      Type='raw' />
+    </Property>
+    
+    <!-- Chave para sucesso da migração do banco de dados -->
+    <Property Id="TEST_CONNECTION" Value="0"/>
+
+    <!-- Nome do app pool -->
+    <Property Id='APP_POOL_NAME' Value='!(loc.DefaultAppPoolName)'/>
+
+    <!-- Diretório padrão para instalação do Fashion ERP -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="IISMain" Name="inetpub">
+        <Directory Id="WWWMain" Name="wwwroot">
+          <Directory Id="INSTALLLOCATION" ComponentGuidGenerationSeed="{A08789AB-4CE9-4974-8188-A7EFBDAF82AC}">
+
+            <!-- The component for installer properties I need to save so they can be used on the uninstall. -->
+            <Component Id='SetupRegistryValues' Guid='4CC11CC3-C233-4976-97E9-3151989BBDCD' KeyPath='yes'>
+              <RegistryValue Root='HKLM' Key='$(var.DefaultRegistryKey)'
+                             Name='$(var.WebSiteProperty)'
+                             Value='[WEBSITE_NAME]'
+                             Type='string'/>
+              <RegistryValue Root='HKLM' Key='$(var.DefaultRegistryKey)'
+                           Name='$(var.ConnectionStringProperty)'
+                           Value='[CONNECTION_STRING]'
+                           Type='string'/>
+              <RegistryValue Root='HKLM' Key='$(var.DefaultRegistryKey)'
+                           Name='$(var.BackupProperty)'
+                           Value='[BACKUP_LOCATION]'
+                           Type='string'/>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <iis:WebSite Id='TheWebSite' Description='[WEBSITE_NAME]' Directory='INSTALLLOCATION'>
+      <!-- This element has to be here or WiX does not compile. It's ignored in this case. -->
+      <iis:WebAddress Id="AllUnassigned" Port="80"/>
+    </iis:WebSite>
+
+    <iis:WebAppPool Id="TheAppPool" Name="[APP_POOL_NAME]"/>
+
+    <!-- Instalador possui apenas um recurso (feature) -->
+    <Feature Id="ProductFeature" Title="Fashion ERP" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+      <!-- Lista de componentes definidas no arquivo Fashion.ERP.Web.wxs -->
+      <ComponentGroupRef Id="Fashion.ERP.Web_Project" />
+
+      <ComponentRef Id='SetupRegistryValues'/>
+    </Feature>
+
+    <!-- The WIXUI_INSTALLDIR property has to be set to the installation directory so the user can change it in the WiXUI_InstallDir sequence.-->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+
+    <!-- Interface gráfica - http://wixtoolset.org/documentation/manual/v3/wixui/wixui_dialog_library.html -->
+    <UI>
+      <UIRef Id="WixUI_SimpleWebAppInstall" />
+      <UIRef Id="WixUI_ErrorProgressText" />
+    </UI>
+
+    <!-- Migra o banco de dados após a instalação dos arquivos -->
+    <CustomAction Id="MigrateDatabase" BinaryKey="WebAppCA" DllEntry="MigrateDatabase" Execute="immediate" Return="check" />
+    <CustomAction Id="Backup" BinaryKey="WebAppCA" DllEntry="Backup" Execute="immediate" Return="check" />
+    <InstallExecuteSequence>
+      <Custom Action='Backup' After='InstallExecute'>NOT Installed OR WixUI_InstallMode = "Change"</Custom>
+      <Custom Action='MigrateDatabase' After='Backup'>NOT Installed OR WixUI_InstallMode = "Change"</Custom>
+    </InstallExecuteSequence>
+
+    <!-- O instalador deve ser executado como admin -->
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+
+    <!-- Ícone mostrado na tela de desistalar programas -->
+    <Icon Id="icon.ico" SourceFile="..\Fashion.ERP.Web\favicon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+  </Product>
+</Wix>

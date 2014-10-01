@@ -1,0 +1,136 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridReferenciaExternaModel>
+
+<div id="modal-referencia-externa" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar referência externa</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Almoxarifado.Material.PesquisarReferenciaExterna()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-referencia-externa" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
+                <input name="valor" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-referencia-externa" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-referencia-externa"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-referencia-externa" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#submit-pesquisar-referencia-externa').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarFiltroReferenciaExterna())",
+                beforeSubmit: function() {
+                    e.preventDefault();
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                
+                    var grid = $("#grid-pesquisa-referencia-externa").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Referencia", title: "Referência" },
+                            { field: "Descricao", title: "Descrição", width: 200 },
+                            { field: "Material", title: "Catálogo", width: 200 },
+                            { field: "MaterialId", hidden: true },
+                            { field: "MaterialReferencia", hidden: true },
+                            { field: "MaterialDescricao", hidden: true }
+                        ],
+                        dataSource: data
+                    });
+                    
+                    grid.delegate("tbody>tr", "dblclick", selecionarReferenciaExterna);
+                },
+            });
+
+            return false;
+        });
+            
+        $('#pesquisar-referencia-externa').on('click', function () {
+            $('#modal-referencia-externa').modal('show').one('hidden', function () {
+                $('#Coluna')[0].selectedIndex = 0;
+                $('input[name$="valor"]').val('');
+                $('#grid-pesquisa-referencia-externa').empty();
+            });
+        });
+        var pesquisaReferenciaExterna = function (referencia) {
+            if (referencia) {
+                var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferenciaReferenciaExterna())?referencia=' + referencia;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#Material').val('').trigger('change');
+                        $('#referencia-material').val('');
+                        $('#descricao-material').text('');
+                        $('#referencia-referencia-externa').val('');
+                        $('#descricao-referencia-externa').text('');
+                    } else {
+                        $('#Material').val(data.MaterialId).trigger('change');
+                        $('#referencia-material').val(data.MaterialReferencia);
+                        $('#descricao-material').text(data.MaterialDescricao);
+                        $('#referencia-referencia-externa').val(data.Referencia);
+                        $('#descricao-referencia-externa').text(data.Descricao);
+                    }
+                });
+            } else {
+                $('#Material').val('').trigger('change');
+                $('#referencia-material').val('');
+                $('#descricao-material').text('');
+                $('#referencia-referencia-externa').val('');
+                $('#descricao-referencia-externa').text('');
+            }
+        };
+        $('#referencia-referencia-externa').on({
+            keydown: function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaReferenciaExterna($(this).val());
+                }
+            }
+        });
+        $('#selecionar-referencia-externa').on('click', selecionarReferenciaExterna);
+        
+        function selecionarReferenciaExterna() {
+            var grid = $('#grid-pesquisa-referencia-externa').data("kendoGrid");
+
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#Material').val(data.MaterialId).trigger('change');
+                $('#referencia-material').val(data.MaterialReferencia);
+                $('#descricao-material').text(data.MaterialDescricao);
+
+                $('#referencia-referencia-externa').val(data.Referencia);
+                $('#descricao-referencia-externa').text(data.Descricao);
+
+                $('#modal-referencia-externa').modal('hide');
+            }
+        }
+
+        $('#Material').on('change', function() {
+            $('#referencia-referencia-externa').val('');
+            $('#descricao-referencia-externa').text('');
+        });
+    });
+</script>

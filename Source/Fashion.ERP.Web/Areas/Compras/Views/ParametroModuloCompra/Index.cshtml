@@ -1,0 +1,18 @@
+﻿@model Fashion.ERP.Web.Areas.Compras.Models.ParametroModuloCompraModel
+@using (Html.BeginForm(MVC.Compras.ParametroModuloCompra.Index(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.ValidaRecebimentoPedido)
+        <div class="controls">
+            @Html.EditorFor(x => x.ValidaRecebimentoPedido)
+            @Html.ValidationMessageFor(x => x.ValidaRecebimentoPedido, null, new {@class = "help-block"})
+        </div>
+    </div>
+    
+    <div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}

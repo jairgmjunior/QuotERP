@@ -1,0 +1,15 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.MaterialModel
+
+@section css{
+    @Styles.Render(Links.Bundles.Styles.FotoUpload)
+}
+@section javascript{
+    @Scripts.Render(Links.Bundles.Scripts.FotoUpload)
+}
+
+@{
+    ViewData.Add("FormResult", MVC.Almoxarifado.Material.Editar());
+}
+
+@Html.Partial("_NovoOuEditar", Model)
+@{Html.RenderPartial("_ConfirmDelete");}

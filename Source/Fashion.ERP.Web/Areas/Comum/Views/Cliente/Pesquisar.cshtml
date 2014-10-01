@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridClienteModel>
+<div id="modal-cliente" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar cliente</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Comum.Cliente.Pesquisar()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-cliente" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
+                <input name="valor" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-cliente" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-cliente"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-cliente" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id do cliente vier preenchido, preencher o código e descrição
+        var clienteId = $('#Cliente').val();
+
+        if (clienteId) {
+            $.getJSON('/Comum/Cliente/PesquisarId/' + clienteId, function (data) {
+                if (data.Id) {
+                    $('#codigo-cliente').val(data.Codigo);
+                    $('#descricao-cliente').text(data.Nome);
+                }
+            });
+        }
+
+        $('#submit-pesquisar-cliente').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "/Comum/Cliente/PesquisarFiltro",
+                beforeSubmit: function() { 
+                    e.preventDefault();
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                
+                    var grid = $("#grid-pesquisa-cliente").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Codigo", title: "Código" },
+                            { field: "CpfCnpj", title: "CPF/CNPJ" },
+                            { field: "Nome", title: "Nome" }
+                        ],
+                        dataSource: data,
+                    });
+                    
+                    grid.delegate("tbody>tr", "dblclick", selecionarCliente);
+                },
+            });
+
+            return false;
+        });
+            
+        $('#pesquisar-cliente').on('click', function () {
+            $('#modal-cliente').modal('show').one('hidden', function () {
+                $('#Coluna')[0].selectedIndex = 0;
+                $('input[name$="valor"]').val('');
+                $('#grid-pesquisa-cliente').empty();
+            });
+        });
+        var pesquisaCliente = function (codigo) {
+            if (codigo) {
+                var url = '/Comum/Cliente/PesquisarCodigo?codigo=' + codigo;
+                $.getJSON(url, function (data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#Cliente').val('').trigger('change');
+                        $('#codigo-cliente').val('');
+                        $('#descricao-cliente').text('');
+                    } else {
+                        $('#Cliente').val(data.Id).trigger('change');
+                        $('#codigo-cliente').val(data.Codigo);
+                        $('#descricao-cliente').text(data.Nome);
+                    }
+                });
+            } else {
+                $('#Cliente').val('').trigger('change');
+                $('#codigo-cliente').val('');
+                $('#descricao-cliente').text('');
+            }
+        };
+        $('#codigo-cliente').on({
+            keydown: function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaCliente($(this).val());
+                }
+            }
+        });
+        $('#selecionar-cliente').on('click', selecionarCliente);
+        
+        function selecionarCliente() {
+            var grid = $('#grid-pesquisa-cliente').data("kendoGrid");
+
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#Cliente').val(data.Id).trigger('change');
+                $('#codigo-cliente').val(data.Codigo);
+                $('#descricao-cliente').text(data.Nome);
+
+                $('#modal-cliente').modal('hide');
+            }
+        }
+    });
+</script>

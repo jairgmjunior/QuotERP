@@ -1,0 +1,169 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.FichaFornecedorModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.Comum.Relatorio.FichaFornecedor(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    <div class="accordion" id="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                Pesquisar
+            </a>
+        </div>
+        <div id="collapsePesquisar" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span2">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Codigo, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Codigo, new { @class = "input-small" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span10">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Nome)
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Nome, new { @class = "input-xxlarge" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.TipoPessoa)
+                            <div class="controls">
+                                @Html.DropDownListFor(x => x.TipoPessoa, Model.TipoPessoa.ToSelectList(), "", new { @class = "input-medium" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="fisica">
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Cpf)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Cpf)
+                                    @Html.ValidationMessageFor(x => x.Cpf, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DocumentoIdentidade)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.DocumentoIdentidade, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(x => x.DocumentoIdentidade, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataNascimento)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataNascimento)
+                                    @Html.ValidationMessageFor(x => x.DataNascimento, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="juridica">
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Cnpj)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Cnpj)
+                                    @Html.ValidationMessageFor(x => x.Cnpj, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.NomeFantasia)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(x => x.NomeFantasia, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.InscricaoEstadual)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.InscricaoEstadual, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.InscricaoMunicipal)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.InscricaoMunicipal, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(x => x.InscricaoMunicipal, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.InscricaoSuframa)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.InscricaoSuframa, new { @class = "input-medium" })
+                                    @Html.ValidationMessageFor(x => x.InscricaoSuframa, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="exterior">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div class="pull-right">
+                            <button id="pesquisar-relatorio" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div id="pdf"></div>
+
+<script>
+    $(window).load(function() {
+        $('#TipoPessoa').change(function() {
+            if ($(this).val() === 'Fisica') {
+                $("#fisica").show('slow');
+                $("#juridica").hide('slow');
+                $("#exterior").hide('slow');
+            } else if ($(this).val() === 'Juridica') {
+                $("#fisica").hide('slow');
+                $("#juridica").show('slow');
+                $("#exterior").hide('slow');
+            } else if ($(this).val() === 'Exterior') {
+                $("#fisica").hide('slow');
+                $("#juridica").hide('slow');
+                $("#exterior").show('slow');
+            } else {
+                $("#fisica").hide('slow');
+                $("#juridica").hide('slow');
+                $("#exterior").hide('slow');
+            }
+        });
+        $("#fisica").hide();
+        $("#juridica").hide();
+        $("#exterior").hide();
+    });
+</script>

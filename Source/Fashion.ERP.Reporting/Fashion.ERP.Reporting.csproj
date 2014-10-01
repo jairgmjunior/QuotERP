@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63525890-8E38-4731-A7DD-93119B3DE554}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fashion.ERP.Reporting</RootNamespace>
+    <AssemblyName>Fashion.ERP.Reporting</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fashion.Framework.Common, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b7dbcb5929f04e91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.Domain, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b7dbcb5929f04e91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Almoxarifado\FichaMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\FichaMaterialReport.Designer.cs">
+      <DependentUpon>FichaMaterialReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaMaterialReport.Designer.cs">
+      <DependentUpon>ListaMaterialReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaEstoqueMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaEstoqueMaterialReport.Designer.cs">
+      <DependentUpon>ListaEstoqueMaterialReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Almoxarifado\ReferenciaExternaSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ReferenciaExternaSubreport.Designer.cs">
+      <DependentUpon>ReferenciaExternaSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Almoxarifado\TotalMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\TotalMaterialReport.Designer.cs">
+      <DependentUpon>TotalMaterialReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\ListaPedidoCompraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Compras\ListaPedidoCompraReport.Designer.cs">
+      <DependentUpon>ListaPedidoCompraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ContatoSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ContatoSubreport.Designer.cs">
+      <DependentUpon>ContatoSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\DependenteSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\DependenteSubreport.Designer.cs">
+      <DependentUpon>DependenteSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\EnderecoSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\EnderecoSubreport.Designer.cs">
+      <DependentUpon>EnderecoSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\FichaClienteReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\FichaClienteReport.Designer.cs">
+      <DependentUpon>FichaClienteReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\FichaFornecedorReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\FichaFornecedorReport.Designer.cs">
+      <DependentUpon>FichaFornecedorReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\FichaFuncionarioReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\FichaFuncionarioReport.Designer.cs">
+      <DependentUpon>FichaFuncionarioReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\InformacaoBancariaSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\InformacaoBancariaSubreport.Designer.cs">
+      <DependentUpon>InformacaoBancariaSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ListaClienteReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ListaClienteReport.Designer.cs">
+      <DependentUpon>ListaClienteReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ListaFornecedorReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ListaFornecedorReport.Designer.cs">
+      <DependentUpon>ListaFornecedorReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ListaFuncionarioReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ListaFuncionarioReport.Designer.cs">
+      <DependentUpon>ListaFuncionarioReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\FichaPrestadorServicoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\FichaPrestadorServicoReport.Designer.cs">
+      <DependentUpon>FichaPrestadorServicoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ListaPrestadorServicoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ListaPrestadorServicoReport.Designer.cs">
+      <DependentUpon>ListaPrestadorServicoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comum\ReferenciaSubreport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Comum\ReferenciaSubreport.Designer.cs">
+      <DependentUpon>ReferenciaSubreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ConsumoMaterialColecaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ConsumoMaterialColecaoReport.Designer.cs">
+      <DependentUpon>ConsumoMaterialColecaoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListagemModelosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListagemModelosReport.Designer.cs">
+      <DependentUpon>ListagemModelosReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto\DetalheModeloReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\DetalheModeloReport.Designer.cs">
+      <DependentUpon>DetalheModeloReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListagemModelosAprovadosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListagemModelosAprovadosReport.Designer.cs">
+      <DependentUpon>ListagemModelosAprovadosReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListaModeloReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ListaModeloReport.designer.cs">
+      <DependentUpon>ListaModeloReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\ListaChequeRecebidoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Financeiro\ListaChequeRecebidoReport.Designer.cs">
+      <DependentUpon>ListaChequeRecebidoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\ListaDespesaReceitaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Financeiro\ListaDespesaReceitaReport.Designer.cs">
+      <DependentUpon>ListaDespesaReceitaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ReportExtensions.cs" />
+    <Compile Include="Helpers\UserFunctions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\FichaMaterialReport.resx">
+      <DependentUpon>FichaMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almoxarifado\ListaMaterialReport.resx">
+      <DependentUpon>ListaMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almoxarifado\ListaEstoqueMaterialReport.resx">
+      <DependentUpon>ListaEstoqueMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almoxarifado\ReferenciaExternaSubreport.resx">
+      <DependentUpon>ReferenciaExternaSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almoxarifado\TotalMaterialReport.resx">
+      <DependentUpon>TotalMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compras\ListaPedidoCompraReport.resx">
+      <DependentUpon>ListaPedidoCompraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ContatoSubreport.resx">
+      <DependentUpon>ContatoSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\DependenteSubreport.resx">
+      <DependentUpon>DependenteSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\EnderecoSubreport.resx">
+      <DependentUpon>EnderecoSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\FichaClienteReport.resx">
+      <DependentUpon>FichaClienteReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\FichaFornecedorReport.resx">
+      <DependentUpon>FichaFornecedorReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\FichaFuncionarioReport.resx">
+      <DependentUpon>FichaFuncionarioReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\InformacaoBancariaSubreport.resx">
+      <DependentUpon>InformacaoBancariaSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ListaClienteReport.resx">
+      <DependentUpon>ListaClienteReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ListaFornecedorReport.resx">
+      <DependentUpon>ListaFornecedorReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ListaFuncionarioReport.resx">
+      <DependentUpon>ListaFuncionarioReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\FichaPrestadorServicoReport.resx">
+      <DependentUpon>FichaPrestadorServicoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ListaPrestadorServicoReport.resx">
+      <DependentUpon>ListaPrestadorServicoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comum\ReferenciaSubreport.resx">
+      <DependentUpon>ReferenciaSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\ConsumoMaterialColecaoReport.resx">
+      <DependentUpon>ConsumoMaterialColecaoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\ListagemModelosReport.resx">
+      <DependentUpon>ListagemModelosReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\DetalheModeloReport.resx">
+      <DependentUpon>DetalheModeloReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\ListagemModelosAprovadosReport.resx">
+      <DependentUpon>ListagemModelosAprovadosReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\ListaModeloReport.resx">
+      <DependentUpon>ListaModeloReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\ListaChequeRecebidoReport.resx">
+      <DependentUpon>ListaChequeRecebidoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\ListaDespesaReceitaReport.resx">
+      <DependentUpon>ListaDespesaReceitaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StyleSheet.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fashion.ERP.Domain\Fashion.ERP.Domain.csproj">
+      <Project>{88cb3802-51c8-40c1-957d-a5d61956a9f1}</Project>
+      <Name>Fashion.ERP.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Models.LogModel>
+
+@Html.ValidationSummaryEx()
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Classe</th>
+            <th>Usuário</th>
+            <th>IP</th>
+            <th>Mensagem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var logModel in Model)
+        {
+            <tr>
+                <td>@logModel.Data</td>
+                <td>@logModel.Classe</td>
+                <td>@logModel.Usuario</td>
+                <td>@logModel.IpAddress</td>
+                <td>
+                    <pre>@logModel.Mensagem</pre>
+                </td>
+            </tr>
+        }        
+    </tbody>
+</table>

@@ -1,0 +1,4 @@
+@model int?
+@(Html.Kendo().IntegerTextBoxFor(m => m)
+      .HtmlAttributes(new { @class = "integer input-small" })
+      .Min(0))

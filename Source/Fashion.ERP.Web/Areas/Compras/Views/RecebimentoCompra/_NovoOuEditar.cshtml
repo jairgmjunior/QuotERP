@@ -1,0 +1,319 @@
+﻿ @model Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraModel
+
+<fieldset>
+    <legend><small>Dados do Recebimento</small></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Unidade)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Unidade, "UnidadeList", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>    
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.SituacaoRecebimentoCompra)
+                <div class="controls">
+                    @Html.EditorFor(x => x.SituacaoRecebimentoCompra)
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Numero)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Numero)
+                    @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+               @Html.LabelForRequired(x => x.Fornecedor)
+               <div class="controls">
+                   @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                   <div class="input-append">
+                       <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                       <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                       <span id="descricao-fornecedor" class="add-on"></span>
+                   </div>
+               </div>
+           </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Data)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Data)
+                    @Html.ValidationMessageFor(x => x.Data, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Valor)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Valor)
+                    @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>  
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Observacao)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Observacao)
+                    @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend><small>Itens do Recebimento</small></legend>
+
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Pedido de Compra</label>
+                <div class="controls">
+                    <div>
+                        @(Html.Kendo().DropDownList()
+                            .Name("pedidosdropdown")
+                            .HtmlAttributes(new { data_value_primitive = "true" })
+                            .DataTextField("Numero")
+                            .DataValueField("Id")
+                            .Template(
+                                "<span class='k-state-default'><h4>Pedido de Compra</h4></span>" +
+                                "<span class='k-state-default'><p>Número: #=data.Numero #</p></span>" +
+                                "<span class='k-state-default'><p>Data: #= data.Data #</p></span>" +
+                                "<span class='k-state-default'><p>Valor: #= kendo.toString(data.Valor, 'c') #</p></span>")
+                            .DataSource(dataSource =>
+                                dataSource.Read(read => read.Action("ObtenhaPedidosDeCompraPorFornecedor", "RecebimentoCompra").Data("dadosAdicionais"))
+                        ))
+                        <a id="btnCreate" class="btn"><i class="icon-plus"></i></a>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    @(Html.Kendo().Grid<Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraItemModel>()
+          .Name("GridItens")
+          .Columns(columns =>
+          {
+              columns.Bound(x => x.PedidosCompra).ClientTemplate("#= obtenhaHtmlPedidosDeCompra(PedidosCompra) #");
+              columns.Bound(x => x.MaterialReferencia);
+              columns.Bound(x => x.MaterialReferenciaExterna);
+              columns.Bound(x => x.Descricao);
+              columns.Bound(x => x.UnidadeMedidaSigla);
+              columns.Bound(x => x.Quantidade);
+              columns.Bound(x => x.ValorUnitarioPedido);
+              columns.Bound(x => x.QuantidadeEntrada).Width(70);
+              columns.Bound(x => x.UnidadeEntrada).Width(70);
+              columns.Bound(x => x.ValorUnitario).Width(70);
+              columns.Bound(x => x.TotalItem);
+              columns.Command(command => command.Destroy());   
+          })
+          .DataSource(s => s.Ajax()
+              .Model(model =>
+              {
+                  model.Id(item => item.Id); 
+                  model.Field(product => product.PedidosCompra).Editable(false); 
+                  model.Field(product => product.MaterialReferencia).Editable(false); 
+                  model.Field(product => product.MaterialReferenciaExterna).Editable(false); 
+                  model.Field(product => product.Descricao).Editable(false); 
+                  model.Field(product => product.UnidadeMedidaSigla).Editable(false); 
+                  model.Field(product => product.Quantidade).Editable(false); 
+                  model.Field(product => product.ValorUnitarioPedido).Editable(false); 
+              })
+              .Read(read => read.Action("ObtenhaRecebimentoItens", "RecebimentoCompra").Data("parametrosGrid")))
+          .Editable(editable => editable.Mode(GridEditMode.InCell))
+          .Events(events => events.DataBound("onDataBound"))
+          )
+</fieldset>
+
+<div id='dialogDiv' class='modal hide fade in' style="width: 800px; height: 600px">
+    <div id='dialogContent'></div>
+</div>
+
+<script>
+    function dadosAdicionais() {
+        return {
+            fornecedorId: $("#Fornecedor").val()
+        };
+    }
+
+    function parametrosGrid() {
+        return {
+            //dadosGridItens: [],//$("#GridItens").data("kendoGrid").dataSource.data(),
+            dadosGridPedidosItens: obtenhaDadosGridPedidosItens()
+        };
+    }
+
+    function obtenhaDadosGridPedidosItens() {
+        var grid = $("#GridPedidosItens").data("kendoGrid");
+        if (grid) {
+            return  grid.dataSource.data() ;
+        }
+        return null;
+    }
+
+    function obtenhaUrlPesquisarPedidoCompra() {
+        return '/Compras/RecebimentoCompra/PesquisarPedidoCompra/' +$("#pedidosdropdown").data("kendoDropDownList")._selectedValue;
+    }
+
+    function bindForm(dialog) {
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        $('#dialogDiv').modal('hide');
+                        // Refresh:
+                        // location.reload();
+                    } else {
+                        $('#dialogContent').html(result);
+                        bindForm();
+                    }
+                }
+            });
+            return false;
+        });
+    }
+
+    function obtenhaHtmlPedidosDeCompra(pedidosCompra) {
+        var html = [];
+        for (var i = 0; i < pedidosCompra.length; i++) {
+            html.push("<a href='/Compras/PedidoCompra/Editar/" + pedidosCompra[i] + "' target='_blank'> " + pedidosCompra[i] + " </a>");
+        }
+        return html.join("/");
+    }
+
+    function onDataBound(e) {
+        var grid = $("#GridItens").data("kendoGrid");
+        var gridData = grid.dataSource.view();
+
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].Id != null) {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                var cancelButton = $(currenRow).find(".k-grid-delete");
+                cancelButton.hide();
+            }
+        }
+    }
+
+    function clicouCheckBox(a) {
+        var checked = $(a).is(':checked');
+
+        if (!checked)
+            desmarqueCheckBox($(a));
+        else marqueCheckBox($(a));
+
+        var numChkBoxes = $('.chkbx').length;
+        var numChkBoxesChecked = $('.chkbx:checked').length;
+        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
+            $('#checkAll').attr('checked', 'checked');
+        }
+        else {
+            $('#checkAll').removeAttr('checked');
+        }
+    }
+
+    function marqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(true);
+        $(checkBoxElement).attr('checked', 'checked');
+    }
+
+    function desmarqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(false);
+        $(checkBoxElement).removeAttr('checked');
+    }
+
+    function index(dataItem) {
+        var data = $("#GridPedidosItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function possuiSelecionados() {
+        return $('.chkbx:checked').length != 0;
+    }
+
+    function scriptsModal() {
+
+        function adicioneItensNaGrid() {
+            debugger;
+            $("#GridItens").data("kendoGrid").dataSource.read();
+            var data = $("#GridPedidosItens").data("kendoGrid").dataSource.data();
+            for (var i = 0; i < data.length; i++) {
+
+            }
+        }
+        
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                if (possuiSelecionados()) {
+                    adicioneItensNaGrid();
+                    $('#dialogDiv').modal('hide');
+                    event.preventDefault();
+                    return true;
+                } else {
+                    alert("É necessário selecionar ao menos um item do pedido de compra.");
+                    $('#btnSubmit').button('reset');
+                    return false;
+                }
+            });
+
+            $('#checkAll').click(function () {
+                if ($(this).attr('checked')) {
+                    for (var i = 0; i < $('.chkbx').length; i++) {
+                        marqueCheckBox($('.chkbx')[i]);
+                    }
+                } else {
+                    desmarqueCheckBox($('.chkbx'));
+                }
+            });
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        //Optional: turn the chache off
+        //$.ajaxSetup({ cache: false });
+
+        //new AjaxOptions() { UpdateTargetId = "myTargetDiv", OnSuccess = "loadScriptAndInit" },
+
+        $('#btnCreate').click(function () {
+            $('#dialogContent').load(obtenhaUrlPesquisarPedidoCompra(), function () {
+                $('#dialogDiv').modal({
+                    backdrop: 'static',
+                    keyboard: true
+                }, 'show');
+                scriptsModal();
+                bindForm(this);
+            });
+            return false;
+        });
+
+        $('#Fornecedor').on('change', function () {
+            var dropdownPedidos = $("#pedidosdropdown").data("kendoDropDownList");
+            dropdownPedidos.dataSource.options.transport.read.data.fornecedorId = $("#Fornecedor").val();
+            dropdownPedidos.dataSource.read();
+            dropdownPedidos.refresh();
+        });
+    });
+</script>

@@ -1,0 +1,23 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CopidarModeloModel
+@using (Html.BeginForm(MVC.EngenhariaProduto.Modelo.Copiar(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    <div class="form-actions">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ReferenciaExistente)
+            <div class="controls">
+                @Html.TextBoxFor(x => x.ReferenciaExistente, new { @class = "input-medium", @readonly = "readonly" })
+                @Html.ValidationMessageFor(x => x.ReferenciaExistente, null, new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ReferenciaNova)
+            <div class="controls">
+                @Html.TextBoxFor(x => x.ReferenciaNova, new { @class = "input-medium" })
+                @Html.ValidationMessageFor(x => x.ReferenciaNova, null, new { @class = "help-block" })
+            </div>
+        </div>
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}

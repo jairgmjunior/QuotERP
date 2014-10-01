@@ -1,0 +1,184 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ListagemModelosModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.Relatorio.ListagemModelos(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    <div class="accordion" id="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                Pesquisar
+            </a>
+        </div>
+        <div id="collapsePesquisar" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span6">
+                        
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Referencia)
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Referencia, new { @class = "input-xlarge" })
+                            </div>
+                        </div>    
+                    
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Estilista)
+                            <div class="controls">
+                                @Html.DropDownList("Estilista", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div> 
+                    
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Colecao)
+                            <div class="controls">
+                                @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+                        
+
+                         <div class="control-group">
+                            @Html.LabelForRequired(x => x.Classificacao)
+                            <div class="controls">
+                                @Html.DropDownList("Classificacao", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+                        
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Comprimento)
+                            <div class="controls">
+                                @Html.DropDownList("Comprimento", null, "-- Selecione --", new { @class = "input-large" }) 
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Marca)
+                            <div class="controls">
+                                @Html.DropDownList("Marca", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+
+                
+                        <div class="control-group">
+                            @Html.LabelFor(x => x.Tag, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Tag, new { @class = "input-medium" })
+                            </div>
+                        </div>                        
+                    </div>
+
+                    
+
+
+                    <div class="span6">
+                        
+                    <div class="control-group">
+                            @Html.LabelForRequired(x => x.Descricao)
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Descricao, new { @class = "input-xlarge" })
+                            </div>
+                        </div>  
+
+                         <div class="control-group">
+                            @Html.LabelForRequired(x => x.Modelista)
+                            <div class="controls">
+                                @Html.DropDownList("Modelista", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                         </div>     
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Natureza)
+                            <div class="controls">
+                                @Html.DropDownList("Natureza", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>                        
+
+                         <div class="control-group">
+                            @Html.LabelForRequired(x => x.ProdutoBase)
+                            <div class="controls">
+                              @Html.DropDownList("ProdutoBase", null, "-- Selecione --", new { @class = "input-large" })   
+                            </div>
+                        </div>
+                                             
+                        
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Barra)
+                            <div class="controls">
+                                @Html.DropDownList("Barra", "-- Selecione --")
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Grade)
+                            <div class="controls">
+                                @Html.DropDownList("Grade", "-- Selecione --")
+                            </div>
+                        </div>
+                        
+
+                         <div class="control-group">
+                                @Html.LabelForRequired(x => x.ReferenciaMaterial)
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.ReferenciaMaterial, new { @class = "input-xlarge" })
+                                </div>
+                            </div>  
+                    
+
+                        
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.DataInicial)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.DataInicial, new { @class = "input-small" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.DataFinal)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.DataFinal, new { @class = "input-small" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.AgruparPor)
+                            <div class="controls">
+                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                            <div class="controls">
+                                <select name="OrdenarEm">
+                                    <option value="asc">Ascendente</option>
+                                    <option value="desc">Descendente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div id="pdf"></div>

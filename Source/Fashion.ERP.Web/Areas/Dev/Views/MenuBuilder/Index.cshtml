@@ -1,0 +1,189 @@
+﻿@using Fashion.Framework.Mvc.Extensions
+
+<div class="row">
+    @Html.ValidationSummaryEx()
+    <div class="span6">
+        <fieldset>
+            <legend>Estrutura do menu</legend>
+            @using (Html.BeginForm("Index", "MenuBuilder", FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+            {
+                <div class="well">
+                    <div id="itens-menu">Aguarde enquanto a treeview é carregada.</div>
+                </div>
+                if (ViewBag.Sql != null)
+                {
+                    <textarea rows="5" style="width: 97%">@ViewBag.Sql</textarea>
+                }
+                <div class="form-actions">
+                    <button class="btn btn-primary btn-large" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            }
+        </fieldset>
+    </div>
+    <div class="span6">
+        <fieldset>
+            <legend>Ações</legend>
+            <div class="well">
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="descricao-item" class="span2" placeholder="Descrição do menu" type="text">
+                            <button id="novo-item" class="btn" type="button">
+                                <i class="icon-ok-sign"></i> Novo
+                            </button>
+                            <button id="update-item" class="btn" type="button" disabled="disabled">
+                                <i class="icon-edit"></i> Alterar
+                            </button>
+                            <button id="remove-item" class="btn" type="button" disabled="disabled">
+                                <i class="icon-remove-sign"></i> Remover
+                            </button>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input id="exibeNoMenu" type="checkbox" checked="checked">
+                            Exibe no menu
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Itens disponíveis</legend>
+            <div class="well">
+                <div id="itens-disponiveis">Aguarde enquanto a treeview é carregada.</div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script id="treeview-template" type="text/kendo-ui-template">
+    #: item.text #
+    <input type="hidden" name="id" value="#: item.id #"/>
+    <input type="hidden" name="text" value="#: item.text #"/>
+    <input type="hidden" name="parentid" value="#: item.parentid #"/>
+    <input type="hidden" name="area" value="#: item.area #"/>
+    <input type="hidden" name="controller" value="#: item.controller #"/>
+    <input type="hidden" name="action" value="#: item.action #"/>
+    <input type="hidden" name="exibeNoMenu" value="#: item.exibeNoMenu #"/>
+</script>
+<script>
+    $(function() {
+        $.getJSON("MenuBuilder/LerItensMenu", function(data) {
+            $("#itens-menu").kendoTreeView({
+                template: kendo.template($("#treeview-template").html()),
+                dragAndDrop: true,
+                dataSource: data,
+                select: function(e) {
+                    $('#update-item').removeAttr('disabled');
+                    $('#remove-item').removeAttr('disabled');
+                    $('#descricao-item').val(this.text(e.node));
+
+                    var source = this.dataItem(e.node);
+                    var exibe = source.exibeNoMenu;
+                    $('#exibeNoMenu').attr('checked', exibe);
+                },
+                drop: function(e) {
+                    var source = this.dataItem(e.sourceNode);
+                    
+                    if (e.destinationNode) {
+                        var that = $(e.destinationNode).closest('.k-treeview').data("kendoTreeView");
+                        var dest = that.dataItem(e.destinationNode);
+
+                        if (e.dropPosition == "before" || e.dropPosition == "after") {
+                            source.parentid = dest.parentid;
+                            source.parentid = dest.parentid;
+                        } else if (e.dropPosition == "over") {
+                            source.parentid = dest.id;
+                            that.expand(e.destinationNode);
+                        }
+                    }
+                }
+            }).data("kendoTreeView");
+        });
+
+        $.getJSON("MenuBuilder/LerItensDisponiveis", function(data) {
+            $("#itens-disponiveis").kendoTreeView({
+                template: kendo.template($("#treeview-template").html()),
+                dragAndDrop: true,
+                dataSource: data,
+                drop: function(e) {
+                    var source = this.dataItem(e.sourceNode);
+                    
+                    if (e.destinationNode) {
+                        var that = $(e.destinationNode).closest('.k-treeview').data("kendoTreeView");
+                        var dest = that.dataItem(e.destinationNode);
+
+                        if (e.dropPosition == "before" || e.dropPosition == "after") {
+                            source.parentid = dest.parentid;
+                            source.parentid = dest.parentid;
+                        } else if (e.dropPosition == "over") {
+                            source.parentid = dest.id;
+                            that.expand(e.destinationNode);
+                        }
+                    }
+                }
+            });
+        });
+
+        var handleTextBox = function(callback) {
+            return function(e) {
+                if (e.type != "keypress" || kendo.keys.ENTER == e.keyCode) {
+                    callback(e);
+                }
+            };
+        };
+
+        $("#remove-item").on("click", function() {
+            var treeview = $("#itens-menu").data("kendoTreeView");
+            var selectedNode = treeview.select();
+            treeview.remove(selectedNode);
+            $('#update-item').attr('disabled', 'disabled');
+            $('#remove-item').attr('disabled', 'disabled');
+            $('#descricao-item').val('');
+        });
+
+        $("#update-item").on("click", function() {
+            var treeview = $("#itens-menu").data("kendoTreeView");
+            var selectedNode = treeview.select();
+            //treeview.text(selectedNode, $('#descricao-item').val());
+
+            var nodeDataItem = treeview.dataItem(selectedNode);
+            nodeDataItem.exibeNoMenu = $('#exibeNoMenu').is(":checked");
+            nodeDataItem.text = $('#descricao-item').val();
+
+            var parentNode = treeview.parent(selectedNode);
+            treeview.append(selectedNode, parentNode);
+        });
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        var append = handleTextBox(function(e) {
+            var treeview = $("#itens-menu").data("kendoTreeView");
+            var selectedNode = treeview.select();
+            var parent = treeview.dataItem(selectedNode);
+
+            // se nenhum item foi selecionado, adicionar á raiz
+            if (selectedNode.length == 0) {
+                selectedNode = null;
+            }
+
+            // Busca um número bem alto para não repetir id
+            var random = getRandom(100000000, 999999999);
+            var newid = random * -1;
+
+            var exibe = $('#exibeNoMenu').is(":checked");
+
+            treeview.append({
+                id: newid,
+                text: $("#descricao-item").val(),
+                parentid: parent.id,
+                exibeNoMenu: exibe
+            }, selectedNode);
+        });
+
+        $("#novo-item").on("click", append);
+        $("#descricao-item").on("keypress", append);
+    });
+</script>

@@ -1,0 +1,97 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.PesquisaChequeRecebidoModel
+
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Financeiro.ChequeRecebido.Novo(), new { @class = "btn btn-primary" })
+</div>
+@using (Html.BeginForm(MVC.Financeiro.ChequeRecebido.Index(), FormMethod.Post, new { @class = "form-horizontal  small-labels" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">
+                    Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Emitente, new { @class = "control-label "})
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.Emitente, new { @class = "input-medium"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Cliente, new { @class = "control-label"})
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.Cliente, new { @class = "input-medium"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.NumeroCheque, new { @class = "control-label"})
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "input-small", data_mask = "999999"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label"})
+                                <div class="controls">
+                                    @Html.DropDownList("Unidade", "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.VencimentoDe, new { @class = "control-label"})
+                                <div class="controls">
+                                    @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
+                                </div>
+                                @Html.Label("VencimentoAte", "Até", new { @class = "control-label"})
+                                <div class="controls">
+                                    @(Html.Kendo().DatePickerFor(x => x.VencimentoAte))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Compensado, new { @class = "control-label"})
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.Compensado, Model.Compensado.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                            <button class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model.Grid)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Emitente);
+        columns.Bound(x => x.NumeroCheque);
+        columns.Bound(x => x.Valor).Format("{0:C}");
+        columns.Bound(x => x.Saldo).Format("{0:C}");
+        columns.Bound(x => x.Vencimento).Format("{0:dd/MM/yyyy}");
+        columns.Template(item => item.Saldo > 0 ? Html.ActionLink("Baixar", MVC.Financeiro.ChequeRecebido.Baixa(null, item.Id), new { @class = "btn btn-small btn-warning" }) : new MvcHtmlString("&nbsp;")).Width(80);
+        columns.Template(item => Html.EditarAuth(MVC.Financeiro.ChequeRecebido.Editar(item.Id))).Width(80);
+    })
+)

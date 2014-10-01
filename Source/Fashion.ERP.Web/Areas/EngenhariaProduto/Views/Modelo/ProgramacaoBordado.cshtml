@@ -1,0 +1,50 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ProgramacaoBordadoModeloModel
+
+<div class="detail">
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloReferencia)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDescricao)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloEstilistaNome)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.ModeloDataCriacao)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Modelo.NovoProgramacaoBordado(Model.ModeloId), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model.Grid)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Descricao);
+        columns.Template(item => item.Arquivo > 0 ? Html.ActionLink(item.NomeArquivo, MVC.Arquivo.Download(item.Arquivo.GetValueOrDefault()), new { @class = "btn btn-link" }) : MvcHtmlString.Create(item.NomeArquivo)).Title("Nome arquivo").Width(80);
+        columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}");
+        columns.Bound(x => x.QuantidadePontos);
+        columns.Bound(x => x.QuantidadeCores);
+        columns.Template(item => Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.EditarProgramacaoBordado(Model.ModeloId, item.Id), new { @class = "btn btn-primary" })).Width(80);
+    })
+)

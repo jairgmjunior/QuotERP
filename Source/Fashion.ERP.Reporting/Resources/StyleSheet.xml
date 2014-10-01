@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StyleSheet xmlns="http://schemas.telerik.com/reporting/2012/3">
+  <StyleRule>
+    <Style Color="Black" LineColor="Black">
+      <BorderStyle Bottom="Groove" />
+      <Font Name="Segoe UI" Size="20pt" Bold="True" Italic="False" Underline="False" Strikeout="False" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="Title" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style Color="Black" VerticalAlign="Middle">
+      <Font Name="Segoe UI" Size="8pt" Bold="True" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="Caption" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style BackgroundColor="" VerticalAlign="Middle">
+      <Font Name="Segoe UI" Size="8pt" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="Data" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style Color="Silver" VerticalAlign="Middle">
+      <Font Name="Segoe UI" Size="8pt" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="PageInfo" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style>
+      <Font Name="Segoe UI" Size="9pt" Bold="True" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="TableHeader" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style>
+      <Font Name="Segoe UI" Size="8pt" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="TableRow" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style>
+      <Font Name="Segoe UI" Size="8pt" Bold="True" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="TableFooter" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style BackgroundColor="224, 224, 224" Color="DimGray">
+      <Font Name="Segoe UI" Size="11pt" Bold="True" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="GroupPanel" />
+    </Selectors>
+  </StyleRule>
+  <StyleRule>
+    <Style>
+      <Font Name="Segoe UI" Size="11pt" Bold="True" />
+    </Style>
+    <Selectors>
+      <StyleSelector Type="ReportItemBase" StyleName="GroupHeader" />
+    </Selectors>
+  </StyleRule>
+</StyleSheet>

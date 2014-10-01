@@ -1,0 +1,12 @@
+﻿INSERT INTO tipoitem (id,codigo,descricao) VALUES (1,'00','Mercadoria para Revenda');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (2,'01','Matéria-Prima');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (3,'02','Embalagem');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (4,'03','Produto em Processo');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (5,'04','Produto Acabado');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (6,'05','Subproduto');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (7,'06','Produto Intermediário');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (8,'07','Material de Uso e Consumo');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (9,'08','Ativo Imobilizado');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (10,'09','Serviços');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (11,'10','Outros insumos');
+INSERT INTO tipoitem (id,codigo,descricao) VALUES (12,'99','Outras');

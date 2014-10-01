@@ -1,0 +1,46 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.ReferenciaModel
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Cliente)
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.TipoReferencia)
+        <div class="controls">
+            @Html.DropDownListFor(p => p.TipoReferencia, Model.TipoReferencia.ToSelectList())
+            @Html.ValidationMessageFor(x => x.TipoReferencia, null, new { @class="help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Nome)
+        <div class="controls">
+            @Html.EditorFor(x => x.Nome)
+            @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Telefone)
+        <div class="controls">
+            @Html.EditorFor(x => x.Telefone)
+            @Html.ValidationMessageFor(x => x.Telefone, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Celular)
+        <div class="controls">
+            @Html.EditorFor(x => x.Celular)
+            @Html.ValidationMessageFor(x => x.Celular, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Observacao)
+        <div class="controls">
+            @Html.EditorFor(x => x.Observacao)
+            @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+        </div>
+    </div>
+</div>

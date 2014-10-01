@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.Material">
+    <Position X="6" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEIBAAAAQJEEAQKQEAAAACAAEAAgQAAAAIYgAAgAA=</HashCode>
+      <FileName>Almoxarifado\Material.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Familia" />
+      <Property Name="GeneroFiscal" />
+      <Property Name="Marca" />
+      <Property Name="Subcategoria" />
+      <Property Name="TipoItem" />
+      <Property Name="UnidadeMedida" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReferenciaExternas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.Categoria">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Almoxarifado\Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.Familia">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Almoxarifado\Familia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.GeneroFiscal">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Almoxarifado\GeneroFiscal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.ReferenciaExterna">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAQAAAAIAAAAAAAQAAAAGAAAAAAA=</HashCode>
+      <FileName>Almoxarifado\ReferenciaExterna.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.Subcategoria">
+    <Position X="8.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Almoxarifado\Subcategoria.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Categoria" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.TipoItem">
+    <Position X="2.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Almoxarifado\TipoItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Almoxarifado.UnidadeMedida">
+    <Position X="9.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Almoxarifado\UnidadeMedida.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fashion.ERP.Domain.Comum.Marca">
+    <Position X="2.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Comum\Marca.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

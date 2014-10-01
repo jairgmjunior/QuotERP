@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.GridGradeModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Grade.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Descricao);
+		columns.Bound(x => x.DataCriacao).Format("{0:dd/MM/yyyy}");
+        columns.Template(item => Html.EditarAuth(MVC.EngenhariaProduto.Grade.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.EngenhariaProduto.Grade.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	})
+)

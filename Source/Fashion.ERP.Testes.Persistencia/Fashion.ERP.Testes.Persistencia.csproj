@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C94F777D-8D05-4703-9E7F-FF468430FDA6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fashion.ERP.Testes.Persistencia</RootNamespace>
+    <AssemblyName>Fashion.ERP.Testes.Persistencia</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fashion.Framework.Common">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.Domain">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.Repository">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.UnitOfWork">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.UnitOfWork.dll</HintPath>
+    </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\packages\NHibernateProfiler.2.0.2236.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\libraries\Fashion.Framework\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects">
+      <HintPath>..\packages\CompareNETObjects.3.00.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\libraries\Fashion.Framework\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PostSharp">
+      <HintPath>..\libraries\Fashion.Framework\PostSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Almoxarifado\BordadoPersistencia.cs" />
+    <Compile Include="Almoxarifado\CatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\CategoriaPersistencia.cs" />
+    <Compile Include="Almoxarifado\EntradaCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\EstoqueCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\FamiliaPersistencia.cs" />
+    <Compile Include="Almoxarifado\MarcaMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\ConferenciaEntradaMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\OrigemSituacaoTributariaPersistencia.cs" />
+    <Compile Include="Almoxarifado\ReferenciaExternaPersistencia.cs" />
+    <Compile Include="Almoxarifado\SaidaCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\SaidaItemCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\UnidadeMedidaPersistencia.cs" />
+    <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
+    <Compile Include="Compras\PedidoCompraItemPersistencia.cs" />
+    <Compile Include="Compras\ParametroModuloCompraPersistencia.cs" />
+    <Compile Include="Compras\MotivoCancelamentoPedidoCompra.cs" />
+    <Compile Include="Compras\PedidoCompraPersistencia.cs" />
+    <Compile Include="Compras\RecebimentoCompraPersistencia.cs" />
+    <Compile Include="Comum\AreaInteressePersistencia.cs" />
+    <Compile Include="Comum\CentroCustoPersistencia.cs" />
+    <Compile Include="Comum\ClassificacaoDificuldade.cs" />
+    <Compile Include="Comum\ClientePersistencia.cs" />
+    <Compile Include="Comum\CorPersistencia.cs" />
+    <Compile Include="Comum\DepartamentoProducaoPersistencia.cs" />
+    <Compile Include="Comum\DependentePersistencia.cs" />
+    <Compile Include="Almoxarifado\DepositoMateralPersistencia.cs" />
+    <Compile Include="Comum\EmpresaPersistencia.cs" />
+    <Compile Include="Comum\FornecedorPersistencia.cs" />
+    <Compile Include="Comum\FuncionarioPersistencia.cs" />
+    <Compile Include="Comum\GrauDependenciaPersistencia.cs" />
+    <Compile Include="Comum\InformacaoBancariaPersistencia.cs" />
+    <Compile Include="Comum\MeioPagamentoPersistencia.cs" />
+    <Compile Include="Comum\PerfilDeAcessoPersistencia.cs" />
+    <Compile Include="Comum\PermissaoPersistencia.cs" />
+    <Compile Include="Comum\PrazoPersistencia.cs" />
+    <Compile Include="Comum\PrestadorServicoPersistencia.cs" />
+    <Compile Include="Comum\ProfissaoPersistencia.cs" />
+    <Compile Include="Comum\ReferenciaPersistencia.cs" />
+    <Compile Include="Comum\TamanhoPersistencia.cs" />
+    <Compile Include="Comum\UnidadePersistencia.cs" />
+    <Compile Include="Comum\UsuarioPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\ArtigoPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\BarraPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\ClassificacaoPersistencia.cs" />
+    <Compile Include="Comum\ColecaoPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\GradePersistencia.cs" />
+    <Compile Include="Comum\MarcaPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\ModeloPersistencia.cs" />
+    <Compile Include="EngenhariaProduto\NaturezaPersistencia.cs" />
+    <Compile Include="FabricaObjetos.cs" />
+    <Compile Include="FabricaObjetosPersistidos.cs" />
+    <Compile Include="Financeiro\DespesaReceitaPersistencia.cs" />
+    <Compile Include="InitializeTests.cs" />
+    <Compile Include="TestPersistentObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fashion.ERP.Domain\Fashion.ERP.Domain.csproj">
+      <Project>{88cb3802-51c8-40c1-957d-a5d61956a9f1}</Project>
+      <Name>Fashion.ERP.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fashion.ERP.Mapping\Fashion.ERP.Mapping.csproj">
+      <Project>{2cd6c0a5-b204-4d50-af15-edc65501d2ba}</Project>
+      <Name>Fashion.ERP.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fashion.ERP.Migrator\Fashion.ERP.Migrator.csproj">
+      <Project>{e5d9dbe0-e41c-49be-95a9-27c104d86ffe}</Project>
+      <Name>Fashion.ERP.Migrator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

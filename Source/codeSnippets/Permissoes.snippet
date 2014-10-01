@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SnippetFile1</Title>
+      <Author>Alex</Author>
+      <Description>Cria permissões para um controller.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>perm</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>NOME</ID>
+          <ToolTip>Nome do controller</ToolTip>
+          <Default>controller</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ID</ID>
+          <ToolTip>Id da listagem</ToolTip>
+          <Default>ID</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>AREA</ID>
+          <ToolTip>Nome da área</ToolTip>
+          <Default>Comum</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[Insert.IntoTable("permissao").Row(new { id = $ID$, descricao = "$NOME$s", exibenomenu = true, requerpermissao = true, action = "Index", controller = "$NOME$", area = "$AREA$", permissaopai_id = 1 });
+Insert.IntoTable("permissao").Row(new { id = $ID$+1, descricao = "Novo $NOME$", exibenomenu = false, requerpermissao = true, action = "Novo", controller = "$NOME$", area = "$AREA$", permissaopai_id = $ID$ });
+Insert.IntoTable("permissao").Row(new { id = $ID$+2, descricao = "Editar $NOME$", exibenomenu = false, requerpermissao = true, action = "Editar", controller = "$NOME$", area = "$AREA$", permissaopai_id = $ID$ });
+Insert.IntoTable("permissao").Row(new { id = $ID$+3, descricao = "Excluir $NOME$", exibenomenu = false, requerpermissao = true, action = "Excluir", controller = "$NOME$", area = "$AREA$", permissaopai_id = $ID$ });$end$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

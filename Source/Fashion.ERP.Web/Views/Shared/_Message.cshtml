@@ -1,0 +1,30 @@
+﻿@if (this.HasSuccessMessage())
+{
+    foreach (var message in this.GetSuccessMessage())
+	{
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a>
+            @message
+        </div>
+	}
+}
+@if (this.HasInfoMessage())
+{
+    foreach (var message in this.GetInfoMessage())
+	{
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a>
+            @message
+        </div>
+	}
+}
+@if (this.HasErrorMessage())
+{
+    foreach (var message in this.GetErrorMessage())
+	{
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a>
+            @message
+        </div>
+	}
+}

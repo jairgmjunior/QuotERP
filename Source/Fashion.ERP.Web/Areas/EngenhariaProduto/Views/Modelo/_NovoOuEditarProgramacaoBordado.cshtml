@@ -1,0 +1,95 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ProgramacaoBordadoModel
+
+@Html.HiddenFor(x => x.Modelo)
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ProgramadorBordado)
+            <div class="controls">
+                @Html.HiddenFor(x => x.ProgramadorBordado, new { id = "funcionario" })
+                <div class="input-append">
+                    <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-funcionario" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Descricao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Descricao)
+                @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.QuantidadePontos)
+            <div class="controls">
+                @Html.Kendo().IntegerTextBoxFor(m => m.QuantidadePontos).HtmlAttributes(new { @class = "integer input-small" })
+                @Html.ValidationMessageFor(x => x.QuantidadePontos, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.QuantidadeCores)
+            <div class="controls">
+                @Html.Kendo().IntegerTextBoxFor(m => m.QuantidadeCores).HtmlAttributes(new { @class = "integer input-small" })
+                @Html.ValidationMessageFor(x => x.QuantidadeCores, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.NomeArquivo)
+            <div class="controls">
+                @Html.EditorFor(x => x.NomeArquivo)
+                @Html.ValidationMessageFor(x => x.NomeArquivo, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+	        @Html.LabelForRequired(x => x.ArquivoId)
+            <div class="controls">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="input-append">
+                        <div class="uneditable-input span3">
+                            <i class="icon-file fileupload-exists"></i>
+                            <span class="fileupload-preview">@Html.ValueFor(x => x.NomeArquivoUpload)</span>
+                        </div>
+                        <span class="btn btn-file">
+                            <span class="fileupload-new">Selecione</span>
+                            <span class="fileupload-exists">Alterar</span>
+                            <input type="file" name="Arquivo" />
+                            @Html.HiddenFor(x => x.NomeArquivoUpload)
+                        </span>
+                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+                    </div>
+                </div>
+                @Html.HiddenFor(x => x.ArquivoId)
+                <div class="progress" style="display: none">
+                    <div class="bar"></div>
+                </div>
+                @Html.ValidationMessageFor(x => x.ArquivoId, null, new { @class="help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Data)
+            <div class="controls">
+                @Html.EditorFor(x => x.Data)
+                @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Aplicacao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Aplicacao)
+                @Html.ValidationMessageFor(x => x.Aplicacao, null, new { @class="help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Observacao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Observacao)
+                @Html.ValidationMessageFor(x => x.Observacao, null, new { @class="help-block" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.EmitenteModel
+@Html.AntiForgeryToken()
+@Html.ValidationSummaryEx()
+@Html.HiddenFor(x => x.Id, new { id = "emitente-id" })
+@Html.HiddenFor(x => x.Ativo)
+@Html.HiddenFor(x => x.Agencia, new { id = "emitente-agencia" })
+@Html.HiddenFor(x => x.Conta, new { id = "emitente-conta" })
+@Html.HiddenFor(x => x.Banco, new { id = "emitente-banco" })
+<div class="control-group">
+    @Html.LabelForRequired(x => x.ClienteDesde)
+    <div class="controls">
+        @Html.EditorFor(x => x.ClienteDesde)
+        @Html.ValidationMessageFor(x => x.ClienteDesde, null, new { @class = "help-block" })
+    </div>
+</div>
+<h4>Titular 1</h4>
+<div class="control-group">
+    <span class="control-label">Tipo pessoa</span>
+    <div class="controls">
+        <label class="radio inline">
+            <input name="tipo-pessoa1" id="pessoa-fisica1" type="radio" value="Fisica" />Física</label>
+        <label class="radio inline">
+            <input name="tipo-pessoa1" id="pessoa-juridica1" type="radio" value="Juridica" />Jurídica</label>
+    </div>
+</div>
+<div id="control-cpf1" class="control-group">
+    @Html.LabelForRequired(x => x.Cpf1)
+    <div class="controls">
+        @Html.EditorFor(x => x.Cpf1)
+        @Html.ValidationMessageFor(x => x.Cpf1, null, new { @class = "help-block" })
+    </div>
+</div>
+<div id="control-cnpj1" class="control-group">
+    @Html.LabelForRequired(x => x.Cnpj1)
+    <div class="controls">
+        @Html.EditorFor(x => x.Cnpj1)
+        @Html.ValidationMessageFor(x => x.Cnpj1, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Nome1)
+    <div class="controls">
+        @Html.EditorFor(x => x.Nome1)
+        @Html.ValidationMessageFor(x => x.Nome1, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Documento1)
+    <div class="controls">
+        @Html.EditorFor(x => x.Documento1)
+        @Html.ValidationMessageFor(x => x.Documento1, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.OrgaoExpedidor1)
+    <div class="controls">
+        @Html.EditorFor(x => x.OrgaoExpedidor1)
+        @Html.ValidationMessageFor(x => x.OrgaoExpedidor1, null, new { @class = "help-block" })
+    </div>
+</div>
+<h4>Titular 2</h4>
+<div class="control-group">
+    <span class="control-label">Tipo pessoa</span>
+    <div class="controls">
+        <label class="radio inline">
+            <input name="tipo-pessoa2" id="pessoa-fisica2" type="radio" value="Fisica" />Física</label>
+        <label class="radio inline">
+            <input name="tipo-pessoa2" id="pessoa-juridica2" type="radio" value="Juridica" />Jurídica</label>
+    </div>
+</div>
+<div id="control-cpf2" class="control-group">
+    @Html.LabelForRequired(x => x.Cpf2)
+    <div class="controls">
+        @Html.EditorFor(x => x.Cpf2)
+        @Html.ValidationMessageFor(x => x.Cpf2, null, new { @class = "help-block" })
+    </div>
+</div>
+<div id="control-cnpj2" class="control-group">
+    @Html.LabelForRequired(x => x.Cnpj2)
+    <div class="controls">
+        @Html.EditorFor(x => x.Cnpj2)
+        @Html.ValidationMessageFor(x => x.Cnpj2, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Nome2)
+    <div class="controls">
+        @Html.EditorFor(x => x.Nome2)
+        @Html.ValidationMessageFor(x => x.Nome2, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Documento2)
+    <div class="controls">
+        @Html.EditorFor(x => x.Documento2)
+        @Html.ValidationMessageFor(x => x.Documento2, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.OrgaoExpedidor2)
+    <div class="controls">
+        @Html.EditorFor(x => x.OrgaoExpedidor2)
+        @Html.ValidationMessageFor(x => x.OrgaoExpedidor2, null, new { @class = "help-block" })
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@* * * * * * * * * * * * * * * * * * * * * * **
+** Popup modal para confirmação genérica
+**
+** Sempre adicionar essa partial fora do form.
+**
+** Adicinoar as seguintes propriedades no botão:
+** titulo = ""
+** mensagem = ""
+** * * * * * * * * * * * * * * * * * * * * * *@
+<div id="confirm-modal" class="modal hide fade">
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3 id="confirm-titulo">Título</h3>
+    </div>
+    <div class="modal-body">
+        <p id="confirm-mensagem">...</p>
+    </div>
+    <div class="modal-footer">
+        <form id="modal-form" method="POST">
+            @Html.AntiForgeryToken()
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            <button id="confirm-submit" class="btn btn-primary btn-danger" type="submit" data-loading-text="Aguarde...">Enviar</button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.confirm').on('click', function (ev) {
+            var $this = $(this);
+            
+            var titulo = $this.attr('titulo');
+            $('#confirm-titulo').text(titulo);
+            $('#confirm-submit').html(titulo);
+
+            var mensagem = $this.attr('mensagem');
+            $('#confirm-mensagem').text(mensagem);
+
+            var href = $(this).attr('href');
+            $('#modal-form').attr('action', href);
+            $('#confirm-modal').modal('show');
+            return false;
+        });
+    });
+</script>

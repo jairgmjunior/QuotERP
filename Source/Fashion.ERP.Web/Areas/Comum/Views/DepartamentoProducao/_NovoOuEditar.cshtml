@@ -1,0 +1,22 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.DepartamentoProducaoModel
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Nome)
+    <div class="controls">
+        @Html.EditorFor(x => x.Nome)
+        @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Criacao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Criacao)
+        @Html.ValidationMessageFor(x => x.Criacao, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Producao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Producao)
+        @Html.ValidationMessageFor(x => x.Producao, null, new { @class = "help-block" })
+    </div>
+</div>

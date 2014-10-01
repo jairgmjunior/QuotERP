@@ -1,0 +1,114 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ConsumoMaterialColecaoModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.Relatorio.ConsumoMaterialColecao(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    <div class="accordion" id="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                Pesquisar
+            </a>
+        </div>
+        <div id="collapsePesquisar" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Colecao)
+                            <div class="controls">
+                                @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.ColecaoAprovada)
+                            <div class="controls">
+                                @Html.DropDownList("Colecaoaprovada", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Familia)
+                            <div class="controls">
+                                @Html.DropDownList("Familia", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Categoria)
+                            <div class="controls">
+                                @Html.DropDownList("Categoria", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Subcategoria)
+                            <div class="controls">
+                                @Html.DropDownList("Subcategoria", null, "-- Selecione --", new { @class = "input-large" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.AgruparPor)
+                            <div class="controls">
+                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                            <div class="controls">
+                                <select name="OrdenarEm">
+                                    <option value="asc">Ascendente</option>
+                                    <option value="desc">Descendente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div id="pdf"></div>
+<script>
+    $(function () {
+        // Preenche o combo de subcategoria de acordo com a categoria escolhida
+        $('#Categoria').on("change", function () {
+            var subcategoria = $('#Subcategoria');
+            subcategoria.empty();
+            subcategoria.append($('<option />').text("-- Selecione --"));
+
+            var idCategoria = $(this).val();
+            if (idCategoria) {
+                var url = '/Almoxarifado/Subcategoria/Subcategorias/' + idCategoria;
+                $.getJSON(url, function (result) {
+                    $.each(result, function (index, item) {
+                        subcategoria.append($('<option />').val(item.Id).text(item.Nome));
+                    });
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            }
+        });
+    })
+</script>

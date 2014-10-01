@@ -1,0 +1,62 @@
+﻿@using Fashion.ERP.Domain
+@model Fashion.ERP.Web.Models.RelatorioModel
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Nome)
+    <div class="controls">
+        @Html.EditorFor(x => x.Nome)
+        @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+    </div>
+</div>
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Arquivo)
+    <div class="controls">
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="input-append">
+                <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span></div>
+                <span class="btn btn-file"><span class="fileupload-new">Selecione</span><span class="fileupload-exists">Alterar</span><input type="file" name="ArquivoUpload" accept=".trdx" /></span><a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(x => x.Arquivo, null, new { @class = "help-block" })
+    </div>
+</div>
+<div id="controls-parametros" class="control-group">
+    <label class="control-label">Parâmetros</label>
+    <div class="controls">
+        <button id="adicionar-parametro" type="button" class="btn"><i class="icon-plus"></i></button>
+    </div>
+    @if (Model != null && Model.NomeParametro != null)
+    {
+        for (int i = 0; i < Model.NomeParametro.Count; i++)
+        {
+        <div class="controls">
+            <div class="input-append">
+                @Html.TextBox("NomeParametro", Model.NomeParametro[i], new { id = (string)null })
+            </div>
+            <div class="input-prepend">
+                @Html.DropDownList("TipoParametro", Model.TipoParametro[i].ToSelectList(), new { id = (string)null })
+            </div>
+        </div>
+        }
+    }
+</div>
+<div id="template-parametros" class="hide">
+    <div class="controls">
+        <div class="input-append">
+            @Html.TextBox("NomeParametro", string.Empty, new { id = (string)null })
+        </div>
+        <div class="input-prepend">
+            @Html.DropDownList("TipoParametro", default(TipoRelatorioParametro).ToSelectList(), new { id = (string)null })
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Copiar o template e destruí-lo
+        var template = $('#template-parametros > div').clone();
+        $('#template-parametros').remove();
+        
+        $('#adicionar-parametro').on('click', function () {
+            template.clone().appendTo('#controls-parametros');
+        });
+    })
+</script>

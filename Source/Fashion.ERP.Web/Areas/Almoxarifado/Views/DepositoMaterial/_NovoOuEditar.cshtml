@@ -1,0 +1,123 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.DepositoMaterialModel
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Unidade)
+            <div class="controls">
+                @Html.DropDownList("Unidade")
+                @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Nome)
+            <div class="controls">
+                @Html.EditorFor(x => x.Nome)
+                @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.DataAbertura)
+            <div class="controls">
+                @Html.EditorFor(x => x.DataAbertura)
+                @Html.ValidationMessageFor(x => x.DataAbertura, null, new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Funcionarios)
+            <div class="controls">
+                @Html.DropDownList("Funcionario", null, new { @class = "input-large"})
+                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+                <table id="table-funcionario" class="table table-striped table-condensed" style="width: 250px">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width: 16px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Funcionarios != null)
+                        {
+                            foreach (var funcionario in Model.Funcionarios)
+                            {
+                                <tr>
+                                    <td>
+                                        @(ViewBag.FuncionariosDicionario[funcionario])
+                                        <input type="hidden" name="Funcionarios" value="@(funcionario)"/>
+                                    </td>
+                                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="well">
+            @(Html.TreeView(Model.TreeView)
+                .EmptyContent("Não há depósito de materiais cadastrados.")
+                .Children(m => m.Itens)
+                .HtmlAttributes(new { id = "treeview" })
+                .ChildrenHtmlAttributes(new { @class = "subItem" })
+                .ItemText(m => m.Name)
+                .ItemTemplate(
+                @<text>
+                    @if (item.IsChecked)
+                    {
+                        <span id="item-selected">@item.Name</span>
+                    }
+                    else
+                    {
+                        <span>@item.Name</span>
+                    }
+                </text>
+                ))
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        // Inicializar TreeView
+        var treeview = $("#treeview").kendoTreeView({
+        }).data("kendoTreeView");
+
+        treeview.expand(".k-item");
+
+        var selectedItem = $('#item-selected').closest('.k-item');
+        treeview.select(selectedItem);
+        
+        // Adicionar um funcionário à lista
+        $('#btn-add').on('click', function () {
+
+            var funcionarioId = $('#Funcionario').val();
+            var funcionario = $('#Funcionario option:selected').text();
+
+            // Verificar se já está na lista
+            var cadastrado = false;
+            $('input[name=Funcionarios]').each(function () {
+                if ($(this).val() == funcionarioId) {
+                    alert("O funcionário escolhido já está cadastrado.");
+                    cadastrado = true;
+                    return;
+                }
+            });
+
+            if (cadastrado == false) {
+                $('#table-funcionario tbody').append(
+                    '<tr>\
+                    <td>' + funcionario + '<input type="hidden" name="Funcionarios" value="' + funcionarioId + '"/></td>\
+                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                </tr>');
+            }
+        });
+    });
+    
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+</script>

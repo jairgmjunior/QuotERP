@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridBancoModel>
+<div id="modal-banco" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar banco</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Comum.Banco.Pesquisar(), FormMethod.Post, new { id = "form-pesquisar-banco" }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-banco" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
+                <input name="valor" class="pull-left input-large" type="text" />
+                <input id="submit-pesquisar-banco" type="submit" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-banco"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-banco" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id do banco vier preenchido, preencher o código e descrição
+        var bancoId = $('#Banco').val();
+        
+        if (bancoId) {
+            $.getJSON('/Comum/Banco/PesquisarId/' + bancoId, function (data) {
+                if (data.Id) {
+                    $('#codigo-banco').val(data.Codigo);
+                    $('#descricao-banco').text(data.Nome);
+                }
+            });
+        }
+        
+        $('#submit-pesquisar-banco').off('click').on('click',function () {
+            var form = $(this).closest("form");
+
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "/Comum/Banco/PesquisarFiltro",
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    var grid = $("#grid-pesquisa-banco").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Codigo", title: "Código" },
+                            { field: "Nome", title: "Nome" }
+                        ],
+                        dataSource: data,
+                    });
+
+                    grid.delegate("tbody>tr", "dblclick", selecionarBanco);
+                },
+            });
+            
+            return false;
+        });
+        
+        $('#pesquisar-banco').on('click', function () {
+            $('#modal-banco').modal('show').one('hidden', function () {
+                $('#Coluna')[0].selectedIndex = 0;
+                $('input[name$="valor"]').val('');
+                $('#grid-pesquisa-banco').empty();
+            });
+        });
+        var pesquisaBanco = function (codigo) {
+            if (codigo) {
+                var url = '/Comum/Banco/PesquisarCodigo?codigo=' + codigo;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#Banco').val('').trigger('change');
+                        $('#codigo-banco').val('');
+                        $('#descricao-banco').text('');
+                    } else {
+                        $('#Banco').val(data.Id).trigger('change');
+                        $('#codigo-banco').val(data.Codigo);
+                        $('#descricao-banco').text(data.Nome);
+                    }
+                });
+            } else {
+                $('#Banco').val('').trigger('change');
+                $('#codigo-banco').val('');
+                $('#descricao-banco').text('');
+            }
+        };
+        $('#codigo-banco').on({
+            keydown: function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    pesquisaBanco($(this).val());
+                }
+            }
+        });
+        $('#selecionar-banco').on('click', selecionarBanco);
+
+        function selecionarBanco() {
+            var grid = $('#grid-pesquisa-banco').data("kendoGrid");
+
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#Banco').val(data.Id).trigger('change');
+                $('#codigo-banco').val(data.Codigo);
+                $('#descricao-banco').text(data.Nome);
+
+                $('#modal-banco').modal('hide');
+            }
+        }
+    });
+</script>

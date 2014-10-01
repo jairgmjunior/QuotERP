@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2CD6C0A5-B204-4D50-AF15-EDC65501D2BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fashion.ERP.Mapping</RootNamespace>
+    <AssemblyName>Fashion.ERP.Mapping</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fashion.Framework.Common">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.Domain">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Fashion.Framework.Mapping">
+      <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.Mapping.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\libraries\Fashion.Framework\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\libraries\Fashion.Framework\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Almoxarifado\BordadoMap.cs" />
+    <Compile Include="Almoxarifado\CatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\CategoriaMap.cs" />
+    <Compile Include="Almoxarifado\DepositoMap.cs" />
+    <Compile Include="Almoxarifado\EntradaCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\EntradaItemCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\EstoqueCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\FamiliaMap.cs" />
+    <Compile Include="Almoxarifado\GeneroFiscalMap.cs" />
+    <Compile Include="Almoxarifado\MarcaMaterialMap.cs" />
+    <Compile Include="Almoxarifado\ConferenciaEntradaMaterialMap.cs" />
+    <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItemMap.cs" />
+    <Compile Include="Almoxarifado\OrigemSituacaoTributariaMap.cs" />
+    <Compile Include="Almoxarifado\SaidaCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\SaidaItemCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\TecidoMap.cs" />
+    <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
+    <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
+    <Compile Include="Compras\PedidoCompraItemCanceladoMap.cs" />
+    <Compile Include="Compras\MotivoCancelamentoPedidoCompraMap.cs" />
+    <Compile Include="Compras\OrdemEntradaCompraMap.cs" />
+    <Compile Include="Compras\ParametroModuloCompraMap.cs" />
+    <Compile Include="Compras\PedidoCompraItemMap.cs" />
+    <Compile Include="Compras\PedidoCompraMap.cs" />
+    <Compile Include="Compras\ProcedimentoModuloComprasMap.cs" />
+    <Compile Include="Compras\RecebimentoCompraItemMap.cs" />
+    <Compile Include="Compras\RecebimentoCompraMap.cs" />
+    <Compile Include="Compras\RecebimentoPedidoCompraItemMap.cs" />
+    <Compile Include="Comum\CentroCustoMap.cs" />
+    <Compile Include="Comum\ClassificacaoDificuldadeMap.cs" />
+    <Compile Include="Comum\CorMap.cs" />
+    <Compile Include="Comum\EmpresaMap.cs" />
+    <Compile Include="Comum\MarcaMap.cs" />
+    <Compile Include="Almoxarifado\ReferenciaExternaMap.cs" />
+    <Compile Include="Almoxarifado\SubcategoriaMap.cs" />
+    <Compile Include="Almoxarifado\TipoItemMap.cs" />
+    <Compile Include="Almoxarifado\UnidadeMedidaMap.cs" />
+    <Compile Include="ArquivoMap.cs" />
+    <Compile Include="Comum\ColecaoMap.cs" />
+    <Compile Include="Comum\DepartamentoProducaoMap.cs" />
+    <Compile Include="Comum\PrazoMap.cs" />
+    <Compile Include="Comum\TamanhoMap.cs" />
+    <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
+    <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
+    <Compile Include="EngenhariaProduto\ComprimentoMap.cs" />
+    <Compile Include="EngenhariaProduto\FichaTecnicaMap.cs" />
+    <Compile Include="EngenhariaProduto\GradeMap.cs" />
+    <Compile Include="EngenhariaProduto\MaterialComposicaoModeloMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloFotoMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloMap.cs" />
+    <Compile Include="EngenhariaProduto\NaturezaMap.cs" />
+    <Compile Include="EngenhariaProduto\OperacaoProducaoMap.cs" />
+    <Compile Include="EngenhariaProduto\ProdutoBaseMap.cs" />
+    <Compile Include="EngenhariaProduto\BarraMap.cs" />
+    <Compile Include="EngenhariaProduto\ProgramacaoBordadoMap.cs" />
+    <Compile Include="EngenhariaProduto\SegmentoMap.cs" />
+    <Compile Include="EngenhariaProduto\SequenciaProducaoMap.cs" />
+    <Compile Include="EngenhariaProduto\SetorProducaoMap.cs" />
+    <Compile Include="EngenhariaProduto\VariacaoMap.cs" />
+    <Compile Include="EngenhariaProduto\View\ConsumoMaterialColecaoViewMap.cs" />
+    <Compile Include="Financeiro\ContaBancariaMap.cs" />
+    <Compile Include="Financeiro\DespesaReceitaMap.cs" />
+    <Compile Include="Financeiro\ExtratoBancarioMap.cs" />
+    <Compile Include="Comum\AreaInteresseMap.cs" />
+    <Compile Include="Comum\CidadeMap.cs" />
+    <Compile Include="Comum\ClienteMap.cs" />
+    <Compile Include="Comum\ContatoMap.cs" />
+    <Compile Include="Comum\DependenteMap.cs" />
+    <Compile Include="Comum\EnderecoMap.cs" />
+    <Compile Include="Comum\FornecedorMap.cs" />
+    <Compile Include="Comum\FuncionarioMap.cs" />
+    <Compile Include="Comum\GrauDependenciaMap.cs" />
+    <Compile Include="Comum\InformacaoBancariaMap.cs" />
+    <Compile Include="Comum\MeioPagamentoMap.cs" />
+    <Compile Include="Comum\PaisMap.cs" />
+    <Compile Include="Comum\PessoaMap.cs" />
+    <Compile Include="Comum\BancoMap.cs" />
+    <Compile Include="Comum\PrestadorServicoMap.cs" />
+    <Compile Include="Comum\ProfissaoMap.cs" />
+    <Compile Include="Comum\ReferenciaMap.cs" />
+    <Compile Include="Comum\TipoFornecedorMap.cs" />
+    <Compile Include="Comum\UfMap.cs" />
+    <Compile Include="Comum\UnidadeMap.cs" />
+    <Compile Include="Comum\PerfilDeAcessoMap.cs" />
+    <Compile Include="Comum\PermissaoMap.cs" />
+    <Compile Include="Comum\UsuarioMap.cs" />
+    <Compile Include="Financeiro\BaixaChequeRecebidoMap.cs" />
+    <Compile Include="Financeiro\CompensacaoChequeMap.cs" />
+    <Compile Include="Financeiro\ChequeRecebidoMap.cs" />
+    <Compile Include="Financeiro\EmitenteMap.cs" />
+    <Compile Include="Financeiro\OcorrenciaCompensacaoMap.cs" />
+    <Compile Include="Financeiro\RecebimentoChequeRecebidoMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatorioMap.cs" />
+    <Compile Include="RelatorioParametroMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fashion.ERP.Domain\Fashion.ERP.Domain.csproj">
+      <Project>{88cb3802-51c8-40c1-957d-a5d61956a9f1}</Project>
+      <Name>Fashion.ERP.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\StoredProcedures.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

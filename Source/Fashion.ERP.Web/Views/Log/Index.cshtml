@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Models.GridLogModel>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.LogName);
+        columns.Template(item => Html.ActionLink("Visualizar", MVC.Log.Visualizar(item.LogName), new { @class = "btn btn-small btn-primary" })).Width(80);
+	})
+)

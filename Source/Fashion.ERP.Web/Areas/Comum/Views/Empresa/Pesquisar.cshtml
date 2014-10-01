@@ -1,0 +1,131 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel
+<div id="modal-funcionario" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar funcionário</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Comum.Funcionario.Pesquisar()))
+    {
+        @Html.AntiForgeryToken()
+        if (Model.FuncaoFuncionario != null)
+        {
+            foreach (var funcaoFuncionario in Model.FuncaoFuncionario)
+            {
+                <input type="hidden" name="FuncaoFuncionario" value="@funcaoFuncionario.ToString()"/>
+            }
+        }
+        <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
+                @Html.TextBoxFor(x => x.Valor, new { @class = "pull-left input-xlarge"})
+                <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-funcionario"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-funcionario" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id do funcionario vier preenchido, preencher o código e descrição
+        var funcionarioId = $('#funcionario').val();
+
+        if (funcionarioId) {
+            $.getJSON('/Comum/Funcionario/PesquisarId/' + funcionarioId, function (data) {
+                if (data.Id) {
+                    $('#codigo-funcionario').val(data.Codigo);
+                    $('#descricao-funcionario').text(data.Nome);
+                }
+            });
+        }
+
+        $('#submit-pesquisar-funcionario').off('click').on('click', function () {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "/Comum/Funcionario/PesquisarFiltro",
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $("#grid-pesquisa-funcionario").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Codigo", title: "Código" },
+                            { field: "CpfCnpj", title: "CPF/CNPJ" },
+                            { field: "Nome", title: "Nome" }
+                        ],
+                        dataSource: data,
+                    });
+                },
+            });
+
+            return false;
+        });
+        $('#pesquisar-funcionario').on('click', function () {
+            $('#modal-funcionario').modal('show').one('hidden', function () {
+                $('#Coluna')[0].selectedIndex = 0;
+                $('input[name$="valor"]').val('');
+                $('#grid-pesquisa-funcionario').empty();
+            });
+        });
+        var pesquisaFuncionario = function (codigo) {
+            if (codigo) {
+                var funcaoFuncionario = $('input[name$="FuncaoFuncionario"]').map(function() { return this.value; }).get().join();
+                var url = '/Comum/Funcionario/PesquisarCodigo?codigo=' + codigo + '&FuncaoFuncionario=' + funcaoFuncionario;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#funcionario').val('').trigger('change');
+                        $('#codigo-funcionario').val('');
+                        $('#descricao-funcionario').text('');
+                    } else {
+                        $('#funcionario').val(data.Id).trigger('change');
+                        $('#codigo-funcionario').val(data.Codigo);
+                        $('#descricao-funcionario').text(data.Nome);
+                    }
+                });
+            } else {
+                $('#funcionario').val('').trigger('change');
+                $('#codigo-funcionario').val('');
+                $('#descricao-funcionario').text('');
+            }
+        };
+        $('#codigo-funcionario').on({
+            keydown: function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaFuncionario($(this).val());
+                }
+            }
+        });
+        $('#selecionar-funcionario').on('click', function() {
+            var grid = $('#grid-pesquisa-funcionario').data("kendoGrid");
+            
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#funcionario').val(data.Id).trigger('change');
+                $('#codigo-funcionario').val(data.Codigo);
+                $('#descricao-funcionario').text(data.Nome);
+
+                $('#modal-funcionario').modal('hide');
+            }
+        });
+    });
+</script>

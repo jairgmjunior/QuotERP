@@ -1,0 +1,7 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.ChequeRecebidoModel
+
+@{
+    ViewData.Add("FormResult", MVC.Financeiro.ChequeRecebido.Novo());
+}
+
+@Html.Partial("_NovoOuEditar", Model)

@@ -1,0 +1,5 @@
+@model long?
+@(Html.Kendo().NumericTextBoxFor(m => m)
+      .Format("n0").Decimals(0)
+      .HtmlAttributes(new { @class = "integer input-small" })
+      .Min(0))

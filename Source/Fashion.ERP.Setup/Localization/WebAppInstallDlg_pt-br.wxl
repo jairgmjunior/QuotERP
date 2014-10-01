@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="pt-br" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="DefaultWebSiteName" Overridable="yes">Default Web Site</String>
+  <String Id="DefaultAppPoolName" Overridable="yes">DefaultAppPool</String>
+  <String Id="InvalidWebAppNameDlgText" Overridable="yes">
+    O nome do aplicativo web não pode ser um valor em branco.
+  </String>
+  <String Id="WebAppInstallDlgTitle" Overridable="yes">
+    Configurações do IIS
+  </String>
+  <String Id="WebAppInstallDlgDescription" Overridable="yes">Clique em Avançar para instalar o aplicativo web ou alterar as configurações individuais.</String>
+  <String Id="WebAppInstallDlgWebSiteLabel" Overridable="yes">Instale o [ProductName] para o site:</String>
+  <String Id="WebAppInstallDlgConnectionStringLabel" Overridable="yes">Informe a string de connexão para o banco de dados SQL Server:</String>
+  <String Id="WebAppInstallDlgBackupLabel" Overridable="yes">Informe o caminho para a pasta de becape:</String>
+  <!--<String Id="WebAppInstallDlgUseCustomAppPool" Overridable="yes">Use um pool de aplicativo personalizado em vez do padrão</String>
+  <String Id="WebAppInstallDlgAppPoolLabel" Overridable="yes">Instale o [ProductName] para usar o pool de aplicativo personalizado:</String>-->
+</WixLocalization>

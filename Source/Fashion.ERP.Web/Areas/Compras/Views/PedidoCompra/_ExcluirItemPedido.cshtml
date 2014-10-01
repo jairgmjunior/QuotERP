@@ -1,0 +1,215 @@
+﻿@using Fashion.ERP.Domain.Compras
+@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
+<fieldset class="detail">
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelFor(x => x.UnidadeEstocadora, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.UnidadeEstocadora)
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
+            <div class="value-label">
+                @Html.ValueFor(x => x.Numero)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelFor(x => x.Fornecedor, new { @class = "title-label" })
+                <div class="title-label" id="descricao-fornecedor">
+                    @Html.ValueFor(x => x.Fornecedor)
+                </div>
+                @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                <div class="input-append">                    
+                    <span id="descricao-fornecedor" class="title-label"></span>
+                </div>
+            </div>
+        </div>
+    </div>          
+
+
+       
+
+        <div class="control-group">
+            @Html.LabelFor(x => x.ValorCompra, new { @class = "title-label" })
+            <div class="value-label">
+                @Html.ValueFor(x => x.ValorCompra)
+            </div>
+        </div>
+
+        
+ 
+
+
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+            @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
+            <div class="value-label">
+                @Html.ValueFor(x => x.Observacao)
+            </div>
+        </div>
+        </div>
+ 
+       
+    <div class="span6">
+        <div class="control-group">
+                @Html.LabelFor(x => x.SituacaoCompra, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.SituacaoCompra)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Prazo, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.Prazo)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.MeioPagamento, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.MeioPagamento)
+                </div>
+            </div>
+    </div>
+</div>
+
+
+    <div class="row">
+        <div class="span6">
+        
+        <div class="control-group">
+                @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
+                <div class="value-label">
+                    @Html.ValueFor(x => x.DataCompra)
+                </div>
+            </div>
+
+        </div>
+</div>
+
+</fieldset>
+    
+
+
+   
+   
+
+   
+
+    
+
+<fieldset>
+   
+    
+    <div class="control-group">
+        <div class="controls">
+            <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
+                <thead>
+                    <tr>
+                        <th>Referência</th>
+                        @*<th>Referência Ext.</th>*@
+                        <th>Descrição</th>
+                        <th>UND</th>
+                        <th>Quantidade</th>
+                        <th>Valor unitário</th>
+                        <th>Valor total</th>
+                        <th>Situação</th>
+                        <th style="width: 16px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Materiais != null)
+                    {
+                        for (int i = 0; i < Model.Materiais.Count; i++)
+                        {
+                            var pedidoItem = Model.PedidoCompraItens[i];
+                            var material = Model.Materiais[i];
+                            var unidadeMedida = Model.UnidadeMedidas[i];
+                            var quantidade = Model.Quantidades[i];
+                            var valorUnitario = Model.ValorUnitarios[i];
+                            var valorTotal = Model.ValorTotais[i];
+                            var situacao = Model.SituacaoCompras[i];
+
+                            <tr>
+                                <td>
+                                    @ViewBag.MaterialReferenciasDicionario[material]
+                                    <input type="hidden" name="PedidoCompraItens" value="@pedidoItem"/>
+                                    <input type="hidden" name="Materiais" value="@material"/>
+                                </td>
+
+                                <td>
+                                    @ViewBag.MaterialDescricoesDicionario[material]
+                                </td>
+                                <td>
+                                    @ViewBag.UnidadeMedidasDicionario[unidadeMedida]
+                                    <input type="hidden" name="UnidadeMedidas" value="@unidadeMedida"/>
+                                </td>
+                                <td>
+                                    @quantidade.ToString("N5")
+                                    <input type="hidden" name="Quantidades" value="@quantidade"/>
+                                </td>
+                                <td>
+                                    @valorUnitario.ToString("C5")
+                                    <input type="hidden" name="ValorUnitarios" value="@valorUnitario"/>
+                                </td>
+                                <td>
+                                    @valorTotal.ToString("C5")
+                                    <input type="hidden" name="ValorTotais" value="@valorTotal"/>
+                                </td>
+                                <td>
+                                    @ViewBag.SituacoesDicionario[situacao]
+                                    <input type="hidden" name="SituacaoCompras" value="@situacao"/>
+                                </td>
+                                <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="checkbox"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</fieldset>
+
+
+<script>
+    
+
+    $('#Quantidade, #ValorUnitario').on('change', function () {
+        var quantidade = $('#Quantidade').data("kendoNumericTextBox").value();
+        var valorUnitario = $('#ValorUnitario').data("kendoNumericTextBox").value();
+
+        $('#ValorTotal').data("kendoNumericTextBox").value(quantidade * valorUnitario);
+    });
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+
+        // Validar
+        var situacao = row.find("input[name=SituacaoCompras]").val();
+        if (situacao != 'NaoAtendido') {
+            alert('Não é possível excluir este item.\r\nSó é possível excluir itens com situação: "Não atendido".');
+            return;
+        }
+
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+</script>

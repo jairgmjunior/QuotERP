@@ -1,0 +1,40 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.AlterarSenhaUsuarioModel
+
+@using (Html.BeginForm(MVC.Comum.Usuario.AlterarSenha(), FormMethod.Post, new { id = "form-alterar-senha", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Nome)
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Nome)
+        <div class="controls readonly">
+            <b>@Model.Nome</b>
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.SenhaAtual)
+        <div class="controls">
+            @Html.PasswordFor(x => x.SenhaAtual)
+            @Html.ValidationMessageFor(x => x.SenhaAtual, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Senha)
+        <div class="controls">
+            @Html.PasswordFor(x => x.Senha)
+            @Html.ValidationMessageFor(x => x.Senha, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.ConfirmarSenha)
+        <div class="controls">
+            @Html.PasswordFor(x => x.ConfirmarSenha)
+            @Html.ValidationMessageFor(x => x.ConfirmarSenha, null, new { @class = "help-block" })
+        </div>
+    </div>
+    
+    <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}

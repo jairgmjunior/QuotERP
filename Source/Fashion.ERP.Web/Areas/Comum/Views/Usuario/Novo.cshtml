@@ -1,0 +1,84 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.NovoUsuarioModel
+
+@using (Html.BeginForm("Novo", "Usuario", FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Nome)
+        <div class="controls">
+            @Html.EditorFor(x => x.Nome)
+            @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Login)
+        <div class="controls">
+            @Html.EditorFor(x => x.Login)
+            @Html.ValidationMessageFor(x => x.Login, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Senha)
+        <div class="controls">
+            @Html.PasswordFor(x => x.Senha)
+            @Html.ValidationMessageFor(x => x.Senha, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.ConfirmarSenha)
+        <div class="controls">
+            @Html.PasswordFor(x => x.ConfirmarSenha)
+            @Html.ValidationMessageFor(x => x.ConfirmarSenha, null, new { @class = "help-block" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Funcionario)
+        <div class="controls">
+            @Html.DropDownList("Funcionario")
+            @Html.ValidationMessageFor(x => x.Funcionario, null, new { @class="help-block" })
+        </div>
+    </div>
+        
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.PerfisDeAcesso)
+        <div class="controls">
+            @Html.CheckBoxListFor(x => x.PerfisDeAcesso, Model.PerfisDeAcessoList, new { @class = "checkbox" })
+            @Html.ValidationMessageFor(x => x.PerfisDeAcesso, null, new { @class = "help-block" })
+        </div>
+    </div>
+        
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.Permissoes)
+        <div class="controls">
+            @(Html.TreeView(Model.PermissoesList)
+                      .EmptyContent("Não há permissões!")
+                      .Children(m => m.Itens)
+                      .HtmlAttributes(new { id = "treeview" })
+                      .ChildrenHtmlAttributes(new { @class = "subItem" })
+                      .ItemText(m => m.Name)
+                      .ItemTemplate(
+                @<text>
+                <input type="checkbox" value="@item.Id" @(item.IsChecked ? "checked='ckecked'" : string.Empty) name="Permissoes"/>@item.Name
+                </text>)
+            )
+
+            @Html.ValidationMessageFor(x => x.Permissoes, null, new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#treeview").kendoTreeView({
+                checkboxes: {
+                    checkChildren: true,
+                }
+            }).data("kendoTreeView");
+        });
+    </script>
+}

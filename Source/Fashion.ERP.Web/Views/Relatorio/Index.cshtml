@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Models.GridRelatorioModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Relatorio.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Nome);
+		columns.Template(item => Html.ActionLinkAuth("Editar", MVC.Relatorio.Editar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);
+		columns.Template(item => Html.ActionLinkAuth("Excluir", MVC.Relatorio.Excluir(item.Id), new { @class = "delete btn btn-small btn-danger" })).Width(80);
+        columns.Template(item => Html.ActionLinkAuth("Visualizar", MVC.Relatorio.Visualizar(item.Id), new { @class = "btn btn-small btn-info" })).Width(80);
+	})
+)
+@{Html.RenderPartial("_ConfirmDelete");}

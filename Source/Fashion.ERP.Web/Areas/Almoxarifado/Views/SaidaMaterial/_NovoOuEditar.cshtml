@@ -1,0 +1,258 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.SaidaMaterialModel
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.DataSaida)
+            <div class="controls">
+                @Html.EditorFor(x => x.DataSaida)
+                @Html.ValidationMessageFor(x => x.DataSaida, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.UnidadeOrigem)
+            <div class="controls">
+                @Html.DropDownList("UnidadeOrigem", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.UnidadeOrigem, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.DepositoMaterialOrigem)
+            <div class="controls">
+                @Html.DropDownList("DepositoMaterialOrigem", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.DepositoMaterialOrigem, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<fieldset>
+    <legend><small>Dados do destino</small></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.CentroCusto)
+                <div class="controls">
+                    <div class="input-append">
+                        @Html.HiddenFor(x => x.CentroCusto)
+                        <input id="codigo-centrocusto" class="input-small numeric-only" type="text" />
+                        <button id="pesquisar-centrocusto" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="nome-centrocusto" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.UnidadeDestino)
+                <div class="controls">
+                    @Html.DropDownList("UnidadeDestino", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.UnidadeDestino, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DepositoMaterialDestino)
+                <div class="controls">
+                    @Html.DropDownList("DepositoMaterialDestino", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.DepositoMaterialDestino, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend><small>Itens da saída</small></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("Material", "Referência", new { @class = "control-label" })
+                <div class="controls">
+                    @Html.Hidden("Material")
+                    <div class="input-append">
+                        <input id="referencia-material" class="input-small" type="text" />
+                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-material" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <div class="controls">
+                    <input id="sigla" type="text" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            @Html.Label("Quantidade", "Qtd. saída", new { @class = "control-label" })
+            <div class="controls">
+                @(Html.Kendo().NumericTextBox()
+                      .Name("Quantidade")
+                      .Format("n4").Decimals(4)
+                      .Min(0)
+                      .HtmlAttributes(new { @class = "numeric input-small" }))
+                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+                @Html.ValidationMessage("Quantidade", new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
+                <thead>
+                    <tr>
+                        <th>Referência</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Und.</th>
+                        <th style="width: 16px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Materiais != null)
+                    {
+                        for (int i = 0; i < Model.Materiais.Count; i++)
+                        {
+                            var entradaItem = Model.SaidaItemMateriais[i];
+                            var material = Model.Materiais[i];
+                            var quantidade = Model.Quantidades[i];
+
+                            <tr>
+                                <td>
+                                    @ViewBag.MaterialReferenciasDicionario[material]
+                                    <input type="hidden" name="Materiais" value="@material"/>
+                                    <input type="hidden" name="SaidaItemMateriais" value="@entradaItem"/>
+                                </td>
+                                <td>
+                                    @ViewBag.MaterialDescricoesDicionario[material]
+                                </td>
+                                <td>
+                                    @quantidade.ToString("N4")
+                                    <input type="hidden" name="Quantidades" value="@quantidade"/>
+                                </td>
+                                <td>
+                                    @ViewBag.MaterialUnidadesMedidaDicionario[material]
+                                </td>
+                                <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</fieldset>
+<script>
+    $(function () {
+        $('#UnidadeDestino').on("change", function () {
+
+            // Preenche o combo de subcategoria de acordo com a categoria escolhida
+            var depositoMaterialDestino = $('#DepositoMaterialDestino');
+            depositoMaterialDestino.empty();
+            depositoMaterialDestino.append($('<option />').text('-- Selecione --').val(''));
+
+            var unidadeDestinoId = $(this).val();
+            if (unidadeDestinoId != '') {
+                var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeDestinoId;
+                $.getJSON(url, function (result) {
+                    $.each(result, function (index, item) {
+                        var option = $('<option />').val(item.Id).text(item.Nome);
+                        depositoMaterialDestino.append(option);
+                    });
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            }
+        });
+
+        $('#UnidadeOrigem').on("change", function () {
+
+            // Preenche o combo de subcategoria de acordo com a categoria escolhida
+            var depositoMaterialOrigem = $('#DepositoMaterialOrigem');
+            depositoMaterialOrigem.empty();
+            depositoMaterialOrigem.append($('<option />').text('-- Selecione --').val(''));
+
+            var unidadeOrigemId = $(this).val();
+            if (unidadeOrigemId != '') {
+                var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeOrigemId;
+                $.getJSON(url, function (result) {
+                    $.each(result, function (index, item) {
+                        var option = $('<option />').val(item.Id).text(item.Nome);
+                        depositoMaterialOrigem.append(option);
+                    });
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            }
+        });
+
+        $('#Material').on("change", function () {
+            var url = '/Almoxarifado/Material/UnidadeMedida/' + this.value;
+            $.getJSON(url, function (result) {
+                if (result.Error) {
+                    alert(result.Error);
+                    return;
+                }
+
+                $('#sigla').val(result.Sigla);
+
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        });
+
+        $('#btn-add').on('click', function () {
+
+            var materialId = $('#Material').val();
+            var referencia = $('#referencia-material').val();
+            var descricao = $('#descricao-material').text();
+            var quantidade = $('#Quantidade').val();
+            var unidadeMedida = $('#sigla').val();
+
+            // Validar
+            if (materialId == '') {
+                $('#Material').addClass('input-validation-error');
+                alert('Selecione uma referência');
+                return;
+            }
+
+
+            $('#table-sequencia tbody').append(
+                    '<tr>\
+                    <td>' + referencia + '<input type="hidden" name="Materiais" value="' + materialId + '"/><input type="hidden" name="SaidaItemMateriais" /></td>\
+                    <td>' + descricao + '</td>\
+                    <td>' + quantidade + '<input type="hidden" name="Quantidades" value="' + quantidade + '"/></td>\
+                    <td>' + unidadeMedida + '</td>\
+                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                </tr>'
+                );
+
+            // limpar formulário
+            $('#referencia-material').val('');
+            $('#Material').val('');
+            $('#descricao-material').text('');
+            $('#Quantidade').data("kendoNumericTextBox").value(0);
+        });
+    });
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+</script>

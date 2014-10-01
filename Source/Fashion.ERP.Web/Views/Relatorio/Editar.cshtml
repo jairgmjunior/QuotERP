@@ -1,0 +1,13 @@
+﻿@model Fashion.ERP.Web.Models.RelatorioModel
+
+@using (Html.BeginForm(MVC.Relatorio.Editar(), FormMethod.Post, new { id = "form", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @Html.ExcluirAuth(MVC.Relatorio.Excluir(Model.Id))
+	</div>
+}

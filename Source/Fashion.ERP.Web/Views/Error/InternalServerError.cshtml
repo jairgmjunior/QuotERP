@@ -1,0 +1,12 @@
+﻿@using Fashion.Framework.Common.Extensions
+@model HandleErrorInfo
+@{
+    Layout = null;
+    ViewBag.Title = "Exception";
+}
+
+<h2>Exception</h2>
+
+<p>Action: @Model.ActionName</p>
+<p>Controller: @Model.ControllerName</p>
+<p>Exception: @Model.Exception.GetMessage()</p>

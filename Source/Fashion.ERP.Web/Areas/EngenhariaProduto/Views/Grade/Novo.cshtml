@@ -1,0 +1,10 @@
+﻿@using Fashion.Framework.Mvc.Extensions
+@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.GradeModel
+@using (Html.BeginForm(MVC.EngenhariaProduto.Grade.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}

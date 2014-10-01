@@ -1,0 +1,36 @@
+﻿@using System.Web.Mvc.Html
+@model SiteMapNodeModelList
+
+@functions{
+    bool ContainsShowableNodes(SiteMapNodeModelList nodes)
+    {
+        foreach (var node in nodes)
+        {
+            if (node.Attributes.ContainsKey("show") && node.Attributes["show"] == "false")
+                continue;
+            return true;
+        }
+
+        return false;
+    }
+}
+
+@if (ContainsShowableNodes(Model))
+{
+        <ul class="dropdown-menu">
+        @foreach (var node in Model)
+        {
+            if (node.Attributes.ContainsKey("show") && node.Attributes["show"] == "false")
+            {
+                continue;
+            }
+            <li class="@(node.Children.Any() && ContainsShowableNodes(node.Children) ? "dropdown-submenu" : "") @(node.IsCurrentNode ? "active" : "")">
+                @Html.DisplayFor(m => node)
+                @if (node.Children.Any() && ContainsShowableNodes(node.Children)) 
+                {
+                    @Html.DisplayFor(m => node.Children)
+                }
+            </li>
+        }    
+    </ul>
+}
