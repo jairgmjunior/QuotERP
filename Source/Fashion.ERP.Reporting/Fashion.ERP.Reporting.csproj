@@ -95,6 +95,12 @@
     <Compile Include="Compras\ListaPedidoCompraReport.Designer.cs">
       <DependentUpon>ListaPedidoCompraReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compras\ListaRecebimentoCompraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Compras\ListaRecebimentoCompraReport.Designer.cs">
+      <DependentUpon>ListaRecebimentoCompraReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comum\ContatoSubreport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,6 +185,12 @@
     <Compile Include="EngenhariaProduto\ConsumoMaterialColecaoReport.Designer.cs">
       <DependentUpon>ConsumoMaterialColecaoReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="EngenhariaProduto\ConsumoMaterialPorModeloReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\ConsumoMaterialPorModeloReport.Designer.cs">
+      <DependentUpon>ConsumoMaterialPorModeloReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="EngenhariaProduto\ListagemModelosReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,6 +227,18 @@
     <Compile Include="Financeiro\ListaDespesaReceitaReport.Designer.cs">
       <DependentUpon>ListaDespesaReceitaReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Financeiro\ListaTituloPagarReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Financeiro\ListaTituloPagarReport.Designer.cs">
+      <DependentUpon>ListaTituloPagarReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\ListaTituloReceberReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Financeiro\ListaTituloReceberReport.Designer.cs">
+      <DependentUpon>ListaTituloReceberReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ReportExtensions.cs" />
     <Compile Include="Helpers\UserFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compras\ListaPedidoCompraReport.resx">
       <DependentUpon>ListaPedidoCompraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compras\ListaRecebimentoCompraReport.resx">
+      <DependentUpon>ListaRecebimentoCompraReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comum\ContatoSubreport.resx">
       <DependentUpon>ContatoSubreport.cs</DependentUpon>
@@ -281,6 +308,9 @@
     <EmbeddedResource Include="EngenhariaProduto\ConsumoMaterialColecaoReport.resx">
       <DependentUpon>ConsumoMaterialColecaoReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\ConsumoMaterialPorModeloReport.resx">
+      <DependentUpon>ConsumoMaterialPorModeloReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\ListagemModelosReport.resx">
       <DependentUpon>ListagemModelosReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -298,6 +328,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Financeiro\ListaDespesaReceitaReport.resx">
       <DependentUpon>ListaDespesaReceitaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\ListaTituloPagarReport.resx">
+      <DependentUpon>ListaTituloPagarReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\ListaTituloReceberReport.resx">
+      <DependentUpon>ListaTituloReceberReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\StyleSheet.xml" />
   </ItemGroup>

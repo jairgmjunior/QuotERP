@@ -16,16 +16,17 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.Valor).Not.Nullable();
             
             References(x => x.Unidade).Not.Nullable();
-            References(x => x.Comprador).Not.Nullable();
+            //References(x => x.Comprador).Not.Nullable();
             References(x => x.Fornecedor).Not.Nullable();
             
             HasMany(x => x.ConferenciaEntradaMateriais);
             
             HasMany(x => x.RecebimentoCompraItens)
+                .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
-            HasMany(x => x.RecebimentoPedidoCompraItems)
-                .Cascade.AllDeleteOrphan();
-            HasMany(x => x.DetalhamentoRecebimentoCompraItens);
+            
+            HasMany(x => x.DetalhamentoRecebimentoCompraItens)
+                .Not.KeyNullable();
 
             HasManyToMany(x => x.PedidoCompras)
                 .Table("recebimentocomprapedidocompra")

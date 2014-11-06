@@ -1,4 +1,5 @@
-﻿ @model Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraModel
+﻿@using Fashion.ERP.Web.Areas.Compras.Models 
+@model RecebimentoCompraModel
 
 <fieldset>
     <legend><small>Dados do Recebimento</small></legend>
@@ -7,8 +8,14 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Unidade)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Unidade, "UnidadeList", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
+                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
+                    @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
+                    @{
+                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                        {
+                            @Html.HiddenFor(x => x.Unidade)
+                        }
+                    }
                 </div>
             </div>
         </div>    
@@ -24,52 +31,64 @@
     <div class="row">
         <div class="span6">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.Numero)
+                @Html.LabelForRequired(x => x.Fornecedor)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Numero)
-                    @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+                    @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                    <div class="input-append">
+                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-fornecedor" class="add-on"></span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Fornecedor, string.Empty, new { @class = "help-block" })
                 </div>
-            </div>
+            </div>  
         </div>
-        <div class="span6">
-            <div class="control-group">
-               @Html.LabelForRequired(x => x.Fornecedor)
-               <div class="controls">
-                   @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                   <div class="input-append">
-                       <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
-                       <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                       <span id="descricao-fornecedor" class="add-on"></span>
-                   </div>
-               </div>
-           </div>  
-        </div>
+        @{
+            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+            {
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Numero)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Numero)
+                            @Html.HiddenFor(x => x.Numero)
+                            @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Data)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Data)
-                    @Html.ValidationMessageFor(x => x.Data, null, new { @class = "help-block" })
-                </div>
-            </div>
-        </div>
         <div class="span6">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Valor)
                 <div class="controls">
                     @Html.EditorFor(x => x.Valor)
-                    @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+                    @Html.ValidationMessageFor(x => x.Valor, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>  
+        @{
+            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+            {
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Data)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Data)
+                            @Html.HiddenFor(x => x.Data)
+                        </div>
+                    </div>
+                </div>
+            }
+        }
         <div class="span6">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
-                    @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
@@ -78,120 +97,172 @@
 
 <fieldset>
     <legend><small>Itens do Recebimento</small></legend>
-
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                <label class="control-label">Pedido de Compra</label>
-                <div class="controls">
-                    <div>
-                        @(Html.Kendo().DropDownList()
-                            .Name("pedidosdropdown")
-                            .HtmlAttributes(new { data_value_primitive = "true" })
-                            .DataTextField("Numero")
-                            .DataValueField("Id")
-                            .Template(
-                                "<span class='k-state-default'><h4>Pedido de Compra</h4></span>" +
-                                "<span class='k-state-default'><p>Número: #=data.Numero #</p></span>" +
-                                "<span class='k-state-default'><p>Data: #= data.Data #</p></span>" +
-                                "<span class='k-state-default'><p>Valor: #= kendo.toString(data.Valor, 'c') #</p></span>")
-                            .DataSource(dataSource =>
-                                dataSource.Read(read => read.Action("ObtenhaPedidosDeCompraPorFornecedor", "RecebimentoCompra").Data("dadosAdicionais"))
-                        ))
-                        <a id="btnCreate" class="btn"><i class="icon-plus"></i></a>
-                    </div>
-                </div>                
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
-    <br />
-
-    @(Html.Kendo().Grid<Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraItemModel>()
-          .Name("GridItens")
-          .Columns(columns =>
-          {
-              columns.Bound(x => x.PedidosCompra).ClientTemplate("#= obtenhaHtmlPedidosDeCompra(PedidosCompra) #");
-              columns.Bound(x => x.MaterialReferencia);
-              columns.Bound(x => x.MaterialReferenciaExterna);
-              columns.Bound(x => x.Descricao);
-              columns.Bound(x => x.UnidadeMedidaSigla);
-              columns.Bound(x => x.Quantidade);
-              columns.Bound(x => x.ValorUnitarioPedido);
-              columns.Bound(x => x.QuantidadeEntrada).Width(70);
-              columns.Bound(x => x.UnidadeEntrada).Width(70);
-              columns.Bound(x => x.ValorUnitario).Width(70);
-              columns.Bound(x => x.TotalItem);
-              columns.Command(command => command.Destroy());   
-          })
-          .DataSource(s => s.Ajax()
-              .Model(model =>
-              {
-                  model.Id(item => item.Id); 
-                  model.Field(product => product.PedidosCompra).Editable(false); 
-                  model.Field(product => product.MaterialReferencia).Editable(false); 
-                  model.Field(product => product.MaterialReferenciaExterna).Editable(false); 
-                  model.Field(product => product.Descricao).Editable(false); 
-                  model.Field(product => product.UnidadeMedidaSigla).Editable(false); 
-                  model.Field(product => product.Quantidade).Editable(false); 
-                  model.Field(product => product.ValorUnitarioPedido).Editable(false); 
-              })
-              .Read(read => read.Action("ObtenhaRecebimentoItens", "RecebimentoCompra").Data("parametrosGrid")))
-          .Editable(editable => editable.Mode(GridEditMode.InCell))
-          .Events(events => events.DataBound("onDataBound"))
-          )
+<div class="table-responsive">
+    @(Html.Kendo().Grid(@Model.GridItens)
+        .Name("GridItens")
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.Id).Hidden();
+            columns.Bound(x => x.PedidoCompraItens).Hidden();
+            columns.Bound(x => x.PedidosCompra).Width(70).ClientTemplate("#= obtenhaHtmlPedidosDeCompra(PedidosCompra) #");
+            columns.Bound(x => x.MaterialReferencia).Width(100);
+            columns.Bound(x => x.MaterialReferenciaExterna).Width(100);
+            columns.Bound(x => x.MaterialDescricao);
+            columns.Bound(x => x.UnidadeMedidaSigla).Width(60);
+            columns.Bound(x => x.Quantidade).Width(70);
+            columns.Bound(x => x.ValorUnitarioPedido).Format("{0:N4}").Width(70);
+            columns.Bound(x => x.QuantidadeEntrada).Width(70);
+            columns.Bound(x => x.UnidadeEntrada).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeEntrada == '' ? '- Selecione -' : UnidadeEntrada #").Width(60);
+            columns.Bound(x => x.ValorUnitario).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
+            columns.Bound(x => x.ValorTotal).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
+            columns.Command(command => command.Destroy()).Width(90);   
+        })
+        .DataSource(s => s.Ajax()
+            .Model(model =>
+            {
+                model.Id(item => item.Id); 
+                model.Field(product => product.PedidosCompra).Editable(false); 
+                model.Field(product => product.MaterialReferencia).Editable(false); 
+                model.Field(product => product.MaterialReferenciaExterna).Editable(false); 
+                model.Field(product => product.MaterialDescricao).Editable(false); 
+                model.Field(product => product.UnidadeMedidaSigla).Editable(false); 
+                model.Field(product => product.Quantidade).Editable(false); 
+                model.Field(product => product.UnidadeEntrada).Editable(false); 
+                model.Field(product => product.ValorUnitarioPedido).Editable(false);
+            })
+        )
+        .ToolBar(toolbar => toolbar.Custom().Text("Adicionar itens").HtmlAttributes(new { id = "btnCreate", @class="btn-primary" }))
+        .Editable(editable => editable.Mode(GridEditMode.InCell))
+        .Events(events => events.DataBound("onDataBound").Edit("onEdit"))
+        .Resizable(resize => resize.Columns(true))
+        )
+</div>
 </fieldset>
 
-<div id='dialogDiv' class='modal hide fade in' style="width: 800px; height: 600px">
-    <div id='dialogContent'></div>
+<div id='dialogDiv' class='modal hide fade in' style="width: 800px; height: 560px">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Pesquisar Itens de Pedido</h3>
+    </div>
+    
+    <div class="modal-body" style="min-height:400px">
+        <div class="detail">
+            <div class="row">
+                <div class="span5">
+                    <div class="control-group">
+                        <label class="title-label">Pedido de Compra</label>
+                        <div>
+                            @(Html.Kendo().DropDownList()
+                                  .Name("pedidosdropdown")
+                                  .DataTextField("Numero")
+                                  .DataValueField("Id")
+                                  .Template(
+                                      "<span class='k-state-default'><p>Número: #=data.Numero #</p></span>" +
+                                      "<span class='k-state-default'><p>Data: #= data.Data #</p><p>Valor: #= kendo.toString(data.Valor, 'c') #</p></span>")
+                                  .DataSource(dataSource =>
+                                      dataSource.Read(read => read.Action("ObtenhaPedidosDeCompraPorFornecedor", "RecebimentoCompra").Data("dadosAdicionais"))
+                                  )
+                                  .HtmlAttributes(new { data_value_primitive = "true", style = "width:210px; text-align: right"})
+                                  .Events(e => e.Select("select")))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id='dialogContent'>@Html.Partial("PesquisarPedidoCompra", new PedidoCompraRecebimentoModel())</div>
+    </div>
+    <div class="modal-footer">
+        <button id="btnCarregarItens" type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Carregar itens</button>
+    </div>
 </div>
 
 <script>
+
+    $.fn.serializeObject = function() {
+        var o = Object.create(null),
+            elementMapper = function(element) {
+                element.name = $.camelCase(element.name);
+                return element;
+            },
+            appendToResult = function(i, element) {
+                var node = o[element.name];
+
+                if ('undefined' != typeof node && node !== null) {
+                    o[element.name] = node.push ? node.push(element.value) : [node, element.value];
+                } else {
+                    o[element.name] = element.value;
+                }
+            };
+
+        $.each($.map(this.serializeArray(), elementMapper), appendToResult);
+        return o;
+    };
+    
+    function onEdit(e) {
+        registreScriptsGrid();
+    }
+
+    function select(e) {
+        var dataItem = this.dataItem(e.item.index());
+        carreguePesquisarPedidoCompra(dataItem.Id);
+    };
+
+    function carreguePesquisarPedidoCompra(i) {
+        var url = obtenhaUrlPesquisarPedidoCompra(i);
+        $.post(url, function (data) {
+            $('#dialogContent').html(data);
+            scriptsModal();
+        });
+    };
+
     function dadosAdicionais() {
+        var fornecedorId = $("#Fornecedor").val();
+        if (!fornecedorId)
+            fornecedorId = 0;
+        
+        var unidadeId = $("#Unidade").val();
+        if (!unidadeId)
+            unidadeId = 0;
+
         return {
-            fornecedorId: $("#Fornecedor").val()
+            fornecedorId: fornecedorId,
+            unidadeId: unidadeId
         };
     }
 
     function parametrosGrid() {
         return {
-            //dadosGridItens: [],//$("#GridItens").data("kendoGrid").dataSource.data(),
-            dadosGridPedidosItens: obtenhaDadosGridPedidosItens()
+            dadosGridItens: obtenhaDadosGridItens(),
+            dadosGridPedidosItens: obtenhaDadosGridPedidosItens(),
+            pedidoCompraId: $("#pedidosdropdown").data("kendoDropDownList")._selectedValue
         };
     }
 
     function obtenhaDadosGridPedidosItens() {
         var grid = $("#GridPedidosItens").data("kendoGrid");
         if (grid) {
-            return  grid.dataSource.data() ;
+            var data = grid.dataSource.data();
+            var retorno = [];
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Marcado)
+                    retorno.push(data[i]);
+            }
+            return  retorno;
         }
         return null;
     }
 
-    function obtenhaUrlPesquisarPedidoCompra() {
-        return '/Compras/RecebimentoCompra/PesquisarPedidoCompra/' +$("#pedidosdropdown").data("kendoDropDownList")._selectedValue;
+    function obtenhaDadosGridItens() {
+        var grid = $("#GridItens").data("kendoGrid");
+        if (grid) {
+            return grid.dataSource.data();
+        }
+        return null;
     }
 
-    function bindForm(dialog) {
-        $('form', dialog).submit(function () {
-            $.ajax({
-                url: this.action,
-                type: this.method,
-                data: $(this).serialize(),
-                success: function (result) {
-                    if (result.success) {
-                        $('#dialogDiv').modal('hide');
-                        // Refresh:
-                        // location.reload();
-                    } else {
-                        $('#dialogContent').html(result);
-                        bindForm();
-                    }
-                }
-            });
-            return false;
-        });
+    function obtenhaUrlPesquisarPedidoCompra(id) {
+        return '/Compras/RecebimentoCompra/PesquisarPedidoCompra/' + id;
     }
 
     function obtenhaHtmlPedidosDeCompra(pedidosCompra) {
@@ -234,11 +305,23 @@
     }
 
     function marqueCheckBox(checkBoxElement) {
+        var grid = $('#GridPedidosItens').data().kendoGrid;
+        var dataItem = grid.dataItem($(checkBoxElement).closest('tr'));
+        dataItem.Marcado = true;
         $(checkBoxElement).parent().find('input[type=hidden]').val(true);
         $(checkBoxElement).attr('checked', 'checked');
     }
 
+    function desmarqueTodasCheckBox(listaCheckBox) {
+        $.each(listaCheckBox, function(index, value) {
+            desmarqueCheckBox(value);
+        });
+    }
+
     function desmarqueCheckBox(checkBoxElement) {
+        var grid = $('#GridPedidosItens').data().kendoGrid;
+        var dataItem = grid.dataItem($(checkBoxElement).closest('tr'));
+        dataItem.Marcado = false;
         $(checkBoxElement).parent().find('input[type=hidden]').val(false);
         $(checkBoxElement).removeAttr('checked');
     }
@@ -252,68 +335,242 @@
         return $('.chkbx:checked').length != 0;
     }
 
-    function scriptsModal() {
+    function adicioneItensNaGrid() {
+        var jsonText = JSON.stringify(parametrosGrid());
 
-        function adicioneItensNaGrid() {
-            debugger;
-            $("#GridItens").data("kendoGrid").dataSource.read();
-            var data = $("#GridPedidosItens").data("kendoGrid").dataSource.data();
-            for (var i = 0; i < data.length; i++) {
-
-            }
-        }
-        
-        $(document).ready(function () {
-            $("form").submit(function (event) {
-                if (possuiSelecionados()) {
-                    adicioneItensNaGrid();
-                    $('#dialogDiv').modal('hide');
-                    event.preventDefault();
-                    return true;
-                } else {
-                    alert("É necessário selecionar ao menos um item do pedido de compra.");
-                    $('#btnSubmit').button('reset');
-                    return false;
-                }
-            });
-
-            $('#checkAll').click(function () {
-                if ($(this).attr('checked')) {
-                    for (var i = 0; i < $('.chkbx').length; i++) {
-                        marqueCheckBox($('.chkbx')[i]);
-                    }
-                } else {
-                    desmarqueCheckBox($('.chkbx'));
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ObtenhaRecebimentoItens", "RecebimentoCompra")',
+            contentType: "application/json; charset=utf-8",
+            data: jsonText,
+            dataType: "json",
+            success: atualizeGridItens,
+            cache: false,
         });
-
     }
 
-    $(document).ready(function () {
+    function atualizeGridItens(dados) {
+        if (dados.Error) {
+            alert(dados.Error);
+            return;
+        }
 
-        //Optional: turn the chache off
-        //$.ajaxSetup({ cache: false });
+        var grid = $('#GridItens').data("kendoGrid");
+        var model = grid.dataSource.options.schema.model;
 
-        //new AjaxOptions() { UpdateTargetId = "myTargetDiv", OnSuccess = "loadScriptAndInit" },
+        var dataSource = new kendo.data.DataSource({
+            data: dados,
+            schema: {
+                model: model
+            }
+        });
+        dataSource.read();
+        grid.setDataSource(dataSource);
+        grid.refresh();
+    }
 
-        $('#btnCreate').click(function () {
-            $('#dialogContent').load(obtenhaUrlPesquisarPedidoCompra(), function () {
-                $('#dialogDiv').modal({
-                    backdrop: 'static',
-                    keyboard: true
-                }, 'show');
-                scriptsModal();
-                bindForm(this);
-            });
-            return false;
+    function scriptsModal() {
+        $('#checkAll').click(function() {
+            if ($(this).attr('checked')) {
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    marqueCheckBox($('.chkbx')[i]);
+                }
+            } else {
+                desmarqueTodasCheckBox($('.chkbx'));
+            }
+        });
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function ObtenhaDataItemGridItens(target) {
+        var row = $(target).closest("tr");
+        var grid = $('#GridItens').data("kendoGrid");
+        return grid.dataItem(row);
+    }
+
+    function AtualizeValorTotal(target) {
+        var item = ObtenhaDataItemGridItens(target);
+        var valorCalculado = item.QuantidadeEntrada * item.ValorUnitario;
+        item.set("ValorTotal", valorCalculado);
+    }
+
+    function AtualizeValorUnitario(target) {
+        var item = ObtenhaDataItemGridItens(target);
+        var valorCalculado = item.ValorTotal / item.QuantidadeEntrada;
+        item.set("ValorUnitario", valorCalculado);
+    }
+  
+    function registreScriptsGrid() {
+        $("#QuantidadeEntrada.k-input").change(function (e) {
+            AtualizeValorTotal(e.target);
         });
 
-        $('#Fornecedor').on('change', function () {
+        $("#ValorUnitario.k-input").change(function (e) {
+            AtualizeValorTotal(e.target);
+        });
+
+        $("#ValorTotal.k-input").change(function (e) {
+            AtualizeValorUnitario(e.target);
+        });
+    }
+
+    function formularioEhValido() {
+        var retorno = true;
+
+        // Valor 
+        var valor = $('#Valor').val();
+        if (valor <= 0 && !$('#Valor').valid()) {
+            retorno = false;
+        }
+
+        // Fornecedor 
+        if ($("#codigo-fornecedor").val() == false) {
+            $('#Fornecedor').val("");
+            $('#Fornecedor').valid();
+            $('#descricao-fornecedor').text("");
+            retorno = false;
+        }
+
+        return retorno;
+    }
+    
+    $(document).ready(function () {
+
+        $('#form').validate({
+            debug: true,
+            ignore: "input:hidden:not(#Valor)",
+        });
+      
+        $('#form').submit(function (e) {
+            e.preventDefault();
+
+            // Validar
+            var formValido = formularioEhValido();
+
+            if (!$("#form").valid() || !formValido) {
+                $('#btnSubmit').button('reset');
+                return true;
+            }
+
+            var formData = $("#form").serializeObject();
+            formData.GridItens = obtenhaDadosGridItens();
+            var dados = { "model": formData };
+
+            var headers = {};
+            var token = $('[name=__RequestVerificationToken]').val();
+            headers['__RequestVerificationToken'] = token;
+
+            $.ajax({
+                type: "POST",
+                url: obtenhaUrlActionSubmit(),
+                headers: headers,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(dados),
+                //dataType: "json",
+                success: function (retorno) {
+                    if (retorno == "error") {
+                        window.location.reload();
+                        return;
+                    }
+                    window.location.href = '@Url.Action("Index", "RecebimentoCompra")';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            return true;
+        });
+
+        $('#btnCreate').click(function (e){
+            e.preventDefault();
+
+            var mensagem = "";
+
+            if (!$("#Fornecedor").val()) {
+                mensagem += "Selecione um fornecedor";
+            }
+
+            if (!$("#Unidade").val()) {
+                mensagem += "\nSelecione uma unidade";
+            }
+
+            if (mensagem){
+                alert(mensagem);
+                return;
+            }
+
+            $("#pedidosdropdown").data("kendoDropDownList").select(0);
+            var pedidoCompraId = $("#pedidosdropdown").data("kendoDropDownList")._selectedValue;
+            if (pedidoCompraId)
+                carreguePesquisarPedidoCompra(pedidoCompraId);
+
+            $('#dialogDiv').modal('show');
+        });
+
+        $("#btnCarregarItens").click(function (event) {
+            if (possuiSelecionados()) {
+                $('#dialogDiv').modal('hide');
+                adicioneItensNaGrid();
+                event.preventDefault();
+                return true;
+            } else {
+                alert("É necessário selecionar ao menos um item do pedido de compra.");
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+        });
+
+        $('#Fornecedor, #Unidade').on('change', function (e) {
             var dropdownPedidos = $("#pedidosdropdown").data("kendoDropDownList");
+            dropdownPedidos.dataSource.data({}); 
+            dropdownPedidos.text(""); 
+            dropdownPedidos.value("");
+
+            var fornecedorId = $("#Fornecedor").val();
+            var unidadeId = $("#Unidade").val();
+
+            if (e.target.id == "Fornecedor")
+                $("#Fornecedor").valid();
+
+            if (fornecedorId == 0 || unidadeId == 0)
+                return;
+
             dropdownPedidos.dataSource.options.transport.read.data.fornecedorId = $("#Fornecedor").val();
+            dropdownPedidos.dataSource.options.transport.read.data.unidadeId = $("#Unidade").val();
             dropdownPedidos.dataSource.read();
             dropdownPedidos.refresh();
+            
         });
     });
 </script>
+
+<style>
+    #pedidosdropdown-list .k-item > span{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        vertical-align: top;
+        min-height: 50px;
+        width: 130px; 
+        padding: .6em 0 0 .6em;
+    }
+
+    #pedidosdropdown-list .k-item > span:first-child{
+        width: 60px;
+        border-left-width: 0;
+        padding: .6em 0 0 0;
+    }
+
+    #pedidosdropdown-list p {
+        margin: 0;
+        padding: 0;
+    }
+</style>

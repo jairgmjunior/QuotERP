@@ -27,20 +27,22 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #region Variaveis
 
         private readonly IRepository<PedidoCompra> _pedidoCompraRepository;
-        private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<RecebimentoCompra> _recebimentoCompraRepository;
-        private readonly IRepository<ParametroModuloCompra> _parametroModuloCompraRepository; 
+        private readonly IRepository<ParametroModuloCompra> _parametroModuloCompraRepository;
+        private readonly IRepository<Material> _materialRepository;
+
+        private readonly FabricaDeObjetos _fabricaDeObjetos;
         
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = {"Detalhado", "Listagem", "Sintético"};
 
-        private static readonly Dictionary<string, string> ColunasPesquisaPedidoCompra = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> ColunasPesquisaRecebimentoCompra = new Dictionary<string, string>
             {
-                {"Comprador", "Comprador.Nome"},
                 {"Data", "Data"},
                 {"Fornecedor", "Fornecedor.Nome"},
-                {"Número", "Numero"}
+                {"Número", "Numero"},
+                {"Situação", "SituacaoRecebimentoCompra"}
             };
 
         #endregion
@@ -49,16 +51,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
         public RecebimentoCompraController(ILogger logger, 
             IRepository<PedidoCompra> pedidoCompraRepository,
-            IRepository<UnidadeMedida> unidadeMedidaRepository,
             IRepository<Pessoa> pessoaRepository,
             IRepository<RecebimentoCompra> recebimentoCompraRepository,
-            IRepository<ParametroModuloCompra> parametroModuloCompraRepository)
+            IRepository<ParametroModuloCompra> parametroModuloCompraRepository,
+            IRepository<Material> materialRepository,
+            FabricaDeObjetos fabricaDeObjetos)
         {
             _pedidoCompraRepository = pedidoCompraRepository;
-            _unidadeMedidaRepository = unidadeMedidaRepository;
             _pessoaRepository = pessoaRepository;
             _recebimentoCompraRepository = recebimentoCompraRepository;
             _parametroModuloCompraRepository = parametroModuloCompraRepository;
+            _materialRepository = materialRepository;
+            _fabricaDeObjetos = fabricaDeObjetos;
             _logger = logger;
         }
 
@@ -72,16 +76,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var recebimentoCompras = _recebimentoCompraRepository.Find();
 
             var model = new PesquisaRecebimentoCompraModel {ModoConsulta = "Listar"};
-
+            
             model.Grid = recebimentoCompras.Select(p =>Mapper.Flat<GridRecebimentoCompraModel>(p)).ToList();
 
             return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
-        public virtual ActionResult Index(PesquisaPedidoCompraModel model)
+        public virtual ActionResult Index(PesquisaRecebimentoCompraModel model)
         {
-            var pedidoCompras = _pedidoCompraRepository.Find();
+            var recebimentoCompras = _recebimentoCompraRepository.Find();
 
             try
             {
@@ -91,71 +95,57 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 if (model.UnidadeEstocadora.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.UnidadeEstocadora.Id == model.UnidadeEstocadora);
-                    filtros.AppendFormat("Unidade estocadora: {0}, ",
-                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).Nome);
+                    recebimentoCompras = recebimentoCompras.Where(p => p.Unidade.Id == model.UnidadeEstocadora);
+                    filtros.AppendFormat("Unidade: {0}, ",
+                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
                 }
 
                 if (model.Numero.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.Numero == model.Numero);
+                    recebimentoCompras = recebimentoCompras.Where(p => p.Numero == model.Numero);
                     filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
                 }
 
                 if (model.Fornecedor.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
+                    recebimentoCompras = recebimentoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
                     filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
                 }
 
-                if (model.SituacaoCompra.HasValue)
+                if (model.SituacaoRecebimentoCompra.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.SituacaoCompra == model.SituacaoCompra);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoCompra.Value.EnumToString());
+                    recebimentoCompras = recebimentoCompras.Where(p => p.SituacaoRecebimentoCompra == model.SituacaoRecebimentoCompra);
+                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoRecebimentoCompra.Value.EnumToString());
                 }
 
-                if (model.DataCompraInicio.HasValue && model.DataCompraFim.HasValue)
+                if (model.DataInicio.HasValue && model.DataFim.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date >= model.DataCompraInicio.Value
-                                                             && p.DataCompra.Date <= model.DataCompraFim.Value);
-                    filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
-                                         model.DataCompraInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataCompraFim.Value.ToString("dd/MM/yyyy"));
+                    recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date >= model.DataInicio.Value
+                                                             && p.Data.Date <= model.DataFim.Value);
+                    filtros.AppendFormat("Data de '{0}' até '{1}', ",
+                                         model.DataInicio.Value.ToString("dd/MM/yyyy"),
+                                         model.DataFim.Value.ToString("dd/MM/yyyy"));
                 }
 
-                if (model.ValorCompraInicio.HasValue && model.ValorCompraFim.HasValue)
+                if (model.ValorInicio.HasValue && model.ValorFim.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.ValorCompra >= model.ValorCompraInicio.Value
-                                                             && p.ValorCompra <= model.ValorCompraFim.Value);
-                    filtros.AppendFormat("Valor compra de '{0}' até '{1}', ",
-                                         model.ValorCompraInicio.Value.ToString("C2"),
-                                         model.ValorCompraFim.Value.ToString("C2"));
+                    recebimentoCompras = recebimentoCompras.Where(p => p.Valor >= model.ValorInicio.Value
+                                                             && p.Valor <= model.ValorFim.Value);
+                    filtros.AppendFormat("Valor de '{0}' até '{1}', ",
+                                         model.ValorInicio.Value.ToString("C2"),
+                                         model.ValorFim.Value.ToString("C2"));
                 }
 
-                if (model.PrevisaoFaturamentoInicio.HasValue && model.PrevisaoFaturamentoFim.HasValue)
+                if (model.Material.HasValue)
                 {
-                    pedidoCompras =
-                        pedidoCompras.Where(p => p.PrevisaoFaturamento.Date >= model.PrevisaoFaturamentoInicio.Value
-                                                 && p.PrevisaoFaturamento.Date <= model.PrevisaoFaturamentoFim.Value);
-                    filtros.AppendFormat("Previsão faturamento de '{0}' até '{1}', ",
-                                         model.PrevisaoFaturamentoInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.PrevisaoFaturamentoFim.Value.ToString("dd/MM/yyyy"));
+                    recebimentoCompras = recebimentoCompras.Where(p => p.RecebimentoCompraItens.Any(i => i.Material.Id == model.Material));
+                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
                 }
 
-                if (model.PrevisaoEntregaInicio.HasValue && model.PrevisaoEntregaFim.HasValue)
+                if (model.NumeroPedidoCompra.HasValue)
                 {
-                    pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date >= model.PrevisaoEntregaInicio.Value
-                                                             && p.PrevisaoEntrega.Date <= model.PrevisaoEntregaFim.Value);
-                    filtros.AppendFormat("Data aprovação de '{0}' até '{1}', ",
-                                         model.PrevisaoEntregaInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.PrevisaoEntregaFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-
-                if (model.Comprador.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.Comprador.Id == model.Comprador);
-                    filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
+                    recebimentoCompras = recebimentoCompras.Where(p => p.PedidoCompras.Any(i => i.Id == model.NumeroPedidoCompra));
+                    filtros.AppendFormat("Pedido de compra: {0}, ", model.NumeroPedidoCompra.Value);
                 }
 
                 #endregion
@@ -164,28 +154,26 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
-                        pedidoCompras = model.OrdenarEm == "asc"
-                                            ? pedidoCompras.OrderBy(model.OrdenarPor)
-                                            : pedidoCompras.OrderByDescending(model.OrdenarPor);
+                        recebimentoCompras = model.OrdenarEm == "asc"
+                                            ? recebimentoCompras.OrderBy(model.OrdenarPor)
+                                            : recebimentoCompras.OrderByDescending(model.OrdenarPor);
 
-                    model.Grid = pedidoCompras.Select(p => new GridPedidoCompraModel
+                    model.Grid = recebimentoCompras.Select(p => new GridRecebimentoCompraModel()
                         {
                             Id = p.Id.GetValueOrDefault(),
-                            Comprador = p.Comprador.Nome,
-                            DataCompra = p.DataCompra,
-                            Fornecedor = p.Fornecedor.Nome,
+                            Data = p.Data,
+                            FornecedorNome = p.Fornecedor.Nome,
                             Numero = p.Numero,
-                            ValorCompra = p.ValorCompra,
-                            Autorizado = p.Autorizado,
-                            SituacaoCompra = p.SituacaoCompra
+                            Valor = p.Valor,
+                            SituacaoRecebimentoCompra = p.SituacaoRecebimentoCompra
                         }).ToList();
 
                     return View(model);
                 }
 
                 // Se não é uma listagem, gerar o relatório
-                var result = pedidoCompras
-                    .Fetch(p => p.Fornecedor).Fetch(p => p.Comprador)
+                var result = recebimentoCompras
+                    .Fetch(p => p.Fornecedor)
                     .ToList();
 
                 if (!result.Any())
@@ -193,7 +181,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 #region Montar Relatório
 
-                var report = new ListaPedidoCompraReport {DataSource = result};
+                var report = new ListaRecebimentoCompraReport {DataSource = result};
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
@@ -202,10 +190,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 if (model.AgruparPor != null)
                 {
-                    grupo.Groupings.Add("=Fields." + model.AgruparPor);
+                    grupo.Groupings.Add("= AjusteValores(Fields." + model.AgruparPor + ")");
 
-                    var key = ColunasPesquisaPedidoCompra.First(p => p.Value == model.AgruparPor).Key;
-                    var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
+                    var key = ColunasPesquisaRecebimentoCompra.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + AjusteValores(Fields.{1})", key, model.AgruparPor);
                     grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
                 }
                 else
@@ -243,227 +231,146 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo()
         {
-            var model = new RecebimentoCompraModel()
+            var model = new RecebimentoCompraModel
             { 
-                Comprador = 1428,
-                Fornecedor = 256,
-                Observacao = "observação teste",
-                SituacaoRecebimentoCompra = SituacaoRecebimentoCompra.Aguardando,
-                Unidade = 1479,
-                Valor = 50,
-                Numero = 200,
-                Data = DateTime.Now,
-                Itens = new List<RecebimentoCompraItemModel>()
+                GridItens = new List<RecebimentoCompraItemModel>()
             };
-
-            var recebimentoItemModel = new RecebimentoCompraItemModel()
-            {
-                Id = 1000,
-                Descricao = "PRODUTO X ETC ETC",
-                MaterialReferencia = "9999-x",
-                MaterialReferenciaExterna = "9999-xxxx",
-                UnidadeMedidaSigla = "CAIXA",
-                Quantidade = 10,
-                ValorUnitario = 50.00,
-                PedidosCompra = new List<long>()
-            };
-
-            recebimentoItemModel.PedidosCompra.Add(1);
-            recebimentoItemModel.PedidosCompra.Add(2);
-            recebimentoItemModel.PedidosCompra.Add(3);
-
-            model.Itens.Add(recebimentoItemModel);
 
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo(RecebimentoCompraModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var domain = Mapper.Unflat<RecebimentoCompra>(model);
-
-                    //// Itens do pedido de compra
-                    //for (int i = 0; i < model.Materiais.Count; i++)
-                    //{
-                    //    var idx = i;
-
-                    //    var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
-
-                    //    var item = new PedidoCompraItem
-                    //    {
-                    //        Material = _materialRepository.Load(model.Materiais[idx]),
-                    //        UnidadeMedida = unidadeMedida,
-                    //        Quantidade = model.Quantidades[idx],
-                    //        ValorUnitario = model.ValorUnitarios[i],
-                    //        SituacaoCompra = SituacaoCompra.NaoAtendido,
-                    //        PrevisaoEntrega = domain.PrevisaoEntrega
-                    //    };
-
-                    //    domain.AddPedidoCompraItem(item);
-                    //}
-
+                    var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model);
+                    
                     _recebimentoCompraRepository.Save(domain);
 
+                    _fabricaDeObjetos.AtualizePedidosCompra(domain);
+                    //SalveConferenciaEntradaMaterial(domain);
+
                     this.AddSuccessMessage("Recebimento de compra cadastrado com sucesso.");
-                    return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty,
-                                             "Não é possível salvar o recebimento de compra. Confira se os dados foram informados corretamente: " +
-                                             exception.Message);
+                    var errorMsg = "Não é possível salvar o recebimento de compra. Confira se os dados foram informados corretamente: " +
+                        exception.Message;
+                    this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
+                    
+                    return new JsonResult { Data = "error" };
                 }
             }
 
-            return View(model);
+            return new JsonResult { Data = "sucesso" };
         }
-
         #endregion
         
         #region Editar
 
-		[ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
+		[HttpGet, ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Editar(long? id)
         {
-            var domain = _pedidoCompraRepository.Get(id);
+            var domain = _recebimentoCompraRepository.Get(id);
 
             if (domain != null)
             {
-                var model = Mapper.Flat<PedidoCompraModel>(domain);
+                var model = Mapper.Flat<RecebimentoCompraModel>(domain);
 
-                foreach (var item in domain.PedidoCompraItens)
-                {
-                    model.PedidoCompraItens.Add(item.Id);
-                    model.Materiais.Add(item.Material.Id.GetValueOrDefault());
-                    model.UnidadeMedidas.Add(item.UnidadeMedida.Id.GetValueOrDefault());
-                    model.Quantidades.Add(item.Quantidade);
-                    model.ValorUnitarios.Add(item.ValorUnitario);
-                    model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
-                    model.SituacaoCompras.Add(item.SituacaoCompra);
-                }
+                model.GridItens = new List<RecebimentoCompraItemModel>(domain.RecebimentoCompraItens.Select( x => 
+                    {
+                        var retorno = Mapper.Flat<RecebimentoCompraItemModel>(x);
+                        retorno.PedidosCompra = 
+                            x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompra.Id).ToList().ConvertAll(y => y != null ? y.Value : 0); 
+                        retorno.PedidoCompraItens =
+                            x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompraItem.Id).ToList();
+                        retorno.ValorUnitarioPedido =
+                            x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompraItem.ValorUnitario).Average();
+                        retorno.UnidadeEntrada = x.Material.UnidadeMedida.Sigla;
+                        
+                        //rever futuramente esse requisito
+                        var primeiroDetalhamento = x.DetalhamentoRecebimentoCompraItens.First();
+                        retorno.UnidadeMedidaSigla = primeiroDetalhamento.PedidoCompraItem.Material.UnidadeMedida.Sigla;
+                        
+                        retorno.QuantidadeEntrada = x.DetalhamentoRecebimentoCompraItens.Select(d => d.Quantidade).Sum();
+                        return retorno;
+                    }   
+                ));
 
                 return View("Editar", model);
             }
 
-            this.AddErrorMessage("Não foi possível encontrar o pedido de compra.");
+            this.AddErrorMessage("Não foi possível encontrar o recebimento da compra.");
             return RedirectToAction("Index");
         }
 
-
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
-        public virtual ActionResult Editar(PedidoCompraModel model)
+        [HttpPost, PopulateViewData("PopulateViewData")]
+        public virtual ActionResult Editar(RecebimentoCompraModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
+                    var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model);
+                    
+                    _recebimentoCompraRepository.SaveOrUpdate(domain);
 
-                    // Pesquisar os itens que estão no DB e não estão no model
-                    var idsExcluidos = domain.PedidoCompraItens.Select(p => p.Id).Except(model.PedidoCompraItens);
-                    var itensExcluidos = domain.PedidoCompraItens.Where(p => idsExcluidos.Contains(p.Id)).ToArray();
-                    domain.RemovePedidoCompraItem(itensExcluidos);
-
-                    // Adicionar itens do pedido de compra
-                    for (int i = 0; i < model.Materiais.Count; i++)
-                    {
-                        var idx = i;
-
-                        if (model.PedidoCompraItens[idx].HasValue)
-                            continue;
-
-                        var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
-
-                        var item = new PedidoCompraItem
-                        {
-                            //Material = _materialRepository.Load(model.Materiais[idx]),
-                            UnidadeMedida = unidadeMedida,
-                            Quantidade = model.Quantidades[idx],
-                            ValorUnitario = model.ValorUnitarios[i],
-                            SituacaoCompra = SituacaoCompra.NaoAtendido,
-                            PrevisaoEntrega = domain.PrevisaoEntrega
-                        };
-
-                        domain.AddPedidoCompraItem(item);
-                    }
-                    //verifica se pedido de compra foi autorizado --jamyl
-                    if (domain.Autorizado.Equals(true))
-                    {
-                        _pedidoCompraRepository.Evict(domain);
-
-                        this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
-                        return RedirectToAction("Index");
-                    }
-
-                    if (domain.Autorizado.Equals(false))
-                    {
-                        _pedidoCompraRepository.Update(domain);
-
-                        this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
-                        return RedirectToAction("Index");
-                    }
-                   
+                    this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " + exception.Message);
+                    var errorMsg = "Não é possível salvar o recebimento de compra. Confira se os dados foram informados corretamente: " +
+                        exception.Message;
+                    this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
+
+                    return new JsonResult { Data = "error" };
                 }
             }
 
-            return View(model);
+            return new JsonResult { Data = "sucesso" };
         }
         #endregion
 
         #region Excluir
 
-        [HttpPost, ValidateAntiForgeryToken, ExportModelStateToTempData]
+        [HttpPost, ValidateAntiForgeryToken]
         public virtual ActionResult Excluir(long? id)
         {
 			if (ModelState.IsValid)
             {
 				try
 				{
+					var domain = _recebimentoCompraRepository.Get(id);
+                    _recebimentoCompraRepository.Delete(domain);
+                    _fabricaDeObjetos.AtualizePedidosCompraAoExcluir(domain);
                     
-					var domain = _pedidoCompraRepository.Get(id);
-                    //verifica se pedido de compra foi autorizado para exclusão --jamyl
-				    if (domain.Autorizado.Equals(true))
-				    {
-                        _pedidoCompraRepository.Evict(domain);
-
-                        this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
-                        return RedirectToAction("Index");
-				    }
-
-				    if (domain.Autorizado.Equals(false))
-				    {
-
-				        _pedidoCompraRepository.Delete(domain);
-
-				        this.AddSuccessMessage("Pedido de compra excluído com sucesso");
-				        return RedirectToAction("Index");
-				    }
+				    this.AddSuccessMessage("Recebimento de compra excluído com sucesso");
+				    return RedirectToAction("Index");
 				}
 				catch (Exception exception)
 				{
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao excluir o pedido de compra: " + exception.Message);
-					_logger.Info(exception.GetMessage());
+                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao excluir o recebimento de compra: " + exception.Message);
+					//_logger.Info(exception.GetMessage());
+				    throw;
 				}
 			}
 
 			return RedirectToAction("Editar", new { id });
-
         }
+
         #endregion
 		
         #region PopulateViewData
         protected void PopulateViewData(RecebimentoCompraModel model)
-        {
+        {            
+            // Unidade
+            var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
+            ViewBag.Unidade = unidades.ToSelectList("NomeFantasia", model == null ? null : model.Unidade);
         }
         #endregion
 
@@ -475,8 +382,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);
 
             ViewBag.TipoRelatorio = new SelectList(_tipoRelatorio);
-            ViewBag.OrdenarPor = new SelectList(ColunasPesquisaPedidoCompra, "value", "key");
-            ViewBag.AgruparPor = new SelectList(ColunasPesquisaPedidoCompra, "value", "key");
+            ViewBag.OrdenarPor = new SelectList(ColunasPesquisaRecebimentoCompra, "value", "key");
+            ViewBag.AgruparPor = new SelectList(ColunasPesquisaRecebimentoCompra, "value", "key");
         }
         #endregion
 
@@ -496,42 +403,33 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #endregion
         
         #region Pesquisar Pedido de Compra
-        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual ActionResult PesquisarPedidoCompra(long id)
+
+        public virtual PartialViewResult PesquisarPedidoCompra(long id)
         {
             var domain = _pedidoCompraRepository.Get(id);
-            
-            var model = Mapper.Flat<PedidoCompraRecebimentoModel>(domain);
 
-            model.Grid = new List<PedidoCompraItemRecebimentoModel>();
-
-            foreach (var item in domain.PedidoCompraItens)
+            if (domain == null)
             {
-                if (domain.SituacaoCompra == SituacaoCompra.NaoAtendido ||
-                    domain.SituacaoCompra == SituacaoCompra.AtendidoParcial)
-                {
-                    var modelItem = Mapper.Flat<PedidoCompraItemRecebimentoModel>(item);
-                    
-                    var referenciaExterna = 
-                        item.Material.ReferenciaExternas.FirstOrDefault(rf => rf.Fornecedor.Id == domain.Fornecedor.Id);
-
-                    if (referenciaExterna != null)
-                    {
-                        modelItem.MaterialReferenciaExterna = referenciaExterna.Referencia;
-                    }
-
-                    model.Grid.Add(modelItem);
-                }
+                return PartialView(new PedidoCompraRecebimentoModel());
             }
 
+            var model = _fabricaDeObjetos.CriePedidoCompraRecebimentoModel(domain);
+
+            ModelState.Clear();
             return PartialView(model);
         }
         #endregion
 
         [HttpGet]
-        public virtual JsonResult ObtenhaPedidosDeCompraPorFornecedor(long fornecedorId)
+        public virtual JsonResult ObtenhaPedidosDeCompraPorFornecedor(long fornecedorId, long unidadeId)
         {
-            var pedidosCompra = _pedidoCompraRepository.Find(p => p.Fornecedor.Id == fornecedorId);
+            if(fornecedorId == 0 || unidadeId == 0)
+                return new JsonResult { Data = new List<PedidoCompraReduzidoModel>(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            var pedidosCompra = _pedidoCompraRepository.Find(p => p.Fornecedor.Id == fornecedorId 
+                && p.UnidadeEstocadora.Id == unidadeId
+                && p.SituacaoCompra != SituacaoCompra.Cancelado
+                && p.SituacaoCompra != SituacaoCompra.AtendidoTotal);
 
             var parametro = _parametroModuloCompraRepository.Find().FirstOrDefault();
             if (parametro != null && parametro.ValidaRecebimentoPedido)
@@ -550,11 +448,39 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = pedidoComprasModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        [HttpPost]//IList<RecebimentoCompraItemModel> dadosGridItens, 
-        public virtual JsonResult ObtenhaRecebimentoItens(IList<PedidoCompraItemRecebimentoModel> dadosGridPedidosItens)
+        [AjaxOnly, OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult ObtenhaRecebimentoItens(List<RecebimentoCompraItemModel> dadosGridItens, 
+            List<PedidoCompraItemRecebimentoModel> dadosGridPedidosItens, long pedidoCompraId)
         {
-            return new JsonResult { Data = new List<RecebimentoCompraItemModel>(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }  
+            dadosGridItens = dadosGridItens ?? new List<RecebimentoCompraItemModel>();
+            dadosGridPedidosItens = dadosGridPedidosItens ?? new List<PedidoCompraItemRecebimentoModel>();
+
+            var listaRetorno = new List<RecebimentoCompraItemModel>(dadosGridItens);
+            var pedidoCompra = _pedidoCompraRepository.Get(pedidoCompraId);
+
+            foreach (var pedidoCompraItemRecebimentoModel in dadosGridPedidosItens)
+            {
+                var recebimentoCompraItemModel =
+                    dadosGridItens.FirstOrDefault(
+                        x => x.MaterialReferencia == pedidoCompraItemRecebimentoModel.MaterialReferenciaPedido);
+
+                if (recebimentoCompraItemModel != null)
+                {
+                    var retorno = _fabricaDeObjetos.AtualizeRecebimentoCompraItemModel(recebimentoCompraItemModel, pedidoCompraItemRecebimentoModel, pedidoCompra);
+
+                    if (retorno != null)
+                    {
+                        listaRetorno.Remove(
+                            dadosGridItens.FirstOrDefault(p => p.MaterialReferencia == retorno.MaterialReferencia));
+                        listaRetorno.Add(retorno);
+                    }
+                } else {
+                    listaRetorno.Add(_fabricaDeObjetos.CrieRecebimentoCompraItemModel(pedidoCompraItemRecebimentoModel, pedidoCompra));
+                }
+            }
+            
+            return new JsonResult { Data = listaRetorno };
+        }
     }
 }
 

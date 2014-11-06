@@ -7,7 +7,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 {
     public class PesquisaRecebimentoCompraModel
     {
-        [Display(Name = "Unidade estocadora")]
+        [Display(Name = "Unidade")]
         public long? UnidadeEstocadora { get; set; }
 
         [Display(Name = "Número")]
@@ -32,7 +32,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? NumeroPedidoCompra { get; set; }
         
         [Display(Name = "Situação")]
-        public SituacaoRecebimentoCompra? SituacaoRecebimentoCompra;
+        public SituacaoRecebimentoCompra? SituacaoRecebimentoCompra { get; set; }
         
         [Display(Name = "Valor")]
         public double? ValorInicio { get; set; }

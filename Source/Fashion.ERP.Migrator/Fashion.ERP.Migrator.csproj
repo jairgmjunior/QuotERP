@@ -56,6 +56,8 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Migrations\Migration201411051458.cs" />
+    <Compile Include="Migrations\Migration201410031432.cs" />
     <Compile Include="Migrations\Migration201409031649.cs" />
     <Compile Include="Migrations\Migration201408061140.cs" />
     <Compile Include="Migrations\Migration201406260840.cs" />
@@ -97,6 +99,10 @@
     <Compile Include="Migrations\Migration201409100907.cs" />
     <Compile Include="Migrations\Migration201409101646.cs" />
     <Compile Include="Migrations\Migration201409121005.cs" />
+    <Compile Include="Migrations\Migration201410081556.cs" />
+    <Compile Include="Migrations\Migration201410142157.cs" />
+    <Compile Include="Migrations\Migration201410200907.cs" />
+    <Compile Include="Migrations\Migration201411051737.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -212,6 +218,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201409121005\createrecebimentocompra.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201410031432\atualizeViewConsumoMaterial.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201410081556\atualizerecebimentocompra.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201411050826\permissao.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201410200907\permissao.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\201410142157\permissao.sql" />
+    <EmbeddedResource Include="Scripts\201411051737\permissao.sql" />
+    <EmbeddedResource Include="Scripts\201411051458\permissao.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

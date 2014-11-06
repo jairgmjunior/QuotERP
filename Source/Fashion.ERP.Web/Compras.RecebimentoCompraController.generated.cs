@@ -55,15 +55,21 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult PesquisarPedidoCompra()
+        public virtual System.Web.Mvc.PartialViewResult PesquisarPedidoCompra()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarPedidoCompra);
+            return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.PesquisarPedidoCompra);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult ObtenhaPedidosDeCompraPorFornecedor()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaPedidosDeCompraPorFornecedor);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaRecebimentoItens()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaRecebimentoItens);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -87,6 +93,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string PesquisarPedidoCompra = "PesquisarPedidoCompra";
             public readonly string ObtenhaPedidosDeCompraPorFornecedor = "ObtenhaPedidosDeCompraPorFornecedor";
+            public readonly string ObtenhaRecebimentoItens = "ObtenhaRecebimentoItens";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +105,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public const string Excluir = "Excluir";
             public const string PesquisarPedidoCompra = "PesquisarPedidoCompra";
             public const string ObtenhaPedidosDeCompraPorFornecedor = "ObtenhaPedidosDeCompraPorFornecedor";
+            public const string ObtenhaRecebimentoItens = "ObtenhaRecebimentoItens";
         }
 
 
@@ -149,6 +157,17 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionParamsClass_ObtenhaPedidosDeCompraPorFornecedor
         {
             public readonly string fornecedorId = "fornecedorId";
+            public readonly string unidadeId = "unidadeId";
+        }
+        static readonly ActionParamsClass_ObtenhaRecebimentoItens s_params_ObtenhaRecebimentoItens = new ActionParamsClass_ObtenhaRecebimentoItens();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaRecebimentoItens ObtenhaRecebimentoItensParams { get { return s_params_ObtenhaRecebimentoItens; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaRecebimentoItens
+        {
+            public readonly string dadosGridItens = "dadosGridItens";
+            public readonly string dadosGridPedidosItens = "dadosGridPedidosItens";
+            public readonly string pedidoCompraId = "pedidoCompraId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -161,12 +180,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
+                public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
+                public readonly string PesquisarPedidoCompra = "PesquisarPedidoCompra";
             }
             public readonly string _NovoOuEditar = "~/Areas/Compras/Views/RecebimentoCompra/_NovoOuEditar.cshtml";
+            public readonly string Editar = "~/Areas/Compras/Views/RecebimentoCompra/Editar.cshtml";
             public readonly string Index = "~/Areas/Compras/Views/RecebimentoCompra/Index.cshtml";
             public readonly string Novo = "~/Areas/Compras/Views/RecebimentoCompra/Novo.cshtml";
+            public readonly string PesquisarPedidoCompra = "~/Areas/Compras/Views/RecebimentoCompra/PesquisarPedidoCompra.cshtml";
         }
     }
 
@@ -184,9 +207,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.PesquisaRecebimentoCompraModel model);
 
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model)
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Compras.Models.PesquisaRecebimentoCompraModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -223,9 +246,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel model);
+        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraModel model);
 
-        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel model)
+        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -243,23 +266,36 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
-        partial void PesquisarPedidoCompraOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+        partial void PesquisarPedidoCompraOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, long id);
 
-        public override System.Web.Mvc.ActionResult PesquisarPedidoCompra(long id)
+        public override System.Web.Mvc.PartialViewResult PesquisarPedidoCompra(long id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarPedidoCompra);
+            var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.PesquisarPedidoCompra);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             PesquisarPedidoCompraOverride(callInfo, id);
             return callInfo;
         }
 
-        partial void ObtenhaPedidosDeCompraPorFornecedorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long fornecedorId);
+        partial void ObtenhaPedidosDeCompraPorFornecedorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long fornecedorId, long unidadeId);
 
-        public override System.Web.Mvc.JsonResult ObtenhaPedidosDeCompraPorFornecedor(long fornecedorId)
+        public override System.Web.Mvc.JsonResult ObtenhaPedidosDeCompraPorFornecedor(long fornecedorId, long unidadeId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaPedidosDeCompraPorFornecedor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fornecedorId", fornecedorId);
-            ObtenhaPedidosDeCompraPorFornecedorOverride(callInfo, fornecedorId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "unidadeId", unidadeId);
+            ObtenhaPedidosDeCompraPorFornecedorOverride(callInfo, fornecedorId, unidadeId);
+            return callInfo;
+        }
+
+        partial void ObtenhaRecebimentoItensOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, System.Collections.Generic.List<Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraItemModel> dadosGridItens, System.Collections.Generic.List<Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraItemRecebimentoModel> dadosGridPedidosItens, long pedidoCompraId);
+
+        public override System.Web.Mvc.JsonResult ObtenhaRecebimentoItens(System.Collections.Generic.List<Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraItemModel> dadosGridItens, System.Collections.Generic.List<Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraItemRecebimentoModel> dadosGridPedidosItens, long pedidoCompraId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaRecebimentoItens);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dadosGridItens", dadosGridItens);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dadosGridPedidosItens", dadosGridPedidosItens);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoCompraId", pedidoCompraId);
+            ObtenhaRecebimentoItensOverride(callInfo, dadosGridItens, dadosGridPedidosItens, pedidoCompraId);
             return callInfo;
         }
 

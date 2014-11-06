@@ -55,7 +55,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 DataEntrada = p.DataEntrada,
-                UnidadeDestino = p.DepositoMaterialDestino.Unidade.Nome,
+                UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
                 DepositoMaterialDestino = p.DepositoMaterialDestino.Nome,
                 OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,
             }).ToList();
@@ -274,14 +274,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var unidadeDestinos = _depositoMaterialRepository.Find(p => p.Ativo)
                 .Select(d => d.Unidade).OrderBy(o => o.Nome).Where(u => u.Unidade.Ativo).Distinct().ToList();
-            ViewData["UnidadeDestino"] = unidadeDestinos.ToSelectList("Nome", model.UnidadeDestino);
+            ViewData["UnidadeDestino"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeDestino);
 
             if (model.UnidadeDestino.HasValue)
                 ViewData["DepositoMaterialDestino"] = _depositoMaterialRepository.Find(d => d.Unidade.Id == model.UnidadeDestino).ToList().ToSelectList("Nome", model.DepositoMaterialDestino);
             else
                 ViewData["DepositoMaterialDestino"] = new List<DepositoMaterial>().ToSelectList("Nome");
 
-            ViewData["UnidadeOrigem"] = unidadeDestinos.ToSelectList("Nome", model.UnidadeOrigem);
+            ViewData["UnidadeOrigem"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeOrigem);
 
             if (model.UnidadeOrigem.HasValue)
                 ViewData["DepositoMaterialOrigem"] = _depositoMaterialRepository.Find(d => d.Unidade.Id == model.UnidadeOrigem).ToList().ToSelectList("Nome", model.DepositoMaterialOrigem);

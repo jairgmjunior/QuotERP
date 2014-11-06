@@ -11,8 +11,8 @@
         @Html.AntiForgeryToken()
         <div id="modal-body-material" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
-                <input name="valor" class="pull-left input-xlarge" type="text" />
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
                 <input id="submit-pesquisar-material" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-material"></div>
@@ -75,8 +75,8 @@
             
         $('#pesquisar-material').on('click', function () {
             $('#modal-material').modal('show').one('hidden', function () {
-                $('#Coluna')[0].selectedIndex = 0;
-                $('input[name$="valor"]').val('');
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
                 $('#grid-pesquisa-material').empty();
             });
         });
@@ -107,7 +107,16 @@
                     e.preventDefault();
                     pesquisaMaterial($(this).val());
                 }
+            },
+            focusout: function () {
+                if (!$('#referencia-material').val()) {
+                    $('#Material').val('');
+                    $('#descricao-material').text('');
+                    $('#descricao-material').val('');
+            } else {
+                pesquisaMaterial($(this).val());
             }
+        }
         });
         $('#selecionar-material').on('click', selecionarMaterial);
         

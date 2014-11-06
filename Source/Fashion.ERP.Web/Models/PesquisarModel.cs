@@ -1,5 +1,4 @@
-﻿using Fashion.Framework.Common.Extensions;
-using Fashion.Framework.Domain;
+﻿using Fashion.Framework.Domain;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using System;
 
@@ -7,30 +6,30 @@ namespace Fashion.ERP.Web.Models
 {
     public class PesquisarModel
     {
-        public string Coluna { get; set; }
-        public string Valor { get; set; }
+        public string ColunaPesquisa { get; set; }
+        public string ValorPesquisa { get; set; }
 
         #region Filtrar
         public FilterExpression Filtrar<T>() where T : DomainObject
         {
-            if (string.IsNullOrWhiteSpace(Coluna))
+            if (string.IsNullOrWhiteSpace(ColunaPesquisa))
                 throw new Exception("Informe uma coluna para o filtro.");
 
             try
             {
-                if (Valor == null)
-                    return new FilterExpression("Coluna", ComparisonOperator.Any, null, LogicOperator.And);
+                if (ValorPesquisa == null)
+                    return new FilterExpression("ColunaPesquisa", ComparisonOperator.Any, null, LogicOperator.And);
 
-                var tipoColuna = GetPropertyType<T>(Coluna);
-                var value = Convert.ChangeType(Valor, tipoColuna);
+                var tipoColuna = GetPropertyType<T>(ColunaPesquisa);
+                var value = Convert.ChangeType(ValorPesquisa, tipoColuna);
 
                 return tipoColuna == typeof(string)
-                           ? new FilterExpression(Coluna, ComparisonOperator.Contains, value, LogicOperator.And)
-                           : new FilterExpression(Coluna, ComparisonOperator.IsEqual, value, LogicOperator.And);
+                           ? new FilterExpression(ColunaPesquisa, ComparisonOperator.Contains, value, LogicOperator.And)
+                           : new FilterExpression(ColunaPesquisa, ComparisonOperator.IsEqual, value, LogicOperator.And);
             }
             catch (Exception)
             {
-                return new FilterExpression("Coluna", ComparisonOperator.IsDifferent, null, LogicOperator.And);
+                return new FilterExpression("ValorPesquisa", ComparisonOperator.IsDifferent, null, LogicOperator.And);
             }
         }
         #endregion

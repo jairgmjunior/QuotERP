@@ -10,8 +10,8 @@
         @Html.AntiForgeryToken()
         <div id="modal-body-banco" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
-                <input name="valor" class="pull-left input-large" type="text" />
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-large" type="text" />
                 <input id="submit-pesquisar-banco" type="submit" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-banco"></div>
@@ -72,8 +72,8 @@
         
         $('#pesquisar-banco').on('click', function () {
             $('#modal-banco').modal('show').one('hidden', function () {
-                $('#Coluna')[0].selectedIndex = 0;
-                $('input[name$="valor"]').val('');
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
                 $('#grid-pesquisa-banco').empty();
             });
         });

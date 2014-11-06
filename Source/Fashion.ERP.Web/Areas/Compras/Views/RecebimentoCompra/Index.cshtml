@@ -29,11 +29,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span4">
+                        <div class="span6">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.Numero)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Numero, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.NumeroPedidoCompra)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.NumeroPedidoCompra, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
@@ -52,9 +60,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SituacaoRecebimentoCompra)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.SituacaoRecebimentoCompra, Model.SituacaoRecebimentoCompra.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="span3">
+                        <div class="span2">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.DataInicio)
                                 <div class="controls">
@@ -62,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
+                        <div class="span4">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.DataFim)
                                 <div class="controls">
@@ -70,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
+                        <div class="span2">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.ValorInicio)
                                 <div class="controls">
@@ -78,7 +94,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
+                        <div class="span4">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.ValorFim)
                                 <div class="controls">
@@ -97,19 +113,6 @@
                                         <input id="referencia-material" class="input-small" type="text" />
                                         <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
                                         <span id="descricao-material" class="add-on"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span6">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.Comprador)
-                                <div class="controls">
-                                    @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
-                                    <div class="input-append">
-                                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                                        <span id="descricao-funcionario" class="add-on"></span>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +175,7 @@
 	{
 		columns.Bound(x => x.Numero);
 		columns.Bound(x => x.FornecedorNome);
-		columns.Bound(x => x.Data);
+		columns.Bound(x => x.Data).Format("{0:d}");
         columns.Bound(x => x.Valor).Format("{0:C}");
 	    columns.Bound(x => x.SituacaoRecebimentoCompra).Template(s => s.SituacaoRecebimentoCompra.EnumToString());
 		columns.Template(item => Html.EditarAuth(MVC.Compras.RecebimentoCompra.Editar(item.Id))).Width(80);

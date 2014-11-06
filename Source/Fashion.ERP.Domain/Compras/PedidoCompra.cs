@@ -71,10 +71,11 @@ namespace Fashion.ERP.Domain.Compras
             double quantidadeCancelada = _pedidoCompraItens.Select(
                 p => p.PedidoCompraItemCancelado == null ? 0 : p.PedidoCompraItemCancelado.QuantidadeCancelada)
                 .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-
-            if (quantidadePedida.Equals(quantidadeCancelada))
+            if ((quantidadeEntregue + quantidadeCancelada) == 0)
+                SituacaoCompra = SituacaoCompra.NaoAtendido;
+            else if (quantidadePedida.Equals(quantidadeCancelada))
                 SituacaoCompra = SituacaoCompra.Cancelado;
-            else if (quantidadePedida.Equals(quantidadeEntregue + quantidadeCancelada))
+            else if (quantidadePedida <= (quantidadeEntregue + quantidadeCancelada))
                 SituacaoCompra = SituacaoCompra.AtendidoTotal;
             else if (quantidadePedida > (quantidadeEntregue + quantidadeCancelada))
                 SituacaoCompra = SituacaoCompra.AtendidoParcial;

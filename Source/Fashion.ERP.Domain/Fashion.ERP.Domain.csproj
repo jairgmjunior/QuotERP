@@ -91,7 +91,6 @@
     <Compile Include="Compras\ProcedimentoModuloCompras.cs" />
     <Compile Include="Compras\RecebimentoCompra.cs" />
     <Compile Include="Compras\RecebimentoCompraItem.cs" />
-    <Compile Include="Compras\RecebimentoPedidoCompraItem.cs" />
     <Compile Include="Compras\SituacaoCompra.cs" />
     <Compile Include="Compras\PedidoCompra.cs" />
     <Compile Include="Compras\SituacaoOrdemEntradaCompra.cs" />
@@ -115,6 +114,8 @@
     <Compile Include="EngenhariaProduto\FichaTecnica.cs" />
     <Compile Include="EngenhariaProduto\MaterialComposicaoModelo.cs" />
     <Compile Include="EngenhariaProduto\ModeloFoto.cs" />
+    <Compile Include="EngenhariaProduto\ObjetosRelatorio\ConsumoMaterialPorModeloRelatorio.cs" />
+    <Compile Include="EngenhariaProduto\ObjetosRelatorio\ModeloConsumoMaterialRelatorio.cs" />
     <Compile Include="EngenhariaProduto\ProgramacaoBordado.cs" />
     <Compile Include="EngenhariaProduto\Segmento.cs" />
     <Compile Include="Comum\Tamanho.cs" />
@@ -133,7 +134,13 @@
     <Compile Include="EngenhariaProduto\Views\ConsumoMaterialColecaoView.cs" />
     <Compile Include="Financeiro\ContaBancaria.cs" />
     <Compile Include="Financeiro\DespesaReceita.cs" />
+    <Compile Include="Financeiro\DespesaTituloReceber.cs" />
     <Compile Include="Financeiro\ExtratoBancario.cs" />
+    <Compile Include="Financeiro\OrigemTituloReceber.cs" />
+    <Compile Include="Financeiro\RateioCentroCusto.cs" />
+    <Compile Include="Financeiro\RateioDespesaReceita.cs" />
+    <Compile Include="Financeiro\SituacaoTitulo.cs" />
+    <Compile Include="Financeiro\TipoBaixaReceber.cs" />
     <Compile Include="Financeiro\TipoContaBancaria.cs" />
     <Compile Include="Financeiro\TipoDespesaReceita.cs" />
     <Compile Include="Financeiro\TipoLancamento.cs" />
@@ -176,6 +183,10 @@
     <Compile Include="Financeiro\Emitente.cs" />
     <Compile Include="Financeiro\OcorrenciaCompensacao.cs" />
     <Compile Include="Financeiro\RecebimentoChequeRecebido.cs" />
+    <Compile Include="Financeiro\TituloPagar.cs" />
+    <Compile Include="Financeiro\TituloPagarBaixa.cs" />
+    <Compile Include="Financeiro\TituloReceber.cs" />
+    <Compile Include="Financeiro\TituloReceberBaixa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comum\Usuario.cs" />
     <Compile Include="Relatorio.cs" />

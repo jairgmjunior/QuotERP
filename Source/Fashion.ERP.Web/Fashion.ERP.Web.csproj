@@ -161,9 +161,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -289,6 +290,7 @@
     <Compile Include="Areas\Almoxarifado\Models\PesquisaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SaidaMaterialModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
+    <Compile Include="Areas\Compras\Controllers\FabricaDeObjetos.cs" />
     <Compile Include="Areas\Compras\Controllers\MotivoCancelamentoPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ParametroModuloCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\PedidoCompraCancelamentoController.cs" />
@@ -397,6 +399,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\ClassificacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ConsumoMaterialColecaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\CopidarModeloModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridAprovarModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridMaterialComposicaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridProgramacaoBordadoModel.cs" />
@@ -505,8 +508,14 @@
     <Compile Include="Areas\Financeiro\Controllers\EmitenteController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ExtratoBancarioController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\RelatorioController.cs" />
+    <Compile Include="Areas\Financeiro\Controllers\TituloPagarController.cs" />
+    <Compile Include="Areas\Financeiro\Controllers\TituloReceberController.cs" />
     <Compile Include="Areas\Financeiro\FinanceiroAreaRegistration.cs" />
     <Compile Include="Areas\Financeiro\Models\BaixaChequeRecebidoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\BaixaItemTituloPagarModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\BaixaItemTituloReceberModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\BaixaTituloPagarModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\BaixaTituloReceberModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ContaBancariaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\DespesaReceitaModel.cs" />
@@ -519,12 +528,22 @@
     <Compile Include="Areas\Financeiro\Models\GridEmitenteModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridExtratoBancarioModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridOcorrenciaChequeRecebidoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\GridRateioCentroCusto.cs" />
+    <Compile Include="Areas\Financeiro\Models\GridRateioDespesaReceita.cs" />
     <Compile Include="Areas\Financeiro\Models\GridRecebimentoChequeRecebidoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\GridTituloPagarModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\GridTituloReceberModel.cs" />
     <Compile Include="Areas\Financeiro\Models\IChequeRecebidoDropdownModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ListaChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\PesquisaChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\PesquisaDespesaReceitaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\PesquisaTituloPagarModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\PesquisaTituloReceberModel.cs" />
     <Compile Include="Areas\Financeiro\Models\RecebimentoChequeRecebidoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\TituloPagarCentroCustoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\TituloPagarDespesaReceitaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\TituloPagarModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\TituloReceberModel.cs" />
     <Compile Include="ArquivoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -723,6 +742,12 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Financeiro.RelatorioController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro.TituloPagarController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro.TituloReceberController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -947,7 +972,6 @@
     <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialColecao.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Modelo\Copiar.cshtml" />
     <Content Include="Areas\Compras\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Compras\Views\RecebimentoCompra\Index.cshtml" />
     <Content Include="Areas\Compras\Views\PedidoCompra\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\PedidoCompra\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Compras\Views\PedidoCompra\Editar.cshtml" />
@@ -985,9 +1009,23 @@
     <Content Include="Areas\Almoxarifado\Views\SaidaMaterial\Novo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\SaidaMaterial\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Compras\Views\PedidoCompra\Index.cshtml" />
-    <Content Include="Areas\Compras\Views\RecebimentoCompra\_NovoOuEditar.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="Areas\Compras\Views\RecebimentoCompra\Editar.cshtml" />
+    <Content Include="Areas\Compras\Views\RecebimentoCompra\Index.cshtml" />
     <Content Include="Areas\Compras\Views\RecebimentoCompra\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\RecebimentoCompra\PesquisarPedidoCompra.cshtml" />
+    <Content Include="Areas\Compras\Views\RecebimentoCompra\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialPorModelo.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloPagar\Baixar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloPagar\Editar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloPagar\Index.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloPagar\Novo.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloPagar\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloReceber\Index.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloReceber\Novo.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloReceber\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloReceber\Editar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\TituloReceber\Baixar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1269,6 +1307,12 @@
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EnumList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\UnidadeList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\UnidadeMedidaList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\numeric4casasdecimais.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SituacaoTitulo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CentroCustoList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DespesaReceitaList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ReadonlyDouble.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -368,6 +368,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var dataAgora = DateTime.Now;
                     domain.DataCriacao = dataAgora;
                     domain.DataAlteracao = dataAgora;
+                    if (domain.DataPrevisaoEnvio.HasValue)
+                    {
+                        DateTime dataPrevisaoEnvio = domain.DataPrevisaoEnvio.GetValueOrDefault();
+                        domain.DataPrevisaoEnvio = new DateTime(dataPrevisaoEnvio.Year, dataPrevisaoEnvio.Month, dataPrevisaoEnvio.Day);
+                    }
 
                     // Fotos
                     foreach (var foto in Fotos)
@@ -447,6 +452,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _modeloRepository.Get(model.Id));
+
+                    if (domain.DataPrevisaoEnvio.HasValue)
+                    {
+                        DateTime dataPrevisaoEnvio = domain.DataPrevisaoEnvio.GetValueOrDefault();
+                        domain.DataPrevisaoEnvio = new DateTime(dataPrevisaoEnvio.Year, dataPrevisaoEnvio.Month, dataPrevisaoEnvio.Day);
+                    }
 
                     // Fotos
                     var fotos = domain.Fotos.Where(p => Fotos.Any(q => p.Id == q.Id) == false).ToList();
@@ -800,6 +811,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     domain.Arquivo = null;
                     if (string.IsNullOrEmpty(model.NomeArquivoUpload) == false)
                     {
+                        if (model.NomeArquivo == null)
+                        {
+                            ModelState.AddModelError("NomeArquivo", "Informe o nome do arquivo.");
+                            return View(model);
+                        }
+
                         var arquivo = ArquivoController.SalvarArquivo(model.NomeArquivoUpload, model.NomeArquivo);
                         domain.Arquivo = _arquivoRepository.Save(arquivo);
                     }
@@ -855,7 +872,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var programacaoBordado = modelo.ProgramacaoBordados.Single(pb => pb.Id == model.Id);
                     
                     var domain = Mapper.Unflat(model, programacaoBordado);
-                    
+
+                    if (model.NomeArquivoUpload != null && model.NomeArquivo == null)
+                    {
+                        ModelState.AddModelError("NomeArquivo", "Informe o nome do arquivo.");
+                        return View(model);
+                    }
+
                     // a operação unflat instancia Arquivo por causa da propriedade ArquivoId
                     if (model.ArquivoId == null)
                     {
@@ -1273,6 +1296,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         novo.TecidoComplementar = domain.TecidoComplementar;
                         novo.ZiperBraguilha = domain.ZiperBraguilha;
                         novo.ZiperDetalhe = domain.ZiperDetalhe;
+                        //novo.DataPrevisaoEnvio = domain.DataPrevisaoEnvio;
 
                         foreach (var foto in domain.Fotos)
                         {
@@ -1327,8 +1351,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         }
 
                         // Composições para serem salvas depois
-                        var composicoes = new List<MaterialComposicaoModelo>();
-
                         foreach (var sequencia in domain.SequenciaProducoes)
                         {
                             var novaSequencia = new SequenciaProducao
@@ -1336,7 +1358,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                 DataEntrada = sequencia.DataEntrada,
                                 DataSaida = sequencia.DataSaida,
                                 DepartamentoProducao = sequencia.DepartamentoProducao,
-                                //Ordem = sequencia.Ordem,
                                 SetorProducao = sequencia.SetorProducao
                             };
 
@@ -1347,12 +1368,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                     Material = composicao.Material,
                                     Cor = composicao.Cor,
                                     Quantidade = composicao.Quantidade,
-                                    //SequenciaProducao = novaSequencia,
                                     Tamanho = composicao.Tamanho,
                                     UnidadeMedida = composicao.UnidadeMedida,
                                     Variacao = composicao.Variacao
                                 };
-                                composicoes.Add(novaComposicao);
+
+                                novaSequencia.MaterialComposicaoModelos.Add(novaComposicao);
                             }
 
                             novo.AddSequenciaProducao(novaSequencia);
@@ -1369,12 +1390,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                             novo.AddVariacao(novaVariacao);
                         }
 
-                        novo = _modeloRepository.Save(novo);
-
-                        foreach (var composicao in composicoes)
-                        {
-                            _materialComposicaoModeloRepository.Save(composicao);
-                        }
+                        _modeloRepository.Save(novo);
                         
                         this.AddSuccessMessage("Modelo copiado com sucesso.");
                         return RedirectToAction("Index");

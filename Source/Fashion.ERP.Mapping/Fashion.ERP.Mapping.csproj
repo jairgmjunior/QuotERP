@@ -86,7 +86,6 @@
     <Compile Include="Compras\ProcedimentoModuloComprasMap.cs" />
     <Compile Include="Compras\RecebimentoCompraItemMap.cs" />
     <Compile Include="Compras\RecebimentoCompraMap.cs" />
-    <Compile Include="Compras\RecebimentoPedidoCompraItemMap.cs" />
     <Compile Include="Comum\CentroCustoMap.cs" />
     <Compile Include="Comum\ClassificacaoDificuldadeMap.cs" />
     <Compile Include="Comum\CorMap.cs" />
@@ -121,6 +120,7 @@
     <Compile Include="EngenhariaProduto\View\ConsumoMaterialColecaoViewMap.cs" />
     <Compile Include="Financeiro\ContaBancariaMap.cs" />
     <Compile Include="Financeiro\DespesaReceitaMap.cs" />
+    <Compile Include="Financeiro\DespesaTituloReceberMap.cs" />
     <Compile Include="Financeiro\ExtratoBancarioMap.cs" />
     <Compile Include="Comum\AreaInteresseMap.cs" />
     <Compile Include="Comum\CidadeMap.cs" />
@@ -150,7 +150,13 @@
     <Compile Include="Financeiro\ChequeRecebidoMap.cs" />
     <Compile Include="Financeiro\EmitenteMap.cs" />
     <Compile Include="Financeiro\OcorrenciaCompensacaoMap.cs" />
+    <Compile Include="Financeiro\RateioCentroCustoMap.cs" />
+    <Compile Include="Financeiro\RateioDespesaReceitaMap.cs" />
     <Compile Include="Financeiro\RecebimentoChequeRecebidoMap.cs" />
+    <Compile Include="Financeiro\TituloPagarBaixaMap.cs" />
+    <Compile Include="Financeiro\TituloPagarMap.cs" />
+    <Compile Include="Financeiro\TituloReceberBaixaMap.cs" />
+    <Compile Include="Financeiro\TituloReceberMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioMap.cs" />
     <Compile Include="RelatorioParametroMap.cs" />

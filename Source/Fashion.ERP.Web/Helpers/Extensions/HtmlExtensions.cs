@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using Fashion.Framework.Common.Validators;
+using Newtonsoft.Json;
 
 namespace Fashion.ERP.Web.Helpers.Extensions
 {
@@ -287,5 +289,17 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         }
         #endregion
 
+        #region ToJson
+        public static MvcHtmlString ToJson(this HtmlHelper html, object obj)
+        {
+            var scriptSerializer = JsonSerializer.Create();
+
+            using (var sw = new StringWriter())
+            {
+                scriptSerializer.Serialize(sw, obj);
+                return MvcHtmlString.Create(sw.ToString());
+            }
+        }
+        #endregion
     }
 }

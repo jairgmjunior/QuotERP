@@ -9,7 +9,7 @@ namespace Fashion.ERP.Domain.Compras
         private IList<DetalhamentoRecebimentoCompraItem>  _detalhamentoRecebimentoCompraItens = new List<DetalhamentoRecebimentoCompraItem>();
 
         public virtual double Quantidade { get; set; }
-        public virtual double Custo { get; set; }
+        public virtual double ValorUnitario { get; set; }
         public virtual double ValorTotal { get; set; }
         public virtual Material Material { get; set; }
 

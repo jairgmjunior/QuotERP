@@ -69,6 +69,7 @@
                     T: "HH:mm:ss",
                     f: "dddd, d' de 'MMMM' de 'yyyy HH:mm",
                     F: "dddd, d' de 'MMMM' de 'yyyy HH:mm:ss",
+                    G: "dd/MM/yyyy",
                     M: "dd' de 'MMMM",
                     Y: "MMMM' de 'yyyy"
                 }

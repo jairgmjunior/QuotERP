@@ -10,15 +10,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? Id { get; set; }
 
         [Display(Name = "Número")]
-        public long Numero { get; set; }
+        public long? NumeroPedido { get; set; }
 
         [Display(Name = "Data")]
         [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime DataCompra { get; set; }
+        public DateTime? DataCompra { get; set; }
         
         [Display(Name = "Previsão de entrega")]
         [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime PrevisaoEntrega { get; set; }
+        public DateTime? PrevisaoEntrega { get; set; }
         
         [Display(Name = "Fornecedor")]
         public string FornecedorNome { get; set; }

@@ -147,6 +147,8 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.EmitenteController Emitente = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_EmitenteController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.ExtratoBancarioController ExtratoBancario = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_ExtratoBancarioController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_RelatorioController();
+        public Fashion.ERP.Web.Areas.Financeiro.Controllers.TituloPagarController TituloPagar = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_TituloPagarController();
+        public Fashion.ERP.Web.Areas.Financeiro.Controllers.TituloReceberController TituloReceber = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_TituloReceberController();
     }
 }
 
@@ -182,6 +184,19 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_PartialViewResult : System.Web.Mvc.PartialViewResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_PartialViewResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
     
     public string Controller { get; set; }
     public string Action { get; set; }

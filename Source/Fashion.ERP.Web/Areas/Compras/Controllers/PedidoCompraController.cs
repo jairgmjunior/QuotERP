@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -17,7 +16,6 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using Microsoft.Ajax.Utilities;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -110,7 +108,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     pedidoCompras = pedidoCompras.Where(p => p.UnidadeEstocadora.Id == model.UnidadeEstocadora);
                     filtros.AppendFormat("Unidade estocadora: {0}, ",
-                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).Nome);
+                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
                 }
 
                 if (model.Numero.HasValue)
@@ -346,8 +344,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             this.AddErrorMessage("Não foi possível encontrar o pedido de compra.");
             return RedirectToAction("Index");
         }
-
-
+        
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Editar(PedidoCompraModel model)
         {
@@ -400,7 +397,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
                         return RedirectToAction("Index");
                     }
-                   
                 }
                 catch (Exception exception)
                 {
@@ -422,9 +418,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
 				try
 				{
-                    
 					var domain = _pedidoCompraRepository.Get(id);
-                    //verifica se pedido de compra foi autorizado para exclusão --jamyl
+                    
 				    if (domain.Autorizado.Equals(true))
 				    {
                         _pedidoCompraRepository.Evict(domain);
@@ -469,20 +464,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return Json(new { erro = "Nenhum material encontrado." }, JsonRequestBehavior.AllowGet);
         }
         #endregion		
-
-        //#region PesquisarId
-        //[HttpGet, AjaxOnly]
-        //public virtual ActionResult PesquisarId(long numero)
-        //{
-        //    var pedidoCompra = _pedidoCompraRepository.Find(x=> x.Numero == numero).FirstOrDefault();
-
-        //    if (pedidoCompra != null)
-        //        return Json(new { cliente.Id, cliente.Funcionario.Codigo, cliente.Nome }, JsonRequestBehavior.AllowGet);
-
-        //    return Json(new { erro = "Nenhum funcionário encontrado." }, JsonRequestBehavior.AllowGet);
-        //}
-        //#endregion
-        
+      
         #region Métodos
 		
         #region PopulateViewData
@@ -523,8 +505,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #region PopulateViewDataItemCancelado
         protected void PopulateViewDataItemCancelado(PedidoCompraItemCanceladoModel model)
         {
-
-
             // UnidadeEstocadora
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
             ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);

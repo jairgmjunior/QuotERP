@@ -10,6 +10,11 @@ function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+function isDate(val) {
+    var d = new Date(val); // bug: não aceita a data "17/10/2014"
+    return !isNaN(d.valueOf());
+}
+
 /* Limpa o formulário e restaura os campos para o estado original */
 function clearForm(element) {
     $(element).find(':input').each(function () {

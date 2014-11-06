@@ -10,3 +10,10 @@
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
 }
+
+<script>
+
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("Novo", "RecebimentoCompra")';
+    }
+</script>    

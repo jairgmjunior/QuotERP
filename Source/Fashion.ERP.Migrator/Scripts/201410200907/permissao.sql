@@ -1,0 +1,1 @@
+﻿UPDATE permissao SET controller='RecebimentoCompra' WHERE controller = 'OrdemEntradaCompra'

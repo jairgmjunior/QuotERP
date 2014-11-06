@@ -1,117 +1,70 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraRecebimentoModel
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Pesquisar Itens de Pedido</h3>
-</div>
+@{ Layout = null; }
 
-@using (Html.BeginForm(MVC.Compras.RecebimentoCompra.PesquisarPedidoCompra()))
-{
-    <div class="modal-body">
-        <legend><small>Pedido de Compra</small></legend>
-        <div class="detail">
-            <div class="row">
-                <div class="span4">
-                    <div class="control-group">
-                        @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
-                        <div class="value-label">
-                            @Html.DisplayFor(x => x.Numero)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(x => x.FornecedorNome, new { @class = "title-label" })
-                        <div class="value-label">
-                            @Html.DisplayFor(x => x.FornecedorNome)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
-                        <div class="value-label">
-                            @Html.DisplayFor(x => x.DataCompra)
-                        </div>
+<legend><small>Pedido de Compra</small></legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.NumeroPedido, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.NumeroPedido)
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
-                        @Html.LabelFor(x => x.CompradorNome, new { @class = "title-label" })
-                        <div class="value-label">
-                            @Html.DisplayFor(x => x.CompradorNome)
-                        </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.FornecedorNome, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.FornecedorNome)
                     </div>
-                    <div class="control-group">
-                        @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
-                        <div class="value-label">
-                            @Html.DisplayFor(x => x.PrevisaoEntrega)
-                        </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.CompradorNome, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.CompradorNome)
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.DataCompra)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.PrevisaoEntrega)
                     </div>
                 </div>
             </div>
         </div>
-
-        <fieldset>
-            <legend><small>Itens do Pedido de Compra</small></legend>
-            @(Html.Kendo().Grid(Model.Grid)
-                  .Name("GridPedidosItens")
-                  .Columns(columns =>
-                  {
-                      columns.Bound(x => x.MaterialReferencia).Filterable(true);
-                      columns.Bound(x => x.MaterialReferenciaExterna).Filterable(true);
-                      columns.Bound(x => x.MaterialDescricao).Filterable(true);
-                      columns.Bound(x => x.UnidadeMedidaSigla).Filterable(false);
-                      columns.Bound(x => x.Quantidade).Filterable(false);
-                      columns.Bound(x => x.ValorUnitario).Format("{0:C}").Filterable(false).Width(70);
-                      columns.Bound(x => x.Marcado).Filterable(false).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
-                          .Title("Select")
-                          .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/><input type='hidden' name='GridPedidosItens[#= index(data)#].Marcado' value='#= Marcado #' /></div>");
-                  })
-                  .DataSource(dataSource => dataSource
-                      .Ajax()
-                      .ServerOperation(false)  
-                      .Model(model => model.Id(e => e.Id))
-                  )
-                  .Filterable()
-            )
-        </fieldset>
     </div>
 
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="submit">Carregar itens</button>
-    </div>
-}
-
-<script>
+    <fieldset>
+        <legend><small>Itens do Pedido de Compra</small></legend>
+        @(Html.Kendo().Grid(Model.Grid)
+                .Name("GridPedidosItens")
+                .Columns(columns =>
+                {
+                    columns.Bound(x => x.Id).Hidden();
+                    columns.Bound(x => x.MaterialReferenciaPedido).Filterable(true);
+                    columns.Bound(x => x.MaterialReferenciaExternaPedido).Filterable(true);
+                    columns.Bound(x => x.MaterialDescricaoPedido).Filterable(true);
+                    columns.Bound(x => x.UnidadeMedidaSiglaPedido).Filterable(false);
+                    columns.Bound(x => x.QuantidadePedido).Filterable(false);
+                    columns.Bound(x => x.ValorUnitarioPedido).Format("{0:C}").Filterable(false).Width(70);
+                    columns.Bound(x => x.Marcado).Filterable(false).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                        .Title("Select")
+                        .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/><input type='hidden'  value='#= Marcado #' /></div>");  @*name='GridPedidosItens[#= index(data)#].Marcado'*@
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .ServerOperation(false)  
+                    .Model(model => model.Id(e => e.Id))
+                )
+                .Filterable()
+        )
+    </fieldset>
     
-    //function adicioneItensNaGrid() {
-    //    debugger;
-    //    $("#GridItens").data("kendoGrid").dataSource.read();
-    //    var data = $("#GridPedidosItens").data("kendoGrid").dataSource.data();
-    //    for (var i = 0; i < data.length; i++) {
-
-    //    }
-    //}
-
-    //$(document).ready(function () {
-    //    $("form").submit(function (event) {
-    //        if (possuiSelecionados()) {
-    //            //adicioneItensNaGrid();
-    //            $('#dialogDiv').modal('hide');
-    //            event.preventDefault();
-    //            return true;
-    //        } else {
-    //            alert("É necessário selecionar ao menos um item do pedido de compra.");
-    //            $('#btnSubmit').button('reset');
-    //            return false;
-    //        }
-    //    });
-
-    //    $('#checkAll').click(function () {
-    //        if ($(this).attr('checked')) {
-    //            for (var i = 0; i < $('.chkbx').length; i++) {
-    //                marqueCheckBox($('.chkbx')[i]);
-    //            }
-    //        } else {
-    //            desmarqueCheckBox($('.chkbx'));
-    //        }
-    //    });
-    //});
-</script>

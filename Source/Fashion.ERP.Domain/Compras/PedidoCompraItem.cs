@@ -25,7 +25,22 @@ namespace Fashion.ERP.Domain.Compras
 
         public virtual double ObtenhaValorTotal()
         {
-            return ValorUnitario*Quantidade;
+            return ValorUnitario * Quantidade;
+        }
+
+        public virtual void AtualizeSituacao()
+        {
+            var quantidadeCancelada = PedidoCompraItemCancelado != null ? PedidoCompraItemCancelado.QuantidadeCancelada : 0;
+            var quantidadeTotal = QuantidadeEntrega + quantidadeCancelada;
+            
+            if (quantidadeTotal == 0)
+                SituacaoCompra = SituacaoCompra.NaoAtendido;
+            else if (Quantidade.Equals(quantidadeCancelada))
+                SituacaoCompra = SituacaoCompra.Cancelado;
+            else if (Quantidade <= quantidadeTotal)
+                SituacaoCompra = SituacaoCompra.AtendidoTotal;
+            else if (Quantidade > quantidadeTotal)
+                SituacaoCompra = SituacaoCompra.AtendidoParcial;
         }
     }
 }

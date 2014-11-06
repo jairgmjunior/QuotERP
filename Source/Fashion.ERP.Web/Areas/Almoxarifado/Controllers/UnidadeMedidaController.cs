@@ -241,6 +241,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaUnidadeMedidaDropDownList()
+        {
+            var unidades = _unidadeMedidaRepository.Find(p => p.Ativo)
+                .Select(s => new { s.Id, s.Sigla }).ToList().OrderBy(o => o.Sigla);
+
+            return Json(unidades, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
     }
 }

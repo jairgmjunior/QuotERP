@@ -21,6 +21,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto.View
             Map(x => x.Categoria);
             Map(x => x.Subcategoria);
             Map(x => x.Familia);
+            Map(x => x.DataPrevisaoEnvio);
         }
     }
 }

@@ -8,7 +8,7 @@ var cidadeDoEstado;
 $(document).ready(function () {
 
     Globalize.culture('pt-BR');
-    kendo.culture("pt-BR");
+    kendo.culture('pt-BR');
     
     $.ajaxSetup({
         // Disable caching of AJAX responses

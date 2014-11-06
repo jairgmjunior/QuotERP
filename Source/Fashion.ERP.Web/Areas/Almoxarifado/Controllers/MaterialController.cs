@@ -662,7 +662,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                   new { value = "NCM", text = "NCM"},
                                   new { value = "CodigoBarras", text = "Código de barras"},
                               };
-            ViewData["Coluna"] = new SelectList(coluna, "value", "text");
+            ViewData["ColunaPesquisa"] = new SelectList(coluna, "value", "text");
         }
         #endregion
 
@@ -760,7 +760,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                   new { value = "Referencia", text = "Referência"}
 
                               };
-            ViewData["Coluna"] = new SelectList(coluna, "value", "text");
+            ViewData["ColunaPesquisa"] = new SelectList(coluna, "value", "text");
         }
         #endregion
 

@@ -1,0 +1,242 @@
+﻿@using Fashion.ERP.Domain.Financeiro
+@model Fashion.ERP.Web.Areas.Financeiro.Models.TituloReceberModel
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Unidade)
+            <div class="controls liquidado-parcial">
+                @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6 detail">
+        <div class="control-group">
+            @Html.LabelFor(x => x.SituacaoTitulo, new { @class = "title-label", style = "width: 160px; text-align: right;" })
+            <div class="value-label">
+                @Html.EditorFor(x => x.SituacaoTitulo, "SituacaoTitulo")
+                @Html.HiddenFor(x => x.SituacaoTitulo)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Número/Parcela</label>
+            <div class="controls liquidado-parcial">
+                @Html.TextBoxFor(x => x.Numero, new { @class = "input-small" })
+                @(Html.Kendo().IntegerTextBoxFor(x => x.Parcela).HtmlAttributes(new { @class = "integer" }).Min(1))
+                @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+                @Html.ValidationMessageFor(x => x.Parcela, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Plano)
+            <div class="controls liquidado-parcial">
+                @Html.EditorFor(x => x.Plano)
+                @Html.ValidationMessageFor(x => x.Plano, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Cliente)
+            <div class="controls liquidado-parcial">
+                @Html.HiddenFor(x => x.Cliente, new { id = "Cliente" })
+                <div class="input-append">
+                    <input id="codigo-cliente" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-cliente" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Emissao)
+            <div class="controls liquidado-parcial">
+                @Html.EditorFor(x => x.Emissao)
+                @Html.ValidationMessageFor(x => x.Emissao, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Funcionario)
+            <div class="controls liquidado-parcial">
+                @Html.HiddenFor(x => x.Funcionario, new { id = "funcionario" })
+                <div class="input-append">
+                    <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-funcionario" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Vencimento)
+            <div class="controls liquidado-parcial">
+                @Html.EditorFor(x => x.Vencimento)
+                @Html.ValidationMessageFor(x => x.Vencimento, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Banco)
+            <div class="controls liquidado-parcial">
+                @Html.HiddenFor(x => x.Banco, new { id = "Banco" })
+                    <div class="input-append">
+                    <input id="codigo-banco" class="input-small numeric-only" type="text" />
+                    <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
+                    <span id="descricao-banco" class="add-on"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Prorrogacao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Prorrogacao)
+                @Html.ValidationMessageFor(x => x.Prorrogacao, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Valor)
+            <div class="controls liquidado-parcial">
+                @Html.EditorFor(x => x.Valor)
+                @Html.HiddenFor(x => x.Valor)
+                @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelFor(x => x.SaldoDevedor, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(x => x.SaldoDevedor, "{0:R$ 0.00}", new { disabled = "disabled", id = "SaldoDevedorDisabled" })
+                @Html.HiddenFor(x => x.SaldoDevedor)
+                @Html.ValidationMessageFor(x => x.SaldoDevedor, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorDespesas)
+            <div class="controls liquidado-parcial">
+                @Html.EditorFor(x => x.ValorDespesas)
+                @Html.HiddenFor(x => x.ValorDespesas)
+                @Html.ValidationMessageFor(x => x.ValorDespesas, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelFor(x => x.ValorTotal, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.ValorTotal, "{0:R$ 0.00}", new { disabled = "disabled", id = "ValorTotalDisabled" })
+                    @Html.HiddenFor(x => x.ValorTotal)
+                    @Html.ValidationMessageFor(x => x.ValorTotal, null, new { @class = "help-block" })
+                </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span10">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Historico)
+            <div class="controls input-xxlarge">
+                @Html.TextBoxFor(x => x.Historico, new { @class = "input-xlarge" })
+                @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span10">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Observacao)
+            <div class="controls">
+                @Html.TextAreaFor(x => x.Observacao,  new { @class = "input-xlarge" })
+                @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        
+        $('#Vencimento').on('change', function () {
+
+            var vencimento = $(this).val();
+
+            //if (isDate(vencimento)) {
+                $('#Prorrogacao').data("kendoDatePicker").value(vencimento);
+            //}
+
+        });
+
+        $('#Valor').on('change', function () {
+
+            var valor = $(this).val().toNumber();
+
+            if (isNumber(valor)) {
+                $('#SaldoDevedorDisabled').val(kendo.toString(valor, 'c'));
+                $('#SaldoDevedor').val(valor.toText());
+
+                CalculaValorTotal(valor);
+            }
+
+        });
+
+        $('#ValorDespesas').on('change', function () {
+
+            var valor = $('#Valor').val().toNumber();
+
+            if (isNumber(valor)) {
+                CalculaValorTotal(valor);
+            }
+
+        });
+        
+        @(Model.SituacaoTitulo == SituacaoTitulo.LiquidadoParcial ? "DesabilitarParcial();" : "")
+    });
+
+    // Atualiza o campo ValorTotal
+    function CalculaValorTotal(valor) {
+        var despesas = $('#ValorDespesas').val().toNumber();
+
+        if (isNumber(despesas)) {
+            var valorTotal = valor + despesas;
+            $('#ValorTotalDisabled').val(kendo.toString(valorTotal, 'c'));
+            $('#ValorTotal').val(valorTotal.toText());
+        }
+    }
+
+    function DesabilitarParcial() {
+        // Desabilita os campos quando a situação do título for Liquidado Parcial
+        var $inputs = $('.liquidado-parcial :input');
+        $inputs.each(function () {
+            var $this = $(this);
+            $this.after("<input type='hidden' name='" + $this.attr('name') + "' value='" + $this.val() + "' />");
+            $this.prop("disabled", true);
+        });
+    }
+</script>

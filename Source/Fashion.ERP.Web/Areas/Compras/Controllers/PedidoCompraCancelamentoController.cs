@@ -108,7 +108,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                           
                             pedidoCompraItemCancelado.CalculeQuantidade(domain);
 
-                            domain.SituacaoCompra = SituacaoCompra.Cancelado;
+                            domain.AtualizeSituacao();
 
                             domain.PedidoCompraItemCancelado = pedidoCompraItemCancelado;
                             _pedidoCompraItemRepository.Update(domain);

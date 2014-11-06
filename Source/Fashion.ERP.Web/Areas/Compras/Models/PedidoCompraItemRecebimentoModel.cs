@@ -9,22 +9,24 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? Id { get; set; }
         
         [Display(Name = "Referência")]
-        public string MaterialReferencia { get; set; }
+        public string MaterialReferenciaPedido { get; set; }
 
         [Display(Name = "Ref.Externa")]
-        public string MaterialReferenciaExterna { get; set; }
+        public string MaterialReferenciaExternaPedido { get; set; }
 
         [Display(Name = "Descrição")]
-        public string MaterialDescricao { get; set; }
+        public string MaterialDescricaoPedido { get; set; }
 
         [Display(Name = "Und.")]
-        public string UnidadeMedidaSigla { get; set; }
+        public string UnidadeMedidaSiglaPedido { get; set; }
         
         [Display(Name = "Val. Unitário")]
-        public double ValorUnitario { get; set; }
+        public double ValorUnitarioPedido { get; set; }
 
         [Display(Name = "Quantidade")]
-        public double Quantidade { get; set; }
+        public double QuantidadePedido { get; set; }
+
+        public long PedidoCompra { get; set; }
 
         public bool Marcado;
     }

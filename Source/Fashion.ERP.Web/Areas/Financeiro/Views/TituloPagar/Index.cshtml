@@ -1,0 +1,227 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.PesquisaTituloPagarModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Financeiro.TituloPagar.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@using (Html.BeginForm(MVC.Financeiro.TituloPagar.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Numero)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Numero, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Fornecedor)
+                                <div class="controls">
+                                    @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                                    <div class="input-append">
+                                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                                        <span id="descricao-fornecedor" class="add-on"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SituacaoTitulo)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.SituacaoTitulo, Model.SituacaoTitulo.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataEmissaoInicio)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataEmissaoInicio, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataEmissaoFim)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataEmissaoFim, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataVencimentoInicio)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataVencimentoInicio, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataVencimentoFim)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataVencimentoFim, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataCadastroInicio)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataCadastroInicio, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataCadastroFim)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataCadastroFim, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.ValorInicio)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.ValorInicio, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.ValorFim)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.ValorFim, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="row">
+                            <div class="span3">
+                                @Html.HiddenFor(x => x.ModoConsulta)
+                                <div class="btn-group" data-toggle="buttons-radio">
+                                    <button name="btn-ModoConsulta" class="btn btn-info active" type="button" value="listagem">Listagem</button>
+                                    <button name="btn-ModoConsulta" class="btn btn-info" type="button" value="impressao">Impressão</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="span3">
+                                <div id="row-imprimir" class="control-group" style="display: none">
+                                    @Html.LabelForRequired(x => x.AgruparPor)
+                                    <div class="controls">
+                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                    <div class="controls">
+                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                    <div class="controls">
+                                        <select name="OrdenarEm">
+                                            <option value="asc">Ascendente</option>
+                                            <option value="desc">Descendente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="pdf"></div>
+@(Html.Kendo().Grid(Model.Grid)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+        columns.Bound(x => x.UnidadeEstocadora);
+        columns.Bound(x => x.Numero);
+        columns.Bound(x => x.Parcela);
+        columns.Bound(x => x.Plano);
+        columns.Bound(x => x.Fornecedor);
+        columns.Bound(x => x.Vencimento).Format("{0:dd/MM/yyyy}");
+        columns.Bound(x => x.Valor).Format("{0:C}");
+        columns.Bound(x => x.SaldoDevedor).Format("{0:C}");
+        columns.Bound(x => x.SituacaoTitulo);
+        columns.Template(item => Html.EditarAuth(MVC.Financeiro.TituloPagar.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.ActionLinkAuth("Baixar", MVC.Financeiro.TituloPagar.Baixar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);
+	})
+)
+<script>
+    $(function () {
+        // Seleciona o modo de consulta
+        $('button[name=btn-ModoConsulta]').on('click', function () {
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if (this.value == 'impressao') {
+                $ModoConsulta.val('Imprimir');
+
+                $('#row-imprimir').show();
+                $('#pesquisar-relatorio').show();
+                $('#pesquisar-grid').hide();
+
+            } else {
+                $ModoConsulta.val('Listar');
+
+                $('#row-imprimir').hide();
+                $('#pesquisar-relatorio').hide();
+                $('#pesquisar-grid').show();
+
+            }
+        });
+    })
+</script>
+@{
+    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Banco", new { area = "Comum" });
+}

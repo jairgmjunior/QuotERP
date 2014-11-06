@@ -150,7 +150,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
-                public readonly string PesquisarItens = "PesquisarItens";
             }
             public readonly string _ExcluirItemPedido = "~/Areas/Compras/Views/PedidoCompra/_ExcluirItemPedido.cshtml";
             public readonly string _NovoOuEditar = "~/Areas/Compras/Views/PedidoCompra/_NovoOuEditar.cshtml";
@@ -158,7 +157,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public readonly string Editar = "~/Areas/Compras/Views/PedidoCompra/Editar.cshtml";
             public readonly string Index = "~/Areas/Compras/Views/PedidoCompra/Index.cshtml";
             public readonly string Novo = "~/Areas/Compras/Views/PedidoCompra/Novo.cshtml";
-            public readonly string PesquisarItens = "~/Areas/Compras/Views/PedidoCompra/PesquisarItens.cshtml";
         }
     }
 

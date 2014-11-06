@@ -10,8 +10,8 @@
         @Html.AntiForgeryToken()
         <div id="modal-body-prestadorservico" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
-                <input name="valor" class="pull-left input-xlarge" type="text" />
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
                 <input id="submit-pesquisar-prestador" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-prestadorservico"></div>

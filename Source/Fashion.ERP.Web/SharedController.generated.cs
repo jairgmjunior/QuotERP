@@ -73,11 +73,13 @@ namespace T4MVC
             public partial class _EditorTemplatesClass
             {
                 public readonly string Boolean = "Boolean";
+                public readonly string CentroCustoList = "CentroCustoList";
                 public readonly string Cep = "Cep";
                 public readonly string Cnpj = "Cnpj";
                 public readonly string Cpf = "Cpf";
                 public readonly string DateTime = "DateTime";
                 public readonly string DepartamentosList = "DepartamentosList";
+                public readonly string DespesaReceitaList = "DespesaReceitaList";
                 public readonly string @double = "double";
                 public readonly string Enum = "Enum";
                 public readonly string EnumList = "EnumList";
@@ -85,9 +87,13 @@ namespace T4MVC
                 public readonly string @int = "int";
                 public readonly string @long = "long";
                 public readonly string numeric = "numeric";
+                public readonly string numeric4casasdecimais = "numeric4casasdecimais";
                 public readonly string percent = "percent";
+                public readonly string ReadonlyDouble = "ReadonlyDouble";
                 public readonly string SetorProducaoList = "SetorProducaoList";
+                public readonly string SituacaoTitulo = "SituacaoTitulo";
                 public readonly string UnidadeList = "UnidadeList";
+                public readonly string UnidadeMedidaList = "UnidadeMedidaList";
             }
         }
     }

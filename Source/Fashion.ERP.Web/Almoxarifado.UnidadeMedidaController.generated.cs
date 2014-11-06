@@ -87,6 +87,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
             public readonly string ConsultaUnidadeMedida = "ConsultaUnidadeMedida";
+            public readonly string ObtenhaUnidadeMedidaDropDownList = "ObtenhaUnidadeMedidaDropDownList";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +99,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
             public const string ConsultaUnidadeMedida = "ConsultaUnidadeMedida";
+            public const string ObtenhaUnidadeMedidaDropDownList = "ObtenhaUnidadeMedidaDropDownList";
         }
 
 
@@ -244,6 +246,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConsultaUnidadeMedida);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ConsultaUnidadeMedidaOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void ObtenhaUnidadeMedidaDropDownListOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        public override System.Web.Mvc.JsonResult ObtenhaUnidadeMedidaDropDownList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaUnidadeMedidaDropDownList);
+            ObtenhaUnidadeMedidaDropDownListOverride(callInfo);
             return callInfo;
         }
 

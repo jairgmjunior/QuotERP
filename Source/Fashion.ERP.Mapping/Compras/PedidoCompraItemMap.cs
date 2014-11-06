@@ -1,6 +1,5 @@
 ﻿using Fashion.ERP.Domain.Compras;
 using Fashion.Framework.Mapping;
-using FluentNHibernate.Mapping;
 
 namespace Fashion.ERP.Mapping.Compras
 {

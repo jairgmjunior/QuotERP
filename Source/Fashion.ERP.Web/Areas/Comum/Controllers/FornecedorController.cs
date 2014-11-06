@@ -357,7 +357,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                                   new { value = "CpfCnpj", text = "Cpf/Cnpj"},
                                   new { value = "Fornecedor.Codigo", text = "Código"}
                               };
-            ViewData["Coluna"] = new SelectList(coluna, "value", "text");
+            ViewData["ColunaPesquisa"] = new SelectList(coluna, "value", "text");
         }
         #endregion
 

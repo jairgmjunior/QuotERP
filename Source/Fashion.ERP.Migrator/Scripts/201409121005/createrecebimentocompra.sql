@@ -9,7 +9,7 @@ CREATE TABLE recebimentocompra(
 	dataalteracao datetime NOT NULL,
 	observacao nvarchar(4000) NULL,
 	valor float NOT NULL,
-	comprador_id bigint NOT NULL,
+	--comprador_id bigint NOT NULL,
 	fornecedor_id bigint NOT NULL,
 	unidade_id bigint NOT NULL,
 	situacaorecebimentocompra nvarchar(400) NOT NULL,
@@ -17,8 +17,8 @@ CREATE TABLE recebimentocompra(
 )
 GO
 
-ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_comprador FOREIGN KEY(comprador_id) REFERENCES pessoa (id)
-GO
+--ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_comprador FOREIGN KEY(comprador_id) REFERENCES pessoa (id)
+--GO
 ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_fornecedor FOREIGN KEY(fornecedor_id) REFERENCES pessoa (id)
 GO
 ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_unidade FOREIGN KEY(unidade_id) REFERENCES pessoa (id)

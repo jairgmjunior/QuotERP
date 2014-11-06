@@ -1,0 +1,17 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.TituloReceberModel
+@using (Html.BeginForm(MVC.Financeiro.TituloReceber.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+		@Html.ExcluirAuth(MVC.Financeiro.TituloReceber.Excluir(Model.Id))
+	</div>
+}
+@{
+    Html.RenderPartial("_ConfirmDelete");
+    Html.RenderAction("Pesquisar", "Cliente", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Banco", new { area = "Comum" });
+}

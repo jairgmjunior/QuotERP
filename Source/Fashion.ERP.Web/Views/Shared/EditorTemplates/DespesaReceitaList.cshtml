@@ -1,0 +1,9 @@
+﻿@model String
+
+@(Html.Kendo().DropDownList()
+    .BindTo(ViewBag.DespesaReceitas)
+    .OptionLabel("- Selecione -")
+    .DataTextField("Descricao")
+    .DataValueField("Id")
+    .Name("DespesaReceitaId")
+)

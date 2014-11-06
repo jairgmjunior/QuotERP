@@ -11,34 +11,39 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Quantidade")]
         public double Quantidade { get; set; }
 
-        [Display(Name = "Val.Unit.Pedido")]
+        [Display(Name = "V.Unit.Pedido(R$)")]
+        [DisplayFormat(DataFormatString = "{0:N4}")]
         public double ValorUnitarioPedido { get; set; }
         
         [Display(Name = "Referência")]
         public string MaterialReferencia { get; set; }
 
-        [Display(Name = "Referência Externa")]
+        [Display(Name = "Ref.Externa")]
         public string MaterialReferenciaExterna { get; set; }
 
         [Display(Name = "Descrição")]
-        public string Descricao { get; set; }
+        public string MaterialDescricao { get; set; }
 
         [Display(Name = "Unidade")]
         public string UnidadeMedidaSigla { get; set; }
 
         [Display(Name = "Qtd.Entrada")]
-        public string QuantidadeEntrada { get; set; }
+        public double QuantidadeEntrada { get; set; }
 
         [Display(Name = "Und.Entrada")]
         public string UnidadeEntrada { get; set; }
         
-        [Display(Name = "Val. Unitário")]
+        [Display(Name = "V.Unitário(R$)")]
+        [DisplayFormat(DataFormatString = "{0:N4}")]
         public double ValorUnitario { get; set; }
 
-        [Display(Name = "Total Item")]
-        public double TotalItem { get; set; }
+        [Display(Name = "V.Total(R$)")]
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double ValorTotal { get; set; }
 
-        [Display(Name = "Pedido de Compra")]
+        [Display(Name = "Pedido(s)")]
         public IList<long> PedidosCompra { get; set; }
+        
+        public IList<long?> PedidoCompraItens { get; set; }
     }
 }

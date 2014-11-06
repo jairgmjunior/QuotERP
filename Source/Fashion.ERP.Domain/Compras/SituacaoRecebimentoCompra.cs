@@ -7,13 +7,13 @@ namespace Fashion.ERP.Domain.Compras
     [TypeConverter(typeof(EnumDisplayTypeConverter<SituacaoRecebimentoCompra>))]
     public enum SituacaoRecebimentoCompra
     {
-        [Display(Name = "Aguardando")]
+        [Display(Name = "AGUARDANDO")]
         Aguardando,
-        [Display(Name = "Divergente")]
+        [Display(Name = "DIVERGENTE")]
         Divergente,
-        [Display(Name = "Finalizada")]
+        [Display(Name = "FINALIZADA")]
         Finalizada,
-        [Display(Name = "Cancelada")]
+        [Display(Name = "CANCELADA")]
         Cancelada
     }
 

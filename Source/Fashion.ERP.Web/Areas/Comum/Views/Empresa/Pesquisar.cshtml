@@ -17,8 +17,8 @@
         }
         <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("Coluna", null, new {@class = "pull-left input-medium"})
-                @Html.TextBoxFor(x => x.Valor, new { @class = "pull-left input-xlarge"})
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                @Html.TextBoxFor(x => x.ValorPesquisa, new { @class = "pull-left input-xlarge"})
                 <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-funcionario"></div>
@@ -77,8 +77,8 @@
         });
         $('#pesquisar-funcionario').on('click', function () {
             $('#modal-funcionario').modal('show').one('hidden', function () {
-                $('#Coluna')[0].selectedIndex = 0;
-                $('input[name$="valor"]').val('');
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
                 $('#grid-pesquisa-funcionario').empty();
             });
         });

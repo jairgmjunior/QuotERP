@@ -260,7 +260,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                                   new { value = "Nome", text = "Nome"},
                                   new { value = "Codigo", text = "Código"},
                               };
-            ViewData["Coluna"] = new SelectList(coluna, "value", "text");
+            ViewData["ColunaPesquisa"] = new SelectList(coluna, "value", "text");
         }
         #endregion
 

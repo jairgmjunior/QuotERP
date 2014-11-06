@@ -52,9 +52,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Id = p.Id.GetValueOrDefault(),
                 DataSaida = p.DataSaida,
                 CentroCusto = p.CentroCusto.Nome,
-                UnidadeOrigem = p.DepositoMaterialOrigem.Unidade.Nome,
+                UnidadeOrigem = p.DepositoMaterialOrigem.Unidade.NomeFantasia,
                 DepositoMaterialOrigem = p.DepositoMaterialOrigem.Nome,
-                UnidadeDestino = p.DepositoMaterialDestino.Unidade.Nome,
+                UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
                 DepositoMaterialDestino = p.DepositoMaterialDestino.Nome
             }).ToList();
 
@@ -262,7 +262,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             // Unidade - Destino
             var unidadeDestinos = _depositoMaterialRepository.Find(p => p.Ativo)
                 .Select(d => d.Unidade).OrderBy(o => o.Nome).Where(u => u.Unidade.Ativo).Distinct().ToList();
-            ViewData["UnidadeDestino"] = unidadeDestinos.ToSelectList("Nome", model.UnidadeDestino);
+            ViewData["UnidadeDestino"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeDestino);
 
             // Depósito de material - Destino
             if (model.UnidadeDestino.HasValue)
@@ -271,7 +271,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 ViewData["DepositoMaterialDestino"] = new List<DepositoMaterial>().ToSelectList("Nome", model.DepositoMaterialDestino);
 
             // Unidade - Origem
-            ViewData["UnidadeOrigem"] = unidadeDestinos.ToSelectList("Nome", model.UnidadeOrigem);
+            ViewData["UnidadeOrigem"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeOrigem);
 
             // Depósito de material - Origem
             if (model.UnidadeOrigem.HasValue)

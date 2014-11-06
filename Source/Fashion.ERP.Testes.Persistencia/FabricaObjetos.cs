@@ -5,7 +5,6 @@ using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Domain.Financeiro;
-using NUnit.Framework.Constraints;
 
 namespace Fashion.ERP.Testes.Persistencia
 {
@@ -466,7 +465,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             return new RecebimentoCompraItem
             {
-                Custo = 1,
+                ValorUnitario = 1,
                 Quantidade = 1,
                 ValorTotal = 1
             };

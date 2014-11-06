@@ -9,12 +9,13 @@ namespace Fashion.ERP.Mapping.Compras
             : base("recebimentocompraitem", 0)
         {
             Map(x => x.Quantidade).Not.Nullable();
-            Map(x => x.Custo).Not.Nullable();
+            Map(x => x.ValorUnitario).Not.Nullable();
             Map(x => x.ValorTotal).Not.Nullable();
             
             References(x => x.Material).Not.Nullable();
 
             HasMany(x => x.DetalhamentoRecebimentoCompraItens)
+                .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
         }
     }

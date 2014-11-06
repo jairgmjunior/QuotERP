@@ -21,12 +21,13 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
         public override RecebimentoCompra GetPersistentObject()
         {
             var recebimentoCompra = FabricaObjetos.ObtenhaRecebimentoCompra();
-
-            recebimentoCompra.Comprador = _comprador;
+            
             recebimentoCompra.Fornecedor = _fornecedor;
             recebimentoCompra.Unidade = _unidadeEstocadora;
             recebimentoCompra.ConferenciaEntradaMateriais.Add(_conferenciaEntradaMaterial);
             recebimentoCompra.PedidoCompras.Add(_pedidoCompra);
+            recebimentoCompra.RecebimentoCompraItens.Add(_recebimentoCompraItem);
+            recebimentoCompra.DetalhamentoRecebimentoCompraItens.Add(_detalhamentoRecebimentoPedidoCompra);
 
             return recebimentoCompra;
         }
