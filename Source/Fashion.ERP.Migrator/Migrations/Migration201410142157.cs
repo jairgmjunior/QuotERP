@@ -63,7 +63,7 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("valor").AsDouble()
                 .WithColumn("titulopagar_id").AsInt64().ForeignKey("FK_rateiocentrocusto_titulopagar", "titulopagar", "id")
                 .WithColumn("centrocusto_id").AsInt64().ForeignKey("FK_rateiocentrocusto_centrocusto", "centrocusto", "id");
-
+            
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201410142157.permissao.sql");
         }
 

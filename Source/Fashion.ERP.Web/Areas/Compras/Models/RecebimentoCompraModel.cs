@@ -37,6 +37,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Required(ErrorMessage = "Informe a unidade")]
         public virtual long? Unidade { get; set; }
 
+        //Utilizado na EntradaMaterial
+        [Display(Name = "Depósito")]
+        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage = "Informe o depósito")]
+        public virtual long? DepositoMaterial { get; set; }
+
         public IList<RecebimentoCompraItemModel> GridItens { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
@@ -17,6 +18,28 @@ namespace Fashion.ERP.Testes.Persistencia
         private readonly FabricaObjetos _fabricaObjetos = new FabricaObjetos();
 
         #region Almoxarifado
+        public EntradaMaterial ObtenhaEntradaMaterial()
+        {
+            var entradaMaterial = _fabricaObjetos.ObtenhaEntradaMaterial();
+            entradaMaterial.DepositoMaterialDestino = ObtenhaDepositoMaterial();
+
+            var entradaItemMaterial = _fabricaObjetos.ObtenhaEntradaItemMaterial();
+            entradaItemMaterial.Material = ObtenhaMaterial();
+            entradaItemMaterial.UnidadeMedida = ObtenhaUnidadeMedida();
+            
+            entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
+
+            RepositoryFactory.Create<EntradaMaterial>().Save(entradaMaterial);
+
+            return entradaMaterial;
+        }
+
+        public void ExcluaEntradaMaterial(EntradaMaterial entradaMaterial)
+        {
+            RepositoryFactory.Create<EntradaMaterial>().Delete(entradaMaterial);
+            RepositoryFactory.Create<Material>().Delete(entradaMaterial.EntradaItemMateriais.First().Material);
+            RepositoryFactory.Create<UnidadeMedida>().Delete(entradaMaterial.EntradaItemMateriais.First().UnidadeMedida);
+        }
         
         public ConferenciaEntradaMaterial ObtenhaConferenciaEntradaMaterial()
         {
@@ -28,7 +51,6 @@ namespace Fashion.ERP.Testes.Persistencia
             conferenciaEntradaMaterialItem.UnidadeMedida = ObtenhaUnidadeMedida();
             conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens.Add(conferenciaEntradaMaterialItem);
             
-
             RepositoryFactory.Create<ConferenciaEntradaMaterial>().Save(conferenciaEntradaMaterial);
             
             return conferenciaEntradaMaterial;

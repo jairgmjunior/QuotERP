@@ -899,5 +899,15 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
         #endregion
+
+        public EntradaItemMaterial ObtenhaEntradaItemMaterial()
+        {
+            return new EntradaItemMaterial()
+            {
+                FatorMultiplicativo = 1,
+                Quantidade = 1,
+                QuantidadeCompra = 1
+            };
+        }
     }
 }

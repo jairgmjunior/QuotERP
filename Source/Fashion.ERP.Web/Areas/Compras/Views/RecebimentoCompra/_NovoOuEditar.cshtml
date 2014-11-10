@@ -28,6 +28,33 @@
             </div>
         </div>  
     </div>
+
+         @{
+            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+            {
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Numero)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.Numero)
+                                @Html.HiddenFor(x => x.Numero)
+                                @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Data)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.Data)
+                                @Html.HiddenFor(x => x.Data)
+                            </div>
+                        </div>
+                    </div>  
+                 </div>
+                }
+         }
     <div class="row">
         <div class="span6">
             <div class="control-group">
@@ -43,23 +70,6 @@
                 </div>
             </div>  
         </div>
-        @{
-            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-            {
-                <div class="span6">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Numero)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Numero)
-                            @Html.HiddenFor(x => x.Numero)
-                            @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-    </div>
-    <div class="row">
         <div class="span6">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Valor)
@@ -68,27 +78,23 @@
                     @Html.ValidationMessageFor(x => x.Valor, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
-        </div>  
-        @{
-            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-            {
-                <div class="span6">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Data)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Data)
-                            @Html.HiddenFor(x => x.Data)
-                        </div>
-                    </div>
-                </div>
-            }
-        }
+        </div>
+    </div>
+    <div class="row">
         <div class="span6">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
                     @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
+                <div class="controls">
+                    @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })
                 </div>
             </div>
         </div>
@@ -546,6 +552,28 @@
             dropdownPedidos.refresh();
             
         });
+       
+        $('#Unidade').on("change", function () {
+
+            // Preenche o combo de depósito de acordo com a unidade escolhida
+            var depositoMaterial = $('#DepositoMaterial');
+            depositoMaterial.empty();
+            depositoMaterial.append($('<option />').text('-- Selecione --').val(''));
+
+            var unidadeDestinoId = $(this).val();
+            if (unidadeDestinoId != '') {
+                var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeDestinoId;
+                $.getJSON(url, function(result) {
+                    $.each(result, function(index, item) {
+                        var option = $('<option />').val(item.Id).text(item.Nome);
+                        depositoMaterial.append(option);
+                    });
+                }).fail(function(jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            }
+        });
+
     });
 </script>
 

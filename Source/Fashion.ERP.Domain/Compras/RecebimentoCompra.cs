@@ -20,6 +20,7 @@ namespace Fashion.ERP.Domain.Compras
         public virtual double Valor { get; set; }
         public virtual Pessoa Unidade { get; set; }
         public virtual Pessoa Fornecedor { get; set; }
+        public virtual EntradaMaterial EntradaMaterial { get; set; }
 
         public virtual IList<ConferenciaEntradaMaterial> ConferenciaEntradaMateriais
         {

@@ -16,9 +16,9 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.Valor).Not.Nullable();
             
             References(x => x.Unidade).Not.Nullable();
-            //References(x => x.Comprador).Not.Nullable();
             References(x => x.Fornecedor).Not.Nullable();
-            
+            References(x => x.EntradaMaterial);
+
             HasMany(x => x.ConferenciaEntradaMateriais);
             
             HasMany(x => x.RecebimentoCompraItens)

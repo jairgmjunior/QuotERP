@@ -17,6 +17,7 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
         private Material _material;
         private ConferenciaEntradaMaterialItem _conferenciaEntradaMaterialItem;
         private DetalhamentoRecebimentoCompraItem _detalhamentoRecebimentoPedidoCompra;
+        private EntradaMaterial _entradaMaterial;
 
         public override RecebimentoCompra GetPersistentObject()
         {
@@ -41,6 +42,8 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
             _pedidoCompra = FabricaObjetosPersistidos.ObtenhaPedidoCompra();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
 
+            _entradaMaterial = FabricaObjetosPersistidos.ObtenhaEntradaMaterial();
+
             _conferenciaEntradaMaterialItem = _conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens[0];
 
             _detalhamentoRecebimentoPedidoCompra = FabricaObjetos.ObtenhaDetalhamentoRecebimentoPedidoCompra();
@@ -62,7 +65,7 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
             FabricaObjetosPersistidos.ExcluaPessoa(_unidadeEstocadora);
             FabricaObjetosPersistidos.ExcluaConferenciaEntradaMaterial(_conferenciaEntradaMaterial);
             FabricaObjetosPersistidos.ExcluaPedidoCompra(_pedidoCompra);
-
+            FabricaObjetosPersistidos.ExcluaEntradaMaterial(_entradaMaterial);
             Session.Current.Flush();
         }
     }

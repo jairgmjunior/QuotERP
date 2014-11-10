@@ -343,7 +343,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
             
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
-            ViewBag.Unidade = unidades.ToSelectList("Nome");
+            ViewBag.Unidade = unidades.ToSelectList("NomeFantasia");
 
             if (model.Unidade.HasValue)
             {

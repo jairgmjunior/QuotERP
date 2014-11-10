@@ -77,17 +77,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Almoxarifado\BordadoPersistencia.cs" />
-    <Compile Include="Almoxarifado\CatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\MaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\CategoriaPersistencia.cs" />
-    <Compile Include="Almoxarifado\EntradaCatalogoMaterialPersistencia.cs" />
-    <Compile Include="Almoxarifado\EstoqueCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\EntradaMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\EstoqueMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\FamiliaPersistencia.cs" />
     <Compile Include="Almoxarifado\MarcaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaPersistencia.cs" />
     <Compile Include="Almoxarifado\ReferenciaExternaPersistencia.cs" />
-    <Compile Include="Almoxarifado\SaidaCatalogoMaterialPersistencia.cs" />
-    <Compile Include="Almoxarifado\SaidaItemCatalogoMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\SaidaMaterialPersistencia.cs" />
+    <Compile Include="Almoxarifado\SaidaItemMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\UnidadeMedidaPersistencia.cs" />
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
     <Compile Include="Compras\PedidoCompraItemPersistencia.cs" />

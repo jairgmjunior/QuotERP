@@ -60,20 +60,20 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\BordadoMap.cs" />
-    <Compile Include="Almoxarifado\CatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\MaterialMap.cs" />
     <Compile Include="Almoxarifado\CategoriaMap.cs" />
     <Compile Include="Almoxarifado\DepositoMap.cs" />
-    <Compile Include="Almoxarifado\EntradaCatalogoMaterialMap.cs" />
-    <Compile Include="Almoxarifado\EntradaItemCatalogoMaterialMap.cs" />
-    <Compile Include="Almoxarifado\EstoqueCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\EntradaMaterialMap.cs" />
+    <Compile Include="Almoxarifado\EntradaItemMaterialMap.cs" />
+    <Compile Include="Almoxarifado\EstoqueMaterialMap.cs" />
     <Compile Include="Almoxarifado\FamiliaMap.cs" />
     <Compile Include="Almoxarifado\GeneroFiscalMap.cs" />
     <Compile Include="Almoxarifado\MarcaMaterialMap.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialMap.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItemMap.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaMap.cs" />
-    <Compile Include="Almoxarifado\SaidaCatalogoMaterialMap.cs" />
-    <Compile Include="Almoxarifado\SaidaItemCatalogoMaterialMap.cs" />
+    <Compile Include="Almoxarifado\SaidaMaterialMap.cs" />
+    <Compile Include="Almoxarifado\SaidaItemMaterialMap.cs" />
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
