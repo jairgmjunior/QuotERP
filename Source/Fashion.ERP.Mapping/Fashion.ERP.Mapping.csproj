@@ -71,6 +71,7 @@
     <Compile Include="Almoxarifado\MarcaMaterialMap.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialMap.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItemMap.cs" />
+    <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterialMap.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaMap.cs" />
     <Compile Include="Almoxarifado\SaidaMaterialMap.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterialMap.cs" />

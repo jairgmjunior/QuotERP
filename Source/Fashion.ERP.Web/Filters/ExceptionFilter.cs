@@ -48,7 +48,7 @@ namespace Fashion.ERP.Web.Filters
             {
                 filterContext.Result = new JsonNetResult
                    {
-                       Data = new { Error = exception.GetMessage(), CallStack = exception.StackTrace },
+                       Data = new { Error = exception.GetMessage() },
                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
                    };
                 return;

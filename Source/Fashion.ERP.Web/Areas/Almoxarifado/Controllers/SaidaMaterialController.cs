@@ -89,14 +89,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         var item = new SaidaItemMaterial
                         {
                             Material = _materialRepository.Load(model.Materiais[idx]),
-                            Quantidade = model.Quantidades[idx],
+                            MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
+                            {
+                                TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Saida,
+                                Data = DateTime.Now,
+                                Quantidade = model.Quantidades[idx]
+                            }
                         };
 
                         domain.AddSaidaItemMaterial(item);
 
                         // Remover cada item do estoque
-                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                            domain.DepositoMaterialOrigem, item.Material, item.Quantidade * -1);
+                        item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
+                            domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade * -1);
                     }
 
                     _saidaMaterialRepository.Save(domain);
@@ -135,7 +140,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     model.SaidaItemMateriais.Add(item.Id);
                     model.Materiais.Add(item.Material.Id.GetValueOrDefault());
-                    model.Quantidades.Add(item.Quantidade);
+                    model.Quantidades.Add(item.MovimentacaoEstoqueMaterial.Quantidade);
                 }
 
                 return View("Editar", model);
@@ -165,14 +170,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         // Se o depósito atual for diferente do antigo, remover todos os itens do antigo
                         if (depositoAntigo != domain.DepositoMaterialDestino)
                         {
-                            EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                               depositoAntigo, item.Material, item.Quantidade);
+                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
+                               depositoAntigo, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade);
                         }
                         // Remover apenas se o item foi excluído
                         else if (model.SaidaItemMateriais.Contains(item.Id) == false)
                         {
-                            EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                                domain.DepositoMaterialOrigem, item.Material, item.Quantidade);
+                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
+                                domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade);
 
                             domain.RemoveSaidaItemMaterial(item);
                         }
@@ -191,14 +196,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                             var item = new SaidaItemMaterial
                             {
                                 Material = _materialRepository.Load(model.Materiais[idx]),
-                                Quantidade = model.Quantidades[idx],
+                                MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
+                                {
+                                    TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Saida,
+                                    Data = DateTime.Now,
+                                    Quantidade = model.Quantidades[idx]
+                                }
                             };
 
                             domain.AddSaidaItemMaterial(item);
 
                             // Incluir cada item ao estoque
-                            EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                                domain.DepositoMaterialOrigem, item.Material, item.Quantidade * -1);
+                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
+                                domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade * -1);
                         }
                     }
 
@@ -233,7 +243,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     foreach (var item in domain.SaidaItemMateriais)
                     {
                         EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                            domain.DepositoMaterialOrigem, item.Material, item.Quantidade);
+                            domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade);
                     }
 
 					_saidaMaterialRepository.Delete(domain);

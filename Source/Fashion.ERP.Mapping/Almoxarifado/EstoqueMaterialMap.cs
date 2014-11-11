@@ -1,5 +1,6 @@
 ﻿using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.Framework.Mapping;
+using FluentNHibernate.Mapping;
 
 namespace Fashion.ERP.Mapping.Almoxarifado
 {
@@ -13,6 +14,12 @@ namespace Fashion.ERP.Mapping.Almoxarifado
 
             References(x => x.Material).Not.Nullable();
             References(x => x.DepositoMaterial).Not.Nullable();
+            
+            HasMany(x => x.MovimentacaoEstoqueMateriais)
+                .Not.LazyLoad()
+                .Inverse()
+                .Cascade.AllDeleteOrphan()
+                .Access.CamelCaseField(Prefix.Underscore);
         } 
     }
 }

@@ -48,8 +48,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="span6">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.UnidadeOrigem)
@@ -59,15 +57,18 @@
                 </div>
             </div>
         </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DepositoMaterialOrigem)
-            <div class="controls">
-                @Html.DropDownList("DepositoMaterialOrigem", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.DepositoMaterialOrigem, null, new { @class="help-block" })
+    </div>
+    <div class="row">
+        <div class="span6"></div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DepositoMaterialOrigem)
+                <div class="controls">
+                    @Html.DropDownList("DepositoMaterialOrigem", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.DepositoMaterialOrigem, null, new { @class="help-block" })
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </fieldset>
 

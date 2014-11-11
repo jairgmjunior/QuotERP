@@ -375,10 +375,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id) ??
                                           new EntradaItemMaterial();
 
-                entradaItemMaterial.FatorMultiplicativo = unidadeMedidaCompra.FatorMultiplicativo;
-                entradaItemMaterial.UnidadeMedida = unidadeMedidaCompra;
+                
+                entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
                 entradaItemMaterial.Material = x.Material;
-                entradaItemMaterial.Quantidade = x.Quantidade;
+                //entradaItemMaterial.Quantidade = x.Quantidade;
                 entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
 
                 entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);

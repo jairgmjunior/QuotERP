@@ -73,6 +73,7 @@
     <Compile Include="Almoxarifado\MarcaMaterial.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterial.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItem.cs" />
+    <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterial.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributaria.cs" />
     <Compile Include="Almoxarifado\SaidaMaterial.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterial.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Almoxarifado\Tecido.cs" />
     <Compile Include="Almoxarifado\TipoCategoria.cs" />
     <Compile Include="Almoxarifado\Views\ExtratoItemEstoqueView.cs" />
+    <Compile Include="Almoxarifado\TipoMovimentacaoEstoqueMaterial.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItem.cs" />
     <Compile Include="Compras\PedidoCompraItemCancelado.cs" />
     <Compile Include="Compras\MotivoCancelamentoPedidoCompra.cs" />
@@ -196,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Almoxarifado.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Comum.cd">
       <SubType>Designer</SubType>
     </None>

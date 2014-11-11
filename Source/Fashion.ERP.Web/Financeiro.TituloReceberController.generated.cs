@@ -59,6 +59,24 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Baixar);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SalveBaixaTitulo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SalveBaixaTitulo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AtualizeBaixaTitulo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AtualizeBaixaTitulo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ExcluaBaixaTitulo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExcluaBaixaTitulo);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public TituloReceberController Actions { get { return MVC.Financeiro.TituloReceber; } }
@@ -80,6 +98,9 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string Baixar = "Baixar";
+            public readonly string SalveBaixaTitulo = "SalveBaixaTitulo";
+            public readonly string AtualizeBaixaTitulo = "AtualizeBaixaTitulo";
+            public readonly string ExcluaBaixaTitulo = "ExcluaBaixaTitulo";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,9 +111,20 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string Baixar = "Baixar";
+            public const string SalveBaixaTitulo = "SalveBaixaTitulo";
+            public const string AtualizeBaixaTitulo = "AtualizeBaixaTitulo";
+            public const string ExcluaBaixaTitulo = "ExcluaBaixaTitulo";
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_Novo s_params_Novo = new ActionParamsClass_Novo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Novo NovoParams { get { return s_params_Novo; } }
@@ -126,6 +158,33 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_SalveBaixaTitulo s_params_SalveBaixaTitulo = new ActionParamsClass_SalveBaixaTitulo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SalveBaixaTitulo SalveBaixaTituloParams { get { return s_params_SalveBaixaTitulo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SalveBaixaTitulo
+        {
+            public readonly string request = "request";
+            public readonly string baixaTitulos = "models";
+        }
+        static readonly ActionParamsClass_AtualizeBaixaTitulo s_params_AtualizeBaixaTitulo = new ActionParamsClass_AtualizeBaixaTitulo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AtualizeBaixaTitulo AtualizeBaixaTituloParams { get { return s_params_AtualizeBaixaTitulo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AtualizeBaixaTitulo
+        {
+            public readonly string request = "request";
+            public readonly string baixaTitulos = "models";
+        }
+        static readonly ActionParamsClass_ExcluaBaixaTitulo s_params_ExcluaBaixaTitulo = new ActionParamsClass_ExcluaBaixaTitulo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ExcluaBaixaTitulo ExcluaBaixaTituloParams { get { return s_params_ExcluaBaixaTitulo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ExcluaBaixaTitulo
+        {
+            public readonly string request = "request";
+            public readonly string baixaTitulos = "models";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -136,9 +195,17 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _NovoOuEditar = "_NovoOuEditar";
+                public readonly string Baixar = "Baixar";
+                public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
+                public readonly string Novo = "Novo";
             }
+            public readonly string _NovoOuEditar = "~/Areas/Financeiro/Views/TituloReceber/_NovoOuEditar.cshtml";
+            public readonly string Baixar = "~/Areas/Financeiro/Views/TituloReceber/Baixar.cshtml";
+            public readonly string Editar = "~/Areas/Financeiro/Views/TituloReceber/Editar.cshtml";
             public readonly string Index = "~/Areas/Financeiro/Views/TituloReceber/Index.cshtml";
+            public readonly string Novo = "~/Areas/Financeiro/Views/TituloReceber/Novo.cshtml";
         }
     }
 
@@ -153,6 +220,16 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Financeiro.Models.PesquisaTituloReceberModel model);
+
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Financeiro.Models.PesquisaTituloReceberModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IndexOverride(callInfo, model);
             return callInfo;
         }
 
@@ -212,6 +289,39 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Baixar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             BaixarOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void SalveBaixaTituloOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos);
+
+        public override System.Web.Mvc.ActionResult SalveBaixaTitulo(Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SalveBaixaTitulo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "models", baixaTitulos);
+            SalveBaixaTituloOverride(callInfo, request, baixaTitulos);
+            return callInfo;
+        }
+
+        partial void AtualizeBaixaTituloOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos);
+
+        public override System.Web.Mvc.ActionResult AtualizeBaixaTitulo(Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AtualizeBaixaTitulo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "models", baixaTitulos);
+            AtualizeBaixaTituloOverride(callInfo, request, baixaTitulos);
+            return callInfo;
+        }
+
+        partial void ExcluaBaixaTituloOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos);
+
+        public override System.Web.Mvc.ActionResult ExcluaBaixaTitulo(Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.Financeiro.Models.BaixaItemTituloReceberModel> baixaTitulos)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExcluaBaixaTitulo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "models", baixaTitulos);
+            ExcluaBaixaTituloOverride(callInfo, request, baixaTitulos);
             return callInfo;
         }
 

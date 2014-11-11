@@ -1,15 +1,49 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
     public class EstoqueMaterial : DomainBase<EstoqueMaterial>
     {
+        private readonly IList<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMateriais;
+
         public virtual double Quantidade { get; set; }
         public virtual double Reserva { get; set; }
-
         public virtual DepositoMaterial DepositoMaterial { get; set; }
         public virtual Material Material { get; set; }
+        public virtual IList<EstoqueMaterial> EstoqueMateriais { get; set; }
+
+        public EstoqueMaterial()
+        {
+            _movimentacaoEstoqueMateriais = new List<MovimentacaoEstoqueMaterial>();
+        }
+
+        #region MovimentacaoEstoqueMateriais
+        public virtual IReadOnlyCollection<MovimentacaoEstoqueMaterial> MovimentacaoEstoqueMateriais
+        {
+            get { return new ReadOnlyCollection<MovimentacaoEstoqueMaterial>(_movimentacaoEstoqueMateriais); }
+        }
+
+        public virtual void AddMovimentacaoEstoqueMaterial(params MovimentacaoEstoqueMaterial[] movimentacaoEstoqueMateriais)
+        {
+            foreach (var movimentacaoEstoqueMaterial in movimentacaoEstoqueMateriais)
+            {
+                movimentacaoEstoqueMaterial.EstoqueMaterial = this;
+                _movimentacaoEstoqueMateriais.Add(movimentacaoEstoqueMaterial);
+            }
+        }
+
+        public virtual void RemoveMovimentacaoEstoqueMaterial(params MovimentacaoEstoqueMaterial[] movimentacaoEstoqueMateriais)
+        {
+            foreach (var movimentacaoEstoqueMaterial in movimentacaoEstoqueMateriais)
+            {
+                if (_movimentacaoEstoqueMateriais.Contains(movimentacaoEstoqueMaterial))
+                    _movimentacaoEstoqueMateriais.Remove(movimentacaoEstoqueMaterial);
+            }
+        }
+        #endregion
 
         #region AtualizarEstoque
         /// <summary>

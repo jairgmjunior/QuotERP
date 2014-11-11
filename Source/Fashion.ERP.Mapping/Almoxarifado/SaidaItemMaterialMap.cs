@@ -8,10 +8,9 @@ namespace Fashion.ERP.Mapping.Almoxarifado
         public SaidaItemMaterialMap()
             : base("saidaitemmaterial", 0)
         {
-            Map(x => x.Quantidade).Not.Nullable();
-
             References(x => x.SaidaMaterial).Not.Nullable();
             References(x => x.Material).Not.Nullable();
+            References(x => x.MovimentacaoEstoqueMaterial).Not.Nullable().Cascade.All();
         } 
     }
 }

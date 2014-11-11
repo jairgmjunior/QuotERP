@@ -169,10 +169,7 @@ namespace Fashion.ERP.Testes.Persistencia
 
         public SaidaItemMaterial ObtenhaSaidaItemMaterial()
         {
-            return new SaidaItemMaterial
-            {
-                Quantidade = 5
-            };
+            return new SaidaItemMaterial();
         }
 
         public Subcategoria ObtenhaSubcategoria()
@@ -214,6 +211,24 @@ namespace Fashion.ERP.Testes.Persistencia
                 Descricao = "DESCRIÇÃO",
                 FatorMultiplicativo = 1.0,
                 Sigla = "SIGLA"
+            };
+        }
+        
+        public EntradaItemMaterial ObtenhaEntradaItemMaterial()
+        {
+            return new EntradaItemMaterial()
+            {
+                QuantidadeCompra = 1
+            };
+        }
+
+        public MovimentacaoEstoqueMaterial ObtenhaMovimentacaoEstoqueMaterial()
+        {
+            return new MovimentacaoEstoqueMaterial()
+            {
+                TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Entrada,
+                Quantidade = 1,
+                Data = new DateTime(2014, 1, 1)
             };
         }
 
@@ -899,15 +914,5 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
         #endregion
-
-        public EntradaItemMaterial ObtenhaEntradaItemMaterial()
-        {
-            return new EntradaItemMaterial()
-            {
-                FatorMultiplicativo = 1,
-                Quantidade = 1,
-                QuantidadeCompra = 1
-            };
-        }
     }
 }

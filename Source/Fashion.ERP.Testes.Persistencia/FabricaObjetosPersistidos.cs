@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
@@ -18,6 +17,41 @@ namespace Fashion.ERP.Testes.Persistencia
         private readonly FabricaObjetos _fabricaObjetos = new FabricaObjetos();
 
         #region Almoxarifado
+
+        public MovimentacaoEstoqueMaterial ObtenhaMovimentacaoEstoqueMaterial()
+        {
+            var movimentacaoEstoqueMaterial = _fabricaObjetos.ObtenhaMovimentacaoEstoqueMaterial();
+            movimentacaoEstoqueMaterial.EstoqueMaterial = ObtenhaEstoqueMaterial();
+
+            RepositoryFactory.Create<MovimentacaoEstoqueMaterial>().Save(movimentacaoEstoqueMaterial);
+
+            return movimentacaoEstoqueMaterial;
+        }
+
+        public void ExcluaMovimentacaoEstoqueMaterial(MovimentacaoEstoqueMaterial movimentacaoEstoqueMaterial)
+        {
+            RepositoryFactory.Create<MovimentacaoEstoqueMaterial>().Delete(movimentacaoEstoqueMaterial);
+            ExcluaEstoqueMaterial(movimentacaoEstoqueMaterial.EstoqueMaterial);
+        }
+
+        public EstoqueMaterial ObtenhaEstoqueMaterial()
+        {
+            var estoqueMaterial = _fabricaObjetos.ObtenhaEstoqueMaterial();
+            estoqueMaterial.Material = ObtenhaMaterial();
+            estoqueMaterial.DepositoMaterial = ObtenhaDepositoMaterial();
+
+            RepositoryFactory.Create<EstoqueMaterial>().Save(estoqueMaterial);
+            
+            return estoqueMaterial;
+        }
+
+        public void ExcluaEstoqueMaterial(EstoqueMaterial estoqueMaterial)
+        {
+            RepositoryFactory.Create<EstoqueMaterial>().Delete(estoqueMaterial);
+            ExcluaMaterial(estoqueMaterial.Material);
+            ExcluaDepositoMaterial(estoqueMaterial.DepositoMaterial);
+        }
+
         public EntradaMaterial ObtenhaEntradaMaterial()
         {
             var entradaMaterial = _fabricaObjetos.ObtenhaEntradaMaterial();
@@ -25,7 +59,7 @@ namespace Fashion.ERP.Testes.Persistencia
 
             var entradaItemMaterial = _fabricaObjetos.ObtenhaEntradaItemMaterial();
             entradaItemMaterial.Material = ObtenhaMaterial();
-            entradaItemMaterial.UnidadeMedida = ObtenhaUnidadeMedida();
+            entradaItemMaterial.UnidadeMedidaCompra = ObtenhaUnidadeMedida();
             
             entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
 
@@ -37,8 +71,8 @@ namespace Fashion.ERP.Testes.Persistencia
         public void ExcluaEntradaMaterial(EntradaMaterial entradaMaterial)
         {
             RepositoryFactory.Create<EntradaMaterial>().Delete(entradaMaterial);
-            RepositoryFactory.Create<Material>().Delete(entradaMaterial.EntradaItemMateriais.First().Material);
-            RepositoryFactory.Create<UnidadeMedida>().Delete(entradaMaterial.EntradaItemMateriais.First().UnidadeMedida);
+            ExcluaMaterial(entradaMaterial.EntradaItemMateriais.First().Material);
+            ExcluaUnidadeMedida(entradaMaterial.EntradaItemMateriais.First().UnidadeMedidaCompra);
         }
         
         public ConferenciaEntradaMaterial ObtenhaConferenciaEntradaMaterial()
@@ -59,9 +93,9 @@ namespace Fashion.ERP.Testes.Persistencia
         public void ExcluaConferenciaEntradaMaterial(ConferenciaEntradaMaterial conferenciaEntradaMaterial)
         {
             RepositoryFactory.Create<ConferenciaEntradaMaterial>().Delete(conferenciaEntradaMaterial);
-            RepositoryFactory.Create<Pessoa>().Delete(conferenciaEntradaMaterial.Comprador);
-            RepositoryFactory.Create<Material>().Delete(conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens[0].Material);
-            RepositoryFactory.Create<UnidadeMedida>().Delete(conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens[0].UnidadeMedida);
+            ExcluaPessoa(conferenciaEntradaMaterial.Comprador);
+            ExcluaMaterial(conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens[0].Material);
+            ExcluaUnidadeMedida(conferenciaEntradaMaterial.ConferenciaEntradaMaterialItens[0].UnidadeMedida);
         }
 
         public DepositoMaterial ObtenhaDepositoMaterial()

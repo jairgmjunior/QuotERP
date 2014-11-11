@@ -1,5 +1,4 @@
 ﻿using Fashion.ERP.Domain.Almoxarifado;
-using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork;
 
 namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
@@ -8,28 +7,40 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
     {
         private DepositoMaterial _depositoMaterialOrigem;
         private DepositoMaterial _depositoMaterialDestino;
+        private Material _material;
+        private EstoqueMaterial _estoqueMaterial;
         
         public override SaidaMaterial GetPersistentObject()
         {
             var saidaMaterial = FabricaObjetos.ObtenhaSaidaMaterial();
-            saidaMaterial.DepositoMaterialDestino = _depositoMaterialDestino;
-            saidaMaterial.DepositoMaterialOrigem= _depositoMaterialOrigem;
             
+            var saidaItemMaterial = FabricaObjetos.ObtenhaSaidaItemMaterial();
+            saidaItemMaterial.Material = _material;
+            saidaItemMaterial.MovimentacaoEstoqueMaterial = FabricaObjetos.ObtenhaMovimentacaoEstoqueMaterial();
+            saidaItemMaterial.MovimentacaoEstoqueMaterial.EstoqueMaterial = _estoqueMaterial;
+            
+            saidaMaterial.DepositoMaterialDestino = _depositoMaterialDestino;
+            saidaMaterial.DepositoMaterialOrigem = _depositoMaterialOrigem;
+            saidaMaterial.AddSaidaItemMaterial(saidaItemMaterial);
             return saidaMaterial;
         }
 
         public override void Init()
         {
-            _depositoMaterialOrigem = FabricaObjetosPersistidos.ObtenhaDepositoMaterial();
             _depositoMaterialDestino = FabricaObjetosPersistidos.ObtenhaDepositoMaterial();
+            _depositoMaterialOrigem = FabricaObjetosPersistidos.ObtenhaDepositoMaterial();
+            _material = FabricaObjetosPersistidos.ObtenhaMaterial();
+            _estoqueMaterial = FabricaObjetosPersistidos.ObtenhaEstoqueMaterial();
             
             Session.Current.Flush();
         }
 
         public override void Cleanup()
         {
-            RepositoryFactory.Create<DepositoMaterial>().Delete(_depositoMaterialOrigem);
-            RepositoryFactory.Create<DepositoMaterial>().Delete(_depositoMaterialDestino);
+            FabricaObjetosPersistidos.ExcluaDepositoMaterial(_depositoMaterialDestino);
+            FabricaObjetosPersistidos.ExcluaDepositoMaterial(_depositoMaterialOrigem);
+            FabricaObjetosPersistidos.ExcluaMaterial(_material);
+            FabricaObjetosPersistidos.ExcluaEstoqueMaterial(_estoqueMaterial);
 
             Session.Current.Flush();
         }

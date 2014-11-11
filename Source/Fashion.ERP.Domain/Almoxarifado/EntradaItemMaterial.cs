@@ -5,10 +5,8 @@
         public virtual EntradaMaterial EntradaMaterial { get; set; }
 
         public virtual double QuantidadeCompra { get; set; }
-        public virtual double FatorMultiplicativo { get; set; }
-        public virtual double Quantidade { get; set; }
-
         public virtual Material Material { get; set; }
-        public virtual UnidadeMedida UnidadeMedida { get; set; }
+        public virtual UnidadeMedida UnidadeMedidaCompra { get; set; }
+        public virtual MovimentacaoEstoqueMaterial MovimentacaoEstoqueMaterial { get; set; }
     }
 }
