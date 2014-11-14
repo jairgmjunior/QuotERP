@@ -15,7 +15,7 @@
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.UnidadeDestino)
-            <div class="controls">
+            <div class='controls @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
                 @Html.DropDownList("UnidadeDestino", null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.UnidadeDestino, null, new { @class="help-block" })
             </div>
@@ -24,7 +24,7 @@
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.DepositoMaterialDestino)
-            <div class="controls">
+            <div class='controls @(@ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
                 @Html.DropDownList("DepositoMaterialDestino", null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.DepositoMaterialDestino, null, new { @class="help-block" })
             </div>

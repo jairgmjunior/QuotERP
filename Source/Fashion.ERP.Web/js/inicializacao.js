@@ -251,6 +251,12 @@ $(document).ready(function () {
         
         return false;
     });
+
+    $(".naoeditavel :input").each(function () {
+        var $this = $(this);
+        $this.after("<input type='hidden' name='" + $this.attr('name') + "' value='" + $this.val() + "' />");
+        $this.prop("disabled", true);
+    });
 });
 
 // Permite apenas número

@@ -374,16 +374,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id) ??
                                           new EntradaItemMaterial();
-
                 
                 entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
                 entradaItemMaterial.Material = x.Material;
-                //entradaItemMaterial.Quantidade = x.Quantidade;
                 entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
+                entradaItemMaterial.MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
+                {
+                    Data = DateTime.Now,
+                    Quantidade = x.Quantidade,
+                    EstoqueMaterial =
+                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material,
+                            x.Quantidade)
+                };
 
                 entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
-
-                EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material, x.Quantidade);
             });
 
             return _entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
