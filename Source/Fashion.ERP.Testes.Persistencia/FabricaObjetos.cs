@@ -382,7 +382,8 @@ namespace Fashion.ERP.Testes.Persistencia
                 Natureza = ObtenhaNatureza(),
                 Marca = ObtenhaMarca(),
                 Artigo = ObtenhaArtigo(),
-                DataPrevisaoEnvio = new DateTime(2014, 01, 01)
+                DataPrevisaoEnvio = new DateTime(2014, 01, 01),
+                ChaveExterna = "ADFRONFY"
             };
 
             modelo.AddLinhaBordado(new[] { "linha bodado 1", "linha bodado 2" });

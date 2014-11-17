@@ -62,7 +62,7 @@
                 <div class="controls">
                     @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
                     <div class="input-append">
-                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                        <input id="codigo-fornecedor" class="input-small" type="text" />
                         <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
                         <span id="descricao-fornecedor" class="add-on"></span>
                     </div>
@@ -95,6 +95,13 @@
                 @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
                 <div class="controls">
                     @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.DepositoMaterial, string.Empty, new { @class = "help-block" })
+                    @{
+                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                        {
+                            @Html.HiddenFor(x => x.DepositoMaterial)
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -108,20 +115,20 @@
         .Name("GridItens")
         .Columns(columns =>
         {
-            columns.Bound(x => x.Id).Hidden();
+            columns.Bound(x => x.Id).Hidden();            
             columns.Bound(x => x.PedidoCompraItens).Hidden();
-            columns.Bound(x => x.PedidosCompra).Width(70).ClientTemplate("#= obtenhaHtmlPedidosDeCompra(PedidosCompra) #");
+            columns.Bound(x => x.PedidosCompra).Width(60).ClientTemplate("#= obtenhaHtmlPedidosDeCompra(PedidosCompra) #");
             columns.Bound(x => x.MaterialReferencia).Width(100);
-            columns.Bound(x => x.MaterialReferenciaExterna).Width(100);
+            columns.Bound(x => x.MaterialReferenciaExterna).Width(70);
             columns.Bound(x => x.MaterialDescricao);
-            columns.Bound(x => x.UnidadeMedidaSigla).Width(60);
-            columns.Bound(x => x.Quantidade).Width(70);
-            columns.Bound(x => x.ValorUnitarioPedido).Format("{0:N4}").Width(70);
-            columns.Bound(x => x.QuantidadeEntrada).Width(70);
-            columns.Bound(x => x.UnidadeEntrada).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeEntrada == '' ? '- Selecione -' : UnidadeEntrada #").Width(60);
-            columns.Bound(x => x.ValorUnitario).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
+            columns.Bound(x => x.UnidadeMedidaSigla).Width(40);
+            columns.Bound(x => x.Quantidade).Width(50);
+            columns.Bound(x => x.ValorUnitarioPedido).Format("{0:N4}").Width(60);
+            columns.Bound(x => x.QuantidadeEntrada).Width(60);
+            columns.Bound(x => x.UnidadeEntrada).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeEntrada == '' ? '- Selecione -' : UnidadeEntrada #").Width(40);
+            columns.Bound(x => x.ValorUnitario).Format("{0:N4}").Width(60).EditorTemplateName("numeric4casasdecimais");
             columns.Bound(x => x.ValorTotal).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
-            columns.Command(command => command.Destroy()).Width(90);   
+            columns.Command(command => command.Custom("Excluir").Click("valideExclusao")).Width(90);   
         })
         .DataSource(s => s.Ajax()
             .Model(model =>
@@ -283,14 +290,14 @@
         var grid = $("#GridItens").data("kendoGrid");
         var gridData = grid.dataSource.view();
 
-        for (var i = 0; i < gridData.length; i++) {
-            var currentUid = gridData[i].uid;
-            if (gridData[i].Id != null) {
-                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
-                var cancelButton = $(currenRow).find(".k-grid-delete");
-                cancelButton.hide();
-            }
-        }
+        //for (var i = 0; i < gridData.length; i++) {
+        //    var currentUid = gridData[i].uid;
+        //    if (gridData[i].Id != null) {
+        //        var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+        //        var cancelButton = $(currenRow).find(".k-grid-delete");
+        //        cancelButton.hide();
+        //    }
+        //}
     }
 
     function clicouCheckBox(a) {
@@ -409,17 +416,17 @@
         var valorCalculado = item.ValorTotal / item.QuantidadeEntrada;
         item.set("ValorUnitario", valorCalculado);
     }
-  
+
     function registreScriptsGrid() {
-        $("#QuantidadeEntrada.k-input").change(function (e) {
+        $("#QuantidadeEntrada.k-input").change(function(e) {
             AtualizeValorTotal(e.target);
         });
 
-        $("#ValorUnitario.k-input").change(function (e) {
+        $("#ValorUnitario.k-input").change(function(e) {
             AtualizeValorTotal(e.target);
         });
 
-        $("#ValorTotal.k-input").change(function (e) {
+        $("#ValorTotal.k-input").change(function(e) {
             AtualizeValorUnitario(e.target);
         });
     }
@@ -443,15 +450,32 @@
 
         return retorno;
     }
-    
-    $(document).ready(function () {
+
+    function valideExclusao(e) {
+        var quantidade = this.dataSource.total();
+        if (quantidade == 1) {
+            alert("Não é possível excluir todos os itens da grid.");
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        if (confirm('Você tem certeza que deseja excluir esse registro?')) {
+            this.dataSource.remove(dataItem);
+            this.dataSource.sync();
+            this.refresh();
+        };
+    }
+
+    $(document).ready(function() {
 
         $('#form').validate({
             debug: true,
-            ignore: "input:hidden:not(#Valor)",
+            ignore: "input:hidden:not(#Valor)"
         });
-      
-        $('#form').submit(function (e) {
+
+        $('#form').submit(function(e) {
             e.preventDefault();
 
             // Validar
@@ -477,7 +501,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(dados),
                 //dataType: "json",
-                success: function (retorno) {
+                success: function(retorno) {
                     if (retorno == "error") {
                         window.location.reload();
                         return;
@@ -550,9 +574,8 @@
             dropdownPedidos.dataSource.options.transport.read.data.unidadeId = $("#Unidade").val();
             dropdownPedidos.dataSource.read();
             dropdownPedidos.refresh();
-            
         });
-       
+
         $('#Unidade').on("change", function () {
 
             // Preenche o combo de depósito de acordo com a unidade escolhida
@@ -573,7 +596,6 @@
                 });
             }
         });
-
     });
 </script>
 

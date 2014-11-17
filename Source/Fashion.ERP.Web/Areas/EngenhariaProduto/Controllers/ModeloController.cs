@@ -395,6 +395,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     if (LinhaTravetes.Any())
                         domain.AddLinhaTravete(LinhaTravetes.ToArray());
 
+                    domain.GereChaveExterna();
                     _modeloRepository.Save(domain);
 
                     this.AddSuccessMessage("Modelo cadastrado com sucesso.");

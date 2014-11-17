@@ -272,7 +272,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 Codigo = p.Funcionario.Codigo,
                 CpfCnpj = p.CpfCnpj,
                 Nome = p.Nome
-            }).ToList();
+            }).OrderBy(p => p.Nome).ToList();
 
             return Json(list);
         }

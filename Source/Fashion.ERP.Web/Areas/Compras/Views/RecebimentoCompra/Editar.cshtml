@@ -25,9 +25,11 @@
         $("#Data").data("kendoDatePicker").enable(false);
         $("#Numero").attr("disabled", "disabled");
         
-        $('#codigo-fornecedor').prop("readonly", true);
-        $('#pesquisar-fornecedor').prop("readonly", true);
+        $('#codigo-fornecedor').prop("disabled", true);
+        $('#pesquisar-fornecedor').prop("disabled", true);
 
         $("#Unidade").prop("disabled", true);
+
+        $("#DepositoMaterial").prop("disabled", true);
     });
 </script>    

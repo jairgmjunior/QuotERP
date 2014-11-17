@@ -1,4 +1,6 @@
-﻿delete from entradamaterial
+﻿delete from entradaitemmaterial
+delete from entradamaterial
+delete from saidaitemmaterial
 delete from saidamaterial
 
 IF OBJECT_ID('dbo.entradaitemmaterial', 'U') IS NOT NULL

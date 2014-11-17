@@ -8,6 +8,8 @@ using Fashion.ERP.Web.Helpers;
 using Fashion.Framework.Repository;
 using FluentNHibernate.Conventions;
 using Kendo.Mvc.Extensions;
+using NHibernate.Id;
+using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Compras.Controllers
 {
@@ -176,10 +178,52 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             domain.DataAlteracao = DateTime.Now;
 
             AtualizeListaPedidoCompra(model, domain);
+            ExcluaRecebimentoCompraItem(model, domain);
             AtualizeListaRecebimentoCompraItens(model, domain);
             AtualizePedidosCompra(domain);
             
             return domain;
+        }
+
+        private void ExcluaRecebimentoCompraItem(RecebimentoCompraModel recebimentoCompraModel,
+            RecebimentoCompra recebimentoCompra)
+        {
+            try
+            {
+                var modelItensId = recebimentoCompraModel.GridItens.Select(p => p.Id);
+                var domainItensId = recebimentoCompra.RecebimentoCompraItens.Select(p => p.Id);
+
+                var idsExcluir = domainItensId.Except(modelItensId).ToList();
+
+                var pedidosCompraAtualizar = new List<PedidoCompra>();
+                var recebimentoItensExcluir = recebimentoCompra.RecebimentoCompraItens.
+                    Where(recebimentoCompraItem => idsExcluir.Contains(recebimentoCompraItem.Id)).ToList();
+
+                foreach (var recebimentoCompraItem in recebimentoItensExcluir)
+                {
+                    recebimentoCompraItem.DetalhamentoRecebimentoCompraItens.ForEach(detalhamento =>
+                    {
+                        recebimentoCompra.DetalhamentoRecebimentoCompraItens.Remove(detalhamento);
+                        detalhamento.PedidoCompraItem.QuantidadeEntrega -= detalhamento.Quantidade;
+                        detalhamento.PedidoCompraItem.AtualizeSituacao();
+                        detalhamento.PedidoCompra.AtualizeSituacao();
+                        if (!pedidosCompraAtualizar.Contains(detalhamento.PedidoCompra))
+                        {
+                            pedidosCompraAtualizar.Add(detalhamento.PedidoCompra);
+                        }   
+                    });
+                }
+
+                recebimentoItensExcluir.ForEach(x => 
+                    recebimentoCompra.RecebimentoCompraItens.Remove(x));
+                
+                pedidosCompraAtualizar.ForEach(pedido => _pedidoCompraRepository.Update(pedido));
+                _recebimentoCompraRepository.Update(recebimentoCompra);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private void AtualizeListaPedidoCompra(RecebimentoCompraModel recebimentoCompraModel, RecebimentoCompra recebimentoCompra)

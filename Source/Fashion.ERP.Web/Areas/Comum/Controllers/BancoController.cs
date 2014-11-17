@@ -80,7 +80,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Codigo,
                 Nome = p.Nome,
-            }).ToList();
+            }).OrderBy(p => p.Nome).ToList();
 
             return Json(list);
         }

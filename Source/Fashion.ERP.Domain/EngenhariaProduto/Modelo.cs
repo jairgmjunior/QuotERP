@@ -64,6 +64,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual int? QuantidadeMix { get; set; }
         public virtual DateTime? DataRemessaProducao { get; set; }
         public virtual DateTime? DataPrevisaoEnvio { get; set; }
+        public virtual String ChaveExterna { get; set; }
 
         public virtual int AnoAprovacao { get; set; }
         public virtual int NumeroAprovacao { get; set; }
@@ -324,5 +325,27 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         }
 
         #endregion
+
+        public virtual void GereChaveExterna()
+        {
+            String chave = "";
+
+            var randNum = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                var posicao = randNum.Next(26);
+                var caracter = ObtenhaCaracter(posicao);
+                chave += caracter;
+            }
+
+            ChaveExterna = chave;
+        }
+
+        protected virtual String ObtenhaCaracter(int num)
+        {     
+            String[] i = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "Y", "W", "X", "Z" };
+            String c = i[num];
+            return c;
+        }
     }
 }

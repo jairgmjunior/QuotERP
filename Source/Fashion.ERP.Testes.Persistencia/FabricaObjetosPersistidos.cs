@@ -60,6 +60,8 @@ namespace Fashion.ERP.Testes.Persistencia
             var entradaItemMaterial = _fabricaObjetos.ObtenhaEntradaItemMaterial();
             entradaItemMaterial.Material = ObtenhaMaterial();
             entradaItemMaterial.UnidadeMedidaCompra = ObtenhaUnidadeMedida();
+            entradaItemMaterial.MovimentacaoEstoqueMaterial = _fabricaObjetos.ObtenhaMovimentacaoEstoqueMaterial();
+            entradaItemMaterial.MovimentacaoEstoqueMaterial.EstoqueMaterial = ObtenhaEstoqueMaterial();
             
             entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
 
@@ -73,6 +75,7 @@ namespace Fashion.ERP.Testes.Persistencia
             RepositoryFactory.Create<EntradaMaterial>().Delete(entradaMaterial);
             ExcluaMaterial(entradaMaterial.EntradaItemMateriais.First().Material);
             ExcluaUnidadeMedida(entradaMaterial.EntradaItemMateriais.First().UnidadeMedidaCompra);
+            ExcluaEstoqueMaterial(entradaMaterial.EntradaItemMateriais.First().MovimentacaoEstoqueMaterial.EstoqueMaterial);
         }
         
         public ConferenciaEntradaMaterial ObtenhaConferenciaEntradaMaterial()

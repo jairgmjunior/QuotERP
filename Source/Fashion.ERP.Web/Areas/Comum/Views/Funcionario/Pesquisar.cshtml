@@ -59,7 +59,7 @@
                         return;
                     }
 
-                    $("#grid-pesquisa-funcionario").kendoGrid({
+                    var grid = $("#grid-pesquisa-funcionario").kendoGrid({
                         height: "380px",
                         selectable: "row",
                         columns: [
@@ -70,6 +70,8 @@
                         ],
                         dataSource: data,
                     });
+
+                    grid.delegate("tbody>tr", "dblclick", selecionarFuncionario);
                 },
             });
 
@@ -121,13 +123,16 @@
                 }
             }
         });
-        $('#selecionar-funcionario').on('click', function() {
+
+        $('#selecionar-funcionario').on('click', selecionarFuncionario);
+
+        function selecionarFuncionario() {
             var grid = $('#grid-pesquisa-funcionario').data("kendoGrid");
-            
+
             if (!grid) return;
 
             var data = grid.dataItem(grid.select());
-            
+
             if (data) {
                 $('#funcionario').val(data.Id).trigger('change');
                 $('#codigo-funcionario').val(data.Codigo);
@@ -135,6 +140,6 @@
 
                 $('#modal-funcionario').modal('hide');
             }
-        });
+        }
     });
 </script>

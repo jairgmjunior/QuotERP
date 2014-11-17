@@ -17,7 +17,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Required(ErrorMessage = "Informe a coleção")]
         public long? Colecao { get; set; }
 
-        [Required(ErrorMessage = "Informe a estilista")]
+        [Required(ErrorMessage = "Informe o estilista")]
         public long? Estilista { get; set; }
 
         

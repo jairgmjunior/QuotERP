@@ -309,7 +309,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 CpfCnpj = p.CpfCnpj,
                 Nome = p.Nome,
                 DataCadastro = p.DataCadastro,
-            }).ToList();
+            }).OrderBy(p => p.Nome).ToList();
 
             return Json(list);
         }

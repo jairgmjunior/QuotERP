@@ -8,10 +8,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
     {
         public long? Id { get; set; }
         
-        [Display(Name = "Quantidade")]
+        [Display(Name = "Qtd.")]
         public double Quantidade { get; set; }
 
-        [Display(Name = "V.Unit.Pedido(R$)")]
+        [Display(Name = "V.Unit.Ped.(R$)")]
         [DisplayFormat(DataFormatString = "{0:N4}")]
         public double ValorUnitarioPedido { get; set; }
         
@@ -24,16 +24,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Descrição")]
         public string MaterialDescricao { get; set; }
 
-        [Display(Name = "Unidade")]
+        [Display(Name = "Unid.")]
         public string UnidadeMedidaSigla { get; set; }
 
-        [Display(Name = "Qtd.Entrada")]
+        [Display(Name = "Qtd.Ent.")]
         public double QuantidadeEntrada { get; set; }
 
-        [Display(Name = "Und.Entrada")]
+        [Display(Name = "Und.Ent.")]
         public string UnidadeEntrada { get; set; }
         
-        [Display(Name = "V.Unitário(R$)")]
+        [Display(Name = "V.Unit.(R$)")]
         [DisplayFormat(DataFormatString = "{0:N4}")]
         public double ValorUnitario { get; set; }
 
