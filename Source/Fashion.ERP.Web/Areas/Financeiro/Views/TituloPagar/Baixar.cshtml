@@ -113,6 +113,11 @@
                         model.Id(e => e.Id);
                         model.Field(f => f.TituloPagarId).DefaultValue(Model.Id);
                         model.Field(f => f.DataPagamento).DefaultValue(DateTime.Now);
+                        model.Field(f => f.ValorBaixa).DefaultValue(0);
+                        model.Field(f => f.Juro).DefaultValue(0);
+                        model.Field(f => f.Despesa).DefaultValue(0);
+                        model.Field(f => f.Desconto).DefaultValue(0);
+                        model.Field(f => f.ValorTotal).DefaultValue(0);
                     })
                     .Create(create => create.Action("SalveBaixaTitulo", "TituloPagar"))
                     .Update(update => update.Action("AtualizeBaixaTitulo", "TituloPagar"))

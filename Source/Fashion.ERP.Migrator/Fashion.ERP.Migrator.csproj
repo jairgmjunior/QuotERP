@@ -106,6 +106,7 @@
     <Compile Include="Migrations\Migration201411071557.cs" />
     <Compile Include="Migrations\Migration201411101735.cs" />
     <Compile Include="Migrations\Migration201411141420.cs" />
+    <Compile Include="Migrations\Migration201411190852.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -245,6 +246,9 @@
     <EmbeddedResource Include="Scripts\201410142157\permissao.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201411190852\atualizacaoUniquekeys.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -135,27 +135,31 @@
             </div>
         </div>
         <div class="span6">
-            <div>
-                @Html.HiddenFor(x => x.FotoId)
-                <div class="clearfix">
-                    <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
-                        <div class="thumbnail">
-                            <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
-                        </div>
-                        <div>
-                            <span class="btn btn-file">
-                                <span class="fileupload-new">Novo</span>
-                                <span class="fileupload-exists">Alterar</span>
-                                <input type="file" name="foto" />
-                                @Html.HiddenFor(x => x.FotoNome)
-                            </span>
-                            <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.FotoNome)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.FotoId)
+                    <div class="clearfix">
+                        <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
+                            <div class="thumbnail">
+                                <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
+                            </div>
+                            <div>
+                                <span class="btn btn-file">
+                                    <span class="fileupload-new">Novo</span>
+                                    <span class="fileupload-exists">Alterar</span>
+                                    <input type="file" name="foto" />
+                                    @Html.HiddenFor(x => x.FotoNome)
+                                </span>
+                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="progress" style="display: none">
-                    <div class="bar"></div>
+                    <div class="progress" style="display: none">
+                        <div class="bar"></div>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                 </div>
             </div>
             <div class="control-group">
@@ -179,17 +183,17 @@
                     @(Html.Kendo().Grid((IEnumerable<ReferenciaExternaModel>)ViewBag.ReferenciaExternas)
                           .Name("grid-referencias")
                           .Columns(columns =>
-                                       {
-                                           columns.Bound(x => x.Referencia);
-                                           columns.Bound(x => x.Descricao);
-                                           columns.Bound(x => x.Preco).Format("{0:C}");
-                                           columns.Bound(x => x.NomeFornecedor);
-                                           columns.Bound(x => x.Id)
-                                               .ClientTemplate("<a href='/Almoxarifado/Material/RemoverReferenciaExterna/#= Id #' onclick='RemoverReferenciaExterna(this, event)' class='delete btn btn-small btn-danger'> X </a>")
-                                               .Title("")
-                                               .Width(30);
-                                       }).DataSource(s => s.Ajax()
-                                                           .Read(r => r.Action("LerReferenciaExternas", "Material").Type(HttpVerbs.Get))
+                          {
+                              columns.Bound(x => x.Referencia);
+                              columns.Bound(x => x.Descricao);
+                              columns.Bound(x => x.Preco).Format("{0:C}");
+                              columns.Bound(x => x.NomeFornecedor);
+                              columns.Bound(x => x.Id)
+                                  .ClientTemplate("<a href='/Almoxarifado/Material/RemoverReferenciaExterna/#= Id #' onclick='RemoverReferenciaExterna(this, event)' class='delete btn btn-small btn-danger'> X </a>")
+                                  .Title("")
+                                  .Width(30);
+                          }).DataSource(s => s.Ajax()
+                              .Read(r => r.Action("LerReferenciaExternas", "Material").Type(HttpVerbs.Get))
                           ))
                 </div>
             </div>

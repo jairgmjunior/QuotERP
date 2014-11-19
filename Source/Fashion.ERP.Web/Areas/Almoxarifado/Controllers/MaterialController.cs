@@ -362,7 +362,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 var model = Mapper.Flat<MaterialModel>(domain);
                 model.Categoria = _subcategoriaRepository.Get(model.Subcategoria).Categoria.Id;
                 ViewBag.Filename = domain.Foto != null ? domain.Foto.Nome : string.Empty;
-
+                model.Ncm = model.Ncm ?? String.Empty;
                 return View("Editar", model);
             }
 

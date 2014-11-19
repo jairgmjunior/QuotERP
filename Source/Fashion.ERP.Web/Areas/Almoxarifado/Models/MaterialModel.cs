@@ -28,7 +28,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public string CodigoBarra { get; set; }
 
         [Display(Name = "NCM")]
-        [Required(ErrorMessage = "Informe o NCM")]
         [StringLength(8, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Ncm { get; set; }
 
@@ -51,14 +50,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Ativo")]
         public bool Ativo { get; set; }
-
-        [Display(Name = "Foto")]
+        
         public long? FotoId { get; set; }
 
+        [Display(Name = "Foto")]
+        [Required(ErrorMessage = "Informe a foto")]
         public string FotoNome { get; set; }
 
         [Display(Name = "Gênero fiscal")]
-        [Required(ErrorMessage = "Informe o gênero fiscal")]
         public long? GeneroFiscal { get; set; }
 
         [Display(Name = "Unidade de medida")]
@@ -70,7 +69,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public long? MarcaMaterial { get; set; }
 
         [Display(Name = "Família")]
-        [Required(ErrorMessage = "Informe a família")]
         public long? Familia { get; set; }
 
         [Display(Name = "Tipo do item")]
