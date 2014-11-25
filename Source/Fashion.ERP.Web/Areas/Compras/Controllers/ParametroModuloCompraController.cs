@@ -51,7 +51,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<ParametroModuloCompra>(model);
-                    _parametroModuloCompraRepository.SaveOrUpdate(domain);
+
+                    if (domain.Id.HasValue)
+                        _parametroModuloCompraRepository.Update(domain);
+                    else
+                        _parametroModuloCompraRepository.Save(domain);
 
                     this.AddSuccessMessage("Parâmetro atualizado com sucesso.");
                     return RedirectToAction("Index");

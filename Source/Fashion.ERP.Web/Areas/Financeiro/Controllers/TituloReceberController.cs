@@ -286,6 +286,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 }
 
                 var model = Mapper.Flat<TituloReceberModel>(domain);
+                model.ValorTotal = model.Valor + model.ValorDespesas;
+
                 return View("Editar", model);
             }
 

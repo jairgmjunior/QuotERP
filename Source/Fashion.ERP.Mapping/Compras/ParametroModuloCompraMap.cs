@@ -9,6 +9,7 @@ namespace Fashion.ERP.Mapping.Compras
             : base("parametromodulocompra", 0)
         {
             Map(x => x.ValidaRecebimentoPedido).Not.Nullable();
+            Map(x => x.PercentualCriacaoPedidoAutorizadoRecebimento).Not.Nullable();
         }
     }
 }

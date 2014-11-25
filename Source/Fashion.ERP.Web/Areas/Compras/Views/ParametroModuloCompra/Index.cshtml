@@ -12,6 +12,14 @@
         </div>
     </div>
     
+    <div class="control-group">
+        @Html.LabelForRequired(x => x.PercentualCriacaoPedidoAutorizadoRecebimento)
+        <div class="controls">
+            @Html.EditorFor(x => x.PercentualCriacaoPedidoAutorizadoRecebimento, "percent")
+            @Html.ValidationMessageFor(x => x.PercentualCriacaoPedidoAutorizadoRecebimento, null, new {@class = "help-block"})
+        </div>
+    </div>
+    
     <div class="form-actions">
 		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
 	</div>

@@ -9,5 +9,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Validar o recebimento do pedido de compra")]
         public bool ValidaRecebimentoPedido { get; set; }
+
+        [Display(Name = "Percentual para criação do Pedido de compra autorizado no Recebimento de compra")]
+        public double PercentualCriacaoPedidoAutorizadoRecebimento { get; set; }
     }
 }
