@@ -1,13 +1,13 @@
-﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SetorProducaoModel
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.OperacaoProducaoModel
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.SetorProducao.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+@using (Html.BeginForm(MVC.Comum.OperacaoProducao.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
 	<div class="form-actions">
         <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.EngenhariaProduto.SetorProducao.Excluir(Model.Id))
+        @Html.ExcluirAuth(MVC.Comum.OperacaoProducao.Excluir(Model.Id))
 	</div>
 }
 @{Html.RenderPartial("_ConfirmDelete");}

@@ -1,7 +1,7 @@
 ﻿@using Fashion.Framework.Mvc.Extensions
-@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.OperacaoProducaoModel
+@model Fashion.ERP.Web.Areas.Comum.Models.OperacaoProducaoModel
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.OperacaoProducao.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+@using (Html.BeginForm(MVC.Comum.OperacaoProducao.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.Partial("_NovoOuEditar", Model)

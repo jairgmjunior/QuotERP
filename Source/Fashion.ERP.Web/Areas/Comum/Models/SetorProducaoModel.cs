@@ -2,12 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Fashion.ERP.Domain.Comum;
-using Fashion.ERP.Domain.EngenhariaProduto;
-using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Repository;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+namespace Fashion.ERP.Web.Areas.Comum.Models
 {
     public class SetorProducaoModel : IModel
     {

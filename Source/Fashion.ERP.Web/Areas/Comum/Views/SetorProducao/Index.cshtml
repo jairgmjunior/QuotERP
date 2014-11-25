@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridSetorProducaoModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Comum.SetorProducao.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Nome);
+		columns.Bound(x => x.DepartamentoProducao);
+        columns.Template(item => Html.EditarAuth(MVC.Comum.SetorProducao.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.SetorProducao.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	})
+)

@@ -1,4 +1,4 @@
-﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.OperacaoProducaoModel
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.OperacaoProducaoModel
 <div class="row">
     <div class="span6">
         <div class="control-group">
@@ -36,6 +36,14 @@
                 @Html.ValidationMessageFor(x => x.SetorProducao, null, new { @class = "help-block" })
             </div>
         </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.PesoProdutividade)
+            <div class="controls">
+                @Html.EditorFor(x => x.PesoProdutividade)
+                @Html.ValidationMessageFor(x => x.PesoProdutividade, null, new { @class = "help-block" })
+            </div>
+        </div>
+        
     </div>
     <div class="span6">
         <div class="well">

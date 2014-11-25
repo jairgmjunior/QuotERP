@@ -7,7 +7,7 @@ using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Repository;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+namespace Fashion.ERP.Web.Areas.Comum.Models
 {
     public class OperacaoProducaoModel : IModel
     {
@@ -32,6 +32,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Departamento do setor produtivo")]
         [Required(ErrorMessage = "Informe o departamento do setor produtivo")]
         public long? DepartamentoProducao { get; set; }
+
+        [Display(Name = "Peso Produtividade")]
+        [Required(ErrorMessage = "Informe o peso da produtividade")]
+        public double? PesoProdutividade { get; set; }
 
         [Display(Name = "Hierarquia")]
         public IList<TreeViewModel> TreeView { get; set; }

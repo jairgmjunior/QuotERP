@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+namespace Fashion.ERP.Web.Areas.Comum.Models
 {
     public class GridSetorProducaoModel
     {

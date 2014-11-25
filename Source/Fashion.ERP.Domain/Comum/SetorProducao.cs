@@ -1,6 +1,5 @@
-﻿using Fashion.ERP.Domain.Comum;
-
-namespace Fashion.ERP.Domain.EngenhariaProduto
+﻿
+namespace Fashion.ERP.Domain.Comum
 {
     public class SetorProducao : DomainBase<SetorProducao>
     {

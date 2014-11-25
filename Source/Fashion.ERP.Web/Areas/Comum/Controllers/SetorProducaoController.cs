@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Web.Controllers;
-using Fashion.ERP.Web.Areas.EngenhariaProduto.Models;
 using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
@@ -12,8 +11,9 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
+using Fashion.ERP.Web.Areas.Comum.Models;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace Fashion.ERP.Web.Areas.Comum.Controllers
 {
     public partial class SetorProducaoController : BaseController
     {
