@@ -1297,6 +1297,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         novo.TecidoComplementar = domain.TecidoComplementar;
                         novo.ZiperBraguilha = domain.ZiperBraguilha;
                         novo.ZiperDetalhe = domain.ZiperDetalhe;
+                        novo.ChaveExterna = domain.ChaveExterna;
                         //novo.DataPrevisaoEnvio = domain.DataPrevisaoEnvio;
 
                         foreach (var foto in domain.Fotos)

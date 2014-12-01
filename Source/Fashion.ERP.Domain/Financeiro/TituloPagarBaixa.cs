@@ -4,6 +4,7 @@ namespace Fashion.ERP.Domain.Financeiro
 {
     public class TituloPagarBaixa : DomainEmpresaBase<TituloPagarBaixa>
     {
+        //todo retirar essa propriedade deve ser retirada do domínio 
         public virtual long NumeroBaixa { get; set; }
         public virtual DateTime DataPagamento { get; set; }
         public virtual DateTime DataAlteracao { get; set; }

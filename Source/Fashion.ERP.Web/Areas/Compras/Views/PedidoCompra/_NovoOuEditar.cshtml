@@ -67,7 +67,7 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.Prazo)
             <div class="controls">
-                @Html.DropDownList("PrazoDescricao", null, "-- Selecione --", new { @class = "input-large" })
+                @Html.DropDownListFor(x => x.Prazo, null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.Prazo, null, new { @class = "help-block" })
             </div>
         </div>

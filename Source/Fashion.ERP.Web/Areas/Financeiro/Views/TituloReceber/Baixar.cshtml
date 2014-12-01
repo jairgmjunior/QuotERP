@@ -111,8 +111,15 @@
                     .Model(model =>
                     {
                         model.Id(e => e.Id);
+
+                        model.Id(e => e.Id);
                         model.Field(f => f.TituloReceberId).DefaultValue(Model.Id);
                         model.Field(f => f.DataRecebimento).DefaultValue(DateTime.Now);
+                        model.Field(f => f.ValorBaixa).DefaultValue(0);
+                        model.Field(f => f.Juro).DefaultValue(0);
+                        model.Field(f => f.Despesa).DefaultValue(0);
+                        model.Field(f => f.Desconto).DefaultValue(0);
+                        model.Field(f => f.ValorTotal).DefaultValue(0);
                     })
                     .Create(create => create.Action("SalveBaixaTitulo", "TituloReceber"))
                     .Update(update => update.Action("AtualizeBaixaTitulo", "TituloReceber"))
@@ -143,15 +150,6 @@
         return false;
     }
 
-    $(".k-grid-save-changes").on("click", function () {
-        var datasourcedata = $("#Grid").data("kendoGrid").dataSource.data();
-
-        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
-        for (var i = 0; i < datasourcedata.length; i++) {
-            datasourcedata[i].id = null;
-        }
-    });
-
     function error_handler(e) {
         if (e.errors) {
             var message = "";
@@ -168,7 +166,7 @@
     }
     
     function onRequestEnd(e) {
-        if ((e.type == "create" || e.type == "update") && !e.response.Errors) {
+        if ((e.type == "create" || e.type == "update" || e.type == "destroy") && !e.response.Errors) {
             var returnUrl = '@Html.GetUrl(MVC.Financeiro.TituloReceber.Index())';
             window.location.href = returnUrl;
         }

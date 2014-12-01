@@ -99,7 +99,9 @@
     <Compile Include="ArquivoMap.cs" />
     <Compile Include="Comum\ColecaoMap.cs" />
     <Compile Include="Comum\DepartamentoProducaoMap.cs" />
+    <Compile Include="Comum\OperacaoProducaoMap.cs" />
     <Compile Include="Comum\PrazoMap.cs" />
+    <Compile Include="Comum\SetorProducaoMap.cs" />
     <Compile Include="Comum\TamanhoMap.cs" />
     <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
@@ -110,13 +112,11 @@
     <Compile Include="EngenhariaProduto\ModeloFotoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloMap.cs" />
     <Compile Include="EngenhariaProduto\NaturezaMap.cs" />
-    <Compile Include="EngenhariaProduto\OperacaoProducaoMap.cs" />
     <Compile Include="EngenhariaProduto\ProdutoBaseMap.cs" />
     <Compile Include="EngenhariaProduto\BarraMap.cs" />
     <Compile Include="EngenhariaProduto\ProgramacaoBordadoMap.cs" />
     <Compile Include="EngenhariaProduto\SegmentoMap.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducaoMap.cs" />
-    <Compile Include="EngenhariaProduto\SetorProducaoMap.cs" />
     <Compile Include="EngenhariaProduto\VariacaoMap.cs" />
     <Compile Include="EngenhariaProduto\View\ConsumoMaterialColecaoViewMap.cs" />
     <Compile Include="Financeiro\ContaBancariaMap.cs" />

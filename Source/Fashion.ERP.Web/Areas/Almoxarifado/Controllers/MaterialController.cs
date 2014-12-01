@@ -19,6 +19,7 @@ using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -300,7 +301,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public virtual ActionResult Novo()
         {
             TempData.Remove(ChaveReferenciaExterna);
-
+            
             return View(new MaterialModel());
         }
 
@@ -313,6 +314,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     var domain = Mapper.Unflat<Material>(model);
                     domain.Ativo = true;
+                    
                     domain.AddReferenciaExterna(MapearReferencias().ToArray());
 
                     domain.Foto = !string.IsNullOrWhiteSpace(domain.Foto.Nome) 
@@ -333,6 +335,25 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             return View(model);
         }
+
+        private string ObtenhaReferencia(Material domain)
+        {
+            if (domain.Referencia != null)
+            {
+                return domain.Referencia;
+            }
+
+            //var referencia = 
+            //   (from m in _materialRepository.Find()
+            //    where m.Referencia.Contains("%[^0-9]%")
+            //    select m.Referencia).Max().First();
+            
+
+            var retorno = _materialRepository.Find().Where(x => !x.Referencia.IsLike("something", MatchMode.Anywhere)).Max(x => x.Referencia) + 1;
+            
+            return retorno;
+        }
+
         #endregion
 
         #region Editar
@@ -366,7 +387,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 return View("Editar", model);
             }
 
-            this.AddErrorMessage("Não foi possível encontrar o catálogo de material.");
+            this.AddErrorMessage("Não foi possível encontrar o material.");
             return RedirectToAction("Index");
         }
 

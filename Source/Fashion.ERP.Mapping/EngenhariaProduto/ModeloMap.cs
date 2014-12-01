@@ -39,7 +39,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.Dificuldade).Length(100);
             Map(x => x.QuantidadeMix);
             Map(x => x.DataRemessaProducao);
-            Map(x => x.ChaveExterna).Length(5).Not.Nullable();
+            Map(x => x.ChaveExterna).Length(5);
 
             Map(x => x.Tag).Length(100);
             Map(x => x.AnoAprovacao).Not.Nullable();

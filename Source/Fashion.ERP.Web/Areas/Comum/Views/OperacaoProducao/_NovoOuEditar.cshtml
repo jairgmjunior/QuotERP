@@ -84,11 +84,11 @@
             var setores = $('#SetorProducao');
             setores.empty();
             
-            var url = '/EngenhariaProduto/SetorProducao/SetoresDepartamento_/' + $(this).val();
+            var url = '/Comum/SetorProducao/SetoresDepartamento_?IdDepartamento=' + $(this).val();
             $.getJSON(url, function (result) {
                 $.each(result, function (index, item) {
                     setores.append($('<option />').val(item.Id).text(item.Nome));
-                }.);
+                });
             }).fail(function (jqXhr, textStatus, errorThrown) {
                 alert(errorThrown);
             });

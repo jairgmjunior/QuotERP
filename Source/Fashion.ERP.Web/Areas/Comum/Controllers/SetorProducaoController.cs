@@ -193,7 +193,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         #endregion
 
         #region SetoresDepartamento
-        [OutputCache(Duration = 60, VaryByParam = "id"), AjaxOnly]
+        [AjaxOnly]
         public virtual JsonResult SetoresDepartamento_(long? IdDepartamento /* Id do departamento de produção*/)
         {
             var setores = _setorProducaoRepository

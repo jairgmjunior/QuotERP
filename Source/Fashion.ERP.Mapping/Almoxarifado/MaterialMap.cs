@@ -7,7 +7,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
     public class MaterialMap : FashionClassMap<Material>
     {
         public MaterialMap()
-            : base("material", 100)
+            : base("material", 10)
         {
             Map(x => x.Referencia).Length(20).Not.Nullable();
             Map(x => x.Descricao).Length(100).Not.Nullable();

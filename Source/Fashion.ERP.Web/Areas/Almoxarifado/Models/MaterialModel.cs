@@ -8,7 +8,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public long? Id { get; set; }
 
         [Display(Name = "Referência")]
-        [Required(ErrorMessage = "Informe a referência")]
         [StringLength(20, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Referencia { get; set; }
 

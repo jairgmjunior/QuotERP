@@ -110,7 +110,9 @@
     <Compile Include="Arquivo.cs" />
     <Compile Include="Comum\Colecao.cs" />
     <Compile Include="Comum\DepartamentoProducao.cs" />
+    <Compile Include="Comum\OperacaoProducao.cs" />
     <Compile Include="Comum\Prazo.cs" />
+    <Compile Include="Comum\SetorProducao.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
     <Compile Include="EngenhariaProduto\FichaTecnica.cs" />
@@ -127,11 +129,9 @@
     <Compile Include="EngenhariaProduto\Grade.cs" />
     <Compile Include="EngenhariaProduto\Modelo.cs" />
     <Compile Include="EngenhariaProduto\Natureza.cs" />
-    <Compile Include="EngenhariaProduto\OperacaoProducao.cs" />
     <Compile Include="EngenhariaProduto\ProdutoBase.cs" />
     <Compile Include="EngenhariaProduto\Barra.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducao.cs" />
-    <Compile Include="EngenhariaProduto\SetorProducao.cs" />
     <Compile Include="EngenhariaProduto\Variacao.cs" />
     <Compile Include="EngenhariaProduto\Views\ConsumoMaterialColecaoView.cs" />
     <Compile Include="Financeiro\ContaBancaria.cs" />

@@ -6,7 +6,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
     public class FamiliaMap : FashionClassMap<Familia>
     {
         public FamiliaMap()
-            : base("familia", 0)
+            : base("familia", 2)
         {
             Map(x => x.Nome).Length(60).Not.Nullable();
             Map(x => x.Ativo).Not.Nullable();
