@@ -123,7 +123,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra)
             {
-                var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId);
+                var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
                 var pedidoCompraItem = pedidoCompra.PedidoCompraItens.SingleOrDefault(
                     s => s.Material.Referencia == recebimentoCompraItemModel.MaterialReferencia);
 
@@ -230,7 +230,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             foreach (var pedidoCompraId in from recebimentoCompraItemModel in recebimentoCompraModel.GridItens
                                            from pedidoCompraId in recebimentoCompraItemModel.PedidosCompra
-                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Id == pedidoCompraId)
+                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Id == pedidoCompraId.Id)
                                            where pedidoExistenteNaLista == null
                                            select pedidoCompraId)
             {
@@ -258,7 +258,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra)
                 {
-                    var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId);
+                    var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
 
                     var pedidoCompraItem = pedidoCompra.PedidoCompraItens.SingleOrDefault(
                         s => s.Material.Referencia == recebimentoCompraItemModel.MaterialReferencia);
@@ -344,7 +344,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 ValorUnitario = ObtenhaValorUnitario(pedidoCompraItem),
                 ValorUnitarioPedido = pedidoCompraItem.ValorUnitario,
                 QuantidadeEntrada = ObtenhaQuantidadeDeEntrada(pedidoCompraItem),
-                PedidosCompra = new List<long> { pedidoCompraItemRecebimentoModel.PedidoCompra },
+                PedidosCompra = new List<IdentificadorPedidoCompra> { new IdentificadorPedidoCompra{ Id = pedidoCompraItemRecebimentoModel.PedidoCompra, Numero = pedidoCompra.Numero }},
                 PedidoCompraItens = new List<long?> { pedidoCompraItemRecebimentoModel.Id },
                 ValorTotal = ObtenhaTotalItem(pedidoCompraItem)
             };
@@ -375,7 +375,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             PedidoCompraItemRecebimentoModel pedidoCompraItemRecebimentoModel, PedidoCompra pedidoCompra)
         {
             var numeroPedido = pedidoCompraItemRecebimentoModel.PedidoCompra;
-            if (recebimentoCompraItemModel.PedidosCompra.Contains(numeroPedido) &&
+            if (recebimentoCompraItemModel.PedidosCompra.Any(x => x.Id == numeroPedido) &&
                 recebimentoCompraItemModel.PedidoCompraItens.Contains(pedidoCompraItemRecebimentoModel.Id))
                 return null;
 
@@ -394,8 +394,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             recebimentoNovo.PedidosCompra.AddRange(recebimentoCompraItemModel.PedidosCompra);
             recebimentoNovo.PedidoCompraItens.AddRange(recebimentoCompraItemModel.PedidoCompraItens);
 
-            IList<long> list = recebimentoNovo.PedidosCompra;
-            IEnumerable<long> sortedEnum = list.OrderBy(f => f);
+            IList<IdentificadorPedidoCompra> list = recebimentoNovo.PedidosCompra;
+            IEnumerable<IdentificadorPedidoCompra> sortedEnum = list.OrderBy(f => f.Numero);
             recebimentoNovo.PedidosCompra = sortedEnum.ToList();
 
             return recebimentoNovo;

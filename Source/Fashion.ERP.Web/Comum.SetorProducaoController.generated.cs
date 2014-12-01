@@ -185,7 +185,15 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _NovoOuEditar = "_NovoOuEditar";
+                public readonly string Editar = "Editar";
+                public readonly string Index = "Index";
+                public readonly string Novo = "Novo";
             }
+            public readonly string _NovoOuEditar = "~/Areas/Comum/Views/SetorProducao/_NovoOuEditar.cshtml";
+            public readonly string Editar = "~/Areas/Comum/Views/SetorProducao/Editar.cshtml";
+            public readonly string Index = "~/Areas/Comum/Views/SetorProducao/Index.cshtml";
+            public readonly string Novo = "~/Areas/Comum/Views/SetorProducao/Novo.cshtml";
         }
     }
 

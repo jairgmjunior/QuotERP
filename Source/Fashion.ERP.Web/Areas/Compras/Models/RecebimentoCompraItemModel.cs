@@ -42,7 +42,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public double ValorTotal { get; set; }
 
         [Display(Name = "Pedido(s)")]
-        public IList<long> PedidosCompra { get; set; }
+        public IList<IdentificadorPedidoCompra> PedidosCompra { get; set; }
         
         public IList<long?> PedidoCompraItens { get; set; }
     }

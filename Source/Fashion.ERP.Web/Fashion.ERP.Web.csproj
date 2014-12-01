@@ -300,6 +300,7 @@
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridRecebimentoCompraModel.cs" />
+    <Compile Include="Areas\Compras\Models\IdentificadorPedidoCompra.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraCancelamentoModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridItemPedidoCompraModel.cs" />
@@ -709,9 +710,6 @@
     <Compile Include="EngenhariaProduto.NaturezaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto.OperacaoProducaoController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto.ProdutoBaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -722,9 +720,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.SequenciaProducaoController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EngenhariaProduto.SetorProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorController.generated.cs">
