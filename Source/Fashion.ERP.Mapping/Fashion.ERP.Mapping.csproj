@@ -60,6 +60,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\BordadoMap.cs" />
+    <Compile Include="Almoxarifado\CustoMaterialMap.cs" />
     <Compile Include="Almoxarifado\MaterialMap.cs" />
     <Compile Include="Almoxarifado\CategoriaMap.cs" />
     <Compile Include="Almoxarifado\DepositoMap.cs" />

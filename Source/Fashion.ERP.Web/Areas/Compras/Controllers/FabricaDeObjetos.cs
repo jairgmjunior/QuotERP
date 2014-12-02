@@ -51,7 +51,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                                            into pedidos 
                                            select pedidos.Key)
             {
-                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Get(pedidoCompraId));
+                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Find(x => x.Numero == pedidoCompraId.Numero).First());
             }
         }
 
@@ -230,11 +230,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             foreach (var pedidoCompraId in from recebimentoCompraItemModel in recebimentoCompraModel.GridItens
                                            from pedidoCompraId in recebimentoCompraItemModel.PedidosCompra
-                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Id == pedidoCompraId.Id)
+                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Numero == pedidoCompraId.Numero)
                                            where pedidoExistenteNaLista == null
                                            select pedidoCompraId)
             {
-                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Get(pedidoCompraId));
+                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Find(x => x.Numero == pedidoCompraId.Numero).First());
             }
         }
 
