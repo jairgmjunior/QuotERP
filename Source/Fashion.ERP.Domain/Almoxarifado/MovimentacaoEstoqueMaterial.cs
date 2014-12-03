@@ -2,7 +2,7 @@
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
-    public class MovimentacaoEstoqueMaterial:  DomainBase<EntradaItemMaterial>
+    public class MovimentacaoEstoqueMaterial : DomainBase<MovimentacaoEstoqueMaterial>
     {
         public virtual double Quantidade { get; set; }
         public virtual DateTime Data { get; set; }

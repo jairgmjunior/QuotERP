@@ -32,9 +32,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Prazo> _prazoRepository;
         private readonly IRepository<MeioPagamento> _meioPagamentoRepository;
-        private readonly IRepository<PedidoCompraItem> _pedidoCompraItemRepository;
-        private readonly IRepository<MotivoCancelamentoPedidoCompra> _motivoCancelamentoPedidoCompraRepository;
-        
         
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = {"Detalhado", "Listagem", "Sintético"};
@@ -501,52 +498,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             ViewBag.SituacoesDicionario = ((SituacaoCompra[])typeof(SituacaoCompra).GetEnumValues()).ToDictionary(k => k, e => e.EnumToString());
         }
         #endregion
-
-        #region PopulateViewDataItemCancelado
-        protected void PopulateViewDataItemCancelado(PedidoCompraItemCanceladoModel model)
-        {
-            // UnidadeEstocadora
-            var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
-            ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);
-
-            // PrazoDescricao
-            var prazos = _prazoRepository.Find(p => p.Ativo).ToList();
-            ViewBag.Prazo = prazos.ToSelectList("Descricao", model.Prazo);
-
-            // MeioPagamento
-            var meioPagamentos = _meioPagamentoRepository.Find().ToList();
-            ViewBag.MeioPagamento = meioPagamentos.ToSelectList("Descricao", model.Prazo);
-
-            //Motivo Cancelamento
-            var motivoCancelamento = _motivoCancelamentoPedidoCompraRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewBag.MotivoCancelamento = motivoCancelamento.ToSelectList("Descricao", model.MotivoCancelamento);
-            
-            // Materiais
-            var materiais = _materialRepository.Find();
-            ViewBag.CatalogoReferenciasDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Referencia })
-                                                               .ToDictionary(k => k.Id, v => v.Referencia);
-            ViewBag.CatalogoDescricaoDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Descricao })
-                                                              .ToDictionary(k => k.Id, v => v.Descricao);
-            // Unidade de medida
-            var unidadeMedidas = _unidadeMedidaRepository.Find().OrderBy(p => p.Sigla).ToList();
-            var unidadeMediasAtivo = unidadeMedidas.Where(p => p.Ativo).ToList();
-            ViewData["UnidadeMedida"] = unidadeMediasAtivo.ToSelectList("Sigla");
-           
-            var unidadeMedidasSigla = unidadeMedidas.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Sigla }).ToDictionary(k => k.Id, v => v.Sigla);
-            ViewBag.UnidadeMedidasDicionario = unidadeMedidasSigla;
-
-            var quantidadeEntrega = _pedidoCompraItemRepository.Find();
-            ViewBag.QuantidadeEntregaDicionario = quantidadeEntrega.Select(c => new { Id = c.Id.GetValueOrDefault(), c.QuantidadeEntrega })
-                                                              .ToDictionary(k => k.Id, v => v.QuantidadeEntrega);
-            // Situacao
-            ViewBag.SituacoesDicionario = ((SituacaoCompra[])typeof(SituacaoCompra).GetEnumValues()).ToDictionary(k => k, e => e.EnumToString());
-        }
-        #endregion
-
-        #region PopulateViewDataGridPedidoCompraItemCancelado
-       
-        #endregion
-
+        
         #region PopulateViewDataPesquisa
         protected void PopulateViewDataPesquisa(PesquisaPedidoCompraModel model)
         {
