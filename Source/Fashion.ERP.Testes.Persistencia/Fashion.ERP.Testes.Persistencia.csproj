@@ -108,6 +108,7 @@
     <Compile Include="Comum\GrauDependenciaPersistencia.cs" />
     <Compile Include="Comum\InformacaoBancariaPersistencia.cs" />
     <Compile Include="Comum\MeioPagamentoPersistencia.cs" />
+    <Compile Include="Comum\OperacaoProducaoPersistencia.cs" />
     <Compile Include="Comum\PerfilDeAcessoPersistencia.cs" />
     <Compile Include="Comum\PermissaoPersistencia.cs" />
     <Compile Include="Comum\PrazoPersistencia.cs" />

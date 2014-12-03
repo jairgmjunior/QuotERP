@@ -914,6 +914,18 @@ namespace Fashion.ERP.Testes.Persistencia
                 Nome = "NOME DA COR"
             };
         }
+
+        public OperacaoProducao ObtenhaOperacao()
+        {
+            return new OperacaoProducao
+            {
+                Ativo = true,
+                Descricao = "DESCRIÇÃO DA OPERAÇÃO",
+                Custo = 10,
+                Tempo = 10,
+                PesoProdutividade = 10
+            };
+        }
         #endregion
     }
 }
