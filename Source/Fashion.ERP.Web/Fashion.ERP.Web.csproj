@@ -300,6 +300,7 @@
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridRecebimentoCompraModel.cs" />
+    <Compile Include="Areas\Compras\Models\IdentificadorPedidoCompra.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraCancelamentoModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridItemPedidoCompraModel.cs" />

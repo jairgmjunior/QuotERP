@@ -61,6 +61,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\Bordado.cs" />
+    <Compile Include="Almoxarifado\CustoMaterial.cs" />
     <Compile Include="Almoxarifado\Material.cs" />
     <Compile Include="Almoxarifado\Categoria.cs" />
     <Compile Include="Almoxarifado\DepositoMaterial.cs" />
