@@ -200,7 +200,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 {
                     var domain = Mapper.Unflat(model, _naturezaRepository.Get(model.Id));
 
-                    IList<SequenciaOperacional> listSequenciaOperacional;
                     foreach (SequenciaOperacionalModel s in sequenciaOperacoes)
                     {
                         SequenciaOperacional sequenciaOperacao = null;
