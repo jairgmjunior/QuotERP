@@ -388,11 +388,11 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\NaturezaController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\BarraController.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Controllers\OperacaoProducaoController.cs" />
+    <Compile Include="Areas\Comum\Controllers\OperacaoProducaoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\SegmentoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\SequenciaProducaoController.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Controllers\SetorProducaoController.cs" />
+    <Compile Include="Areas\Comum\Controllers\SetorProducaoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\EngenhariaProdutoAreaRegistration.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\AprovarModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ArtigoModel.cs" />
@@ -413,6 +413,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModeloModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SequenciaProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SequenciaProducaoModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\DetalharModeloModel.cs" />
@@ -424,17 +425,17 @@
     <Compile Include="Areas\EngenhariaProduto\Models\GridGradeModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridNaturezaModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\GridOperacaoProducaoModel.cs" />
+    <Compile Include="Areas\Comum\Controllers\GridOperacaoProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridProdutoBaseModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridBarraModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridSegmentoModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\GridSetorProducaoModel.cs" />
+    <Compile Include="Areas\Comum\Models\GridSetorProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModelagemModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloFotoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\NaturezaModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ProdutoBaseController.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\OperacaoProducaoModel.cs" />
+    <Compile Include="Areas\Comum\Models\OperacaoProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProdutoBaseModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\BarraModel.cs" />
     <Compile Include="Areas\Dev\DevAreaRegistration.cs" />
@@ -500,7 +501,7 @@
     <Compile Include="Areas\Comum\Models\UnidadeModel.cs" />
     <Compile Include="Areas\Comum\Models\UsuarioModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SegmentoModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\SetorProducaoModel.cs" />
+    <Compile Include="Areas\Comum\Models\SetorProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\VariacaoModeloModel.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ChequeRecebidoController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ContaBancariaController.cs" />
@@ -628,6 +629,9 @@
     <Compile Include="Comum.MeioPagamentoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Comum.OperacaoProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Comum.PerfilDeAcessoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -644,6 +648,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Comum.RelatorioController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comum.SetorProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Comum.SharedController.generated.cs">
@@ -703,9 +710,6 @@
     <Compile Include="EngenhariaProduto.NaturezaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto.OperacaoProducaoController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto.ProdutoBaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -716,9 +720,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.SequenciaProducaoController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EngenhariaProduto.SetorProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorController.generated.cs">
@@ -818,7 +819,7 @@
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC.cs">
+    <Compile Include="T4MVC1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -893,14 +894,14 @@
     <Content Include="Areas\Comum\Views\DepartamentoProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\DepartamentoProducao\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\DepartamentoProducao\Editar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\SetorProducao\Index.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\SetorProducao\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\SetorProducao\Novo.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\SetorProducao\Editar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\OperacaoProducao\Index.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\OperacaoProducao\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\OperacaoProducao\Novo.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\OperacaoProducao\Editar.cshtml" />
+    <Content Include="Areas\Comum\Views\SetorProducao\Index.cshtml" />
+    <Content Include="Areas\Comum\Views\SetorProducao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Comum\Views\SetorProducao\Novo.cshtml" />
+    <Content Include="Areas\Comum\Views\SetorProducao\Editar.cshtml" />
+    <Content Include="Areas\Comum\Views\OperacaoProducao\Index.cshtml" />
+    <Content Include="Areas\Comum\Views\OperacaoProducao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Comum\Views\OperacaoProducao\Novo.cshtml" />
+    <Content Include="Areas\Comum\Views\OperacaoProducao\Editar.cshtml" />
     <Content Include="Areas\Comum\Views\Tamanho\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Tamanho\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\Tamanho\Novo.cshtml" />
@@ -1240,7 +1241,7 @@
     <Content Include="js\_references.js" />
     <Content Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
+      <LastGenOutput>T4MVC1.cs</LastGenOutput>
     </Content>
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml">
@@ -1313,6 +1314,7 @@
     <Content Include="Views\Shared\EditorTemplates\CentroCustoList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DespesaReceitaList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ReadonlyDouble.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

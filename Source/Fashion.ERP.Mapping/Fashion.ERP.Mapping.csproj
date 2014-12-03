@@ -110,13 +110,14 @@
     <Compile Include="EngenhariaProduto\ModeloFotoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloMap.cs" />
     <Compile Include="EngenhariaProduto\NaturezaMap.cs" />
-    <Compile Include="EngenhariaProduto\OperacaoProducaoMap.cs" />
+    <Compile Include="Comum\OperacaoProducaoMap.cs" />
     <Compile Include="EngenhariaProduto\ProdutoBaseMap.cs" />
     <Compile Include="EngenhariaProduto\BarraMap.cs" />
     <Compile Include="EngenhariaProduto\ProgramacaoBordadoMap.cs" />
     <Compile Include="EngenhariaProduto\SegmentoMap.cs" />
+    <Compile Include="EngenhariaProduto\SequenciaOperacionalMap.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducaoMap.cs" />
-    <Compile Include="EngenhariaProduto\SetorProducaoMap.cs" />
+    <Compile Include="Comum\SetorProducaoMap.cs" />
     <Compile Include="EngenhariaProduto\VariacaoMap.cs" />
     <Compile Include="EngenhariaProduto\View\ConsumoMaterialColecaoViewMap.cs" />
     <Compile Include="Financeiro\ContaBancariaMap.cs" />

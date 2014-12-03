@@ -10,6 +10,10 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
         {
             Map(x => x.Descricao).Length(60).Not.Nullable();
             Map(x => x.Ativo).Not.Nullable();
+
+            HasMany(x => x.SequenciasOperacionais)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

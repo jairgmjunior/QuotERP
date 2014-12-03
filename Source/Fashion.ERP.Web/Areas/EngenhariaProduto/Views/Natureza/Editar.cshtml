@@ -11,3 +11,10 @@
 	</div>
 }
 @{Html.RenderPartial("_ConfirmDelete");}
+
+<script>
+
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("SalvarAlteracoes", "Natureza")';
+    }
+</script>

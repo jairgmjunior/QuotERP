@@ -127,11 +127,12 @@
     <Compile Include="EngenhariaProduto\Grade.cs" />
     <Compile Include="EngenhariaProduto\Modelo.cs" />
     <Compile Include="EngenhariaProduto\Natureza.cs" />
-    <Compile Include="EngenhariaProduto\OperacaoProducao.cs" />
+    <Compile Include="Comum\OperacaoProducao.cs" />
     <Compile Include="EngenhariaProduto\ProdutoBase.cs" />
     <Compile Include="EngenhariaProduto\Barra.cs" />
+    <Compile Include="EngenhariaProduto\SequenciaOperacional.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducao.cs" />
-    <Compile Include="EngenhariaProduto\SetorProducao.cs" />
+    <Compile Include="Comum\SetorProducao.cs" />
     <Compile Include="EngenhariaProduto\Variacao.cs" />
     <Compile Include="EngenhariaProduto\Views\ConsumoMaterialColecaoView.cs" />
     <Compile Include="Financeiro\ContaBancaria.cs" />
