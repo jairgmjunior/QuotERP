@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
@@ -20,26 +21,27 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
     {
 		#region Variaveis
         private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
-        private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
+        private readonly IRepository<RecebimentoCompra> _recebimentoCompraRepository;
         private readonly ILogger _logger;
         #endregion
 
         #region Construtores
         public EntradaMaterialController(ILogger logger, IRepository<EntradaMaterial> entradaMaterialRepository,
-            IRepository<Pessoa> pessoaRepository, IRepository<DepositoMaterial> depositoMaterialRepository,
+            IRepository<DepositoMaterial> depositoMaterialRepository,
             IRepository<UnidadeMedida> unidadeMedidaRepository, IRepository<Material> materialRepository,
-            IRepository<EstoqueMaterial> estoqueMaterialRepository)
+            IRepository<EstoqueMaterial> estoqueMaterialRepository,
+            IRepository<RecebimentoCompra> recebimentoCompraRepository)
         {
             _entradaMaterialRepository = entradaMaterialRepository;
-            _pessoaRepository = pessoaRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
             _unidadeMedidaRepository = unidadeMedidaRepository;
             _materialRepository = materialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
+            _recebimentoCompraRepository = recebimentoCompraRepository;
             _logger = logger;
         }
         #endregion
@@ -249,6 +251,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 				try
 				{
 					var domain = _entradaMaterialRepository.Get(id);
+
+				    if (_recebimentoCompraRepository.Find(x => x.EntradaMaterial.Id == id).Any())
+				    {
+				        this.AddErrorMessage("Não é possível excluir uma entrada de material criada automaticamente a partir de um recebimento de compra. " 
+                            +" É necessário excluir o recebimento de compra para completar a operação.");
+                        return RedirectToAction("Editar", new { id });
+				    }
 
                     // Atualizar o estoque
                     foreach (var item in domain.EntradaItemMateriais)

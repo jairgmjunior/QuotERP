@@ -18,7 +18,6 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             HasMany(x => x.MovimentacaoEstoqueMateriais)
                 .Not.LazyLoad()
                 .Inverse()
-                .Cascade.AllDeleteOrphan()
                 .Access.CamelCaseField(Prefix.Underscore);
         } 
     }
