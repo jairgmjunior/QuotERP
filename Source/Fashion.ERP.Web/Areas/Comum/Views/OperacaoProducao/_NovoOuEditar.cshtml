@@ -39,7 +39,7 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.PesoProdutividade)
             <div class="controls">
-                @Html.EditorFor(x => x.PesoProdutividade)
+                @Html.EditorFor(x => x.PesoProdutividade,"numeric")
                 @Html.ValidationMessageFor(x => x.PesoProdutividade, null, new { @class = "help-block" })
             </div>
         </div>
@@ -84,11 +84,11 @@
             var setores = $('#SetorProducao');
             setores.empty();
             
-            var url = '/EngenhariaProduto/SetorProducao/SetoresDepartamento_/' + $(this).val();
-            $.getJSON(url, function (result) {
+            var url = '/Comum/SetorProducao/SetoresDepartamento_/';
+            $.getJSON(url, { IdDepartamento: $(this).val() }, function (result) {
                 $.each(result, function (index, item) {
                     setores.append($('<option />').val(item.Id).text(item.Nome));
-                }.);
+                });
             }).fail(function (jqXhr, textStatus, errorThrown) {
                 alert(errorThrown);
             });
