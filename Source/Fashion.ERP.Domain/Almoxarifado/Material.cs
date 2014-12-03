@@ -6,6 +6,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
     public class Material : DomainBase<Material>
     {
         private readonly IList<ReferenciaExterna> _referenciaExternas;
+        private IList<CustoMaterial> _custoMaterials = new List<CustoMaterial>();
 
         public Material()
         {
@@ -66,5 +67,11 @@ namespace Fashion.ERP.Domain.Almoxarifado
         }
 
         #endregion
+
+        public virtual IList<CustoMaterial> CustoMaterials
+        {
+            get { return _custoMaterials; }
+            set { _custoMaterials = value; }
+        }
     }
 }

@@ -3,7 +3,7 @@ using Fashion.Framework.Mapping;
 
 namespace Fashion.ERP.Mapping.Almoxarifado
 {
-    public class CustoMaterialMap : FashionClassMap<CustoMaterial>
+    public class CustoMaterialMap : EmpresaClassMap<CustoMaterial>
     {
         public CustoMaterialMap()
             : base("customaterial", 10)
@@ -15,7 +15,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             Map(x => x.Ativo).Not.Nullable();
 
             References(x => x.Fornecedor).Not.Nullable();
-            References(x => x.CustoAnterior).Not.Nullable();
+            References(x => x.CustoAnterior).Nullable();
         }
     }
 }

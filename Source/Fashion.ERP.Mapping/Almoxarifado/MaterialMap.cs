@@ -36,6 +36,10 @@ namespace Fashion.ERP.Mapping.Almoxarifado
                 .Inverse()
                 .Cascade.AllDeleteOrphan()
                 .Access.CamelCaseField(Prefix.Underscore);
+
+            HasMany(x => x.CustoMaterials)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

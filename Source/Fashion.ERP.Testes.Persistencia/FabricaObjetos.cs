@@ -17,6 +17,18 @@ namespace Fashion.ERP.Testes.Persistencia
     {
         #region Almoxarifado
 
+        public CustoMaterial ObtenhaCustoMaterial()
+        {
+            return new CustoMaterial
+            {
+                Ativo = true,
+                Custo = 1,
+                CustoAquisicao = 1,
+                CustoMedio = 1,
+                Data = new DateTime(2014,1,1)
+            };
+        }
+
         public Bordado ObtenhaBordado()
         {
             return new Bordado

@@ -56,6 +56,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Migrations\Migration201412021716.cs" />
     <Compile Include="Migrations\Migration201411211534.cs" />
     <Compile Include="Migrations\Migration201411251815.cs" />
     <Compile Include="Migrations\Migration201411051458.cs" />

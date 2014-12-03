@@ -3,7 +3,7 @@ using Fashion.ERP.Domain.Comum;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
-    public class CustoMaterial : DomainBase<CustoMaterial>
+    public class CustoMaterial : DomainEmpresaBase<CustoMaterial>
     {
         public virtual DateTime Data { get; set; }
         public virtual double CustoAquisicao { get; set; }

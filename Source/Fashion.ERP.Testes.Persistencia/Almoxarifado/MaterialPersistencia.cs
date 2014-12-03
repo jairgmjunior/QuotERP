@@ -1,5 +1,6 @@
 ﻿using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.UnitOfWork;
 
 namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
@@ -12,6 +13,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
         private Subcategoria _subcategoria;
         private Familia _familia;
         private Arquivo _arquivo;
+        private Pessoa _fornecedor;
 
         public override Material GetPersistentObject()
         {
@@ -23,6 +25,12 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
             material.Subcategoria = _subcategoria;
             material.Familia = _familia;
             material.Foto = _arquivo;
+
+            var custoMaterial = FabricaObjetos.ObtenhaCustoMaterial();
+            custoMaterial.Fornecedor = _fornecedor;
+
+            material.CustoMaterials.Add(custoMaterial);
+
             return material;
         }
 
@@ -34,6 +42,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
             _subcategoria = FabricaObjetosPersistidos.ObtenhaSubCategoria();
             _familia = FabricaObjetosPersistidos.ObtenhaFamilia();
             _arquivo = FabricaObjetos.ObtenhaArquivo();
+            _fornecedor = FabricaObjetosPersistidos.ObtenhaFornecedor();
             Session.Current.Flush();
         }
 
@@ -44,6 +53,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
             FabricaObjetosPersistidos.ExcluaSubcategoria(_subcategoria);
             FabricaObjetosPersistidos.ExcluaMarcaMaterial(_marcaMaterial);
             FabricaObjetosPersistidos.ExcluaFamilia(_familia);
+            FabricaObjetosPersistidos.ExcluaPessoa(_fornecedor);
             Session.Current.Flush();
         }
     }
