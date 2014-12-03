@@ -328,6 +328,8 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
 
         public virtual void GereChaveExterna()
         {
+
+            //concorrência
             String chave = "";
 
             var randNum = new Random();

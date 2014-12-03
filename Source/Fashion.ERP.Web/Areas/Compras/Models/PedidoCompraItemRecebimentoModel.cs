@@ -23,7 +23,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Val. Unitário")]
         public double ValorUnitarioPedido { get; set; }
 
-        [Display(Name = "Quantidade")]
+        [Display(Name = "Qtd.Receber")]
         public double QuantidadePedido { get; set; }
 
         public long PedidoCompra { get; set; }

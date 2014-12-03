@@ -39,8 +39,13 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         [ChildActionOnly]
         public virtual ActionResult Index(long pessoaId)
         {
-            var clienteId = _pessoaRepository.Get(pessoaId).Cliente.Id ?? 0;
-            TempData["clienteId"] = clienteId;
+            var cliente = _pessoaRepository.Get(pessoaId);
+
+            if (cliente != null)
+            {
+                var clienteId = cliente.Id ?? 0;
+                TempData["clienteId"] = clienteId;
+            }
             return View();
         }
 

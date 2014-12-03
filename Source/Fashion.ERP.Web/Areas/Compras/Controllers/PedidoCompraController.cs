@@ -381,7 +381,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                         domain.AddPedidoCompraItem(item);
                     }
-                    //verifica se pedido de compra foi autorizado --jamyl
+                    
                     if (domain.Autorizado.Equals(true))
                     {
                         _pedidoCompraRepository.Evict(domain);
@@ -476,11 +476,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             // PrazoDescricao
             var prazos = _prazoRepository.Find(p => p.Ativo).ToList();
-            ViewBag.PrazoDescricao = prazos.ToSelectList("Descricao", model.Prazo);
+            ViewBag.Prazo = prazos.ToSelectList("Descricao", model.Prazo);
 
             // MeioPagamento
             var meioPagamentos = _meioPagamentoRepository.Find().ToList();
-            ViewBag.MeioPagamento = meioPagamentos.ToSelectList("Descricao", model.Prazo);
+            ViewBag.MeioPagamento = meioPagamentos.ToSelectList("Descricao", model.MeioPagamento);
             
             // Materiais
             var materiais = _materialRepository.Find();

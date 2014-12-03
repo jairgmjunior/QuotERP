@@ -455,6 +455,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 {
                     var baixaTitulo = new BaixaItemTituloPagarModel
                     {
+                        Id = tituloPagarBaixa.Id,
                         DataPagamento = tituloPagarBaixa.DataPagamento,
                         Desconto = tituloPagarBaixa.Descontos,
                         Despesa = tituloPagarBaixa.Despesas,
@@ -653,22 +654,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             var baixas = baixaTitulos.ToList();
 
-            if (baixaTitulos != null && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
                     var tituloPagar = _tituloPagarRepository.Get(baixas.First().TituloPagarId);
-
-                    tituloPagar.DataAlteracao = DateTime.Now;
-                    tituloPagar.ClearTituloPagarBaixa();
-
-                    var soma = baixas.Sum(p => p.ValorBaixa.GetValueOrDefault());
-                    tituloPagar.SaldoDevedor = tituloPagar.Valor - soma;
-
-                    var i = 0;
                     foreach (var baixa in baixas)
                     {
-                        i++;
                         tituloPagar.AddTituloPagarBaixa(new TituloPagarBaixa
                         {
                             DataAlteracao = tituloPagar.DataAlteracao,
@@ -678,24 +670,12 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                             Historico = tituloPagar.Historico,
                             Juros = baixa.Juro.GetValueOrDefault(),
                             Observacao = tituloPagar.Observacao,
-                            NumeroBaixa = i + 1,
+                            NumeroBaixa = 1,
                             Valor = baixa.ValorBaixa.GetValueOrDefault()
                         });
                     }
 
-                    if (baixas.Count == 0)
-                    {
-                        tituloPagar.SituacaoTitulo = SituacaoTitulo.NaoLiquidado;
-                    }
-                    else if (Math.Abs(soma - tituloPagar.Valor) < double.Epsilon)
-                    {
-                        tituloPagar.SituacaoTitulo = SituacaoTitulo.Liquidado;
-                    }
-                    else
-                    {
-                        tituloPagar.SituacaoTitulo = SituacaoTitulo.LiquidadoParcial;
-                    }
-
+                    AtualizeTituloPagar(tituloPagar);
                     _tituloPagarRepository.Update(tituloPagar);
 
                     this.AddSuccessMessage("Baixa de título atualizado com sucesso.");
@@ -716,8 +696,63 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult AtualizeBaixaTitulo([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<BaixaItemTituloPagarModel> baixaTitulos)
         {
-            //não faz nada, necessário porque a grid do kendo obriga a existência do método para batch updates.
-            return Json(baixaTitulos.ToDataSourceResult(request, ModelState));
+            var baixasAtualizar = baixaTitulos.ToList();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var tituloPagar = _tituloPagarRepository.Get(baixasAtualizar.First().TituloPagarId);
+                    
+                    foreach (var baixaAtualizarModel in baixasAtualizar)
+                    {
+                        var baixaAtualizar = tituloPagar.TituloPagarBaixas.First(x => x.Id == baixaAtualizarModel.Id);
+
+                        baixaAtualizar.DataAlteracao = tituloPagar.DataAlteracao;
+                        baixaAtualizar.DataPagamento = baixaAtualizarModel.DataPagamento;
+                        baixaAtualizar.Descontos = baixaAtualizarModel.Desconto.GetValueOrDefault();
+                        baixaAtualizar.Despesas = baixaAtualizarModel.Despesa.GetValueOrDefault();
+                        baixaAtualizar.Historico = tituloPagar.Historico;
+                        baixaAtualizar.Juros = baixaAtualizarModel.Juro.GetValueOrDefault();
+                        baixaAtualizar.Observacao = tituloPagar.Observacao;
+                        baixaAtualizar.Valor = baixaAtualizarModel.ValorBaixa.GetValueOrDefault();
+                    }
+
+                    AtualizeTituloPagar(tituloPagar);
+                    _tituloPagarRepository.Update(tituloPagar);
+
+                    this.AddSuccessMessage("Baixa de título atualizado com sucesso.");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty,
+                        "Ocorreu um erro ao atualizar a baixa de título. Confira se os dados foram informados corretamente.");
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return Json(baixasAtualizar.ToDataSourceResult(request, ModelState));
+        }
+
+        public void AtualizeTituloPagar(TituloPagar tituloPagar)
+        {
+            tituloPagar.DataAlteracao = DateTime.Now;
+
+            var soma = tituloPagar.TituloPagarBaixas.Sum(p => p.Valor);
+            tituloPagar.SaldoDevedor = tituloPagar.Valor - soma;
+
+            if (tituloPagar.TituloPagarBaixas.Count == 0)
+            {
+                tituloPagar.SituacaoTitulo = SituacaoTitulo.NaoLiquidado;
+            }
+            else if (Math.Abs(soma - tituloPagar.Valor) < double.Epsilon)
+            {
+                tituloPagar.SituacaoTitulo = SituacaoTitulo.Liquidado;
+            }
+            else
+            {
+                tituloPagar.SituacaoTitulo = SituacaoTitulo.LiquidadoParcial;
+            }
         }
         #endregion
 
@@ -725,8 +760,31 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult ExcluaBaixaTitulo([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<BaixaItemTituloPagarModel> baixaTitulos)
         {
-            //não faz nada, necessário porque a grid do kendo obriga a existência do método para batch updates.
-            return Json(baixaTitulos.ToDataSourceResult(request, ModelState));
+            var baixasExcluir = baixaTitulos.ToList();
+            try
+            {
+                var tituloPagar = _tituloPagarRepository.Get(baixasExcluir.First().TituloPagarId);
+                
+                foreach (var baixaExcluirModel in baixasExcluir)
+                {
+                    var baixaExcluir = tituloPagar.TituloPagarBaixas.First(x => x.Id == baixaExcluirModel.Id);
+
+                    tituloPagar.RemoveTituloPagarBaixa(baixaExcluir);
+                }
+
+                AtualizeTituloPagar(tituloPagar);
+                _tituloPagarRepository.Update(tituloPagar);
+
+                this.AddSuccessMessage("Baixa de título excluído com sucesso.");
+            }
+            catch (Exception exception)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Ocorreu um erro ao excluir a baixa de título. Confira se os dados foram informados corretamente.");
+                _logger.Info(exception.GetMessage());
+            }
+
+            return Json(baixasExcluir.ToDataSourceResult(request, ModelState));
         }
         #endregion
 

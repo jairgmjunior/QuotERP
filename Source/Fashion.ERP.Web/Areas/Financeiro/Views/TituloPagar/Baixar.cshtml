@@ -127,6 +127,7 @@
                     toolbar.Create();
                     toolbar.Save();
                 })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
                 .Events(c => c.Save("onSaveBaixaTitulo"))
         )
     </div>
@@ -148,15 +149,6 @@
         return false;
     }
 
-    $(".k-grid-save-changes").on("click", function () {
-        var datasourcedata = $("#Grid").data("kendoGrid").dataSource.data();
-
-        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
-        for (var i = 0; i < datasourcedata.length; i++) {
-            datasourcedata[i].id = null;
-        }
-    });
-
     function error_handler(e) {
         if (e.errors) {
             var message = "";
@@ -173,7 +165,7 @@
     }
     
     function onRequestEnd(e) {
-        if ((e.type == "create" || e.type == "update") && !e.response.Errors) {
+        if ((e.type == "create" || e.type == "update" || e.type == "destroy") && !e.response.Errors) {
             var returnUrl = '@Html.GetUrl(MVC.Financeiro.TituloPagar.Index())';
             window.location.href = returnUrl;
         }

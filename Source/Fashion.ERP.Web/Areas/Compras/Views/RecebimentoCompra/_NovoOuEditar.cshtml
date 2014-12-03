@@ -223,7 +223,7 @@
 
     function carreguePesquisarPedidoCompra(i) {
         var url = obtenhaUrlPesquisarPedidoCompra(i);
-        $.post(url, function (data) {
+        $.get(url, function (data) {
             $('#dialogContent').html(data);
             scriptsModal();
         });
@@ -275,13 +275,17 @@
     }
 
     function obtenhaUrlPesquisarPedidoCompra(id) {
-        return '/Compras/RecebimentoCompra/PesquisarPedidoCompra/' + id;
+        if ($("#Id").val() == null) {
+            return '/Compras/RecebimentoCompra/PesquisarPedidoCompra?id=' + id + '&idRecebimento=0';
+        } else {
+            return '/Compras/RecebimentoCompra/PesquisarPedidoCompra?id=' + id + '&idRecebimento=' + $("#Id").val();
+        }
     }
 
     function obtenhaHtmlPedidosDeCompra(pedidosCompra) {
         var html = [];
         for (var i = 0; i < pedidosCompra.length; i++) {
-            html.push("<a href='/Compras/PedidoCompra/Editar/" + pedidosCompra[i] + "' target='_blank'> " + pedidosCompra[i] + " </a>");
+            html.push("<a href='/Compras/PedidoCompra/Editar/" + pedidosCompra[i].Id + "' target='_blank'> " + pedidosCompra[i].Numero + " </a>");
         }
         return html.join("/");
     }

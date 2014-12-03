@@ -79,6 +79,10 @@ namespace Fashion.ERP.Web.Filters
             {
                 _logger.Info(exception.GetMessage());
                 Session.Current.Dispose();
+                
+                // Limpa as mensagem de sucesso e adiciona uma de erro
+                filterContext.Controller.ClearSuccessMessages();
+                filterContext.Controller.ViewData.ModelState.AddModelError(string.Empty, exception.GetMessage());
 
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
@@ -86,10 +90,6 @@ namespace Fashion.ERP.Web.Filters
                 }
                 else
                 {
-                    // Limpa as mensagem de sucesso e adiciona uma de erro
-                    filterContext.Controller.ClearSuccessMessages();
-                    filterContext.Controller.ViewData.ModelState.AddModelError(string.Empty, exception.GetMessage());
-
                     // Retorna para a página que gerou o erro
                     if (_executingContext.ActionParameters.ContainsKey("model"))
                     {

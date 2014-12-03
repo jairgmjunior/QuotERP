@@ -5,6 +5,7 @@ using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Web.Areas.Compras.Models;
 using Fashion.ERP.Web.Helpers;
+using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Repository;
 using FluentNHibernate.Conventions;
 using Kendo.Mvc.Extensions;
@@ -30,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         }
 
         #region Crie RecebimentoCompra
-        public RecebimentoCompra CrieNovoRecebimentoCompra(RecebimentoCompraModel model)
+        public RecebimentoCompra CrieNovoRecebimentoCompra(RecebimentoCompraModel model, RecebimentoCompraController controller)
         {
             var domain = Mapper.Unflat<RecebimentoCompra>(model);
             domain.Numero = ProximoNumero();
@@ -38,7 +39,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             domain.DataAlteracao = DateTime.Now;
 
             CrieListaPedidoCompra(model, domain);
-            CrieListaRecebimentoCompraItens(model, domain);
+            CrieListaRecebimentoCompraItens(model, domain, controller);
             
             return domain;
         }
@@ -51,13 +52,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                                            into pedidos 
                                            select pedidos.Key)
             {
-                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Get(pedidoCompraId));
+                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Find(x => x.Numero == pedidoCompraId.Numero).First());
             }
         }
 
-        private void CrieListaRecebimentoCompraItens(RecebimentoCompraModel recebimentoCompraModel, RecebimentoCompra recebimentoCompra)
+        private void CrieListaRecebimentoCompraItens(RecebimentoCompraModel recebimentoCompraModel, RecebimentoCompra recebimentoCompra, RecebimentoCompraController controller)
         {
-            recebimentoCompra.RecebimentoCompraItens = recebimentoCompraModel.GridItens.Select(x => CrieNovoRecebimentoCompraItem(recebimentoCompra, x)).ToList();
+            recebimentoCompra.RecebimentoCompraItens = recebimentoCompraModel.GridItens.Select(x => CrieNovoRecebimentoCompraItem(recebimentoCompra, x, controller)).ToList();
         }
 
         public void AtualizePedidosCompra(RecebimentoCompra recebimentoCompra)
@@ -115,15 +116,22 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             }
         }
 
-        private RecebimentoCompraItem CrieNovoRecebimentoCompraItem(RecebimentoCompra recebimentoCompra, RecebimentoCompraItemModel recebimentoCompraItemModel)
+        private RecebimentoCompraItem CrieNovoRecebimentoCompraItem(RecebimentoCompra recebimentoCompra, RecebimentoCompraItemModel recebimentoCompraItemModel, RecebimentoCompraController controller)
         {
             var item = Mapper.Unflat<RecebimentoCompraItem>(recebimentoCompraItemModel);
-            item.Material = _materialRepository.Find(p => p.Referencia == recebimentoCompraItemModel.MaterialReferencia).FirstOrDefault();
+            item.Material = _materialRepository.Find(p => p.Referencia == recebimentoCompraItemModel.MaterialReferencia).First();
             var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
-
-            foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra)
+            
+            foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero))
             {
-                var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId);
+                if (quantidadeEntradaDisponível <= 0)
+                {
+                    controller.AddInfoMessage("Não foi possível receber o material " + item.Material.Referencia + " do pedido de compra " + pedidoCompraId.Numero 
+                        + " pois a quantidade recebida não é suficiente para atender esse item.");
+                    continue;
+                }
+
+                var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
                 var pedidoCompraItem = pedidoCompra.PedidoCompraItens.SingleOrDefault(
                     s => s.Material.Referencia == recebimentoCompraItemModel.MaterialReferencia);
 
@@ -172,14 +180,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #endregion
 
         #region Atualize RecebimentoCompra
-        public RecebimentoCompra AtualizeRecebimentoCompra(RecebimentoCompra domain, RecebimentoCompraModel model)
+        public RecebimentoCompra AtualizeRecebimentoCompra(RecebimentoCompra domain, RecebimentoCompraModel model, RecebimentoCompraController controller)
         {
             domain = Mapper.Unflat(model, domain);
             domain.DataAlteracao = DateTime.Now;
 
             AtualizeListaPedidoCompra(model, domain);
             ExcluaRecebimentoCompraItem(model, domain);
-            AtualizeListaRecebimentoCompraItens(model, domain);
+            AtualizeListaRecebimentoCompraItens(model, domain, controller);
             AtualizePedidosCompra(domain);
             
             return domain;
@@ -188,58 +196,51 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private void ExcluaRecebimentoCompraItem(RecebimentoCompraModel recebimentoCompraModel,
             RecebimentoCompra recebimentoCompra)
         {
-            try
+            var modelItensId = recebimentoCompraModel.GridItens.Select(p => p.Id);
+            var domainItensId = recebimentoCompra.RecebimentoCompraItens.Select(p => p.Id);
+
+            var idsExcluir = domainItensId.Except(modelItensId).ToList();
+
+            var pedidosCompraAtualizar = new List<PedidoCompra>();
+            var recebimentoItensExcluir = recebimentoCompra.RecebimentoCompraItens.
+                Where(recebimentoCompraItem => idsExcluir.Contains(recebimentoCompraItem.Id)).ToList();
+
+            foreach (var recebimentoCompraItem in recebimentoItensExcluir)
             {
-                var modelItensId = recebimentoCompraModel.GridItens.Select(p => p.Id);
-                var domainItensId = recebimentoCompra.RecebimentoCompraItens.Select(p => p.Id);
-
-                var idsExcluir = domainItensId.Except(modelItensId).ToList();
-
-                var pedidosCompraAtualizar = new List<PedidoCompra>();
-                var recebimentoItensExcluir = recebimentoCompra.RecebimentoCompraItens.
-                    Where(recebimentoCompraItem => idsExcluir.Contains(recebimentoCompraItem.Id)).ToList();
-
-                foreach (var recebimentoCompraItem in recebimentoItensExcluir)
+                recebimentoCompraItem.DetalhamentoRecebimentoCompraItens.ForEach(detalhamento =>
                 {
-                    recebimentoCompraItem.DetalhamentoRecebimentoCompraItens.ForEach(detalhamento =>
+                    recebimentoCompra.DetalhamentoRecebimentoCompraItens.Remove(detalhamento);
+                    detalhamento.PedidoCompraItem.QuantidadeEntrega -= detalhamento.Quantidade;
+                    detalhamento.PedidoCompraItem.AtualizeSituacao();
+                    detalhamento.PedidoCompra.AtualizeSituacao();
+                    if (!pedidosCompraAtualizar.Contains(detalhamento.PedidoCompra))
                     {
-                        recebimentoCompra.DetalhamentoRecebimentoCompraItens.Remove(detalhamento);
-                        detalhamento.PedidoCompraItem.QuantidadeEntrega -= detalhamento.Quantidade;
-                        detalhamento.PedidoCompraItem.AtualizeSituacao();
-                        detalhamento.PedidoCompra.AtualizeSituacao();
-                        if (!pedidosCompraAtualizar.Contains(detalhamento.PedidoCompra))
-                        {
-                            pedidosCompraAtualizar.Add(detalhamento.PedidoCompra);
-                        }   
-                    });
-                }
+                        pedidosCompraAtualizar.Add(detalhamento.PedidoCompra);
+                    }   
+                });
+            }
 
-                recebimentoItensExcluir.ForEach(x => 
-                    recebimentoCompra.RecebimentoCompraItens.Remove(x));
+            recebimentoItensExcluir.ForEach(x => 
+                recebimentoCompra.RecebimentoCompraItens.Remove(x));
                 
-                pedidosCompraAtualizar.ForEach(pedido => _pedidoCompraRepository.Update(pedido));
-                _recebimentoCompraRepository.Update(recebimentoCompra);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            pedidosCompraAtualizar.ForEach(pedido => _pedidoCompraRepository.Update(pedido));
+            _recebimentoCompraRepository.Update(recebimentoCompra);
         }
 
         private void AtualizeListaPedidoCompra(RecebimentoCompraModel recebimentoCompraModel, RecebimentoCompra recebimentoCompra)
         {
             foreach (var pedidoCompraId in from recebimentoCompraItemModel in recebimentoCompraModel.GridItens
                                            from pedidoCompraId in recebimentoCompraItemModel.PedidosCompra
-                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Id == pedidoCompraId)
+                                           let pedidoExistenteNaLista = recebimentoCompra.PedidoCompras.FirstOrDefault(p => p.Numero == pedidoCompraId.Numero)
                                            where pedidoExistenteNaLista == null
                                            select pedidoCompraId)
             {
-                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Get(pedidoCompraId));
+                recebimentoCompra.PedidoCompras.Add(_pedidoCompraRepository.Find(x => x.Numero == pedidoCompraId.Numero).First());
             }
         }
 
         private void AtualizeListaRecebimentoCompraItens(RecebimentoCompraModel recebimentoCompraModel,
-            RecebimentoCompra recebimentoCompra)
+            RecebimentoCompra recebimentoCompra, RecebimentoCompraController controller)
         {
             var novosItens = new List<RecebimentoCompraItem>();
 
@@ -248,17 +249,17 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var itemSalvo = recebimentoCompra.RecebimentoCompraItens.FirstOrDefault(p => p.Id == recebimentoCompraItemModel.Id);
                 if (itemSalvo == null)
                 {
-                    novosItens.Add(CrieNovoRecebimentoCompraItem(recebimentoCompra, recebimentoCompraItemModel));
+                    novosItens.Add(CrieNovoRecebimentoCompraItem(recebimentoCompra, recebimentoCompraItemModel, controller));
                     continue;
                 }
 
                 var item = Mapper.Unflat(recebimentoCompraItemModel, itemSalvo);
                 item.Quantidade = recebimentoCompraItemModel.QuantidadeEntrada;
                 var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
-
-                foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra)
+                
+                foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero))
                 {
-                    var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId);
+                    var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
 
                     var pedidoCompraItem = pedidoCompra.PedidoCompraItens.SingleOrDefault(
                         s => s.Material.Referencia == recebimentoCompraItemModel.MaterialReferencia);
@@ -272,6 +273,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         item.DetalhamentoRecebimentoCompraItens.SingleOrDefault(
                             d => d.PedidoCompra.Id == pedidoCompra.Id) ??
                         new DetalhamentoRecebimentoCompraItem();
+
+                    if (quantidadeEntradaDisponível <= 0)
+                    {
+                        controller.AddInfoMessage("Não foi possível receber o material " + item.Material.Referencia + " do pedido de compra " + pedidoCompraId.Numero
+                        + " pois a quantidade recebida não é suficiente para atender esse item.");
+
+                        if (detalhamento.PedidoCompra != null)
+                        {
+                            item.DetalhamentoRecebimentoCompraItens.Remove(detalhamento);
+                            recebimentoCompra.DetalhamentoRecebimentoCompraItens.Remove(detalhamento);
+                        }
+
+                        continue;
+                    }
 
                     detalhamento.PedidoCompra = pedidoCompra;
                     detalhamento.PedidoCompraItem = pedidoCompraItem;
@@ -344,7 +359,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 ValorUnitario = ObtenhaValorUnitario(pedidoCompraItem),
                 ValorUnitarioPedido = pedidoCompraItem.ValorUnitario,
                 QuantidadeEntrada = ObtenhaQuantidadeDeEntrada(pedidoCompraItem),
-                PedidosCompra = new List<long> { pedidoCompraItemRecebimentoModel.PedidoCompra },
+                PedidosCompra = new List<IdentificadorPedidoCompra> { new IdentificadorPedidoCompra{ Id = pedidoCompraItemRecebimentoModel.PedidoCompra, Numero = pedidoCompra.Numero }},
                 PedidoCompraItens = new List<long?> { pedidoCompraItemRecebimentoModel.Id },
                 ValorTotal = ObtenhaTotalItem(pedidoCompraItem)
             };
@@ -375,7 +390,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             PedidoCompraItemRecebimentoModel pedidoCompraItemRecebimentoModel, PedidoCompra pedidoCompra)
         {
             var numeroPedido = pedidoCompraItemRecebimentoModel.PedidoCompra;
-            if (recebimentoCompraItemModel.PedidosCompra.Contains(numeroPedido) &&
+            if (recebimentoCompraItemModel.PedidosCompra.Any(x => x.Id == numeroPedido) &&
                 recebimentoCompraItemModel.PedidoCompraItens.Contains(pedidoCompraItemRecebimentoModel.Id))
                 return null;
 
@@ -394,8 +409,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             recebimentoNovo.PedidosCompra.AddRange(recebimentoCompraItemModel.PedidosCompra);
             recebimentoNovo.PedidoCompraItens.AddRange(recebimentoCompraItemModel.PedidoCompraItens);
 
-            IList<long> list = recebimentoNovo.PedidosCompra;
-            IEnumerable<long> sortedEnum = list.OrderBy(f => f);
+            IList<IdentificadorPedidoCompra> list = recebimentoNovo.PedidosCompra;
+            IEnumerable<IdentificadorPedidoCompra> sortedEnum = list.OrderBy(f => f.Numero);
             recebimentoNovo.PedidosCompra = sortedEnum.ToList();
 
             return recebimentoNovo;

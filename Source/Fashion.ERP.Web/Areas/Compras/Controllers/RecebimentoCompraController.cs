@@ -256,7 +256,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
-                    var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model);
+                    var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model, this);
 
                     domain.EntradaMaterial = SalveEntradaMaterial(domain, model.DepositoMaterial);
                     _recebimentoCompraRepository.Save(domain);
@@ -264,7 +264,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     _fabricaDeObjetos.AtualizePedidosCompra(domain);
                     //SalveConferenciaEntradaMaterial(domain);
                     
-
                     this.AddSuccessMessage("Recebimento de compra cadastrado com sucesso.");
                 }
                 catch (Exception exception)
@@ -302,8 +301,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 model.GridItens = new List<RecebimentoCompraItemModel>(domain.RecebimentoCompraItens.Select( x => 
                     {
                         var retorno = Mapper.Flat<RecebimentoCompraItemModel>(x);
-                        retorno.PedidosCompra = 
-                            x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompra.Id).ToList().ConvertAll(y => y != null ? y.Value : 0); 
+                        retorno.PedidosCompra =
+                            x.DetalhamentoRecebimentoCompraItens.Select(d => new IdentificadorPedidoCompra { Id = d.PedidoCompra.Id != null ? d.PedidoCompra.Id.Value : 0, 
+                                Numero = d.PedidoCompra.Numero }).ToList(); 
                         retorno.PedidoCompraItens =
                             x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompraItem.Id).ToList();
                         retorno.ValorUnitarioPedido =
@@ -333,11 +333,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
-                    var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model);
+                    var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
                     
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
                     SalveEntradaMaterial(domain, model.DepositoMaterial);
-
+                    
                     this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
                 catch (Exception exception)
@@ -473,20 +473,40 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         
         #region Pesquisar Pedido de Compra
 
-        public virtual PartialViewResult PesquisarPedidoCompra(long id)
+        public virtual PartialViewResult PesquisarPedidoCompra(long id, long idRecebimento)
         {
-            var domain = _pedidoCompraRepository.Get(id);
+            var pedidoCompra = _pedidoCompraRepository.Get(id);
+            var recebimentoCompra = _recebimentoCompraRepository.Get(idRecebimento);
 
-            if (domain == null)
+            if (pedidoCompra == null)
             {
                 return PartialView(new PedidoCompraRecebimentoModel());
             }
 
-            var model = _fabricaDeObjetos.CriePedidoCompraRecebimentoModel(domain);
+            var model = _fabricaDeObjetos.CriePedidoCompraRecebimentoModel(pedidoCompra);
+
+            if (recebimentoCompra != null)
+            {
+                AtualizeQuantidadeReceber(model, recebimentoCompra);    
+            }
 
             ModelState.Clear();
             return PartialView(model);
         }
+
+        private void AtualizeQuantidadeReceber(PedidoCompraRecebimentoModel pedidoCompraModel, RecebimentoCompra recebimentoCompra)
+        {
+            pedidoCompraModel.Grid.Each(pedidoCompraItemModel =>
+            {
+                var detalhamento = recebimentoCompra.RecebimentoCompraItens.SelectMany(x => x.DetalhamentoRecebimentoCompraItens)
+                    .FirstOrDefault(y => y.PedidoCompraItem.Id == pedidoCompraItemModel.Id);
+                if (detalhamento != null)
+                {
+                    pedidoCompraItemModel.QuantidadePedido -= detalhamento.Quantidade;
+                }
+            });
+        }
+
         #endregion
 
         [HttpGet]

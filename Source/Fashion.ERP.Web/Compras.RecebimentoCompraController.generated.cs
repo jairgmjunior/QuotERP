@@ -149,6 +149,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionParamsClass_PesquisarPedidoCompra
         {
             public readonly string id = "id";
+            public readonly string idRecebimento = "idRecebimento";
         }
         static readonly ActionParamsClass_ObtenhaPedidosDeCompraPorFornecedor s_params_ObtenhaPedidosDeCompraPorFornecedor = new ActionParamsClass_ObtenhaPedidosDeCompraPorFornecedor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -266,13 +267,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
-        partial void PesquisarPedidoCompraOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, long id);
+        partial void PesquisarPedidoCompraOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, long id, long idRecebimento);
 
-        public override System.Web.Mvc.PartialViewResult PesquisarPedidoCompra(long id)
+        public override System.Web.Mvc.PartialViewResult PesquisarPedidoCompra(long id, long idRecebimento)
         {
             var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.PesquisarPedidoCompra);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            PesquisarPedidoCompraOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idRecebimento", idRecebimento);
+            PesquisarPedidoCompraOverride(callInfo, id, idRecebimento);
             return callInfo;
         }
 
