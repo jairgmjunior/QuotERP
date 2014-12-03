@@ -256,7 +256,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
-                    var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model);
+                    var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model, this);
 
                     domain.EntradaMaterial = SalveEntradaMaterial(domain, model.DepositoMaterial);
                     _recebimentoCompraRepository.Save(domain);
@@ -264,7 +264,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     _fabricaDeObjetos.AtualizePedidosCompra(domain);
                     //SalveConferenciaEntradaMaterial(domain);
                     
-
                     this.AddSuccessMessage("Recebimento de compra cadastrado com sucesso.");
                 }
                 catch (Exception exception)
@@ -334,11 +333,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
-                    var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model);
+                    var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
                     
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
                     SalveEntradaMaterial(domain, model.DepositoMaterial);
-
+                    
                     this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
                 catch (Exception exception)
