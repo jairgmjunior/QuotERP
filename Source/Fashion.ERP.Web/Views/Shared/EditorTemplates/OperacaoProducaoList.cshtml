@@ -1,9 +1,12 @@
 ﻿@model String
 
 @(Html.Kendo().DropDownList()
-    .BindTo(ViewBag.Operacao)
     .OptionLabel("- Selecione -")
-    .DataTextField("Descricao")
-    .DataValueField("Descricao")
+    .HtmlAttributes(new { data_value_primitive = "true" })
     .Name("NomeOperacao")
+    .DataTextField("Descricao")
+    .DataValueField("Nome")
+    .DataSource(dataSource => dataSource.Read(read => read.Action("OperacoesPorSetor", "OperacaoProducao",new {Area="Comum"}).Data("filtroOperacoes"))
+        .ServerFiltering(true))
+    .CascadeFrom("NomeSetor")
 )

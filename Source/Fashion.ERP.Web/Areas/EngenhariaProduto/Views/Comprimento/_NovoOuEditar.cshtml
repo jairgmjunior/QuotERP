@@ -1,8 +1,0 @@
-﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ComprimentoModel
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Descricao)
-    <div class="controls">
-        @Html.EditorFor(x => x.Descricao)
-        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
-    </div>
-</div>

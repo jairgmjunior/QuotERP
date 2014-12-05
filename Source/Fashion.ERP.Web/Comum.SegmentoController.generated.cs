@@ -20,12 +20,12 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace Fashion.ERP.Web.Areas.Comum.Controllers
 {
-    public partial class NaturezaController
+    public partial class SegmentoController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected NaturezaController(Dummy d) { }
+        protected SegmentoController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,21 +43,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult SalvarNovo()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SalvarNovo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult SalvarAlteracoes()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SalvarAlteracoes);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -71,21 +59,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Detalhar()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Detalhar);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public NaturezaController Actions { get { return MVC.EngenhariaProduto.Natureza; } }
+        public SegmentoController Actions { get { return MVC.Comum.Segmento; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "EngenhariaProduto";
+        public readonly string Area = "Comum";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Natureza";
+        public readonly string Name = "Segmento";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Natureza";
+        public const string NameConst = "Segmento";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -95,12 +77,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Novo = "Novo";
-            public readonly string SalvarNovo = "SalvarNovo";
             public readonly string Editar = "Editar";
-            public readonly string SalvarAlteracoes = "SalvarAlteracoes";
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
-            public readonly string Detalhar = "Detalhar";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -108,12 +87,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public const string Index = "Index";
             public const string Novo = "Novo";
-            public const string SalvarNovo = "SalvarNovo";
             public const string Editar = "Editar";
-            public const string SalvarAlteracoes = "SalvarAlteracoes";
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
-            public const string Detalhar = "Detalhar";
         }
 
 
@@ -125,16 +101,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_SalvarNovo s_params_SalvarNovo = new ActionParamsClass_SalvarNovo();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SalvarNovo SalvarNovoParams { get { return s_params_SalvarNovo; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SalvarNovo
-        {
-            public readonly string request = "request";
-            public readonly string sequenciaOperacoes = "sequenciaOperacoes";
-            public readonly string descricao = "descricao";
-        }
         static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
@@ -142,16 +108,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public class ActionParamsClass_Editar
         {
             public readonly string id = "id";
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_SalvarAlteracoes s_params_SalvarAlteracoes = new ActionParamsClass_SalvarAlteracoes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SalvarAlteracoes SalvarAlteracoesParams { get { return s_params_SalvarAlteracoes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SalvarAlteracoes
-        {
-            public readonly string request = "request";
-            public readonly string sequenciaOperacoes = "sequenciaOperacoes";
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
@@ -170,14 +126,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string id = "id";
         }
-        static readonly ActionParamsClass_Detalhar s_params_Detalhar = new ActionParamsClass_Detalhar();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Detalhar DetalharParams { get { return s_params_Detalhar; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Detalhar
-        {
-            public readonly string modeloId = "modeloId";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -193,17 +141,17 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
             }
-            public readonly string _NovoOuEditar = "~/Areas/EngenhariaProduto/Views/Natureza/_NovoOuEditar.cshtml";
-            public readonly string Editar = "~/Areas/EngenhariaProduto/Views/Natureza/Editar.cshtml";
-            public readonly string Index = "~/Areas/EngenhariaProduto/Views/Natureza/Index.cshtml";
-            public readonly string Novo = "~/Areas/EngenhariaProduto/Views/Natureza/Novo.cshtml";
+            public readonly string _NovoOuEditar = "~/Areas/Comum/Views/Segmento/_NovoOuEditar.cshtml";
+            public readonly string Editar = "~/Areas/Comum/Views/Segmento/Editar.cshtml";
+            public readonly string Index = "~/Areas/Comum/Views/Segmento/Index.cshtml";
+            public readonly string Novo = "~/Areas/Comum/Views/Segmento/Novo.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_NaturezaController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.NaturezaController
+    public partial class T4MVC_SegmentoController : Fashion.ERP.Web.Areas.Comum.Controllers.SegmentoController
     {
-        public T4MVC_NaturezaController() : base(Dummy.Instance) { }
+        public T4MVC_SegmentoController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
@@ -223,25 +171,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model);
+        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.SegmentoModel model);
 
-        public override System.Web.Mvc.ActionResult Novo(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model)
+        public override System.Web.Mvc.ActionResult Novo(Fashion.ERP.Web.Areas.Comum.Models.SegmentoModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Novo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             NovoOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void SalvarNovoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaOperacionalModel> sequenciaOperacoes, string descricao);
-
-        public override System.Web.Mvc.JsonResult SalvarNovo(Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaOperacionalModel> sequenciaOperacoes, string descricao)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SalvarNovo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sequenciaOperacoes", sequenciaOperacoes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "descricao", descricao);
-            SalvarNovoOverride(callInfo, request, sequenciaOperacoes, descricao);
             return callInfo;
         }
 
@@ -255,25 +191,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model);
+        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.SegmentoModel model);
 
-        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model)
+        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Comum.Models.SegmentoModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             EditarOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void SalvarAlteracoesOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaOperacionalModel> sequenciaOperacoes, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model);
-
-        public override System.Web.Mvc.JsonResult SalvarAlteracoes(Kendo.Mvc.UI.DataSourceRequest request, System.Collections.Generic.IEnumerable<Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaOperacionalModel> sequenciaOperacoes, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SalvarAlteracoes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sequenciaOperacoes", sequenciaOperacoes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            SalvarAlteracoesOverride(callInfo, request, sequenciaOperacoes, model);
             return callInfo;
         }
 
@@ -294,16 +218,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarSituacaoOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void DetalharOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long modeloId);
-
-        public override System.Web.Mvc.ActionResult Detalhar(long modeloId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Detalhar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modeloId", modeloId);
-            DetalharOverride(callInfo, modeloId);
             return callInfo;
         }
 

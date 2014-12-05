@@ -82,11 +82,15 @@ namespace T4MVC
     {
         public readonly string Name = "Comum";
         public Fashion.ERP.Web.Areas.Comum.Controllers.AreaInteresseController AreaInteresse = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_AreaInteresseController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.ArtigoController Artigo = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ArtigoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.BancoController Banco = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_BancoController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.BarraController Barra = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_BarraController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.CentroCustoController CentroCusto = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_CentroCustoController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.ClassificacaoController Classificacao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ClassificacaoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ClassificacaoDificuldadeController ClassificacaoDificuldade = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ClassificacaoDificuldadeController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ClienteController Cliente = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ClienteController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ColecaoController Colecao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ColecaoController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.ComprimentoController Comprimento = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ComprimentoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ContatoController Contato = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ContatoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.CorController Cor = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_CorController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.DepartamentoProducaoController DepartamentoProducao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_DepartamentoProducaoController();
@@ -103,9 +107,11 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Comum.Controllers.PerfilDeAcessoController PerfilDeAcesso = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PerfilDeAcessoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.PrazoController Prazo = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PrazoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.PrestadorServicoController PrestadorServico = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PrestadorServicoController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.ProdutoBaseController ProdutoBase = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ProdutoBaseController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ProfissaoController Profissao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ProfissaoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ReferenciaController Referencia = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ReferenciaController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_RelatorioController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.SegmentoController Segmento = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_SegmentoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.SetorProducaoController SetorProducao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_SetorProducaoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.TamanhoController Tamanho = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_TamanhoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.TipoFornecedorController TipoFornecedor = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_TipoFornecedorController();
@@ -124,17 +130,11 @@ namespace T4MVC
     {
         public readonly string Name = "EngenhariaProduto";
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.AprovarModeloController AprovarModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_AprovarModeloController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ArtigoController Artigo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ArtigoController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.BarraController Barra = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_BarraController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ClassificacaoController Classificacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ClassificacaoController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ComprimentoController Comprimento = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ComprimentoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.GradeController Grade = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_GradeController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.MaterialComposicaoModeloController MaterialComposicaoModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_MaterialComposicaoModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloController Modelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.NaturezaController Natureza = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_NaturezaController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ProdutoBaseController ProdutoBase = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ProdutoBaseController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SegmentoController Segmento = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SegmentoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

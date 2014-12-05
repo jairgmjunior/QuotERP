@@ -59,6 +59,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult OperacoesPorSetor()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorSetor);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public OperacaoProducaoController Actions { get { return MVC.Comum.OperacaoProducao; } }
@@ -80,6 +86,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
+            public readonly string OperacoesPorSetor = "OperacoesPorSetor";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +97,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
+            public const string OperacoesPorSetor = "OperacoesPorSetor";
         }
 
 
@@ -125,6 +133,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionParamsClass_EditarSituacao
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_OperacoesPorSetor s_params_OperacoesPorSetor = new ActionParamsClass_OperacoesPorSetor();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_OperacoesPorSetor OperacoesPorSetorParams { get { return s_params_OperacoesPorSetor; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_OperacoesPorSetor
+        {
+            public readonly string NomeSetor = "NomeSetor";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -218,6 +234,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarSituacaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void OperacoesPorSetorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string NomeSetor);
+
+        public override System.Web.Mvc.JsonResult OperacoesPorSetor(string NomeSetor)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorSetor);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "NomeSetor", NomeSetor);
+            OperacoesPorSetorOverride(callInfo, NomeSetor);
             return callInfo;
         }
 

@@ -191,6 +191,18 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         #endregion
 
+        #region OperacoesPorSetor
+        [AjaxOnly]
+        public virtual JsonResult OperacoesPorSetor(String NomeSetor)
+        {
+            var operacores = _operacaoProducaoRepository
+                .Find(p => p.SetorProducao.Nome == NomeSetor)
+                .Select(s => new { s.Id, s.Descricao }).ToList().OrderBy(o => o.Descricao);
+
+            return Json(operacores, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #endregion
 
         #region Métodos

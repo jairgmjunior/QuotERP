@@ -1,6 +1,6 @@
 ﻿--Sequencia Operacional Natureza
 CREATE TABLE [dbo].[sequenciaoperacionalnatureza](
-	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[id] [bigint] NOT NULL,
 	[sequencia] [int] NULL,
 	[natureza_id] [bigint] NOT NULL,
 	[departamentoproducao_id] [bigint] NOT NULL,

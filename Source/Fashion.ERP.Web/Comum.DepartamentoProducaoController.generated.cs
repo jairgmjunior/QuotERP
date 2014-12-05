@@ -80,6 +80,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
+            public readonly string GetDepartamentos = "GetDepartamentos";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +91,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
+            public const string GetDepartamentos = "GetDepartamentos";
         }
 
 
@@ -218,6 +220,15 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarSituacaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void GetDepartamentosOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        public override System.Web.Mvc.JsonResult GetDepartamentos()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetDepartamentos);
+            GetDepartamentosOverride(callInfo);
             return callInfo;
         }
 

@@ -95,7 +95,7 @@ INSERT INTO [dbo].[permissao]
            ,[ordem])
      VALUES
            ('Editar situação'
-           ,'Editar situação'
+           ,'EditarSituacao'
            ,'Comum'
            ,'OperacaoProducao'
            ,0
@@ -199,7 +199,7 @@ INSERT INTO [dbo].[permissao]
            ,[ordem])
      VALUES
            ('Editar situação'
-           ,'Editar situação'
+           ,'EditarSituacao'
            ,'Comum'
            ,'SetorProducao'
            ,0
