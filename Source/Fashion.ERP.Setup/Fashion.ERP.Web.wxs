@@ -1786,6 +1786,9 @@
                         <Component Id="cmp298122EF251B8255A4CEE4150EEB9283" Guid="*">
                             <File Id="filE91F6D7C3F4E80006905DB2D2E73A38B" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric4casasdecimais.cshtml" />
                         </Component>
+                        <Component Id="cmp1A455F67228E9129F8793015A2597BAE" Guid="*">
+                            <File Id="fil877C7EB4596D2BBAA382B158EB1A8D4E" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
+                        </Component>
                         <Component Id="cmp68C5CA4C9B56BD0AE336CE6D14972615" Guid="*">
                             <File Id="fil5FD4A236F584FDB191052D3A9D8F6A01" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\percent.cshtml" />
                         </Component>
@@ -2324,6 +2327,7 @@
             <ComponentRef Id="cmp9708FDC0D77343023B24310FD67AADDF" />
             <ComponentRef Id="cmp124A668736CBADA3F907FFAB4C4C1BDA" />
             <ComponentRef Id="cmp298122EF251B8255A4CEE4150EEB9283" />
+            <ComponentRef Id="cmp1A455F67228E9129F8793015A2597BAE" />
             <ComponentRef Id="cmp68C5CA4C9B56BD0AE336CE6D14972615" />
             <ComponentRef Id="cmp64BDD23A81506C80DBFB7EA3D0B9B41D" />
             <ComponentRef Id="cmpFA19A702A57A4CB128FDEEACBE81DB28" />

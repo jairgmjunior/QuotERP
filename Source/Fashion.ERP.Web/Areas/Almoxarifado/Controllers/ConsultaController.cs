@@ -262,7 +262,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return ExtratoItem(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, OutputCache(Duration = 0)]
+        [HttpPost, ValidateAntiForgeryToken]
         public virtual ActionResult ExtratoItem(ExtratoItemModel model)
         {
             if (ModelState.IsValid)
@@ -277,7 +277,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     model.Material = string.Format("{0} - {1}", 
                         estoqueMaterial.Material.Referencia,
                         estoqueMaterial.Material.Descricao);
-
+                    
                     var dataInicial = model.DataInicial;
                     var dataFinal = model.DataFinal;
 
@@ -287,19 +287,22 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                 .Select(e => new GridExtratoItemModel { Data = e.Data, Entrada = e.QtdEntrada, Saida = e.QtdSaida})
                                 .ToList();
 
-                    model.SaldoInicial =
-                        Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
-                            .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
-                            .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
-                            .SetParameter("Data", dataInicial)
-                            .UniqueResult<double>();
+                    model.SaldoInicial = estoqueMaterial.ObtenhaSaldo(dataInicial);
+                    model.SaldoFinal = estoqueMaterial.ObtenhaSaldo(dataFinal.AddDays(1));
 
-                    model.SaldoFinal =
-                        Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
-                            .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
-                            .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
-                            .SetParameter("Data", dataFinal)
-                            .UniqueResult<double>();
+                    //model.SaldoInicial =
+                    //    Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
+                    //        .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
+                    //        .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
+                    //        .SetParameter("Data", dataInicial)
+                    //        .UniqueResult<double>();
+
+                    //model.SaldoFinal =
+                    //    Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
+                    //        .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
+                    //        .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
+                    //        .SetParameter("Data", dataFinal)
+                    //        .UniqueResult<double>();
 
                     model.UnidadeMedida = estoqueMaterial.Material.UnidadeMedida.Descricao;
 

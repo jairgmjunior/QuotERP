@@ -16,6 +16,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Linq;
 using NHibernate.Util;
 using Ninject.Extensions.Logging;
@@ -35,6 +36,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
+        private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
 
         private readonly FabricaDeObjetos _fabricaDeObjetos;
         
@@ -62,6 +64,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             IRepository<DepositoMaterial> depositoMaterialRepository,
             IRepository<EstoqueMaterial> estoqueMaterialRepository,
             IRepository<EntradaMaterial> entradaMaterialRepository,
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository,
             FabricaDeObjetos fabricaDeObjetos)
         {
             _pedidoCompraRepository = pedidoCompraRepository;
@@ -72,6 +75,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             _depositoMaterialRepository = depositoMaterialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _entradaMaterialRepository = entradaMaterialRepository;
+            _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
             _fabricaDeObjetos = fabricaDeObjetos;
             _logger = logger;
         }
@@ -258,6 +262,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model, this);
 
+                    AtualizeCustoMaterial(domain);
+
                     domain.EntradaMaterial = SalveEntradaMaterial(domain, model.DepositoMaterial);
                     _recebimentoCompraRepository.Save(domain);
 
@@ -278,6 +284,47 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             }
 
             return new JsonResult { Data = "sucesso" };
+        }
+
+        private void AtualizeCustoMaterial(RecebimentoCompra recebimentoCompra)
+        {
+            foreach (var x in recebimentoCompra.RecebimentoCompraItens)
+            {
+                var valorUnitario = x.ValorUnitario;
+                var custoAtual = x.Material.CustoMaterials.FirstOrDefault(z => z.Ativo);
+
+                CustoMaterial novoCusto;
+
+                if (custoAtual == null)
+                {
+                    novoCusto = new CustoMaterial
+                    {
+                        Ativo = true,
+                        Custo = valorUnitario,
+                        CustoAquisicao = valorUnitario,
+                        CustoMedio = valorUnitario,
+                        Data = DateTime.Now,
+                        Fornecedor = recebimentoCompra.Fornecedor
+                    };
+                }
+                else
+                {
+                    custoAtual.Ativo = !(valorUnitario >= custoAtual.Custo);
+                    novoCusto = new CustoMaterial
+                    {
+                        Ativo = valorUnitario >= custoAtual.Custo,
+                        Custo = valorUnitario,
+                        CustoAnterior = custoAtual,
+                        CustoAquisicao = valorUnitario,
+                        CustoMedio = valorUnitario,
+                        Data = DateTime.Now,
+                        Fornecedor = recebimentoCompra.Fornecedor
+                    };
+                }
+
+                x.Material.CustoMaterials.Add(novoCusto);
+                _materialRepository.SaveOrUpdate(x.Material);
+            }
         }
 
         #endregion
@@ -334,7 +381,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
-                    
+
+                    AtualizeCustoMaterial(domain);
+
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
                     SalveEntradaMaterial(domain, model.DepositoMaterial);
                     
@@ -374,7 +423,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id) ??
                                           new EntradaItemMaterial();
-                
+
+                var diferencaQuantidade = ObtenhaDiferencaQuantidadeEstoque(entradaItemMaterial, x.Quantidade);
+
+                if (entradaItemMaterial.MovimentacaoEstoqueMaterial != null)
+                {
+                    _movimentacaoEstoqueMaterialRepository.Delete(entradaItemMaterial.MovimentacaoEstoqueMaterial);
+                }
+
                 entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
                 entradaItemMaterial.Material = x.Material;
                 entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
@@ -383,14 +439,24 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     Data = DateTime.Now,
                     Quantidade = x.Quantidade,
                     EstoqueMaterial =
-                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material,
-                            x.Quantidade)
+                    EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material, diferencaQuantidade)
                 };
 
                 entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
             });
 
             return _entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
+        }
+
+        public double ObtenhaDiferencaQuantidadeEstoque(EntradaItemMaterial entradaItemMaterial, double quantidade)
+        {
+            if (entradaItemMaterial.MovimentacaoEstoqueMaterial != null)
+            {
+                var quantidadeMovimentacaoAtual = entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade;
+                return quantidade - quantidadeMovimentacaoAtual;
+            }
+
+            return quantidade;
         }
 
         #endregion
@@ -407,6 +473,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 					var domain = _recebimentoCompraRepository.Get(id);
                     _recebimentoCompraRepository.Delete(domain);
                     _fabricaDeObjetos.AtualizePedidosCompraAoExcluir(domain);
+                    
+				    foreach (var entradaItemMaterial in domain.EntradaMaterial.EntradaItemMateriais)
+				    {
+                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
+                            domain.EntradaMaterial.DepositoMaterialDestino, entradaItemMaterial.Material, entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade*-1);
+				    }
 
 				    if (domain.EntradaMaterial != null)
 				    {
