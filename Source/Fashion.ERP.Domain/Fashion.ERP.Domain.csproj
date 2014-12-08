@@ -47,6 +47,10 @@
     <Reference Include="Fashion.Framework.UnitOfWork">
       <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.UnitOfWork.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate, Version=1.3.0.733, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libraries\Fashion.Framework\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />

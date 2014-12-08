@@ -138,7 +138,7 @@ namespace Fashion.ERP.Domain.Compras
 			}
         }
 
-        public void AtualizePedidosCompra(IRepository<RecebimentoCompra> recebimentoCompraRepository,
+        public virtual void AtualizePedidosCompra(IRepository<RecebimentoCompra> recebimentoCompraRepository,
             IRepository<PedidoCompra> pedidoCompraRepository)
         {
             foreach (var pedidoCompra in PedidoCompras)
@@ -165,7 +165,7 @@ namespace Fashion.ERP.Domain.Compras
             }
         }
 
-        public void AtualizePedidosCompraAoExcluir(IRepository<RecebimentoCompra> recebimentoCompraRepository,
+        public virtual void AtualizePedidosCompraAoExcluir(IRepository<RecebimentoCompra> recebimentoCompraRepository,
             IRepository<PedidoCompra> pedidoCompraRepository)
         {
             foreach (var pedidoCompra in PedidoCompras)
