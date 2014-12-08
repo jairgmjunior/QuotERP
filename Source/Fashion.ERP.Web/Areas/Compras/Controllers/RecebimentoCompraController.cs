@@ -16,9 +16,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Linq;
-using NHibernate.Util;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 
@@ -38,7 +36,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
         private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
 
-        private readonly FabricaDeObjetos _fabricaDeObjetos;
+        private readonly RecebimentoCompraConverter _fabricaDeObjetos;
         
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = {"Detalhado", "Listagem", "Sintético"};
@@ -65,7 +63,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             IRepository<EstoqueMaterial> estoqueMaterialRepository,
             IRepository<EntradaMaterial> entradaMaterialRepository,
             IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository,
-            FabricaDeObjetos fabricaDeObjetos)
+            RecebimentoCompraConverter fabricaDeObjetos)
         {
             _pedidoCompraRepository = pedidoCompraRepository;
             _pessoaRepository = pessoaRepository;
@@ -262,14 +260,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model, this);
 
-                    AtualizeCustoMaterial(domain);
+                    CrieCustoMaterial(domain);
+                    
+                    domain.EntradaMaterial = domain.SalveEntradaMaterial(model.DepositoMaterial, 
+                        _depositoMaterialRepository,
+                        _movimentacaoEstoqueMaterialRepository,
+                        _estoqueMaterialRepository,
+                        _entradaMaterialRepository);
 
-                    domain.EntradaMaterial = SalveEntradaMaterial(domain, model.DepositoMaterial);
                     _recebimentoCompraRepository.Save(domain);
 
-                    _fabricaDeObjetos.AtualizePedidosCompra(domain);
-                    //SalveConferenciaEntradaMaterial(domain);
-                    
+                    domain.AtualizePedidosCompra(_recebimentoCompraRepository, _pedidoCompraRepository);
+
                     this.AddSuccessMessage("Recebimento de compra cadastrado com sucesso.");
                 }
                 catch (Exception exception)
@@ -286,44 +288,26 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-        private void AtualizeCustoMaterial(RecebimentoCompra recebimentoCompra)
+        private void CrieCustoMaterial(RecebimentoCompra recebimentoCompra)
         {
             foreach (var x in recebimentoCompra.RecebimentoCompraItens)
             {
                 var valorUnitario = x.ValorUnitario;
-                var custoAtual = x.Material.CustoMaterials.FirstOrDefault(z => z.Ativo);
 
-                CustoMaterial novoCusto;
-
-                if (custoAtual == null)
-                {
-                    novoCusto = new CustoMaterial
+                var novoCusto = new CustoMaterial
                     {
-                        Ativo = true,
                         Custo = valorUnitario,
                         CustoAquisicao = valorUnitario,
                         CustoMedio = valorUnitario,
                         Data = DateTime.Now,
                         Fornecedor = recebimentoCompra.Fornecedor
                     };
-                }
-                else
-                {
-                    custoAtual.Ativo = !(valorUnitario >= custoAtual.Custo);
-                    novoCusto = new CustoMaterial
-                    {
-                        Ativo = valorUnitario >= custoAtual.Custo,
-                        Custo = valorUnitario,
-                        CustoAnterior = custoAtual,
-                        CustoAquisicao = valorUnitario,
-                        CustoMedio = valorUnitario,
-                        Data = DateTime.Now,
-                        Fornecedor = recebimentoCompra.Fornecedor
-                    };
-                }
 
                 x.Material.CustoMaterials.Add(novoCusto);
+                x.Material.AtualizeCustoAtual();
+
                 _materialRepository.SaveOrUpdate(x.Material);
+                x.CustoMaterial = novoCusto;
             }
         }
 
@@ -382,10 +366,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
 
-                    AtualizeCustoMaterial(domain);
+                    domain.AtualizeCustoMaterial(_materialRepository);
 
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
-                    SalveEntradaMaterial(domain, model.DepositoMaterial);
+
+                    domain.AtualizeEntradaMaterial(model.DepositoMaterial,
+                        _depositoMaterialRepository,
+                        _movimentacaoEstoqueMaterialRepository,
+                        _estoqueMaterialRepository,
+                        _entradaMaterialRepository);
                     
                     this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
@@ -403,62 +392,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-        private EntradaMaterial SalveEntradaMaterial(RecebimentoCompra recebimentoCompra, long? depositoId)
-        {
-            var depositoMaterial = _depositoMaterialRepository.Get(depositoId);
-
-            var entradaMaterial = recebimentoCompra.EntradaMaterial ?? new EntradaMaterial
-            {
-                DataEntrada = DateTime.Now,
-                Fornecedor = recebimentoCompra.Fornecedor
-            };
-
-            entradaMaterial.DepositoMaterialDestino = depositoMaterial;
-
-            recebimentoCompra.RecebimentoCompraItens.Each(x =>
-            {
-                var unidadeMedidaCompra = x.DetalhamentoRecebimentoCompraItens.First().PedidoCompraItem.UnidadeMedida;
-                var quantidadeCompra = x.DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
-                var material = x.Material;
-
-                var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id) ??
-                                          new EntradaItemMaterial();
-
-                var diferencaQuantidade = ObtenhaDiferencaQuantidadeEstoque(entradaItemMaterial, x.Quantidade);
-
-                if (entradaItemMaterial.MovimentacaoEstoqueMaterial != null)
-                {
-                    _movimentacaoEstoqueMaterialRepository.Delete(entradaItemMaterial.MovimentacaoEstoqueMaterial);
-                }
-
-                entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
-                entradaItemMaterial.Material = x.Material;
-                entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
-                entradaItemMaterial.MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
-                {
-                    Data = DateTime.Now,
-                    Quantidade = x.Quantidade,
-                    EstoqueMaterial =
-                    EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material, diferencaQuantidade)
-                };
-
-                entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
-            });
-
-            return _entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
-        }
-
-        public double ObtenhaDiferencaQuantidadeEstoque(EntradaItemMaterial entradaItemMaterial, double quantidade)
-        {
-            if (entradaItemMaterial.MovimentacaoEstoqueMaterial != null)
-            {
-                var quantidadeMovimentacaoAtual = entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade;
-                return quantidade - quantidadeMovimentacaoAtual;
-            }
-
-            return quantidade;
-        }
-
         #endregion
 
         #region Excluir
@@ -472,18 +405,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 				{
 					var domain = _recebimentoCompraRepository.Get(id);
                     _recebimentoCompraRepository.Delete(domain);
-                    _fabricaDeObjetos.AtualizePedidosCompraAoExcluir(domain);
-                    
-				    foreach (var entradaItemMaterial in domain.EntradaMaterial.EntradaItemMateriais)
-				    {
-                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                            domain.EntradaMaterial.DepositoMaterialDestino, entradaItemMaterial.Material, entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade*-1);
-				    }
 
-				    if (domain.EntradaMaterial != null)
-				    {
-				        _entradaMaterialRepository.Delete(domain.EntradaMaterial);
-				    }
+                    domain.AtualizePedidosCompraAoExcluir(_recebimentoCompraRepository, _pedidoCompraRepository);
+				    domain.ExcluaEntradaMaterial(_estoqueMaterialRepository, _entradaMaterialRepository);
+                    domain.ExcluaCustos(_materialRepository);
 
 				    this.AddSuccessMessage("Recebimento de compra excluído com sucesso");
 				    return RedirectToAction("Index");
@@ -531,16 +456,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #region ValidaNovoOuEditar
         protected override void ValidaNovoOuEditar(IModel model, string actionName)
         {
-            //var pedidoCompra = (PedidoCompraModel)model;
-
-            //// Validar o número
-            //if (_pedidoCompraRepository.Find().Any(p => p.Numero == pedidoCompra.Numero && p.Id != pedidoCompra.Id))
-            //    ModelState.AddModelError("Numero", "Já existe um pedido de compra cadastrado com este número.");
-
-            //// Validar se tem itens
-            //if (pedidoCompra.Materiais == null || pedidoCompra.Materiais.Count == 0)
-            //    ModelState.AddModelError("", "Cadastre pelo menos 1 (um) item ao pedido de compra.");
         }
+
         #endregion
         
         #region Pesquisar Pedido de Compra

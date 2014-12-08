@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
@@ -72,6 +74,25 @@ namespace Fashion.ERP.Domain.Almoxarifado
         {
             get { return _custoMaterials; }
             set { _custoMaterials = value; }
+        }
+
+        public virtual void AtualizeCustoAtual()
+        {
+            var custoAtual = _custoMaterials.FirstOrDefault(x => x.Ativo);
+            if (custoAtual != null)
+            {
+                custoAtual.Ativo = false;
+            }
+
+            var novoCustoAtual = _custoMaterials.OrderBy(x => x.Custo).ThenBy(x => x.Data).Last();
+            novoCustoAtual.Ativo = true;
+        }
+
+        public virtual void ExcluaCusto(CustoMaterial custoMaterial, IRepository<Material> materialRepository)
+        {
+            CustoMaterials.Remove(custoMaterial);
+
+            materialRepository.SaveOrUpdate(this);
         }
     }
 }

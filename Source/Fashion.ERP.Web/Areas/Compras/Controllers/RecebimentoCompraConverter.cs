@@ -7,20 +7,18 @@ using Fashion.ERP.Web.Areas.Compras.Models;
 using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Repository;
-using FluentNHibernate.Conventions;
 using Kendo.Mvc.Extensions;
-using NHibernate.Id;
 using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Compras.Controllers
 {
-    public class FabricaDeObjetos
+    public class RecebimentoCompraConverter
     {
         private readonly IRepository<PedidoCompra> _pedidoCompraRepository;
         private readonly IRepository<RecebimentoCompra> _recebimentoCompraRepository;
         private readonly IRepository<Material> _materialRepository;
 
-        public FabricaDeObjetos(
+        public RecebimentoCompraConverter(
             IRepository<PedidoCompra> pedidoCompraRepository,
             IRepository<RecebimentoCompra> recebimentoCompraRepository,
             IRepository<Material> materialRepository)
@@ -60,62 +58,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             recebimentoCompra.RecebimentoCompraItens = recebimentoCompraModel.GridItens.Select(x => CrieNovoRecebimentoCompraItem(recebimentoCompra, x, controller)).ToList();
         }
-
-        public void AtualizePedidosCompra(RecebimentoCompra recebimentoCompra)
-        {
-            Framework.UnitOfWork.Session.Current.Flush();
-
-            foreach (var pedidoCompra in recebimentoCompra.PedidoCompras)
-            {
-                var recebimentos = _recebimentoCompraRepository.Find().Where(p => p.PedidoCompras.Any(i => i.Id == pedidoCompra.Id)).ToList();
-
-                foreach (var pedidoCompraItem in pedidoCompra.PedidoCompraItens)
-                {
-                    var detalhamentos = recebimentos.SelectMany(r => r.DetalhamentoRecebimentoCompraItens);
-                    var detalhamentosDoPedidoCompraItem = detalhamentos.Where(d => d.PedidoCompraItem.Id == pedidoCompraItem.Id).ToList();
-                    
-                    double quantidadeEntregue = 0;
-
-                    if (!detalhamentosDoPedidoCompraItem.IsEmpty())
-                        quantidadeEntregue = detalhamentosDoPedidoCompraItem.Select(p => p.Quantidade)
-                            .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-
-                    pedidoCompraItem.QuantidadeEntrega = pedidoCompraItem.UnidadeMedida.ConvertaQuantidadeParaEntrada(quantidadeEntregue);
-                    pedidoCompraItem.AtualizeSituacao();
-                }
-
-                pedidoCompra.AtualizeSituacao();
-                _pedidoCompraRepository.Update(pedidoCompra);
-            }
-        }
-
-        public void AtualizePedidosCompraAoExcluir(RecebimentoCompra recebimentoCompra)
-        {
-            foreach (var pedidoCompra in recebimentoCompra.PedidoCompras)
-            {
-                var recebimentos = _recebimentoCompraRepository.Find().Where(p => p.PedidoCompras.Any(i => i.Id == pedidoCompra.Id)
-                    && p.Id != recebimentoCompra.Id).ToList();
-
-                foreach (var pedidoCompraItem in pedidoCompra.PedidoCompraItens)
-                {
-                    var detalhamentos = recebimentos.SelectMany(r => r.DetalhamentoRecebimentoCompraItens);
-                    var detalhamentosDoPedidoCompraItem = detalhamentos.Where(d => d.PedidoCompraItem.Id == pedidoCompraItem.Id).ToList();
-
-                    double quantidadeEntregue = 0;
-
-                    if(!detalhamentosDoPedidoCompraItem.IsEmpty())
-                        quantidadeEntregue = detalhamentosDoPedidoCompraItem.Select(p => p.Quantidade)
-                            .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-                    
-                    pedidoCompraItem.QuantidadeEntrega = pedidoCompraItem.UnidadeMedida.ConvertaQuantidadeParaEntrada(quantidadeEntregue);
-                    pedidoCompraItem.AtualizeSituacao();
-                }
-
-                pedidoCompra.AtualizeSituacao();
-                _pedidoCompraRepository.Update(pedidoCompra);
-            }
-        }
-
+        
         private RecebimentoCompraItem CrieNovoRecebimentoCompraItem(RecebimentoCompra recebimentoCompra, RecebimentoCompraItemModel recebimentoCompraItemModel, RecebimentoCompraController controller)
         {
             var item = Mapper.Unflat<RecebimentoCompraItem>(recebimentoCompraItemModel);
@@ -188,7 +131,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             AtualizeListaPedidoCompra(model, domain);
             ExcluaRecebimentoCompraItem(model, domain);
             AtualizeListaRecebimentoCompraItens(model, domain, controller);
-            AtualizePedidosCompra(domain);
+            domain.AtualizePedidosCompra(_recebimentoCompraRepository, _pedidoCompraRepository);
             
             return domain;
         }
