@@ -279,7 +279,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         estoqueMaterial.Material.Descricao);
                     
                     var dataInicial = model.DataInicial;
-                    var dataFinal = model.DataFinal;
+                    var dataFinal = model.DataFinal.AddDays(1);
 
                     model.Grid =_extratoItemEstoqueViewRepository.Find(e => e.Data >= dataInicial && e.Data <= dataFinal
                                     && e.Material == estoqueMaterial.Material.Id 
@@ -288,7 +288,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                 .ToList();
 
                     model.SaldoInicial = estoqueMaterial.ObtenhaSaldo(dataInicial);
-                    model.SaldoFinal = estoqueMaterial.ObtenhaSaldo(dataFinal.AddDays(1));
+                    model.SaldoFinal = estoqueMaterial.ObtenhaSaldo(dataFinal);
 
                     //model.SaldoInicial =
                     //    Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
