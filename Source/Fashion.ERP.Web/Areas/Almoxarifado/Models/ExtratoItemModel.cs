@@ -16,17 +16,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Referência")]
         public string Material { get; set; }
-
+        
         [Display(Name = "Período")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataInicial { get; set; }
 
         [Display(Name = "Até")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataFinal { get; set; }
 
-        [Display(Name = "Saldo em data inicial")]
+        [Display(Name = "Saldo na data inicial")]
         public double SaldoInicial { get; set; }
 
-        [Display(Name = "Saldo em data final")]
+        [Display(Name = "Saldo na data final")]
         public double SaldoFinal { get; set; }
 
         [Display(Name = "Unidade medida")]

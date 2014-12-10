@@ -290,7 +290,7 @@
     <Compile Include="Areas\Almoxarifado\Models\PesquisaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SaidaMaterialModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
-    <Compile Include="Areas\Compras\Controllers\FabricaDeObjetos.cs" />
+    <Compile Include="Areas\Compras\Controllers\RecebimentoCompraConverter.cs" />
     <Compile Include="Areas\Compras\Controllers\MotivoCancelamentoPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ParametroModuloCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\PedidoCompraCancelamentoController.cs" />

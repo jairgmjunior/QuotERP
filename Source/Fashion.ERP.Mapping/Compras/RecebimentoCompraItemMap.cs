@@ -13,6 +13,7 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.ValorTotal).Not.Nullable();
             
             References(x => x.Material).Not.Nullable();
+            References(x => x.CustoMaterial).Nullable();
 
             HasMany(x => x.DetalhamentoRecebimentoCompraItens)
                 .Not.KeyNullable()

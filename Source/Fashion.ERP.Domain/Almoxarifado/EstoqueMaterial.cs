@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
@@ -86,5 +87,22 @@ namespace Fashion.ERP.Domain.Almoxarifado
             return estoqueMaterial;
         }
         #endregion
+
+        public virtual double ObtenhaSaldo(DateTime data)
+        {
+            var saldoEntrada =
+                MovimentacaoEstoqueMateriais.Where(
+                    x =>
+                        x.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Entrada &&
+                        x.Data <= data).Sum(x => x.Quantidade);
+
+            var saldoSaida =
+                MovimentacaoEstoqueMateriais.Where(
+                    x =>
+                        x.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Saida &&
+                        x.Data <= data).Sum(x => x.Quantidade);
+
+            return saldoEntrada - saldoSaida;
+        }
     }
 }

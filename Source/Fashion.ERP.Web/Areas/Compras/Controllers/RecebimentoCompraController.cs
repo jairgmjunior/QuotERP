@@ -17,7 +17,6 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using NHibernate.Linq;
-using NHibernate.Util;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 
@@ -35,8 +34,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
+        private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
 
-        private readonly FabricaDeObjetos _fabricaDeObjetos;
+        private readonly RecebimentoCompraConverter _fabricaDeObjetos;
         
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = {"Detalhado", "Listagem", "Sintético"};
@@ -62,7 +62,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             IRepository<DepositoMaterial> depositoMaterialRepository,
             IRepository<EstoqueMaterial> estoqueMaterialRepository,
             IRepository<EntradaMaterial> entradaMaterialRepository,
-            FabricaDeObjetos fabricaDeObjetos)
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository,
+            RecebimentoCompraConverter fabricaDeObjetos)
         {
             _pedidoCompraRepository = pedidoCompraRepository;
             _pessoaRepository = pessoaRepository;
@@ -72,6 +73,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             _depositoMaterialRepository = depositoMaterialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _entradaMaterialRepository = entradaMaterialRepository;
+            _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
             _fabricaDeObjetos = fabricaDeObjetos;
             _logger = logger;
         }
@@ -258,12 +260,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = _fabricaDeObjetos.CrieNovoRecebimentoCompra(model, this);
 
-                    domain.EntradaMaterial = SalveEntradaMaterial(domain, model.DepositoMaterial);
+                    CrieCustoMaterial(domain);
+                    
+                    domain.EntradaMaterial = domain.SalveEntradaMaterial(model.DepositoMaterial, 
+                        _depositoMaterialRepository,
+                        _movimentacaoEstoqueMaterialRepository,
+                        _estoqueMaterialRepository,
+                        _entradaMaterialRepository);
+
                     _recebimentoCompraRepository.Save(domain);
 
-                    _fabricaDeObjetos.AtualizePedidosCompra(domain);
-                    //SalveConferenciaEntradaMaterial(domain);
-                    
+                    domain.AtualizePedidosCompra(_recebimentoCompraRepository, _pedidoCompraRepository);
+
                     this.AddSuccessMessage("Recebimento de compra cadastrado com sucesso.");
                 }
                 catch (Exception exception)
@@ -278,6 +286,29 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             }
 
             return new JsonResult { Data = "sucesso" };
+        }
+
+        private void CrieCustoMaterial(RecebimentoCompra recebimentoCompra)
+        {
+            foreach (var x in recebimentoCompra.RecebimentoCompraItens)
+            {
+                var valorUnitario = x.ValorUnitario;
+
+                var novoCusto = new CustoMaterial
+                    {
+                        Custo = valorUnitario,
+                        CustoAquisicao = valorUnitario,
+                        CustoMedio = valorUnitario,
+                        Data = DateTime.Now,
+                        Fornecedor = recebimentoCompra.Fornecedor
+                    };
+
+                x.Material.CustoMaterials.Add(novoCusto);
+                x.Material.AtualizeCustoAtual();
+
+                _materialRepository.SaveOrUpdate(x.Material);
+                x.CustoMaterial = novoCusto;
+            }
         }
 
         #endregion
@@ -334,9 +365,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
-                    
+
+                    domain.AtualizeCustoMaterial(_materialRepository);
+
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
-                    SalveEntradaMaterial(domain, model.DepositoMaterial);
+
+                    domain.AtualizeEntradaMaterial(model.DepositoMaterial,
+                        _depositoMaterialRepository,
+                        _movimentacaoEstoqueMaterialRepository,
+                        _estoqueMaterialRepository,
+                        _entradaMaterialRepository);
                     
                     this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
@@ -354,45 +392,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-        private EntradaMaterial SalveEntradaMaterial(RecebimentoCompra recebimentoCompra, long? depositoId)
-        {
-            var depositoMaterial = _depositoMaterialRepository.Get(depositoId);
-
-            var entradaMaterial = recebimentoCompra.EntradaMaterial ?? new EntradaMaterial
-            {
-                DataEntrada = DateTime.Now,
-                Fornecedor = recebimentoCompra.Fornecedor
-            };
-
-            entradaMaterial.DepositoMaterialDestino = depositoMaterial;
-
-            recebimentoCompra.RecebimentoCompraItens.Each(x =>
-            {
-                var unidadeMedidaCompra = x.DetalhamentoRecebimentoCompraItens.First().PedidoCompraItem.UnidadeMedida;
-                var quantidadeCompra = x.DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
-                var material = x.Material;
-
-                var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id) ??
-                                          new EntradaItemMaterial();
-                
-                entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
-                entradaItemMaterial.Material = x.Material;
-                entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
-                entradaItemMaterial.MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
-                {
-                    Data = DateTime.Now,
-                    Quantidade = x.Quantidade,
-                    EstoqueMaterial =
-                        EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, depositoMaterial, x.Material,
-                            x.Quantidade)
-                };
-
-                entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
-            });
-
-            return _entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
-        }
-
         #endregion
 
         #region Excluir
@@ -406,12 +405,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 				{
 					var domain = _recebimentoCompraRepository.Get(id);
                     _recebimentoCompraRepository.Delete(domain);
-                    _fabricaDeObjetos.AtualizePedidosCompraAoExcluir(domain);
 
-				    if (domain.EntradaMaterial != null)
-				    {
-				        _entradaMaterialRepository.Delete(domain.EntradaMaterial);
-				    }
+                    domain.AtualizePedidosCompraAoExcluir(_recebimentoCompraRepository, _pedidoCompraRepository);
+				    domain.ExcluaEntradaMaterial(_estoqueMaterialRepository, _entradaMaterialRepository);
+                    domain.ExcluaCustos(_materialRepository);
 
 				    this.AddSuccessMessage("Recebimento de compra excluído com sucesso");
 				    return RedirectToAction("Index");
@@ -459,16 +456,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #region ValidaNovoOuEditar
         protected override void ValidaNovoOuEditar(IModel model, string actionName)
         {
-            //var pedidoCompra = (PedidoCompraModel)model;
-
-            //// Validar o número
-            //if (_pedidoCompraRepository.Find().Any(p => p.Numero == pedidoCompra.Numero && p.Id != pedidoCompra.Id))
-            //    ModelState.AddModelError("Numero", "Já existe um pedido de compra cadastrado com este número.");
-
-            //// Validar se tem itens
-            //if (pedidoCompra.Materiais == null || pedidoCompra.Materiais.Count == 0)
-            //    ModelState.AddModelError("", "Cadastre pelo menos 1 (um) item ao pedido de compra.");
         }
+
         #endregion
         
         #region Pesquisar Pedido de Compra

@@ -2,8 +2,8 @@
 
 namespace Fashion.ERP.Migrator
 {
-    [Migration(201412021716)]
-    public class Migration201412021716 : Migration
+    [Migration(201412041329)]
+    public class Migration201412041329 : Migration
     {
         public override void Up()
         {
@@ -20,6 +20,11 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("fornecedor_id").AsInt64().ForeignKey("FK_customaterial_fornecedor", "pessoa", "id")
                 .WithColumn("material_id").AsInt64().ForeignKey("FK_customaterial_material", "material", "id")
                 .WithColumn("custoanterior_id").AsInt64().Nullable().ForeignKey("FK_customaterial_customaterial", "customaterial", "id");
+
+            Alter.Table("pedidocompra")
+                .AlterColumn("contato")
+                .AsString()
+                .Nullable();
         }
 
         public override void Down()
