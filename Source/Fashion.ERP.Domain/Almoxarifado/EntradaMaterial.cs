@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
@@ -45,5 +47,47 @@ namespace Fashion.ERP.Domain.Almoxarifado
         }
 
         #endregion
+
+        public virtual void AtualizeEntradaItemMaterial(IRepository<EstoqueMaterial> estoqueMaterialRepository,
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository,
+            DepositoMaterial depositoMaterial, Material material, double quantidadeCompra, UnidadeMedida unidadeMedida, double quantidadeEntrada)
+        {
+            var entradaItemMaterial =
+                EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id);
+
+            if (entradaItemMaterial == null)
+            {
+                entradaItemMaterial = new EntradaItemMaterial
+                {
+                    Material = material,
+                    QuantidadeCompra = quantidadeCompra,
+                    UnidadeMedidaCompra = unidadeMedida
+                };
+                AddEntradaItemMaterial(entradaItemMaterial);
+            }
+
+            var diferencaQuantidade = quantidadeEntrada;
+
+            if (entradaItemMaterial.MovimentacaoEstoqueMaterial != null)
+            {
+                diferencaQuantidade = ObtenhaDiferencaQuantidadeEstoque(entradaItemMaterial, quantidadeEntrada);
+
+                movimentacaoEstoqueMaterialRepository.Delete(entradaItemMaterial.MovimentacaoEstoqueMaterial);
+            }
+
+            entradaItemMaterial.MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
+            {
+                Data = DateTime.Now,
+                Quantidade = quantidadeEntrada,
+                EstoqueMaterial =
+                    EstoqueMaterial.AtualizarEstoque(estoqueMaterialRepository, depositoMaterial, material, diferencaQuantidade)
+            };
+        }
+
+        protected virtual double ObtenhaDiferencaQuantidadeEstoque(EntradaItemMaterial entradaItemMaterial, double quantidade)
+        {
+            var quantidadeMovimentacaoAtual = entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade;
+            return quantidade - quantidadeMovimentacaoAtual;
+        }
     }
 }
