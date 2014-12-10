@@ -88,6 +88,7 @@ namespace T4MVC
                 public readonly string @long = "long";
                 public readonly string numeric = "numeric";
                 public readonly string numeric4casasdecimais = "numeric4casasdecimais";
+                public readonly string OperacaoProducaoList = "OperacaoProducaoList";
                 public readonly string percent = "percent";
                 public readonly string ReadonlyDouble = "ReadonlyDouble";
                 public readonly string SetorProducaoList = "SetorProducaoList";
