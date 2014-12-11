@@ -9,6 +9,11 @@
         public virtual string Bairro { get; set; }
         public virtual string Cep { get; set; }
 
+        public virtual string Resumo
+        {
+            get { return Logradouro + " N.º" + Numero + " " + Complemento + " " + Bairro; }
+        }
+
         public virtual Pessoa Pessoa { get; set; }
         public virtual Cidade Cidade { get; set; }
     }

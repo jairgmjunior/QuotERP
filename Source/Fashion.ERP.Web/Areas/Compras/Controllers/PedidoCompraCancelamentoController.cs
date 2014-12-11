@@ -70,7 +70,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     Diferenca = p.ObtenhaDiferenca(),
                     Preco = p.ValorUnitario,
                     Desconto = 0,
-                    ValorTotal = p.ObtenhaValorTotal(),
+                    ValorTotal = p.ValorTotal,
                     SituacaoCompraDescricao = p.SituacaoCompra.EnumToString()
                 }).ToList();
 

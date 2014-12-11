@@ -35,6 +35,12 @@ namespace Fashion.ERP.Domain.Compras
         public virtual Prazo Prazo { get; set; }
         public virtual MeioPagamento MeioPagamento { get; set; }
 
+
+        public virtual double ValorMercadoria
+        {
+            get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
+        }
+
         #region pedidoCompraItem
 
         public virtual IReadOnlyCollection<PedidoCompraItem> PedidoCompraItens

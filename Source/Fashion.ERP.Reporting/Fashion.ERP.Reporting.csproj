@@ -89,6 +89,12 @@
     <Compile Include="Almoxarifado\TotalMaterialReport.Designer.cs">
       <DependentUpon>TotalMaterialReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compras\PedidoCompraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Compras\PedidoCompraReport.Designer.cs">
+      <DependentUpon>PedidoCompraReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compras\ListaPedidoCompraReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -259,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\TotalMaterialReport.resx">
       <DependentUpon>TotalMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compras\PedidoCompraReport.resx">
+      <DependentUpon>PedidoCompraReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compras\ListaPedidoCompraReport.resx">
       <DependentUpon>ListaPedidoCompraReport.cs</DependentUpon>

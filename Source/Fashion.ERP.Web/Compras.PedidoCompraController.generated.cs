@@ -59,6 +59,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferenciaExterna);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Imprimir()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public PedidoCompraController Actions { get { return MVC.Compras.PedidoCompra; } }
@@ -80,6 +86,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
+            public readonly string Imprimir = "Imprimir";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +97,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
+            public const string Imprimir = "Imprimir";
         }
 
 
@@ -133,6 +141,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionParamsClass_PesquisarReferenciaExterna
         {
             public readonly string referenciaExterna = "referenciaExterna";
+        }
+        static readonly ActionParamsClass_Imprimir s_params_Imprimir = new ActionParamsClass_Imprimir();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Imprimir ImprimirParams { get { return s_params_Imprimir; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Imprimir
+        {
+            public readonly string pedidoCompraId = "pedidoCompraId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -240,6 +256,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferenciaExterna);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referenciaExterna", referenciaExterna);
             PesquisarReferenciaExternaOverride(callInfo, referenciaExterna);
+            return callInfo;
+        }
+
+        partial void ImprimirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long pedidoCompraId);
+
+        public override System.Web.Mvc.ActionResult Imprimir(long pedidoCompraId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoCompraId", pedidoCompraId);
+            ImprimirOverride(callInfo, pedidoCompraId);
             return callInfo;
         }
 

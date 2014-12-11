@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Fashion.ERP.Domain.Almoxarifado;
+using NHibernate.Util;
 
 namespace Fashion.ERP.Domain.Compras
 {
@@ -18,14 +21,30 @@ namespace Fashion.ERP.Domain.Compras
 
         public virtual PedidoCompraItemCancelado PedidoCompraItemCancelado { get; set; }
 
+        public virtual string ReferenciaExternaMaterial
+        {
+            get
+            {
+                var firstOrDefault = Material.ReferenciaExternas.FirstOrDefault(x => x.Fornecedor.Id == PedidoCompra.Fornecedor.Id);
+                if (firstOrDefault != null)
+                {
+                    return firstOrDefault.Referencia;
+                }
+                return null;
+            }
+        }
+
         public virtual double ObtenhaDiferenca()
         {
             return Quantidade - QuantidadeEntrega;
         }
 
-        public virtual double ObtenhaValorTotal()
+        public virtual double ValorTotal
         {
-            return ValorUnitario * Quantidade;
+            get
+            {
+                return ValorUnitario * Quantidade;    
+            }
         }
 
         public virtual void AtualizeSituacao()

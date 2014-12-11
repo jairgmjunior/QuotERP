@@ -2,6 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Fashion.Framework.Common.Extensions;
+using NHibernate.Util;
 
 namespace Fashion.ERP.Domain.Comum
 {
@@ -40,6 +44,38 @@ namespace Fashion.ERP.Domain.Comum
         public virtual string Site { get; set; }
         public virtual DateTime DataCadastro { get; set; }
 
+        public virtual Endereco EnderecoPadrao
+        {
+            //todo retornar TipoEndereco.Comercial se TipoPessoa.Juridico
+            get { return Enderecos.First(x => x.TipoEndereco == TipoEndereco.Residencial); }
+        }
+
+        public virtual Contato ContatoPadrao
+        {
+            get
+            {
+                return _contatos.FirstOrDefault(contato =>
+                {
+                    if (TipoPessoa == TipoPessoa.Juridica && contato.TipoContato == TipoContato.Comercial)
+                    {
+                        return true;
+                    } 
+
+                    if (TipoPessoa == TipoPessoa.Fisica && contato.TipoContato == TipoContato.Residencial)
+                    {
+                        return true;
+                    }
+
+                    if (TipoPessoa == TipoPessoa.Exterior)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                });
+            }
+        }
+        
         #region Enderecos
 
         public virtual IReadOnlyCollection<Endereco> Enderecos

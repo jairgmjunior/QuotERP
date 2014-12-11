@@ -7,6 +7,7 @@ using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Reporting.Compras;
+using Fashion.ERP.Reporting.EngenhariaProduto;
 using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Compras.Models;
@@ -548,6 +549,19 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #endregion
 
         #endregion
+
+        #region Imprimir
+        public virtual ActionResult Imprimir(long pedidoCompraId)
+        {
+            var pedidoCompra = _pedidoCompraRepository.Get(pedidoCompraId);
+
+            var report = new PedidoCompraReport { DataSource = pedidoCompra };
+            var filename = report.ToByteStream().SaveFile(".pdf");
+
+            return File(filename);
+        }
+        #endregion
+
     }
 }
 
