@@ -50,17 +50,32 @@ namespace Fashion.ERP.Domain.Compras
             set { _detalhamentoRecebimentoCompraItens = value; }
         }
 
-        public virtual void AtualizeCustoMaterial(IRepository<Material> materialRepository)
+        public virtual void AtualizeCustoMaterial(IRepository<Material> materialRepository, Pessoa fornecedor)
         {
             foreach (var x in RecebimentoCompraItens)
             {
                 var valorUnitario = x.ValorUnitario;
                 var custoAtual = x.CustoMaterial;
-
-                custoAtual.Custo = valorUnitario;
-                custoAtual.CustoAquisicao = valorUnitario;
-                custoAtual.CustoMedio = valorUnitario;
-
+                if (custoAtual != null)
+                {
+                    custoAtual.Custo = valorUnitario;
+                    custoAtual.CustoAquisicao = valorUnitario;
+                    custoAtual.CustoMedio = valorUnitario;
+                }
+                else
+                {
+                    custoAtual = new CustoMaterial
+                    {
+                        Custo = valorUnitario,
+                        CustoAquisicao = valorUnitario,
+                        CustoMedio = valorUnitario,
+                        Fornecedor = fornecedor,
+                        Data = DateTime.Now
+                    };
+                    x.Material.CustoMaterials.Add(custoAtual);
+                    x.CustoMaterial = custoAtual;
+                }
+                
                 x.Material.AtualizeCustoAtual();
                 materialRepository.SaveOrUpdate(x.Material);
             }
@@ -102,9 +117,15 @@ namespace Fashion.ERP.Domain.Compras
 
             entradaMaterial.DepositoMaterialDestino = depositoMaterial;
 
-            RecebimentoCompraItens.Each(x => 
-                x.AtualizeEntradaItemMaterial(entradaMaterial, estoqueMaterialRepository, 
-                    movimentacaoEstoqueMaterialRepository, depositoMaterial));
+            RecebimentoCompraItens.Each(x =>
+            {
+                var unidadeMedidaCompra = x.DetalhamentoRecebimentoCompraItens.First().PedidoCompraItem.UnidadeMedida;
+                var quantidadeEntrada = x.DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
+
+                entradaMaterial.AtualizeEntradaItemMaterial(estoqueMaterialRepository,
+                    movimentacaoEstoqueMaterialRepository, depositoMaterial,
+                    x.Material, x.Quantidade, unidadeMedidaCompra, quantidadeEntrada);
+            });
 
             return entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
         }
@@ -141,6 +162,8 @@ namespace Fashion.ERP.Domain.Compras
         public virtual void AtualizePedidosCompra(IRepository<RecebimentoCompra> recebimentoCompraRepository,
             IRepository<PedidoCompra> pedidoCompraRepository)
         {
+            Framework.UnitOfWork.Session.Current.Flush();
+
             foreach (var pedidoCompra in PedidoCompras)
             {
                 var recebimentos = recebimentoCompraRepository.Find().Where(p => p.PedidoCompras.Any(i => i.Id == pedidoCompra.Id)).ToList();
@@ -191,6 +214,20 @@ namespace Fashion.ERP.Domain.Compras
                 pedidoCompra.AtualizeSituacao();
                 pedidoCompraRepository.Update(pedidoCompra);
             }
+        }
+
+        public virtual void CrieDetalhamentoRecebimentoCompraItem(PedidoCompra pedidoCompra, PedidoCompraItem pedidoCompraItem, 
+            ref double quantidadeEntradaDisponível, RecebimentoCompraItem recebimentoCompraItem)
+        {
+            var detalhamento = new DetalhamentoRecebimentoCompraItem
+            {
+                PedidoCompra = pedidoCompra,
+                PedidoCompraItem = pedidoCompraItem
+            };
+            detalhamento.CalculeQuantidade(ref quantidadeEntradaDisponível);
+
+            DetalhamentoRecebimentoCompraItens.Add(detalhamento);
+            recebimentoCompraItem.DetalhamentoRecebimentoCompraItens.Add(detalhamento);
         }
     }
 }

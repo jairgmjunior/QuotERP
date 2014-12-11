@@ -11,6 +11,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
@@ -23,19 +24,23 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
+        private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
+
         private readonly ILogger _logger;
         #endregion
 
         #region Construtores
         public SaidaMaterialController(ILogger logger, IRepository<SaidaMaterial> saidaMaterialRepository,
             IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<UnidadeMedida> unidadeMedidaRepository, 
-            IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository)
+            IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository,
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository)
         {
             _saidaMaterialRepository = saidaMaterialRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
             _unidadeMedidaRepository = unidadeMedidaRepository;
             _materialRepository = materialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
+            _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -159,56 +164,23 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     _saidaMaterialRepository.Evict(_saidaMaterialRepository.Get(model.Id));
                     var saida = _saidaMaterialRepository.Get(model.Id);
-                    var depositoAntigo = saida.DepositoMaterialOrigem;
-
+                    
                     var domain = Mapper.Unflat(model, saida);
 
-                    // Atualizar o estoque dos itens removidos
-                    var saidaItens = domain.SaidaItemMateriais.ToList();
-                    foreach (var item in saidaItens)
-                    {
-                        // Se o depósito atual for diferente do antigo, remover todos os itens do antigo
-                        if (depositoAntigo != domain.DepositoMaterialDestino)
-                        {
-                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                               depositoAntigo, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade);
-                        }
-                        // Remover apenas se o item foi excluído
-                        else if (model.SaidaItemMateriais.Contains(item.Id) == false)
-                        {
-                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                                domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade);
-
-                            domain.RemoveSaidaItemMaterial(item);
-                        }
-                    }
-
-                    // Itens da saída
+                    ExcluirSaidaItemMaterial(model, domain);
+                    
                     for (int i = 0; i < model.Materiais.Count; i++)
                     {
                         var idx = i;
 
-                        // Adicionar apenas se o item é novo
-                        // ou o depósito for diferente
-                        if (model.SaidaItemMateriais[idx].HasValue == false
-                            || domain.DepositoMaterialOrigem != depositoAntigo)
+                        var materialId = model.Materiais[idx];
+                        var material = _materialRepository.Get(materialId);
+                        var saidaItemMaterialId = model.SaidaItemMateriais[idx];
+                        var quantidade = model.Quantidades[idx];
+
+                        if (saidaItemMaterialId == null)
                         {
-                            var item = new SaidaItemMaterial
-                            {
-                                Material = _materialRepository.Load(model.Materiais[idx]),
-                                MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
-                                {
-                                    TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Saida,
-                                    Data = DateTime.Now,
-                                    Quantidade = model.Quantidades[idx]
-                                }
-                            };
-
-                            domain.AddSaidaItemMaterial(item);
-
-                            // Incluir cada item ao estoque
-                            item.MovimentacaoEstoqueMaterial.EstoqueMaterial = EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository,
-                                domain.DepositoMaterialOrigem, item.Material, item.MovimentacaoEstoqueMaterial.Quantidade * -1);
+                            domain.CrieSaidaItemMaterial(_estoqueMaterialRepository, material, quantidade);
                         }
                     }
 
@@ -226,6 +198,24 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             return View(model);
         }
+
+        private void ExcluirSaidaItemMaterial(SaidaMaterialModel model, SaidaMaterial saida)
+        {
+            IList<SaidaItemMaterial> itensRemover = new List<SaidaItemMaterial>();
+
+            saida.SaidaItemMateriais.Each(saidaItemMaterial =>
+            {
+                if (model.SaidaItemMateriais.Contains(saidaItemMaterial.Id) == false)
+                {
+                    itensRemover.Add(saidaItemMaterial);
+                    EstoqueMaterial.AtualizarEstoque(_estoqueMaterialRepository, saida.DepositoMaterialOrigem,
+                        saidaItemMaterial.Material, saidaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade);
+                }
+            });
+
+            itensRemover.Each(saidaItemMaterial => saida.RemoveSaidaItemMaterial(saidaItemMaterial));
+        }
+
         #endregion
 
         #region Excluir

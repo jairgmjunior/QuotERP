@@ -366,7 +366,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
 
-                    domain.AtualizeCustoMaterial(_materialRepository);
+                    domain.AtualizeCustoMaterial(_materialRepository, domain.Fornecedor);
 
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
 
@@ -375,7 +375,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _movimentacaoEstoqueMaterialRepository,
                         _estoqueMaterialRepository,
                         _entradaMaterialRepository);
-                    
+
                     this.AddSuccessMessage("Recebimento de compra atualizado com sucesso.");
                 }
                 catch (Exception exception)

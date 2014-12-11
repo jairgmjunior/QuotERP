@@ -17,15 +17,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         private readonly IRepository<PedidoCompra> _pedidoCompraRepository;
         private readonly IRepository<RecebimentoCompra> _recebimentoCompraRepository;
         private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
 
         public RecebimentoCompraConverter(
             IRepository<PedidoCompra> pedidoCompraRepository,
             IRepository<RecebimentoCompra> recebimentoCompraRepository,
-            IRepository<Material> materialRepository)
+            IRepository<Material> materialRepository,
+            IRepository<EntradaMaterial> entradaMaterialRepository)
         {
             _pedidoCompraRepository = pedidoCompraRepository;
             _recebimentoCompraRepository = recebimentoCompraRepository;
             _materialRepository = materialRepository;
+            _entradaMaterialRepository = entradaMaterialRepository;
         }
 
         #region Crie RecebimentoCompra
@@ -75,38 +78,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
 
                 var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
-                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.SingleOrDefault(
-                    s => s.Material.Referencia == recebimentoCompraItemModel.MaterialReferencia);
+                var pedidoCompraItem = pedidoCompra.ObtenhaPedidoCompraItem(item.Material.Referencia);
 
                 if (pedidoCompraItem == null)
                     throw new Exception("Não foi possível localizar no banco o pedidoCompraItem referente ao material: " +
                                         recebimentoCompraItemModel.MaterialReferencia);
                 
-                var detalhamento = new DetalhamentoRecebimentoCompraItem
-                {
-                    PedidoCompra = pedidoCompra,
-                    PedidoCompraItem = pedidoCompraItem,
-                    Quantidade = ObtenhaQuantidadeDetalhamento(ref quantidadeEntradaDisponível, pedidoCompraItem.Quantidade)
-                };
-                
-                recebimentoCompra.DetalhamentoRecebimentoCompraItens.Add(detalhamento);
-                item.DetalhamentoRecebimentoCompraItens.Add(detalhamento);
+                recebimentoCompra.CrieDetalhamentoRecebimentoCompraItem(pedidoCompra, pedidoCompraItem, ref quantidadeEntradaDisponível, item);
             }
 
             return item;
-        }
-
-        private double ObtenhaQuantidadeDetalhamento(ref double quantidadeEntradaDisponivel, double quantidadePedidoItem)
-        {
-            if (quantidadeEntradaDisponivel >= quantidadePedidoItem)
-            {
-                quantidadeEntradaDisponivel = quantidadeEntradaDisponivel - quantidadePedidoItem;
-                return quantidadePedidoItem;
-            }
-
-            var retorno = quantidadeEntradaDisponivel;
-            quantidadeEntradaDisponivel = 0;
-            return retorno;
         }
 
         private long ProximoNumero()
@@ -163,9 +144,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 });
             }
 
-            recebimentoItensExcluir.ForEach(x => 
-                recebimentoCompra.RecebimentoCompraItens.Remove(x));
-                
+            recebimentoItensExcluir.ForEach(recebimentoCompraItem =>
+            {
+                recebimentoCompra.RecebimentoCompraItens.Remove
+                    (recebimentoCompraItem);
+                recebimentoCompraItem.ExcluaEntradaItemMaterial(recebimentoCompra.EntradaMaterial, _entradaMaterialRepository);
+            });
+
             pedidosCompraAtualizar.ForEach(pedido => _pedidoCompraRepository.Update(pedido));
             _recebimentoCompraRepository.Update(recebimentoCompra);
         }
@@ -212,9 +197,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                             "Não foi possível localizar no banco o pedidoCompraItem referente ao material: " +
                             recebimentoCompraItemModel.MaterialReferencia);
                     
-                    var detalhamento =
-                        item.DetalhamentoRecebimentoCompraItens.SingleOrDefault(
-                            d => d.PedidoCompra.Id == pedidoCompra.Id) ??
+                    var detalhamento = item.ObtenhaDetalhamentoRecebimentoCompraItem(pedidoCompra.Id) ??
                         new DetalhamentoRecebimentoCompraItem();
 
                     if (quantidadeEntradaDisponível <= 0)
@@ -233,8 +216,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                     detalhamento.PedidoCompra = pedidoCompra;
                     detalhamento.PedidoCompraItem = pedidoCompraItem;
-                    detalhamento.Quantidade = ObtenhaQuantidadeDetalhamento(ref quantidadeEntradaDisponível,
-                        pedidoCompraItem.Quantidade);
+
+                    detalhamento.CalculeQuantidade(ref quantidadeEntradaDisponível);
                     
                     if (detalhamento.Id == null)
                     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
@@ -45,5 +46,26 @@ namespace Fashion.ERP.Domain.Almoxarifado
         }
 
         #endregion
+
+        public virtual void CrieSaidaItemMaterial(IRepository<EstoqueMaterial> estoqueMaterialRepository,
+            Material material, double quantidade)
+        {
+            var estoqueMaterial = EstoqueMaterial.AtualizarEstoque(estoqueMaterialRepository,
+                                DepositoMaterialOrigem, material, quantidade * -1);
+
+            var saidaItemMaterial = new SaidaItemMaterial
+            {
+                Material = material,
+                MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
+                {
+                    Data = DateTime.Now,
+                    EstoqueMaterial = estoqueMaterial,
+                    Quantidade = quantidade,
+                    TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Saida
+                }
+            };
+
+            AddSaidaItemMaterial(saidaItemMaterial);
+        }
     }
 }

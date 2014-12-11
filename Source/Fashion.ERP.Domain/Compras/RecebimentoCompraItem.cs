@@ -54,40 +54,18 @@ namespace Fashion.ERP.Domain.Compras
             return entradaItemMaterial;
         }
 
-        public virtual void AtualizeEntradaItemMaterial(EntradaMaterial entradaMaterial, 
-            IRepository<EstoqueMaterial> estoqueMaterialRepository,
-            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository,
-            DepositoMaterial depositoMaterial)
+        public virtual DetalhamentoRecebimentoCompraItem ObtenhaDetalhamentoRecebimentoCompraItem(
+            long? pedidoCompraId)
         {
-            var unidadeMedidaCompra = DetalhamentoRecebimentoCompraItens.First().PedidoCompraItem.UnidadeMedida;
-            var quantidadeCompra = DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
-            var material = Material;
-
-            var entradaItemMaterial =
-                entradaMaterial.EntradaItemMateriais.FirstOrDefault(q => q.Material.Id == material.Id);
-
-            var diferencaQuantidade = ObtenhaDiferencaQuantidadeEstoque(entradaItemMaterial, Quantidade);
-
-            movimentacaoEstoqueMaterialRepository.Delete(entradaItemMaterial.MovimentacaoEstoqueMaterial);
-
-            entradaItemMaterial.UnidadeMedidaCompra = unidadeMedidaCompra;
-            entradaItemMaterial.Material = Material;
-            entradaItemMaterial.QuantidadeCompra = quantidadeCompra;
-            entradaItemMaterial.MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
-            {
-                Data = DateTime.Now,
-                Quantidade = Quantidade,
-                EstoqueMaterial =
-                    EstoqueMaterial.AtualizarEstoque(estoqueMaterialRepository, depositoMaterial, Material, diferencaQuantidade)
-            };
-            
-            entradaMaterial.AddEntradaItemMaterial(entradaItemMaterial);
+            return DetalhamentoRecebimentoCompraItens.SingleOrDefault(
+                d => d.PedidoCompra.Id == pedidoCompraId);
         }
 
-        protected virtual double ObtenhaDiferencaQuantidadeEstoque(EntradaItemMaterial entradaItemMaterial, double quantidade)
+        public virtual void ExcluaEntradaItemMaterial(EntradaMaterial entradaMaterial, IRepository<EntradaMaterial> entradaMaterialRepository)
         {
-            var quantidadeMovimentacaoAtual = entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade;
-            return quantidade - quantidadeMovimentacaoAtual;
+            var entradaItemMaterial = entradaMaterial.EntradaItemMateriais.FirstOrDefault(x => x.Material.Id == Material.Id);
+            entradaMaterial.RemoveEntradaItemMaterial(entradaItemMaterial);
+            entradaMaterialRepository.SaveOrUpdate(entradaMaterial);
         }
     }
 }

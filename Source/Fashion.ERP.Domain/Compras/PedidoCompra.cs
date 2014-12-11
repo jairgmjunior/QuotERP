@@ -81,6 +81,12 @@ namespace Fashion.ERP.Domain.Compras
                 SituacaoCompra = SituacaoCompra.AtendidoParcial;
         }
 
+        public virtual PedidoCompraItem ObtenhaPedidoCompraItem(string referenciaMaterial)
+        {
+            return PedidoCompraItens.SingleOrDefault(
+                s => s.Material.Referencia == referenciaMaterial);
+        }
+
         #endregion
     }
 }
