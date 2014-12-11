@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridProcessoOperacionalModel>
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Comum.ProcessoOperacional.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Descricao);
+        columns.Template(item => Html.EditarAuth(MVC.Comum.ProcessoOperacional.Editar(item.Id))).Width(80);
+        columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.ProcessoOperacional.EditarSituacao(item.Id), item.Ativo)).Width(80);
+    })
+      )
+
+<script>
+    $(document).ready(function () {
+        //$(".k-grid-save-changes").hide();
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            Novo();
+        });
+    });
+</script>

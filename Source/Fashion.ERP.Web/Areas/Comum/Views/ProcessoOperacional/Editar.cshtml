@@ -1,0 +1,20 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProcessoOperacionalModel
+
+@using (Html.BeginForm(MVC.Comum.ProcessoOperacional.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @Html.ExcluirAuth(MVC.Comum.ProcessoOperacional.Excluir(Model.Id))
+	</div>
+}
+@{Html.RenderPartial("_ConfirmDelete");}
+
+<script>
+
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("SalvarAlteracoes", "ProcessoOperacional")';
+    }
+</script>

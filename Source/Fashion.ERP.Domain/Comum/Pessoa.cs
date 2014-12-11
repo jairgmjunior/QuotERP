@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fashion.ERP.Domain.Compras;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -24,7 +25,8 @@ namespace Fashion.ERP.Domain.Comum
         public virtual Unidade Unidade { get; set; }
         public virtual Funcionario Funcionario { get; set; }
         public virtual Empresa Empresa { get; set; }
-        
+        public virtual Transportadora Transportadora { get; set; }
+
         public virtual TipoPessoa TipoPessoa { get; set; }
         public virtual string CpfCnpj { get; set; }
         public virtual string Nome { get; set; }

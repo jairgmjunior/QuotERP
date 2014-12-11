@@ -1,0 +1,143 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Compras.Models.GridTransportadoraModel>
+<div id="modal-fornecedor" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar fornecedor</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Compras.Transportadora.Pesquisar()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-fornecedor" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-fornecedor" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-fornecedor"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-fornecedor" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id do fornecedor vier preenchido, preencher o código e descrição
+        var fornecedorId = $('#Fornecedor').val();
+
+        if (fornecedorId) {
+            $.getJSON('/Compras/Transportadora/PesquisarId/' + fornecedorId, function (data) {
+                if (data.Id) {
+                    $('#codigo-fornecedor').val(data.Codigo);
+                    $('#descricao-fornecedor').text(data.Nome);
+                }
+            });
+        }
+
+        $('#submit-pesquisar-fornecedor').off('click').on('click', function(e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "/Compras/Transportadora/PesquisarFiltro",
+                beforeSubmit: function() { 
+                    e.preventDefault();
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                
+                    var grid = $("#grid-pesquisa-fornecedor").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Nome", title: "Nome" },
+                            { field: "Codigo", title: "Código" },
+                            { field: "CpfCnpj", title: "CPF/CNPJ" }
+                        ],
+                        dataSource: data,
+                    });
+                    
+                    grid.delegate("tbody>tr", "dblclick", selecionarFornecedor);
+                },
+            });
+
+            return false;
+        });
+        
+        $('#pesquisar-fornecedor').on('click', function () {
+            $('#modal-fornecedor').modal('show').one('hidden', function () {
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
+                $('#grid-pesquisa-fornecedor').empty();
+            });
+        });
+        var pesquisaFornecedor = function (codigo) {
+            if (codigo) {
+                var url = '/Compras/Transportadora/PesquisarCodigo?codigo=' + codigo;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#Fornecedor').val('').trigger('change');
+                        $('#codigo-fornecedor').val('');
+                        $('#descricao-fornecedor').text('');
+                    } else {
+                        $('#Fornecedor').val(data.Id).trigger('change');
+                        $('#codigo-fornecedor').val(data.Codigo);
+                        $('#descricao-fornecedor').text(data.Nome);
+                    }
+                });
+            } else {
+                $('#Fornecedor').val('').trigger('change');
+                $('#codigo-fornecedor').val('');
+                $('#descricao-fornecedor').text('');
+            }
+        };
+        $('#codigo-fornecedor').on({
+            keydown: function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaFornecedor($(this).val());
+                }
+            },
+            focusout: function () {
+                if (!$('#codigo-fornecedor').val()) {
+                    $('#Fornecedor').val('');
+                    $('#descricao-fornecedor').text('');
+                    $('#descricao-fornecedor').val('');
+                } else {
+                    pesquisaFornecedor($(this).val());
+                }
+            }
+        });
+
+        $('#selecionar-fornecedor').on('click', selecionarFornecedor);
+        
+        function selecionarFornecedor() {
+            var grid = $('#grid-pesquisa-fornecedor').data("kendoGrid");
+
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#Fornecedor').val(data.Id).trigger('change');
+                $('#codigo-fornecedor').val(data.Codigo);
+                $('#descricao-fornecedor').text(data.Nome);
+
+                $('#modal-fornecedor').modal('hide');
+            }
+        }
+    });
+</script>

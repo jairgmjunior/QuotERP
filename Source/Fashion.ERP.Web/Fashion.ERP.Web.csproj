@@ -290,6 +290,7 @@
     <Compile Include="Areas\Almoxarifado\Models\PesquisaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SaidaMaterialModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
+    <Compile Include="Areas\Compras\Controllers\TransportadoraController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraConverter.cs" />
     <Compile Include="Areas\Compras\Controllers\MotivoCancelamentoPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ParametroModuloCompraController.cs" />
@@ -298,6 +299,9 @@
     <Compile Include="Areas\Compras\Controllers\AutorizacoesController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
+    <Compile Include="Areas\Compras\Models\GridTransportadoraModel.cs" />
+    <Compile Include="Areas\Compras\Models\NovoTransportadoraModel.cs" />
+    <Compile Include="Areas\Compras\Models\TransportadoraModel.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridRecebimentoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\IdentificadorPedidoCompra.cs" />
@@ -338,6 +342,7 @@
     <Compile Include="Areas\Almoxarifado\Models\FamiliaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridCategoriaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridFamiliaModel.cs" />
+    <Compile Include="Areas\Comum\Controllers\ProcessoOperacionalController.cs" />
     <Compile Include="Areas\Comum\Controllers\PrazoController.cs" />
     <Compile Include="Areas\Comum\Models\CentroCustoModel.cs" />
     <Compile Include="Areas\Comum\Models\ClassificacaoDificuldadeModel.cs" />
@@ -351,6 +356,7 @@
     <Compile Include="Areas\Comum\Models\GridMarcaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridSubcategoriaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridUnidadeMedidaModel.cs" />
+    <Compile Include="Areas\Comum\Models\GridProcessoOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\GridPrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\MarcaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ReferenciaExternaModel.cs" />
@@ -375,10 +381,12 @@
     <Compile Include="Areas\Comum\Models\ListaFornecedorModel.cs" />
     <Compile Include="Areas\Comum\Models\ListaFuncionarioModel.cs" />
     <Compile Include="Areas\Comum\Models\ListaPrestadorServicoModel.cs" />
+    <Compile Include="Areas\Comum\Models\ProcessoOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\NovoEmpresaModel.cs" />
     <Compile Include="Areas\Comum\Models\NovoUsuarioModel.cs" />
     <Compile Include="Areas\Comum\Models\PesquisarFuncionarioModel.cs" />
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
+    <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\AprovarModeloController.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
@@ -414,7 +422,6 @@
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModeloModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SequenciaProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SequenciaProducaoModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\DetalharModeloModel.cs" />
@@ -573,6 +580,9 @@
     <Compile Include="Compras.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Compras.TransportadoraController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Compras.ValidaPedidoCompraController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -652,6 +662,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Comum.PrestadorServicoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comum.ProcessoOperacionalController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Comum.ProdutoBaseController.generated.cs">
@@ -1028,6 +1041,15 @@
     <Content Include="Areas\Financeiro\Views\TituloReceber\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Financeiro\Views\TituloReceber\Editar.cshtml" />
     <Content Include="Areas\Financeiro\Views\TituloReceber\Baixar.cshtml" />
+    <Content Include="Areas\Comum\Views\ProcessoOperacional\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Comum\Views\ProcessoOperacional\Editar.cshtml" />
+    <Content Include="Areas\Comum\Views\ProcessoOperacional\Index.cshtml" />
+    <Content Include="Areas\Comum\Views\ProcessoOperacional\Novo.cshtml" />
+    <Content Include="Areas\Compras\Views\Transportadora\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Compras\Views\Transportadora\Editar.cshtml" />
+    <Content Include="Areas\Compras\Views\Transportadora\Index.cshtml" />
+    <Content Include="Areas\Compras\Views\Transportadora\Novo.cshtml" />
+    <Content Include="Areas\Compras\Views\Transportadora\Pesquisar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

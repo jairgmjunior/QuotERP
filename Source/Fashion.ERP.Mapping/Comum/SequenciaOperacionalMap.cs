@@ -1,7 +1,7 @@
-﻿using Fashion.ERP.Domain.EngenhariaProduto;
+﻿using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.Mapping;
 
-namespace Fashion.ERP.Mapping.EngenhariaProduto
+namespace Fashion.ERP.Mapping.Comum
 {
     public class SequenciaOperacionalMap : FashionClassMap<SequenciaOperacional>
     {

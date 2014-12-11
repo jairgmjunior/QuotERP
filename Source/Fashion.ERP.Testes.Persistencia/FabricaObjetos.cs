@@ -546,6 +546,26 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public Pessoa ObtenhaTransportadora()
+        {
+            var pessoa = ObtenhaPessoa();
+            pessoa.Transportadora = CrieTransportadora();
+            pessoa.AddContato(ObtenhaContato());
+            pessoa.AddEndereco(ObtenhaEndereco());
+
+            return pessoa;
+        }
+
+        private Transportadora CrieTransportadora()
+        {
+            return new Transportadora
+            {
+                Ativo = true,
+                Codigo = 1,
+                DataCadastro = new DateTime(2014, 1, 1)
+            };
+        }
+
         #endregion
 
         #region Comum

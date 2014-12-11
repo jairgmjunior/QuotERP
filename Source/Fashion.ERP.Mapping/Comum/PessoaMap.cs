@@ -24,6 +24,7 @@ namespace Fashion.ERP.Mapping.Comum
 
             References(x => x.Foto).Cascade.Delete();
             References(x => x.Fornecedor).Cascade.All();
+            References(x => x.Transportadora).Cascade.All();
             References(x => x.Cliente).Cascade.All();
             References(x => x.PrestadorServico).Cascade.All();
             References(x => x.Unidade).Cascade.All();

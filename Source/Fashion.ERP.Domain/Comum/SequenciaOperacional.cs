@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fashion.ERP.Domain.Comum;
 
-namespace Fashion.ERP.Domain.EngenhariaProduto
+namespace Fashion.ERP.Domain.Comum
 {
     public class SequenciaOperacional : DomainBase<SequenciaOperacional>
     {

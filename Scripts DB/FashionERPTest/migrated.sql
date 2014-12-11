@@ -6437,8 +6437,8 @@ INSERT INTO [dbo].[permissaotousuario] ([usuario_id], [permissao_id]) VALUES (1,
 INSERT INTO [dbo].[permissaotousuario] ([usuario_id], [permissao_id]) VALUES (1, 4)
 INSERT INTO [dbo].[permissaotousuario] ([usuario_id], [permissao_id]) VALUES (1, 5)
 INSERT INTO [dbo].[uniquekeys] ([tablename], [nexthi]) VALUES ('permissaotousuario', 1)
-/* -> 8 Insert operations completed in 00:00:00.0200724 taking an average of 00:00:00.0025090 */
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201301010000, '2014-09-03T20:41:04', 'Migration201301010000')
+/* -> 8 Insert operations completed in 00:00:00.0210012 taking an average of 00:00:00.0026251 */
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201301010000, '2014-12-11T11:12:25', 'Migration201301010000')
 /* Committing Transaction */
 /* 201301010000: Migration201301010000 migrated */
 
@@ -6648,7 +6648,7 @@ INSERT INTO tipoitem (id,codigo,descricao) VALUES (11,'10','Outros insumos');
 INSERT INTO tipoitem (id,codigo,descricao) VALUES (12,'99','Outras');
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201307010000, '2014-09-03T20:41:04', 'Migration201307010000')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201307010000, '2014-12-11T11:12:25', 'Migration201307010000')
 /* Committing Transaction */
 /* 201307010000: Migration201307010000 migrated */
 
@@ -7045,7 +7045,7 @@ INSERT INTO permissaotousuario VALUES (1,3);
 INSERT INTO permissaotousuario VALUES (1,4);
 INSERT INTO permissaotousuario VALUES (1,5);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201308271102, '2014-09-03T20:41:04', 'Migration201308271102')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201308271102, '2014-12-11T11:12:26', 'Migration201308271102')
 /* Committing Transaction */
 /* 201308271102: Migration201308271102 migrated */
 
@@ -7225,7 +7225,7 @@ UPDATE permissao SET area = 'Comum' WHERE area = 'Almoxarifado' AND controller =
 UPDATE permissao SET permissaopai_id = @CADASTROSID WHERE action = 'Index' AND area = 'Comum' AND controller = 'Marca';
 UPDATE permissao SET permissaopai_id = @CADASTROSID WHERE action = 'Index' AND area = 'Comum' AND controller = 'Colecao';
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201309021551, '2014-09-03T20:41:04', 'Migration201309021551')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201309021551, '2014-12-11T11:12:27', 'Migration201309021551')
 /* Committing Transaction */
 /* 201309021551: Migration201309021551 migrated */
 
@@ -7714,8 +7714,8 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 SET @ID = (SELECT Id FROM permissao WHERE action = 'Index' AND area = 'Almoxarifado' AND controller = 'UnidadeMedida');
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, permissaopai_id) VALUES ('EditarSituacao', 'Almoxarifado', 'UnidadeMedida', 'Editar situação', 0, 1, @ID);
 
-/* -> 1 Insert operations completed in 00:00:00.0010007 taking an average of 00:00:00.0010007 */
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201309241033, '2014-09-03T20:41:05', 'Migration201309241033')
+/* -> 1 Insert operations completed in 00:00:00.0150009 taking an average of 00:00:00.0150009 */
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201309241033, '2014-12-11T11:12:29', 'Migration201309241033')
 /* Committing Transaction */
 /* 201309241033: Migration201309241033 migrated */
 
@@ -8188,7 +8188,7 @@ ALTER TABLE [dbo].[modelo] ADD [complemento] NVARCHAR(50)
 /* AlterColumn modelofoto modelo_id Int64 */
 ALTER TABLE [dbo].[modelofoto] ALTER COLUMN [modelo_id] BIGINT
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201310161017, '2014-09-03T20:41:05', 'Migration201310161017')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201310161017, '2014-12-11T11:12:30', 'Migration201310161017')
 /* Committing Transaction */
 /* 201310161017: Migration201310161017 migrated */
 
@@ -8216,7 +8216,7 @@ ALTER TABLE [dbo].[referencia] ALTER COLUMN [celular] NVARCHAR(20)
 /* AlterColumn referencia observacao String */
 ALTER TABLE [dbo].[referencia] ALTER COLUMN [observacao] NVARCHAR(4000)
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201311280940, '2014-09-03T20:41:05', 'Migration201311280940')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201311280940, '2014-12-11T11:12:30', 'Migration201311280940')
 /* Committing Transaction */
 /* 201311280940: Migration201311280940 migrated */
 
@@ -8444,7 +8444,7 @@ BEGIN
 	SELECT @SaldoAtual - @TotalEntrada + @TotalSaida;
 END
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201312020551, '2014-09-03T20:41:05', 'Migration201312020551')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201312020551, '2014-12-11T11:12:30', 'Migration201312020551')
 /* Committing Transaction */
 /* 201312020551: Migration201312020551 migrated */
 
@@ -8475,7 +8475,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('EditarProgramacaoBordado', 'EngenhariaProduto', 'Modelo', 'Editar', 0, 1, 0, @ID);
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('ExcluirProgramacaoBordado', 'EngenhariaProduto', 'Modelo', 'Excluir', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201401091440, '2014-09-03T20:41:05', 'Migration201401091440')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201401091440, '2014-12-11T11:12:30', 'Migration201401091440')
 /* Committing Transaction */
 /* 201401091440: Migration201401091440 migrated */
 
@@ -8511,7 +8511,7 @@ SET @ID = SCOPE_IDENTITY()
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Aprovar', 'EngenhariaProduto', 'AprovarModelo', 'Aprovar', 0, 1, 0, @ID);
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Desaprovar', 'EngenhariaProduto', 'AprovarModelo', 'Desaprovar', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201401241630, '2014-09-03T20:41:05', 'Migration201401241630')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201401241630, '2014-12-11T11:12:30', 'Migration201401241630')
 /* Committing Transaction */
 /* 201401241630: Migration201401241630 migrated */
 
@@ -8563,7 +8563,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Excluir', 'Comum', 'Prazo', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, Ordem, permissaopai_id) VALUES ('EditarSituacao', 'Comum', 'Prazo', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402031628, '2014-09-03T20:41:05', 'Migration201402031628')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402031628, '2014-12-11T11:12:30', 'Migration201402031628')
 /* Committing Transaction */
 /* 201402031628: Migration201402031628 migrated */
 
@@ -8597,7 +8597,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Excluir', 'Comum', 'ClassificacaoDificuldade', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, Ordem, permissaopai_id) VALUES ('EditarSituacao', 'Comum', 'ClassificacaoDificuldade', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402191515, '2014-09-03T20:41:05', 'Migration201402191515')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402191515, '2014-12-11T11:12:30', 'Migration201402191515')
 /* Committing Transaction */
 /* 201402191515: Migration201402191515 migrated */
 
@@ -8676,7 +8676,7 @@ FROM            dbo.catalogomaterial AS cm INNER JOIN
                          dbo.categoria AS cat ON scat.categoria_id = cat.id INNER JOIN
                          dbo.familia AS f ON cm.familia_id = f.id
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402251151, '2014-09-03T20:41:05', 'Migration201402251151')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201402251151, '2014-12-11T11:12:31', 'Migration201402251151')
 /* Committing Transaction */
 /* 201402251151: Migration201402251151 migrated */
 
@@ -8690,7 +8690,7 @@ SET @MODELOID = (SELECT id FROM permissao WHERE action = 'Index' AND area = 'Eng
 -- Cria o menu Copiar modelo
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Copiar', 'EngenhariaProduto', 'Modelo', 'Copiar modelo', 0, 1, 0, @MODELOID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405200840, '2014-09-03T20:41:05', 'Migration201405200840')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405200840, '2014-12-11T11:12:31', 'Migration201405200840')
 /* Committing Transaction */
 /* 201405200840: Migration201405200840 migrated */
 
@@ -8730,7 +8730,7 @@ FROM            dbo.catalogomaterial AS cm INNER JOIN
 						 dbo.fichatecnica AS ft ON ft.modelo_id = m.id LEFT OUTER JOIN
 						 dbo.colecao AS c2 ON c2.id = ft.colecao_id
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405270840, '2014-09-03T20:41:05', 'Migration201405270840')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405270840, '2014-12-11T11:12:31', 'Migration201405270840')
 /* Committing Transaction */
 /* 201405270840: Migration201405270840 migrated */
 
@@ -8810,7 +8810,7 @@ INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerp
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Editar', 'Compras', 'PedidoCompra', 'Editar', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Compras', 'PedidoCompra', 'Excluir', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405311034, '2014-09-03T20:41:05', 'Migration201405311034')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201405311034, '2014-12-11T11:12:31', 'Migration201405311034')
 /* Committing Transaction */
 /* 201405311034: Migration201405311034 migrated */
 
@@ -8831,7 +8831,16 @@ SET @PARAMETROSID = SCOPE_IDENTITY()
 -- Gestão de Compra
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Index', 'Compras', 'ParametroModuloCompra', 'Gestão de Compra', 1, 1, 0, @PARAMETROSID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406151118, '2014-09-03T20:41:05', 'Migration201406151118')
+
+
+
+
+
+
+
+
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406151118, '2014-12-11T11:12:31', 'Migration201406151118')
 /* Committing Transaction */
 /* 201406151118: Migration201406151118 migrated */
 
@@ -8862,7 +8871,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Financeiro', 'DespesaReceita', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('EditarSituacao', 'Financeiro', 'DespesaReceita', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406201043, '2014-09-03T20:41:05', 'Migration201406201043')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406201043, '2014-12-11T11:12:31', 'Migration201406201043')
 /* Committing Transaction */
 /* 201406201043: Migration201406201043 migrated */
 
@@ -8895,7 +8904,7 @@ INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerp
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Editar', 'Compras', 'ProcedimentoModuloCompras', 'Editar', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Compras', 'ProcedimentoModuloCompras', 'Excluir', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406232038, '2014-09-03T20:41:05', 'Migration201406232038')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406232038, '2014-12-11T11:12:32', 'Migration201406232038')
 /* Committing Transaction */
 /* 201406232038: Migration201406232038 migrated */
 
@@ -8921,7 +8930,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Compras', 'MotivoCancelamentoPedidoCompra', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('EditarSituacao', 'Compras', 'MotivoCancelamentoPedidoCompra', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406240858, '2014-09-03T20:41:05', 'Migration201406240858')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406240858, '2014-12-11T11:12:32', 'Migration201406240858')
 /* Committing Transaction */
 /* 201406240858: Migration201406240858 migrated */
 
@@ -8934,7 +8943,7 @@ DELETE FROM [dbo].[procedimentomodulocomprasfuncionario] WHERE 1 = 1
 /* FluentMigrator.Expressions.DeleteDataExpression */
 DELETE FROM [dbo].[procedimentomodulocompras] WHERE 1 = 1
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406260840, '2014-09-03T20:41:05', 'Migration201406260840')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406260840, '2014-12-11T11:12:32', 'Migration201406260840')
 /* Committing Transaction */
 /* 201406260840: Migration201406260840 migrated */
 
@@ -9017,8 +9026,8 @@ UPDATE permissao SET descricao = 'Módulo de Compras' WHERE [action] = 'Index' A
 --		Módulo de Compras
 --		Autorizações
 
-/* -> 1 Insert operations completed in 00:00:00.0010014 taking an average of 00:00:00.0010014 */
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406291045, '2014-09-03T20:41:05', 'Migration201406291045')
+/* -> 1 Insert operations completed in 00:00:00.0170010 taking an average of 00:00:00.0170010 */
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406291045, '2014-12-11T11:12:32', 'Migration201406291045')
 /* Committing Transaction */
 /* 201406291045: Migration201406291045 migrated */
 
@@ -9041,7 +9050,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Comum', 'CentroCusto', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('EditarSituacao', 'Comum', 'CentroCusto', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406300921, '2014-09-03T20:41:05', 'Migration201406300921')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201406300921, '2014-12-11T11:12:32', 'Migration201406300921')
 /* Committing Transaction */
 /* 201406300921: Migration201406300921 migrated */
 
@@ -9073,7 +9082,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Comum', 'Empresa', 'Excluir', 0, 1, 0, @ID);
 INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('EditarSituacao', 'Comum', 'Empresa', 'Editar situação', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407071228, '2014-09-03T20:41:05', 'Migration201407071228')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407071228, '2014-12-11T11:12:32', 'Migration201407071228')
 /* Committing Transaction */
 /* 201407071228: Migration201407071228 migrated */
 
@@ -9103,7 +9112,7 @@ EXEC sp_executesql @sql;
 ALTER TABLE [dbo].[centrocusto] DROP COLUMN [codigo];
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407111731, '2014-09-03T20:41:05', 'Migration201407111731')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407111731, '2014-12-11T11:12:32', 'Migration201407111731')
 /* Committing Transaction */
 /* 201407111731: Migration201407111731 migrated */
 
@@ -9113,7 +9122,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* CreateConstraint cpf_cnpj_uniqueconstraint */
 ALTER TABLE [dbo].[pessoa] ADD CONSTRAINT [cpf_cnpj_uniqueconstraint] UNIQUE ([cpfcnpj])
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407141034, '2014-09-03T20:41:05', 'Migration201407141034')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407141034, '2014-12-11T11:12:32', 'Migration201407141034')
 /* Committing Transaction */
 /* 201407141034: Migration201407141034 migrated */
 
@@ -9123,7 +9132,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* CreateColumn empresa idtenant Int64 */
 ALTER TABLE [dbo].[empresa] ADD [idtenant] BIGINT NOT NULL CONSTRAINT [DF_empresa_idtenant] DEFAULT 1
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407151443, '2014-09-03T20:41:05', 'Migration201407151443')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407151443, '2014-12-11T11:12:32', 'Migration201407151443')
 /* Committing Transaction */
 /* 201407151443: Migration201407151443 migrated */
 
@@ -9133,7 +9142,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* CreateColumn unidade idempresa Int64 */
 ALTER TABLE [dbo].[unidade] ADD [idempresa] BIGINT NOT NULL CONSTRAINT [DF_unidade_idempresa] DEFAULT 1
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407171755, '2014-09-03T20:41:05', 'Migration201407171755')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407171755, '2014-12-11T11:12:32', 'Migration201407171755')
 /* Committing Transaction */
 /* 201407171755: Migration201407171755 migrated */
 
@@ -9197,7 +9206,7 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Editar', 'Compras', 'OrdemEntradaCompra', 'Editar', 0, 1, 0, @ID);
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Detalhar', 'Compras', 'OrdemEntradaCompra', 'Detalhar', 0, 1, 0, @ID);
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407190000, '2014-09-03T20:41:05', 'Migration201407190000')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407190000, '2014-12-11T11:12:32', 'Migration201407190000')
 /* Committing Transaction */
 /* 201407190000: Migration201407190000 migrated */
 
@@ -9207,7 +9216,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* CreateColumn unidade idtenant Int64 */
 ALTER TABLE [dbo].[unidade] ADD [idtenant] BIGINT NOT NULL CONSTRAINT [DF_unidade_idtenant] DEFAULT 1
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407211440, '2014-09-03T20:41:05', 'Migration201407211440')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201407211440, '2014-12-11T11:12:32', 'Migration201407211440')
 /* Committing Transaction */
 /* 201407211440: Migration201407211440 migrated */
 
@@ -9217,7 +9226,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* CreateColumn centrocusto codigo Int64 */
 ALTER TABLE [dbo].[centrocusto] ADD [codigo] BIGINT NOT NULL CONSTRAINT [DF_centrocusto_codigo] DEFAULT 0
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408011535, '2014-09-03T20:41:05', 'Migration201408011535')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408011535, '2014-12-11T11:12:32', 'Migration201408011535')
 /* Committing Transaction */
 /* 201408011535: Migration201408011535 migrated */
 
@@ -9235,7 +9244,7 @@ SET @RELATORIOID = (SELECT ID FROM permissao WHERE area = 'EngenhariaProduto' AN
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('ListagemModelos', 'EngenhariaProduto', 'Relatorio', 'Listagem de Modelos', 1, 1, 0, @RELATORIOID);
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408041044, '2014-09-03T20:41:05', 'Migration201408041044')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408041044, '2014-12-11T11:12:32', 'Migration201408041044')
 /* Committing Transaction */
 /* 201408041044: Migration201408041044 migrated */
 
@@ -9259,7 +9268,7 @@ FROM            dbo.catalogomaterial AS cm INNER JOIN
                          dbo.familia AS f ON cm.familia_id = f.id LEFT OUTER JOIN
                          dbo.fichatecnica AS ft ON ft.modelo_id = m.id
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408061140, '2014-09-03T20:41:05', 'Migration201408061140')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408061140, '2014-12-11T11:12:32', 'Migration201408061140')
 /* Committing Transaction */
 /* 201408061140: Migration201408061140 migrated */
 
@@ -9269,7 +9278,7 @@ INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (
 /* ExecuteSqlStatement UPDATE sequenciaproducao SET ordem = ordem - 1 */
 UPDATE sequenciaproducao SET ordem = ordem - 1
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408211313, '2014-09-03T20:41:05', 'Migration201408211313')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201408211313, '2014-12-11T11:12:32', 'Migration201408211313')
 /* Committing Transaction */
 /* 201408211313: Migration201408211313 migrated */
 
@@ -9294,8 +9303,1576 @@ UPDATE permissao
                 controller = 'SequenciaProducao'
                 WHERE descricao = 'Sequência Produção' and area = 'EngenhariaProduto'
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409031644, '2014-09-03T20:41:05', 'Migration201409031644')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409031644, '2014-12-11T11:12:32', 'Migration201409031644')
 /* Committing Transaction */
 /* 201409031644: Migration201409031644 migrated */
+
+/* 201409031649: Migration201409031649 migrating ============================= */
+
+/* Beginning Transaction */
+/* CreateTable pedidocompraitemcancelado */
+CREATE TABLE [dbo].[pedidocompraitemcancelado] ([id] BIGINT NOT NULL, [data] DATETIME NOT NULL, [quantidadecancelada] DOUBLE PRECISION NOT NULL, [observacao] NVARCHAR(4000), [motivocancelamentopedidocompra_id] BIGINT NOT NULL, CONSTRAINT [PK_pedidocompraitemcancelado] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_pedidocompraitemcancelado_motivocancelamentopedidocompra pedidocompraitemcancelado(motivocancelamentopedidocompra_id) motivocancelamentopedidocompra(id) */
+ALTER TABLE [dbo].[pedidocompraitemcancelado] ADD CONSTRAINT [FK_pedidocompraitemcancelado_motivocancelamentopedidocompra] FOREIGN KEY ([motivocancelamentopedidocompra_id]) REFERENCES [dbo].[motivocancelamentopedidocompra] ([id])
+
+/* AlterTable pedidocompraitem */
+/* No SQL statement executed. */
+
+/* CreateColumn pedidocompraitem pedidocompraitemcancelado_id Int64 */
+ALTER TABLE [dbo].[pedidocompraitem] ADD [pedidocompraitemcancelado_id] BIGINT
+
+/* CreateForeignKey FK_pedidocompraitemcancelado_pedidocompraitem pedidocompraitem(pedidocompraitemcancelado_id) pedidocompraitemcancelado(id) */
+ALTER TABLE [dbo].[pedidocompraitem] ADD CONSTRAINT [FK_pedidocompraitemcancelado_pedidocompraitem] FOREIGN KEY ([pedidocompraitemcancelado_id]) REFERENCES [dbo].[pedidocompraitemcancelado] ([id])
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201409031649.permissao.sql */
+DECLARE @COMPRASID AS BIGINT, @PARAMETROSID AS BIGINT;
+SET @COMPRASID = (SELECT id FROM permissao WHERE area = 'Compras' AND controller IS NULL AND [action] IS NULL AND [permissaopai_id] IS NULL);
+
+-- Parâmetros
+INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES (NULL, 'Compras', NULL, 'Parâmetros', 1, 0, 0, @COMPRASID);
+SET @PARAMETROSID = SCOPE_IDENTITY()
+
+-- Gestão de Compra
+INSERT INTO permissao (action, area, controller, descricao, exibenomenu, requerpermissao, ordem, permissaopai_id) VALUES ('Index', 'Compras', 'pedidocompracancelamento', 'Gestão de Compra', 1, 1, 0, @PARAMETROSID);
+
+-- Cancelamento de Pedido de Compra
+DECLARE @ID AS BIGINT;
+SET @ID  = (select id from permissao where action = 'Index' and controller = 'PedidoCompra')
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('CancelamentoPedido', 'Compras', 'PedidoCompraCancelamento', 'Cancelamento', 0, 1, 0, @ID);
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409031649, '2014-12-11T11:12:32', 'Migration201409031649')
+/* Committing Transaction */
+/* 201409031649: Migration201409031649 migrated */
+
+/* 201409081504: Migration201409081504 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteSqlStatement UPDATE permissao
+	            SET controller = 'Material'
+	            where controller = 'CatalogoMaterial' */
+UPDATE permissao
+	            SET controller = 'Material'
+	            where controller = 'CatalogoMaterial'
+
+/* ExecuteSqlStatement UPDATE permissao
+	            SET descricao = 'Material'
+	            where descricao = 'Catálogo de material' */
+UPDATE permissao
+	            SET descricao = 'Material'
+	            where descricao = 'Catálogo de material'
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201409081504.renomeieCatalogoMaterial.sql */
+sp_rename 'catalogomaterial','material';
+GO
+sp_rename 'PK_catalogomaterial','PK_material';
+GO
+sp_rename 'FK_catalogomaterial_bordado','FK_material_bordado';
+GO
+sp_rename 'FK_catalogomaterial_familia','FK_material_familia';
+GO
+sp_rename 'FK_catalogomaterial_foto','FK_material_foto';
+GO
+sp_rename 'FK_catalogomaterial_generofiscal','FK_material_generofiscal';
+GO
+sp_rename 'FK_catalogomaterial_marcamaterial','FK_material_marcamaterial';
+GO
+sp_rename 'FK_catalogomaterial_origemsituacaotributaria','FK_material_origemsituacaotributaria';
+GO
+sp_rename 'FK_catalogomaterial_subcategoria','FK_material_subcategoria';
+GO
+sp_rename 'FK_catalogomaterial_tecido','FK_material_tecido';
+GO
+sp_rename 'FK_catalogomaterial_tipoitem','FK_material_tipoitem';
+GO
+sp_rename 'FK_catalogomaterial_unidademedida','FK_material_unidademedida';
+GO
+
+sp_rename 'entradacatalogomaterial','entradamaterial';
+GO
+sp_rename 'PK_entradacatalogomaterial','PK_entradamaterial';
+GO
+sp_rename 'FK_entradacatalogomaterial_depositomaterialdestino','FK_entradamaterial_depositomaterialdestino';
+GO
+sp_rename 'FK_entradacatalogomaterial_depositomaterialorigem','FK_entradamaterial_depositomaterialorigem';
+GO
+sp_rename 'FK_entradacatalogomaterial_fornecedor','FK_entradamaterial_fornecedor';
+GO
+
+sp_rename 'entradaitemcatalogomaterial','entradaitemmaterial';
+GO
+sp_rename 'PK_entradaitemcatalogomaterial','PK_entradaitemmaterial';
+GO
+sp_rename 'FK_entradaitemcatalogomaterial_catalogomaterial','FK_entradaitemmaterial_material';
+GO
+sp_rename 'FK_entradaitemcatalogomaterial_entradacatalogomaterial','FK_entradaitemmaterial_entradamaterial';
+GO
+sp_rename 'FK_entradaitemcatalogomaterial_unidademedida','FK_entradaitemmaterial_unidademedida';
+GO
+sp_rename 'entradaitemmaterial.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'entradaitemmaterial.entradacatalogomaterial_id', 'entradamaterial_id' , 'COLUMN';
+GO
+
+sp_rename 'saidacatalogomaterial','saidamaterial';
+GO
+sp_rename 'PK_saidacatalogomaterial', 'PK_saidamaterial';
+GO
+sp_rename 'FK_saidacatalogomaterial_centrocusto','FK_saidamaterial_centrocusto';
+GO
+sp_rename 'FK_saidacatalogomaterial_depositomaterialdestino','FK_saidamaterial_depositomaterialdestino';
+GO
+sp_rename 'FK_saidacatalogomaterial_depositomaterialorigem','FK_saidamaterial_depositomaterialorigem';
+GO
+
+sp_rename 'saidaitemcatalogomaterial','saidaitemmaterial';
+GO
+sp_rename 'PK_saidaitemcatalogomaterial', 'PK_saidaitemmaterial';
+GO
+sp_rename 'saidaitemmaterial.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'saidaitemmaterial.saidacatalogomaterial_id', 'saidamaterial_id' , 'COLUMN';
+GO
+sp_rename 'FK_saidaitemcatalogomaterial_catalogomaterial','FK_saidaitemmaterial_material';
+GO
+sp_rename 'FK_saidaitemcatalogomaterial_saidacatalogomaterial','FK_saidaitemmaterial_saidamaterial';
+GO
+
+sp_rename 'estoquecatalogomaterial','estoquematerial';
+GO
+sp_rename 'PK_estoquecatalogomaterial', 'PK_estoquematerial';
+GO
+sp_rename 'estoquematerial.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'FK_estoquecatalogomaterial_catalogomaterial','FK_estoquematerial_material';
+GO
+sp_rename 'FK_estoquecatalogomaterial_depositomaterial','FK_estoquematerial_depositomaterial';
+GO
+
+sp_rename 'pedidocompraitem.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'FK_pedidocompraitem_catalogomaterial','FK_pedidocompraitem_material';
+GO
+
+sp_rename 'ordementradaitemcatalogomaterial','ordementradaitemmaterial';
+GO
+sp_rename 'PK_ordementradaitemcatalogomaterial', 'PK_ordementradaitemmaterial';
+GO
+sp_rename 'ordementradaitemmaterial.ordementradacatalogomaterial_id', 'ordementradamaterial_id' , 'COLUMN';
+GO
+sp_rename 'fk_ordementradaitemcatalogomaterial_ordementradacatalogomaterial','fk_ordementradaitemmaterial_ordementradamaterial';
+GO
+sp_rename 'fk_ordementradaitemcatalogomaterial_pedidocompraitem','fk_ordementradaitemmaterial_pedidocompraitem';
+GO
+
+sp_rename 'materialcomposicaomodelo.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'FK_materialcomposicaomodelo_catalogomaterial','FK_materialcomposicaomodelo_material';
+GO
+
+sp_rename 'ordementradacatalogomaterial', 'ordementradamaterial';
+GO
+sp_rename 'PK_ordementradacatalogomaterial', 'PK_ordementradamaterial';
+GO
+sp_rename 'ordementradacompra.ordementradacatalogomaterial_id', 'ordementradamaterial_id' , 'COLUMN';
+GO
+sp_rename 'fk_ordementradacompra_ordementradacatalogomaterial','fk_ordementradacompra_ordementradamaterial';
+GO
+sp_rename 'FK_ordementradacatalogomaterial_comprador','FK_ordementradamaterial_comprador';
+GO
+
+sp_rename 'referenciaexterna.catalogomaterial_id', 'material_id' , 'COLUMN';
+GO
+sp_rename 'FK_referenciaexterna_catalogomaterial','FK_referenciaexterna_material';
+GO
+
+drop VIEW [dbo].[ConsumoMaterialColecaoView];
+GO
+CREATE VIEW [dbo].[ConsumoMaterialColecaoView]
+AS
+SELECT        ROW_NUMBER() OVER (ORDER BY cm.referencia) AS id, cm.referencia, cm.descricao, um.sigla AS unidade, mcm.quantidade * COALESCE (ft.quantidadeproducao, 1) AS quantidade, 0 AS compras, 
+COALESCE (ecm.quantidade, 0) AS estoque, 0 AS diferenca,  c.id AS colecao, (select colecao_id from fichatecnica where fichatecnica.id = ft.id) as ColecaoAprovada, scat.id AS subcategoria, cat.id AS categoria, f.id AS familia, ft.quantidadeproducao
+FROM            dbo.material AS cm INNER JOIN
+                         dbo.materialcomposicaomodelo AS mcm ON cm.id = mcm.material_id INNER JOIN
+                         dbo.sequenciaproducao AS sp ON mcm.sequenciaproducao_id = sp.id INNER JOIN
+                         dbo.modelo AS m ON sp.modelo_id = m.id INNER JOIN
+                         dbo.colecao AS c ON m.colecao_id = c.id LEFT OUTER JOIN
+                         dbo.estoquematerial AS ecm ON ecm.material_id = cm.id INNER JOIN
+                         dbo.unidademedida AS um ON mcm.unidademedida_id = um.id INNER JOIN
+                         dbo.subcategoria AS scat ON cm.subcategoria_id = scat.id INNER JOIN
+                         dbo.categoria AS cat ON scat.categoria_id = cat.id INNER JOIN
+                         dbo.familia AS f ON cm.familia_id = f.id LEFT OUTER JOIN
+                         dbo.fichatecnica AS ft ON ft.modelo_id = m.id
+
+GO
+
+drop VIEW [dbo].[ExtratoItemEstoqueView];
+GO
+CREATE VIEW [dbo].[ExtratoItemEstoqueView]
+AS
+SELECT        ROW_NUMBER() OVER (ORDER BY data) AS id, data, tipomovimentacao, material, qtdentrada, qtdSaida, depositomaterial
+FROM            (SELECT        SUM(ei.quantidade) qtdentrada, 0 qtdSaida, ei.material_id AS material, e.depositomaterialdestino_id AS depositomaterial, 
+                                                    e.dataentrada AS data, 'e' AS tipomovimentacao
+                          FROM            entradaitemmaterial ei INNER JOIN
+                                                    entradamaterial e ON e.id = ei.entradamaterial_id
+                          GROUP BY ei.material_id, e.depositomaterialdestino_id, e.dataentrada
+                          UNION ALL
+                          SELECT        0 qtdentrada, SUM(si.quantidade) qtdSaida, si.material_id AS material, s.depositomaterialorigem_id AS depositomaterial, 
+                                                   s.datasaida AS data, 's' AS tipomovimentacao
+                          FROM            saidaitemmaterial si INNER JOIN
+                                                   saidamaterial s ON s.id = si.saidamaterial_id
+                          GROUP BY si.material_id, s.depositomaterialorigem_id, s.datasaida) AS extrato
+
+GO
+
+Drop PROCEDURE [dbo].[uspSaldoEstoqueCatalogoMaterial];
+GO
+CREATE PROCEDURE [dbo].[uspSaldoEstoquematerial]
+	@Idmaterial bigint,
+	@IdDepositoMaterial bigint,
+	@Data datetime
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	DECLARE @SaldoAtual float = (SELECT quantidade FROM estoquematerial
+		WHERE material_id = @Idmaterial AND depositomaterial_id = @IdDepositoMaterial);
+	DECLARE @TotalEntrada float = (SELECT COALESCE(SUM(ei.quantidade), 0)
+		FROM entradaitemmaterial ei INNER JOIN entradamaterial e ON e.id = ei.entradamaterial_id
+		WHERE ei.material_id = @Idmaterial 
+			AND e.depositomaterialdestino_id = @IdDepositoMaterial
+			AND e.dataentrada > @Data);
+    DECLARE @TotalSaida float = (SELECT COALESCE(SUM(si.quantidade), 0)
+		FROM saidaitemmaterial si INNER JOIN saidamaterial s ON s.id = si.saidamaterial_id
+		where si.material_id = @Idmaterial 
+			AND s.depositomaterialorigem_id = @IdDepositoMaterial
+			AND s.datasaida > @Data);
+	SELECT @SaldoAtual - @TotalEntrada + @TotalSaida;
+END
+
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409081504, '2014-12-11T11:12:33', 'Migration201409081504')
+/* Committing Transaction */
+/* 201409081504: Migration201409081504 migrated */
+
+/* 201409091432: Migration201409091432 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteSqlStatement 
+                DECLARE @id int
+                select @id = id from permissao where action = 'Detalhar' and controller = 'Modelo'
+                UPDATE permissao
+	                SET permissaopai_id = @id, descricao = 'Sequência de Produção'
+	                WHERE descricao = 'Sequência Produção' and area = 'EngenhariaProduto' */
+
+                DECLARE @id int
+                select @id = id from permissao where action = 'Detalhar' and controller = 'Modelo'
+                UPDATE permissao
+	                SET permissaopai_id = @id, descricao = 'Sequência de Produção'
+	                WHERE descricao = 'Sequência Produção' and area = 'EngenhariaProduto'
+
+/* ExecuteSqlStatement 
+                declare @id int
+
+                select @id = id from permissao where action = 'Detalhar' and controller = 'Modelo'
+                UPDATE permissao
+	                SET permissaopai_id = @id
+	                WHERE ACTION = 'materialcomposicaomodelo' and area = 'EngenhariaProduto' */
+
+                declare @id int
+
+                select @id = id from permissao where action = 'Detalhar' and controller = 'Modelo'
+                UPDATE permissao
+	                SET permissaopai_id = @id
+	                WHERE ACTION = 'materialcomposicaomodelo' and area = 'EngenhariaProduto'
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409091432, '2014-12-11T11:12:33', 'Migration201409091432')
+/* Committing Transaction */
+/* 201409091432: Migration201409091432 migrated */
+
+/* 201409100907: Migration201409100907 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201409100907.createtabelasconferencia.sql */
+ALTER TABLE ordementradacompra drop constraint fk_ordementradacompra_ordementradamaterial
+drop table ordementradaitemmaterial
+drop table ordementradamaterial
+
+CREATE TABLE ConferenciaEntradaMaterial(
+	id bigint NOT NULL,
+	numero bigint NOT NULL,	
+	data datetime NOT NULL,
+	dataatualizacao datetime NOT NULL,
+	observacao nvarchar(4000) NULL,
+	comprador_id bigint NOT NULL,
+	autorizado bit NOT NULL,
+	conferido bit NOT NULL,
+	CONSTRAINT PK_conferenicaentradamaterial PRIMARY KEY (id)
+)
+GO
+ALTER TABLE conferenciaentradamaterial ADD  CONSTRAINT FK_conferenicaentradamaterial_comprador FOREIGN KEY(comprador_id) REFERENCES pessoa (id)
+GO
+
+CREATE TABLE conferenciaentradamaterialitem(
+	id bigint NOT NULL,
+	quantidade float NOT NULL,
+	quantidadeconferida float NOT NULL,
+	situacaoconferencia nvarchar (254) NOT NULL,
+	unidademedida_id bigint NOT NULL,
+	material_id bigint NOT NULL,
+	conferenciaentradamaterial_id bigint NOT NULL,
+
+CONSTRAINT PK_conferenciaentradamaterialitem PRIMARY KEY (id)
+)
+GO
+
+ALTER TABLE conferenciaentradamaterialitem  ADD  CONSTRAINT fk_conferenciaentradamaterialitem_conferenciaentradamaterial
+FOREIGN KEY(conferenciaentradamaterial_id) REFERENCES conferenciaentradamaterial (id)
+GO
+
+ALTER TABLE conferenciaentradamaterialitem  ADD  CONSTRAINT fk_conferenciaentradamaterialitem_material
+FOREIGN KEY(material_id) REFERENCES material (id)
+GO
+
+ALTER TABLE conferenciaentradamaterialitem  ADD  CONSTRAINT fk_conferenciaentradamaterialitem_unidademedida
+FOREIGN KEY(unidademedida_id) REFERENCES unidademedida (id)
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409100907, '2014-12-11T11:12:33', 'Migration201409100907')
+/* Committing Transaction */
+/* 201409100907: Migration201409100907 migrated */
+
+/* 201409101646: Migration201409101646 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteSqlStatement 
+                DECLARE @id int
+                SELECT @id = id from permissao where action = 'Index' and controller = 'PedidoCompra'
+                UPDATE permissao
+	                SET permissaopai_id = @id, descricao = 'Validação'
+	                WHERE action = 'Validar' and area = 'Compras'
+		        
+                DELETE FROM permissaotousuario where permissao_id in (
+                    SELECT id from permissao WHERE descricao = '2. Validação da Compra' and area = 'Compras')
+                DELETE FROM permissao WHERE descricao = '2. Validação da Compra' and area = 'Compras'	
+                
+                UPDATE permissao
+	                SET descricao = 'Pedido de Compra'
+	                WHERE action = 'Index' and area = 'Compras' and controller = 'PedidoCompra'
+                UPDATE permissao
+	                SET descricao = 'Recebimento de Compra'
+	                WHERE descricao = '3. Recebimento de Compra' */
+
+                DECLARE @id int
+                SELECT @id = id from permissao where action = 'Index' and controller = 'PedidoCompra'
+                UPDATE permissao
+	                SET permissaopai_id = @id, descricao = 'Validação'
+	                WHERE action = 'Validar' and area = 'Compras'
+		        
+                DELETE FROM permissaotousuario where permissao_id in (
+                    SELECT id from permissao WHERE descricao = '2. Validação da Compra' and area = 'Compras')
+                DELETE FROM permissao WHERE descricao = '2. Validação da Compra' and area = 'Compras'	
+                
+                UPDATE permissao
+	                SET descricao = 'Pedido de Compra'
+	                WHERE action = 'Index' and area = 'Compras' and controller = 'PedidoCompra'
+                UPDATE permissao
+	                SET descricao = 'Recebimento de Compra'
+	                WHERE descricao = '3. Recebimento de Compra'
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409101646, '2014-12-11T11:12:33', 'Migration201409101646')
+/* Committing Transaction */
+/* 201409101646: Migration201409101646 migrated */
+
+/* 201409121005: Migration201409121005 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable modelo */
+/* No SQL statement executed. */
+
+/* CreateColumn modelo dataprevisaoenvio DateTime */
+ALTER TABLE [dbo].[modelo] ADD [dataprevisaoenvio] DATETIME
+
+/* DeleteColumn pedidocompra dataentrega */
+DECLARE @default sysname, @sql nvarchar(max);
+
+-- get name of default constraint
+SELECT @default = name
+FROM sys.default_constraints
+WHERE parent_object_id = object_id('[dbo].[pedidocompra]')
+AND type = 'D'
+AND parent_column_id = (
+SELECT column_id
+FROM sys.columns
+WHERE object_id = object_id('[dbo].[pedidocompra]')
+AND name = 'dataentrega'
+);
+
+-- create alter table command to drop constraint as string and run it
+SET @sql = N'ALTER TABLE [dbo].[pedidocompra] DROP CONSTRAINT ' + @default;
+EXEC sp_executesql @sql;
+
+-- now we can finally drop column
+ALTER TABLE [dbo].[pedidocompra] DROP COLUMN [dataentrega];
+
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201409121005.createrecebimentocompra.sql */
+drop table ordementradacomprapedidocompra
+drop table ordementradacompra
+
+--Recebimento da Compra
+CREATE TABLE recebimentocompra(
+	id bigint NOT NULL,
+	numero bigint NOT NULL,	
+	data datetime NOT NULL,
+	dataalteracao datetime NOT NULL,
+	observacao nvarchar(4000) NULL,
+	valor float NOT NULL,
+	--comprador_id bigint NOT NULL,
+	fornecedor_id bigint NOT NULL,
+	unidade_id bigint NOT NULL,
+	situacaorecebimentocompra nvarchar(400) NOT NULL,
+	CONSTRAINT PK_recebimentocompra PRIMARY KEY (id)
+)
+GO
+
+--ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_comprador FOREIGN KEY(comprador_id) REFERENCES pessoa (id)
+--GO
+ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_fornecedor FOREIGN KEY(fornecedor_id) REFERENCES pessoa (id)
+GO
+ALTER TABLE recebimentocompra ADD CONSTRAINT FK_recebimentocompra_unidade FOREIGN KEY(unidade_id) REFERENCES pessoa (id)
+GO
+
+-- Tabela de relacionamento recebimentocompra e pedidocompra
+CREATE TABLE recebimentocomprapedidocompra(	
+	pedidocompra_id bigint NOT NULL,
+	recebimentocompra_id bigint NOT NULL) 
+GO    
+	
+ALTER TABLE recebimentocomprapedidocompra ADD CONSTRAINT FK_recebimentocomprapedidocompra_recebimentocompra FOREIGN KEY(recebimentocompra_id)
+REFERENCES recebimentocompra (id)
+GO
+
+ALTER TABLE recebimentocomprapedidocompra ADD CONSTRAINT FK_recebimentocomprapedidocompra_pedidocompra FOREIGN KEY(pedidocompra_id)
+REFERENCES pedidocompra (id)
+GO
+
+-- Recebimento Compra Item
+CREATE TABLE recebimentocompraitem(
+	id bigint NOT NULL,
+	quantidade float NOT NULL,
+	custo float NOT NULL,
+	valortotal float NOT NULL,	
+	material_id bigint NOT NULL,
+	recebimentocompra_id bigint NOT NULL,
+	CONSTRAINT PK_recebimentocompraitem PRIMARY KEY (id)
+)
+GO
+
+ALTER TABLE recebimentocompraitem  ADD  CONSTRAINT fk_conferenciaentradamaterialitem_recebimentocompra
+FOREIGN KEY(recebimentocompra_id) REFERENCES recebimentocompra (id)
+GO
+
+ALTER TABLE recebimentocompraitem  ADD  CONSTRAINT fk_recebimentocompraitem_material
+FOREIGN KEY(material_id) REFERENCES material (id)
+GO
+
+ALTER TABLE conferenciaentradamaterial ADD recebimentocompra_id bigint;
+
+ALTER TABLE conferenciaentradamaterial ADD CONSTRAINT FK_conferenciaentradamaterial_recebimentocompra FOREIGN KEY(recebimentocompra_id)
+REFERENCES recebimentocompra (id)
+GO
+
+-- Tabela de DetalhamentoRecebimentoCompraItem
+CREATE TABLE detalhamentorecebimentocompraitem (	
+	quantidade float NOT NULL,
+	pedidocompraitem_id bigint NOT NULL,
+	pedidocompra_id bigint NOT NULL,
+	recebimentocompra_id bigint NOT NULL)
+GO    
+	
+ALTER TABLE detalhamentorecebimentocompraitem ADD CONSTRAINT FK_detalhamentorecebimentocompraitem_pedidocompra FOREIGN KEY(pedidocompra_id)
+REFERENCES pedidocompra (id)
+GO
+
+ALTER TABLE detalhamentorecebimentocompraitem ADD CONSTRAINT FK_detalhamentorecebimentocompraitem_recebimentocompra FOREIGN KEY(recebimentocompra_id)
+REFERENCES recebimentocompra (id)
+GO
+
+ALTER TABLE detalhamentorecebimentocompraitem ADD CONSTRAINT FK_detalhamentorecebimentocompraitem_pedidocompraitem FOREIGN KEY(pedidocompraitem_id)
+REFERENCES pedidocompraitem (id)
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201409121005, '2014-12-11T11:12:33', 'Migration201409121005')
+/* Committing Transaction */
+/* 201409121005: Migration201409121005 migrated */
+
+/* 201410031432: Migration201410031432 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201410031432.atualizeViewConsumoMaterial.sql */
+
+drop VIEW [dbo].[ConsumoMaterialColecaoView];
+GO
+CREATE VIEW [dbo].[ConsumoMaterialColecaoView]
+AS
+SELECT        ROW_NUMBER() OVER (ORDER BY cm.referencia) AS id, cm.referencia, cm.descricao, 
+um.sigla AS unidade, mcm.quantidade * COALESCE (ft.quantidadeproducao, 1) AS quantidade, 0 AS compras, 
+COALESCE (ecm.quantidade, 0) AS estoque, 0 AS diferenca, c.id AS colecao, m.dataprevisaoenvio, 
+    (SELECT        colecao_id
+      FROM            fichatecnica
+      WHERE        fichatecnica.id = ft.id) AS ColecaoAprovada, scat.id AS subcategoria, cat.id AS categoria, f.id AS familia, ft.quantidadeproducao
+FROM            dbo.material AS cm INNER JOIN
+                         dbo.materialcomposicaomodelo AS mcm ON cm.id = mcm.material_id INNER JOIN
+                         dbo.sequenciaproducao AS sp ON mcm.sequenciaproducao_id = sp.id INNER JOIN
+                         dbo.modelo AS m ON sp.modelo_id = m.id INNER JOIN
+                         dbo.colecao AS c ON m.colecao_id = c.id LEFT OUTER JOIN
+                         dbo.estoquematerial AS ecm ON ecm.material_id = cm.id INNER JOIN
+                         dbo.unidademedida AS um ON mcm.unidademedida_id = um.id INNER JOIN
+                         dbo.subcategoria AS scat ON cm.subcategoria_id = scat.id INNER JOIN
+                         dbo.categoria AS cat ON scat.categoria_id = cat.id INNER JOIN
+                         dbo.familia AS f ON cm.familia_id = f.id LEFT OUTER JOIN
+                         dbo.fichatecnica AS ft ON ft.modelo_id = m.id
+
+GO
+
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201410031432, '2014-12-11T11:12:33', 'Migration201410031432')
+/* Committing Transaction */
+/* 201410031432: Migration201410031432 migrated */
+
+/* 201410081556: Migration201410081556 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable detalhamentorecebimentocompraitem */
+/* No SQL statement executed. */
+
+/* CreateColumn detalhamentorecebimentocompraitem id Int64 */
+ALTER TABLE [dbo].[detalhamentorecebimentocompraitem] ADD [id] BIGINT NOT NULL
+
+/* AlterTable detalhamentorecebimentocompraitem */
+/* No SQL statement executed. */
+
+/* CreateColumn detalhamentorecebimentocompraitem recebimentocompraitem_id Int64 */
+ALTER TABLE [dbo].[detalhamentorecebimentocompraitem] ADD [recebimentocompraitem_id] BIGINT
+
+/* CreateForeignKey FK_detalhamentorecebimentocompraitem_recebimentocompraitem detalhamentorecebimentocompraitem(recebimentocompraitem_id) recebimentocompraitem(id) */
+ALTER TABLE [dbo].[detalhamentorecebimentocompraitem] ADD CONSTRAINT [FK_detalhamentorecebimentocompraitem_recebimentocompraitem] FOREIGN KEY ([recebimentocompraitem_id]) REFERENCES [dbo].[recebimentocompraitem] ([id])
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201410081556.atualizerecebimentocompra.sql */
+sp_rename 'recebimentocompraitem.custo', 'valorunitario' , 'COLUMN';
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201410081556, '2014-12-11T11:12:33', 'Migration201410081556')
+/* Committing Transaction */
+/* 201410081556: Migration201410081556 migrated */
+
+/* 201410142157: Migration201410142157 migrating ============================= */
+
+/* Beginning Transaction */
+/* CreateTable titulopagar */
+CREATE TABLE [dbo].[titulopagar] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [numero] NVARCHAR(100) NOT NULL, [parcela] INT NOT NULL, [plano] INT NOT NULL, [emissao] DATETIME NOT NULL, [vencimento] DATETIME NOT NULL, [prorrogacao] DATETIME NOT NULL, [valor] DOUBLE PRECISION NOT NULL, [saldodevedor] DOUBLE PRECISION NOT NULL, [historico] NVARCHAR(100), [observacao] NVARCHAR(4000), [provisorio] BIT NOT NULL, [situacaotitulo] NVARCHAR(255) NOT NULL, [datacadastro] DATETIME NOT NULL, [dataalteracao] DATETIME NOT NULL, [fornecedor_id] BIGINT NOT NULL, [unidade_id] BIGINT NOT NULL, [banco_id] BIGINT NOT NULL, CONSTRAINT [PK_titulopagar] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_titulopagar_fornecedor titulopagar(fornecedor_id) pessoa(id) */
+ALTER TABLE [dbo].[titulopagar] ADD CONSTRAINT [FK_titulopagar_fornecedor] FOREIGN KEY ([fornecedor_id]) REFERENCES [dbo].[pessoa] ([id])
+
+/* CreateForeignKey FK_titulopagar_unidade titulopagar(unidade_id) pessoa(id) */
+ALTER TABLE [dbo].[titulopagar] ADD CONSTRAINT [FK_titulopagar_unidade] FOREIGN KEY ([unidade_id]) REFERENCES [dbo].[pessoa] ([id])
+
+/* CreateForeignKey FK_titulopagar_banco titulopagar(banco_id) banco(id) */
+ALTER TABLE [dbo].[titulopagar] ADD CONSTRAINT [FK_titulopagar_banco] FOREIGN KEY ([banco_id]) REFERENCES [dbo].[banco] ([id])
+
+/* CreateTable titulopagarbaixa */
+CREATE TABLE [dbo].[titulopagarbaixa] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [numerobaixa] BIGINT NOT NULL, [datapagamento] DATETIME NOT NULL, [dataalteracao] DATETIME NOT NULL, [juros] DOUBLE PRECISION NOT NULL, [descontos] DOUBLE PRECISION NOT NULL, [despesas] DOUBLE PRECISION NOT NULL, [valor] DOUBLE PRECISION NOT NULL, [historico] NVARCHAR(100), [observacao] NVARCHAR(4000), [titulopagar_id] BIGINT NOT NULL, CONSTRAINT [PK_titulopagarbaixa] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_titulopagarbaixa_titulopagar titulopagarbaixa(titulopagar_id) titulopagar(id) */
+ALTER TABLE [dbo].[titulopagarbaixa] ADD CONSTRAINT [FK_titulopagarbaixa_titulopagar] FOREIGN KEY ([titulopagar_id]) REFERENCES [dbo].[titulopagar] ([id])
+
+/* CreateTable rateiodespesareceita */
+CREATE TABLE [dbo].[rateiodespesareceita] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [valor] DOUBLE PRECISION NOT NULL, [titulopagar_id] BIGINT NOT NULL, [despesareceita_id] BIGINT NOT NULL, CONSTRAINT [PK_rateiodespesareceita] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_rateiodespesareceita_titulopagar rateiodespesareceita(titulopagar_id) titulopagar(id) */
+ALTER TABLE [dbo].[rateiodespesareceita] ADD CONSTRAINT [FK_rateiodespesareceita_titulopagar] FOREIGN KEY ([titulopagar_id]) REFERENCES [dbo].[titulopagar] ([id])
+
+/* CreateForeignKey FK_rateiodespesareceita_despesareceita rateiodespesareceita(despesareceita_id) despesareceita(id) */
+ALTER TABLE [dbo].[rateiodespesareceita] ADD CONSTRAINT [FK_rateiodespesareceita_despesareceita] FOREIGN KEY ([despesareceita_id]) REFERENCES [dbo].[despesareceita] ([id])
+
+/* CreateTable rateiocentrocusto */
+CREATE TABLE [dbo].[rateiocentrocusto] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [valor] DOUBLE PRECISION NOT NULL, [titulopagar_id] BIGINT NOT NULL, [centrocusto_id] BIGINT NOT NULL, CONSTRAINT [PK_rateiocentrocusto] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_rateiocentrocusto_titulopagar rateiocentrocusto(titulopagar_id) titulopagar(id) */
+ALTER TABLE [dbo].[rateiocentrocusto] ADD CONSTRAINT [FK_rateiocentrocusto_titulopagar] FOREIGN KEY ([titulopagar_id]) REFERENCES [dbo].[titulopagar] ([id])
+
+/* CreateForeignKey FK_rateiocentrocusto_centrocusto rateiocentrocusto(centrocusto_id) centrocusto(id) */
+ALTER TABLE [dbo].[rateiocentrocusto] ADD CONSTRAINT [FK_rateiocentrocusto_centrocusto] FOREIGN KEY ([centrocusto_id]) REFERENCES [dbo].[centrocusto] ([id])
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201410142157.permissao.sql */
+-- Pagar
+-- 1. Lançamento
+-- 2. Baixa
+-- 3. Previsão Despesas
+
+DECLARE @FINANCEIROID AS BIGINT, @PAGARID AS BIGINT, @ID AS BIGINT;
+SET @FINANCEIROID = (SELECT id FROM permissao WHERE area = 'Financeiro' AND controller IS NULL AND [action] IS NULL AND [permissaopai_id] IS NULL);
+
+-- Cria o submenu Pagar
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES (NULL, 'Financeiro', NULL, 'Pagar', 1, 1, 0, @FINANCEIROID);
+SET @PAGARID = SCOPE_IDENTITY()
+
+-- Cria o menu Contas a pagar
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Index', 'Financeiro', 'TituloPagar', 'Lançamento', 1, 1, 0, @PAGARID);
+SET @ID = SCOPE_IDENTITY()
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Novo', 'Financeiro', 'TituloPagar', 'Novo', 0, 1, 0, @ID);
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Editar', 'Financeiro', 'TituloPagar', 'Editar', 0, 1, 0, @ID);
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) VALUES ('Baixar', 'Financeiro', 'TituloPagar', 'Baixar', 0, 1, 0, @ID);
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201410142157, '2014-12-11T11:12:33', 'Migration201410142157')
+/* Committing Transaction */
+/* 201410142157: Migration201410142157 migrated */
+
+/* 201410200907: Migration201410200907 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201410200907.permissao.sql */
+UPDATE permissao SET controller='RecebimentoCompra' WHERE controller = 'OrdemEntradaCompra'
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201410200907, '2014-12-11T11:12:33', 'Migration201410200907')
+/* Committing Transaction */
+/* 201410200907: Migration201410200907 migrated */
+
+/* 201411051458: Migration201411051458 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411051458.permissao.sql */
+UPDATE permissao SET controller = 'EntradaMaterial' WHERE controller = 'EntradaCatalogoMaterial';
+UPDATE permissao SET controller = 'SaidaMaterial' WHERE controller = 'SaidaCatalogoMaterial';
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411051458, '2014-12-11T11:12:33', 'Migration201411051458')
+/* Committing Transaction */
+/* 201411051458: Migration201411051458 migrated */
+
+/* 201411051737: Migration201411051737 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411051737.permissao.sql */
+DECLARE @RELATORIOID AS BIGINT, @ID AS BIGINT;
+SET @RELATORIOID = (SELECT id FROM PERMISsao where descricao = 'Relatórios' and area ='EngenhariaProduto');
+
+SET @ID = SCOPE_IDENTITY()
+
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) 
+VALUES ('ConsumoMaterialPorModelo', 'EngenhariaProduto', 'Relatorio', 'Consumo Material Por Modelo',1 ,1, @RELATORIOID, @ID);
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411051737, '2014-12-11T11:12:33', 'Migration201411051737')
+/* Committing Transaction */
+/* 201411051737: Migration201411051737 migrated */
+
+/* 201411071557: Migration201411071557 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable recebimentocompra */
+/* No SQL statement executed. */
+
+/* CreateColumn recebimentocompra entradamaterial_id Int64 */
+ALTER TABLE [dbo].[recebimentocompra] ADD [entradamaterial_id] BIGINT
+
+/* CreateForeignKey FK_recebimentocompra_entradamaterial recebimentocompra(entradamaterial_id) entradamaterial(id) */
+ALTER TABLE [dbo].[recebimentocompra] ADD CONSTRAINT [FK_recebimentocompra_entradamaterial] FOREIGN KEY ([entradamaterial_id]) REFERENCES [dbo].[entradamaterial] ([id])
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411071557, '2014-12-11T11:12:33', 'Migration201411071557')
+/* Committing Transaction */
+/* 201411071557: Migration201411071557 migrated */
+
+/* 201411101735: Migration201411101735 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411101735.estoquematerial.sql */
+delete from entradaitemmaterial
+delete from entradamaterial
+delete from saidaitemmaterial
+delete from saidamaterial
+
+IF OBJECT_ID('dbo.entradaitemmaterial', 'U') IS NOT NULL
+  DROP TABLE dbo.entradaitemmaterial
+
+IF OBJECT_ID('dbo.saidaitemmaterial', 'U') IS NOT NULL
+  DROP TABLE dbo.saidaitemmaterial
+
+IF OBJECT_ID('dbo.movimentacaoestoquematerial', 'U') IS NOT NULL
+  DROP TABLE dbo.movimentacaoestoquematerial
+
+IF OBJECT_ID('dbo.estoquematerial', 'U') IS NOT NULL
+  DROP TABLE dbo.estoquematerial
+
+CREATE TABLE estoquematerial(
+	[id] [bigint] NOT NULL,
+	[quantidade] [float] NOT NULL,
+	[reserva] [float] NOT NULL,
+	[material_id] [bigint] NOT NULL,
+	[depositomaterial_id] [bigint] NOT NULL,
+	CONSTRAINT [PK_estoquematerial] PRIMARY KEY (id)
+ )
+GO
+
+ALTER TABLE estoquematerial  WITH CHECK ADD  CONSTRAINT [FK_estoquematerial_depositomaterial] FOREIGN KEY([depositomaterial_id])
+REFERENCES [dbo].[depositomaterial] ([id])
+GO
+
+ALTER TABLE estoquematerial  WITH CHECK ADD  CONSTRAINT [FK_estoquematerial_material] FOREIGN KEY([material_id])
+REFERENCES [dbo].[material] ([id])
+GO
+
+CREATE TABLE [dbo].movimentacaoestoquematerial(
+	[id] [bigint] NOT NULL,
+	[quantidade] [float] NOT NULL,	
+	[tipomovimentacaoestoquematerial] [nvarchar](255) NOT NULL,
+	[data] [datetime] NOT NULL,
+	[estoquematerial_id] [bigint] NOT NULL,	
+ CONSTRAINT [PK_movimentacaoestoquematerial] PRIMARY KEY (id)
+) 
+GO
+
+ALTER TABLE [dbo].movimentacaoestoquematerial  WITH CHECK ADD  CONSTRAINT [FK_movimentacaoestoquematerial_estoquematerial] FOREIGN KEY([estoquematerial_id])
+REFERENCES [dbo].estoquematerial ([id])
+GO
+
+CREATE TABLE [dbo].[entradaitemmaterial](
+	[id] [bigint] NOT NULL,
+	[quantidadecompra] [float] NOT NULL,	
+	[entradamaterial_id] [bigint] NOT NULL,
+	[material_id] [bigint] NOT NULL,
+	[unidademedidacompra_id] [bigint] NOT NULL,
+	[movimentacaoestoquematerial_id] [bigint] NOT NULL
+ CONSTRAINT [PK_entradaitemmaterial] PRIMARY KEY (id)
+)
+GO
+
+ALTER TABLE [dbo].[entradaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_entradaitemmaterial_entradamaterial] FOREIGN KEY([entradamaterial_id])
+REFERENCES [dbo].[entradamaterial] ([id])
+GO
+
+ALTER TABLE [dbo].[entradaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_entradaitemmaterial_material] FOREIGN KEY([material_id])
+REFERENCES [dbo].[material] ([id])
+GO
+
+ALTER TABLE [dbo].[entradaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_entradaitemmaterial_unidademedida] FOREIGN KEY([unidademedidacompra_id])
+REFERENCES [dbo].[unidademedida] ([id])
+GO
+
+ALTER TABLE [dbo].[entradaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_entradaitemmaterial_movimentacaoestoquematerial] FOREIGN KEY([movimentacaoestoquematerial_id])
+REFERENCES [dbo].movimentacaoestoquematerial ([id])
+GO
+
+
+
+CREATE TABLE [dbo].[saidaitemmaterial](
+	[id] [bigint] NOT NULL,	
+	[saidamaterial_id] [bigint] NOT NULL,
+	[material_id] [bigint] NOT NULL,
+	[movimentacaoestoquematerial_id] [bigint] NOT NULL
+ CONSTRAINT [PK_saidaitemmaterial] PRIMARY KEY (id)
+ )
+GO
+
+ALTER TABLE [dbo].[saidaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_saidaitemmaterial_material] FOREIGN KEY([material_id])
+REFERENCES [dbo].[material] ([id])
+GO
+
+ALTER TABLE [dbo].[saidaitemmaterial]  WITH CHECK ADD  CONSTRAINT [FK_saidaitemmaterial_saidamaterial] FOREIGN KEY([saidamaterial_id])
+REFERENCES [dbo].[saidamaterial] ([id])
+GO
+
+ALTER TABLE [dbo].saidaitemmaterial  WITH CHECK ADD  CONSTRAINT [FK_saidaitemmaterial_movimentacaoestoquematerial] FOREIGN KEY([movimentacaoestoquematerial_id])
+REFERENCES [dbo].movimentacaoestoquematerial ([id])
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411101735, '2014-12-11T11:12:33', 'Migration201411101735')
+/* Committing Transaction */
+/* 201411101735: Migration201411101735 migrated */
+
+/* 201411141420: Migration201411141420 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable modelo */
+/* No SQL statement executed. */
+
+/* CreateColumn modelo chaveexterna String */
+ALTER TABLE [dbo].[modelo] ADD [chaveexterna] NVARCHAR(255)
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411141420, '2014-12-11T11:12:34', 'Migration201411141420')
+/* Committing Transaction */
+/* 201411141420: Migration201411141420 migrated */
+
+/* 201411190852: Migration201411190852 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable material */
+/* No SQL statement executed. */
+
+/* AlterColumn material ncm String */
+ALTER TABLE [dbo].[material] ALTER COLUMN [ncm] NVARCHAR(255)
+
+/* AlterTable material */
+/* No SQL statement executed. */
+
+/* AlterColumn material familia_id Int64 */
+ALTER TABLE [dbo].[material] ALTER COLUMN [familia_id] BIGINT
+
+/* AlterTable material */
+/* No SQL statement executed. */
+
+/* AlterColumn material generofiscal_id Int64 */
+ALTER TABLE [dbo].[material] ALTER COLUMN [generofiscal_id] BIGINT
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411190852.atualizacaoUniquekeys.sql */
+-- O código abaixo gera e executa uma sql para cada tabela do banco que possui Id e atualiza a tabela uniqueKeys com o maior valor de Id.
+delete from uniquekeys
+
+declare @uniqueQueries table
+(
+	Strings        varchar(max)    not null
+)
+
+insert into @uniqueQueries 
+select 'INSERT uniquekeys SELECT * FROM (SELECT ''' + name + ''' as nome, MAX(id) + 1 as id FROM ' + name + ') as result WHERE result.id is not null;'
+from sys.sysobjects as tabela
+where type = 'U' 
+and id in (SELECT object_id FROM sys.columns WHERE [name] = 'id')
+
+-- Determine loop boundaries.
+declare @StringSql nvarchar(500)
+declare @counter int = 0
+declare @total int = isnull((select count(1) from @uniqueQueries), 0)
+
+while (@counter <> (@total))
+begin          
+       set @StringSql = (select Strings from @uniqueQueries order by Strings offset @counter rows fetch next 1 rows only)	         
+       
+	   exec sp_executesql  @StringSql        
+
+       set @counter = @counter + 1
+end
+
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411190852, '2014-12-11T11:12:35', 'Migration201411190852')
+/* Committing Transaction */
+/* 201411190852: Migration201411190852 migrated */
+
+/* 201411211020: Migration201411211020 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411211020.permissao.sql */
+DECLARE @IDPAI AS BIGINT, @ID AS BIGINT;
+SET @IDPAI = (select permissaopai_id from permissao where descricao = 'Gestão de Compra');
+
+SET @ID = (select id from permissao where descricao = 'Gestão de Compra');
+
+delete from permissaotousuario where  permissao_id = @ID;
+delete from permissaotousuario where  permissao_id = @IDPAI;
+delete from permissao where  id = @ID;
+delete from permissao where  id = @IDPAI;
+
+DECLARE @RELATORIOID AS BIGINT, @IDCONSUMOMATERIAL as BIGINT;
+SET @RELATORIOID = (SELECT id FROM PERMISSAO where descricao = 'Relatórios' and area ='EngenhariaProduto');
+SET @IDCONSUMOMATERIAL = (SELECT id from permissao where descricao = 'Consumo Material Por Modelo' and permissaopai_id != @RELATORIOID);
+
+delete from permissaotousuario where permissao_id = @IDCONSUMOMATERIAL;
+delete from permissao where id = @IDCONSUMOMATERIAL;
+
+----------------------------
+
+drop VIEW [dbo].ExtratoItemEstoqueView
+GO
+CREATE VIEW [dbo].ExtratoItemEstoqueView
+AS
+SELECT     ROW_NUMBER() OVER (ORDER BY data) AS id, data, tipomovimentacao, material, qtdentrada, qtdSaida, depositomaterial
+FROM         (SELECT     SUM(mem.quantidade) qtdentrada, 0 qtdSaida, ei.material_id AS material, e.depositomaterialdestino_id AS depositomaterial, e.dataentrada AS data,
+                                              'e' AS tipomovimentacao
+                       FROM          movimentacaoestoquematerial mem inner join (entradaitemmaterial ei INNER JOIN
+                                              entradamaterial e ON e.id = ei.entradamaterial_id) ON mem.id = ei.movimentacaoestoquematerial_id
+ 
+                       GROUP BY ei.material_id, e.depositomaterialdestino_id, e.dataentrada
+                       UNION ALL
+                       SELECT     0 qtdentrada, SUM(mem.quantidade) qtdSaida, si.material_id AS material, s.depositomaterialorigem_id AS depositomaterial, s.datasaida AS data,
+                                             's' AS tipomovimentacao
+                       FROM          movimentacaoestoquematerial mem inner join (saidaitemmaterial si INNER JOIN
+                                             saidamaterial s ON s.id = si.saidamaterial_id) ON mem.id = si.movimentacaoestoquematerial_id
+ 
+                       GROUP BY si.material_id, s.depositomaterialorigem_id, s.datasaida) AS extrato
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411211020, '2014-12-11T11:12:35', 'Migration201411211020')
+/* Committing Transaction */
+/* 201411211020: Migration201411211020 migrated */
+
+/* 201411211534: Migration201411211534 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable operacaoproducao */
+/* No SQL statement executed. */
+
+/* CreateColumn operacaoproducao pesoProdutividade Double */
+ALTER TABLE [dbo].[operacaoproducao] ADD [pesoProdutividade] DOUBLE PRECISION
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411211534.permissao.sql */
+update permissao set descricao='Operação Setor', area='Comum', permissaopai_id=1 where id=267
+update permissao set permissaopai_id= 1, descricao='Setor Departamento', area='Comum' where id=262
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411211534, '2014-12-11T11:12:35', 'Migration201411211534')
+/* Committing Transaction */
+/* 201411211534: Migration201411211534 migrated */
+
+/* 201411251155: Migration201411251155 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201411251155.permissao.sql */
+--Sequencia Operacional Natureza
+CREATE TABLE [dbo].[sequenciaoperacionalnatureza](
+	[id] [bigint] NOT NULL,
+	[sequencia] [int] NULL,
+	[natureza_id] [bigint] NOT NULL,
+	[departamentoproducao_id] [bigint] NOT NULL,
+	[setorproducao_id] [bigint] NOT NULL,
+	[operacaoproducao_id] [bigint] NOT NULL,
+ CONSTRAINT [PK_sequenciaoperacionalnatureza] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza]  WITH CHECK ADD  CONSTRAINT [FK_sequenciaoperacionalnatureza_departamento] FOREIGN KEY([departamentoproducao_id])
+REFERENCES [dbo].[departamentoproducao] ([id])
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza] CHECK CONSTRAINT [FK_sequenciaoperacionalnatureza_departamento]
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza]  WITH CHECK ADD  CONSTRAINT [FK_sequenciaoperacionalnatureza_natureza] FOREIGN KEY([natureza_id])
+REFERENCES [dbo].[natureza] ([id])
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza] CHECK CONSTRAINT [FK_sequenciaoperacionalnatureza_natureza]
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza]  WITH CHECK ADD  CONSTRAINT [FK_sequenciaoperacionalnatureza_operacaoproducao] FOREIGN KEY([operacaoproducao_id])
+REFERENCES [dbo].[operacaoproducao] ([id])
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza] CHECK CONSTRAINT [FK_sequenciaoperacionalnatureza_operacaoproducao]
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza]  WITH CHECK ADD  CONSTRAINT [FK_sequenciaoperacionalnatureza_setorproducao] FOREIGN KEY([setorproducao_id])
+REFERENCES [dbo].[setorproducao] ([id])
+GO
+
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza] CHECK CONSTRAINT [FK_sequenciaoperacionalnatureza_setorproducao]
+GO
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411251155, '2014-12-11T11:12:35', 'Migration201411251155')
+/* Committing Transaction */
+/* 201411251155: Migration201411251155 migrated */
+
+/* 201411251815: Migration201411251815 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable parametromodulocompra */
+/* No SQL statement executed. */
+
+/* CreateColumn parametromodulocompra percentualcriacaopedidoautorizadorecebimento Double */
+ALTER TABLE [dbo].[parametromodulocompra] ADD [percentualcriacaopedidoautorizadorecebimento] DOUBLE PRECISION
+
+/* UpdateData  */
+UPDATE [dbo].[parametromodulocompra] SET [percentualcriacaopedidoautorizadorecebimento] = 0 WHERE 1 = 1
+
+/* AlterTable parametromodulocompra */
+/* No SQL statement executed. */
+
+/* AlterColumn parametromodulocompra percentualcriacaopedidoautorizadorecebimento Double */
+ALTER TABLE [dbo].[parametromodulocompra] ALTER COLUMN [percentualcriacaopedidoautorizadorecebimento] DOUBLE PRECISION NOT NULL
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201411251815, '2014-12-11T11:12:35', 'Migration201411251815')
+/* Committing Transaction */
+/* 201411251815: Migration201411251815 migrated */
+
+/* 201412030148: Migration201412030148 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201412030148.permissao.sql */
+declare @faseProdutivaId as bigint, @id_pai as bigint;
+set @faseProdutivaId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Fases Produtivas' and controller is null)
+
+update permissao set descricao='Operação Setor', area='Comum', permissaopai_id=1 where id=267
+update permissao set area='Comum' where permissaopai_id=267
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('3.Operação Setor'
+           ,'Index'
+           ,'Comum'
+           ,'OperacaoProducao'
+           ,1
+           ,1
+           ,@faseProdutivaId
+           ,0
+		   )
+		   SET @id_pai = SCOPE_IDENTITY()
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Novo'
+           ,'Novo'
+           ,'Comum'
+           ,'OperacaoProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar'
+           ,'Editar'
+           ,'Comum'
+           ,'OperacaoProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Excluir'
+           ,'Excluir'
+           ,'Comum'
+           ,'OperacaoProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar situação'
+           ,'EditarSituacao'
+           ,'Comum'
+           ,'OperacaoProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+
+update permissao set permissaopai_id= 1, descricao='Setor Departamento', area='Comum' where id=262
+update permissao set area='Comum' where permissaopai_id=262
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('2.Setor Departamento'
+           ,'Index'
+           ,'Comum'
+           ,'SetorProducao'
+           ,1
+           ,1
+           ,@faseProdutivaId
+           ,0
+		   )
+		   SET @id_pai = SCOPE_IDENTITY()
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Novo'
+           ,'Novo'
+           ,'Comum'
+           ,'SetorProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar'
+           ,'Editar'
+           ,'Comum'
+           ,'SetorProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Excluir'
+           ,'Excluir'
+           ,'Comum'
+           ,'SetorProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar situação'
+           ,'EditarSituacao'
+           ,'Comum'
+           ,'SetorProducao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201412030148, '2014-12-11T11:12:35', 'Migration201412030148')
+/* Committing Transaction */
+/* 201412030148: Migration201412030148 migrated */
+
+/* 201412041239: Migration201412041239 migrating ============================= */
+
+/* Beginning Transaction */
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201412041239.permissao.sql */
+declare @comumId as bigint, @id_pai as bigint, @basicoId as bigint
+
+-- Artigo
+update permissao set area='Comum' where controller='Artigo'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='Artigo' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='Artigo' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='Artigo' and action<>'Index'
+
+
+-- Barra
+update permissao set area='Comum' where controller='Barra'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='Barra' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='Barra' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='Barra' and action<>'Index'
+
+
+-- Classificação
+update permissao set area='Comum' where controller='Classificacao'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='Classificacao' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='Classificacao' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='Classificacao' and action<>'Index'
+
+-- Comprimento
+update permissao set area='Comum' where controller='Comprimento'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='Comprimento' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='Comprimento' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='Comprimento' and action<>'Index'
+
+
+-- ProdutoBase
+update permissao set area='Comum' where controller='ProdutoBase'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='ProdutoBase' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='ProdutoBase' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='ProdutoBase' and action<>'Index'
+
+-- Segmento
+update permissao set area='Comum' where controller='Segmento'
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+update permissao set permissaopai_id=@comumId where controller='Segmento' and action='Index' and exibenomenu=1
+
+set @basicoId = (Select Id from permissao where area='EngenhariaProduto' and descricao='Básicos' and controller is null)
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @basicoId, ordem from permissao where controller='Segmento' and action='Index'
+SET @id_pai = SCOPE_IDENTITY()
+
+insert into permissao (descricao, action,area, controller,exibenomenu,requerpermissao,permissaopai_id,ordem)
+select descricao,action,area,controller,exibenomenu,requerpermissao, @id_pai, ordem from permissao where controller='Segmento' and action<>'Index'
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201412041239, '2014-12-11T11:12:35', 'Migration201412041239')
+/* Committing Transaction */
+/* 201412041239: Migration201412041239 migrated */
+
+/* 201412041329: Migration201412041329 migrating ============================= */
+
+/* Beginning Transaction */
+/* CreateTable customaterial */
+CREATE TABLE [dbo].[customaterial] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [data] DATETIME NOT NULL, [custoaquisicao] DOUBLE PRECISION NOT NULL, [customedio] DOUBLE PRECISION NOT NULL, [custo] DOUBLE PRECISION NOT NULL, [ativo] BIT NOT NULL, [fornecedor_id] BIGINT NOT NULL, [material_id] BIGINT NOT NULL, [custoanterior_id] BIGINT, CONSTRAINT [PK_customaterial] PRIMARY KEY ([id]))
+
+/* CreateForeignKey FK_customaterial_fornecedor customaterial(fornecedor_id) pessoa(id) */
+ALTER TABLE [dbo].[customaterial] ADD CONSTRAINT [FK_customaterial_fornecedor] FOREIGN KEY ([fornecedor_id]) REFERENCES [dbo].[pessoa] ([id])
+
+/* CreateForeignKey FK_customaterial_material customaterial(material_id) material(id) */
+ALTER TABLE [dbo].[customaterial] ADD CONSTRAINT [FK_customaterial_material] FOREIGN KEY ([material_id]) REFERENCES [dbo].[material] ([id])
+
+/* CreateForeignKey FK_customaterial_customaterial customaterial(custoanterior_id) customaterial(id) */
+ALTER TABLE [dbo].[customaterial] ADD CONSTRAINT [FK_customaterial_customaterial] FOREIGN KEY ([custoanterior_id]) REFERENCES [dbo].[customaterial] ([id])
+
+/* AlterTable pedidocompra */
+/* No SQL statement executed. */
+
+/* AlterColumn pedidocompra contato String */
+ALTER TABLE [dbo].[pedidocompra] ALTER COLUMN [contato] NVARCHAR(255)
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201412041329, '2014-12-11T11:12:35', 'Migration201412041329')
+/* Committing Transaction */
+/* 201412041329: Migration201412041329 migrated */
+
+/* 201412051446: Migration201412051446 migrating ============================= */
+
+/* Beginning Transaction */
+/* AlterTable recebimentocompraitem */
+/* No SQL statement executed. */
+
+/* CreateColumn recebimentocompraitem customaterial_id Int64 */
+ALTER TABLE [dbo].[recebimentocompraitem] ADD [customaterial_id] BIGINT
+
+/* CreateForeignKey FK_recebimentocompraitem_customaterial recebimentocompraitem(customaterial_id) customaterial(id) */
+ALTER TABLE [dbo].[recebimentocompraitem] ADD CONSTRAINT [FK_recebimentocompraitem_customaterial] FOREIGN KEY ([customaterial_id]) REFERENCES [dbo].[customaterial] ([id])
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201412051446, '2014-12-11T11:12:35', 'Migration201412051446')
+/* Committing Transaction */
+/* 201412051446: Migration201412051446 migrated */
+
+/* 201412101433: Migration201412101433 migrating ============================= */
+
+/* Beginning Transaction */
+/* CreateTable processooperacional */
+CREATE TABLE [dbo].[processooperacional] ([id] BIGINT NOT NULL, [descricao] NVARCHAR(60) NOT NULL, [ativo] BIT NOT NULL, CONSTRAINT [PK_processooperacional] PRIMARY KEY ([id]))
+
+/* CreateTable transportadora */
+CREATE TABLE [dbo].[transportadora] ([id] BIGINT NOT NULL, [codigo] BIGINT NOT NULL, [datacadastro] DATETIME NOT NULL, [ativo] BIT NOT NULL, CONSTRAINT [PK_transportadora] PRIMARY KEY ([id]))
+
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201412101433.processooperacional.sql */
+-- Alteração Natureza
+alter table sequenciaoperacionalnatureza DROP Constraint FK_sequenciaoperacionalnatureza_natureza
+GO
+alter table sequenciaoperacionalnatureza DROP COLUMN natureza_id
+GO
+alter table sequenciaoperacionalnatureza ADD processooperacional_id bigint
+
+ALTER TABLE sequenciaoperacionalnatureza  WITH CHECK ADD  CONSTRAINT [FK_sequenciaoperacionalnatureza_processooperacional] FOREIGN KEY([processooperacional_id])
+REFERENCES processooperacional ([id])
+GO
+ALTER TABLE [dbo].[sequenciaoperacionalnatureza] CHECK CONSTRAINT [FK_sequenciaoperacionalnatureza_processooperacional]
+
+declare @comumId as bigint, @id_pai as bigint
+set @comumId = (Select Id from permissao where area='Comum' and descricao='Cadastros' and controller is null)
+
+
+-- Permissão Processos Operacionais
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Processo Operacional'
+           ,'Index'
+           ,'Comum'
+           ,'ProcessoOperacional'
+           ,1
+           ,1
+           ,@comumId
+           ,0
+		   )
+		   SET @id_pai = SCOPE_IDENTITY()
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Novo'
+           ,'Novo'
+           ,'Comum'
+           ,'ProcessoOperacional'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar'
+           ,'Editar'
+           ,'Comum'
+           ,'ProcessoOperacional'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Excluir'
+           ,'Excluir'
+           ,'Comum'
+           ,'ProcessoOperacional'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar situação'
+           ,'EditarSituacao'
+           ,'Comum'
+           ,'ProcessoOperacional'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+
+-- Permissão Transportadora
+
+declare @basicoId as bigint
+set @basicoId = (Select id from permissao where area='Compras' and descricao='Basicos' and controller is null)
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Transportadora'
+           ,'Index'
+           ,'Compras'
+           ,'Transportadora'
+           ,1
+           ,1
+           ,@basicoId
+           ,0
+		   )
+		   SET @id_pai = SCOPE_IDENTITY()
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Novo'
+           ,'Novo'
+           ,'Compras'
+           ,'Transportadora'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar'
+           ,'Editar'
+           ,'Compras'
+           ,'Transportadora'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+		   INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Excluir'
+           ,'Excluir'
+           ,'Compras'
+           ,'Transportadora'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+
+-- Alteração na tabela de pessoa (inclusão da chave de transportadora)
+alter table pessoa ADD transportadora_id bigint
+
+ALTER TABLE pessoa  WITH CHECK ADD  CONSTRAINT [FK_pessoa_transportadora] FOREIGN KEY([transportadora_id])
+REFERENCES transportadora ([id])
+GO
+ALTER TABLE [dbo].[pessoa] CHECK CONSTRAINT [FK_pessoa_transportadora]
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201412101433, '2014-12-11T11:12:35', 'Migration201412101433')
+/* Committing Transaction */
+/* 201412101433: Migration201412101433 migrated */
 
 /* Task completed. */

@@ -79,6 +79,7 @@
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
+    <Compile Include="Compras\TransportadoraMap.cs" />
     <Compile Include="Compras\PedidoCompraItemCanceladoMap.cs" />
     <Compile Include="Compras\MotivoCancelamentoPedidoCompraMap.cs" />
     <Compile Include="Compras\OrdemEntradaCompraMap.cs" />
@@ -100,7 +101,9 @@
     <Compile Include="ArquivoMap.cs" />
     <Compile Include="Comum\ColecaoMap.cs" />
     <Compile Include="Comum\DepartamentoProducaoMap.cs" />
+    <Compile Include="Comum\ProcessoOperacionalMap.cs" />
     <Compile Include="Comum\PrazoMap.cs" />
+    <Compile Include="Comum\SequenciaOperacionalMap.cs" />
     <Compile Include="Comum\TamanhoMap.cs" />
     <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
@@ -116,7 +119,6 @@
     <Compile Include="EngenhariaProduto\BarraMap.cs" />
     <Compile Include="EngenhariaProduto\ProgramacaoBordadoMap.cs" />
     <Compile Include="EngenhariaProduto\SegmentoMap.cs" />
-    <Compile Include="EngenhariaProduto\SequenciaOperacionalMap.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducaoMap.cs" />
     <Compile Include="Comum\SetorProducaoMap.cs" />
     <Compile Include="EngenhariaProduto\VariacaoMap.cs" />

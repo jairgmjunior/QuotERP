@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+namespace Fashion.ERP.Web.Areas.Comum.Models
 {
     public class SequenciaOperacionalModel
     {

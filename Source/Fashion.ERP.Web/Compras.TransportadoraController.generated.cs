@@ -20,12 +20,12 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace Fashion.ERP.Web.Areas.Compras.Controllers
 {
-    public partial class NaturezaController
+    public partial class TransportadoraController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected NaturezaController(Dummy d) { }
+        protected TransportadoraController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,15 +59,39 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult VerificarCpfCnpj()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarCpfCnpj);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarFiltro()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarCodigo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarCodigo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarId()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public NaturezaController Actions { get { return MVC.EngenhariaProduto.Natureza; } }
+        public TransportadoraController Actions { get { return MVC.Compras.Transportadora; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "EngenhariaProduto";
+        public readonly string Area = "Compras";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Natureza";
+        public readonly string Name = "Transportadora";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Natureza";
+        public const string NameConst = "Transportadora";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -80,6 +104,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
+            public readonly string VerificarCpfCnpj = "VerificarCpfCnpj";
+            public readonly string Pesquisar = "Pesquisar";
+            public readonly string PesquisarFiltro = "PesquisarFiltro";
+            public readonly string PesquisarCodigo = "PesquisarCodigo";
+            public readonly string PesquisarId = "PesquisarId";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +119,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
+            public const string VerificarCpfCnpj = "VerificarCpfCnpj";
+            public const string Pesquisar = "Pesquisar";
+            public const string PesquisarFiltro = "PesquisarFiltro";
+            public const string PesquisarCodigo = "PesquisarCodigo";
+            public const string PesquisarId = "PesquisarId";
         }
 
 
@@ -126,6 +160,38 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_VerificarCpfCnpj s_params_VerificarCpfCnpj = new ActionParamsClass_VerificarCpfCnpj();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_VerificarCpfCnpj VerificarCpfCnpjParams { get { return s_params_VerificarCpfCnpj; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_VerificarCpfCnpj
+        {
+            public readonly string cpfCnpj = "cpfCnpj";
+        }
+        static readonly ActionParamsClass_PesquisarFiltro s_params_PesquisarFiltro = new ActionParamsClass_PesquisarFiltro();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarFiltro PesquisarFiltroParams { get { return s_params_PesquisarFiltro; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarFiltro
+        {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_PesquisarCodigo s_params_PesquisarCodigo = new ActionParamsClass_PesquisarCodigo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarCodigo PesquisarCodigoParams { get { return s_params_PesquisarCodigo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarCodigo
+        {
+            public readonly string codigo = "codigo";
+        }
+        static readonly ActionParamsClass_PesquisarId s_params_PesquisarId = new ActionParamsClass_PesquisarId();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarId PesquisarIdParams { get { return s_params_PesquisarId; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarId
+        {
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -140,18 +206,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
+                public readonly string Pesquisar = "Pesquisar";
             }
-            public readonly string _NovoOuEditar = "~/Areas/EngenhariaProduto/Views/Natureza/_NovoOuEditar.cshtml";
-            public readonly string Editar = "~/Areas/EngenhariaProduto/Views/Natureza/Editar.cshtml";
-            public readonly string Index = "~/Areas/EngenhariaProduto/Views/Natureza/Index.cshtml";
-            public readonly string Novo = "~/Areas/EngenhariaProduto/Views/Natureza/Novo.cshtml";
+            public readonly string _NovoOuEditar = "~/Areas/Compras/Views/Transportadora/_NovoOuEditar.cshtml";
+            public readonly string Editar = "~/Areas/Compras/Views/Transportadora/Editar.cshtml";
+            public readonly string Index = "~/Areas/Compras/Views/Transportadora/Index.cshtml";
+            public readonly string Novo = "~/Areas/Compras/Views/Transportadora/Novo.cshtml";
+            public readonly string Pesquisar = "~/Areas/Compras/Views/Transportadora/Pesquisar.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_NaturezaController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.NaturezaController
+    public partial class T4MVC_TransportadoraController : Fashion.ERP.Web.Areas.Compras.Controllers.TransportadoraController
     {
-        public T4MVC_NaturezaController() : base(Dummy.Instance) { }
+        public T4MVC_TransportadoraController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
@@ -171,9 +239,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model);
+        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.NovoTransportadoraModel model);
 
-        public override System.Web.Mvc.ActionResult Novo(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model)
+        public override System.Web.Mvc.ActionResult Novo(Fashion.ERP.Web.Areas.Compras.Models.NovoTransportadoraModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Novo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -191,9 +259,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model);
+        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.TransportadoraModel model);
 
-        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.NaturezaModel model)
+        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Compras.Models.TransportadoraModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -218,6 +286,55 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarSituacaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void VerificarCpfCnpjOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string cpfCnpj);
+
+        public override System.Web.Mvc.JsonResult VerificarCpfCnpj(string cpfCnpj)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarCpfCnpj);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cpfCnpj", cpfCnpj);
+            VerificarCpfCnpjOverride(callInfo, cpfCnpj);
+            return callInfo;
+        }
+
+        partial void PesquisarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Pesquisar()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pesquisar);
+            PesquisarOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Models.PesquisarModel model);
+
+        public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Models.PesquisarModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PesquisarFiltroOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void PesquisarCodigoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? codigo);
+
+        public override System.Web.Mvc.ActionResult PesquisarCodigo(long? codigo)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarCodigo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "codigo", codigo);
+            PesquisarCodigoOverride(callInfo, codigo);
+            return callInfo;
+        }
+
+        partial void PesquisarIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult PesquisarId(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            PesquisarIdOverride(callInfo, id);
             return callInfo;
         }
 

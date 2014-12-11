@@ -89,6 +89,7 @@
     <Compile Include="Almoxarifado\SaidaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\UnidadeMedidaPersistencia.cs" />
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
+    <Compile Include="Compras\TransportadoraPersistencia.cs" />
     <Compile Include="Compras\PedidoCompraItemPersistencia.cs" />
     <Compile Include="Compras\ParametroModuloCompraPersistencia.cs" />
     <Compile Include="Compras\MotivoCancelamentoPedidoCompra.cs" />

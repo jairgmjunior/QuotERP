@@ -227,7 +227,7 @@
                 return;
             }
 
-            var url = '@Html.GetUrl(MVC.EngenhariaProduto.SetorProducao.SetoresDepartamento())/' + departamento + '?modeloId=@Model.ModeloId';
+            var url = '@Html.GetUrl(MVC.Comum.SetorProducao.SetoresDepartamento())/' + departamento + '?modeloId=@Model.ModeloId';
 
             $.getJSON(url, function (result) {
 

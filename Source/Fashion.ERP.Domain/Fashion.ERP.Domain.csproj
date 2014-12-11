@@ -90,6 +90,7 @@
     <Compile Include="Almoxarifado\Views\ExtratoItemEstoqueView.cs" />
     <Compile Include="Almoxarifado\TipoMovimentacaoEstoqueMaterial.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItem.cs" />
+    <Compile Include="Compras\Transportadora.cs" />
     <Compile Include="Compras\PedidoCompraItemCancelado.cs" />
     <Compile Include="Compras\MotivoCancelamentoPedidoCompra.cs" />
     <Compile Include="Compras\OrdemEntradaCompra.cs" />
@@ -115,7 +116,9 @@
     <Compile Include="Arquivo.cs" />
     <Compile Include="Comum\Colecao.cs" />
     <Compile Include="Comum\DepartamentoProducao.cs" />
+    <Compile Include="Comum\ProcessoOperacional.cs" />
     <Compile Include="Comum\Prazo.cs" />
+    <Compile Include="Comum\SequenciaOperacional.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
     <Compile Include="EngenhariaProduto\FichaTecnica.cs" />
@@ -135,7 +138,6 @@
     <Compile Include="Comum\OperacaoProducao.cs" />
     <Compile Include="EngenhariaProduto\ProdutoBase.cs" />
     <Compile Include="EngenhariaProduto\Barra.cs" />
-    <Compile Include="EngenhariaProduto\SequenciaOperacional.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducao.cs" />
     <Compile Include="Comum\SetorProducao.cs" />
     <Compile Include="EngenhariaProduto\Variacao.cs" />

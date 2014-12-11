@@ -11,14 +11,4 @@
         columns.Template(item => Html.EditarAuth(MVC.EngenhariaProduto.Natureza.Editar(item.Id))).Width(80);
         columns.Template(item => Html.EditarSituacaoAuth(MVC.EngenhariaProduto.Natureza.EditarSituacao(item.Id), item.Ativo)).Width(80);
     })
-      )
-
-<script>
-    $(document).ready(function () {
-        //$(".k-grid-save-changes").hide();
-        $("#btnSubmit").click(function (e) {
-            e.preventDefault();
-            Novo();
-        });
-    });
-</script>
+)

@@ -1,0 +1,223 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProcessoOperacionalModel
+
+@Html.HiddenFor(x => x.Id)
+<div class="control-group">
+    @Html.LabelForRequired(x => x.Descricao)
+    <div class="controls">
+        @Html.EditorFor(x => x.Descricao)
+        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+    </div>
+</div>
+
+<div class="control-group">
+    @Html.Label("Sequências de Operação", new { @class = "title-label" })
+    <div class="controls" style="width: 800px">
+        @(Html.Kendo().Grid(Model.SequenciasOperacionais)
+              .Name("Grid")
+              .Columns(columns =>
+              {
+                  columns.Bound(x => x.Id).Hidden();
+                  columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
+                  columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #").Width(325);
+                  columns.Bound(x => x.NomeOperacao).EditorTemplateName("OperacaoProducaoList").Title("Operação").ClientTemplate("#= NomeOperacao == '' || NomeOperacao == null ? '- Selecione -' : NomeOperacao #").Width(325);
+                  columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
+                  columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
+                  columns.Command(command => command.Destroy());
+              }
+              )
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Batch(true)
+                  .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                  .Model(model =>
+                  {
+                      model.Id(e => e.Id);
+                      model.Field(product => product.NaturezaId).DefaultValue(@Model.Id);
+                  })
+              )
+              .ToolBar(toolbar =>
+              {
+                  toolbar.Create();                  
+              }
+              )
+              .Editable(editable => editable.Mode(GridEditMode.InCell))
+              .Events(e => e.DataBound("onDataBound"))
+              )
+    </div>                    
+</div>
+
+<script>
+    $(document).ready(function () {
+        //$(".k-grid-save-changes").hide();
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            Salvar();
+        });
+    });
+
+    $(".k-grid-save-changes").on("click", function () {
+        var datasourcedata = $("#Grid").data("kendoGrid").dataSource.data();
+
+        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
+        for (var i = 0; i < datasourcedata.length; i++) {
+            datasourcedata[i].id = null;
+        }
+    });
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+    function filtroSetores() {
+        var grid = $("#Grid").data("kendoGrid");
+        //get the row in edit mode and its item
+        var editRow = grid.tbody.find("tr:has(.k-edit-cell)");
+        var model = grid.dataItem(editRow);
+        return {
+            NomeDepartamento: model.NomeDepartamento
+        };
+        //return {
+        //    NomeDepartamento: $("#NomeDepartamento").data("kendoDropDownList").value()
+        //};
+    }
+
+    function filtroOperacoes() {
+        var grid = $("#Grid").data("kendoGrid");
+        //get the row in edit mode and its item
+        var editRow = grid.tbody.find("tr:has(.k-edit-cell)");
+        var model = grid.dataItem(editRow);
+        return {
+            NomeSetor: model.NomeSetor
+    };
+        //return {
+        //    NomeSetor: $("#NomeSetor").data("kendoDropDownList").value()
+        //};
+    }
+
+    function up(e) {
+        e.preventDefault();
+        var dataItemSelecionado = this.dataItem($(e.currentTarget).closest("tr"));
+        var index = this.dataSource.indexOf(dataItemSelecionado);
+        
+        if (index == 0) {
+            return false;
+        }
+
+        var dataItemSuperior = this.dataSource.at(index - 1);
+
+        var aux = {
+            Id: dataItemSuperior.Id,
+            ModeloId: dataItemSuperior.ModeloId,
+            NomeDepartamento: dataItemSuperior.NomeDepartamento,
+            NomeSetor: dataItemSuperior.NomeSetor
+        };
+
+        dataItemSuperior.Id = dataItemSelecionado.Id;
+        dataItemSuperior.ModeloId = dataItemSelecionado.ModeloId;
+        dataItemSuperior.NomeDepartamento = dataItemSelecionado.NomeDepartamento;
+        dataItemSuperior.NomeSetor = dataItemSelecionado.NomeSetor;
+        
+        dataItemSelecionado.Id = aux.Id;
+        dataItemSelecionado.ModeloId = aux.ModeloId;
+        dataItemSelecionado.NomeDepartamento = aux.NomeDepartamento;
+        dataItemSelecionado.NomeSetor = aux.NomeSetor;
+        
+        this.refresh();
+
+        return false;
+    }
+
+    function down(e) {
+        e.preventDefault();
+        var dataItemSelecionado = this.dataItem($(e.currentTarget).closest("tr"));
+        var index = this.dataSource.indexOf(dataItemSelecionado);
+
+        if (index == this.dataSource.total() - 1) {
+            return false;
+        }
+        
+        var dataItemInferior = this.dataSource.at(index + 1);
+
+        var aux = {
+            Id: dataItemInferior.Id,
+            ModeloId: dataItemInferior.ModeloId,
+            NomeDepartamento: dataItemInferior.NomeDepartamento,
+            NomeSetor: dataItemInferior.NomeSetor,
+        };
+
+        dataItemInferior.Id = dataItemSelecionado.Id;
+        //dataItemInferior.ModeloId = dataItemSelecionado.ModeloId;
+        dataItemInferior.NomeDepartamento = dataItemSelecionado.NomeDepartamento;
+        dataItemInferior.NomeSetor = dataItemSelecionado.NomeSetor;
+
+        dataItemSelecionado.Id = aux.Id;
+        //dataItemSelecionado.ModeloId = aux.ModeloId;
+        dataItemSelecionado.NomeDepartamento = aux.NomeDepartamento;
+        dataItemSelecionado.NomeSetor = aux.NomeSetor;
+
+        this.refresh();
+
+        return false;
+    }
+  
+    function onDataBound(e) {
+        $(".k-grid-Up").find("span").addClass("icon-chevron-up");
+        $(".k-grid-Up").removeClass("k-button");
+        $(".k-grid-Down").find("span").addClass("icon-chevron-down");
+        $(".k-grid-Down").removeClass("k-button");
+    }
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+    
+    function onRequestEnd(e) {
+        if ((e.type == "create" || e.type == "update") && !e.response.Errors) {
+            var returnUrl = '@Html.GetUrl(MVC.Comum.ProcessoOperacional.Index())';
+            window.location.href = returnUrl;
+        }
+    }
+
+    function Salvar() {
+        var griddata = $("#Grid").data("kendoGrid").dataSource.data();
+        var descricao = $("#Descricao").val();
+        var id = $("#Id").val();
+        var paramValue = JSON.stringify({ sequenciaOperacoes: griddata,model: {Descricao:descricao,Id:id}});
+        $.ajax(
+               {
+                   type: 'POST',
+                   url: obtenhaUrlActionSubmit(),
+                   dataType: 'json',
+                   contentType: "application/json; charset=utf-8",
+                   data: paramValue,
+                   success: function (retorno) {
+                        if(retorno=="error") {
+                            window.location.reload();
+                            return;
+                        }
+                        var returnUrl = '@Html.GetUrl(MVC.Comum.ProcessoOperacional.Index())';
+                        window.location.href = returnUrl;
+                   },
+                   error: function (error) {
+                       console.log(error);
+                   }
+               });
+    };
+
+    
+
+</script>

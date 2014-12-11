@@ -34,7 +34,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Classificacao> _classificacaoRepository;
         private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
         private readonly IRepository<Segmento> _segmentoRepository;
-        private readonly IRepository<Natureza> _naturezaRepository;
+        private readonly IRepository<ProcessoOperacional> _naturezaRepository;
         private readonly IRepository<Barra> _barraRepository;
         private readonly IRepository<Comprimento> _comprimentoRepository;
         private readonly IRepository<ProdutoBase> _produtoBaseRepository;
@@ -86,7 +86,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region Construtores
         public ModeloController(ILogger logger, IRepository<Modelo> modeloRepository, IRepository<Grade> gradeRepository,
             IRepository<Colecao> colecaoRepository, IRepository<Classificacao> classificacaoRepository, IRepository<Segmento> segmentoRepository,
-            IRepository<Natureza> naturezaRepository, IRepository<Barra> barraRepository, IRepository<Comprimento> comprimentoRepository,
+            IRepository<ProcessoOperacional> naturezaRepository, IRepository<Barra> barraRepository, IRepository<Comprimento> comprimentoRepository,
             IRepository<ProdutoBase> produtoBaseRepository, IRepository<Artigo> artigoRepository, IRepository<Marca> marcaRepository,
             IRepository<Arquivo> arquivoRepository, IRepository<Cor> corRepository, IRepository<DepartamentoProducao> departamentoProducaoRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository, IRepository<UnidadeMedida> unidadeMedidaRepository,

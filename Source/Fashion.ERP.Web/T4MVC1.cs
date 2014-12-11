@@ -73,6 +73,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Compras.Controllers.PedidoCompraCancelamentoController PedidoCompraCancelamento = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_PedidoCompraCancelamentoController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.PedidoCompraController PedidoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_PedidoCompraController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.RecebimentoCompraController RecebimentoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_RecebimentoCompraController();
+        public Fashion.ERP.Web.Areas.Compras.Controllers.TransportadoraController Transportadora = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_TransportadoraController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.ValidaPedidoCompraController ValidaPedidoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_ValidaPedidoCompraController();
         public T4MVC.Compras.OrdemEntradaCompraController OrdemEntradaCompra = new T4MVC.Compras.OrdemEntradaCompraController();
         public T4MVC.Compras.SharedController Shared = new T4MVC.Compras.SharedController();
@@ -107,6 +108,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Comum.Controllers.PerfilDeAcessoController PerfilDeAcesso = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PerfilDeAcessoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.PrazoController Prazo = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PrazoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.PrestadorServicoController PrestadorServico = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_PrestadorServicoController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.ProcessoOperacionalController ProcessoOperacional = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ProcessoOperacionalController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ProdutoBaseController ProdutoBase = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ProdutoBaseController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ProfissaoController Profissao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ProfissaoController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.ReferenciaController Referencia = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_ReferenciaController();
