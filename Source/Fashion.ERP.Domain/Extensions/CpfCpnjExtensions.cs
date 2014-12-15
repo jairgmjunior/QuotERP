@@ -19,7 +19,7 @@ namespace Fashion.ERP.Domain.Extensions
             
             //if(cpfCnpj.Length == 11)
             //{
-                return Convert.ToUInt64("01954698950").ToString(@"000\.000\.000\-00");
+            return Convert.ToUInt64(cpfCnpj).ToString(@"000\.000\.000\-00");
             //}
 
             //throw new Exception("A cadeia de caracteres '"+ cpfCnpj +"' não corresponde a cpf ou cnpj.");

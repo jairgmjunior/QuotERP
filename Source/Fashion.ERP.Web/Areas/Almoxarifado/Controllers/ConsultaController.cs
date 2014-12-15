@@ -16,7 +16,6 @@ using Fashion.Framework.Repository;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
-using Fashion.ERP.Domain.Almoxarifado.Views;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -28,13 +27,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<MarcaMaterial> _marcaMaterialRepository;
         private readonly IRepository<Categoria> _categoriaRepository;
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
-        private readonly IRepository<EntradaMaterial> _entradaRepository;
-        private readonly IRepository<SaidaMaterial> _saidaRepository;
-        private readonly IRepository<EntradaItemMaterial> _entradaItemRepository;
-        private readonly IRepository<SaidaItemMaterial> _saidaItemRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
-        private readonly IRepository<ExtratoItemEstoqueView> _extratoItemEstoqueViewRepository;
+        private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
         private readonly ILogger _logger;
         #endregion
 
@@ -42,23 +37,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public ConsultaController(ILogger logger, IRepository<EstoqueMaterial> estoqueMaterialRepository,
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
-            IRepository<EntradaMaterial> entradaRepository, IRepository<SaidaMaterial> saidaRepository,
-            IRepository<EntradaItemMaterial> entradaItemRepository, IRepository<SaidaItemMaterial> saidaItemRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<DepositoMaterial> depositoMaterialRepository,
-            IRepository<ExtratoItemEstoqueView> extratoItemEstoqueViewRepository)
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository )
         {
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _familiaRepository = familiaRepository;
             _marcaMaterialRepository = marcaMaterialRepository;
             _categoriaRepository = categoriaRepository;
             _subcategoriaRepository = subcategoriaRepository;
-            _entradaRepository = entradaRepository;
-            _saidaRepository = saidaRepository;
-            _entradaItemRepository = entradaItemRepository;
-            _saidaItemRepository = saidaItemRepository;
             _pessoaRepository = pessoaRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
-            _extratoItemEstoqueViewRepository = extratoItemEstoqueViewRepository;
+            _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -280,11 +269,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     
                     var dataInicial = model.DataInicial;
                     var dataFinal = model.DataFinal.AddDays(1);
-
-                    model.Grid =_extratoItemEstoqueViewRepository.Find(e => e.Data >= dataInicial && e.Data <= dataFinal
-                                    && e.Material == estoqueMaterial.Material.Id 
-                                    && e.DepositoMaterial == estoqueMaterial.DepositoMaterial.Id)
-                                .Select(e => new GridExtratoItemModel { Data = e.Data, Entrada = e.QtdEntrada, Saida = e.QtdSaida})
+                    
+                    model.Grid = _movimentacaoEstoqueMaterialRepository.Find(e => e.Data >= dataInicial && e.Data <= dataFinal
+                                    && e.EstoqueMaterial.Material.Id == estoqueMaterial.Material.Id 
+                                    && e.EstoqueMaterial.DepositoMaterial.Id == estoqueMaterial.DepositoMaterial.Id)
+                                    .Select(e => new GridExtratoItemModel
+                                    {
+                                        Data = e.Data, 
+                                        Entrada = e.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Entrada? e.Quantidade : 0,
+                                        Saida = e.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Saida? e.Quantidade : 0,
+                                    })
                                 .ToList();
 
                     model.SaldoInicial = estoqueMaterial.ObtenhaSaldo(dataInicial);

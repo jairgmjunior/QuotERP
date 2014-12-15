@@ -53,7 +53,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Transportadora.Codigo,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 DataCadastro = p.Transportadora.DataCadastro,
                 Nome = p.Nome,
                 Ativo = p.Transportadora.Ativo
@@ -88,8 +88,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<Pessoa>(model);
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
 
                     if (domain.Transportadora == null)
@@ -146,9 +146,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var model = Mapper.Flat<TransportadoraModel>(domain);
                 
                 if (domain.TipoPessoa == TipoPessoa.Fisica)
-                    model.Cpf = domain.CpfCnpj;
+                    model.Cpf = domain.CpfCnpj.FormateCpfCnpj();
                 else if (domain.TipoPessoa == TipoPessoa.Juridica)
-                    model.Cnpj = domain.CpfCnpj;
+                    model.Cnpj = domain.CpfCnpj.FormateCpfCnpj();
 
                 return View("Editar", model);
             }
@@ -165,8 +165,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _pessoaRepository.Get(model.Id));
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
                     if (domain.Transportadora == null)
                         domain.Transportadora = new Transportadora();
@@ -316,7 +316,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Transportadora.Codigo,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome,
                 DataCadastro = p.DataCadastro,
             }).OrderBy(p=> p.Nome).ToList();

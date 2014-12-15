@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
-using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Extensions;
 using Fashion.ERP.Reporting.Comum;
