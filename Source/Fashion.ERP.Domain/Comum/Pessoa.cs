@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Fashion.Framework.Common.Extensions;
-using NHibernate.Util;
 
 namespace Fashion.ERP.Domain.Comum
 {
@@ -47,7 +44,7 @@ namespace Fashion.ERP.Domain.Comum
         public virtual Endereco EnderecoPadrao
         {
             //todo retornar TipoEndereco.Comercial se TipoPessoa.Juridico
-            get { return Enderecos.First(x => x.TipoEndereco == TipoEndereco.Residencial); }
+            get { return Enderecos.FirstOrDefault(x => x.TipoEndereco == TipoEndereco.Residencial); }
         }
 
         public virtual Contato ContatoPadrao

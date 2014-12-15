@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
+using Fashion.ERP.Domain.Extensions;
 using Telerik.Reporting.Expressions;
 using System.Web;
 
@@ -95,5 +96,14 @@ namespace Fashion.ERP.Reporting.Helpers
                 : FotoPadrao;
         }
         #endregion
+
+        #region FormateCpfCnpj
+        [Function(Category = "Format", Namespace = "FashionErp", Description = "Formata o Cpf e o Cnpj.")]
+        public static string FormateCpfCnpj(string cpfCnpj)
+        {
+            return cpfCnpj.FormateCpfCnpj();
+        }
+        #endregion
+
     }
 }

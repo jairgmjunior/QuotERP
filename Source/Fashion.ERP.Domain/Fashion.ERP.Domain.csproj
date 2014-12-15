@@ -123,6 +123,7 @@
     <Compile Include="Comum\ProcessoOperacional.cs" />
     <Compile Include="Comum\Prazo.cs" />
     <Compile Include="Comum\SequenciaOperacional.cs" />
+    <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
     <Compile Include="EngenhariaProduto\FichaTecnica.cs" />

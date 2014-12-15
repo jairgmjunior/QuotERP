@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Extensions;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Helpers;
@@ -48,7 +49,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Empresa.Codigo,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome,
                 Ativo = p.Empresa.Ativo
             }).ToList();
@@ -73,7 +74,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var pessoa = Mapper.Unflat<Pessoa>(model);
-                    pessoa.CpfCnpj = model.Cnpj;
+                    pessoa.CpfCnpj = model.Cnpj.DesformateCpfCnpj();
                     pessoa.DataNascimento = model.DataFundacao;
 
                     CadastrarEmpresa(ref pessoa);
@@ -125,7 +126,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<EmpresaModel>(domain);
-                model.Cnpj = domain.CpfCnpj;
+                model.Cnpj = domain.CpfCnpj.FormateCpfCnpj();
                 model.DataFundacao = domain.DataNascimento;
 
                 return View("Editar", model);
@@ -143,7 +144,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _pessoaRepository.Get(model.Id));
-                    domain.CpfCnpj = model.Cnpj;
+                    domain.CpfCnpj = model.Cnpj.DesformateCpfCnpj();
                     domain.DataNascimento = model.DataFundacao;
 
                     CadastrarEmpresa(ref domain);
@@ -226,7 +227,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             bool existePessoa = false, existeEmpresa = false;
             long pessoaId = 0;
-            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj);
+            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj.DesformateCpfCnpj());
 
             if (pessoa != null)
             {
@@ -270,7 +271,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Empresa.Codigo,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome
             }).ToList();
 
