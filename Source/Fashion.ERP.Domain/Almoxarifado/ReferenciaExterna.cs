@@ -1,4 +1,5 @@
-﻿using Fashion.ERP.Domain.Comum;
+﻿using Fashion.ERP.Domain.Compras;
+using Fashion.ERP.Domain.Comum;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {

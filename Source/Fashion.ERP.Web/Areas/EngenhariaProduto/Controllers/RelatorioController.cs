@@ -31,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Modelo> _modeloRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
-        private readonly IRepository<Natureza> _naturezaRepository;
+        private readonly IRepository<ProcessoOperacional> _naturezaRepository;
         /// /////////////////////////////////////////////////////////////////
         private readonly IRepository<Classificacao> _classificacaoRepository;
         private readonly IRepository<Marca> _marcaRepository;
@@ -120,7 +120,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region Construtores
         public RelatorioController(ILogger logger, IRepository<Modelo> modeloRepository,
             IRepository<Colecao> colecaoRepository, IRepository<Pessoa> pessoaRepository,
-            IRepository<Natureza> naturezaRepository, IRepository<Classificacao> classificacaoRepository,
+            IRepository<ProcessoOperacional> naturezaRepository, IRepository<Classificacao> classificacaoRepository,
             IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<Familia> familiaRepository, IRepository<FichaTecnica> fichaTecnicaRepository,

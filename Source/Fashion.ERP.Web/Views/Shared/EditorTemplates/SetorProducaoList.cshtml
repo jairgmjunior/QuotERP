@@ -6,7 +6,7 @@
     .Name("NomeSetor")
     .DataTextField("Nome")
     .DataValueField("Nome")
-    .DataSource(dataSource => dataSource.Read(read => read.Action("SetoresDepartamento2", "SetorProducao").Data("filtroSetores"))
+    .DataSource(dataSource => dataSource.Read(read => read.Action("SetoresDepartamento2", "SetorProducao",new {Area="Comum"}).Data("filtroSetores"))
         .ServerFiltering(true))
     .CascadeFrom("NomeDepartamento")
 )

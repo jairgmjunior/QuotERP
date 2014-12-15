@@ -185,6 +185,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         #endregion
 
+        
+        public virtual JsonResult GetDepartamentos()
+        {
+            var departamentos = _departamentoProducaoRepository
+                .Find()
+                .Select(s => new { s.Id, s.Nome }).ToList().OrderBy(o => o.Nome);
+
+            return Json(departamentos, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Métodos

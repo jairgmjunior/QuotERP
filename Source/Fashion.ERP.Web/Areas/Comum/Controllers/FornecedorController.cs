@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Comum.Models;
@@ -92,6 +93,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                     domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
                                    : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
                                    : null;
+
                     CadastrarFornecedor(ref domain);
 
                     // Adicionar o endereço
@@ -165,6 +167,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                     domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
                                    : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
                                    : null;
+                    
+                    
                     CadastrarFornecedor(ref domain);
                     _pessoaRepository.Update(domain);
 
