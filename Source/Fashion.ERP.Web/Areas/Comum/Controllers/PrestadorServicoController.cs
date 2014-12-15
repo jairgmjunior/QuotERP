@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Extensions;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Helpers;
@@ -48,7 +49,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.PrestadorServico.Codigo,
                 Nome = p.Nome,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 DataCadastro = p.PrestadorServico.DataCadastro,
                 Ativo = p.PrestadorServico.Ativo
             }).ToList();
@@ -82,8 +83,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<Pessoa>(model);
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
                     CadastrarPrestadorServico(ref domain);
 
@@ -138,9 +139,9 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 var model = Mapper.Flat<PrestadorServicoModel>(domain);
 
                 if (domain.TipoPessoa == TipoPessoa.Fisica)
-                    model.Cpf = domain.CpfCnpj;
+                    model.Cpf = domain.CpfCnpj.FormateCpfCnpj();
                 else if (domain.TipoPessoa == TipoPessoa.Juridica)
-                    model.Cnpj = domain.CpfCnpj;
+                    model.Cnpj = domain.CpfCnpj.FormateCpfCnpj();
 
                 return View("Editar", model);
             }
@@ -158,8 +159,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 {
                     var domain = Mapper.Unflat(model, _pessoaRepository.Get(model.Id));
 
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
 
                     domain.PrestadorServico.AddTipoPrestadorServico(model.PrestadorServicoTipoPrestadorServicos);
@@ -265,7 +266,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             bool existePessoa = false, existePrestadorServico = false;
             long pessoaId = 0;
-            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj);
+            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj.DesformateCpfCnpj());
 
             if (pessoa != null)
             {
@@ -309,7 +310,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.PrestadorServico.Codigo,
-                CpfCnpj = p.CpfCnpj,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome
             }).ToList();
 

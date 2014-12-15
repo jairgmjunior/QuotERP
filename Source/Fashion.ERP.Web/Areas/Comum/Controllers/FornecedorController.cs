@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Extensions;
+using Fashion.ERP.Reporting.Comum;
+using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Helpers;
@@ -14,6 +19,7 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Ninject.Extensions.Logging;
+using Telerik.Reporting;
 
 namespace Fashion.ERP.Web.Areas.Comum.Controllers
 {
@@ -42,37 +48,191 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         #endregion
 
+        private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
+        private static readonly Dictionary<string, string> ColunasPesquisaFornecedorOrdenacao = new Dictionary<string, string>
+            {
+                {"Cidade", "EnderecoPadrao.Cidade.Nome"},
+                {"Código", "Fornecedor.Codigo"},
+                {"Estado", "EnderecoPadrao.Cidade.Uf.Sigla"},
+                {"Nome", "Nome"},
+                {"Nome Fantasia", "NomeFantasia"},
+            };
+
+        private static readonly Dictionary<string, string> ColunasPesquisaFornecedorAgrupamento = new Dictionary<string, string>
+            {
+                {"Cidade", "EnderecoPadrao.Cidade.Nome"},
+                {"Estado", "EnderecoPadrao.Cidade.Uf.Sigla"},
+                {"Tipo fornecedor", "Fornecedor.TipoFornecedor.Descricao"}
+            };
+
         #region Views
 
         #region Index
+        [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var fornecedores = _pessoaRepository.Find(p => p.Fornecedor != null);
+            var fornecedores = _pessoaRepository.Find(p => p.Fornecedor != null).ToList();
 
             var list = fornecedores.Select(p => new GridFornecedorModel
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Fornecedor.Codigo,
-                CpfCnpj = p.CpfCnpj,
-                DataCadastro = p.Fornecedor.DataCadastro,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome,
-                TipoFornecedor = p.Fornecedor.TipoFornecedor.Descricao,
+                NomeFantasia = p.NomeFantasia,
+                Cidade = p.EnderecoPadrao.Cidade.Nome,
+                Estado = p.EnderecoPadrao.Cidade.UF.Sigla,
                 Ativo = p.Fornecedor.Ativo
             }).ToList();
 
-            return View(list);
+            var retorno = new PesquisaFornecedorModel()
+            {
+                Grid = list,
+                ModoConsulta = "Listar"
+            };
+
+            return View(retorno);
         }
+        
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
+        public virtual ActionResult Index(PesquisaFornecedorModel model)
+        {
+            var fornecedores = _pessoaRepository.Find(p => p.Fornecedor != null).SelectMany(x => x.Enderecos, (pessoa, endereco) => new {Pessoa = pessoa, Endereco = endereco});
+            
+            try
+            {
+                #region Filtros
+
+                var filtros = new StringBuilder();
+
+                if (!string.IsNullOrEmpty(model.Nome))
+                {
+                    fornecedores = fornecedores.Where(p => p.Pessoa.Nome.Contains(model.Nome));
+                    filtros.AppendFormat("Nome: {0}, ", model.Nome);
+                }
+
+                if (!string.IsNullOrEmpty(model.NomeFantasia))
+                {
+                    fornecedores = fornecedores.Where(p => p.Pessoa.NomeFantasia.Contains(model.NomeFantasia));
+                    filtros.AppendFormat("Nome fantasia: {0}, ", model.NomeFantasia);
+                }
+
+                if (!string.IsNullOrEmpty(model.CpfCnpj))
+                {
+                    fornecedores = fornecedores.Where(p => p.Pessoa.CpfCnpj.Contains(model.CpfCnpj.DesformateCpfCnpj()));
+                    filtros.AppendFormat("Cpf/Cnpj: {0}, ", model.CpfCnpj);
+                }
+
+                if (model.Uf.HasValue)
+                {
+                    fornecedores = fornecedores.Where(p => p.Endereco.Cidade.UF.Id == model.Uf.Value);
+                    filtros.AppendFormat("Uf: {0}, ", _ufRepository.Get(model.Uf.Value).Nome);
+                }
+
+                if (model.Cidade.HasValue)
+                {
+                    fornecedores = fornecedores.Where(p => p.Endereco.Cidade.Id == model.Cidade.Value);
+                    filtros.AppendFormat("Cidade: {0}, ", _cidadeRepository.Get(model.Cidade.Value).Nome);
+                }
+                
+                #endregion
+                
+                //var resultadoDesagrupado = fornecedores.Select(q => new { q.Pessoa, q.Endereco });
+                
+                // Verifica se é uma listagem
+                if (model.ModoConsulta == "Listar")
+                {
+                    if (model.OrdenarPor != null)
+                    {
+
+                        fornecedores = model.OrdenarEm == "asc"
+                            ? fornecedores.OrderBy(model.OrdenarPor)
+                            : fornecedores.OrderByDescending(model.OrdenarPor);
+                    }
+                    var resultado = fornecedores.ToList();
+
+                    var resultadoAgrupado =
+                        resultado.GroupBy(x => new { x.Pessoa }).Select(y => y.Key.Pessoa);
+    
+                    model.Grid = resultadoAgrupado.Select(p => new GridFornecedorModel
+                    {
+                        Id = p.Id.GetValueOrDefault(),
+                        Codigo = p.Fornecedor.Codigo,
+                        CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
+                        Nome = p.Nome,
+                        NomeFantasia = p.NomeFantasia,
+                        Cidade = p.EnderecoPadrao.Cidade.Nome,
+                        Estado = p.EnderecoPadrao.Cidade.UF.Sigla,
+                        Ativo = p.Fornecedor.Ativo
+                    }).ToList();
+
+                    return View(model);
+                }
+
+                var resultado2 = fornecedores.ToList();
+
+                var resultadoAgrupado2 =
+                    resultado2.GroupBy(x => new { x.Pessoa }).Select(y => y.Key.Pessoa);
+
+                if (!resultadoAgrupado2.Any())
+                    return Json(new { Error = "Nenhum item encontrado." });
+
+                #region Montar Relatório
+
+                var report = new ListaFornecedorReport { DataSource = resultadoAgrupado2 };
+
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+
+                if (model.AgruparPor != null)
+                {
+                    grupo.Groupings.Add("= Fields." + model.AgruparPor);
+
+                    var key = ColunasPesquisaFornecedorAgrupamento.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
+                }
+
+                if (model.OrdenarPor != null)
+                    report.Sortings.Add("=Fields." + model.OrdenarPor,
+                                        model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+
+                #endregion
+
+                var filename = report.ToByteStream().SaveFile(".pdf");
+
+                return Json(new { Url = filename });
+            }
+            catch (Exception exception)
+            {
+                var message = exception.GetMessage();
+                _logger.Info(message);
+
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(new { Error = message });
+
+                ModelState.AddModelError(string.Empty, message);
+                return View("Index", model);
+            }
+        }
+
         #endregion
 
         #region Novo
 
-        [PopulateViewData("PopulateViewData")]
+        [PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Novo()
         {
             return View(new NovoFornecedorModel { EnderecoTipoEndereco = TipoEndereco.Residencial });
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Novo(NovoFornecedorModel model)
         {
             // Validar IE
@@ -89,8 +249,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<Pessoa>(model);
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
                     CadastrarFornecedor(ref domain);
 
@@ -133,7 +293,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         #region Editar
 
-        [ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
+        [ImportModelStateFromTempData, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Editar(long id)
         {
             var domain = _pessoaRepository.Get(id);
@@ -143,9 +303,9 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 var model = Mapper.Flat<FornecedorModel>(domain);
                 
                 if (domain.TipoPessoa == TipoPessoa.Fisica)
-                    model.Cpf = domain.CpfCnpj;
+                    model.Cpf = domain.CpfCnpj.FormateCpfCnpj();
                 else if (domain.TipoPessoa == TipoPessoa.Juridica)
-                    model.Cnpj = domain.CpfCnpj;
+                    model.Cnpj = domain.CpfCnpj.FormateCpfCnpj();
 
                 return View("Editar", model);
             }
@@ -154,7 +314,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Editar(FornecedorModel model)
         {
             if (ModelState.IsValid)
@@ -162,8 +322,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _pessoaRepository.Get(model.Id));
-                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf
-                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj
+                    domain.CpfCnpj = model.TipoPessoa == TipoPessoa.Fisica ? model.Cpf.DesformateCpfCnpj()
+                                   : model.TipoPessoa == TipoPessoa.Juridica ? model.Cnpj.DesformateCpfCnpj()
                                    : null;
                     CadastrarFornecedor(ref domain);
                     _pessoaRepository.Update(domain);
@@ -266,7 +426,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             bool existePessoa = false, existeFornecedor = false;
             long pessoaId = 0;
-            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj);
+            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj.DesformateCpfCnpj());
 
             if (pessoa != null)
             {
@@ -310,9 +470,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             {
                 Id = p.Id.GetValueOrDefault(),
                 Codigo = p.Fornecedor.Codigo,
-                CpfCnpj = p.CpfCnpj,
-                Nome = p.Nome,
-                DataCadastro = p.DataCadastro,
+                CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
+                Nome = p.Nome
             }).OrderBy(p=> p.Nome).ToList();
 
             return Json(list);
@@ -368,7 +527,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         #region Métodos
 
         #region PopulateViewData
-        protected void PopulateViewData(FornecedorModel model)
+        protected void PopulateViewDataNovoEditar(FornecedorModel model)
         {
             var tipoFornecedores = _tipoFornecedorRepository.Find().OrderBy(o => o.Descricao).ToList();
             ViewData["FornecedorTipoFornecedor"] = tipoFornecedores.ToSelectList("Descricao", model.FornecedorTipoFornecedor);
@@ -393,6 +552,37 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 var cidades = _cidadeRepository.Find(p => p.UF.Id == ufId).OrderBy(o => o.Nome).ToList();
                 ViewData["EnderecoCidade"] = cidades.ToSelectList("Nome", cidadeId);
             }
+        }
+
+        protected void PopulateViewDataPesquisa(PesquisaFornecedorModel model)
+        {
+            var ufId = 0L;
+            var cidadeId = 0L;
+
+            if (model.Cidade.HasValue)
+            {
+
+                var cidade = _cidadeRepository.Get(model.Cidade);
+                if (cidade != null)
+                {
+                    ufId = cidade.UF.Id.GetValueOrDefault();
+                    cidadeId = cidade.Id.GetValueOrDefault();
+                }
+            } else if (model.Uf.HasValue)
+            {
+                ufId = model.Uf.Value;
+            }
+
+            var ufs = _ufRepository.Find().OrderBy(o => o.Nome).ToList();
+            ViewData["Uf"] = ufs.ToSelectList("Nome", ufId);
+
+            var cidades = _cidadeRepository.Find(p => p.UF.Id == ufId).OrderBy(o => o.Nome).ToList();
+            ViewData["Cidade"] = cidades.ToSelectList("Nome", cidadeId);
+
+
+            ViewBag.TipoRelatorio = new SelectList(_tipoRelatorio);
+            ViewBag.OrdenarPor = new SelectList(ColunasPesquisaFornecedorOrdenacao, "value", "key");
+            ViewBag.AgruparPor = new SelectList(ColunasPesquisaFornecedorAgrupamento, "value", "key");
         }
         #endregion
 

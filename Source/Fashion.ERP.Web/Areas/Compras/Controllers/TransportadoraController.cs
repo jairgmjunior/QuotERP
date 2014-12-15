@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Extensions;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
@@ -271,7 +272,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             bool existePessoa = false, existeTransportadora = false;
             long pessoaId = 0;
-            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj);
+            var pessoa = _pessoaRepository.Get(p => p.CpfCnpj == cpfCnpj.DesformateCpfCnpj());
 
             if (pessoa != null)
             {

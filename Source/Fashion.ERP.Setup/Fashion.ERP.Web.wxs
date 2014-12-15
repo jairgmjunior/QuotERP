@@ -268,6 +268,23 @@
                                 <File Id="fil54CBDE818C68CBF6E161E6992E72BA86" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\RecebimentoCompra\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir07375448A401A82038437A347C952F60" Name="Transportadora">
+                            <Component Id="cmp55AC9BB1CA54E508E472944E0A978E0B" Guid="*">
+                                <File Id="fil4D5F95BF5BCEA8A31C26A392F7409E70" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\Editar.cshtml" />
+                            </Component>
+                            <Component Id="cmp0B91A57C19D2797A0EFCC1F1EB4C1C87" Guid="*">
+                                <File Id="fil1A133CD325DEF625FD7D572449377BA7" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\Index.cshtml" />
+                            </Component>
+                            <Component Id="cmpE696A93835A36C4567BDB3A18A3AF99C" Guid="*">
+                                <File Id="fil5DFA589CB0202E9B1E4F27545AA31265" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmpF54677E0CC39D516A31DBFCB036BE86C" Guid="*">
+                                <File Id="filC9575A562E163B80C34B16BEFA1E4050" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\Pesquisar.cshtml" />
+                            </Component>
+                            <Component Id="cmp38DEA4F7AB3E14A0001581054CC3FDBD" Guid="*">
+                                <File Id="fil945218A9741F2EE52FDBB70C436E5B36" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dirDD0529FA518ACC83C89BE122E4871EE8" Name="ValidaPedidoCompra">
                             <Component Id="cmpE5C56C385086D0301734DDEBA83756F6" Guid="*">
                                 <File Id="fil52CAD05ACFDE5E6C2DB1FE6322F841AE" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\ValidaPedidoCompra\Validar.cshtml" />
@@ -621,6 +638,20 @@
                             </Component>
                             <Component Id="cmpEA885D4C21FC8DABDB2534B0B16384A8" Guid="*">
                                 <File Id="fil65455DCEBE36B5183DACDCF9E4713CF8" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\PrestadorServico\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir216C8CC23B24AE4BB3543B8425BB1A4B" Name="ProcessoOperacional">
+                            <Component Id="cmp13F86E49807499C2B7101B13C483B580" Guid="*">
+                                <File Id="filD1B80E1656110B67421A8CA7E226F060" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\ProcessoOperacional\Editar.cshtml" />
+                            </Component>
+                            <Component Id="cmp70196D9651C81561BCC8F017F3F6A699" Guid="*">
+                                <File Id="filCCDCFF129F9BD2DC086463BB1C8EDE0E" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\ProcessoOperacional\Index.cshtml" />
+                            </Component>
+                            <Component Id="cmp92180FADDAFBE2E3FC09873F6B395B4B" Guid="*">
+                                <File Id="fil3C8C45DBA370457197249E2804F05B06" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\ProcessoOperacional\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmp284364AC317A76C4612EC192D9BE780E" Guid="*">
+                                <File Id="fil89C97E4B2AA0434C83BB0CC7C6E3369A" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\ProcessoOperacional\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dir9D2478B9C49084F4EBB3B4907C42FC0F" Name="ProdutoBase">
@@ -1889,6 +1920,11 @@
             <ComponentRef Id="cmp4F2737018D7346C08E643535BA069678" />
             <ComponentRef Id="cmp3EC7FE38856B92AE52E37A91DB1792B4" />
             <ComponentRef Id="cmp19420C97664F017DF396B999965D2F50" />
+            <ComponentRef Id="cmp55AC9BB1CA54E508E472944E0A978E0B" />
+            <ComponentRef Id="cmp0B91A57C19D2797A0EFCC1F1EB4C1C87" />
+            <ComponentRef Id="cmpE696A93835A36C4567BDB3A18A3AF99C" />
+            <ComponentRef Id="cmpF54677E0CC39D516A31DBFCB036BE86C" />
+            <ComponentRef Id="cmp38DEA4F7AB3E14A0001581054CC3FDBD" />
             <ComponentRef Id="cmpE5C56C385086D0301734DDEBA83756F6" />
             <ComponentRef Id="cmp575580E01D65D5D0CB44E2857BAD2D1C" />
             <ComponentRef Id="cmp55AEC0FB8F8550CDA4CD05C321004565" />
@@ -1988,6 +2024,10 @@
             <ComponentRef Id="cmp533ABBC0C1344496D5BC6F63054AE1C8" />
             <ComponentRef Id="cmp039DF6189B31739C913EC9BB327CB259" />
             <ComponentRef Id="cmpEA885D4C21FC8DABDB2534B0B16384A8" />
+            <ComponentRef Id="cmp13F86E49807499C2B7101B13C483B580" />
+            <ComponentRef Id="cmp70196D9651C81561BCC8F017F3F6A699" />
+            <ComponentRef Id="cmp92180FADDAFBE2E3FC09873F6B395B4B" />
+            <ComponentRef Id="cmp284364AC317A76C4612EC192D9BE780E" />
             <ComponentRef Id="cmp4FA4361292812559AAAFDD182552470C" />
             <ComponentRef Id="cmp1C3F01BD3A300281A06FAF0F8DF2C468" />
             <ComponentRef Id="cmp7F67EE64B212208A303B6C113853EF08" />

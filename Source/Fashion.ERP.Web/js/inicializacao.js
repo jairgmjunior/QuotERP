@@ -129,7 +129,7 @@ $(document).ready(function () {
         cidades.empty();
         var url = '/Comum/Endereco/Cidades/' + $(this).val();
         $.getJSON(url, function (result) {
-            cidades.append($('<option />').text('-- Selecione --'));
+            cidades.append($('<option value = ""/>').text('-- Selecione --'));
             if ($.isEmptyObject(result) == false) {
                 $.each(result, function (index, item) {
                     cidades.append($('<option />').val(item.Id).text(item.Nome));

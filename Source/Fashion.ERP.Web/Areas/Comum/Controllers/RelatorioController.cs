@@ -523,6 +523,10 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         #endregion
 
+        #region ListaFornecedor
+        
+        #endregion
+
         #endregion
     }
 }

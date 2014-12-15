@@ -381,6 +381,7 @@
     <Compile Include="Areas\Comum\Models\ListaFornecedorModel.cs" />
     <Compile Include="Areas\Comum\Models\ListaFuncionarioModel.cs" />
     <Compile Include="Areas\Comum\Models\ListaPrestadorServicoModel.cs" />
+    <Compile Include="Areas\Comum\Models\PesquisaFornecedorModel.cs" />
     <Compile Include="Areas\Comum\Models\ProcessoOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\NovoEmpresaModel.cs" />
     <Compile Include="Areas\Comum\Models\NovoUsuarioModel.cs" />
