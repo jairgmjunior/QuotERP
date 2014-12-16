@@ -74,22 +74,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region ColunasListagemModelosAprovados
         private static readonly Dictionary<string, string> ColunasListagemModelosAprovados = new Dictionary<string, string>
         {
-            {"Barra", "Barra.Descricao"},
-            {"Classificação Dificuldade", "Classificacaodificuldade.Descricao"},
-            {"Coleção", "Colecao.Descricao"},
-            {"Complemento", "Modelo.Complemento"},                       
-            {"Estilista", "Modelo.Estilista.Nome"},
-            {"Modelista", "Modelo.Modelista.Nome"},
-            {"Natureza", "Natureza.Descricao"},
-            {"Programação Produção", "Modelo.dataremessaproducao"},           
-            {"Tag", "Modelo.Tag"},
-            //{"Referência Catálogo Material", "sequenciaproducao.ordem"},
-            //{"Data de Aprovação", "Modelo.dataaprovacao"},
-            //{"Descrição", "Descricao"},
-            //{"Produto base", "ProdutoBase.Descricao"},                       
-            //{"Quantidade", "QuantidadeProducao"},            
-            //{"Referência", "Referencia"},
-            
+            {"Referência Modelo", "Modelo.Referencia"},
+            {"Tag Modelo", "Modelo.Tag"},
+            {"Tecido", "Modelo.Tecido"},
+            {"Forro", "Modelo.Forro"},                       
+            {"Quantidade produção", "QuantidadeProducao"}
         };
         #endregion
         #region ColunasConsumoMaterialColecao
@@ -532,22 +521,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             if (filtros.Length > 2)
                 report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-
-            var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
-
-            if (model.AgruparPor != null)
-            {
-                grupo.Groupings.Add("=Fields." + model.AgruparPor);
-
-                var key = ColunasListagemModelosAprovados.First(p => p.Value == model.AgruparPor).Key;
-                var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
-                grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
-            }
-            else
-            {
-                report.Groups.Remove(grupo);
-            }
-
+            
             if (model.OrdenarPor != null)
                 report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
 
@@ -894,7 +868,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             ViewData["Modelista"] = modelistas.ToSelectList("Nome", model.Modelista);
 
             ViewBag.OrdenarPor = new SelectList(ColunasListagemModelosAprovados, "value", "key");
-            ViewBag.AgruparPor = new SelectList(ColunasListagemModelosAprovados, "value", "key");
         }
         #endregion
 

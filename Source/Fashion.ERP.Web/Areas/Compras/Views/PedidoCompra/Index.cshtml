@@ -187,7 +187,7 @@
 		columns.Template(item => Html.EditarAuth(MVC.Compras.PedidoCompra.Editar(item.Id))).Width(80);
         columns.Template(item => Html.ActionLinkAuth(item.Autorizado ? "Invalidar" : "Validar", MVC.Compras.ValidaPedidoCompra.Validar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);        
         columns.Template(item => Html.CancelaAuth(MVC.Compras.PedidoCompraCancelamento.CancelamentoPedido(item.Id))).Width(80);
-        columns.Template(item => Html.ActionLinkAuth("Imprimir", MVC.Compras.PedidoCompra.Imprimir(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);        
+        columns.Template(item => Html.ActionLinkAuth("Imprimir", MVC.Compras.PedidoCompra.Imprimir(item.Id), new { @class = "btn btn-small btn-primary" , target = "_blank"})).Width(80);        
 	})
 )
 <script>

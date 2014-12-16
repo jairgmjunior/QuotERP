@@ -133,7 +133,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             this.titleTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(0D));
             this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.94999885559082D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.94999885559082D), Telerik.Reporting.Drawing.Unit.Cm(0.99989998340606689D));
             this.titleTextBox.StyleName = "Title";
             this.titleTextBox.Value = "Consumo Material Por Modelo ";
             // 
@@ -224,7 +224,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.7203590869903565D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.8783273696899414D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6513127088546753D)));
-            this.table4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Inch(0.19685043394565582D)));
+            this.table4.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.50000011920928955D)));
             this.table4.Body.SetCellContent(0, 2, this.textBox43);
             this.table4.Body.SetCellContent(0, 0, this.textBox39);
             this.table4.Body.SetCellContent(0, 1, this.textBox47);
@@ -249,7 +249,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             tableGroup4.Groupings.Add(new Telerik.Reporting.Grouping(null));
             tableGroup4.Name = "DetailGroup";
             this.table4.RowGroups.Add(tableGroup4);
-            this.table4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.249999046325684D), Telerik.Reporting.Drawing.Unit.Inch(0.39370092749595642D));
+            this.table4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.249999046325684D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
             // 
             // textBox43
             // 
