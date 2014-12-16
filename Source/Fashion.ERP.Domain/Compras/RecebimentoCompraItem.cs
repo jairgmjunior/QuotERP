@@ -33,21 +33,20 @@ namespace Fashion.ERP.Domain.Compras
             DepositoMaterial depositoMaterial)
         {
             var unidadeMedidaCompra = DetalhamentoRecebimentoCompraItens.First().PedidoCompraItem.UnidadeMedida;
-            var quantidadeCompra = DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
-                
-            var diferencaQuantidade = Quantidade;
+            var quantidadeEntrada = DetalhamentoRecebimentoCompraItens.Sum(y => y.Quantidade);
+            
             var entradaItemMaterial = new EntradaItemMaterial
             {
                 UnidadeMedidaCompra = unidadeMedidaCompra,
                 Material = Material,
-                QuantidadeCompra = quantidadeCompra,
+                QuantidadeCompra = Quantidade,
                 MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
                 {
                     Data = DateTime.Now,
-                    Quantidade = Quantidade,
+                    Quantidade = quantidadeEntrada,
                     EstoqueMaterial =
                         EstoqueMaterial.AtualizarEstoque(estoqueMaterialRepository, depositoMaterial, Material,
-                            diferencaQuantidade)
+                            quantidadeEntrada)
                 }
             };
 
