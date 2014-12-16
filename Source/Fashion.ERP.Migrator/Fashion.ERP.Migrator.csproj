@@ -118,6 +118,7 @@
     <Compile Include="Migrations\Migration201412051446.cs" />
     <Compile Include="Migrations\Migration201412101433.cs" />
     <Compile Include="Migrations\Migration201412121416.cs" />
+    <Compile Include="Migrations\Migration201412161509.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -270,7 +271,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201411211020\permissao.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201412161509\transportadora.sql" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201412101433\processooperacional.sql" />
   </ItemGroup>
