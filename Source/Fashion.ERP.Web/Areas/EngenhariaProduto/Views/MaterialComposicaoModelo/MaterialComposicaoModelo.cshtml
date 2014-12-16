@@ -127,6 +127,7 @@
                         <th>Cor</th>
                         <th>Tamanho</th>
                         <th>Referência</th>
+                        <th>Descrição</th>
                         <th>Unidade</th>
                         <th>Quantidade</th>
                         <th style="width: 16px"></th>
@@ -165,6 +166,9 @@
                                 <td>
                                     @ViewBag.MateriaisDicionario[materialComposicao.Referencia]
                                     @Html.HiddenFor(m => Model.Grid[i].Referencia)                                    
+                                </td>
+                                <td>
+                                    @ViewBag.MateriaisDescricaoDicionario[materialComposicao.Referencia]
                                 </td>
                                 <td>
                                     @ViewBag.UnidadeMedidasDicionario[materialComposicao.UnidadeMedida]
@@ -316,6 +320,7 @@
                 var tamanhoId = $('#Cor').val();
                 var tamanho = tamanhoId != '' ? $('#Cor option:selected').text() : '';
                 var material = $('#referencia-material').val();
+                var descricao = $('#descricao-material').text();
                 var unidadeMedidaId = $('#UnidadeMedida').val();
                 var unidadeMedida = $('#UnidadeMedida option:selected').text();
                 var quantidade = $('#Quantidade').val();
@@ -330,6 +335,7 @@
                     <td>' + cor + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Cor" value="' + corId + '"/></td>\
                     <td>' + tamanho + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Tamanho" value="' + tamanhoId + '"/></td>\
                     <td>' + material + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Referencia" value="' + materialId + '"/></td>\
+                    <td>' + descricao + '</td>\
                     <td>' + unidadeMedida + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].UnidadeMedida" value="' + unidadeMedidaId + '"/></td>\
                     <td>' + quantidade + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Quantidade" value="' + quantidade + '"/></td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\

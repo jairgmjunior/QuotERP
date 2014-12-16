@@ -219,11 +219,17 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 .OrderBy(o => o.Sigla).ToList();
             ViewBag.TamanhosDicionario = tamanhos.ToDictionary(k => k.Id, v => v.Sigla);
 
-            // Material
+            // Material Referência
             var materiais = _materialRepository.Find()
                 .Select(s => new { s.Id, s.Referencia })
                 .OrderBy(o => o.Referencia);
             ViewBag.MateriaisDicionario = materiais.ToDictionary(k => k.Id, v => v.Referencia);
+            
+            // Material
+            var materiaisDescricao = _materialRepository.Find()
+                .Select(s => new { s.Id, s.Descricao })
+                .OrderBy(o => o.Descricao);
+            ViewBag.MateriaisDescricaoDicionario = materiaisDescricao.ToDictionary(k => k.Id, v => v.Descricao);
 
             // UnidadeMedida
             var unidadeMedidas = _unidadeMedidaRepository.Find()

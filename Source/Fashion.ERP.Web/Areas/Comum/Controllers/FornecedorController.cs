@@ -143,7 +143,6 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 {
                     if (model.OrdenarPor != null)
                     {
-
                         fornecedores = model.OrdenarEm == "asc"
                             ? fornecedores.OrderBy(model.OrdenarPor)
                             : fornecedores.OrderByDescending(model.OrdenarPor);
