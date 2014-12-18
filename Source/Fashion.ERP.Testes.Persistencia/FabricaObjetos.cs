@@ -17,6 +17,38 @@ namespace Fashion.ERP.Testes.Persistencia
     {
         #region Almoxarifado
 
+        public ReservaEstoqueMaterial ObtenhaReservaEstoqueMaterial()
+        {
+            return new ReservaEstoqueMaterial()
+            {
+                Quantidade = 1
+            };
+        }
+
+        public ReservaMaterialItem ObtenhaReservaMaterialItem()
+        {
+            return new ReservaMaterialItem()
+            {
+                PrevisaoUtilizacao = new DateTime(2014, 1, 1),
+                QuantidadeAtendida = 1,
+                QuantidadeReserva = 1,
+                SituacaoReservaMaterialItem = SituacaoReservaMaterialItem.Finalizada
+            };
+        }
+
+        public ReservaMaterial ObtenhaReservaMaterial()
+        {
+            return new ReservaMaterial()
+            {
+                Data = new DateTime(2014, 1, 1),
+                Finalizada = true,
+                Numero = 1,
+                Referencia = "REF 1",
+                PrevisaoPrimeiraUtilizacao = new DateTime(2014, 1, 1),
+                Observacao = "OBSERVAÇÃO"
+            };
+        }
+
         public CustoMaterial ObtenhaCustoMaterial()
         {
             return new CustoMaterial
@@ -570,6 +602,23 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Comum
 
+        public SequenciaOperacional ObtenhaSequenciaOperacional()
+        {
+            return new SequenciaOperacional
+            {
+                Sequencia = 1
+            };
+        }
+
+        public ProcessoOperacional ObtenhaProcessoOperacional()
+        {
+            return new ProcessoOperacional
+            {
+                Descricao = "DESCRIÇÃO",
+                Ativo = true
+            };
+        }
+
         public Arquivo ObtenhaArquivo()
         {
             return new Arquivo()
@@ -722,6 +771,18 @@ namespace Fashion.ERP.Testes.Persistencia
                 Ativo = true,
                 Descricao = "DESCRIÇÃO DO TAMANHO",
                 Sigla = "SIGLA"
+            };
+        }
+
+        public OperacaoProducao ObtenhaOperacaoProducao()
+        {
+            return new OperacaoProducao
+            {
+                Ativo = true,
+                Custo = 1,
+                Descricao = "Descrição",
+                PesoProdutividade = 1,
+                Tempo = 1
             };
         }
 

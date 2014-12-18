@@ -1,11 +1,5 @@
 ﻿using Fashion.ERP.Domain.Comum;
-using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.Framework.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fashion.ERP.Testes.Persistencia.Comum
 {

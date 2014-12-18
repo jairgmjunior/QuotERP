@@ -15,6 +15,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual DepositoMaterial DepositoMaterial { get; set; }
         public virtual Material Material { get; set; }
         public virtual IList<EstoqueMaterial> EstoqueMateriais { get; set; }
+        public virtual ReservaEstoqueMaterial ReservaEstoqueMaterial { get; set; }
 
         public EstoqueMaterial()
         {

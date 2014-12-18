@@ -84,10 +84,14 @@
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItem.cs" />
     <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterial.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributaria.cs" />
+    <Compile Include="Almoxarifado\ReservaEstoqueMaterial.cs" />
+    <Compile Include="Almoxarifado\ReservaMaterial.cs" />
+    <Compile Include="Almoxarifado\ReservaMaterialItem.cs" />
     <Compile Include="Almoxarifado\SaidaMaterial.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterial.cs" />
     <Compile Include="Almoxarifado\SituacaoConferencia.cs" />
     <Compile Include="Almoxarifado\SituacaoOrdemEntrada.cs" />
+    <Compile Include="Almoxarifado\SituacaoReservaMaterialItem.cs" />
     <Compile Include="Almoxarifado\StoredProcedure.cs" />
     <Compile Include="Almoxarifado\Tecido.cs" />
     <Compile Include="Almoxarifado\TipoCategoria.cs" />

@@ -18,6 +18,31 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Almoxarifado
 
+        public ReservaMaterial ObtenhaReservaMaterial()
+        {
+            var reservaMaterial = _fabricaObjetos.ObtenhaReservaMaterial();
+            reservaMaterial.Unidade = ObtenhaUnidade();
+            reservaMaterial.Requerente = ObtenhaFuncionario();
+            reservaMaterial.Colecao = ObtenhaColecao();
+
+            var reservaMaterialItem = _fabricaObjetos.ObtenhaReservaMaterialItem();
+            reservaMaterialItem.Material = ObtenhaMaterial();
+            reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
+
+            RepositoryFactory.Create<ReservaMaterial>().Save(reservaMaterial);
+            return reservaMaterial;
+        }
+
+        public void ExcluaReservaMaterial(ReservaMaterial reservaMaterial)
+        {
+            RepositoryFactory.Create<ReservaMaterial>().Delete(reservaMaterial);
+            ExcluaPessoa(reservaMaterial.Unidade);
+            ExcluaPessoa(reservaMaterial.Requerente);
+            ExcluaColecao(reservaMaterial.Colecao);
+
+            ExcluaMaterial(reservaMaterial.ReservaMaterialItems[0].Material);
+        }
+
         public MovimentacaoEstoqueMaterial ObtenhaMovimentacaoEstoqueMaterial()
         {
             var movimentacaoEstoqueMaterial = _fabricaObjetos.ObtenhaMovimentacaoEstoqueMaterial();
@@ -491,6 +516,22 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Comun
 
+        public OperacaoProducao ObtenhaOperacaoProducao()
+        {
+            var operacaoProducao = _fabricaObjetos.ObtenhaOperacaoProducao();
+            operacaoProducao.SetorProducao = ObtenhaSetorProducao();
+
+            RepositoryFactory.Create<OperacaoProducao>().Save(operacaoProducao);
+
+            return operacaoProducao;
+        }
+
+        public void ExcluaOperacaoProducao(OperacaoProducao operacaoProducao)
+        {
+            RepositoryFactory.Create<OperacaoProducao>().Delete(operacaoProducao);
+            RepositoryFactory.Create<SetorProducao>().Delete(operacaoProducao.SetorProducao);
+        }
+
         public Tamanho ObtenhaTamanho()
         {
             var tamanho = _fabricaObjetos.ObtenhaTamanho();
@@ -730,6 +771,8 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             RepositoryFactory.Create<DepartamentoProducao>().Delete(departamento);
         }
+
+
         
         public void ExcluaPessoa(Pessoa pessoa)
         {
