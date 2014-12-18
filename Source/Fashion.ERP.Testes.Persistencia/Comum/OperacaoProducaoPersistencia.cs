@@ -17,7 +17,6 @@ namespace Fashion.ERP.Testes.Persistencia.Comum
         {
             var operacaoProducao = FabricaObjetos.ObtenhaOperacao();
             operacaoProducao.SetorProducao = _setorProducao;
-
             return operacaoProducao;
         }
 
