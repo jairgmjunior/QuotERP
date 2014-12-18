@@ -20,7 +20,9 @@ namespace Fashion.ERP.Domain.Financeiro
         [Display(Name = "Quitado parcial")]
         QuitadoParcial,
         [Display(Name = "Quitado total")]
-        QuitadoTotal
+        QuitadoTotal,
+        [Display(Name = "Devolvido")]
+        Devolvido
     }
 
     public static class ChequeSituacaoExtensions

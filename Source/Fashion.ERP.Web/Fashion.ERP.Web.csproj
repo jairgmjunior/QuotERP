@@ -529,6 +529,7 @@
     <Compile Include="Areas\Financeiro\Models\ChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ContaBancariaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\DespesaReceitaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\DevolucaoChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\EmitenteModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ExtratoBancarioModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridBaixaChequeRecebidoModel.cs" />
@@ -1051,6 +1052,7 @@
     <Content Include="Areas\Compras\Views\Transportadora\Index.cshtml" />
     <Content Include="Areas\Compras\Views\Transportadora\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\Transportadora\Pesquisar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\ChequeRecebido\Devolucao.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
