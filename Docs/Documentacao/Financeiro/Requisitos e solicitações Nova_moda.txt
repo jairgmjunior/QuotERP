@@ -1,0 +1,42 @@
+Conversão de Dados
+	- Movimentação ultimos dois anos
+	- Clientes
+
+Cheques Recebidos
+	"Cadastro Cheque Recebido"		
+	"Provisionamento" - Cheque Recebido
+	"Despósito"
+	"Custódia"
+		"Geração de Arquivo para Custódia" - ITAÚ
+			Até 3.000 reais
+	"Recebimento - Quitação"
+	"Relatórios"
+
+	"Repasse - Comissão de Assessor" (Nota / Sem Nota) / Fornecedor
+
+Contas a Pagar
+	"Lançamento duplicado de título - O mesmo título lançado duas vezes" - Talvez verificar por código de barra
+
+Contas a Receber
+	- Nota Promissória
+	- Deve Cheque - Parâmetro de limite de parcela
+
+Controle de Comissão Assessor
+	- Casa 
+	- Nota / Sem Nota - Por fora
+
+Gratificaçao Produção
+	- Sem Nota - Por fora
+
+Controle de Comissão Vendedor
+	- Premiação - Por Fora  
+
+Cobrança
+	- Cadastra os Cheques
+	- Cobrança Cliente (muito pouco)
+	- Nogociação Cliente
+	- Conferência Deve Cheque
+	- Baixa Deve Cheque
+	- Baixa Nota Promissoria - Loja
+	- Cobrança Nota Promissóaior
+	- Inclusão / Exclusão SPC - Serasa
