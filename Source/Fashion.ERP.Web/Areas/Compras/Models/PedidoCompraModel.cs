@@ -33,6 +33,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         public long? Id { get; set; }
 
+       
+
         [Display(Name = "Número")]
         [Required(ErrorMessage = "Informe o número do pedido de compra")]
         [Range(1, int.MaxValue)]
@@ -66,6 +68,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Required(ErrorMessage = "Informe o valor da compra")]
         public double ValorCompra { get; set; }
 
+        [Display(Name = "Valor encargos")]
+        [Required(ErrorMessage = "Informe o valor dos encargos")]
+        public double ValorEncargos { get; set; }
+
+        [Display(Name = "Valor embalagem")]
+        [Required(ErrorMessage = "Informe o valor da embalagem")]
+        public double ValorEmbalagem { get; set; }
+
         [Display(Name = "Observação")]
         [StringLength(4000, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         [DataType(DataType.MultilineText)]
@@ -96,6 +106,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [StringLength(50, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Contato { get; set; }
 
+        [Display(Name = "Transportadora")]
+        [Required(ErrorMessage = "Informe a transportadora")]
+        public long? Transportadora { get; set; }
+
+        public double ValorLiquido { get; set; }
+
         public IList<GridPedidoCompraModel> Grid { get; set; }
+
+        public IList<GridPedidoCompraItem> GridPedidoItem { get; set; }
+        public IList<GridPedidoCompraItemDetalhe> GridPedidoItemDetalhe { get; set; }
     }
 }

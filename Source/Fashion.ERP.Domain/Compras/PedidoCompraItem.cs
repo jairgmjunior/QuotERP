@@ -10,6 +10,7 @@ namespace Fashion.ERP.Domain.Compras
     {
         public virtual double Quantidade { get; set; }
         public virtual double ValorUnitario { get; set; }
+        public virtual double ValorDesconto { get; set; }
         public virtual DateTime? PrevisaoEntrega { get; set; }
         public virtual double QuantidadeEntrega { get; set; }
         public virtual DateTime? DataEntrega { get; set; }

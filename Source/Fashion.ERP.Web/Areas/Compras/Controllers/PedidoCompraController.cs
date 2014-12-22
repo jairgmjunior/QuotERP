@@ -17,6 +17,8 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Microsoft.Ajax.Utilities;
+using NHibernate.Id;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -261,7 +263,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo()
         {
-            var model = new PedidoCompraModel {Numero = ProximoNumero()};
+            var model = new PedidoCompraModel { Numero = ProximoNumero() };
+            model.GridPedidoItem = new List<GridPedidoCompraItem>();
 
             return View(model);
         }
@@ -312,6 +315,38 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return View(model);
         }
 
+        public virtual JsonResult PesquisarPedidoItens(PedidoCompraModel model)
+        {
+            //var pedidoCompra = _pedidoCompraRepository.Find(p => p.Id == pedidoCompraId).FirstOrDefault();
+            //var list = pedidoCompra.PedidoCompraItens;
+            //return Json(list);
+            var pedidoCompras = _pedidoCompraRepository.Find(p => p.Id == model.Id).FirstOrDefault();
+
+            var itens = pedidoCompras.PedidoCompraItens;
+
+            model.GridPedidoItem = itens.Select(p => new GridPedidoCompraItem
+                        {
+                            Id = p.Id.GetValueOrDefault(),
+                            Descricao = p.Material.Descricao,
+                            MaterialId = p.Material.Id,
+                            PrevisaoEntrega = p.PrevisaoEntrega,
+                            Quantidade = p.Quantidade,
+                            Referencia = p.Material.Referencia,
+                            ReferenciaExterna = p.ReferenciaExternaMaterial,
+                            UnidadeEstocadora = p.UnidadeMedida.Id,
+                            ValorUnitario = p.ValorUnitario,
+                            ValorTotal = p.ValorTotal
+                        }).ToList();
+
+            return Json(model);
+        }
+        
+
+        public virtual JsonResult PesquisarPedidoItemDetalhe(PedidoCompraModel model)
+        {
+            return Json(model);
+        }
+
         #endregion
         
         #region Editar
@@ -334,7 +369,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     model.ValorUnitarios.Add(item.ValorUnitario);
                     model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
                     model.SituacaoCompras.Add(item.SituacaoCompra);
+                    model.GridPedidoItem = new List<GridPedidoCompraItem>();
+                    model.GridPedidoItem.Add(ObterPedidoCompraItem(item));
+                    model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
+                    model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
+
+                
 
                 return View("Editar", model);
             }
@@ -470,7 +511,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             // UnidadeEstocadora
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
-            ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);
+            ViewBag.UnidadeEstocadora = unidades.ToSelectList("Nome", model.UnidadeEstocadora);
 
             // PrazoDescricao
             var prazos = _prazoRepository.Find(p => p.Ativo).ToList();
@@ -497,6 +538,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             // Situacao
             ViewBag.SituacoesDicionario = ((SituacaoCompra[])typeof(SituacaoCompra).GetEnumValues()).ToDictionary(k => k, e => e.EnumToString());
+
+            //Transportadora
+            var transportadora = _pessoaRepository.Find(p => p.Transportadora != null && p.Transportadora.Ativo).ToList();
+            ViewBag.Transportadora = transportadora.ToSelectList("Nome", model.Transportadora);
+
         }
         #endregion
         
@@ -547,6 +593,43 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             }
         }
         #endregion
+
+        public GridPedidoCompraItem ObterPedidoCompraItem(PedidoCompraItem item)
+        {
+            GridPedidoCompraItem pedidoCompraItemModel = new GridPedidoCompraItem();
+            pedidoCompraItemModel.Id = item.Id;
+            pedidoCompraItemModel.MaterialId = item.Material.Id.GetValueOrDefault();
+            pedidoCompraItemModel.PrevisaoEntrega = item.PrevisaoEntrega;
+            pedidoCompraItemModel.Quantidade = item.Quantidade;
+            pedidoCompraItemModel.Referencia = item.Material.Referencia;
+            pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
+            pedidoCompraItemModel.ValorDesconto = item.ValorDesconto;
+            pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
+            pedidoCompraItemModel.ValorTotal = item.ValorTotal;
+            pedidoCompraItemModel.Descricao = item.Material.Descricao;
+
+            return pedidoCompraItemModel;
+        }
+
+        public GridPedidoCompraItemDetalhe ObterPedidoCompraItemDetalhe(PedidoCompraItem item)
+        {
+            GridPedidoCompraItemDetalhe pedidoCompraItemModel = new GridPedidoCompraItemDetalhe();
+            pedidoCompraItemModel.Id = item.Id;
+            pedidoCompraItemModel.MaterialId = item.Material.Id.GetValueOrDefault();
+            pedidoCompraItemModel.DataEntrega = item.DataEntrega;
+            pedidoCompraItemModel.Quantidade = item.Quantidade;
+            pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
+            pedidoCompraItemModel.Referencia = item.Material.Referencia;
+            pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
+            pedidoCompraItemModel.ValorDesconto = item.ValorDesconto;
+            pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
+            pedidoCompraItemModel.ValorTotal = item.ValorTotal;
+            pedidoCompraItemModel.Descricao = item.Material.Descricao;
+            pedidoCompraItemModel.Situacao = item.SituacaoCompra;
+            pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
+
+            return pedidoCompraItemModel;
+        }
 
         #endregion
 

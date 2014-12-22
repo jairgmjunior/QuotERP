@@ -299,6 +299,7 @@
     <Compile Include="Areas\Compras\Controllers\AutorizacoesController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
+    <Compile Include="Areas\Compras\Models\GridPedidoCompraItem.cs" />
     <Compile Include="Areas\Compras\Models\GridTransportadoraModel.cs" />
     <Compile Include="Areas\Compras\Models\NovoTransportadoraModel.cs" />
     <Compile Include="Areas\Compras\Models\TransportadoraModel.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Areas\Comum\Models\GridMarcaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridSubcategoriaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridUnidadeMedidaModel.cs" />
+    <Compile Include="Areas\Compras\Models\GridPedidoCompraItemDetalhe.cs" />
     <Compile Include="Areas\Comum\Models\GridProcessoOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\GridPrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\MarcaModel.cs" />

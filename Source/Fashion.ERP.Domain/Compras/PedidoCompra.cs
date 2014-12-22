@@ -23,6 +23,8 @@ namespace Fashion.ERP.Domain.Compras
         public virtual double ValorFrete { get; set; }
         public virtual double ValorDesconto { get; set; }
         public virtual double ValorCompra { get; set; }
+        public virtual double ValorEmbalagem { get; set; }
+        public virtual double ValorEncargos { get; set; }
         public virtual string Observacao { get; set; }
         public virtual bool Autorizado { get; set; }
         public virtual DateTime? DataAutorizacao { get; set; }
@@ -34,6 +36,7 @@ namespace Fashion.ERP.Domain.Compras
         public virtual Pessoa UnidadeEstocadora { get; set; }
         public virtual Prazo Prazo { get; set; }
         public virtual MeioPagamento MeioPagamento { get; set; }
+        public virtual Pessoa Transportadora { get; set; }
 
 
         public virtual double ValorMercadoria

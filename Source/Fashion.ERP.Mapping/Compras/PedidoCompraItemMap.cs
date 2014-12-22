@@ -10,6 +10,7 @@ namespace Fashion.ERP.Mapping.Compras
         {
             Map(x => x.Quantidade).Not.Nullable();
             Map(x => x.ValorUnitario).Not.Nullable();
+            Map(x => x.ValorDesconto).Nullable();
             Map(x => x.PrevisaoEntrega);
             Map(x => x.QuantidadeEntrega).Not.Nullable();
             Map(x => x.DataEntrega);

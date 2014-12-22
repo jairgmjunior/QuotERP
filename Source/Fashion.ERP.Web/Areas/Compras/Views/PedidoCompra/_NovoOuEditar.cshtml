@@ -1,16 +1,28 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.UnidadeEstocadora)
-            <div class="controls">
-                @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.UnidadeEstocadora, null, new { @class = "help-block" })
+
+<fieldset>
+    <legend></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.UnidadeEstocadora)
+                <div class="controls">
+                    @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.UnidadeEstocadora, null, new { @class = "help-block" })
+                </div>
             </div>
         </div>
+        <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.SituacaoCompra)
+            <div class="controls">
+                @Html.EditorFor(x => x.SituacaoCompra)
+            </div>
+        </div>
+        </div>
     </div>
-</div>
-<div class="row">
+    
+    <div class="row">
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.Numero)
@@ -22,14 +34,16 @@
     </div>
     <div class="span6">
         <div class="control-group">
-            @Html.LabelForRequired(x => x.SituacaoCompra)
+            @Html.LabelForRequired(x => x.DataCompra)
             <div class="controls">
-                @Html.EditorFor(x => x.SituacaoCompra)
+                @Html.EditorFor(x => x.DataCompra)
+                @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
 </div>
-<div class="row">
+    
+    <div class="row">
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.Fornecedor)
@@ -45,77 +59,6 @@
     </div>
     <div class="span6">
         <div class="control-group">
-            @Html.LabelForRequired(x => x.Contato)
-            <div class="controls">
-                @Html.EditorFor(x => x.Contato)
-                @Html.ValidationMessageFor(x => x.Contato, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DataCompra)
-            <div class="controls">
-                @Html.EditorFor(x => x.DataCompra)
-                @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Prazo)
-            <div class="controls">
-                @Html.DropDownListFor(x => x.Prazo, null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Prazo, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.PrevisaoFaturamento)
-            <div class="controls">
-                @Html.EditorFor(x => x.PrevisaoFaturamento)
-                @Html.ValidationMessageFor(x => x.PrevisaoFaturamento, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.MeioPagamento)
-            <div class="controls">
-                @Html.DropDownList("MeioPagamento", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.MeioPagamento, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.PrevisaoEntrega)
-            <div class="controls">
-                @Html.EditorFor(x => x.PrevisaoEntrega)
-                @Html.ValidationMessageFor(x => x.PrevisaoEntrega, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.TipoCobrancaFrete)
-            <div class="controls">
-                @Html.DropDownListFor(x => x.TipoCobrancaFrete, Model.TipoCobrancaFrete.ToSelectList())
-                @Html.ValidationMessageFor(x => x.TipoCobrancaFrete, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
             @Html.LabelForRequired(x => x.Comprador)
             <div class="controls">
                 @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
@@ -127,6 +70,220 @@
             </div>
         </div>
     </div>
+</div>
+</fieldset>
+
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#pedido" data-toggle="tab">Dados do pedido</a></li>
+    <li><a href="#itens" data-toggle="tab">Itens do pedido</a></li>
+  
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="pedido">
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.PrevisaoFaturamento)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.PrevisaoFaturamento)
+                        @Html.ValidationMessageFor(x => x.PrevisaoFaturamento, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.PrevisaoEntrega)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.PrevisaoEntrega)
+                        @Html.ValidationMessageFor(x => x.PrevisaoEntrega, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        
+        <div class="row">
+            
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Transportadora)
+                    <div class="controls">
+                        @Html.DropDownList("Transportadora", null, "-- Selecione --", new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.Transportadora, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.TipoCobrancaFrete)
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.TipoCobrancaFrete, Model.TipoCobrancaFrete.ToSelectList())
+                        @Html.ValidationMessageFor(x => x.TipoCobrancaFrete, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.MeioPagamento)
+                    <div class="controls">
+                        @Html.DropDownList("MeioPagamento", null, "-- Selecione --", new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.MeioPagamento, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Prazo)
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.Prazo, null, "-- Selecione --", new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.Prazo, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Observacao)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Observacao)
+                        @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Contato)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Contato)
+                        @Html.ValidationMessageFor(x => x.Contato, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane" id="itens">
+        
+                    @(Html.Kendo().Grid(Model.GridPedidoItem)
+                  .Name("Grid")
+                  .Columns(columns =>
+                      {
+                          columns.Bound(x => x.Id).Hidden();
+                          //columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
+                          columns.Bound(e => e.Referencia).Width(120);
+                          columns.Bound(e => e.ReferenciaExterna).Width(120);
+                          columns.Bound(e => e.Descricao).Width(120);
+                          columns.Bound(e => e.UnidadeEstocadora).Width(120);
+                          columns.Bound(e => e.Quantidade);
+                          columns.Bound(e => e.PrevisaoEntrega);
+                          columns.Bound(e => e.ValorUnitario);
+                          columns.Bound(e => e.ValorDesconto);
+                          columns.Bound(e => e.ValorTotal);
+                          columns.Command(command => command.Destroy());
+                      }
+                  )
+                  .ClientDetailTemplateId("template")
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Batch(true)
+                      .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                      .Model(model =>
+                      {
+                           model.Id(e => e.Id);
+                           model.Field(item => item.PedidoCompraId).DefaultValue(@Model.Id);
+                      })
+                      .Create(create => create.Action("SalveSequenciaProducao", "SequenciaProducao"))
+                      .Update(update => update.Action("AtualizeSequenciaProducao", "SequenciaProducao"))
+                      .Destroy(destroy => destroy.Action("ExcluaSequenciaProducao", "SequenciaProducao"))
+                  )
+                  .ToolBar(toolbar =>
+                      {
+                          toolbar.Create();
+                          toolbar.Save();
+                      }
+                  )
+                  .Editable(editable => editable.Mode(GridEditMode.InCell))
+                  .Events(e => e.DataBound("onDataBound"))
+            )
+       
+    
+       <script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=PedidoCompraId#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("Detalhes Itens").Content(@<text>
+                    @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
+                        .Name("grid_#=PedidoCompraId#")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.Id).Title("ID").Width(56);
+                            columns.Bound(o => o.Referencia).Width(70);
+                            columns.Bound(o => o.ReferenciaExterna);
+                            columns.Bound(o => o.Descricao).Width(140);
+                            columns.Bound(o => o.UnidadeEstocadora);
+                            columns.Bound(o => o.Quantidade);
+                            columns.Bound(o => o.Diferenca);
+                            columns.Bound(o => o.ValorUnitario);
+                            columns.Bound(o => o.ValorDesconto);
+                            columns.Bound(o => o.ValorTotal);
+                            columns.Bound(o => o.Situacao);
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(5)
+                            .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                              .Model(model =>
+                              {
+                                   model.Id(e => e.Id);
+                                   model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
+                              })
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>                        
+                );
+                items.Add().Text("Recebimento").Content(
+                    "<div class='employee-details'>" +
+                        "<ul>" +
+                            "<li>teste</li>" +
+                        "</ul>" +
+                    "</div>"
+                );                
+            })
+            .ToClientTemplate())
+</script>
+    </div>
+</div>
+
+<fieldset>
+    <legend>Totais</legend>
+</fieldset>
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorTotais)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorTotais)
+                @Html.ValidationMessageFor(x => x.ValorTotais, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorFrete)
@@ -137,6 +294,29 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorEncargos)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorEncargos)
+                @Html.ValidationMessageFor(x => x.ValorEncargos, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.ValorEmbalagem)
+            <div class="controls">
+                @Html.EditorFor(x => x.ValorEmbalagem)
+                @Html.ValidationMessageFor(x => x.ValorEmbalagem, null, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="span6">
         <div class="control-group">
@@ -147,27 +327,23 @@
             </div>
         </div>
     </div>
+
     <div class="span6">
         <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorCompra)
+            @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
-                @Html.EditorFor(x => x.ValorCompra)
-                @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
+                @Html.EditorFor(x => x.ValorLiquido)
+                @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
+    
 </div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Observacao)
-            <div class="controls">
-                @Html.EditorFor(x => x.Observacao)
-                @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
+
+@*
 <fieldset>
     <legend></legend>
     <div class="row">
@@ -253,7 +429,7 @@
                 <thead>
                     <tr>
                         <th>Referência</th>
-                        @*<th>Referência Ext.</th>*@
+                        <th>Referência Ext.</th>
                         <th>Descrição</th>
                         <th>UND</th>
                         <th>Quantidade</th>
@@ -315,6 +491,7 @@
     </div>
 
 </fieldset>
+*@
 <script>
     $(function() {
 
@@ -428,5 +605,71 @@
         row.fadeTo('fast', 0, function () {
             row.remove();
         });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        //$(".k-grid-save-changes").hide();
+    });
+
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+
+    $(".k-grid-save-changes").on("click", function () {
+        var datasourcedata = $("#Grid").data("kendoGrid").dataSource.data();
+
+        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
+        for (var i = 0; i < datasourcedata.length; i++) {
+            datasourcedata[i].id = null;
+        }
+    });
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            $("#Grid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+    function filtroSetores() {
+        var grid = $("#Grid").data("kendoGrid");
+        //get the row in edit mode and its item
+        var editRow = grid.tbody.find("tr:has(.k-edit-cell)");
+        var model = grid.dataItem(editRow);
+        return {
+            NomeDepartamento: model.NomeDepartamento
+        };
+    }
+
+
+    function onDataBound(e) {
+        $(".k-grid-Up").find("span").addClass("icon-chevron-up");
+        $(".k-grid-Up").removeClass("k-button");
+        $(".k-grid-Down").find("span").addClass("icon-chevron-down");
+        $(".k-grid-Down").removeClass("k-button");
+    }
+
+    function Delete(a) {
+        var row = $(a).parents('tr:first');
+        row.fadeTo('fast', 0, function () {
+            row.remove();
+        });
+    }
+
+    function onRequestEnd(e) {
+        if ((e.type == "create" || e.type == "update") && !e.response.Errors) {
+            var returnUrl = '@Html.GetUrl(MVC.Compras.PedidoCompra.Index())';
+            window.location.href = returnUrl;
+        }
     }
 </script>
