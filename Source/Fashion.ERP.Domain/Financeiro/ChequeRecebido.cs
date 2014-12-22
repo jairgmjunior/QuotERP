@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Fashion.ERP.Domain.Comum;
 
 namespace Fashion.ERP.Domain.Financeiro
@@ -39,7 +40,7 @@ namespace Fashion.ERP.Domain.Financeiro
         public virtual Pessoa Cliente { get; set; }
         public virtual Banco Banco { get; set; }
         public virtual Emitente Emitente { get; set; }
-        public virtual Unidade Unidade { get; set; }
+        public virtual Pessoa Unidade { get; set; }
 
         #region Funcionarios
 
@@ -143,6 +144,11 @@ namespace Fashion.ERP.Domain.Financeiro
                 if (_ocorrenciaCompensacoes.Contains(ocorrenciaChequeRecebido))
                     _ocorrenciaCompensacoes.Remove(ocorrenciaChequeRecebido);
             }
+        }
+
+        public virtual OcorrenciaCompensacao UltimaOcorrenciaCompensacao()
+        {
+            return _ocorrenciaCompensacoes.OrderByDescending(o => o.Data).FirstOrDefault();
         }
 
         #endregion

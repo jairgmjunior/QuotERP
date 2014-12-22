@@ -85,7 +85,9 @@
     <Compile Include="Almoxarifado\MarcaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaPersistencia.cs" />
+    <Compile Include="Almoxarifado\ProcessosOperacionaisPersistencia.cs" />
     <Compile Include="Almoxarifado\ReferenciaExternaPersistencia.cs" />
+    <Compile Include="Almoxarifado\ReservaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\SaidaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\UnidadeMedidaPersistencia.cs" />
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />

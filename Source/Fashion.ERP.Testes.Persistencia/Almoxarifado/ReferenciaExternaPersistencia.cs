@@ -29,8 +29,9 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
 
         public override void Cleanup()
         {
-            RepositoryFactory.Create<Material>().Delete(_material);
-            RepositoryFactory.Create<Pessoa>().Delete(_fornecedor);
+            FabricaObjetosPersistidos.ExcluaMaterial(_material);
+            FabricaObjetosPersistidos.ExcluaFornecedor(_fornecedor);
+
             Session.Current.Flush();
         }
     }

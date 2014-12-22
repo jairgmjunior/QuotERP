@@ -74,6 +74,9 @@
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItemMap.cs" />
     <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterialMap.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaMap.cs" />
+    <Compile Include="Almoxarifado\ReservaEstoqueMaterialMap.cs" />
+    <Compile Include="Almoxarifado\ReservaMaterialItemMap.cs" />
+    <Compile Include="Almoxarifado\ReservaMaterialMap.cs" />
     <Compile Include="Almoxarifado\SaidaMaterialMap.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterialMap.cs" />
     <Compile Include="Almoxarifado\TecidoMap.cs" />

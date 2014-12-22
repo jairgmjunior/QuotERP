@@ -303,6 +303,7 @@
             } else {
                 alert('O código CMC7 informado é inválido.');
                 $(this).val('');
+                $(this).focus();
             }
 
             $('#codigo-banco').val(banco).trigger('change');

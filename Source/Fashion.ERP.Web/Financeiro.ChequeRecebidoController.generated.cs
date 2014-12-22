@@ -61,6 +61,12 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Devolucao()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Devolucao);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ExcluirBaixa()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExcluirBaixa);
@@ -134,6 +140,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string Baixa = "Baixa";
+            public readonly string Devolucao = "Devolucao";
             public readonly string ExcluirBaixa = "ExcluirBaixa";
             public readonly string LerFuncionarios = "LerFuncionarios";
             public readonly string AdicionarFuncionario = "AdicionarFuncionario";
@@ -153,6 +160,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string Baixa = "Baixa";
+            public const string Devolucao = "Devolucao";
             public const string ExcluirBaixa = "ExcluirBaixa";
             public const string LerFuncionarios = "LerFuncionarios";
             public const string AdicionarFuncionario = "AdicionarFuncionario";
@@ -209,6 +217,15 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public readonly string model = "model";
             public readonly string meioPagamentoId = "meioPagamentoId";
             public readonly string valorRecebimentoChequeRecebido = "valorRecebimentoChequeRecebido";
+        }
+        static readonly ActionParamsClass_Devolucao s_params_Devolucao = new ActionParamsClass_Devolucao();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Devolucao DevolucaoParams { get { return s_params_Devolucao; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Devolucao
+        {
+            public readonly string id = "id";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_ExcluirBaixa s_params_ExcluirBaixa = new ActionParamsClass_ExcluirBaixa();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -401,6 +418,26 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "meioPagamentoId", meioPagamentoId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "valorRecebimentoChequeRecebido", valorRecebimentoChequeRecebido);
             BaixaOverride(callInfo, model, meioPagamentoId, valorRecebimentoChequeRecebido);
+            return callInfo;
+        }
+
+        partial void DevolucaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
+
+        public override System.Web.Mvc.ActionResult Devolucao(long? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Devolucao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            DevolucaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void DevolucaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Financeiro.Models.DevolucaoChequeRecebidoModel model);
+
+        public override System.Web.Mvc.ActionResult Devolucao(Fashion.ERP.Web.Areas.Financeiro.Models.DevolucaoChequeRecebidoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Devolucao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            DevolucaoOverride(callInfo, model);
             return callInfo;
         }
 

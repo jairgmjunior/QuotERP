@@ -7,9 +7,9 @@
 	.Name("Grid")
 	.Columns(columns =>
 	{
-		columns.Bound(x => x.Descricao);
-        columns.Bound(x => x.SetorProducao);
         columns.Bound(x => x.DepartamentoProducao);
+        columns.Bound(x => x.SetorProducao);
+        columns.Bound(x => x.Descricao);
         columns.Bound(x => x.Tempo).Format("{0:F2}");
 		columns.Bound(x => x.Custo).Format("{0:F2}");
         columns.Template(item => Html.EditarAuth(MVC.Comum.OperacaoProducao.Editar(item.Id))).Width(80);

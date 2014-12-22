@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Models;
+using Fashion.Framework.Common.Validators;
 
 namespace Fashion.ERP.Web.Areas.Financeiro.Models
 {
@@ -17,17 +19,20 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public string Conta { get; set; }
 
         [Display(Name = "Nome")]
+        [Required(ErrorMessage = "Informe o nome")]
         [StringLength(100, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Nome1 { get; set; }
 
         [UIHint("Cpf")]
         [Display(Name = "CPF")]
         [StringLength(14, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
+        [CpfCnpj(ErrorMessage = "CPF inválido.")]
         public string Cpf1 { get; set; }
 
         [UIHint("Cnpj")]
         [Display(Name = "CNPJ")]
         [StringLength(18, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
+        [CpfCnpj(ErrorMessage = "CNPJ inválido.")]
         public string Cnpj1 { get; set; }
 
         [Display(Name = "Documento")]
@@ -45,11 +50,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         [UIHint("Cpf")]
         [Display(Name = "CPF")]
         [StringLength(14, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
+        [CpfCnpj(ErrorMessage = "CPF inválido.")]
         public string Cpf2 { get; set; }
 
         [UIHint("Cnpj")]
         [Display(Name = "CNPJ")]
         [StringLength(18, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
+        [CpfCnpj(ErrorMessage = "CNPJ inválido.")]
         public string Cnpj2 { get; set; }
 
         [Display(Name = "Documento")]
@@ -61,6 +68,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public string OrgaoExpedidor2 { get; set; }
 
         [Display(Name = "Cliente Desde")]
+        [Required(ErrorMessage = "Informe a data de uso de cheque")]
         public DateTime? ClienteDesde { get; set; }
 
         [Display(Name = "Ativo")]

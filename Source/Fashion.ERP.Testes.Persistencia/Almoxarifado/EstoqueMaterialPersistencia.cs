@@ -7,12 +7,17 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
     {
         private DepositoMaterial _depositoMaterialDestino;
         private Material _material;
-
+        private ReservaMaterial _reservaMaterial;
+        
         public override EstoqueMaterial GetPersistentObject()
         {
             var estoqueCatalagoMaterial = FabricaObjetos.ObtenhaEstoqueMaterial();
             estoqueCatalagoMaterial.Material = _material;
             estoqueCatalagoMaterial.DepositoMaterial = _depositoMaterialDestino;
+
+            var reservaEstoqueMaterial = FabricaObjetos.ObtenhaReservaEstoqueMaterial();
+            reservaEstoqueMaterial.ReservaMaterialItems.Add(_reservaMaterial.ReservaMaterialItems[0]);
+            estoqueCatalagoMaterial.ReservaEstoqueMaterial = reservaEstoqueMaterial;
 
             return estoqueCatalagoMaterial;
         }
@@ -21,6 +26,8 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
         {
             _depositoMaterialDestino = FabricaObjetosPersistidos.ObtenhaDepositoMaterial();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
+            _reservaMaterial = FabricaObjetosPersistidos.ObtenhaReservaMaterial();
+            
             Session.Current.Flush();
         }
 
@@ -28,7 +35,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
         {
             FabricaObjetosPersistidos.ExcluaDepositoMaterial(_depositoMaterialDestino);
             FabricaObjetosPersistidos.ExcluaMaterial(_material);
-         
+            FabricaObjetosPersistidos.ExcluaReservaMaterial(_reservaMaterial);
             Session.Current.Flush();
         }
     }

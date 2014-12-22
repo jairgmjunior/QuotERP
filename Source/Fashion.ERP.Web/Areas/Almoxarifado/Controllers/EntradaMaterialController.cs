@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Reporting.Almoxarifado;
+using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
 using Fashion.ERP.Web.Helpers;
@@ -12,8 +15,11 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Fashion.ERP.Domain.Almoxarifado;
+using Telerik.Reporting;
+using Telerik.Reporting.Drawing;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -26,15 +32,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<RecebimentoCompra> _recebimentoCompraRepository;
+        private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly ILogger _logger;
+        private Dictionary<string, string> _colunasPesquisaEntradaMaterial;
         #endregion
 
         #region Construtores
         public EntradaMaterialController(ILogger logger, IRepository<EntradaMaterial> entradaMaterialRepository,
             IRepository<DepositoMaterial> depositoMaterialRepository,
             IRepository<UnidadeMedida> unidadeMedidaRepository, IRepository<Material> materialRepository,
-            IRepository<EstoqueMaterial> estoqueMaterialRepository,
-            IRepository<RecebimentoCompra> recebimentoCompraRepository)
+            IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<RecebimentoCompra> recebimentoCompraRepository,
+            IRepository<Pessoa> pessoaRepository)
         {
             _entradaMaterialRepository = entradaMaterialRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
@@ -42,18 +50,24 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _materialRepository = materialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _recebimentoCompraRepository = recebimentoCompraRepository;
+            _pessoaRepository = pessoaRepository;
             _logger = logger;
+
+            PreecheColunasPesquisa();
         }
         #endregion
 
         #region Views
 
         #region Index
+        [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
             var entradaMaterials = _entradaMaterialRepository.Find();
 
-            var list = entradaMaterials.Select(p => new GridEntradaMaterialModel
+            var model = new PesquisaEntradaMaterialModel { ModoConsulta = "Listar" };
+
+            model.Grid = entradaMaterials.Select(p => new GridEntradaMaterialModel
             {
                 Id = p.Id.GetValueOrDefault(),
                 DataEntrada = p.DataEntrada,
@@ -62,8 +76,137 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,
             }).ToList();
 
-            return View(list);
+            return View(model);
         }
+
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
+        public virtual ActionResult Index(PesquisaEntradaMaterialModel model)
+        {
+            var entradaMateriais = _entradaMaterialRepository.Find();
+
+            try
+            {
+                #region Filtros
+                var filtros = new StringBuilder();
+
+                if (!string.IsNullOrWhiteSpace(model.Referencia))
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.EntradaItemMateriais.Any(i => i.Material.Referencia == model.Referencia));
+                    filtros.AppendFormat("Referência: {0}, ", model.Referencia);
+                }
+
+                if (model.UnidadeDestino.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Unidade.Id == model.UnidadeDestino);
+                    filtros.AppendFormat("Unidade destino: {0}, ", _pessoaRepository.Get(model.UnidadeDestino.Value).NomeFantasia);
+                }
+
+                if (model.DepositoMaterialDestino.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Id == model.DepositoMaterialDestino);
+                    filtros.AppendFormat("Depósito destino: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialDestino.Value).Nome);
+                }
+
+                if (model.Fornecedor.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.Fornecedor.Id == model.Fornecedor);
+                    filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
+                }
+
+                if (model.UnidadeOrigem.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Unidade.Id == model.UnidadeOrigem);
+                    filtros.AppendFormat("Unidade origem: {0}, ", _pessoaRepository.Get(model.UnidadeOrigem.Value).NomeFantasia);
+                }
+
+                if (model.DepositoMaterialOrigem.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Id == model.UnidadeOrigem);
+                    filtros.AppendFormat("Depósito origem: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialOrigem.Value).Nome);
+                }
+
+                if (model.DataEntradaDe.HasValue && model.DataEntradaAte.HasValue)
+                {
+                    entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date >= model.DataEntradaDe.Value
+                                                             && p.DataEntrada.Date <= model.DataEntradaAte.Value);
+                    filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                                         model.DataEntradaDe.Value.ToString("dd/MM/yyyy"),
+                                         model.DataEntradaAte.Value.ToString("dd/MM/yyyy"));
+                }
+
+                #endregion
+
+                // Verifica se é uma listagem
+                if (model.ModoConsulta == "Listar")
+                {
+                    if (model.OrdenarPor != null)
+                        entradaMateriais = model.OrdenarEm == "asc"
+                            ? entradaMateriais.OrderBy(model.OrdenarPor)
+                            : entradaMateriais.OrderByDescending(model.OrdenarPor);
+
+                    model.Grid = entradaMateriais.Select(p => new GridEntradaMaterialModel
+                    {
+                        Id = p.Id.GetValueOrDefault(),
+                        DataEntrada = p.DataEntrada,
+                        UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
+                        DepositoMaterialDestino = p.DepositoMaterialDestino.Nome,
+                        OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,
+                    }).ToList();
+
+                    return View(model);
+                }
+
+                // Se não é uma listagem, gerar o relatório
+                var result = entradaMateriais
+                    .Fetch(p => p.DepositoMaterialDestino).Fetch(p => p.DepositoMaterialOrigem)
+                    .ToList();
+
+                if (!result.Any())
+                    return Json(new { Error = "Nenhum item encontrado." });
+
+                #region Montar Relatório
+
+                Report report = new ListaEntradaMaterialReport { DataSource = result };
+
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+
+                if (model.AgruparPor != null)
+                {
+                    grupo.Groupings.Add("=Fields." + model.AgruparPor);
+
+                    var key = _colunasPesquisaEntradaMaterial.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
+                }
+
+                if (model.OrdenarPor != null)
+                    report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+                #endregion
+
+                var filename = report.ToByteStream().SaveFile(".pdf");
+
+                return Json(new { Url = filename });
+            }
+            catch (Exception exception)
+            {
+                var message = exception.GetMessage();
+                _logger.Info(message);
+
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(new { Error = message });
+
+                ModelState.AddModelError(string.Empty, message);
+                return View(model);
+            }
+        }
+
         #endregion
 
         #region Novo
@@ -311,7 +454,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             ViewData["UnidadeMedida"] = unidadeMediasAtivo.ToSelectList("Sigla", model.UnidadeDestino);
 
             // Catálogo de materiais
-            var materiais = _materialRepository.Find().ToList();
+            var materiais = _materialRepository.Find().Select(s => new {s.Id, s.Referencia, s.Descricao}).ToList();
             ViewBag.MaterialReferenciasDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Referencia })
                                                                .ToDictionary(k => k.Id, v => v.Referencia);
             ViewBag.MaterialDescricoesDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Descricao })
@@ -322,6 +465,24 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             var unidadeMedidasFator = unidadeMedidas.Select(c => new { Id = c.Id.GetValueOrDefault(), c.FatorMultiplicativo }).ToDictionary(k => k.Id, v => v.FatorMultiplicativo);
             ViewBag.FatoresDicionario = unidadeMedidasFator;
+        }
+        #endregion
+
+        #region PopulateViewDataPesquisa
+        protected void PopulateViewDataPesquisa(PesquisaEntradaMaterialModel model)
+        {
+            var unidadeDestinos = _depositoMaterialRepository.Find(p => p.Ativo)
+                .Select(d => d.Unidade).OrderBy(o => o.Nome).Where(u => u.Unidade.Ativo).Distinct().ToList();
+            ViewData["UnidadeDestino"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeDestino);
+            
+            ViewData["DepositoMaterialDestino"] = new List<DepositoMaterial>().ToSelectList("Nome");
+
+            ViewData["UnidadeOrigem"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeOrigem);
+            
+            ViewData["DepositoMaterialOrigem"] = new List<DepositoMaterial>().ToSelectList("Nome");
+
+            ViewBag.OrdenarPor = new SelectList(_colunasPesquisaEntradaMaterial, "value", "key");
+            ViewBag.AgruparPor = new SelectList(_colunasPesquisaEntradaMaterial, "value", "key");
         }
         #endregion
 
@@ -341,6 +502,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region ValidaExcluir
         protected override void ValidaExcluir(long id)
         {
+        }
+        #endregion
+
+        #region PreecheColunasPesquisa
+        private void PreecheColunasPesquisa()
+        {
+            _colunasPesquisaEntradaMaterial = new Dictionary<string, string>
+                           {
+                               {"Data entrada", "DataEntrada"},
+                               {"Unidade destino", "DepositoMaterialDestino.Unidade.Id"},
+                               {"DepositoMaterialDestino", "DepositoMaterialDestino.Id"},
+                               {"Fornecedor", "Fornecedor.Id"},
+                           };
+
         }
         #endregion
 

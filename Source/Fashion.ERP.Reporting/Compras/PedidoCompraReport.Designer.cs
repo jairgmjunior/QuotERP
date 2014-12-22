@@ -132,7 +132,7 @@ namespace Fashion.ERP.Reporting.Compras
             // textBox40
             // 
             this.textBox40.Name = "textBox40";
-            this.textBox40.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9063093662261963D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
+            this.textBox40.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8966426849365234D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
             this.textBox40.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox40.StyleName = "Caption";
             this.textBox40.Value = "Ref.Externa";
@@ -148,7 +148,7 @@ namespace Fashion.ERP.Reporting.Compras
             // textBox38
             // 
             this.textBox38.Name = "textBox38";
-            this.textBox38.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.3208150863647461D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
+            this.textBox38.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.314117431640625D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
             this.textBox38.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox38.StyleName = "Caption";
             this.textBox38.Value = "Unid.";
@@ -156,7 +156,7 @@ namespace Fashion.ERP.Reporting.Compras
             // textBox37
             // 
             this.textBox37.Name = "textBox37";
-            this.textBox37.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.6865934133529663D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
+            this.textBox37.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.6780407428741455D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
             this.textBox37.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox37.StyleName = "Caption";
             this.textBox37.Value = "Qtd.";
@@ -535,7 +535,7 @@ namespace Fashion.ERP.Reporting.Compras
             // 
             this.textBox36.Format = "{0}";
             this.textBox36.Name = "textBox36";
-            this.textBox36.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.6865934133529663D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
+            this.textBox36.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.6780407428741455D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
             this.textBox36.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox36.StyleName = "Data";
             this.textBox36.Value = "= Fields.Quantidade";
@@ -544,7 +544,7 @@ namespace Fashion.ERP.Reporting.Compras
             // 
             this.textBox43.Format = "{0}";
             this.textBox43.Name = "textBox43";
-            this.textBox43.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.3208150863647461D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
+            this.textBox43.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.314117431640625D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
             this.textBox43.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox43.StyleName = "Data";
             this.textBox43.Value = "= Fields.UnidadeMedida.Sigla";
@@ -553,7 +553,7 @@ namespace Fashion.ERP.Reporting.Compras
             // 
             this.textBox39.Format = "{0}";
             this.textBox39.Name = "textBox39";
-            this.textBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9063093662261963D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
+            this.textBox39.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8966426849365234D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
             this.textBox39.StyleName = "Data";
             this.textBox39.Value = "= Fields.ReferenciaExternaMaterial";
             // 

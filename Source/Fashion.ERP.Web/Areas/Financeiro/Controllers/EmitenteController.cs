@@ -5,6 +5,7 @@ using Fashion.ERP.Domain.Financeiro;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Financeiro.Models;
 using Fashion.ERP.Web.Helpers;
+using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
@@ -131,6 +132,19 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             }
 
             return PartialView(model);
+        }
+        #endregion
+
+        #region PesquisarId
+        [HttpGet, AjaxOnly]
+        public virtual ActionResult PesquisarId(long id)
+        {
+            var emitente = _emitenteRepository.Get(id);
+
+            if (emitente != null)
+                return Json(new { emitente.Id, nome = emitente.Nome1, cpfCnpj = emitente.CpfCnpj1 }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { erro = "Nenhum emitente encontrado." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

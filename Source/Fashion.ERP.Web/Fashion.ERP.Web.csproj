@@ -203,11 +203,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\T4MVCExtensions.3.7.4\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
@@ -219,6 +214,11 @@
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting, Version=8.1.14.618, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+      <Private>True</Private>
+      <HintPath>C:\Program Files (x86)\Telerik\Reporting Q2 2014\bin\Telerik.Reporting.dll</HintPath>
+      <SpecificVersion>True</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +287,7 @@
     <Compile Include="Areas\Almoxarifado\Models\IMaterialDropdownModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\MarcaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\MaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\PesquisaEntradaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\PesquisaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SaidaMaterialModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
@@ -531,6 +532,7 @@
     <Compile Include="Areas\Financeiro\Models\ChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ContaBancariaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\DespesaReceitaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\DevolucaoChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\EmitenteModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ExtratoBancarioModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridBaixaChequeRecebidoModel.cs" />
@@ -1053,6 +1055,7 @@
     <Content Include="Areas\Compras\Views\Transportadora\Index.cshtml" />
     <Content Include="Areas\Compras\Views\Transportadora\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\Transportadora\Pesquisar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\ChequeRecebido\Devolucao.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

@@ -280,10 +280,10 @@
             var materialId = $('#Material').val();
             var referencia = $('#referencia-material').val();
             var descricao = $('#descricao-material').text();
-            var quantidadeCompra = $('#QuantidadeCompra').val();
+            var quantidadeCompra = $('#QuantidadeCompra').val().toNumber();
             var unidadeCompraId = $('#UnidadeMedida').val();
             var unidadeCompra = $('#UnidadeMedida option:selected').text();
-            var quantidadeEntrada = $('#QuantidadeEntrada').val();
+            var quantidadeEntrada = $('#QuantidadeEntrada').val().toNumber();
 
             // Validar
             if (materialId == '') {
@@ -305,10 +305,10 @@
                     '<tr>\
                     <td>' + referencia + '<input type="hidden" name="Materiais" value="' + materialId + '"/><input type="hidden" name="EntradaItemMateriais" /></td>\
                     <td>' + descricao + '</td>\
-                    <td>' + quantidadeCompra + '<input type="hidden" name="QuantidadeCompras" value="' + quantidadeCompra + '"/></td>\
+                    <td>' + quantidadeCompra.toText(4) + '<input type="hidden" name="QuantidadeCompras" value="' + quantidadeCompra.toText(4) + '"/></td>\
                     <td>' + unidadeCompra + '<input type="hidden" name="UnidadeMedidas" value="' + unidadeCompraId + '"/></td>\
                     <td>' + fatorCompra + '</td>\
-                    <td>' + quantidadeEntrada + '<input type="hidden" name="Quantidades" value="' + quantidadeEntrada + '"/></td>\
+                    <td>' + quantidadeEntrada.toText(4) + '<input type="hidden" name="Quantidades" value="' + quantidadeEntrada.toText(4) + '"/></td>\
                     <td>' + unidadeEntrada + '</td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                 </tr>'

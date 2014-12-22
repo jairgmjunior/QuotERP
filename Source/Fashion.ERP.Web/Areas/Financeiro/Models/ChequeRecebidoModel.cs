@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Web.Models;
 
@@ -6,23 +7,37 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
 {
     public class ChequeRecebidoModel : IModel, IChequeRecebidoDropdownModel
     {
+        public ChequeRecebidoModel()
+        {
+            Cmc7s = new List<string>();
+            Bancos = new List<string>();
+            IdBancos = new List<long>();
+            Agencias = new List<string>();
+            Contas = new List<string>();
+            Cheques = new List<string>();
+            Vencimentos = new List<DateTime>();
+            IdEmitentes = new List<long?>();
+            Pracas = new List<string>();
+            Valores = new List<double>();
+        }
+
         public long? Id { get; set; }
+
+        [Display(Name = "Situação")]
+        public string Situacao { get; set; }
 
         [Display(Name = "Comp")]
         public int? Comp { get; set; }
 
         [Display(Name = "Agência")]
-        [Required(ErrorMessage = "Informe o número da agência")]
         [StringLength(6, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Agencia { get; set; }
 
         [Display(Name = "Conta")]
-        [Required(ErrorMessage = "Informe o número da conta")]
         [StringLength(8, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Conta { get; set; }
         
         [Display(Name = "Número cheque")]
-        [Required(ErrorMessage = "Informe o número do cheque")]
         [StringLength(6, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string NumeroCheque { get; set; }
         
@@ -31,7 +46,6 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public string Cmc7 { get; set; }
         
         [Display(Name = "Valor")]
-        [Required(ErrorMessage = "Informe o valor do cheque")]
         public double Valor { get; set; }
         
         [Display(Name = "Nominal")]
@@ -43,14 +57,12 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public DateTime? DataEmissao { get; set; }
         
         [Display(Name = "Vencimento")]
-        [Required(ErrorMessage = "Informe a data de vencimento")]
         public DateTime? DataVencimento { get; set; }
         
         [Display(Name = "Prorrogação")]
         public DateTime? DataProrrogacao { get; set; }
         
         [Display(Name = "Praça")]
-        [Required(ErrorMessage = "Informe a praça")]
         [StringLength(100, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Praca { get; set; }
         
@@ -75,15 +87,26 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public long? Cliente { get; set; }
 
         [Display(Name = "Banco")]
-        [Required(ErrorMessage = "Informe o banco")]
         public long? Banco { get; set; }
         
         [Display(Name = "Emitentes")]
-        [Required(ErrorMessage = "Informe o(s) emitente(s) do cheque.")]
         public long? Emitente { get; set; }
 
         [Display(Name = "Unidade")]
         [Required(ErrorMessage = "Informe a unidade que recebeu o cheque.")]
         public long? Unidade { get; set; }
+
+        // Baixas
+        public IList<string> Cmc7s { get; set; }
+        public IList<long> IdBancos { get; set; }
+        public IList<string> Bancos { get; set; }
+        public IList<string> Agencias { get; set; }
+        public IList<string> Contas { get; set; }
+        public IList<string> Cheques { get; set; }
+        public IList<DateTime> Vencimentos { get; set; }
+        public IList<long?> IdEmitentes { get; set; }
+        public IList<string> Emitentes { get; set; }
+        public IList<string> Pracas { get; set; }
+        public IList<double> Valores { get; set; }
     }
 }

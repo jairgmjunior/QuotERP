@@ -88,10 +88,14 @@
     {
         columns.Bound(x => x.Emitente);
         columns.Bound(x => x.NumeroCheque);
+        columns.Bound(x => x.Banco);
         columns.Bound(x => x.Valor).Format("{0:C}");
         columns.Bound(x => x.Saldo).Format("{0:C}");
+        columns.Bound(x => x.Emissao).Format("{0:dd/MM/yyyy}");
         columns.Bound(x => x.Vencimento).Format("{0:dd/MM/yyyy}");
-        columns.Template(item => item.Saldo > 0 ? Html.ActionLink("Baixar", MVC.Financeiro.ChequeRecebido.Baixa(null, item.Id), new { @class = "btn btn-small btn-warning" }) : new MvcHtmlString("&nbsp;")).Width(80);
+        columns.Bound(x => x.SituacaoCheque);
+        columns.Template(item => item.Saldo > 0 ? Html.ActionLink("Baixar", MVC.Financeiro.ChequeRecebido.Baixa(null, item.Id), new { @class = "btn btn-small btn-primary" }) : new MvcHtmlString("&nbsp;")).Width(80);
+        columns.Template(item => item.PodeDevolver ? Html.ActionLink("Devolver", MVC.Financeiro.ChequeRecebido.Devolucao(item.Id), new { @class = "btn btn-small btn-primary" }) : new MvcHtmlString("&nbsp;")).Width(80);
         columns.Template(item => Html.EditarAuth(MVC.Financeiro.ChequeRecebido.Editar(item.Id))).Width(80);
     })
 )
