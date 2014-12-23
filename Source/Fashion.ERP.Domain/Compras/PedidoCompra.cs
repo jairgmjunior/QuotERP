@@ -37,7 +37,9 @@ namespace Fashion.ERP.Domain.Compras
         public virtual Pessoa UnidadeEstocadora { get; set; }
         public virtual Prazo Prazo { get; set; }
         public virtual MeioPagamento MeioPagamento { get; set; }
+
         public virtual Pessoa Transportadora { get; set; }
+
 
 
         public virtual double ValorMercadoria

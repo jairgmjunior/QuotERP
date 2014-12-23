@@ -10,7 +10,6 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
         private Pessoa _unidade;
         private Colecao _colecao;
         private ReservaMaterialItem _reservaMaterialItem;
-        private ReservaMaterialItem _reservaMaterialItemSubstituto;
         private Material _material;
 
         public override ReservaMaterial GetPersistentObject()
@@ -34,12 +33,8 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
 
             _reservaMaterialItem = FabricaObjetos.ObtenhaReservaMaterialItem();
             _reservaMaterialItem.Material = _material;
-
-            _reservaMaterialItemSubstituto = FabricaObjetos.ObtenhaReservaMaterialItem();
-            _reservaMaterialItemSubstituto.Material = _material;
+            _reservaMaterialItem.ReservaMaterialItemCancelado = FabricaObjetos.ObtenhaReservaMaterialItemCancelado();
             
-            _reservaMaterialItem.ReservaMaterialItemSubstitutos.Add(_reservaMaterialItemSubstituto);
-
             Session.Current.Flush();
         }
 

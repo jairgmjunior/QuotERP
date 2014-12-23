@@ -10,10 +10,10 @@ namespace Fashion.ERP.Mapping.Almoxarifado
         {
             Map(x => x.Numero).Not.Nullable();
             Map(x => x.Data).Not.Nullable();
-            Map(x => x.PrevisaoPrimeiraUtilizacao).Not.Nullable();
-            Map(x => x.Observacao).Not.Nullable();
-            Map(x => x.Referencia).Not.Nullable();
-            Map(x => x.Finalizada).Not.Nullable();
+            Map(x => x.DataProgramacao).Not.Nullable();
+            Map(x => x.Observacao).Nullable();
+            Map(x => x.ReferenciaOrigem).Not.Nullable();
+            Map(x => x.SituacaoReservaMaterial).Not.Nullable();
             
             References(x => x.Unidade).Not.Nullable();
             References(x => x.Colecao).Not.Nullable();

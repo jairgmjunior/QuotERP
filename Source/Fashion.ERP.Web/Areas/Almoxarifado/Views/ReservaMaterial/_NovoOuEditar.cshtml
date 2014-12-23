@@ -1,0 +1,243 @@
+﻿@using Fashion.ERP.Domain.Almoxarifado
+@model Fashion.ERP.Web.Areas.Almoxarifado.Models.ReservaMaterialModel
+
+<fieldset>
+    <legend><small>Dados da Reserva de Material</small></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.UnidadeId, new { @class = "control-label " })
+                <div class="controls">
+                    @Html.DropDownList("UnidadeId", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(x => x.UnidadeId, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.SituacaoReservaMaterial)
+                <div class="controls">
+                    @Html.EditorFor(x => x.SituacaoReservaMaterial)
+                </div>
+            </div>
+        </div>
+    </div>
+        @{
+        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+        {
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Numero)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Numero)
+                            @Html.HiddenFor(x => x.Numero)
+                            @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Data)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Data)
+                            @Html.HiddenFor(x => x.Data)
+                            @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>  
+                </div>
+            }
+        }
+
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ReferenciaOrigem, new { @class = "control-label " })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.ReferenciaOrigem, new { @class = "input-small" })
+                    @Html.ValidationMessageFor(x => x.ReferenciaOrigem, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ColecaoId)
+                <div class="controls">
+                    @Html.DropDownList("ColecaoId", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(x => x.ColecaoId, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.RequerenteId)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.RequerenteId, new { id = "funcionario" })
+                    <div class="input-append">
+                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-funcionario" class="add-on"></span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.RequerenteId, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DataProgramacao)
+                <div class="controls">
+                    @Html.EditorFor(x => x.DataProgramacao)
+                    @Html.ValidationMessageFor(x => x.DataProgramacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Observacao)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Observacao)
+                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+ </fieldset>
+
+
+<fieldset>
+    <legend><small>Itens da Reserva de Material</small></legend>
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(@Model.GridItens)
+            .Name("GridItens")
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.Id).Hidden();            
+                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid");
+                columns.Bound(x => x.Descricao);
+                columns.Bound(x => x.UnidadeMedida).Width(100);
+                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric");
+                columns.Bound(x => x.QuantidadeAtendida);
+                columns.Bound(x => x.QuantidadeCancelada);
+                columns.Bound(x => x.SituacaoReservaMaterial).Template(s => s.SituacaoReservaMaterial.EnumToString());   
+                columns.Command(command =>  command.Edit());
+            })
+            .DataSource(s => s.Ajax()
+                .Model(model =>
+                {
+                    model.Id(item => item.Id); 
+                    model.Field(product => product.Descricao).Editable(true); 
+                    model.Field(product => product.QuantidadeAtendida).Editable(true); 
+                    model.Field(product => product.QuantidadeCancelada).Editable(false); 
+                    model.Field(product => product.UnidadeMedida).Editable(true); 
+                    model.Field(product => product.SituacaoReservaMaterial).Editable(false); 
+                })
+                .Create(update => update.Action("EditingInline_Create", "ReservaMaterial"))
+                .Read(read => read.Action("EditingInline_Read", "ReservaMaterial"))
+                .Update(update => update.Action("EditingInline_Update", "ReservaMaterial"))
+                .Destroy(update => update.Action("EditingInline_Destroy", "ReservaMaterial"))
+            )
+            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class="btn-primary" }))
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Resizable(resize => resize.Columns(true))
+            .Events(x => x.Edit("onEditGrid"))
+            )
+    </div>
+</fieldset>
+
+<script>
+    function onEditGrid(e) {
+        $("#Descricao").attr("readonly", true);
+        $("#UnidadeMedida").attr("readonly", true);
+    }
+
+    $('#form').submit(function (e) {
+        e.preventDefault();
+
+        //// Validar
+        //var formValido = formularioEhValido();
+        //if (!$("#form").valid() || !formValido) {
+
+        if (!$("#form").valid()) {
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        var formData = $("#form").serializeObject();
+        formData.GridItens = obtenhaDadosGridItens();
+        var dados = { "model": formData };
+
+        $.ajax({
+            type: "POST",
+            url: obtenhaUrlActionSubmit(),
+            //headers: headers,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(dados),
+            //dataType: "json",
+            success: function (retorno) {
+                if (retorno == "error") {
+                    window.location.reload();
+                    return;
+                }
+                window.location.href = '@Url.Action("Index", "ReservaMaterial")';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        return true;
+    });
+
+    function formularioEhValido() {
+        var retorno = true;
+
+        // Valor 
+        //var valor = $('#DataProgramacao').val();
+        //if (valor <= 0 && !$('#DataProgramacao').valid()) {
+        //    retorno = false;
+        //}
+
+        // Fornecedor 
+        if ($("#codigo-funcionario").val() == false) {
+            $('#RequerenteId').val("");
+            $('#RequerenteId').valid();
+            $('#descricao-funcionario').text("");
+            retorno = false;
+        }
+
+        return retorno;
+    }
+
+    function obtenhaDadosGridItens() {
+        var grid = $("#GridItens").data("kendoGrid");
+        if (grid) {
+            return grid.dataSource.data();
+        }
+        return null;
+    }
+
+    $.fn.serializeObject = function () {
+        var o = Object.create(null),
+            elementMapper = function (element) {
+                element.name = $.camelCase(element.name);
+                return element;
+            },
+            appendToResult = function (i, element) {
+                var node = o[element.name];
+
+                if ('undefined' != typeof node && node !== null) {
+                    o[element.name] = node.push ? node.push(element.value) : [node, element.value];
+                } else {
+                    o[element.name] = element.value;
+                }
+            };
+
+        $.each($.map(this.serializeArray(), elementMapper), appendToResult);
+        return o;
+    };
+</script>

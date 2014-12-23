@@ -647,7 +647,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 var material = _materialRepository.Find(p => p.Referencia == referencia && p.Ativo).FirstOrDefault();
 
                 if (material != null)
-                    return Json(new { material.Id, material.Referencia, material.Descricao }, JsonRequestBehavior.AllowGet);
+                    return Json(new { material.Id, material.Referencia, material.Descricao, UnidadeMedida = material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { erro = "Nenhum catálogo de material encontrado." }, JsonRequestBehavior.AllowGet);
@@ -661,7 +661,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var material = _materialRepository.Get(id);
 
             if (material != null)
-                return Json(new { material.Id, material.Referencia, material.Descricao }, JsonRequestBehavior.AllowGet);
+                return Json(new { material.Id, material.Referencia, material.Descricao, material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);
 
             return Json(new { erro = "Nenhum catálogo de material encontrado." }, JsonRequestBehavior.AllowGet);
         }
