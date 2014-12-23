@@ -11,6 +11,7 @@
 }
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
     Html.RenderPartial("_ConfirmDelete");
 }
 
@@ -25,7 +26,5 @@
         $("#Numero").attr("disabled", "disabled");
 
         $("#Unidade").prop("disabled", true);
-
-        $("#DepositoMaterial").prop("disabled", true);
     });
 </script>    
