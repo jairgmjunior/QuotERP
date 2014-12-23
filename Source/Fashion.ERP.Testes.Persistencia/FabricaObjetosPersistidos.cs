@@ -325,7 +325,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             var pedidoCompra = _fabricaObjetos.ObtenhaPedidoCompra();
             pedidoCompra.Fornecedor = ObtenhaFuncionario();
-            pedidoCompra.Comprador = ObtenhaFuncionario();
+            pedidoCompra.FuncionarioAutorizador = ObtenhaFuncionario();
             pedidoCompra.UnidadeEstocadora = ObtenhaUnidade();
             pedidoCompra.Prazo = ObtenhaPrazo();
             pedidoCompra.MeioPagamento = ObtenhaMeioPagamento();
@@ -345,7 +345,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             RepositoryFactory.Create<PedidoCompra>().Delete(pedidoCompra);
             ExcluaFornecedor(pedidoCompra.Fornecedor);
-            ExcluaPessoa(pedidoCompra.Comprador);
+            ExcluaPessoa(pedidoCompra.FuncionarioAutorizador);
             ExcluaPessoa(pedidoCompra.UnidadeEstocadora);
             ExcluaPrazo(pedidoCompra.Prazo);
         }
@@ -758,6 +758,20 @@ namespace Fashion.ERP.Testes.Persistencia
             {
                 ExcluaTipoFornecedor(pessoa.Fornecedor.TipoFornecedor);
             }
+        }
+
+        public Pessoa ObtenhaTransportadora()
+        {
+            var pessoa = _fabricaObjetos.ObtenhaTransportadora();
+
+            RepositoryFactory.Create<Pessoa>().Save(pessoa);
+
+            return pessoa;
+        }
+
+        public void ExcluaTransportadora(Pessoa pessoa)
+        {
+            RepositoryFactory.Create<Pessoa>().Delete(pessoa);
         }
 
         public DepartamentoProducao ObtenhaDepartamentoProducao()

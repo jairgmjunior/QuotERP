@@ -21,12 +21,19 @@ namespace Fashion.ERP.Migrator
                 .AddColumn("transportadora_id")
                 .AsInt64()
                 .Nullable()
-                .ForeignKey("FK_pedidocompra_transportadora", "transportadora", "id");
+                .ForeignKey("FK_pedidocompra_transportadora", "pessoa", "id");
+
+            Alter.Table("pedidocompra")
+                .AddColumn("funcionarioautorizador_id")
+                .AsInt64()
+                .Nullable()
+                .ForeignKey("FK_pedidocompra_funcionarioautorizador", "pessoa", "id");
 
             Alter.Table("pedidocompraitem")
                 .AddColumn("valordesconto")
                 .AsDouble()
                 .Nullable();
+
         }
 
         public override void Down()

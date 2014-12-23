@@ -17,6 +17,8 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.ValorFrete).Not.Nullable();
             Map(x => x.ValorDesconto).Not.Nullable();
             Map(x => x.ValorCompra).Not.Nullable();
+            Map(x => x.ValorEmbalagem).Not.Nullable();
+            Map(x => x.ValorEncargos).Not.Nullable();
             Map(x => x.Observacao).Length(4000);
             Map(x => x.Autorizado).Not.Nullable();
             Map(x => x.DataAutorizacao);
@@ -25,9 +27,10 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.Contato).Length(50);
 
             References(x => x.Comprador).Not.Nullable();
+            References(x => x.FuncionarioAutorizador).Not.Nullable();
             References(x => x.Fornecedor).Not.Nullable();
             References(x => x.UnidadeEstocadora).Not.Nullable();
-            References(x => x.Transportadora).Not.Nullable();
+            References(x => x.Transportadora).Nullable();
             References(x => x.Prazo);
             References(x => x.MeioPagamento);
 

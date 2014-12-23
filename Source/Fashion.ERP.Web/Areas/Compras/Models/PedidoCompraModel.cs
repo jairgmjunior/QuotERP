@@ -110,7 +110,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Required(ErrorMessage = "Informe a transportadora")]
         public long? Transportadora { get; set; }
 
-        public double ValorLiquido { get; set; }
+        [Display(Name = "Valor Líquido")]
+        public double? ValorLiquido { get; set; }
+        [Display(Name = "Valor Mercadorias")]
+        public double? ValorMercadorias { get; set; }
 
         public IList<GridPedidoCompraModel> Grid { get; set; }
 

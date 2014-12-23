@@ -359,16 +359,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<PedidoCompraModel>(domain);
+                model.ValorMercadorias = domain.ValorMercadoria;
+                model.ValorLiquido = domain.ValorLiquido;
 
                 foreach (var item in domain.PedidoCompraItens)
                 {
-                    model.PedidoCompraItens.Add(item.Id);
-                    model.Materiais.Add(item.Material.Id.GetValueOrDefault());
-                    model.UnidadeMedidas.Add(item.UnidadeMedida.Id.GetValueOrDefault());
-                    model.Quantidades.Add(item.Quantidade);
-                    model.ValorUnitarios.Add(item.ValorUnitario);
-                    model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
-                    model.SituacaoCompras.Add(item.SituacaoCompra);
+                    //model.PedidoCompraItens.Add(item.Id);
+                    //model.Materiais.Add(item.Material.Id.GetValueOrDefault());
+                    //model.UnidadeMedidas.Add(item.UnidadeMedida.Id.GetValueOrDefault());
+                    //model.Quantidades.Add(item.Quantidade);
+                    //model.ValorUnitarios.Add(item.ValorUnitario);
+                    //model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
+                    //model.SituacaoCompras.Add(item.SituacaoCompra);
                     model.GridPedidoItem = new List<GridPedidoCompraItem>();
                     model.GridPedidoItem.Add(ObterPedidoCompraItem(item));
                     model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
@@ -376,7 +378,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
 
                 
-
                 return View("Editar", model);
             }
 

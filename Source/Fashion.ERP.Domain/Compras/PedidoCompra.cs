@@ -32,6 +32,7 @@ namespace Fashion.ERP.Domain.Compras
         public virtual SituacaoCompra SituacaoCompra { get; set; }
         public virtual string Contato { get; set; }
         public virtual Pessoa Comprador { get; set; }
+        public virtual Pessoa FuncionarioAutorizador { get; set; }
         public virtual Pessoa Fornecedor { get; set; }
         public virtual Pessoa UnidadeEstocadora { get; set; }
         public virtual Prazo Prazo { get; set; }
@@ -42,6 +43,11 @@ namespace Fashion.ERP.Domain.Compras
         public virtual double ValorMercadoria
         {
             get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
+        }
+
+        public virtual double ValorLiquido
+        {
+            get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
         }
 
         #region pedidoCompraItem

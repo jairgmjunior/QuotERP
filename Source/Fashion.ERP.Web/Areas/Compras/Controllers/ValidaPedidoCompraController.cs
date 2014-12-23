@@ -100,6 +100,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = _pedidoCompraRepository.Get(model.Id);
+                    var funcionarioAutorizador = _pessoaRepository.Get(model.Funcionario);
 
                     var usuario = _usuarioRepository.Find(u => u.Funcionario.Id == model.Funcionario).FirstOrDefault();
                     if (usuario != null)
@@ -122,6 +123,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         domain.Autorizado = false;
                         domain.DataAutorizacao = null;
                         domain.ObservacaoAutorizacao = null;
+                        domain.FuncionarioAutorizador = funcionarioAutorizador;
                         this.AddSuccessMessage("Invalidação do pedido de compra realizada com sucesso.");
                     }
                     else
@@ -129,6 +131,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         domain.Autorizado = true;
                         domain.DataAutorizacao = DateTime.Now;
                         domain.ObservacaoAutorizacao = model.ObservacaoValidacao;
+                        domain.FuncionarioAutorizador = funcionarioAutorizador;
                         this.AddSuccessMessage("Validação do pedido de compra realizada com sucesso.");
                     }
 

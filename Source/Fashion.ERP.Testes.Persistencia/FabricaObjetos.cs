@@ -504,7 +504,10 @@ namespace Fashion.ERP.Testes.Persistencia
                 ValorCompra = 1,
                 Observacao = "OBSERVAÇÃO PEDIDO COMPRA",
                 ObservacaoAutorizacao = "OBSERVAÇÃO AUTORIZAÇÃO",
-                SituacaoCompra = SituacaoCompra.AtendidoParcial
+                SituacaoCompra = SituacaoCompra.AtendidoParcial,
+                ValorEncargos = 1,
+                ValorEmbalagem = 1
+                
             };
         }
 
@@ -685,6 +688,7 @@ namespace Fashion.ERP.Testes.Persistencia
                 Nome = "NOME DA ÁREA DE INTERESSE"
             };
         }
+
 
         public Pessoa ObtenhaFornecedor()
         {

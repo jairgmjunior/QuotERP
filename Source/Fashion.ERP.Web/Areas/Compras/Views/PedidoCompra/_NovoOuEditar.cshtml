@@ -1,5 +1,13 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
+<script>
+    $(document).ready(function () {
+        $('#ValorMercadorias').attr('readonly', true);
+        $('#ValorLiquido').attr('readonly', true);
+        $('#ValorDesconto').attr('readonly', true);
+    });
+</script>
+
 <fieldset>
     <legend></legend>
     <div class="row">
@@ -180,15 +188,15 @@
                       {
                           columns.Bound(x => x.Id).Hidden();
                           //columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
-                          columns.Bound(e => e.Referencia).Width(120);
-                          columns.Bound(e => e.ReferenciaExterna).Width(120);
-                          columns.Bound(e => e.Descricao).Width(120);
-                          columns.Bound(e => e.UnidadeEstocadora).Width(120);
-                          columns.Bound(e => e.Quantidade);
-                          columns.Bound(e => e.PrevisaoEntrega);
-                          columns.Bound(e => e.ValorUnitario);
-                          columns.Bound(e => e.ValorDesconto);
-                          columns.Bound(e => e.ValorTotal);
+                          columns.Bound(e => e.Referencia).Width(80);
+                          columns.Bound(e => e.ReferenciaExterna).Width(80);
+                          columns.Bound(e => e.Descricao).Width(500);
+                          columns.Bound(e => e.UnidadeEstocadora).Width(60);
+                          columns.Bound(e => e.Quantidade).Width(60);
+                          columns.Bound(e => e.PrevisaoEntrega).Width(90);
+                          columns.Bound(e => e.ValorUnitario).Width(80);
+                          columns.Bound(e => e.ValorDesconto).Width(80);
+                          columns.Bound(e => e.ValorTotal).Width(80);
                           columns.Command(command => command.Destroy());
                       }
                   )
@@ -201,6 +209,7 @@
                       {
                            model.Id(e => e.Id);
                            model.Field(item => item.PedidoCompraId).DefaultValue(@Model.Id);
+                          model.Field(e => e.Referencia).Editable(false);
                       })
                       .Create(create => create.Action("SalveSequenciaProducao", "SequenciaProducao"))
                       .Update(update => update.Action("AtualizeSequenciaProducao", "SequenciaProducao"))
@@ -276,10 +285,10 @@
 <div class="row">
     <div class="span6">
         <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorTotais)
+            @Html.LabelForRequired(x => x.ValorMercadorias)
             <div class="controls">
-                @Html.EditorFor(x => x.ValorTotais)
-                @Html.ValidationMessageFor(x => x.ValorTotais, null, new { @class = "help-block" })
+                @Html.EditorFor(x => x.ValorMercadorias)
+                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block", disabled = "disabled", @readonly = "readonly" })
             </div>
         </div>
     </div>
