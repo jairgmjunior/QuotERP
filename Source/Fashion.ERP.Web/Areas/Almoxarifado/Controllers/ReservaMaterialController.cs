@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fashion.ERP.Web.Areas.Financeiro.Controllers;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -300,7 +299,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         QuantidadeAtendida = x.QuantidadeAtendida,
                         QuantidadeCancelada = x.ReservaMaterialItemCancelado != null ? x.ReservaMaterialItemCancelado.QuantidadeCancelada : 0,
                         QuantidadeSolicitada = x.QuantidadeReserva,
-                        UnidadeMedida = x.Material.UnidadeMedida.Sigla
+                        UnidadeMedida = x.Material.UnidadeMedida.Sigla,
+                        Id = x.Id
                     }).ToList();
                 
                 return View("Editar", model);
@@ -310,24 +310,28 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataNovoEditar")]
+        [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Editar(ReservaMaterialModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var material = _reservaMaterialRepository.Get(model.Id);
+                    var domain = _reservaMaterialRepository.Get(model.Id);
                     
-                    var domain = Mapper.Unflat(model, material);
+                    Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
+
+                    domain = Mapper.Unflat(model, domain);
+
+                    domain.Requerente = _pessoaRepository.Get(model.Requerente);
 
                     ExcluaReservaMaterialItens(model, domain);
                     AtualizeReservaMaterialItens(model, domain);
                     IncluaNovosReservaMaterialItens(model, domain);
                     AtualizeSituacao(domain);
 
-                    _reservaMaterialRepository.Update(domain);
-
+                    _reservaMaterialRepository.SaveOrUpdate(domain);
+                    Framework.UnitOfWork.Session.Current.Flush();
                     this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
                     return RedirectToAction("Index");
                 }
@@ -354,7 +358,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Id == x.Id);
                 if (reservaMaterialItem == null)
                 {
-                    reservaMaterialItem = new ReservaMaterialItem()
+                    reservaMaterialItem = new ReservaMaterialItem
                     {
                         Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First(),
                         QuantidadeAtendida = x.QuantidadeAtendida,
@@ -440,10 +444,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         protected void PopulateViewDataNovoEditar(ReservaMaterialModel model)
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null).OrderBy(o => o.NomeFantasia).ToList();
-            ViewData["UnidadeId"] = unidades.ToSelectList("NomeFantasia", model.UnidadeId);
+            ViewData["Unidade"] = unidades.ToSelectList("NomeFantasia", model.Unidade);
 
             var colecoes = _colecaoRepository.Find().OrderBy(o => o.Descricao).ToList();
-            ViewData["ColecaoId"] = colecoes.ToSelectList("Descricao", model.ColecaoId);
+            ViewData["Colecao"] = colecoes.ToSelectList("Descricao", model.Colecao);
         }
         #endregion
 
@@ -479,12 +483,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                {"Unidade", "Unidade.NomeFantasia"},
                                {"Situação", "SituacaoReservaMaterial"}
                            };
-
         }
         #endregion
 
         #endregion
 
+        #region Actions Grid
+        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
         public ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
         {
             return Json(request);
@@ -507,5 +512,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
+        #endregion
     }
 }

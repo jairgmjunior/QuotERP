@@ -6,10 +6,16 @@
     <div class="row">
         <div class="span6">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.UnidadeId, new { @class = "control-label " })
+                @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label " })
                 <div class="controls">
-                    @Html.DropDownList("UnidadeId", null, "-- Selecione --", new { @class = "input-xlarge" })
-                    @Html.ValidationMessageFor(x => x.UnidadeId, string.Empty, new { @class = "help-block" })
+                    @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
+                    @{
+                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                        {
+                            @Html.HiddenFor(x => x.Unidade)
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -46,14 +52,13 @@
                         </div>
                     </div>
                 </div>  
-                </div>
-            }
+            </div>
         }
-
+        }
     <div class="row">
         <div class="span6">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.ReferenciaOrigem, new { @class = "control-label " })
+                @Html.LabelForRequired(x => x.ReferenciaOrigem, new { @class = "control-label" })
                 <div class="controls">
                     @Html.TextBoxFor(x => x.ReferenciaOrigem, new { @class = "input-small" })
                     @Html.ValidationMessageFor(x => x.ReferenciaOrigem, string.Empty, new { @class = "help-block" })
@@ -62,10 +67,10 @@
         </div>
         <div class="span4">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.ColecaoId)
+                @Html.LabelForRequired(x => x.Colecao)
                 <div class="controls">
-                    @Html.DropDownList("ColecaoId", null, "-- Selecione --", new { @class = "input-xlarge" })
-                    @Html.ValidationMessageFor(x => x.ColecaoId, string.Empty, new { @class = "help-block" })
+                    @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
@@ -73,15 +78,15 @@
     <div class="row">
         <div class="span6">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.RequerenteId)
+                @Html.LabelForRequired(x => x.Requerente)
                 <div class="controls">
-                    @Html.HiddenFor(x => x.RequerenteId, new { id = "funcionario" })
+                    @Html.HiddenFor(x => x.Requerente, new { id = "funcionario" })
                     <div class="input-append">
                         <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                         <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                         <span id="descricao-funcionario" class="add-on"></span>
                     </div>
-                    @Html.ValidationMessageFor(x => x.RequerenteId, string.Empty, new { @class = "help-block" })
+                    @Html.ValidationMessageFor(x => x.Requerente, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
@@ -117,14 +122,14 @@
             .Columns(columns =>
             {
                 columns.Bound(x => x.Id).Hidden();            
-                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid");
+                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric");
-                columns.Bound(x => x.QuantidadeAtendida);
-                columns.Bound(x => x.QuantidadeCancelada);
+                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric").Width(100);
+                columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric").Width(100);
+                columns.Bound(x => x.QuantidadeCancelada).Width(100);
                 columns.Bound(x => x.SituacaoReservaMaterial).Template(s => s.SituacaoReservaMaterial.EnumToString());   
-                columns.Command(command =>  command.Edit());
+                columns.Command(command =>  { command.Edit(); command.Destroy(); } );
             })
             .DataSource(s => s.Ajax()
                 .Model(model =>
@@ -133,6 +138,7 @@
                     model.Field(product => product.Descricao).Editable(true); 
                     model.Field(product => product.QuantidadeAtendida).Editable(true); 
                     model.Field(product => product.QuantidadeCancelada).Editable(false); 
+                    model.Field(product => product.QuantidadeSolicitada).Editable(true); 
                     model.Field(product => product.UnidadeMedida).Editable(true); 
                     model.Field(product => product.SituacaoReservaMaterial).Editable(false); 
                 })
@@ -152,7 +158,15 @@
 <script>
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
+        $("#Descricao").width('86%');
         $("#UnidadeMedida").attr("readonly", true);
+        $("#UnidadeMedida").addClass("input-small");
+        $("#QuantidadeSolicitada").data("kendoNumericTextBox").wrapper.width("100px");
+        $("#QuantidadeAtendida").data("kendoNumericTextBox").wrapper.width("100px");
+        if (!e.model.isNew()) {
+            $("#Referencia").attr("readonly", true);
+            $("#pesquisar-material").attr("disabled", true);
+        }
     }
 
     $('#form').submit(function (e) {
@@ -204,8 +218,8 @@
 
         // Fornecedor 
         if ($("#codigo-funcionario").val() == false) {
-            $('#RequerenteId').val("");
-            $('#RequerenteId').valid();
+            $('#Requerente').val("");
+            $('#Requerente').valid();
             $('#descricao-funcionario').text("");
             retorno = false;
         }
@@ -240,4 +254,33 @@
         $.each($.map(this.serializeArray(), elementMapper), appendToResult);
         return o;
     };
+    
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: { 
+                quantidadesolicitadavalidation: function (input, params) {
+                    if (input.is("[name='QuantidadeSolicitada']") && input.val()) {
+                        return input.val() != 0;
+                    }
+                    return true;
+                },
+                referenciavalidation: function (input, params) {
+                    if (input.is("[name='Referencia']")) {
+                        return input.val() != '' ;
+                    }
+                    return true;
+                }
+            },
+            messages: { 
+                quantidadesolicitadavalidation: function (input) {
+                    input.attr("data-quantidadesolicitadavalidation-msg", "A Qtd. Solicitada não pode ser 0.");
+                    return input.attr("data-quantidadesolicitadavalidation-msg");
+                },
+                referenciavalidation: function (input) {
+                    input.attr("data-referenciavalidation-msg", "O material deve ser selecionado");
+                    return input.attr("data-referenciavalidation-msg");
+                }
+            }
+        });
+    })(jQuery, kendo);
 </script>

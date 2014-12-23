@@ -26,15 +26,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Requerente")]
         [Required(ErrorMessage = "Informe o requerente")]
-        public long RequerenteId { get; set; }
+        public long Requerente { get; set; }
 
         [Display(Name = "Unidade")]
         [Required(ErrorMessage = "Informe a unidade")]
-        public long UnidadeId { get; set; }
+        public long Unidade { get; set; }
 
         [Display(Name = "Coleção")]
         [Required(ErrorMessage = "Informe a coleção")]
-        public long ColecaoId { get; set; }
+        public long Colecao { get; set; }
 
         [Display(Name = "Referência de Origem")]
         [Required(ErrorMessage = "Informe a referência de origem")]

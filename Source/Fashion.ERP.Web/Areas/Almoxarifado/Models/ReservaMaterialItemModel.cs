@@ -13,17 +13,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        [Display(Name = "Unid.")]
+        [Display(Name = "Unid. Med.")]
         public string UnidadeMedida { get; set; }
 
-        [Display(Name = "Qtd. Solicitada")]
+        [Display(Name = "Qtde. Solicitada")]
         [Range(0, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero.")]
         public double QuantidadeSolicitada { get; set; }
 
-        [Display(Name = "Qtd. Atendida")]
+        [Display(Name = "Qtde. Atendida")]
         public double QuantidadeAtendida { get; set; }
 
-        [Display(Name = "Qtd. Cancelada")]
+        [Display(Name = "Qtde. Cancelada")]
         public double QuantidadeCancelada { get; set; }
 
         [Display(Name = "Situação")]
