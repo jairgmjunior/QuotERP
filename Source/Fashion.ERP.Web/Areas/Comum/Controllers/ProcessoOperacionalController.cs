@@ -33,7 +33,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         #endregion
 
         #region Construtores
-        public ProcessoOperacionalController(ILogger logger, IRepository<ProcessoOperacional> naturezaRepository,
+        public ProcessoOperacionalController(ILogger logger, IRepository<ProcessoOperacional> processoOperacionalRepository,
             IRepository<Modelo> modeloRepository,
             IRepository<SetorProducao> setorProducaoRepository,
             IRepository<DepartamentoProducao> departamentoRepository,
@@ -41,7 +41,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             IRepository<SequenciaOperacional> sequenciaOperacionalRepository
             )
         {
-            _processoRepository = naturezaRepository;
+            _processoRepository = processoOperacionalRepository;
             _modeloRepository = modeloRepository;
             _logger = logger;
             _departamentoProducaoRepository = departamentoRepository;
@@ -56,9 +56,9 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         #region Index
         public virtual ActionResult Index()
         {
-            var naturezas = _processoRepository.Find();
+            var processoOperacionals = _processoRepository.Find();
 
-            var list = naturezas.Select(p => new GridProcessoOperacionalModel()
+            var list = processoOperacionals.Select(p => new GridProcessoOperacionalModel()
             {
                 Id = p.Id.GetValueOrDefault(),
                 Descricao = p.Descricao,
@@ -114,11 +114,11 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                     domain.Ativo = true;
                     _processoRepository.Save(domain);
 
-                    this.AddSuccessMessage("Natureza do produto atualizada com sucesso.");
+                    this.AddSuccessMessage("Processo operacional atualizado com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    var errorMsg = "Ocorreu um erro ao salvar a natureza do produto. Confira se os dados foram informados corretamente: " +
+                    var errorMsg = "Ocorreu um erro ao salvar o processo operacional. Confira se os dados foram informados corretamente: " +
                        exception.Message;
                     this.AddErrorMessage(errorMsg);
 
@@ -161,7 +161,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 return View("Editar", model);
             }
 
-            this.AddErrorMessage("Não foi possível encontrar a natureza do produto.");
+            this.AddErrorMessage("Não foi possível encontrar processo operacional");
             return RedirectToAction("Index");
         }
 
@@ -217,11 +217,11 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
                     _processoRepository.Update(domain);
 
-                    this.AddSuccessMessage("Natureza do produto atualizada com sucesso.");
+                    this.AddSuccessMessage("Processo operacional atualizada com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    var errorMsg = "Ocorreu um erro ao salvar a natureza do produto. Confira se os dados foram informados corretamente: " +
+                    var errorMsg = "Ocorreu um erro ao salvar o processo operacional. Confira se os dados foram informados corretamente: " +
                        exception.Message;
                     this.AddErrorMessage(errorMsg);
 
@@ -255,13 +255,13 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                     var domain = _processoRepository.Get(id);
                     _processoRepository.Delete(domain);
 
-                    this.AddSuccessMessage("Natureza do produto excluída com sucesso");
+                    this.AddSuccessMessage("Processo operacional excluída com sucesso");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
                     ModelState.AddModelError("",
-                                             "Ocorreu um erro ao excluir a natureza do produto: " + exception.Message);
+                                             "Ocorreu um erro ao excluir o processo operacional: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -284,7 +284,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
                     domain.Ativo = situacao;
                     _processoRepository.Update(domain);
-                    this.AddSuccessMessage("Natureza do produto {0} com sucesso", situacao ? "ativada" : "inativada");
+                    this.AddSuccessMessage("Processo operacional {0} com sucesso", situacao ? "ativada" : "inativada");
                 }
                 else
                 {
@@ -293,7 +293,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             }
             catch (Exception exception)
             {
-                this.AddErrorMessage("Ocorreu um erro ao editar a situação da natureza do produto: " + exception.Message);
+                this.AddErrorMessage("Ocorreu um erro ao editar a situação do processo operacional: " + exception.Message);
                 _logger.Info(exception.GetMessage());
             }
 
@@ -315,11 +315,11 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         #region ValidaNovoOuEditar
         protected override void ValidaNovoOuEditar(IModel model, string actionName)
         {
-            var natureza = model as ProcessoOperacionalModel;
+            var processoOperacionalModel = model as ProcessoOperacionalModel;
 
             // Verificar duplicado
-            if (_processoRepository.Find(p => p.Descricao == natureza.Descricao && p.Id != natureza.Id).Any())
-                ModelState.AddModelError("Descricao", "Já existe uma natureza do produto cadastrado com esta descrição.");
+            if (_processoRepository.Find(p => p.Descricao == processoOperacionalModel.Descricao && p.Id != processoOperacionalModel.Id).Any())
+                ModelState.AddModelError("Descricao", "Já existe um processo operacional cadastrado com esta descrição.");
         }
         #endregion
 

@@ -120,7 +120,7 @@ INSERT INTO [dbo].[permissao]
 -- Permissão Transportadora
 
 declare @basicoId as bigint
-set @basicoId = (Select id from permissao where area='Compras' and descricao='Basicos' and controller is null)
+set @basicoId = (Select id from permissao where area='Compras' and descricao='Básicos' and controller is null)
 
 INSERT INTO [dbo].[permissao]
            ([descricao]

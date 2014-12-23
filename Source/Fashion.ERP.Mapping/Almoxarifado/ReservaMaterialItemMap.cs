@@ -7,16 +7,12 @@ namespace Fashion.ERP.Mapping.Almoxarifado
     {
         public ReservaMaterialItemMap() : base("reservamaterialitem", 0)
         {
-            Map(x => x.PrevisaoUtilizacao).Not.Nullable();
             Map(x => x.QuantidadeAtendida).Not.Nullable();
             Map(x => x.QuantidadeReserva).Not.Nullable();
-            Map(x => x.SituacaoReservaMaterialItem).Not.Nullable();
+            Map(x => x.SituacaoReservaMaterial).Not.Nullable();
 
             References(x => x.Material).Not.Nullable();
-
-            HasMany(x => x.ReservaMaterialItemSubstitutos)
-                .KeyNullable()
-                .Cascade.AllDeleteOrphan();
+            References(x => x.ReservaMaterialItemCancelado).Cascade.All();
         }
     }
 }

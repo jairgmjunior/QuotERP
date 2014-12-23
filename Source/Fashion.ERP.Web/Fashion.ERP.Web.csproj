@@ -246,6 +246,9 @@
     <Compile Include="Almoxarifado.MaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Almoxarifado.ReservaMaterialController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado.SaidaMaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -271,8 +274,11 @@
     <Compile Include="Areas\Almoxarifado\Controllers\DepositoMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\FamiliaController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\MarcaMaterialController.cs" />
+    <Compile Include="Areas\Almoxarifado\Controllers\ReservaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\ReservaMaterialItemModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\ReservaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\DepositoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\EntradaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ExtratoItemModel.cs" />
@@ -283,6 +289,7 @@
     <Compile Include="Areas\Almoxarifado\Models\GridMarcaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridReferenciaExternaModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\GridReservaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridSaidaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\IMaterialDropdownModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\MarcaMaterialModel.cs" />
@@ -290,6 +297,7 @@
     <Compile Include="Areas\Almoxarifado\Models\PesquisaEntradaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\PesquisaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SaidaMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\PesquisaReservaMaterialModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
     <Compile Include="Areas\Compras\Controllers\TransportadoraController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraConverter.cs" />
@@ -1054,6 +1062,10 @@
     <Content Include="Areas\Compras\Views\Transportadora\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\Transportadora\Pesquisar.cshtml" />
     <Content Include="Areas\Financeiro\Views\ChequeRecebido\Devolucao.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Editar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Index.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Novo.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1342,6 +1354,7 @@
     <Content Include="Views\Shared\EditorTemplates\DespesaReceitaList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ReadonlyDouble.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BotaoPesquisaMaterialGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
