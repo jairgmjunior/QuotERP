@@ -14,6 +14,11 @@ using Fashion.Framework.Common.Extensions;
 
 namespace Fashion.ERP.Web.Helpers.Attributes
 {
+    /// <summary>
+    /// Expôe uma Action como 'JSON/XML API Endpoints', para poder ser usado em uma chamada Ajax sem modificação.
+    /// Quando a Action for chamada via Get/Post, será retornada um Html normal para o browser,
+    /// mas quando for via Ajax, será retornado o Model serializado como json/xml.
+    /// </summary>
     public class ApiAttribute : ActionFilterAttribute
     {
         #region Variáveis

@@ -23,11 +23,17 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
     public partial class ChequeRecebidoController : BaseController
     {
         #region Variaveis
+
+        private readonly ChequeSituacao[] _situacaoDevolucao = {ChequeSituacao.NaoDepositado, ChequeSituacao.Devolvido};
+
         private readonly IRepository<ChequeRecebido> _chequeRecebidoRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<OcorrenciaCompensacao> _ocorrenciaChequeRecebidoRepository;
         private readonly IRepository<BaixaChequeRecebido> _baixaChequeRecebidoRepository;
         private readonly IRepository<MeioPagamento> _meioPagamentoRepository;
+        private readonly IRepository<Banco> _bancoRepository;
+        private readonly IRepository<Emitente> _emitenteRepository;
+        private readonly IRepository<CompensacaoCheque> _compensacaoChequeRepository;
         private readonly ILogger _logger;
         public const string ChaveFuncionario = "31E3CE18-5D49-4287-9FCF-4AF909423B8C";
         public const string ChavePrestador = "CFE169A4-FEFD-46EE-9795-39D8C8CE432A";
@@ -36,13 +42,18 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         #region Construtores
         public ChequeRecebidoController(ILogger logger, IRepository<ChequeRecebido> chequeRecebidoRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<OcorrenciaCompensacao> ocorrenciaChequeRecebidoRepository,
-            IRepository<BaixaChequeRecebido> baixaChequeRecebidoRepository, IRepository<MeioPagamento> meioPagamentoRepository)
+            IRepository<BaixaChequeRecebido> baixaChequeRecebidoRepository, IRepository<MeioPagamento> meioPagamentoRepository,
+            IRepository<Banco> bancoRepository, IRepository<Emitente> emitenteRepository,
+            IRepository<CompensacaoCheque> compensacaoChequeRepository)
         {
             _chequeRecebidoRepository = chequeRecebidoRepository;
             _pessoaRepository = pessoaRepository;
             _ocorrenciaChequeRecebidoRepository = ocorrenciaChequeRecebidoRepository;
             _baixaChequeRecebidoRepository = baixaChequeRecebidoRepository;
             _meioPagamentoRepository = meioPagamentoRepository;
+            _bancoRepository = bancoRepository;
+            _emitenteRepository = emitenteRepository;
+            _compensacaoChequeRepository = compensacaoChequeRepository;
             _logger = logger;
         }
         #endregion
@@ -54,18 +65,27 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         public virtual ActionResult Index()
         {
             var chequeRecebidos = _chequeRecebidoRepository.Find();
+            
+            var model = new PesquisaChequeRecebidoModel {Grid = new List<GridChequeRecebidoModel>()};
 
-            var model = new PesquisaChequeRecebidoModel();
-
-            model.Grid = chequeRecebidos.Select(p => new GridChequeRecebidoModel
+            foreach (var chequeRecebido in chequeRecebidos)
             {
-                Id = p.Id.GetValueOrDefault(),
-                Emitente = p.Emitente.Nome1,
-                NumeroCheque = p.NumeroCheque,
-                Valor = p.Valor,
-                Saldo = p.Saldo,
-                Vencimento = p.DataVencimento
-            }).ToList();
+                var situacaoCheque = chequeRecebido.UltimaOcorrenciaCompensacao().ChequeSituacao;
+
+                model.Grid.Add(new GridChequeRecebidoModel
+                {
+                    Id = chequeRecebido.Id.GetValueOrDefault(),
+                    Emitente = chequeRecebido.Emitente.Nome1,
+                    NumeroCheque = chequeRecebido.NumeroCheque,
+                    Valor = chequeRecebido.Valor,
+                    Saldo = chequeRecebido.Saldo,
+                    Vencimento = chequeRecebido.DataVencimento,
+                    Banco = chequeRecebido.Banco.Codigo.ToString("D3"),
+                    Emissao = chequeRecebido.DataEmissao,
+                    SituacaoCheque = situacaoCheque.EnumToString(),
+                    PodeDevolver = _situacaoDevolucao.Contains(situacaoCheque)
+                });
+            }
 
             return View(model);
         }
@@ -105,14 +125,26 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 ModelState.AddModelError(string.Empty, exception.Message);
             }
 
-            model.Grid = chequeRecebidos.Select(p => new GridChequeRecebidoModel
+            model.Grid = new List<GridChequeRecebidoModel>();
+
+            foreach (var chequeRecebido in chequeRecebidos)
             {
-                Id = p.Id.GetValueOrDefault(),
-                Emitente = p.Emitente.Nome1,
-                NumeroCheque = p.NumeroCheque,
-                Saldo = p.Saldo,
-                Vencimento = p.DataVencimento
-            }).ToList();
+                var situacaoCheque = chequeRecebido.UltimaOcorrenciaCompensacao().ChequeSituacao;
+
+                model.Grid.Add(new GridChequeRecebidoModel
+                {
+                    Id = chequeRecebido.Id.GetValueOrDefault(),
+                    Emitente = chequeRecebido.Emitente.Nome1,
+                    NumeroCheque = chequeRecebido.NumeroCheque,
+                    Valor = chequeRecebido.Valor,
+                    Saldo = chequeRecebido.Saldo,
+                    Vencimento = chequeRecebido.DataVencimento,
+                    Banco = chequeRecebido.Banco.Codigo.ToString("D3"),
+                    Emissao = chequeRecebido.DataEmissao,
+                    SituacaoCheque = situacaoCheque.EnumToString(),
+                    PodeDevolver = _situacaoDevolucao.Contains(situacaoCheque)
+                });
+            }
 
             return View(model);
         }
@@ -127,7 +159,12 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             TempData.Remove(ChaveFuncionario);
             TempData.Remove(ChavePrestador);
 
-            return View(new ChequeRecebidoModel());
+            var model = new ChequeRecebidoModel
+            {
+                Situacao = SituacaoTitulo.NaoLiquidado.EnumToString()
+            };
+
+            return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
@@ -137,39 +174,54 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             {
                 try
                 {
-                    var domain = Mapper.Unflat<ChequeRecebido>(model);
-                    domain.Saldo = domain.Valor;
-
                     // Funcionários
+                    var listaFuncionarios = new List<Pessoa>();
                     var funcionarios = TempData.Peek(ChaveFuncionario) as List<GridFuncionarioModel>;
 
                     if (funcionarios != null)
-                        foreach (var funcionario in funcionarios)
-                            domain.AddFuncionario(_pessoaRepository.Load(funcionario.Id));
+                        listaFuncionarios.AddRange(funcionarios.Select(funcionario => _pessoaRepository.Load(funcionario.Id)));
 
                     // Prestadores de serviço
+                    var listaPrestadores = new List<Pessoa>();
                     var prestadores = TempData.Peek(ChavePrestador) as List<GridPrestadorServicoModel>;
 
                     if (prestadores != null)
-                        foreach (var prestador in prestadores)
-                            domain.AddPrestadorServico(_pessoaRepository.Load(prestador.Id));
+                        listaPrestadores.AddRange(prestadores.Select(prestador => _pessoaRepository.Load(prestador.Id)));
 
-                    // Criar ocorrência
-                    var historico = string.Format("Cadastrado em {0} por {1}",
-                                        DateTime.Now.ToString("F"), HttpContext.User.Identity.Name);
-                    var ocorrencia = new OcorrenciaCompensacao
+                    for (int i = 0; i < model.Bancos.Count; i++)
                     {
-                        Data = DateTime.Now,
-                        ChequeSituacao = ChequeSituacao.NaoDepositado,
-                        Historico = historico
-                    };
+                        var idx = i;
 
-                    //ocorrencia = _ocorrenciaChequeRecebidoRepository.Save(ocorrencia);
-                    domain.AddOcorrenciaCompensacao(ocorrencia);
+                        var domain = Mapper.Unflat<ChequeRecebido>(model);
+                        domain.Saldo = domain.Valor;
 
-                    _chequeRecebidoRepository.Save(domain);
+                        domain.AddFuncionario(listaFuncionarios.ToArray());
+                        domain.AddPrestadorServico(listaPrestadores.ToArray());
 
-                    this.AddSuccessMessage("Cheque cadastrado com sucesso.");
+                        // Criar ocorrência
+                        domain.AddOcorrenciaCompensacao(new OcorrenciaCompensacao
+                        {
+                            Data = DateTime.Now,
+                            ChequeSituacao = ChequeSituacao.NaoDepositado,
+                            Historico = string.Format("Cadastrado em {0} por {1}",
+                                            DateTime.Now.ToString("F"), HttpContext.User.Identity.Name)
+                        });
+
+                        domain.Cmc7 = model.Cmc7s[idx];
+                        domain.Banco = _bancoRepository.Load(model.IdBancos[idx]);
+                        domain.Agencia = model.Agencias[idx];
+                        domain.Conta = model.Contas[idx];
+                        domain.NumeroCheque = model.Cheques[idx];
+                        domain.DataVencimento = model.Vencimentos[idx];
+                        domain.Emitente = _emitenteRepository.Load(model.IdEmitentes[idx]);
+                        domain.Praca = model.Pracas[idx];
+                        domain.Valor = model.Valores[idx];
+
+                        // Salvar cada cheque
+                        _chequeRecebidoRepository.Save(domain);
+                    }
+
+                    this.AddSuccessMessage("Cheque(s) cadastrado(s) com sucesso.");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
@@ -284,6 +336,14 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 try
                 {
                     var domain = _chequeRecebidoRepository.Get(id);
+
+                    // Nâo excluir se houver ocorrência
+                    if (domain.OcorrenciaCompensacoes.Any())
+                    {
+                        ModelState.AddModelError(string.Empty, "Não é possível excluir cheque, pois existem ocorrências para este cheque.");
+                        return RedirectToAction("Index");
+                    }
+
                     _chequeRecebidoRepository.Delete(domain);
 
                     this.AddSuccessMessage("Cheque excluído com sucesso");
@@ -407,6 +467,90 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
 
             ViewData["MeioPagamento"] = new SelectList(_meioPagamentoRepository.Find(), "Id", "Descricao");
             ViewData["Recebimentos"] = recebimentos;
+
+            return View(model);
+        }
+
+        #endregion
+
+        #region Devolucao
+        [PopulateViewData("PopulateDevolucaoViewData")]
+        public virtual ActionResult Devolucao(long? id)
+        {
+            var domain = _chequeRecebidoRepository.Get(id);
+
+            if (domain != null)
+            {
+                var model = new DevolucaoChequeRecebidoModel
+                {
+                    Unidade = domain.Unidade.NomeFantasia,
+                    Cliente = domain.Cliente.Nome,
+                    Banco = domain.Banco.Nome,
+                    Agencia = domain.Agencia,
+                    Conta = domain.Conta,
+                    NumeroCheque = domain.NumeroCheque,
+                    SituacaoCheque = domain.UltimaOcorrenciaCompensacao().ChequeSituacao.EnumToString(),
+                    Emitente = domain.Emitente.Nome1,
+                    DataEmissao = domain.DataEmissao,
+                    DataVencimento = domain.DataVencimento,
+                    DataProrrogacao = domain.DataProrrogacao,
+                    Valor = domain.Valor
+                };
+
+                return View(model);
+            }
+
+            this.AddErrorMessage("Não foi possível encontrar o cheque.");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [PopulateViewData("PopulateDevolucaoViewData")]
+        public virtual ActionResult Devolucao(DevolucaoChequeRecebidoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var chequeRecebido = _chequeRecebidoRepository.Get(model.Id);
+                    var situacaoCheque = chequeRecebido.UltimaOcorrenciaCompensacao().ChequeSituacao;
+
+                    // Valida situação
+                    if (_situacaoDevolucao.Contains(situacaoCheque) == false)
+                    {
+                        this.AddErrorMessage("A devolução de cheque é permitida apenas para cheques na situação <<Não Depositado>> ou <<Devolvido>>.");
+                        return RedirectToAction("Index");
+                    }
+
+                    // Valida se a situação escolhida é devolução
+                    if (model.SituacaoChequeRecebido != ChequeSituacao.Devolvido)
+                    {
+                        this.AddErrorMessage("A nova situação do cheque só pode ser <<Devolvido>>.");
+                        return View(model);
+                    }
+
+                    // Criar ocorrência
+                    var ocorrencia = new OcorrenciaCompensacao
+                    {
+                        Data = DateTime.Now,
+                        ChequeSituacao = model.SituacaoChequeRecebido,
+                        Historico = string.Format("Devolvido em {0} por {1}",
+                                        DateTime.Now.ToString("F"), HttpContext.User.Identity.Name)
+                    };
+
+                    chequeRecebido.AddOcorrenciaCompensacao(ocorrencia);
+
+                    _chequeRecebidoRepository.Save(chequeRecebido);
+
+                    this.AddSuccessMessage("Cheque devolvido com sucesso.");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Não é possível salvar a devolução de cheque. Confira se os dados foram informados corretamente.");
+                    _logger.Info(exception.GetMessage());
+                }
+            }
 
             return View(model);
         }
@@ -640,6 +784,14 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
             ViewData["Unidade"] = unidades.ToSelectList("Nome", model.Unidade);
+        }
+        #endregion
+
+        #region PopulateDevolucaoViewData
+        protected void PopulateDevolucaoViewData(DevolucaoChequeRecebidoModel model)
+        {
+            var compensacaoCheques = _compensacaoChequeRepository.Find().ToList();
+            ViewData["CompensacaoCheque"] = compensacaoCheques.ToSelectList("Descricao");
         }
         #endregion
 

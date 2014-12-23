@@ -4825,11 +4825,23 @@
             <summary>
             Gets or sets the minimum value for the current axis.
             </summary>
+            <value>A DateTime value that is the minimum value of the scale's range. The default value is null.</value>
+            <remarks>
+            When the <b>Minimum</b> property is set to null (Nothing in Visual Basic) then the minimum value of the scale's range is defined by the data.
+            In case there are no data points available then the <b>Minimum</b> value is set according to <see cref="P:System.DateTime.Now"/> and the selected <see cref="P:Telerik.Reporting.DateTimeScale.BaseUnit"/>.
+            In case the <b>Maximum</b> and <b>Minimum</b> values are set to an equal value, then their values are ignored.
+            </remarks>
         </member>
         <member name="P:Telerik.Reporting.DateTimeScale.Maximum">
             <summary>
-            Gets or sets the maximum value for the current axis.
+            Gets or sets the maximum value for the current axis. 
             </summary>
+            <value>A DateTime value that is the maximum value of the scale's range. The default value is null.</value>
+            <remarks>
+            When the <b>Maximum</b> property is set to null (Nothing in Visual Basic) then the maximum value of the scale's range is defined by the data.
+            In case there are no data points available then the <b>Maximum</b> value is set according to <see cref="P:System.DateTime.Now"/> and the selected <see cref="P:Telerik.Reporting.DateTimeScale.BaseUnit"/>.
+            In case the <b>Maximum</b> and <b>Minimum</b> values are set to an equal value, then their values are ignored.
+            </remarks>
         </member>
         <member name="P:Telerik.Reporting.DateTimeScale.CrossAxisValue">
             <summary>
@@ -4858,6 +4870,11 @@
         <member name="T:Telerik.Reporting.DateTimeScaleUnits">
             <summary>
             Determines the unit for the interval/step between minor/major ticks/grid lines.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.DateTimeScaleUnits.Seconds">
+            <summary>
+            Specifies a seconds unit for the datetime interval.
             </summary>
         </member>
         <member name="F:Telerik.Reporting.DateTimeScaleUnits.Minutes">
@@ -5084,6 +5101,108 @@
             Represents a series of data points with labels in the <see cref="T:Telerik.Reporting.Graph"/> report item.
             </summary>
         </member>
+        <member name="T:Telerik.Reporting.GraphSeriesBase">
+            <summary>
+            Represents a series of data points with labels in the <see cref="T:Telerik.Reporting.Graph"/> and <see cref="T:Telerik.Reporting.Map"/> report items.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointLabel">
+            <summary>
+            Data point label.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointLabelAngle">
+            <summary>
+            Gets or sets the angle in degrees at which the data point labels are rotated.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointLabelFormat">
+            <summary>
+            Data point label format.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointLabelStyle">
+            <summary>
+            Gets the style for the labels of the data points.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointLabelConditionalFormatting">
+            <summary>
+            Gets the <see cref="P:Telerik.Reporting.GraphSeriesBase.DataPointConditionalFormatting"/> to applied on the data points' labels.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointTooltip">
+            <summary>
+            Reserved for future use
+            Data point tooltip
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointTooltipFormat">
+            <summary>
+            Reserved for future use
+            Data point tooltip format
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointConditionalFormatting">
+            <summary>
+            Gets the <see cref="P:Telerik.Reporting.GraphSeriesBase.DataPointConditionalFormatting"/> to applied on the data points.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.DataPointStyle">
+            <summary>
+            Gets the default style of a data point.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.Legend">
+            <summary>
+            Gets or sets an expression or a text which is displayed in the legend.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.LegendFormat">
+            <summary>
+            Gets or sets the number format for the legend value.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.LegendItem">
+            <summary>
+            Gets or sets the <see cref="P:Telerik.Reporting.GraphSeriesBase.LegendItem"/> for the current <B>GraphSeries</B>
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.Name">
+            <summary>
+            Gets or sets the name of the graph series. 
+            </summary>
+            <value>
+            The name of the graph series. 
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GraphSeriesBase.ColorPalette">
+            <summary>
+            Gets or sets the color palette used for graph series. 
+            </summary>
+            <value>
+            A <see cref="T:Telerik.Reporting.Drawing.IColorPalette"/> implementation 
+            representing color palette used for graph series. 
+            </value>
+        </member>
         <member name="P:Telerik.Reporting.GraphSeries.ArrangeByAxis">
             <summary>
             Gets or sets the axis/direction that the <see cref="!:ArrangeMode"/> is applied to.
@@ -5116,106 +5235,17 @@
             <seealso cref="T:Telerik.Reporting.CartesianCoordinateSystem"/>
             <seealso cref="T:Telerik.Reporting.PolarCoordinateSystem"/>
         </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointLabel">
-            <summary>
-            Data point label.
-            </summary>
-            <value>
-            A <see cref="T:System.String"/> started with "=" is interpreted as
-            an expression to calculate the real data,
-            otherwise - literal string. 
-            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
-            </value>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointLabelAngle">
-            <summary>
-            Gets or sets the angle in degrees at which the data point labels are rotated.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointLabelFormat">
-            <summary>
-            Data point label format.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointLabelStyle">
-            <summary>
-            Gets the style for the labels of the data points.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointLabelConditionalFormatting">
-            <summary>
-            Gets the <see cref="P:Telerik.Reporting.GraphSeries.DataPointConditionalFormatting"/> to applied on the data points' labels.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointTooltip">
-            <summary>
-            Reserved for future use
-            Data point tooltip
-            </summary>
-            <value>
-            A <see cref="T:System.String"/> started with "=" is interpreted as
-            an expression to calculate the real data,
-            otherwise - literal string. 
-            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
-            </value>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointTooltipFormat">
-            <summary>
-            Reserved for future use
-            Data point tooltip format
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointConditionalFormatting">
-            <summary>
-            Gets the <see cref="P:Telerik.Reporting.GraphSeries.DataPointConditionalFormatting"/> to applied on the data points.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.DataPointStyle">
-            <summary>
-            Gets the default style of a data point.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.Legend">
-            <summary>
-            Gets or sets an expression or a text which is displayed in the legend.
-            </summary>
-            <value>
-            A <see cref="T:System.String"/> started with "=" is interpreted as
-            an expression to calculate the real data,
-            otherwise - literal string. 
-            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
-            </value>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.LegendFormat">
-            <summary>
-            Gets or sets the number format for the legend value.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.LegendItem">
-            <summary>
-            Gets or sets the <see cref="P:Telerik.Reporting.GraphSeries.LegendItem"/> for the current <B>GraphSeries</B>
-            </summary>
-        </member>
         <member name="P:Telerik.Reporting.GraphSeries.CategoryGroup">
             <summary>
-            Gets or sets the name of the <see cref="T:Telerik.Reporting.GraphGroup"/> from the <see cref="P:Telerik.Reporting.Graph.CategoryGroups"/> 
+            Gets or sets the <see cref="T:Telerik.Reporting.GraphGroup"/> from the <see cref="P:Telerik.Reporting.Graph.CategoryGroups"/> 
             hierarchy associated with this series.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.GraphSeries.SeriesGroup">
             <summary>
-            Gets or sets the name of the <see cref="T:Telerik.Reporting.GraphGroup"/> from the <see cref="P:Telerik.Reporting.Graph.SeriesGroups"/> 
+            Gets or sets the <see cref="T:Telerik.Reporting.GraphGroup"/> from the <see cref="P:Telerik.Reporting.Graph.SeriesGroups"/> 
             hierarchy associated with this series.
             </summary>
-        </member>
-        <member name="P:Telerik.Reporting.GraphSeries.ColorPalette">
-            <summary>
-            Gets or sets the color palette used for graph series. 
-            </summary>
-            <value>
-            A <see cref="T:Telerik.Reporting.Drawing.IColorPalette"/> implementation 
-            representing color palette used for graph series. 
-            </value>
         </member>
         <member name="P:Telerik.Reporting.GraphSeries2D.X">
             <summary>
@@ -5234,6 +5264,11 @@
         <member name="P:Telerik.Reporting.GraphSeries2D.ArrangeMode">
             <summary>
             Gets or sets a value indicating how to arrange the series at runtime.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.AreaSeries.ConditionalFormatting">
+            <summary>
+            Gets the <see cref="P:Telerik.Reporting.AreaSeries.ConditionalFormatting"/> rules which are applied on the series' style.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.AreaSeries.AreaStyle">
@@ -5331,6 +5366,11 @@
         <member name="P:Telerik.Reporting.BarSeries.DataPointLabelAlignment">
             <summary>
             Specifies the data point label alignment.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.BarSeries.DataPointLabelOffset">
+            <summary>
+            Gets or sets the DataPointLabel offset, according the DataPointLabelPosition.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.BarSeries.X0">
@@ -5435,7 +5475,12 @@
         </member>
         <member name="P:Telerik.Reporting.LegendItem.ConditionalFormatting">
             <summary>
-            Gets the collection of the conditional formatting rules, associated with this item.
+            Gets the collection of the conditional formatting rules, associated with the item's style.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.LegendItem.MarkConditionalFormatting">
+            <summary>
+            Gets the collection of the conditional formatting rules, associated with the mark style.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.LegendItem.Format">
@@ -5451,6 +5496,11 @@
         <member name="P:Telerik.Reporting.LegendItem.Style">
             <summary>
             Specifies the legend item's style.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.LegendItem.MarkStyle">
+            <summary>
+            Specifies the legend item's mark style.
             </summary>
         </member>
         <member name="T:Telerik.Reporting.LineDataPointLabelAlignment">
@@ -5491,6 +5541,11 @@
         <member name="M:Telerik.Reporting.LineSeries.#ctor">
             <summary>
             Creates an instance of the <see cref="T:Telerik.Reporting.LineSeries"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.LineSeries.ConditionalFormatting">
+            <summary>
+            Gets the <see cref="P:Telerik.Reporting.LineSeries.ConditionalFormatting"/> rules which are applied on the series' style.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.LineSeries.Size">
@@ -5572,6 +5627,11 @@
         <member name="P:Telerik.Reporting.LineSeries.DataPointLabelAlignment">
             <summary>
             Gets or sets a value indicating how the labels of the data points to be aligned. 
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.LineSeries.DataPointLabelOffset">
+            <summary>
+            Gets or sets the DataPointLabel offset, according the DataPointLabelPosition.
             </summary>
         </member>
         <member name="T:Telerik.Reporting.RangeAreaSeries">
@@ -6256,20 +6316,6 @@
             specified key in the collection. 
             </value>
         </member>
-        <member name="M:Telerik.Reporting.ReportItem.GetClientRectangle">
-            <summary>
-            Gets the rectangle that represents the client area of the 
-            report item. 
-            </summary>
-            <returns>
-            A <see cref="T:Telerik.Reporting.Drawing.RectangleU"/> that 
-            represents the client area of the report item. 
-            </returns>
-            <remarks>
-            The client area of a report is the bounds of the item, minus the 
-            nonclient elements such as borders and padding.
-            </remarks>
-        </member>
         <member name="P:Telerik.Reporting.ReportItem.Size">
             <summary>
             Gets or sets the height and width of the report item. 
@@ -6672,7 +6718,7 @@
         </member>
         <member name="P:Telerik.Reporting.Graph.Legend">
             <summary>
-            Gets or sets the <B>Legend</B> for the current <B>Graph</B>
+            Gets the <B>Legend</B> for the current <B>Graph</B>
             </summary>
         </member>
         <member name="P:Telerik.Reporting.Graph.Titles">
@@ -6691,11 +6737,11 @@
         </member>
         <member name="P:Telerik.Reporting.Graph.Culture">
             <summary>
-            Gets or sets the culture information associated with the report. 
+            Gets or sets the culture information associated with the Graph item. 
             </summary>
             <value>
             A <see cref="T:System.Globalization.CultureInfo"/> representing the 
-            culture supported by the <see cref="T:Telerik.Reporting.Report"/>. 
+            culture supported by the <see cref="T:Telerik.Reporting.Graph"/>. 
             </value>
         </member>
         <member name="P:Telerik.Reporting.Graph.ColorPalette">
@@ -6990,6 +7036,686 @@
         <member name="T:Telerik.Reporting.GraphTitleCollection">
             <summary>
             Represents a collection of <see cref="T:Telerik.Reporting.GraphTitle"/> objects.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.BingLocationProvider">
+            <summary>
+            A class used to match the addresses or locations with geographical coordinates (latitude and longitude) using the Bing™ Maps REST API.    /// 
+            Requires a valid Bing Maps Key that could be obtained from "http://www.microsoft.com/maps/create-a-bing-maps-key.aspx"
+            </summary>
+            <remarks>The more detailed information is used in the query, the more accurate the results will be.</remarks>
+            <remarks>For example, if you are looking for Vienna, Austria, you need to provide the country name as well, because otherwise the first returned result would be Vienna, VA, United States</remarks>
+            <remarks>Bing™ Maps geocoding service is able to determine the relation between the query arguments - i.e. the results will be the same if you search for either "Vienna, Austria" or "Austria, Vienna"</remarks>
+        </member>
+        <member name="T:Telerik.Reporting.WebLocationProvider">
+            <summary>
+            An abstract class for all the web-based location service providers    
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.LocationProvider">
+            <summary>
+            An abstract class for the location providers that can be used for geocoding.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.ILocationProvider">
+            <summary>
+            Represents a common interface for all location providers used for geocoding.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.IWebLocationProvider">
+            <summary>
+            Represents a common interface for all the web-based location service providers    
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IWebLocationProvider.ClientToken">
+            <summary>
+            The client token that authenticates the request.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IWebLocationProvider.ServerUrl">
+            <summary>
+            The Url of the location server.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.WebLocationProvider.ClientToken">
+            <summary>
+            The client token that authenticates the request.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.WebLocationProvider.ServerUrl">
+            <summary>
+            The Url of the location server
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapQuestLocationProvider">
+            <summary>
+            A class used to match the addresses or locations with geographical coordinates (latitude and longitude) using the MapQuest Geocoding API.
+            Requires a valid MapQuest AppKey that could be obtained from "http://developer.mapquest.com/web/products/open"
+            </summary>
+            <remarks>The more detailed information is used in the query, the more accurate the results will be.</remarks>
+            <remarks>For example, if you are looking for Vienna, Austria, you need to provide the country name as well, because otherwise the first returned result would be Vienna, GA, United States</remarks>
+            <remarks>Please note that the query arguments order is of a huge significance.</remarks>
+            <remarks>In the example above if you switch the query arguments to "Austria, Vienna", the service will return "Vienna, Dooly County, GA, USA"  </remarks>
+        </member>
+        <member name="T:Telerik.Reporting.IProjection">
+            <summary>
+            Interface describing the representation model used to project the globe or celestial sphere on a surface
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MercatorProjection">
+            <summary>
+            A cylindrical map projection known also as Normal Mercator.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.ColumnMapSeries">
+            <summary>
+            Represents a series of data points in the <see cref="T:Telerik.Reporting.Map"/> report item that displays embedded column charts as data points.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.GraphMapSeries">
+            <summary>
+            Represents a series of data points in the <see cref="T:Telerik.Reporting.Map"/> report item that displays embedded charts as data points.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.PointMapSeries">
+            <summary>
+            Represents a series of data points in the <see cref="T:Telerik.Reporting.Map"/> report item that displays markers for the point location.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapSeries">
+            <summary>
+            The base class for the series of data points with labels in the <see cref="T:Telerik.Reporting.Map"/> report item.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapSeries.GeoLocationGroup">
+            <summary>
+            Gets or sets the <see cref="T:Telerik.Reporting.GeoLocationMapGroup"/> from the <see cref="P:Telerik.Reporting.Map.GeoLocationGroups"/> 
+            hierarchy associated with this series.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapSeries.SeriesGroup">
+            <summary>
+            Gets or sets the <see cref="T:Telerik.Reporting.MapGroup"/> from the <see cref="P:Telerik.Reporting.Map.SeriesGroups"/> 
+            hierarchy associated with this series.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.Longitude">
+            <summary>
+            Gets or sets an expression that defines the <b>Longitude</b> coordinate for the data points.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.Latitude">
+            <summary>
+            Gets or sets an expression that defines the <b>Latitude</b> coordinate for the data points.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.Size">
+            <summary>
+            Gets or sets an expression that defines the size of the markers. Use this property to 
+            create a Bubble like charts.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MinimumSize">
+            <summary>
+            Gets or sets a value that defines the minimum size of the markers. Use this property to 
+            create a Bubble like charts.
+            </summary>
+            <value>
+            The minimum size of the markers/bubbles.
+            Set to <see cref="F:System.Double.NaN"/> for the value to be defined at run time according to the data. 
+            The default value is <see cref="F:System.Double.NaN"/>.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MaximumSize">
+            <summary>
+            Gets or sets a value that defines the maximum size of the markers. Use this property to 
+            create a Bubble like charts.
+            </summary>
+            <value>
+            The maximum size of the markers/bubbles. 
+            Set to <see cref="F:System.Double.NaN"/> for the value to be defined at run time according to the data. 
+            The default value is <see cref="F:System.Double.NaN"/>.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MarkerSize">
+            <summary>
+            Gets or sets the size of the markers if no <see cref="P:Telerik.Reporting.PointMapSeries.Size"/> is specified;
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MarkerMinSize">
+            <summary>
+            Gets or sets the size of the markers for the minimum value of the <see cref="P:Telerik.Reporting.PointMapSeries.Size"/> property.
+            </summary>
+            <remarks>
+            Use the <b>MarkerMinSize</b> and <see cref="P:Telerik.Reporting.PointMapSeries.MarkerMaxSize"/> properties in conjunction with the <see cref="P:Telerik.Reporting.PointMapSeries.Size"/> property
+            to create a Bubble chart;
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MarkerMaxSize">
+            <summary>
+            Gets or sets the size for the maximum value of the <see cref="P:Telerik.Reporting.PointMapSeries.Size"/> property.
+            </summary>
+            <remarks>
+            Use the <b>MarkerMinSize</b> and <see cref="P:Telerik.Reporting.PointMapSeries.MarkerMaxSize"/> properties in conjunction with the <see cref="P:Telerik.Reporting.PointMapSeries.Size"/> property
+            to create a Bubble chart;
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.MarkerType">
+            <summary>
+            Gets or sets the shape of the marker.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.DataPointLabelAlignment">
+            <summary>
+            Gets or sets a value indicating how the labels of the data points to be aligned. 
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.PointMapSeries.DataPointLabelOffset">
+            <summary>
+            Gets or sets the DataPointLabel offset, according the DataPointLabelPosition.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.ColumnMapSeries.#ctor">
+            <summary>
+            Creates a new instance of ColumnMapSeries.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapSeriesCollection">
+            <summary>
+            Represents a collection of <see cref="T:Telerik.Reporting.MapSeries"/> objects.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.PieMapSeries">
+            <summary>
+            Represents a series of data points in the <see cref="T:Telerik.Reporting.Map"/> report item that displays embedded pie charts as data points.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.PieMapSeries.#ctor">
+            <summary>
+            Creates a new instance of PieMapSeries.
+            /// </summary>
+        </member>
+        <member name="T:Telerik.Reporting.BingMapsTileProvider">
+             <summary>
+             A class used to provide map tiles from the Bing™ Maps tile servers.
+            <remarks>Requires a valid Bing Maps Key that could be obtained from "http://www.microsoft.com/maps/create-a-bing-maps-key.aspx"</remarks>
+             <example>
+             The following example demonstrates how to initialize a <strong>BingMapsTileProvider</strong> instance:
+             <code lang="C#" source="CodeSnippets\CS\API\Telerik\Reporting\MapTileProviderSnippets.cs" region="HowToInitializeBingMapsTileProvider" />
+             <code lang="VB" source="CodeSnippets\VB\API\Telerik\Reporting\MapTileProviderSnippets.vb" region="HowToInitializeBingMapsTileProvider" />
+             </example>
+             </summary>
+        </member>
+        <member name="T:Telerik.Reporting.TileProvider">
+            <summary>
+            An abstract class for the tile providers that fetch tiles from any source.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.ITileProvider">
+            <summary>
+            Represents a common interface for all the tile providers
+            </summary>        
+        </member>
+        <member name="P:Telerik.Reporting.TileProvider.TileImageFormat">
+            <summary>
+            Gets or sets the <see cref="T:Telerik.Reporting.TileImageFormat"/> that will be used when returning the requested tile image to the client.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.BingMapsTileProvider.ClientToken">
+            <summary>
+            The client token that authenticates the request.
+            Represents the Bing Maps Key that could be obtained from "http://www.microsoft.com/maps/create-a-bing-maps-key.aspx"
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.BingMapsTileProvider.ImagerySet">
+            <summary>
+            Gets or sets the <see cref="T:Telerik.Reporting.ImagerySet"/> used when requesting the tile images
+            </summary>        
+        </member>
+        <member name="T:Telerik.Reporting.ClientRequestSettings">
+            <summary>
+            Settings applied to the TileProvider's WebClient which will download the tiles.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.ClientRequestSettings.Headers">
+            <summary>
+            The headers that will be applied to the WebClient.Headers.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.ClientRequestSettings.UseDefaultCredentials">
+            <summary>
+            If set to true, it will apply the default user credentials to the WebClient
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.GenericTileProvider">
+            <summary>
+            A class used to obtain map tiles from any tile server compliant with Web Map Tile Service protocol.
+            </summary>
+            <remarks>
+            By default, the GenericTileProvider is initialized using the MapQuest tile server properties.
+            </remarks>
+            <example>
+            The following example demonstrates how to initialize a <strong>GenericTileProvider</strong> instance:
+            <code lang="C#" source="CodeSnippets\CS\API\Telerik\Reporting\MapTileProviderSnippets.cs" region="HowToInitializeGenericTileProvider" />
+            <code lang="VB" source="CodeSnippets\VB\API\Telerik\Reporting\MapTileProviderSnippets.vb" region="HowToInitializeGenericTileProvider" />
+            </example>
+        </member>
+        <member name="P:Telerik.Reporting.GenericTileProvider.UrlTemplate">
+            <summary>
+            A templated URL that will be used to fetch the tiles from the tile provider. 
+            Valid template patterns are {subdomain}, {x}, {y}, {zoom}.
+            </summary>        
+            <remarks>
+            The <strong>UrlTemplate</strong> have the following format: 
+            <example>
+            http://{subdomain}.mqcdn.com/tiles/1.0.0/map/{zoom}/{x}/{y}.jpg
+            </example>
+            <para>The {subdomain} tag marks the place where a subdomain from the <see cref="P:Telerik.Reporting.GenericTileProvider.UrlSubdomains"/> collection would be placed. This tag is not mandatory, since the selected tile provider may not offer more than one subdomain.</para>
+            <para>The {zoom} tag will be replaced by the calculated zoom level (level of details) of the current tile set.</para>
+            <para>The {x} and {y} tags are used as a placeholders for the tile position.</para>
+            </remarks>        
+        </member>
+        <member name="P:Telerik.Reporting.GenericTileProvider.UrlSubdomains">
+            <summary>
+            Set of subdomains that will replace the {subdomain} tag in the <see cref="P:Telerik.Reporting.GenericTileProvider.UrlTemplate"/>.
+            When more than one subdomain is specified, the tile requests will be distributed evenly among the subdomains.
+            </summary>
+            <remarks>
+            For example, for MapQuest Tile server the subdomains are:
+            <example>
+            otile1, otile2, otile3, otile4
+            </example>
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.GenericTileProvider.Attribution">
+            <summary>
+            The Attribution property must be set manually according to the tile provider usage policy. 
+            This text will be displayed in the lower right corner of the map area. 
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GenericTileProvider.LogoUrl">
+            <summary>
+            The LogoUrl property denotes the URL used to download the tile provider logo, if required by the provider's usage policy. 
+            In case the URL points to a valid image, it will be displayed in the lower left corner of the map area.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GoogleMapsTileProvider.Language">
+            <summary>
+            The language that will be used when requesting tiles from the server.        
+            For reference see "https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&amp;gid=1"
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GoogleMapsTileProvider.ClientToken">
+            <summary>
+            The client token that authenticates the request.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapQuestTileProvider">
+            <summary>
+            A class used to obtain map tiles from the MapQuest tile servers.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapQuestTileProvider.ServerUrls">
+            <summary>
+            Collection of maps server addresses used to fetch the tiles.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapQuestTileProvider.ImagerySet">
+            <summary>
+            Gets or sets the <see cref="T:Telerik.Reporting.ImagerySet"/> used when requesting the tile images
+            </summary>        
+        </member>
+        <member name="T:Telerik.Reporting.ImagerySet">
+            <summary>
+            The imagery set (mode) that is used when requesting the tile images
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.TileImageFormat">
+            <summary>
+            The image format that will be used when returning the requested tile image to the client.
+            <remarks>Some of the tile providers might not support all of the image formats</remarks>
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Extent">
+            <summary>
+            Class defining the Minimum and Maximum latitudes and longitudes in WGS84 coordinates.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Extent.Minimum">
+            <summary>
+            The TopLeft corner of the bounding box
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Extent.Maximum">
+            <summary>
+            The BottomRight corner of the bounding box
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.GeoLocationMapGroup">
+            <summary>
+            Represents a group by a geographical location (usually region, country, city, etc.) in a <see cref="T:Telerik.Reporting.Map"/> item.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapGroupBase">
+            <summary>
+            A base class for the groups of a <see cref="T:Telerik.Reporting.Map"/> report item.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapGroupBase.Visible">
+            <summary>
+            Gets or sets a value indicating whether the Map group is displayed. 
+            </summary>
+            <value>
+            <B>true</B> if the table group is displayed; otherwise,
+            <B>false</B>. The default is <B>true</B>.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GeoLocationMapGroup.Location">
+            <summary>
+            Gets or sets a value the represents the location of the data points.
+            </summary>
+            <remarks>
+            In order a <see cref="T:Telerik.Reporting.Map"/> item to be able to resolve the actual geographic location a <see cref="T:Telerik.Reporting.ILocationProvider"/> should be configured.
+            </remarks>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.GeoLocationMapGroup.ChildGroups">
+            <summary>
+            A collection of <B>GeoLocationMapGroup</B>s that defines the children of a GeoLocationMapGroup group.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.GeoLocationMapGroupCollection">
+            <summary>
+            A collection of <B>GeoLocationMapGroup</B>s groups.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.GraticuleLine">
+            <summary>
+            Represents a graticule line.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraticuleLine.Style">
+            <summary>
+            Specifies the style of the graticule line.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.GraticuleLine.Step">
+            <summary>
+            Specifies the step of the graticule line.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.IExtent">
+            <summary>
+            Represents the extent of the <see cref="T:Telerik.Reporting.Map"/> report item.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IExtent.LatitudeMin">
+            <summary>
+            Gets or sets the minimum latitude coordinate of the extent.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IExtent.LatitudeMax">
+            <summary>
+            Gets or sets the maximum latitude coordinate of the extent.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IExtent.LongitudeMin">
+            <summary>
+            Gets or sets the minimum longitude coordinate of the extent.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.IExtent.LongitudeMax">
+            <summary>
+            Gets or sets the maximum longitude coordinate of the extent.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Location">
+            <summary>
+            Defines a point in the geographic coordinate system.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Location.Latitude">
+            <summary>
+            The latitude of the location.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Location.Longitude">
+            <summary>
+            The longitude of the location.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Map">
+            <summary>
+            Use the Map item to add maps to a report.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.SeriesGroups">
+            <summary>
+            Gets the hierarchy of <see cref="T:Telerik.Reporting.MapGroup"/>s that define the series for the current <B>Map</B>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.GeoLocationGroups">
+            <summary>
+            Gets the hierarchy of <see cref="P:Telerik.Reporting.Map.GeoLocationGroups"/>s that define the geographical location of the data points for the current <B>Map</B>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Series">
+            <summary>
+            Gets the collection of <see cref="T:Telerik.Reporting.MapSeries"/> defined for the current <B>Map</B>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Extent">
+            <summary>
+            Gets the requested extent in geographic coordinates.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.TileProvider">
+            <summary>
+            Gets or sets the tile provider.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.LocationProvider">
+            <summary>
+            Gets or sets the location provider.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Projection">
+            <summary>
+            Gets or sets the projection.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Legends">
+            <summary>
+            Gets the collection of <see cref="T:Telerik.Reporting.MapLegend"/> defined for the current <B>Map</B>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Titles">
+            <summary>
+            Gets the collection of <see cref="T:Telerik.Reporting.MapTitle"/> defined for the current <B>Map</B>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.PlotAreaStyle">
+            <summary>
+            Gets the style of the plot area.
+            </summary>
+            <remarks>
+            The plot area of a <B>Graph</B> is the area where all series including the data points
+            and labels are rendered. The plot area also contains all grid lines if defined.
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Parallels">
+            <summary>
+            Specifies the parallels graticule line.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Meridians">
+            <summary>
+            Specifies the meridians graticule line.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Map.Culture">
+            <summary>
+            Gets or sets the culture information associated with the Graph item. 
+            </summary>
+            <value>
+            A <see cref="T:System.Globalization.CultureInfo"/> representing the 
+            culture supported by the <see cref="T:Telerik.Reporting.Graph"/>. 
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.Map.ColorPalette">
+            <summary>
+            Gets or sets the color palette used for map series. 
+            </summary>
+            <value>
+            A <see cref="T:Telerik.Reporting.Drawing.IColorPalette"/> implementation 
+            representing color palette used for map series. 
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.Map.ScaleLegend">
+            <summary>
+            Specifies the map scale legend.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapGroup">
+            <summary>
+            Represents a series group in a <see cref="T:Telerik.Reporting.Map"/> item.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapGroupCollection">
+            <summary>
+            Represents a collection of <see cref="T:Telerik.Reporting.MapGroup"/>s.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Bounds">
+            <summary>
+            Specifies the map item's bounds.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Location">
+            <summary>
+            Specifies the map item's location.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Size">
+            <summary>
+            Specifies the map item's size.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Top">
+            <summary>
+            Specifies the map item's top position.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Left">
+            <summary>
+            Specifies the map item's left position.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Width">
+            <summary>
+            Specifies the map item's width.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Height">
+            <summary>
+            Specifies the map item's height.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.Style">
+            <summary>
+            Specifies the map item's style.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapItem.IsInsidePlotArea">
+            <summary>
+            Determines whether the map item is inside or outside the plot area.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapLegend">
+            <summary>
+            Specifies the legend for the map.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapLegend.Title">
+            <summary>
+            Specifies the text for the legend's title.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.MapLegend.TitleStyle">
+            <summary>
+            Specifies the <see cref="T:Telerik.Reporting.Drawing.Style"/> for the legend's title.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapLegend.Position">
+            <summary>
+            Specifies the position of the <see cref="T:Telerik.Reporting.MapLegend"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.ScaleUnits">
+            <summary>
+            Specifies in what units (metric, imperial, both) the map scale will be shown.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.Width">
+            <summary>
+            Specifies the ScaleLegend's width.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.Height">
+            <summary>
+            Specifies the ScaleLegend's height.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.Style">
+            <summary>
+            Specifies the map scale container's style.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.ItemStyle">
+            <summary>
+            Specifies the scale mark and text style.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapScaleLegend.Size">
+            <summary>
+            Specifies the map ScaleLegend's size.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapTitle">
+            <summary>
+            Represents a title for the map
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.MapTitle.Text">
+            <summary>
+            Specifies the text for the title.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> started with "=" is interpreted as
+            an expression to calculate the real data,
+            otherwise - literal string. 
+            Supports <conceptualLink target="e7d7b24c-decd-45c2-91b4-0f2b9e28271c">embedded expressions</conceptualLink> also.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.MapTitle.Position">
+            <summary>
+            Specifies the position of <see cref="T:Telerik.Reporting.MapTitle"/>.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.MapTitleCollection">
+            <summary>
+            Represents a collection of <see cref="T:Telerik.Reporting.MapTitle"/> objects.
             </summary>
         </member>
         <member name="T:Telerik.Reporting.AnchoringStyles">
@@ -8211,14 +8937,6 @@
             <summary>
             Open in the same window
             </summary>
-        </member>
-        <member name="M:Telerik.Reporting.ObjectUtils.EnumerableOrderedEquals(System.Collections.IEnumerable,System.Collections.IEnumerable)">
-            <summary>
-            Compares two IEnumerable-s in an ordered fashion (easier)
-            </summary>
-            <param name="enumA"></param>
-            <param name="enumB"></param>
-            <returns></returns>
         </member>
         <member name="T:Telerik.Reporting.ObjectValueConverter">
             <summary>
@@ -9847,12 +10565,20 @@
         <member name="M:Telerik.Reporting.Interfaces.IReportConverter.Convert(System.Object,System.IServiceProvider,Telerik.Reporting.Interfaces.IConverterLog,System.Collections.Hashtable)">
             <param name="context">Reserved for future use</param>
         </member>
+        <member name="M:Telerik.Reporting.ObjectUtils.EnumerableOrderedEquals(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+            <summary>
+            Compares two IEnumerable-s in an ordered fashion (easier)
+            </summary>
+            <param name="enumA"></param>
+            <param name="enumB"></param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Reporting.ObsoleteDate">
             <summary>
             Marks the date when the ObsoleteAttribute has been applied to.
             </summary>
             <remarks>
-            This attribute is for internal use only and is for reference purposese only.
+            This attribute is for internal use only and is for reference purposes only.
             </remarks>
         </member>
         <member name="M:Telerik.Reporting.ObsoleteDate.#ctor(System.String)">
@@ -32204,11 +32930,6 @@
             Gets or sets the connection string used to connect to data.
             </summary>
         </member>
-        <member name="T:Telerik.Reporting.CubeDataSource">
-            <summary>
-            Represents an OLAP cube to data items.
-            </summary>
-        </member>
         <member name="P:Telerik.Reporting.DataSource.Name">
             <summary>
             Gets or sets the name of the DataSource component. 
@@ -32220,6 +32941,136 @@
         <member name="P:Telerik.Reporting.DataSource.CalculatedFields">
             <summary>
             Gets the calculated fields collection.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.CsvDataSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Reporting.CsvDataSource"/> class.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.Source">
+            <summary>
+            Gets or sets the source of the CSV document.
+            </summary>
+            <remarks>
+            The supported sources are:
+            1. <see cref="T:System.Uri"/>
+            2. <see cref="T:System.String"/>
+            3. <see cref="T:System.IO.Stream"/>
+            4. <see cref="T:System.IO.TextReader"/>
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.FieldSeparators">
+            <summary>
+            Gets or sets the set of characters used as field separators (delimiters).
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.RecordSeparators">
+            <summary>
+            Gets or sets the character used as record separator.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.EscapeFormat">
+            <summary>
+            Gets or sets the escape format of the CSV document.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.Quote">
+            <summary>
+            Gets or sets the symbol used for escaping.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.CommentToken">
+            <summary>
+            Gets or sets the symbol used for comments in the CSV document.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.HasHeaders">
+            <summary>
+            Gets or sets the setting that specifies if the CSV document has a header row.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.ConsecutiveFieldSeparatorsAsOne">
+            <summary>
+            Gets or sets the option for treating consecutive field separators as one in the CSV document.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.ConsecutiveRecordSeparatorsAsOne">
+            <summary>
+            Gets or sets the option for treating consecutive record separators as one in the CSV document.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.DecimalSeparator">
+            <summary>
+            Gets or sets the decimal separator used when parsing numbers.
+            Invariant culture's '.' separator is used by default.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.ThousandSeparator">
+            <summary>
+            Gets or sets the thousand separator used when parsing numbers.
+            Invariant culture's ',' separator is used by default.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.DateTimeFormat">
+            <summary>
+            Gets or sets the format used when parsing dates.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.Columns">
+            <summary>
+            Gets a <see cref="T:Telerik.Reporting.DataColumnCollection"/> defining each column of the CSV data source.
+            </summary>
+            <remarks>When left empty, Columns are inferred from the data itself: 
+            If header row is available, it is used to infer column names;
+            The type of each column is considered string.</remarks>
+        </member>
+        <member name="P:Telerik.Reporting.CsvDataSource.TrimFields">
+            <summary>
+            Gets or sets the option for trimming the fields.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.CsvEscapeFormat">
+            <summary>
+            Represents the format that is used in a Csv file 
+            in order to escape field values / special symbols.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.CsvEscapeFormat.None">
+            <summary>
+            No symbols are escaped.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.CsvEscapeFormat.Backslash">
+            <summary>
+            Unix style programs use backslashes for escaping both (field and record) separators.
+            Backslash is escaped with a second backslash.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.CsvEscapeFormat.BackslashAlternative">
+            <summary>
+            Some Unix style programs use backslashes for escaping field separators,
+            but for escaping record separators can use \r\n instead of backslash.
+            Backslash is escaped with a second backslash.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.CsvEscapeFormat.Quotes">
+            <summary>
+            Excel uses single or double quotes to embed escaped text.
+            Single or double quotes are escaped with second single or double quotes.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.CsvEscapeFormat.QuotesMixed">
+            <summary>
+            Some files use a mixed escaping format - 
+            fields are embedded in quotes (Excel like),
+            quotes (single or double) are escaped with backslash (Unix like).
+            Backslash is escaped with a second backslash.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.CubeDataSource">
+            <summary>
+            Represents an OLAP cube to data items.
             </summary>
         </member>
         <member name="M:Telerik.Reporting.CubeDataSource.#ctor">
@@ -33336,6 +34187,130 @@
             The parameter with the specified name from the collection.
             </returns>
         </member>
+        <member name="T:Telerik.Reporting.DataColumn">
+            <summary>
+            Represents a data column definition.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumn.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Telerik.Reporting.DataColumn"/>.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumn.#ctor(System.String,Telerik.Reporting.SimpleType)">
+            <summary>
+            Creates a new instance of <see cref="T:Telerik.Reporting.DataColumn"/>.
+            </summary>
+            <param name="name">The name of the column. 
+            This name should be used later when referring a field from this column in expressions.</param>
+            <param name="columnType">The type of the column.</param>
+        </member>
+        <member name="P:Telerik.Reporting.DataColumn.Name">
+            <summary>
+            Gets or sets the name of the field definition. Used to access the field in expressions.
+            </summary>
+            <remarks>
+            Field names must be unique in the context of a single report.
+            The name must be a valid identifier - may contain only digits (0-9), letters (a-z, A-Z), 
+            and underscore sign (_). Must begin with a letter or underscore.
+            </remarks>
+        </member>
+        <member name="P:Telerik.Reporting.DataColumn.Type">
+            <summary>
+            Gets or sets the type of the field.
+            </summary>
+            <remarks>
+            Determines the type of the values. Acceptable values for each type are listed in <see cref="T:Telerik.Reporting.SimpleType"/>.
+            The default parameter type is <see cref="F:Telerik.Reporting.SimpleType.String"/>.
+            </remarks>
+        </member>
+        <member name="T:Telerik.Reporting.DataColumnCollection">
+            <summary>
+            Represents a collection of <see cref="T:Telerik.Reporting.DataColumn"/> objects. 
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumnCollection.AddRange(System.Collections.Generic.IEnumerable{Telerik.Reporting.DataColumn})">
+            <summary>
+            Adds an enumerable of <see cref="T:Telerik.Reporting.DataColumn"/> objects to the 
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>. 
+            </summary>
+            <param name="enumerable">
+            An enumerable of <see cref="T:Telerik.Reporting.DataColumn"/> objects to add to 
+            the <see cref="T:Telerik.Reporting.DataColumnCollection"/>.
+            </param>
+            <remarks>
+            <para>The <see cref="T:Telerik.Reporting.DataColumn"/> objects returned from the
+            enumerable are appended to the end of the 
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>.</para>
+            </remarks>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumnCollection.Contains(System.String)">
+            <summary>
+            Determines whether the <see cref="T:Telerik.Reporting.DataColumnCollection"/>
+            contains a column with a specific name.
+            </summary>
+            <param name="name">
+            A <see cref="T:System.String"/> that specifies the parameter name for which
+            to search the elements of the 
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>.
+            </param>
+            <returns>
+            Returns a <see cref="T:System.Boolean"/> value indicating whether the
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/> object contains a report
+            parameter with the specified name.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumnCollection.IndexOf(System.String)">
+            <summary>
+            Determines the index of a specific column in the
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>.
+            </summary>
+            <param name="name">The parameter name used to locate the report
+            parameter in the <see cref="T:Telerik.Reporting.DataColumnCollection"/>.</param>
+            <returns>The index of column if found in the 
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>; otherwise, -1.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumnCollection.Add(System.String,Telerik.Reporting.SimpleType)">
+            <summary>
+            Creates a <see cref="T:Telerik.Reporting.DataColumn"/> with specific settings and
+            adds it to the 
+            <see cref="T:Telerik.Reporting.DataColumnCollection"/>. 
+            </summary>
+            <param name="name">
+            A <see cref="T:System.String"/> value that will be used as 
+            <see cref="P:Telerik.Reporting.DataColumn.Name"/> for the newly created 
+            <see cref="T:Telerik.Reporting.DataColumn"/>.
+            </param>
+            <param name="columnType">
+            A <see cref="T:Telerik.Reporting.SimpleType"/> value that will be used as 
+            <see cref="!:SimpleType.Type"/> for the newly created 
+            <see cref="T:Telerik.Reporting.DataColumn"/>.
+            </param>
+            <param name="parseFormat">
+            A <see cref="T:System.String"/> value that will be used as 
+            <see cref="!:DataColumn.ParseFormat"/> for the newly created 
+            <see cref="T:Telerik.Reporting.DataColumn"/>.
+            </param>
+            <returns>The newly created and added <see cref="T:Telerik.Reporting.DataColumn"/>
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.DataColumnCollection.InsertItem(System.Int32,Telerik.Reporting.DataColumn)">
+            <summary>
+            Inserts an item to the <see cref="T:Telerik.Reporting.DataColumnCollection"/> at
+            the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be
+            inserted.</param>
+            <param name="item">The <see cref="T:Telerik.Reporting.DataColumn"/> to insert into
+            the <see cref="T:Telerik.Reporting.DataColumnCollection"/>.</param>
+        </member>
+        <member name="P:Telerik.Reporting.DataColumnCollection.Item(System.String)">
+            <summary>
+            Gets a column by name.
+            </summary>
+            <param name="name">The name of the column.</param>
+            <returns>A column if found; otherwise null (Nothing) </returns>
+        </member>
         <member name="T:Telerik.Reporting.Data.ObjectValueConverter">
             <summary>
             Allows a property of type Object to be edited like a string property in the Properties window
@@ -33355,6 +34330,42 @@
         <member name="M:Telerik.Reporting.Data.SimpleCollectionConverter`1.GetPluralName">
             <summary>
             Parameters; Bindings ...
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.SimpleType">
+            <summary>
+            Represents type options.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.Boolean">
+            <summary>
+            Values of type <see cref="T:System.Boolean"/> are accepted.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.DateTime">
+            <summary>
+            Values of type <see cref="T:System.DateTime"/> are accepted.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.Integer">
+            <summary>
+            Values of type <see cref="T:System.Int16"/>, <see cref="T:System.Int32"/>,
+            or <see cref="T:System.Int64"/> are accepted. Internally the values are converted to <see cref="T:System.Int64"/>.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.Float">
+            <summary>
+            Values of type <see cref="T:System.Single"/> or <see cref="T:System.Double"/> are accepted. Internally the values are converted to <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.Decimal">
+            <summary>
+            Values of type <see cref="T:System.Single"/> or <see cref="T:System.Double"/> are accepted. Internally the values are converted to <see cref="T:System.Decimal"/>.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SimpleType.String">
+            <summary>
+            Values of type <see cref="T:System.String"/> are accepted.
             </summary>
         </member>
         <member name="M:Telerik.Reporting.HtmlEngine.NodeLayoutEngine.InitializeMeasurements(Telerik.Reporting.HtmlEngine.IHtmlMeasureContext,Telerik.Reporting.Drawing.IStyle,Telerik.Reporting.Processing.Common.Measurements)">
@@ -34143,67 +35154,6 @@
             
             </summary>
         </member>
-        <member name="P:Telerik.Reporting.Processing.Graphing.Axes.GraphAxis.LabelAngle">
-            <summary>
-            Gets or sets the angle in degrees at which the axis labels are rotated.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Processing.Graphing.Axes.IAngularAxisLabelArranger.CalculateRadius(System.Double,System.Double,System.Double,System.Drawing.SizeF)">
-            <summary>
-            Calculates the radius of the angular axis for the given label size, angel and outer/max R.
-            </summary>
-        </member>
-        <member name="F:Telerik.Reporting.Processing.Graphing.DataPointArrangers.BarArranger.slots">
-            <summary>
-            the number of DataPoint slots in the current Category
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.AngularCategoryLabelArranger">
-            <summary>
-            Arranges the labels according to the angle. 
-            Used when the AngularAxis is CategoryAxis (Rose).
-            Also used with the Pie
-            The labels' text is always horizontal
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.IDataPointLabelArranger.ArrangeLabel(System.Drawing.RectangleF,Telerik.Reporting.Processing.Primitives.TextElement,Telerik.Reporting.Processing.Graphing.Series.IDataPointBounds,System.Single)">
-            <summary>
-            Arranges a DataPoint Label according to the specified configuration
-            </summary>
-            <param name="label">The Label to arrange</param>
-            <param name="pt">The DataPoint to which the label is associated</param>
-            <param name="bounds">The bounds of the DataPoint</param>
-            <param name="offset">The offset sets the distance from the center of the DataPoint during the calculations</param>
-        </member>
-        <member name="M:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.ArrangeLabel(Telerik.Reporting.Processing.Primitives.TextElement,System.Drawing.PointF,Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.HorizontalLabelAlignment,Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.VerticalLabelAlignment,System.Single,System.Single,System.Single)">
-            <summary>
-            Arranges a text label around a given point
-            </summary>
-            <param name="label">the label to be arranged</param>
-            <param name="goalPoint">the destination point</param>
-            <param name="horizontalPosition">the label's relative horizontal position according to the goal point</param>
-            <param name="verticalPosition">the label's relative vertical position according to the goal point</param>
-            <param name="labelAngle">the angle on which the label will be rotated</param>
-            <param name="tiltAngle">the angle on which the calculations will be shifted. 
-            This calculations will be performed as if the coordinate system is rotated on tiltAngle degrees</param>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.HorizontalCategoryLabelArranger">
-            <summary>
-            Performs arrangements on series having their X value as main (Bars)
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.RadialCategoryLabelArranger">
-            <summary>
-            Arranges the labels according to the angle. 
-            Used when the RadialAxis is CategoryAxis
-            Rotates the labels along according to the DataPoint's angle
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.VerticalCategoryLabelArranger">
-            <summary>
-            Performs arrangments on series having their Y value as main (Columns)
-            </summary>
-        </member>
         <member name="T:Telerik.Reporting.Processing.LayoutElement">
             <summary>
             Base class for all processing instances of report items.
@@ -34240,6 +35190,64 @@
         <member name="P:Telerik.Reporting.Processing.LayoutElement.ParentElement">
             <summary>
             Gets the parent element of the current layout element.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Graphing.Axes.GraphAxis.LabelAngle">
+            <summary>
+            Gets or sets the angle in degrees at which the axis labels are rotated.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Graphing.Axes.IAngularAxisLabelArranger.CalculateRadius(System.Double,System.Double,System.Double,System.Drawing.SizeF)">
+            <summary>
+            Calculates the radius of the angular axis for the given label size, angel and outer/max R.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Processing.Graphing.DataPointArrangers.BarArranger.slots">
+            <summary>
+            the number of DataPoint slots in the current Category
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.AngularCategoryLabelArranger">
+            <summary>
+            Arranges the labels according to the angle. 
+            Used when the AngularAxis is CategoryAxis (Rose).
+            Also used with the Pie
+            The labels' text is always horizontal
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.ArrangeLabel(Telerik.Reporting.Processing.Primitives.TextElement,System.Drawing.PointF,Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.HorizontalLabelAlignment,Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.DataPointArrangerHelper.VerticalLabelAlignment,System.Single,System.Single)">
+            <summary>
+            Arranges a text label around a given point
+            </summary>
+            <param name="label">the label to be arranged</param>
+            <param name="goalPoint">the destination point</param>
+            <param name="horizontalPosition">the label's relative horizontal position according to the goal point</param>
+            <param name="verticalPosition">the label's relative vertical position according to the goal point</param>
+            <param name="labelAngle">the angle on which the label will be rotated</param>
+            <param name="tiltAngle">the angle on which the calculations will be shifted. 
+            This calculations will be performed as if the coordinate system is rotated on tiltAngle degrees</param>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.HorizontalCategoryLabelArranger">
+            <summary>
+            Performs arrangements on series having their X value as main (Bars)
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.RadialCategoryLabelArranger">
+            <summary>
+            Arranges the labels according to the angle. 
+            Used when the RadialAxis is CategoryAxis
+            Rotates the labels along according to the DataPoint's angle
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Graphing.DataPointLabelArrangers.VerticalCategoryLabelArranger">
+            <summary>
+            Performs arrangements on series having their Y value as main (Columns)
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Graphing.GridLines.GraphGridLine.Model">
+            <summary>
+            For design time purposes: the object to be selected thus shown in the property grid
+            when a grid line is selected/clicked on the graph design surface.
             </summary>
         </member>
         <member name="M:Telerik.Reporting.Processing.ProcessingElement.Evaluate(System.Object)">
@@ -34351,9 +35359,118 @@
             in [millimeters]
             </summary>
         </member>
-        <member name="P:Telerik.Reporting.Processing.Graphing.SeriesBuilders.GraphSeriesBuilder.RuntiemIndex">
+        <member name="P:Telerik.Reporting.Processing.Graphing.SeriesBuilders.GraphSeriesBuilder.RuntimeIndex">
             <summary>
             After build is completed, exposes the count of the generated runtime series
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Graphing.ExpressionUtils.FromatExpressionString(System.String,System.String)">
+            <summary>
+            returns "='(' + expr1 + '; ' + expr2 + ')'"
+            </summary>
+            <param name="expr1"></param>
+            <param name="expr2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.ReportItemBase">
+            <summary>
+            Represents a processing report item.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.ReportItemBase.ResetValue">
+            <summary>
+            Used by page sections to prepare the item for the next processing.
+            The Image rendering (as of now) reuse the only instance of the page
+            sections and reevaluate them for every page it renders.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.ITableCellInternal">
+            <summary>
+            Extends ITableCell with read/write functionality
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.ITableCell">
+            <summary>
+            Provides an interface for accessing a processing <see cref="T:Telerik.Reporting.Processing.Table"/> cell.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.RowIndex">
+            <summary>
+            Gets the index of the row that contains the cell.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.ColumnIndex">
+            <summary>
+            Gets the index of the column that contains the cell.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.RowSpan">
+            <summary>
+            Gets a value that indicates the total number of rows that the cell spans within the table.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.ColumnSpan">
+            <summary>
+            Gets a value that indicates the total number of columns that the cell spans within the table.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.Table">
+            <summary>
+            Gets the <see cref="T:Telerik.Reporting.Processing.Table"/> this cell belongs to.
+            </summary>
+            <value>
+            A <see cref="T:Telerik.Reporting.Processing.Table"/> object which the item belongs to.
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ITableCell.Item">
+            <summary>
+            Gets the <see cref="T:Telerik.Reporting.Processing.ReportItem"/> in the cell.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.DataItem.DataSource">
+            <summary>
+            Gets or sets the data source that the <see cref="T:Telerik.Reporting.Processing.Table"/> is displaying data for.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.DataItem.NoDataMessage">
+            <summary>
+            Gets or sets the current data item no data message.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.DataItem.NoDataStyle">
+            <summary>
+            Gets a <see cref="T:Telerik.Reporting.Drawing.Style"/> object 
+            specifying the appearance of the no data message. 
+            </summary>
+            <value>
+            A <see cref="T:Telerik.Reporting.Drawing.Style"/> object specifying
+            the items's style. 
+            </value>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.DataItem.RenderNoData">
+            <summary>
+            Indicates if the NoDataMessage will be rendered instead of the actual item content.
+            </summary>
+            <value>True if the NoDataMessage will be rendered. Otherwise false.</value>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.ILayoutElementContainer">
+            <summary>
+            Represents an item that may contain other <see cref="T:Telerik.Reporting.Processing.LayoutElement"/>s
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.ILayoutElementContainer.Children">
+            <summary>
+            Gets a read-only enumeration containing the immediate children of the current container. 
+            </summary>
+            <example>
+            This example shows how to access all children of a container in a ItemDataBinding event handler.
+            <code lang="C#" source="CodeSnippets\CS\API\Telerik\Reporting\Processing\Access_Processing_Instances_Children_Snippets.cs" region="Using_ILayoutElementContainer_Children_Snippet" />
+            <code lang="VB" source="CodeSnippets\VB\API\Telerik\Reporting\Processing\Access_Processing_Instances_Children_Snippets.vb" region="Using_ILayoutElementContainer_Children_Snippet" />
+            </example>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Graphing.GraphArea.PlotAreaBounds">
+            <summary>
+            MapDesigner only. TODO: needs revision
             </summary>
         </member>
         <member name="F:Telerik.Reporting.Processing.Graphing.GraphBuilder.parentMap">
@@ -34376,7 +35493,7 @@
             Contains the data per category scale;
             </summary>
         </member>
-        <member name="M:Telerik.Reporting.Processing.Graphing.GraphBuilder.Dfs(System.Collections.Generic.IEnumerable{Telerik.Reporting.GraphGroup},System.Predicate{Telerik.Reporting.GraphGroup})">
+        <member name="M:Telerik.Reporting.Processing.Graphing.GraphBuilder.Dfs(System.Collections.Generic.IEnumerable{Telerik.Reporting.IGraphGroup},System.Predicate{Telerik.Reporting.IGraphGroup})">
             Returns True to stop the traversal; otherwise returns false.
         </member>
         <member name="M:Telerik.Reporting.Processing.GroupHierarchyWalker`1.GetSize(`0)">
@@ -34446,11 +35563,38 @@
             <param name="rhs">Right hand side vector.</param>
             <returns>Solution vector.</returns>
         </member>
-        <member name="M:Telerik.Reporting.Processing.Imaging.ImageUtils.CreateBitmap(System.Drawing.Size)">
+        <member name="T:Telerik.Reporting.Processing.InteractiveMap">
             <summary>
-            
+            Used by MapDesigner only
             </summary>
-            <param name="size">in pixels.</param>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Mapping.InteractiveMapArea">
+            <summary>
+            Used by MapDesigner only
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Processing.Mapping.MapArea.Extent">
+            <summary>
+            Used by the MapDesigner
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.MapScaleLegendItem.CalculateMapSegment(System.Double,System.Double,Telerik.Reporting.Processing.Mapping.MapScaleLegendUnit@)">
+            <summary>
+            Calculates the nearest segment value of the given map and viewport in mapExtent units.
+            Changes the SI units of the mapExtentWidth if needed.
+            </summary>
+            <param name="viewportSegment"></param>
+            <param name="viewportWidth"></param>
+            <param name="mapExtentWidth">the width of the map extent in SIUnits</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.MapScaleLegendItem.CalculateViewportSegment(System.Int32,System.Double,System.Double)">
+            <summary>
+            Calculates the viewport segment size in mm, based on the previously calculated map segment.
+            </summary>
+            <param name="mapSegment"></param>
+            <param name="viewportWidth"></param>
+            <param name="mapExtentWidth"></param>
             <returns></returns>
         </member>
         <member name="P:Telerik.Reporting.Processing.Primitives.ArcSegment.Size">
@@ -34484,91 +35628,10 @@
             The Action that will be executed.
             </summary>
         </member>
-        <member name="T:Telerik.Reporting.Processing.ReportItemBase">
-            <summary>
-            Represents a processing report item.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Processing.ReportItemBase.ResetValue">
-            <summary>
-            Used by page sections to prepare the item for the next processing.
-            The Image rendering (as of now) reuse the only instance of the page
-            sections and reevaluate them for every page it renders.
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.ITableCellInternal">
-            <summary>
-            Extends ITableCell with read/write functionality
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.ITableCell">
-            <summary>
-            Provides an interface for accessing a processing <see cref="T:Telerik.Reporting.Processing.Table"/> cell.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.RowIndex">
-            <summary>
-            Gets the index of the row that contains the cell.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.ColumnIndex">
-            <summary>
-            Gets the index of the column that contains the cell.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.RowSpan">
-            <summary>
-            Gets a value that indicates the total number of rows that the cell spans within the table.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.ColumnSpan">
-            <summary>
-            Gets a value that indicates the total number of columns that the cell spans within the table.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.Table">
-            <summary>
-            Gets the <see cref="T:Telerik.Reporting.Processing.Table"/> this cell belongs to.
-            </summary>
-            <value>
-            A <see cref="T:Telerik.Reporting.Processing.Table"/> object which the item belongs to.
-            </value>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ITableCell.Item">
-            <summary>
-            Gets the <see cref="T:Telerik.Reporting.Processing.ReportItem"/> in the cell.
-            </summary>
-        </member>
         <member name="T:Telerik.Reporting.Processing.Chart">
             <summary>
             Summary description for ReportItem class.
             </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.DataItem.DataSource">
-            <summary>
-            Gets or sets the data source that the <see cref="T:Telerik.Reporting.Processing.Table"/> is displaying data for.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.DataItem.NoDataMessage">
-            <summary>
-            Gets or sets the current data item no data message.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.DataItem.NoDataStyle">
-            <summary>
-            Gets a <see cref="T:Telerik.Reporting.Drawing.Style"/> object 
-            specifying the appearance of the no data message. 
-            </summary>
-            <value>
-            A <see cref="T:Telerik.Reporting.Drawing.Style"/> object specifying
-            the items's style. 
-            </value>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.DataItem.RenderNoData">
-            <summary>
-            Indicates if the NoDataMessage will be rendered instead of the actual item content.
-            </summary>
-            <value>True if the NoDataMessage will be rendered. Otherwise false.</value>
         </member>
         <member name="T:Telerik.Reporting.Processing.CheckBox">
             <summary>
@@ -34591,21 +35654,6 @@
             so we should clear the previous lines (created at the previous measure);
             otherwise the old text will appear as well.
             </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Processing.ILayoutElementContainer">
-            <summary>
-            Represents an item that may contain other <see cref="T:Telerik.Reporting.Processing.LayoutElement"/>s
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Processing.ILayoutElementContainer.Children">
-            <summary>
-            Gets a read-only enumeration containing the immediate children of the current container. 
-            </summary>
-            <example>
-            This example shows how to access all children of a container in a ItemDataBinding event handler.
-            <code lang="C#" source="CodeSnippets\CS\API\Telerik\Reporting\Processing\Access_Processing_Instances_Children_Snippets.cs" region="Using_ILayoutElementContainer_Children_Snippet" />
-            <code lang="VB" source="CodeSnippets\VB\API\Telerik\Reporting\Processing\Access_Processing_Instances_Children_Snippets.vb" region="Using_ILayoutElementContainer_Children_Snippet" />
-            </example>
         </member>
         <member name="M:Telerik.Reporting.Processing.CheckBox.GetCheckMarkObject">
             <summary>
@@ -34689,7 +35737,7 @@
             <param name="documentMapAvailable">Indicates whether there are document map nodes 
             among the bookmarks.</param>
         </member>
-        <member name="M:Telerik.Reporting.Processing.DocumentParametersManager`1.#ctor(Telerik.Reporting.IReportDocument)">
+        <member name="M:Telerik.Reporting.Processing.DocumentParametersManager`1.#ctor(Telerik.Reporting.IReportDocument,Telerik.Reporting.Interfaces.IDataProviderContext)">
             <summary>
             Used from report viewers. (Resolve the report document without applying parameters.)
             </summary>
@@ -35663,6 +36711,1106 @@
             Substitutes some of the general usage ExpressionNodes with Reporting specific nodes.
             </summary>
         </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BitmapUtils.ImageToByteArray(System.Drawing.Image)">
+            <summary>
+            Converts an image to a byte array in BMP format
+            </summary>
+            <param name="tileBitmap"></param>
+            <returns>Bitmap with BMP ImageFormat</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BitmapUtils.ConvertToPngBytes(System.Byte[])">
+            <summary>
+            Converts an image bytes in JPG, BMP, etc. to a PNG byte array.
+            </summary>
+            <param name="imageBytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BitmapUtils.Stitch(System.Drawing.Image,System.Drawing.Image,System.Drawing.Point)">
+            <summary>
+            Creates a new bitmap, stitching bitmap2 to bitmap1 at the specified position.
+            </summary>
+            <param name="bitmap1"></param>
+            <param name="bitmap2"></param>
+            <param name="position"></param>
+            <returns>the produced bitmap</returns>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.MapQuestLocationProvider.MaxResultsCount">
+            <summary>
+             MapQuest returns the center of the default country (USA) when not able to find a location.
+             REF: http://developer.mapquest.com/web/products/forums/-/message_boards/view_message/417276        
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.Latitude">
+            <summary>
+            Location.Latitude
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.Longitude">
+            <summary>
+            Location.Longitude
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.Location">
+            <summary>
+            The location (Latitude/Longitude) of the returned point.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.RequestQuery">
+            <summary>
+            The query string used to request the current location
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.GeoRequest">
+            <summary>
+            The request that is used to get he current result.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.Name">
+            <summary>
+            The location name as returned from the server.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.ExpDate">
+            <summary>
+            Tile expiration date
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.GeoLocation.Error">
+            <summary>
+            String containing the error thrown during the download.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BingTileProvider.TileXYToQuadKey(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts tile XY coordinates into a QuadKey at a specified level of detail.
+            </summary>
+            <param name="tileX">Tile X coordinate.</param>
+            <param name="tileY">Tile Y coordinate.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <returns>A string containing the QuadKey.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BingTileProvider.LatLongToQuadKey(System.Double,System.Double,System.Int32)">
+            <summary>
+            Returns the QuadKey by given Latitude, Longitude and Level of Detail
+            </summary>
+            <param name="latitude">Latitude of the point, in degrees.</param>
+            <param name="longitude">Longitude of the point, in degrees.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <returns>A string containing the QuadKey.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BingTileSystem.QuadKeyToTileXY(System.String,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Converts a QuadKey into tile XY coordinates.
+            </summary>
+            <param name="quadKey">QuadKey of the tile.</param>
+            <param name="tileX">Output parameter receiving the tile X coordinate.</param>
+            <param name="tileY">Output parameter receiving the tile Y coordinate.</param>
+            <param name="levelOfDetail">Output parameter receiving the level of detail.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BingTileSystem.QuadKeyToTileExtent(System.String)">
+            <summary>
+            Returns the latitude/longitude extent of a given tyle by quad key.
+            </summary>
+            <param name="quadKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.BingTileSystem.GetSubQuadKeys(System.String)">
+            <summary>
+            Returns the dependent 4 quad keys of a given quad key.
+            </summary>
+            <param name="quadKey">key referencing a tile</param>
+            <returns>the keys of the sub tiles referenced by the passed quadKey</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.GoogleMapsTileProvider.LatLongToTileXYTest(System.Double,System.Double,System.Int32)">
+            <summary>
+            For TEST purposes only
+            </summary>
+            <param name="latitude"></param>
+            <param name="longitude"></param>
+            <param name="levelOfDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.MapQuestTileProvider.LatLongToTileXYTest(System.Double,System.Double,System.Int32)">
+            <summary>
+            For TEST purposes only
+            </summary>
+            <param name="latitude"></param>
+            <param name="longitude"></param>
+            <param name="levelOfDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Mapping.ThrowExceptionTileProvider">
+            <summary>
+            Class used only for testing purposes.
+            When GetTilesAsync is called, it will throw an System.Net.WebException if the TileUrl is invalid.
+            Otherwise it will return an image as if a regular WebTileProvider.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.Clip(System.Double,System.Double,System.Double)">
+            <summary>
+            Clips a number to the specified minimum and maximum values.
+            </summary>
+            <param name="n">The number to clip.</param>
+            <param name="minValue">Minimum allowable value.</param>
+            <param name="maxValue">Maximum allowable value.</param>
+            <returns>The clipped value.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.MapSize(System.Int32)">
+            <summary>
+            Determines the map width and height (in pixels) at a specified level
+            of detail.
+            </summary>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <returns>The map width and height in pixels.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.MapSizeInTiles(System.Int32)">
+            <summary>
+            Returns the map size in tiles.
+            </summary>
+            <param name="levelOfDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.GroundResolution(System.Double,System.Int32)">
+            <summary>
+            Determines the ground resolution (in meters per pixel) at a specified
+            latitude and level of detail.
+            </summary>
+            <param name="latitude">Latitude (in degrees) at which to measure the
+            ground resolution.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <returns>The ground resolution, in meters per pixel.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.MapScale(System.Double,System.Int32,System.Int32)">
+            <summary>
+            Determines the map scale at a specified latitude, level of detail,
+            and screen resolution.
+            </summary>
+            <param name="latitude">Latitude (in degrees) at which to measure the
+            map scale.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <param name="screenDpi">Resolution of the screen, in dots per inch.</param>
+            <returns>The map scale, expressed as the denominator N of the ratio 1 : N.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.LatLongToPixelXY(System.Double,System.Double,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Converts a point from latitude/longitude WGS-84 coordinates (in degrees)
+            into pixel XY coordinates at a specified level of detail.
+            </summary>
+            <param name="latitude">Latitude of the point, in degrees.</param>
+            <param name="longitude">Longitude of the point, in degrees.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <param name="pixelX">Output parameter receiving the X coordinate in pixels.</param>
+            <param name="pixelY">Output parameter receiving the Y coordinate in pixels.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.PixelXYToLatLong(System.Int32,System.Int32,System.Int32,System.Double@,System.Double@)">
+            <summary>
+            Converts a pixel from pixel XY coordinates at a specified level of detail
+            into latitude/longitude WGS-84 coordinates (in degrees).
+            </summary>
+            <param name="pixelX">X coordinate of the point, in pixels.</param>
+            <param name="pixelY">Y coordinates of the point, in pixels.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <param name="latitude">Output parameter receiving the latitude in degrees.</param>
+            <param name="longitude">Output parameter receiving the longitude in degrees.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.PixelXYToTileXY(System.Int32,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Converts pixel XY coordinates into tile XY coordinates of the tile containing
+            the specified pixel.
+            </summary>
+            <param name="pixelX">Pixel X coordinate.</param>
+            <param name="pixelY">Pixel Y coordinate.</param>
+            <param name="tileX">Output parameter receiving the tile X coordinate.</param>
+            <param name="tileY">Output parameter receiving the tile Y coordinate.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.TileXYToPixelXY(System.Int32,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Converts tile XY coordinates into pixel XY coordinates of the upper-left pixel
+            of the specified tile.
+            </summary>
+            <param name="tileX">Tile X coordinate.</param>
+            <param name="tileY">Tile Y coordinate.</param>
+            <param name="pixelX">Output parameter receiving the pixel X coordinate.</param>
+            <param name="pixelY">Output parameter receiving the pixel Y coordinate.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.LatLongToTileXY(System.Double,System.Double,System.Int32)">
+            <summary>
+            Converts Latitude/Longitude coordinates into tile XY coordinates of the tile containing
+            the specified point.
+            </summary>
+            <param name="latitude">Latitude of the point, in degrees.</param>
+            <param name="longitude">Longitude of the point, in degrees.</param>
+            <param name="levelOfDetail">Level of detail, from 1 (lowest detail)
+            to 23 (highest detail).</param>
+            <param name="tileX">Output parameter receiving the tile X coordinate.</param>
+            <param name="tileY">Output parameter receiving the tile Y coordinate.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.TileXYToLatLong(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts tile XY coordinates to Latitude/Longitude coordinates according to the specified level of details.
+            </summary>
+            <param name="tileX">tile X coordinate</param>
+            <param name="tileY">tile Y coordinate</param>
+            <param name="levelOfDetail">level of detail</param>
+            <returns>Location(latitude, longitude)</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.TileXYToLatLong_BR(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns the BOTTOM-RIGHT latitude/longitude coordinates of a given tile according to the specified level of details.
+            </summary>
+            <param name="tileX"></param>
+            <param name="tileY"></param>
+            <param name="levelOfDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileHelper.TileXYToExtent(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns the latitude/longitude extent of a given tile for a specified level of detail.
+            </summary>
+            <param name="tileX"></param>
+            <param name="tileY"></param>
+            <param name="levelOfDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Mapping.TileImage">
+            <summary>
+            image abstraction
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileInfo.SetExtent(Telerik.Reporting.Extent)">
+            <summary>
+            Sets the Latitude/Longitude values of the supplied TileImage.
+            </summary>
+            <param name="info"></param>
+            <param name="extent"></param>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileInfo.Url">
+            <summary>
+            Subdomain-templated Url that identifies the tile.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileInfo.LatitudeMin">
+            <summary>
+            TileExtent.LatitudeMin
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileInfo.LongitudeMin">
+            <summary>
+            TileExtent.LongitudeMin
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileInfo.LatitudeMax">
+            <summary>
+            TileExtent.LatitudeMax
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileInfo.LongitudeMax">
+            <summary>
+            TileExtent.LongitudeMax
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileImage.Data">
+            <summary>
+            The image stream returned from the provider
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Processing.Mapping.TileImage.ExpDate">
+            <summary>
+            Tile expiration date
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileImageExtensions.SaveToFile(Telerik.Reporting.Processing.Mapping.TileImage,System.String)">
+            <summary>
+            DEBUG purposes only!
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.TileImageExtensions.CopyTileInfoFields(Telerik.Reporting.Processing.Mapping.TileImage,Telerik.Reporting.Processing.Mapping.TileInfo)">
+            <summary>
+            Copies the URL and the extent properties from the passed TileInfo to the TileImage instance.
+            </summary>
+            <param name="tileImage"></param>
+            <param name="tileInfo"></param>
+        </member>
+        <member name="T:Telerik.Reporting.Processing.Mapping.TilePoint">
+            <summary>
+            Struct defining a tile position
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.DistanceCalculator.CalcDistance(Telerik.Reporting.Location,Telerik.Reporting.Location)">
+            <summary>
+            Calculates the distance between two points in kilometers.
+            </summary>
+            <param name="point1"></param>
+            <param name="point2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.DistanceCalculator.CalcExtentWidth(Telerik.Reporting.Extent)">
+            <summary>
+            Calculates the extent width (difference between longitude coordinates) in kilometers, measuring it in the middle 
+            between the two latitude coordinates
+            </summary>
+            <param name="extent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.DistanceCalculator.CalcExtentHeight(Telerik.Reporting.Extent)">
+            <summary>
+            Calculates the difference between latitude coordinates in kilometers, using the minimum longitude as X.        
+            </summary>
+            <param name="extent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.ExtentExtensions.Contains(Telerik.Reporting.Extent,Telerik.Reporting.Extent)">
+            <summary>
+            Determines if the rectangular region represented by ext is entirely contained within this Extent region.
+            </summary>
+            <param name="ext1"></param>
+            <param name="ext2"></param>
+            <returns>True if ext is contained in this Extent</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.ExtentExtensions.Intersects(Telerik.Reporting.Extent,Telerik.Reporting.Extent)">
+            <summary>
+            Determines if this extent intersects with ext.
+            </summary>
+            <param name="ext1"></param>
+            <param name="ext2"></param>
+            <returns>True if ext intersects this Extent</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.ProjectionExtensions.GetExtentBounds(Telerik.Reporting.IProjection,Telerik.Reporting.Extent,System.Drawing.RectangleF)">
+            <summary>
+            Returns the bounds of the current extent according to the world bounds.
+            </summary>
+            <param name="proj"></param>
+            <param name="extent"></param>
+            <param name="worldBounds">Usually calculated by the GetWorldBounds() method</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.ProjectionExtensions.GetWorldBounds(Telerik.Reporting.IProjection,Telerik.Reporting.Extent,System.Drawing.RectangleF)">
+            <summary>
+            If the extent takes the given bounds calculates the bounds of the entire world.
+            </summary>
+            <param name="proj"></param>
+            <param name="extent"></param>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.Processing.Mapping.ProjectionExtensions.FixExtentIntoBounds(Telerik.Reporting.IProjection,Telerik.Reporting.Extent,System.Drawing.RectangleF)">
+            <summary>
+            Ensures that the given extent is conformant with the supplied bounds
+            </summary>
+            <param name="proj"></param>
+            <param name="extent"></param>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.Async.SQLiteConnectionPool.Reset">
+            <summary>
+            Closes all connections managed by this pool.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.Async.SQLiteConnectionPool.ApplicationSuspended">
+            <summary>
+            Call this method when the application is suspended.
+            </summary>
+            <remarks>Behaviour here is to close any open connections.</remarks>
+        </member>
+        <member name="P:Telerik.Reporting.SQLite.Async.SQLiteConnectionPool.Shared">
+            <summary>
+            Gets the singleton instance of the connection tool.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.SQLite.SQLiteConnection">
+            <summary>
+            Represents an open connection to a SQLite database.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.SQLite.SQLiteConnection.preserveDuringLinkMagic">
+            <summary>
+            Used to list some code that we want the MonoTouch linker
+            to see, but that we never want to actually execute.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructs a new SQLiteConnection and opens a SQLite database specified by databasePath.
+            </summary>
+            <param name="databasePath">
+            Specifies the path to the database file.
+            </param>
+            <param name="storeDateTimeAsTicks">
+            Specifies whether to store DateTime properties as ticks (true) or strings (false). You
+            absolutely do want to store them as Ticks in all new projects. The default of false is
+            only here for backwards compatibility. There is a *significant* speed advantage, with no
+            down sides, when setting storeDateTimeAsTicks = true.
+            </param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.#ctor(System.String,Telerik.Reporting.SQLite.SQLiteOpenFlags,System.Boolean)">
+            <summary>
+            Constructs a new SQLiteConnection and opens a SQLite database specified by databasePath.
+            </summary>
+            <param name="databasePath">
+            Specifies the path to the database file.
+            </param>
+            <param name="openFlags"></param>
+            <param name="storeDateTimeAsTicks">
+            Specifies whether to store DateTime properties as ticks (true) or strings (false). You
+            absolutely do want to store them as Ticks in all new projects. The default of false is
+            only here for backwards compatibility. There is a *significant* speed advantage, with no
+            down sides, when setting storeDateTimeAsTicks = true.
+            </param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.GetMapping(System.Type,Telerik.Reporting.SQLite.CreateFlags)">
+            <summary>
+            Retrieves the mapping that is automatically generated for the given type.
+            </summary>
+            <param name="type">
+            The type whose mapping to the database is returned.
+            </param>         
+            <param name="createFlags">
+            Optional flags allowing implicit PK and indexes based on naming conventions
+            </param>     
+            <returns>
+            The mapping represents the schema of the columns of the database and contains 
+            methods to set and get properties of objects.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.GetMapping``1">
+            <summary>
+            Retrieves the mapping that is automatically generated for the given type.
+            </summary>
+            <returns>
+            The mapping represents the schema of the columns of the database and contains 
+            methods to set and get properties of objects.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.DropTable``1">
+            <summary>
+            Executes a "drop table" on the database.  This is non-recoverable.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateTable``1(Telerik.Reporting.SQLite.CreateFlags)">
+            <summary>
+            Executes a "create table if not exists" on the database. It also
+            creates any specified indexes on the columns of the table. It uses
+            a schema automatically generated from the specified type. You can
+            later access this schema by calling GetMapping.
+            </summary>
+            <returns>
+            The number of entries added to the database schema.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateTable(System.Type,Telerik.Reporting.SQLite.CreateFlags)">
+            <summary>
+            Executes a "create table if not exists" on the database. It also
+            creates any specified indexes on the columns of the table. It uses
+            a schema automatically generated from the specified type. You can
+            later access this schema by calling GetMapping.
+            </summary>
+            <param name="ty">Type to reflect to a database table.</param>
+            <param name="createFlags">Optional flags allowing implicit PK and indexes based on naming conventions.</param>  
+            <returns>
+            The number of entries added to the database schema.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateIndex(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Creates an index for the specified table and column.
+            </summary>
+            <param name="indexName">Name of the index to create</param>
+            <param name="tableName">Name of the database table</param>
+            <param name="columnName">Name of the column to index</param>
+            <param name="unique">Whether the index should be unique</param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateIndex(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates an index for the specified table and column.
+            </summary>
+            <param name="tableName">Name of the database table</param>
+            <param name="columnName">Name of the column to index</param>
+            <param name="unique">Whether the index should be unique</param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateIndex``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean)">
+            <summary>
+            Creates an index for the specified object property.
+            e.g. CreateIndex&lt;Client&gt;(c => c.Name);
+            </summary>
+            <typeparam name="T">Type to reflect to a database table.</typeparam>
+            <param name="property">Property to index</param>
+            <param name="unique">Whether the index should be unique</param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.NewCommand">
+            <summary>
+            Creates a new SQLiteCommand. Can be overridden to provide a sub-class.
+            </summary>
+            <seealso cref="M:Telerik.Reporting.SQLite.SQLiteCommand.OnInstanceCreated(System.Object)"/>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.CreateCommand(System.String,System.Object[])">
+            <summary>
+            Creates a new SQLiteCommand given the command text with arguments. Place a '?'
+            in the command text for each of the arguments.
+            </summary>
+            <param name="cmdText">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the command text.
+            </param>
+            <returns>
+            A <see cref="T:Telerik.Reporting.SQLite.SQLiteCommand"/>
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Execute(System.String,System.Object[])">
+            <summary>
+            Creates a SQLiteCommand given the command text (SQL) with arguments. Place a '?'
+            in the command text for each of the arguments and then executes that command.
+            Use this method instead of Query when you don't expect rows back. Such cases include
+            INSERTs, UPDATEs, and DELETEs.
+            You can set the Trace or TimeExecution properties of the connection
+            to profile execution.
+            </summary>
+            <param name="query">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the query.
+            </param>
+            <returns>
+            The number of rows modified in the database as a result of this execution.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Query``1(System.String,System.Object[])">
+            <summary>
+            Creates a SQLiteCommand given the command text (SQL) with arguments. Place a '?'
+            in the command text for each of the arguments and then executes that command.
+            It returns each row of the result using the mapping automatically generated for
+            the given type.
+            </summary>
+            <param name="query">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the query.
+            </param>
+            <returns>
+            An enumerable with one result for each row returned by the query.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.DeferredQuery``1(System.String,System.Object[])">
+            <summary>
+            Creates a SQLiteCommand given the command text (SQL) with arguments. Place a '?'
+            in the command text for each of the arguments and then executes that command.
+            It returns each row of the result using the mapping automatically generated for
+            the given type.
+            </summary>
+            <param name="query">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the query.
+            </param>
+            <returns>
+            An enumerable with one result for each row returned by the query.
+            The enumerator will call sqlite3_step on each call to MoveNext, so the database
+            connection must remain open for the lifetime of the enumerator.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Query(Telerik.Reporting.SQLite.TableMapping,System.String,System.Object[])">
+            <summary>
+            Creates a SQLiteCommand given the command text (SQL) with arguments. Place a '?'
+            in the command text for each of the arguments and then executes that command.
+            It returns each row of the result using the specified mapping. This function is
+            only used by libraries in order to query the database via introspection. It is
+            normally not used.
+            </summary>
+            <param name="map">
+            A <see cref="T:Telerik.Reporting.SQLite.TableMapping"/> to use to convert the resulting rows
+            into objects.
+            </param>
+            <param name="query">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the query.
+            </param>
+            <returns>
+            An enumerable with one result for each row returned by the query.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.DeferredQuery(Telerik.Reporting.SQLite.TableMapping,System.String,System.Object[])">
+            <summary>
+            Creates a SQLiteCommand given the command text (SQL) with arguments. Place a '?'
+            in the command text for each of the arguments and then executes that command.
+            It returns each row of the result using the specified mapping. This function is
+            only used by libraries in order to query the database via introspection. It is
+            normally not used.
+            </summary>
+            <param name="map">
+            A <see cref="T:Telerik.Reporting.SQLite.TableMapping"/> to use to convert the resulting rows
+            into objects.
+            </param>
+            <param name="query">
+            The fully escaped SQL.
+            </param>
+            <param name="args">
+            Arguments to substitute for the occurences of '?' in the query.
+            </param>
+            <returns>
+            An enumerable with one result for each row returned by the query.
+            The enumerator will call sqlite3_step on each call to MoveNext, so the database
+            connection must remain open for the lifetime of the enumerator.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Table``1">
+            <summary>
+            Returns a queryable interface to the table represented by the given type.
+            </summary>
+            <returns>
+            A queryable object that is able to translate Where, OrderBy, and Take
+            queries into native SQL.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Get``1(System.Object)">
+            <summary>
+            Attempts to retrieve an object with the given primary key from the table
+            associated with the specified type. Use of this method requires that
+            the given type have a designated PrimaryKey (using the PrimaryKeyAttribute).
+            </summary>
+            <param name="pk">
+            The primary key.
+            </param>
+            <returns>
+            The object with the given primary key. Throws a not found exception
+            if the object is not found.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Get``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Attempts to retrieve the first object that matches the predicate from the table
+            associated with the specified type. 
+            </summary>
+            <param name="predicate">
+            A predicate for which object to find.
+            </param>
+            <returns>
+            The object that matches the given predicate. Throws a not found exception
+            if the object is not found.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Find``1(System.Object)">
+            <summary>
+            Attempts to retrieve an object with the given primary key from the table
+            associated with the specified type. Use of this method requires that
+            the given type have a designated PrimaryKey (using the PrimaryKeyAttribute).
+            </summary>
+            <param name="pk">
+            The primary key.
+            </param>
+            <returns>
+            The object with the given primary key or null
+            if the object is not found.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Find(System.Object,Telerik.Reporting.SQLite.TableMapping)">
+            <summary>
+            Attempts to retrieve an object with the given primary key from the table
+            associated with the specified type. Use of this method requires that
+            the given type have a designated PrimaryKey (using the PrimaryKeyAttribute).
+            </summary>
+            <param name="pk">
+            The primary key.
+            </param>
+            <param name="map">
+            The TableMapping used to identify the object type.
+            </param>
+            <returns>
+            The object with the given primary key or null
+            if the object is not found.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Find``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Attempts to retrieve the first object that matches the predicate from the table
+            associated with the specified type. 
+            </summary>
+            <param name="predicate">
+            A predicate for which object to find.
+            </param>
+            <returns>
+            The object that matches the given predicate or null
+            if the object is not found.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction">
+            <summary>
+            Begins a new transaction. Call <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit"/> to end the transaction.
+            </summary>
+            <example cref="T:System.InvalidOperationException">Throws if a transaction has already begun.</example>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.SaveTransactionPoint">
+            <summary>
+            Creates a savepoint in the database at the current point in the transaction timeline.
+            Begins a new transaction if one is not in progress.
+            
+            Call <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.RollbackTo(System.String)"/> to undo transactions since the returned savepoint.
+            Call <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Release(System.String)"/> to commit transactions after the savepoint returned here.
+            Call <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit"/> to end the transaction, committing all changes.
+            </summary>
+            <returns>A string naming the savepoint.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Rollback">
+            <summary>
+            Rolls back the transaction that was begun by <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/> or <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.SaveTransactionPoint"/>.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.RollbackTo(System.String)">
+            <summary>
+            Rolls back the savepoint created by <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/> or SaveTransactionPoint.
+            </summary>
+            <param name="savepoint">The name of the savepoint to roll back to, as returned by <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.SaveTransactionPoint"/>.  If savepoint is null or empty, this method is equivalent to a call to <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Rollback"/></param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.RollbackTo(System.String,System.Boolean)">
+            <summary>
+            Rolls back the transaction that was begun by <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/>.
+            </summary>
+            <param name="savepoint"></param>
+            <param name="noThrow">true to avoid throwing exceptions, false otherwise</param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Release(System.String)">
+            <summary>
+            Releases a savepoint returned from <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.SaveTransactionPoint"/>.  Releasing a savepoint 
+               makes changes since that savepoint permanent if the savepoint began the transaction,
+               or otherwise the changes are permanent pending a call to <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit"/>.
+            
+            The RELEASE command is like a COMMIT for a SAVEPOINT.
+            </summary>
+            <param name="savepoint">The name of the savepoint to release.  The string should be the result of a call to <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.SaveTransactionPoint"/></param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit">
+            <summary>
+            Commits the transaction that was begun by <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/>.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.RunInTransaction(System.Action)">
+            <summary>
+            Executes <paramref name="action"/> within a (possibly nested) transaction by wrapping it in a SAVEPOINT. If an
+            exception occurs the whole transaction is rolled back, not just the current savepoint. The exception
+            is rethrown.
+            </summary>
+            <param name="action">The <see cref="T:System.Action"/> to perform within a transaction. <paramref name="action"/> can contain any number
+            of operations on the connection but should never call <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/> or
+            <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit"/>.
+            </param>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertAll(System.Collections.IEnumerable)">
+            <summary>
+            Inserts all specified objects.
+            </summary>
+            <param name="objects">
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the objects to insert.
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertAll(System.Collections.IEnumerable,System.String)">
+            <summary>
+            Inserts all specified objects.
+            </summary>
+            <param name="objects">
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the objects to insert.
+            </param>
+            <param name="extra">
+            Literal SQL code that gets placed into the command. INSERT {extra} INTO ...
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertAll(System.Collections.IEnumerable,System.Type)">
+            <summary>
+            Inserts all specified objects.
+            </summary>
+            <param name="objects">
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the objects to insert.
+            </param>
+            <param name="objType">
+            The type of object to insert.
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Insert(System.Object)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertOrReplace(System.Object)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            If a UNIQUE constraint violation occurs with
+            some pre-existing object, this function deletes
+            the old object.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <returns>
+            The number of rows modified.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertOrIgnore(System.Object)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            If a UNIQUE constraint violation occurs with
+            some pre-existing object, this function does nothing.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <returns>
+            The number of rows added.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Insert(System.Object,System.Type)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <param name="objType">
+            The type of object to insert.
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.InsertOrReplace(System.Object,System.Type)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            If a UNIQUE constraint violation occurs with
+            some pre-existing object, this function deletes
+            the old object.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <param name="objType">
+            The type of object to insert.
+            </param>
+            <returns>
+            The number of rows modified.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Insert(System.Object,System.String)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <param name="extra">
+            Literal SQL code that gets placed into the command. INSERT {extra} INTO ...
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Insert(System.Object,System.String,System.Type)">
+            <summary>
+            Inserts the given object and retrieves its
+            auto incremented primary key if it has one.
+            </summary>
+            <param name="obj">
+            The object to insert.
+            </param>
+            <param name="extra">
+            Literal SQL code that gets placed into the command. INSERT {extra} INTO ...
+            </param>
+            <param name="objType">
+            The type of object to insert.
+            </param>
+            <returns>
+            The number of rows added to the table.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Update(System.Object)">
+            <summary>
+            Updates all of the columns of a table using the specified object
+            except for its primary key.
+            The object is required to have a primary key.
+            </summary>
+            <param name="obj">
+            The object to update. It must have a primary key designated using the PrimaryKeyAttribute.
+            </param>
+            <returns>
+            The number of rows updated.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Update(System.Object,System.Type)">
+            <summary>
+            Updates all of the columns of a table using the specified object
+            except for its primary key.
+            The object is required to have a primary key.
+            </summary>
+            <param name="obj">
+            The object to update. It must have a primary key designated using the PrimaryKeyAttribute.
+            </param>
+            <param name="objType">
+            The type of object to insert.
+            </param>
+            <returns>
+            The number of rows updated.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.UpdateAll(System.Collections.IEnumerable)">
+            <summary>
+            Updates all specified objects.
+            </summary>
+            <param name="objects">
+            An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the objects to insert.
+            </param>
+            <returns>
+            The number of rows modified.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Delete(System.Object)">
+            <summary>
+            Deletes the given object from the database using its primary key.
+            </summary>
+            <param name="objectToDelete">
+            The object to delete. It must have a primary key designated using the PrimaryKeyAttribute.
+            </param>
+            <returns>
+            The number of rows deleted.
+            </returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.Delete``1(System.Object)">
+            <summary>
+            Deletes the object with the specified primary key.
+            </summary>
+            <param name="primaryKey">
+            The primary key of the object to delete.
+            </param>
+            <returns>
+            The number of objects deleted.
+            </returns>
+            <typeparam name='T'>
+            The type of object.
+            </typeparam>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteConnection.DeleteAll``1">
+            <summary>
+            Deletes all the objects from the specified table.
+            WARNING WARNING: Let me repeat. It deletes ALL the objects from the
+            specified table. Do you really want to do that?
+            </summary>
+            <returns>
+            The number of objects deleted.
+            </returns>
+            <typeparam name='T'>
+            The type of objects to delete.
+            </typeparam>
+        </member>
+        <member name="P:Telerik.Reporting.SQLite.SQLiteConnection.BusyTimeout">
+            <summary>
+            Sets a busy handler to sleep the specified amount of time when a table is locked.
+            The handler will sleep multiple times until a total time of <see cref="P:Telerik.Reporting.SQLite.SQLiteConnection.BusyTimeout"/> has accumulated.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.SQLite.SQLiteConnection.TableMappings">
+            <summary>
+            Returns the mappings from types to tables that the connection
+            currently understands.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.SQLite.SQLiteConnection.IsInTransaction">
+            <summary>
+            Whether <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.BeginTransaction"/> has been called and the database is waiting for a <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.Commit"/>.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.SQLite.IDataReader">
+            <summary>
+            See tests.
+            </summary>
+            <example>
+            using (var r = cmd.ExecuteReader(map))
+            {
+               while (r.Read())
+               {
+                   object value;
+                   if (r.TryGetValue("col1", out value))
+                   {
+                       // use value
+                   }
+               }
+            }
+            </example>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.IDataReader.Read">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.IDataReader.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Reads a value from the current record.
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Telerik.Reporting.SQLite.PreparedSqlLiteInsertCommand">
+            <summary>
+            Since the insert never changed, we only need to prepare once.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.SQLiteCommand.OnInstanceCreated(System.Object)">
+             <summary>
+             Invoked every time an instance is loaded from the database.
+             </summary>
+             <param name="obj">
+             The newly created object.
+             </param>
+             <remarks>
+             This can be overridden in combination with the <see cref="M:Telerik.Reporting.SQLite.SQLiteConnection.NewCommand"/>
+             method to hook into the life-cycle of objects.
+            
+             Type safety is not possible because MonoTouch does not support virtual generic methods.
+             </remarks>
+        </member>
+        <member name="T:Telerik.Reporting.SQLite.SQLiteConnectionString">
+            <summary>
+            Represents a parsed connection string.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.SQLite.TableQuery`1.CompileNullBinaryExpression(System.Linq.Expressions.BinaryExpression,Telerik.Reporting.SQLite.TableQuery{`0}.CompileResult)">
+            <summary>
+            Compiles a BinaryExpression where one of the parameters is null.
+            </summary>
+            <param name="expression"></param>
+            <param name="parameter">The non-null parameter</param>
+        </member>
         <member name="T:Telerik.Reporting.Processing.ExtensionInfo">
             <summary>
             Store info for an extension
@@ -35954,7 +38102,7 @@
             Processes an IReportDocument.
             </summary>
             <param name="reportSource">The <see cref="T:Telerik.Reporting.ReportSource"/> for the report document to process.</param>
-            <param name="processingContext"></param>
+            <param name="context"></param>
             <returns>If the IReportDocument is normal single report, then a List 
             with one element (the report itself) is returned. If the 
             IReportDocument is a ReportBook, then a List with all of its reports 
@@ -36019,93 +38167,407 @@
             For test purposes only
             </summary>
         </member>
+        <member name="M:Telerik.Reporting.Services.Engine.CacheFactory.CreateFileCache">
+            <summary>
+            Creates a new instance of file cache in a temp folder that will store cached data.
+            </summary>
+            <returns>The newly created cache instance.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.CacheFactory.CreateFileCache(System.String)">
+            <summary>
+            Creates a new instance of file cache that will store cached data in a directory of the file system.
+            </summary>
+            <param name="directory">The directory path that will be used from the cache as repository.</param>
+            <returns>The newly created cache instance.</returns>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.CacheFactory.CreateDatabaseCache(System.String,System.String)">
+            <summary>
+            Creates new instance of database cache that will store cached data in a database.
+            </summary>
+            <param name="backendName">Specifies which database engine should be used.</param>
+            <param name="connectionString">A connection string that should be used to connect to the cache database</param>
+            <returns>The newly created cache instance.</returns>
+            <remarks>In order to use a database cache you should firstly use the Database Cache Configuration Tool 
+            in order to create the underplaying database and its schema.<br />
+            Note that the database cache implementation relies on the Telerik OpenAccess 
+            so the following OpenAccess core libraries should be referenced: Telerik.OpenAccess.dll, Telerik.OpenAccess.35.Extensions.dll .
+            Proper assembly binding redirects might apply.<br />
+            See also: <conceptualLink target="5f8e6a6f-1160-4d59-9554-fe3a14e2a286">Configuring the Database Cache Provider</conceptualLink></remarks>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.HttpError">
+            <summary>
+            Defines a class for storing error information.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.HttpError.Message">
+            <summary>
+            Gets or sets the high-level, user-visible message explaining the cause of the error.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.HttpError.ExceptionMessage">
+            <summary>
+            Gets or sets the message of the <see cref="T:System.Exception"/> if available.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.HttpError.ExceptionType">
+            <summary>
+            Gets or sets the type of the <see cref="T:System.Exception"/> if available.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.HttpError.StackTrace">
+            <summary>
+            Gets or sets the stack trace information associated with this instance if available.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.ErrorInfo">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.ErrorInfo.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.ErrorInfo.#ctor(System.Net.HttpStatusCode)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.ErrorInfo.Message">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.ErrorInfo.StatusCode">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.ReportEngineFactory">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.ReportEngineFactory.CreateReportEngine(Telerik.Reporting.Services.Engine.IReportResolverFactory,Telerik.Reporting.Services.Engine.IStorage)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.IReportEngine">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.ListRenderingExtensions">
             <summary>
-            
+            Telerik internal use only.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.RegisterClient">
             <summary>
-            
+            Telerik internal use only.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.UnregisterClient(System.String)">
             <summary>
-            
+            Telerik internal use only.
             </summary>
-            <param name="clientID"></param>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.GetParameters(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidReportException">When an invalid report name is provided.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.CreateReportInstance(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidReportException">When an invalid report name is provided.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidParameterException">When one or more parameter do not have valid values.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.DeleteReportInstance(System.String,System.String)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.CreateDocument(System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},Telerik.Reporting.Services.Engine.IThreadContext)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.DeleteDocument(System.String,System.String,System.String)">
             <summary>
-            
+            Telerik internal use only.
             </summary>
-            <param name="clientID"></param>
-            <param name="instanceID"></param>
-            <param name="documentID"></param>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.GetDocumentInfo(System.String,System.String,System.String)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">When document instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.DocumentRenderException">When an error occurred while rendering the report.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.GetDocument(System.String,System.String,System.String)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">When document instance with the specified ID does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.GetPage(System.String,System.String,System.String,System.Int32)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">When document instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.ResourceNotFoundException">When resource with the specified name does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.GetResource(System.String,System.String,System.String,System.String)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">When document instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.ResourceNotFoundException">When resource with the specified name does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="M:Telerik.Reporting.Services.Engine.IReportEngine.ExecuteIntaractiveAction(System.String,System.String,System.String,System.String)">
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidClientException">When client with the specified ID does not exist. Expired.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">When report instance with the specified ID does not exist.</exception>
-            <exception cref="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">When document instance with the specified ID does not exist.</exception>
-            <exception cref="!:CatchInteractiveActionNotFound">When action with the specified ID does not exist.</exception>
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="T:Telerik.Reporting.Services.Engine.ExtensionInfo">
             <summary>
-            Represents a <see cref="T:Telerik.Reporting.IExtension"/> on the server
+            Telerik internal use only.
             </summary>
         </member>
         <member name="P:Telerik.Reporting.Services.Engine.ExtensionInfo.Name">
             <summary>
-            The name of the extension.
+            Telerik internal use only.
             </summary>
-            <seealso cref="T:Telerik.Reporting.Interfaces.Attributes.ExtensionNameAttribute"/>
         </member>
         <member name="P:Telerik.Reporting.Services.Engine.ExtensionInfo.LocalizedName">
             <summary>
-            The localized name of the extension.
+            Telerik internal use only.
             </summary>
-            <seealso cref="T:Telerik.Reporting.Interfaces.Attributes.ExtensionLocalizedDescriptionAttribute"/>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.InvalidReportException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.InvalidReportException.#ctor(System.String,System.Object[])">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.InvalidParameterException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.InvalidParameterException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.InvalidClientException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.InvalidClientException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.InvalidInstanceException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.InvalidInstanceException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.InvalidDocumentException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.InvalidDocumentException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.DocumentRenderException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.DocumentRenderException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.IntaractiveActionNotFound">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.IntaractiveActionNotFound.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.ResourceNotFoundException">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.ResourceNotFoundException.#ctor(System.String)">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.DocumentInfo">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.DocumentInfo.DocumentReady">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.DocumentInfo.PageCount">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.DocumentInfo.BookmarkNodes">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.DocumentInfo.DocumentMapAvailable">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.PageData">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.PageData.PageReady">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.PageData.PageNumber">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.PageData.PageContent">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.PageData.PageStyles">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.PageData.PageActions">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.BookmarkNode">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.BookmarkNode.#ctor">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.BookmarkNode.ToString">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.BookmarkNode.Items">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.BookmarkNode.Text">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.BookmarkNode.Id">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.BookmarkNode.Page">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.RenderingResource">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.RenderingResource.Name">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.RenderingResource.Extension">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.RenderingResource.MimeType">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Services.Engine.RenderingResource.Bytes">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.DocumentData">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.Bytes">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.MimeType">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.Extension">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.HasError">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.ErrorMessage">
+            <summary>
+            Telerik internal use only.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Services.Engine.DocumentData.DocumentName">
+            <summary>
+            Telerik internal use only.
+            </summary>
         </member>
         <member name="T:Telerik.Reporting.Services.Engine.IReportResolver">
             <summary>
@@ -36120,6 +38582,16 @@
             <remarks>
             Supported from the engine are <see cref="T:Telerik.Reporting.TypeReportSource"/> and <see cref="T:Telerik.Reporting.UriReportSource"/>
             </remarks>
+        </member>
+        <member name="T:Telerik.Reporting.Services.Engine.IThreadContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Services.Engine.IThreadContext.Apply">
+            <summary>
+            
+            </summary>
         </member>
         <member name="P:Telerik.Reporting.Paging.IComposition.MeasureContext">
             <summary>
@@ -36532,6 +39004,152 @@
             Represents a stack of PdfGraphicsState and XGraphicsContainer objects.
             </summary>
         </member>
+        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfFont">
+            <summary>
+            Defines an object used to draw glyphs.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfFont.fontInfo">
+            <summary>
+            Cache PdfFontInfo to speed up finding the right PdfFontDictionary
+            if this font is used more than once.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfFont.GetHeight">
+            <summary>
+            Returns the line spacing, in pixels, of this font. The line spacing is the vertical distance
+            between the base lines of two consecutive lines of text. Thus, the line spacing includes the
+            blank space between lines along with the height of the character itself.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Name">
+            <summary>
+            Gets the face name of this Font object.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Size">
+            <summary>
+            Gets the em-size of this Font object measured in the unit of this
+            Font object.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Bold">
+            <summary>
+            Indicates whether this PdfFontDictionary object is bold.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Italic">
+            <summary>
+            Indicates whether this PdfFontDictionary object is italic.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Underline">
+            <summary>
+            Indicates whether this PdfFontDictionary object is underline.
+            </summary>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Strikeout">
+            <summary>
+            Indicates whether this PdfFontDictionary object is strikeout.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfFontMetrics">
+            <summary>
+            Summary description for PdfFontMetrics.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.defaultViewMatrix">
+            <summary>
+            The transformation matrix from the XGraphics page space to the Graphics world space.
+            (The name 'default view matrix' comes from Microsoft OS/2 Presentation Manager. I choose
+            this name because I have no better one.)
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.internalGraphicsStateStack">
+            <summary>
+            The graphics state stack.
+            </summary>
+        </member>
+        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.transform">
+            <summary>
+            The transformation matrix from XGraphics world space to page unit space.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.#ctor(Telerik.Reporting.Pdf.PdfPageDictionary,System.Drawing.Graphics)">
+            <summary>
+            Initializes a new instance of the PdfGraphics class for drawing on
+            a PDF page and provides a GDI+ Graphics object for measurements.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.TranslateTransform(System.Single,System.Single)">
+            <summary>
+            Applies the specified translation operation to the transformation matrix of this object by 
+            prepending it to the object's transformation matrix.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.TranslateTransform(System.Single,System.Single,Telerik.Reporting.Pdf.Drawing.PdfMatrixOrder)">
+            <summary>
+            Applies the specified translation operation to the transformation matrix of this object
+            in the specified order.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.ResetTransform">
+            <summary>
+            Resets the transformation matrix of this object to the identity matrix.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Save">
+            <summary>
+            Saves the current state of this XGraphics object and identifies the saved state with the
+            returned PdfGraphicsState object.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Restore(Telerik.Reporting.Pdf.Drawing.PdfGraphicsState)">
+            <summary>
+            Restores the state of this XGraphics object to the state represented by the specified 
+            PdfGraphicsState object.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.ResetClip">
+            <summary>
+            Empties the clip region, i.e. no clipping takes place.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.DrawImage(System.Drawing.Image,System.Drawing.RectangleF,System.Drawing.RectangleF)">
+            <summary>
+            Draws an image.
+            </summary>
+            <param name="image">The image to draw.</param>
+            <param name="destRect">The destination rectangle in POINTS.</param>
+            <param name="srcRect">The source rectangle in PIXELS.</param>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.DrawLine(System.Drawing.Pen,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws a line connecting the two points specified by coordinate pairs.
+            </summary>
+        </member>
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.PathFromRectangle(System.Drawing.RectangleF)">
+            <summary>
+            
+            </summary>
+            <param name="rect"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Transform">
+            <summary>
+            Gets or sets the transformation matrix.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfGraphicsState">
+            <summary>
+            Represents the internal state of an XGraphics object.
+            </summary>
+        </member>
+        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfImage">
+            <summary>
+            Defines an object used to draw GDI Images.
+            </summary>
+        </member>
         <member name="T:Telerik.Reporting.Pdf.Drawing.PdfMatrix">
             <summary>
             Represents a 3-by-3 matrix that represents an affine 2D transformation.
@@ -36632,7 +39250,7 @@
             Explicitly converts a PdfMatrix to an Matrix.
             </summary>
         </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfMatrix.op_Implicit(System.Drawing.Drawing2D.Matrix)~Telerik.Reporting.Pdf.Drawing.PdfMatrix">
+        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfMatrix.op_Explicit(System.Drawing.Drawing2D.Matrix)~Telerik.Reporting.Pdf.Drawing.PdfMatrix">
             <summary>
             Explicitly converts a Matrix to an PdfMatrix.
             </summary>
@@ -36705,157 +39323,6 @@
         <member name="F:Telerik.Reporting.Pdf.Drawing.PdfMatrixOrder.Append">
             <summary>
             The new operation is applied after the old operation.
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfFont">
-            <summary>
-            Defines an object used to draw glyphs.
-            </summary>
-        </member>
-        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfFont.fontInfo">
-            <summary>
-            Cache PdfFontInfo to speed up finding the right PdfFontDictionary
-            if this font is used more than once.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfFont.GetHeight">
-            <summary>
-            Returns the line spacing, in pixels, of this font. The line spacing is the vertical distance
-            between the base lines of two consecutive lines of text. Thus, the line spacing includes the
-            blank space between lines along with the height of the character itself.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Name">
-            <summary>
-            Gets the face name of this Font object.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Size">
-            <summary>
-            Gets the em-size of this Font object measured in the unit of this
-            Font object.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Bold">
-            <summary>
-            Indicates whether this PdfFontDictionary object is bold.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Italic">
-            <summary>
-            Indicates whether this PdfFontDictionary object is italic.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Underline">
-            <summary>
-            Indicates whether this PdfFontDictionary object is underline.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfFont.Strikeout">
-            <summary>
-            Indicates whether this PdfFontDictionary object is strikeout.
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfFontMetrics">
-            <summary>
-            Summary description for PdfFontMetrics.
-            </summary>
-        </member>
-        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.defaultViewMatrix">
-            <summary>
-            The transformation matrix from the XGraphics page space to the Graphics world space.
-            (The name 'default view matrix' comes from Microsoft OS/2 Presentation Manager. I choose
-            this name because I have no better one.)
-            </summary>
-        </member>
-        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.internalGraphicsStateStack">
-            <summary>
-            The graphics state stack.
-            </summary>
-        </member>
-        <member name="F:Telerik.Reporting.Pdf.Drawing.PdfGraphics.transform">
-            <summary>
-            The transformation matrix from XGraphics world space to page unit space.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.#ctor(Telerik.Reporting.Pdf.PdfPageDictionary,System.Drawing.Graphics)">
-            <summary>
-            Initializes a new instance of the PdfGraphics class for drawing on
-            a PDF page and provides a GDI+ Graphics object for measurements.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Initialize">
-            <summary>
-            Internal setup.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.TranslateTransform(System.Single,System.Single)">
-            <summary>
-            Applies the specified translation operation to the transformation matrix of this object by 
-            prepending it to the object's transformation matrix.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.TranslateTransform(System.Single,System.Single,Telerik.Reporting.Pdf.Drawing.PdfMatrixOrder)">
-            <summary>
-            Applies the specified translation operation to the transformation matrix of this object
-            in the specified order.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.ResetTransform">
-            <summary>
-            Resets the transformation matrix of this object to the identity matrix.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Save">
-            <summary>
-            Saves the current state of this XGraphics object and identifies the saved state with the
-            returned PdfGraphicsState object.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Restore(Telerik.Reporting.Pdf.Drawing.PdfGraphicsState)">
-            <summary>
-            Restores the state of this XGraphics object to the state represented by the specified 
-            PdfGraphicsState object.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.ResetClip">
-            <summary>
-            Empties the clip region, i.e. no clipping takes place.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.DrawImage(System.Drawing.Image,System.Drawing.RectangleF,System.Drawing.RectangleF)">
-            <summary>
-            Draws an image.
-            </summary>
-            <param name="image">The image to draw.</param>
-            <param name="destRect">The destination rectangle in POINTS.</param>
-            <param name="srcRect">The source rectangle in PIXELS.</param>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.DrawLine(System.Drawing.Pen,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Draws a line connecting the two points specified by coordinate pairs.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.Pdf.Drawing.PdfGraphics.PathFromRectangle(System.Drawing.RectangleF)">
-            <summary>
-            
-            </summary>
-            <param name="rect"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Telerik.Reporting.Pdf.Drawing.PdfGraphics.Transform">
-            <summary>
-            Gets or sets the transformation matrix.
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfGraphicsState">
-            <summary>
-            Represents the internal state of an XGraphics object.
-            </summary>
-        </member>
-        <member name="T:Telerik.Reporting.Pdf.Drawing.PdfImage">
-            <summary>
-            Defines an object used to draw GDI Images.
             </summary>
         </member>
         <member name="T:Telerik.Reporting.Pdf.Filters.ASCII85Decode">
@@ -37401,7 +39868,7 @@
             Converts a float into a string with up to 3 decimal digits and a decimal point.
             </summary>
         </member>
-        <member name="M:Telerik.Reporting.Pdf.IO.PdfEncoding.ToString(Telerik.Reporting.Pdf.Drawing.PdfMatrix)">
+        <member name="M:Telerik.Reporting.Pdf.IO.PdfEncoding.ToString(System.Drawing.Drawing2D.Matrix)">
             <summary>
             Converts an Matrix into a string with up to 3 decimal digits and a decimal point.
             </summary>
@@ -41660,70 +44127,6 @@
             Indicates that applications should use the current print scaling.
             </summary>
         </member>
-        <member name="M:Telerik.Reporting.ExcelRendering.RenderingItem.AdjustPosition">
-            <summary>
-            Adjusts the item position so that the minimal 
-            distance from the above items is preserved.
-            </summary>
-        </member>
-        <member name="M:Telerik.Reporting.ExcelRendering.RenderingItem.CalcMinDistances(System.Collections.Generic.List{Telerik.Reporting.ExcelRendering.RenderingItem})">
-            <summary>
-            Calculates the minimal distance from the above and left standing items.
-            </summary>
-            <param name="items"></param>
-        </member>
-        <member name="M:Telerik.Reporting.ExcelRendering.RenderingItem.IsRightTo(Telerik.Reporting.ExcelRendering.RenderingItem)">
-            <summary>
-            
-            </summary>
-            <param name="renderingItem"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Reporting.ExcelRendering.RenderingItem.Render(Telerik.Reporting.ExcelRendering.IWorksheet,Telerik.Reporting.ExcelRendering.LayoutEngine.TableLayoutInfo)">
-            <summary>
-            Implements the common rendering logic for all rendering items.
-            </summary>
-            <param name="worksheet"></param>
-            <param name="layoutInfo"></param>
-        </member>
-        <member name="M:Telerik.Reporting.ExcelRendering.RenderingItem.RenderTextRange(Telerik.Reporting.ExcelRendering.IRange,Telerik.Reporting.Drawing.IStyle,System.String)">
-            <summary>
-            Sets the text and formatting of an Excel range.
-            </summary>
-            <param name="range"></param>
-            <param name="style"></param>
-            <param name="text"></param>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalTop">
-            <summary>
-            Returns the top location of the item as in report definition.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalLeft">
-            <summary>
-            Returns the left location of the item as in the report definition.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalHeight">
-            <summary>
-            Returns the height of the item as in the report definition.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalWidth">
-            <summary>
-            Returns the width of the item as in the report definition.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalRight">
-            <summary>
-            Returns the right location of the item as in the report definition.
-            </summary>
-        </member>
-        <member name="P:Telerik.Reporting.ExcelRendering.RenderingItem.OriginalBottom">
-            <summary>
-            Returns the bottom location of the item as in the report definition.
-            </summary>
-        </member>
         <member name="M:Telerik.Reporting.ExcelRendering.CheckBox.DrawText(System.Drawing.Graphics,System.Drawing.Font,System.Drawing.Brush,System.Drawing.StringFormat,System.Single)">
             <summary>
             Draws rotated text lines in an image.
@@ -41836,6 +44239,13 @@
             <summary>
             Parameters
             </summary>
+        </member>
+        <member name="M:Telerik.Reporting.ExcelRendering.TextBox.ConvertToExcelValue(System.Object,System.Boolean)">
+            <summary>
+            Converts the processing textbox value to the format or type that is Excel-compliant.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:Telerik.Reporting.ExcelRendering.VerticalAlignment">
             <summary>
@@ -44092,7 +46502,7 @@
             http://msdn2.microsoft.com/en-us/library/aa140301(office.10).aspx
             </summary>
         </member>
-        <member name="M:Telerik.Reporting.Rtf.ImageUtils.CreateGraphicsFromImage(System.Drawing.Image,System.Drawing.GraphicsUnit)">
+        <member name="M:Telerik.Reporting.Rtf.ImageUtils.CreateGraphics(System.Drawing.Image)">
             <summary>
             Creates a Graphics for drawing in the specified image with the 
             given unit of measure.

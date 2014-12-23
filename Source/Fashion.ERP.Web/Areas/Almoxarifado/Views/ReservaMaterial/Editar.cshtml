@@ -1,0 +1,31 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.ReservaMaterialModel
+@using (Html.BeginForm(MVC.Almoxarifado.ReservaMaterial.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+		@Html.ExcluirAuth(MVC.Almoxarifado.ReservaMaterial.Excluir(Model.Id))
+	</div>
+}
+@{
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderPartial("_ConfirmDelete");
+}
+
+<script>
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("Editar", "ReservaMaterial")';
+    }
+
+    $(document).ready(function () {
+
+        $("#Data").data("kendoDatePicker").enable(false);
+        $("#Numero").attr("disabled", "disabled");
+
+        $("#Unidade").prop("disabled", true);
+
+        $("#DepositoMaterial").prop("disabled", true);
+    });
+</script>    

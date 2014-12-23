@@ -38,11 +38,11 @@ namespace Fashion.ERP.Reporting.Compras
             this.reportFooter = new Telerik.Reporting.ReportFooterSection();
             this.Filtros = new Telerik.Reporting.TextBox();
             this.detail = new Telerik.Reporting.DetailSection();
-            this.descricaoDataTextBox = new Telerik.Reporting.TextBox();
-            this.textBox7 = new Telerik.Reporting.TextBox();
-            this.referenciaDataTextBox = new Telerik.Reporting.TextBox();
-            this.textBox8 = new Telerik.Reporting.TextBox();
             this.tecidoDataTextBox = new Telerik.Reporting.TextBox();
+            this.textBox8 = new Telerik.Reporting.TextBox();
+            this.textBox7 = new Telerik.Reporting.TextBox();
+            this.descricaoDataTextBox = new Telerik.Reporting.TextBox();
+            this.referenciaDataTextBox = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // labelsGroupFooterSection
@@ -269,44 +269,6 @@ namespace Fashion.ERP.Reporting.Compras
             this.referenciaDataTextBox});
             this.detail.Name = "detail";
             // 
-            // descricaoDataTextBox
-            // 
-            this.descricaoDataTextBox.CanGrow = true;
-            this.descricaoDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.descricaoDataTextBox.Name = "descricaoDataTextBox";
-            this.descricaoDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.100000381469727D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.descricaoDataTextBox.StyleName = "Data";
-            this.descricaoDataTextBox.Value = "=Fields.Fornecedor.Nome";
-            // 
-            // textBox7
-            // 
-            this.textBox7.CanGrow = true;
-            this.textBox7.Format = "{0:d}";
-            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(12.100000381469727D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8997999429702759D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.textBox7.StyleName = "Data";
-            this.textBox7.Value = "=Fields.Data";
-            // 
-            // referenciaDataTextBox
-            // 
-            this.referenciaDataTextBox.CanGrow = true;
-            this.referenciaDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.026458332315087318D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.referenciaDataTextBox.Name = "referenciaDataTextBox";
-            this.referenciaDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9733418226242065D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.referenciaDataTextBox.StyleName = "Data";
-            this.referenciaDataTextBox.Value = "=Fields.Numero";
-            // 
-            // textBox8
-            // 
-            this.textBox8.CanGrow = true;
-            this.textBox8.Format = "{0:#.0000}";
-            this.textBox8.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(14.050000190734863D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8997992277145386D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.textBox8.StyleName = "Data";
-            this.textBox8.Value = "=Fields.Valor";
-            // 
             // tecidoDataTextBox
             // 
             this.tecidoDataTextBox.CanGrow = true;
@@ -318,7 +280,45 @@ namespace Fashion.ERP.Reporting.Compras
             this.tecidoDataTextBox.StyleName = "Data";
             this.tecidoDataTextBox.Value = "=Fields.SituacaoRecebimentoCompra";
             // 
-            // ListaRecebimentoCompraReport
+            // textBox8
+            // 
+            this.textBox8.CanGrow = true;
+            this.textBox8.Format = "{0:#.0000}";
+            this.textBox8.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(14.050000190734863D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8997992277145386D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox8.StyleName = "Data";
+            this.textBox8.Value = "=Fields.Valor";
+            // 
+            // textBox7
+            // 
+            this.textBox7.CanGrow = true;
+            this.textBox7.Format = "{0:d}";
+            this.textBox7.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(12.100000381469727D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8997999429702759D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox7.StyleName = "Data";
+            this.textBox7.Value = "=Fields.Data";
+            // 
+            // descricaoDataTextBox
+            // 
+            this.descricaoDataTextBox.CanGrow = true;
+            this.descricaoDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.descricaoDataTextBox.Name = "descricaoDataTextBox";
+            this.descricaoDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(10.100000381469727D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.descricaoDataTextBox.StyleName = "Data";
+            this.descricaoDataTextBox.Value = "=Fields.Fornecedor.Nome";
+            // 
+            // referenciaDataTextBox
+            // 
+            this.referenciaDataTextBox.CanGrow = true;
+            this.referenciaDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.026458332315087318D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.referenciaDataTextBox.Name = "referenciaDataTextBox";
+            this.referenciaDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9733418226242065D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.referenciaDataTextBox.StyleName = "Data";
+            this.referenciaDataTextBox.Value = "=Fields.Numero";
+            // 
+            // ListaPedidoCompraReport
             // 
             this.DataSource = this.RecebimentoCompraDataSource;
             this.ExternalStyleSheets.Add(new Telerik.Reporting.Drawing.ExternalStyleSheet("Fashion.ERP.Reporting.Resources.StyleSheet.xml"));
