@@ -21,7 +21,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
         [Display(Name = "Unidade")]
-        public long? UnidadeEstocadora { get; set; }
+        public string UnidadeMedida { get; set; }
         [Display(Name = "Qtde")]
         public double? Quantidade { get; set; }
         [Display(Name = "Preço")]
@@ -29,7 +29,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Desconto")]
         public double? ValorDesconto { get; set; }
         [Display(Name = "Valor Total")]
-        public double? ValorTotal { get; set; }
+        public double? ValorTotal 
+        {
+            get { return ValorUnitario * Quantidade; } 
+        }
+
         [Display(Name = "Prev. Entrega")]
         public DateTime? PrevisaoEntrega { get; set; }
         [Display(Name = "Referência Externa")]

@@ -12,7 +12,14 @@
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
-    Html.RenderAction("PesquisarReferenciaExterna", "Material", new { area = "Almoxarifado" });
+    //Html.RenderAction("PesquisarReferenciaExterna", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
     Html.RenderPartial("_ConfirmDelete");
+    
 }
+
+<script>
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("Editar", "PedidoCompra")';
+    }
+</script> 

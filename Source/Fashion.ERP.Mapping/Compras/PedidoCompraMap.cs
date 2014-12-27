@@ -27,7 +27,7 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.Contato).Length(50);
 
             References(x => x.Comprador).Not.Nullable();
-            References(x => x.FuncionarioAutorizador).Not.Nullable();
+            References(x => x.FuncionarioAutorizador).Nullable();
             References(x => x.Fornecedor).Not.Nullable();
             References(x => x.UnidadeEstocadora).Not.Nullable();
             References(x => x.Transportadora).Nullable();

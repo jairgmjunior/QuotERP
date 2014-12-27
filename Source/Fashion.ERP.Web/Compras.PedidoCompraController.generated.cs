@@ -65,6 +65,30 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Create()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Create);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Update()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Update);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Destroy()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Destroy);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public PedidoCompraController Actions { get { return MVC.Compras.PedidoCompra; } }
@@ -87,6 +111,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
             public readonly string Imprimir = "Imprimir";
+            public readonly string EditingInline_Read = "EditingInline_Read";
+            public readonly string EditingInline_Create = "EditingInline_Create";
+            public readonly string EditingInline_Update = "EditingInline_Update";
+            public readonly string EditingInline_Destroy = "EditingInline_Destroy";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +126,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public const string Excluir = "Excluir";
             public const string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
             public const string Imprimir = "Imprimir";
+            public const string EditingInline_Read = "EditingInline_Read";
+            public const string EditingInline_Create = "EditingInline_Create";
+            public const string EditingInline_Update = "EditingInline_Update";
+            public const string EditingInline_Destroy = "EditingInline_Destroy";
         }
 
 
@@ -149,6 +181,41 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionParamsClass_Imprimir
         {
             public readonly string pedidoCompraId = "pedidoCompraId";
+        }
+        static readonly ActionParamsClass_EditingInline_Read s_params_EditingInline_Read = new ActionParamsClass_EditingInline_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Read EditingInline_ReadParams { get { return s_params_EditingInline_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_EditingInline_Create s_params_EditingInline_Create = new ActionParamsClass_EditingInline_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Create EditingInline_CreateParams { get { return s_params_EditingInline_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Create
+        {
+            public readonly string request = "request";
+            public readonly string pedidoMaterialItemModel = "pedidoMaterialItemModel";
+        }
+        static readonly ActionParamsClass_EditingInline_Update s_params_EditingInline_Update = new ActionParamsClass_EditingInline_Update();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Update EditingInline_UpdateParams { get { return s_params_EditingInline_Update; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Update
+        {
+            public readonly string request = "request";
+            public readonly string pedidoMaterialItemModel = "pedidoMaterialItemModel";
+        }
+        static readonly ActionParamsClass_EditingInline_Destroy s_params_EditingInline_Destroy = new ActionParamsClass_EditingInline_Destroy();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Destroy EditingInline_DestroyParams { get { return s_params_EditingInline_Destroy; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Destroy
+        {
+            public readonly string request = "request";
+            public readonly string pedidoMaterialItemModel = "pedidoMaterialItemModel";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -266,6 +333,49 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoCompraId", pedidoCompraId);
             ImprimirOverride(callInfo, pedidoCompraId);
+            return callInfo;
+        }
+
+        partial void EditingInline_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            EditingInline_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void EditingInline_CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Create(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoMaterialItemModel", pedidoMaterialItemModel);
+            EditingInline_CreateOverride(callInfo, request, pedidoMaterialItemModel);
+            return callInfo;
+        }
+
+        partial void EditingInline_UpdateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Update(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Update);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoMaterialItemModel", pedidoMaterialItemModel);
+            EditingInline_UpdateOverride(callInfo, request, pedidoMaterialItemModel);
+            return callInfo;
+        }
+
+        partial void EditingInline_DestroyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Destroy(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Destroy);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoMaterialItemModel", pedidoMaterialItemModel);
+            EditingInline_DestroyOverride(callInfo, request, pedidoMaterialItemModel);
             return callInfo;
         }
 

@@ -73,6 +73,7 @@ namespace T4MVC
             public partial class _EditorTemplatesClass
             {
                 public readonly string Boolean = "Boolean";
+                public readonly string BotaoPesquisaMaterialGrid = "BotaoPesquisaMaterialGrid";
                 public readonly string CentroCustoList = "CentroCustoList";
                 public readonly string Cep = "Cep";
                 public readonly string Cnpj = "Cnpj";

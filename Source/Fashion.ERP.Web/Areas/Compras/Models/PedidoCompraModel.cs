@@ -107,7 +107,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public string Contato { get; set; }
 
         [Display(Name = "Transportadora")]
-        [Required(ErrorMessage = "Informe a transportadora")]
         public long? Transportadora { get; set; }
 
         [Display(Name = "Valor Líquido")]
@@ -117,7 +116,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         public IList<GridPedidoCompraModel> Grid { get; set; }
 
-        public IList<GridPedidoCompraItem> GridPedidoItem { get; set; }
+        public IList<GridPedidoCompraItem> GridItens { get; set; }
         public IList<GridPedidoCompraItemDetalhe> GridPedidoItemDetalhe { get; set; }
     }
 }

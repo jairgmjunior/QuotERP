@@ -17,11 +17,13 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc.Extensions;
 using Microsoft.Ajax.Utilities;
 using NHibernate.Id;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
+using Kendo.Mvc.UI;
 
 namespace Fashion.ERP.Web.Areas.Compras.Controllers
 {
@@ -264,12 +266,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public virtual ActionResult Novo()
         {
             var model = new PedidoCompraModel { Numero = ProximoNumero() };
-            model.GridPedidoItem = new List<GridPedidoCompraItem>();
+            model.GridItens = new List<GridPedidoCompraItem>();
 
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo(PedidoCompraModel model)
         {
             if (ModelState.IsValid)
@@ -277,74 +279,58 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<PedidoCompra>(model);
+                    IncluirNovosPedidoCompralItens(model, domain);
 
-                    // Itens do pedido de compra
-                    for (int i = 0; i < model.Materiais.Count; i++)
-                    {
-                        var idx = i;
+                    //// Itens do pedido de compra
+                    //for (int i = 0; i < model.Materiais.Count; i++)
+                    //{
+                    //    var idx = i;
 
-                        var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
+                    //    var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
 
-                        var item = new PedidoCompraItem
-                        {
-                            Material = _materialRepository.Load(model.Materiais[idx]),
-                            UnidadeMedida = unidadeMedida,
-                            Quantidade = model.Quantidades[idx],
-                            ValorUnitario = model.ValorUnitarios[i],
-                            SituacaoCompra = SituacaoCompra.NaoAtendido,
-                            PrevisaoEntrega = domain.PrevisaoEntrega
-                        };
+                    //    var item = new PedidoCompraItem
+                    //    {
+                    //        Material = _materialRepository.Load(model.Materiais[idx]),
+                    //        UnidadeMedida = unidadeMedida,
+                    //        Quantidade = model.Quantidades[idx],
+                    //        ValorUnitario = model.ValorUnitarios[i],
+                    //        SituacaoCompra = SituacaoCompra.NaoAtendido,
+                    //        PrevisaoEntrega = domain.PrevisaoEntrega
+                    //    };
 
-                        domain.AddPedidoCompraItem(item);
-                    }
+                    //    domain.AddPedidoCompraItem(item);
+                    //}
 
                     _pedidoCompraRepository.Save(domain);
 
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty,
-                                             "Não é possível salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
-                                             exception.Message);
+                    //ModelState.AddModelError(string.Empty,
+                    //                         "Não é possível salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
+                    //                         exception.Message);
+                    //_logger.Info(exception.GetMessage());
+                    var errorMsg =
+                        "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
+                        exception.Message;
                     _logger.Info(exception.GetMessage());
+                    this.AddErrorMessage(errorMsg);
+                    return new JsonResult {Data = "error"};
                 }
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+                this.AddErrorMessage(errors[0][0].ErrorMessage);
+                return new JsonResult { Data = "error" };
 
-            return View(model);
-        }
+            }
 
-        public virtual JsonResult PesquisarPedidoItens(PedidoCompraModel model)
-        {
-            //var pedidoCompra = _pedidoCompraRepository.Find(p => p.Id == pedidoCompraId).FirstOrDefault();
-            //var list = pedidoCompra.PedidoCompraItens;
-            //return Json(list);
-            var pedidoCompras = _pedidoCompraRepository.Find(p => p.Id == model.Id).FirstOrDefault();
-
-            var itens = pedidoCompras.PedidoCompraItens;
-
-            model.GridPedidoItem = itens.Select(p => new GridPedidoCompraItem
-                        {
-                            Id = p.Id.GetValueOrDefault(),
-                            Descricao = p.Material.Descricao,
-                            MaterialId = p.Material.Id,
-                            PrevisaoEntrega = p.PrevisaoEntrega,
-                            Quantidade = p.Quantidade,
-                            Referencia = p.Material.Referencia,
-                            ReferenciaExterna = p.ReferenciaExternaMaterial,
-                            UnidadeEstocadora = p.UnidadeMedida.Id,
-                            ValorUnitario = p.ValorUnitario,
-                            ValorTotal = p.ValorTotal
-                        }).ToList();
-
-            return Json(model);
-        }
-        
-
-        public virtual JsonResult PesquisarPedidoItemDetalhe(PedidoCompraModel model)
-        {
-            return Json(model);
+            return new JsonResult { Data = "sucesso" };
         }
 
         #endregion
@@ -371,8 +357,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     //model.ValorUnitarios.Add(item.ValorUnitario);
                     //model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
                     //model.SituacaoCompras.Add(item.SituacaoCompra);
-                    model.GridPedidoItem = new List<GridPedidoCompraItem>();
-                    model.GridPedidoItem.Add(ObterPedidoCompraItem(item));
+                    model.GridItens = new List<GridPedidoCompraItem>();
+                    model.GridItens.Add(ObterPedidoCompraItem(item));
                     model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                     model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
@@ -384,8 +370,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             this.AddErrorMessage("Não foi possível encontrar o pedido de compra.");
             return RedirectToAction("Index");
         }
-        
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+
+        [HttpPost, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Editar(PedidoCompraModel model)
         {
             if (ModelState.IsValid)
@@ -395,39 +381,44 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
 
                     // Pesquisar os itens que estão no DB e não estão no model
-                    var idsExcluidos = domain.PedidoCompraItens.Select(p => p.Id).Except(model.PedidoCompraItens);
-                    var itensExcluidos = domain.PedidoCompraItens.Where(p => idsExcluidos.Contains(p.Id)).ToArray();
-                    domain.RemovePedidoCompraItem(itensExcluidos);
+                    //var idsExcluidos = domain.PedidoCompraItens.Select(p => p.Id).Except(model.PedidoCompraItens);
+                    //var itensExcluidos = domain.PedidoCompraItens.Where(p => idsExcluidos.Contains(p.Id)).ToArray();
+                    //domain.RemovePedidoCompraItem(itensExcluidos);
+
+                    ExcluirPedidoCompraItens(model,domain);
+                    IncluirNovosPedidoCompralItens(model,domain);
+
+                    domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
 
                     // Adicionar itens do pedido de compra
-                    for (int i = 0; i < model.Materiais.Count; i++)
-                    {
-                        var idx = i;
+                    //for (int i = 0; i < model.Materiais.Count; i++)
+                    //{
+                    //    var idx = i;
 
-                        if (model.PedidoCompraItens[idx].HasValue)
-                            continue;
+                    //    if (model.PedidoCompraItens[idx].HasValue)
+                    //        continue;
 
-                        var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
+                    //    var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
 
-                        var item = new PedidoCompraItem
-                        {
-                            Material = _materialRepository.Load(model.Materiais[idx]),
-                            UnidadeMedida = unidadeMedida,
-                            Quantidade = model.Quantidades[idx],
-                            ValorUnitario = model.ValorUnitarios[i],
-                            SituacaoCompra = SituacaoCompra.NaoAtendido,
-                            PrevisaoEntrega = domain.PrevisaoEntrega
-                        };
+                    //    var item = new PedidoCompraItem
+                    //    {
+                    //        Material = _materialRepository.Load(model.Materiais[idx]),
+                    //        UnidadeMedida = unidadeMedida,
+                    //        Quantidade = model.Quantidades[idx],
+                    //        ValorUnitario = model.ValorUnitarios[i],
+                    //        SituacaoCompra = SituacaoCompra.NaoAtendido,
+                    //        PrevisaoEntrega = domain.PrevisaoEntrega
+                    //    };
 
-                        domain.AddPedidoCompraItem(item);
-                    }
-                    
+                    //    domain.AddPedidoCompraItem(item);
+                    //}
+
                     if (domain.Autorizado.Equals(true))
                     {
                         _pedidoCompraRepository.Evict(domain);
 
                         this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
-                        return RedirectToAction("Index");
+                        return new JsonResult { Data = "sucesso" };
                     }
 
                     if (domain.Autorizado.Equals(false))
@@ -435,18 +426,97 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _pedidoCompraRepository.Update(domain);
 
                         this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
-                        return RedirectToAction("Index");
+                        return new JsonResult { Data = "sucesso" };
                     }
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " + exception.Message);
+                    var errorMsg = "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " + exception.Message;
                     _logger.Info(exception.GetMessage());
+                    this.AddErrorMessage(errorMsg);
+                    return new JsonResult { Data = "error" };
                 }
             }
 
-            return View(model);
+
+            return new JsonResult { Data = "sucesso" };
         }
+
+        //[HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
+        //public virtual ActionResult Editar(ReservaMaterialModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            var domain = _reservaMaterialRepository.Get(model.Id);
+
+        //            Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
+
+        //            domain = Mapper.Unflat(model, domain);
+
+        //            domain.Requerente = _pessoaRepository.Get(model.Requerente);
+
+        //            ExcluaReservaMaterialItens(model, domain);
+        //            AtualizeReservaMaterialItens(model, domain);
+        //            IncluaNovosReservaMaterialItens(model, domain);
+        //            AtualizeSituacao(domain);
+
+        //            _reservaMaterialRepository.SaveOrUpdate(domain);
+
+        //            this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
+        //        }
+        //        catch (Exception exception)
+        //        {
+        //            var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+        //                exception.Message;
+        //            this.AddErrorMessage(errorMsg);
+        //            _logger.Info(exception.GetMessage());
+
+        //            return new JsonResult { Data = "error" };
+        //        }
+        //    }
+
+        //    return new JsonResult { Data = "sucesso" };
+        //}
+
+        public void ExcluirPedidoCompraItens(PedidoCompraModel model, PedidoCompra domain)
+        {
+            var reservaMaterialItensExcluir = new List<PedidoCompraItem>();
+
+            domain.PedidoCompraItens.ForEach(x =>
+            {
+                if (model.GridItens.All(y => y.Id != x.Id))
+                {
+                    reservaMaterialItensExcluir.Add(x);
+                }
+            });
+
+            reservaMaterialItensExcluir.ForEach(x => domain.RemovePedidoCompraItem(x));
+        }
+
+        private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
+        {
+            pedidoCompraModel.GridItens.ForEach(x =>
+            {
+                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id);
+                if (pedidoCompraItem == null)
+                {
+                    pedidoCompraItem = new PedidoCompraItem();
+                    pedidoCompraItem.Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
+                    pedidoCompraItem.Quantidade = x.Quantidade.Value;
+                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.Value;
+                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.Value;
+                    pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
+                    pedidoCompraItem.UnidadeMedida =
+                        _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
+                    pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
+                }
+
+            });
+        }
+
+ 
         #endregion
 
         #region Excluir
@@ -570,7 +640,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 ModelState.AddModelError("Numero", "Já existe um pedido de compra cadastrado com este número.");
 
             // Validar se tem itens
-            if (pedidoCompra.Materiais == null || pedidoCompra.Materiais.Count == 0)
+            //if (pedidoCompra.Materiais == null || pedidoCompra.Materiais.Count == 0)
+            //    ModelState.AddModelError("", "Cadastre pelo menos 1 (um) item ao pedido de compra.");
+
+            if (pedidoCompra.GridItens == null || pedidoCompra.GridItens.Count == 0)
                 ModelState.AddModelError("", "Cadastre pelo menos 1 (um) item ao pedido de compra.");
         }
         #endregion
@@ -606,8 +679,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
             pedidoCompraItemModel.ValorDesconto = item.ValorDesconto;
             pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
-            pedidoCompraItemModel.ValorTotal = item.ValorTotal;
+            //pedidoCompraItemModel.ValorTotal = item.ValorTotal;
             pedidoCompraItemModel.Descricao = item.Material.Descricao;
+            pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
 
             return pedidoCompraItemModel;
         }
@@ -628,6 +702,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.Descricao = item.Material.Descricao;
             pedidoCompraItemModel.Situacao = item.SituacaoCompra;
             pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
+            pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
 
             return pedidoCompraItemModel;
         }
@@ -643,6 +718,32 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var filename = report.ToByteStream().SaveFile(".pdf");
 
             return File(filename);
+        }
+        #endregion
+
+        #region Actions Grid
+        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
+        public virtual ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(request);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInline_Create([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInline_Destroy([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
+        {
+            return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
         #endregion
 

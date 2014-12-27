@@ -16,7 +16,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
         [Display(Name = "Unidade")]
-        public long? UnidadeEstocadora { get; set; }
+        public string UnidadeMedida { get; set; }
         [Display(Name = "Qtde")]
         public double? Quantidade { get; set; }
         [Display(Name = "Qtde Entregue")]
