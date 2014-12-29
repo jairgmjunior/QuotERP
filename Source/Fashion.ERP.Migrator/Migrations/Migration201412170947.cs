@@ -18,6 +18,11 @@ namespace Fashion.ERP.Migrator
                 .NotNullable();
 
             Alter.Table("pedidocompra")
+                .AlterColumn("contato")
+                .AsDouble()
+                .Nullable();
+
+            Alter.Table("pedidocompra")
                 .AddColumn("transportadora_id")
                 .AsInt64()
                 .Nullable()
