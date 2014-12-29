@@ -53,6 +53,12 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NovoOuEditar);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarId()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public EmitenteController Actions { get { return MVC.Financeiro.Emitente; } }
@@ -71,6 +77,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             public readonly string Detalhe = "Detalhe";
             public readonly string NovoOuEditar = "NovoOuEditar";
+            public readonly string PesquisarId = "PesquisarId";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -78,6 +85,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         {
             public const string Detalhe = "Detalhe";
             public const string NovoOuEditar = "NovoOuEditar";
+            public const string PesquisarId = "PesquisarId";
         }
 
 
@@ -101,6 +109,14 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public readonly string agencia = "agencia";
             public readonly string conta = "conta";
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_PesquisarId s_params_PesquisarId = new ActionParamsClass_PesquisarId();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarId PesquisarIdParams { get { return s_params_PesquisarId; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarId
+        {
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -156,6 +172,16 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NovoOuEditar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             NovoOuEditarOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void PesquisarIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult PesquisarId(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            PesquisarIdOverride(callInfo, id);
             return callInfo;
         }
 

@@ -30,7 +30,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Material> _materialRepository;
-        private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
+        private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
@@ -38,13 +38,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Construtores
         public ReservaMaterialController(ILogger logger, IRepository<Colecao> colecaoRepository,
             IRepository<ReservaMaterial> reservaMaterialRepository,  IRepository<Pessoa> pessoaRepository,
-            IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository)
+            IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
             _colecaoRepository = colecaoRepository;
             _materialRepository = materialRepository;
-            _estoqueMaterialRepository = estoqueMaterialRepository;
+            _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
 
             _logger = logger;
 
@@ -336,25 +336,54 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             reservaMaterialModel.GridItens.ForEach(x =>
             {
                 var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Id == x.Id);
+                var material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
                 if (reservaMaterialItem == null)
                 {
                     reservaMaterialItem = new ReservaMaterialItem
                     {
-                        Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First(),
+                        Material = material,
                         QuantidadeAtendida = x.QuantidadeAtendida,
                         QuantidadeReserva = x.QuantidadeSolicitada,
                         SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
                     };
                     reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
+
+                    AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade);
                 }
             });
         }
 
-        public void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material)
+        private void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material, Pessoa unidade)
         {
-            var estoqueMaterial = _estoqueMaterialRepository.Get(x => x.Material.Id == material.Id);
+            var reservaEstoqueMaterial = _reservaEstoqueMaterialRepository.Find(x => x.Material.Id == material.Id && x.Unidade.Id == unidade.Id).FirstOrDefault();
 
-            estoqueMaterial.AtualiqueQuantidadeReservaEstoqueMaterial(valorAdicional);
+            if (reservaEstoqueMaterial == null)
+            {
+                reservaEstoqueMaterial = new ReservaEstoqueMaterial
+                {
+                    Material = material,
+                    Unidade = unidade
+                };
+            }
+
+            reservaEstoqueMaterial.AtualizeQuantidade(valorAdicional);
+
+            _reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
+        }
+
+        private void AtualizeReservaEstoqueMaterialAoExcluir(ReservaMaterial reservaMaterial)
+        {
+            reservaMaterial.ReservaMaterialItems.ForEach(x =>
+            {
+                var reservaEstoqueMaterial = _reservaEstoqueMaterialRepository.Find(y => y.Material.Id == x.Material.Id && y.Unidade.Id == reservaMaterial.Unidade.Id).FirstOrDefault();
+
+                if (reservaEstoqueMaterial != null)
+                {
+                    reservaEstoqueMaterial.AtualizeQuantidade(x.QuantidadeReserva * -1);
+
+                    _reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
+                }
+            });
         }
 
         private void AtualizeReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
@@ -398,6 +427,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     var domain = _reservaMaterialRepository.Get(id);
                     _reservaMaterialRepository.Delete(domain);
+
+                    AtualizeReservaEstoqueMaterialAoExcluir(domain);
 
                     this.AddSuccessMessage("Reserva de material excluído com sucesso");
 
@@ -469,25 +500,25 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region Actions Grid
         //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
-        public ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
+        public virtual ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
         {
             return Json(request);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingInline_Create([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
+        public virtual ActionResult EditingInline_Create([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
         {
             return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
+        public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
         {
             return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditingInline_Destroy([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
+        public virtual ActionResult EditingInline_Destroy([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
         {
             return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }

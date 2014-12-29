@@ -14,11 +14,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
             var estoqueCatalagoMaterial = FabricaObjetos.ObtenhaEstoqueMaterial();
             estoqueCatalagoMaterial.Material = _material;
             estoqueCatalagoMaterial.DepositoMaterial = _depositoMaterialDestino;
-
-            var reservaEstoqueMaterial = FabricaObjetos.ObtenhaReservaEstoqueMaterial();
-            reservaEstoqueMaterial.ReservaMaterialItems.Add(_reservaMaterial.ReservaMaterialItems[0]);
-            estoqueCatalagoMaterial.ReservaEstoqueMaterial = reservaEstoqueMaterial;
-
+            
             return estoqueCatalagoMaterial;
         }
 

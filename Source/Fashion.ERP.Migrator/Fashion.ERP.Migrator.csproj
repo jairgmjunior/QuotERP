@@ -124,6 +124,7 @@
     <Compile Include="Migrations\Migration201412161509.cs" />
     <Compile Include="Migrations\Migration201412170947.cs" />
     <Compile Include="Migrations\Migration201412231650.cs" />
+    <Compile Include="Migrations\Migration201412291428.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
