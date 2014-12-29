@@ -14,7 +14,6 @@ namespace Fashion.ERP.Mapping.Almoxarifado
 
             References(x => x.Material).Not.Nullable();
             References(x => x.DepositoMaterial).Not.Nullable();
-            References(x => x.ReservaEstoqueMaterial).Nullable().Cascade.All();
             
             HasMany(x => x.MovimentacaoEstoqueMateriais)
                 .Not.LazyLoad()

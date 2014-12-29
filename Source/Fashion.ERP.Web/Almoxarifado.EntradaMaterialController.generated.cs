@@ -85,6 +85,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_Novo s_params_Novo = new ActionParamsClass_Novo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Novo NovoParams { get { return s_params_Novo; } }
@@ -143,6 +151,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaEntradaMaterialModel model);
+
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaEntradaMaterialModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IndexOverride(callInfo, model);
             return callInfo;
         }
 

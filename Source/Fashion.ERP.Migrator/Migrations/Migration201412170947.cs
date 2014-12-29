@@ -10,12 +10,12 @@ namespace Fashion.ERP.Migrator
             Alter.Table("pedidocompra")
                 .AddColumn("valorencargos")
                 .AsDouble()
-                .NotNullable();
+                .Nullable();
 
             Alter.Table("pedidocompra")
                 .AddColumn("valorembalagem")
                 .AsDouble()
-                .NotNullable();
+                .Nullable();
 
             Alter.Table("pedidocompra")
                 .AddColumn("transportadora_id")

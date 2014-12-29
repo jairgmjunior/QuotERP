@@ -8,9 +8,8 @@ namespace Fashion.ERP.Mapping.Almoxarifado
         public ReservaEstoqueMaterialMap() : base("reservaestoquematerial", 0)
         {
             Map(x => x.Quantidade).Not.Nullable();
-
-            HasMany(x => x.ReservaMaterialItems)
-                .KeyNullable();
+            References(x => x.Material).Not.Nullable();
+            References(x => x.Unidade).Not.Nullable();
         }
     }
 }

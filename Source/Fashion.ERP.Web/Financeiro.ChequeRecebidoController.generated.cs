@@ -313,12 +313,14 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             {
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Baixa = "Baixa";
+                public readonly string Devolucao = "Devolucao";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
             }
             public readonly string _NovoOuEditar = "~/Areas/Financeiro/Views/ChequeRecebido/_NovoOuEditar.cshtml";
             public readonly string Baixa = "~/Areas/Financeiro/Views/ChequeRecebido/Baixa.cshtml";
+            public readonly string Devolucao = "~/Areas/Financeiro/Views/ChequeRecebido/Devolucao.cshtml";
             public readonly string Editar = "~/Areas/Financeiro/Views/ChequeRecebido/Editar.cshtml";
             public readonly string Index = "~/Areas/Financeiro/Views/ChequeRecebido/Index.cshtml";
             public readonly string Novo = "~/Areas/Financeiro/Views/ChequeRecebido/Novo.cshtml";

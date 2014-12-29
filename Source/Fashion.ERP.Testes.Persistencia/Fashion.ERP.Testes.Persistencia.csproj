@@ -87,6 +87,7 @@
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaPersistencia.cs" />
     <Compile Include="Almoxarifado\ProcessosOperacionaisPersistencia.cs" />
     <Compile Include="Almoxarifado\ReferenciaExternaPersistencia.cs" />
+    <Compile Include="Almoxarifado\ReservaEstoqueMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\ReservaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\SaidaMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\UnidadeMedidaPersistencia.cs" />

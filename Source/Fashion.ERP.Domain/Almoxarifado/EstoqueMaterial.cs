@@ -15,7 +15,6 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual DepositoMaterial DepositoMaterial { get; set; }
         public virtual Material Material { get; set; }
         public virtual IList<EstoqueMaterial> EstoqueMateriais { get; set; }
-        public virtual ReservaEstoqueMaterial ReservaEstoqueMaterial { get; set; }
 
         public EstoqueMaterial()
         {
@@ -49,7 +48,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
         #region AtualizarEstoque
         /// <summary>
-        /// Atualiza o estoque deste depósito para este catálogo, de acordo com a quantidade.
+        /// Atualiza o estoque deste depósito para este material, de acordo com a quantidade.
         /// Se positivo: adiciona, se negativo: remove.
         /// </summary>
         public static EstoqueMaterial AtualizarEstoque(IRepository<EstoqueMaterial> estoqueMaterialRepository, 
@@ -104,11 +103,6 @@ namespace Fashion.ERP.Domain.Almoxarifado
                         x.Data <= data).Sum(x => x.Quantidade);
 
             return saldoEntrada - saldoSaida;
-        }
-
-        public void AtualiqueQuantidadeReservaEstoqueMaterial(double valorAdicional)
-        {
-            throw new NotImplementedException();
         }
     }
 }
