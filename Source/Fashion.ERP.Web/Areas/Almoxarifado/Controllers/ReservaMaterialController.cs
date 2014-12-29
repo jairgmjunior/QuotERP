@@ -352,7 +352,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         public void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material)
         {
-            _reservaEstoqueMaterialRepository.Find(x => x.)
+            var estoqueMaterial = _estoqueMaterialRepository.Get(x => x.Material.Id == material.Id);
+
+            estoqueMaterial.AtualiqueQuantidadeReservaEstoqueMaterial(valorAdicional);
         }
 
         private void AtualizeReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
