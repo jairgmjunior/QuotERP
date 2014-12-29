@@ -20,7 +20,6 @@ using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
-using Telerik.Reporting.Drawing;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -31,6 +30,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
@@ -38,12 +38,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Construtores
         public ReservaMaterialController(ILogger logger, IRepository<Colecao> colecaoRepository,
             IRepository<ReservaMaterial> reservaMaterialRepository,  IRepository<Pessoa> pessoaRepository,
-            IRepository<Material> materialRepository)
+            IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository)
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
             _colecaoRepository = colecaoRepository;
             _materialRepository = materialRepository;
+            _estoqueMaterialRepository = estoqueMaterialRepository;
 
             _logger = logger;
 
@@ -63,14 +64,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
             {
-                Id = (long)p.Id,
+                Id = p.Id.Value,
                 Referencia = p.ReferenciaOrigem,
                 Numero = p.Numero,
                 Data = p.Data,
                 DataProgramacao = p.DataProgramacao,
                 Situacao = p.SituacaoReservaMaterial.EnumToString(),
-                Colecao = p.Colecao.Descricao
-            }).OrderByDescending(o => o.Id).ToList();
+                Colecao = p.Colecao.Descricao,
+                Unidade = p.Unidade.NomeFantasia
+            }).OrderBy(o => o.Numero).ToList();
 
             return View(model);
         }
@@ -106,7 +108,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
                 {
                     reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Date >= model.DataProgramacaoInicio.Value
-                                                             && p.Data.Date <= model.DataProgramacaoFim.Value);
+                                                             && p.DataProgramacao.Date <= model.DataProgramacaoFim.Value);
                     filtros.AppendFormat("Data de Programação de '{0}' até '{1}', ",
                                          model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"),
                                          model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
@@ -116,6 +118,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     reservaMaterials = reservaMaterials.Where(p => p.SituacaoReservaMaterial == model.SituacaoReservaMaterial);
                     filtros.AppendFormat("Situação: {0}, ", model.SituacaoReservaMaterial.Value.EnumToString());
+                }
+
+                if (model.Material.HasValue)
+                {
+                    reservaMaterials = reservaMaterials.Where(p => p.ReservaMaterialItems.Any(i => i.Material.Id == model.Material));
+                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
                 }
 
                 #endregion
@@ -130,13 +138,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
                     {
-                        Id = (long)p.Id,
+                        Id = p.Id.Value,
                         Referencia = p.ReferenciaOrigem,
                         Numero = p.Numero,
                         Data = p.Data,
                         DataProgramacao = p.DataProgramacao,
-                        Situacao = p.SituacaoReservaMaterial.EnumToString()
-                    }).ToList();
+                        Situacao = p.SituacaoReservaMaterial.EnumToString(),
+                        Colecao = p.Colecao.Descricao,
+                        Unidade = p.Unidade.NomeFantasia
+                    }).OrderBy(o => o.Numero).ToList();
 
                     return View(model);
                 }
@@ -148,64 +158,30 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     return Json(new { Error = "Nenhum item encontrado." });
 
                 #region Montar Relatório
-                Report report = null;
+                var report = new ListaReservaMaterialReport() { DataSource = result };
 
-                switch (model.TipoRelatorio)
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+
+                if (model.AgruparPor != null)
                 {
-                    case "Detalhado":
-                        var ficha = new FichaMaterialReport { DataSource = result };
+                    grupo.Groupings.Add("= AjusteValores(Fields." + model.AgruparPor + ")");
 
-                        if (filtros.Length > 2)
-                            ficha.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-
-                        report = ficha;
-                        break;
-                    case "Listagem":
-                        var lista = new ListaMaterialReport { DataSource = result };
-
-                        if (filtros.Length > 2)
-                            lista.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-
-                        var grupo = lista.Groups.First(p => p.Name.Equals("Grupo"));
-
-                        if (model.AgruparPor != null)
-                        {
-                            grupo.Groupings.Add("=Fields." + model.AgruparPor);
-
-                            var key = _colunasPesquisaReservaMaterial.First(p => p.Value == model.AgruparPor).Key;
-                            var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
-                            grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
-                        }
-                        else
-                        {
-                            lista.Groups.Remove(grupo);
-                        }
-
-                        report = lista;
-                        break;
-                    case "Sintético":
-                        var total = new TotalMaterialReport();
-
-                        if (filtros.Length > 2)
-                            total.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-
-                        total.Grafico.DataSource = result;
-
-                        // Altura do gráfico
-                        total.Grafico.Height = Unit.Pixel(result.GroupBy(model.AgruparPor).Count() * 30 + 50);
-
-                        // Agrupar
-                        total.Grafico.Series[0].CategoryGroup.Groupings[0].Expression = "=Fields." + model.AgruparPor;
-
-                        // Título
-                        total.Grafico.Titles[0].Text = _colunasPesquisaReservaMaterial.FirstOrDefault(p => p.Value == model.AgruparPor).Key;
-
-                        report = total;
-                        break;
+                    var key = _colunasPesquisaReservaMaterial.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + AjusteValores(Fields.{1})", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
                 }
 
                 if (model.OrdenarPor != null)
-                    report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+                    report.Sortings.Add("=Fields." + model.OrdenarPor,
+                                        model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+
                 #endregion
 
                 var filename = report.ToByteStream().SaveFile(".pdf");
@@ -251,19 +227,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     AtualizeSituacao(domain);
                     _reservaMaterialRepository.Save(domain);
                     
-                    Framework.UnitOfWork.Session.Current.Flush();
-
-                    this.AddSuccessMessage("Reserva material cadastrado com sucesso.");
-                    return RedirectToAction("Index");
+                    this.AddSuccessMessage("Reserva de material cadastrada com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " + exception.Message);
+                    var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+                        exception.Message;
+                    this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
+
+                    return new JsonResult { Data = "error" };
                 }
             }
 
-            return View(model);
+            return new JsonResult { Data = "sucesso" };
         }
 
         private long ProximoNumero()
@@ -331,18 +308,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     AtualizeSituacao(domain);
 
                     _reservaMaterialRepository.SaveOrUpdate(domain);
-                    Framework.UnitOfWork.Session.Current.Flush();
+
                     this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
-                    return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a reserva de material. Confira se os dados foram informados corretamente: " + exception.Message);
+                    var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+                        exception.Message;
+                    this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
+
+                    return new JsonResult { Data = "error" };
                 }
             }
 
-            return View(model);
+            return new JsonResult { Data = "sucesso" };
         }
 
         private void AtualizeSituacao(ReservaMaterial reservaMaterial)
@@ -368,6 +348,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
                 }
             });
+        }
+
+        public void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material)
+        {
+            _reservaEstoqueMaterialRepository.Find(x => x.)
         }
 
         private void AtualizeReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
@@ -452,18 +437,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #endregion
 
         #region ValidaNovoOuEditar
+
         protected override void ValidaNovoOuEditar(IModel model, string actionName)
         {
-            //var material = (MaterialModel)model;
-
-            //// Verificar se existe catálogo com esta referência
-            //if (_materialRepository.Find().Any(p => p.Referencia == material.Referencia && p.Id != material.Id))
-            //    ModelState.AddModelError("Referencia", "Já existe catálogo de material cadastrado com esta referência.");
-
-            //// Verificar se existe catálogo com este código de barras
-            //if (string.IsNullOrWhiteSpace(material.CodigoBarra) == false &&
-            //    _materialRepository.Find().Any(p => p.CodigoBarra == material.CodigoBarra && p.Id != material.Id))
-            //    ModelState.AddModelError("CodigoBarra", "Já existe catálogo de material cadastrado com este código de barras.");
+            
         }
         #endregion
 

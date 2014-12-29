@@ -193,7 +193,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 #region Montar Relatório
 
-                var report = new ListaPedidoCompraReport {DataSource = result};
+                var report = new ListaRecebimentoCompraReport() {DataSource = result};
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);

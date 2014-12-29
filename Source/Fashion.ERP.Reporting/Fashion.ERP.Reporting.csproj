@@ -59,6 +59,12 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Almoxarifado\ListaReservaMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaReservaMaterialReport.Designer.cs">
+      <DependentUpon>ListaReservaMaterialReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado\FichaMaterialReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -257,6 +263,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\ListaReservaMaterialReport.resx">
+      <DependentUpon>ListaReservaMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\FichaMaterialReport.resx">
       <DependentUpon>FichaMaterialReport.cs</DependentUpon>
     </EmbeddedResource>

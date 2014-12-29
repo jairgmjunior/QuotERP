@@ -105,5 +105,10 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
             return saldoEntrada - saldoSaida;
         }
+
+        public void AtualiqueQuantidadeReservaEstoqueMaterial(double valorAdicional)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
@@ -13,6 +14,12 @@ namespace Fashion.ERP.Domain.Almoxarifado
         {
             get { return _reservaMaterialItems; }
             set { _reservaMaterialItems = value; }
+        }
+
+        public void AtualizeQuantidade(double valorAdicional, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
+        {
+            Quantidade += valorAdicional;
+            reservaEstoqueMaterialRepository.SaveOrUpdate(this);
         }
     }
 }

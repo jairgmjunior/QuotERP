@@ -6,7 +6,7 @@
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.ReservaMaterial.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@using (Html.BeginForm(MVC.Almoxarifado.Material.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+@using (Html.BeginForm(MVC.Almoxarifado.ReservaMaterial.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     @Html.AntiForgeryToken()
     <div class="accordion" id="accordion2">
@@ -74,7 +74,7 @@
                     <div class="row">
                         <div class="span6">
                             <div class="control-group">
-                                @Html.Label("referencia-material", "Referência", new { @class = "control-label" })
+                                @Html.LabelForRequired(x => x.Material)
                                 <div class="controls">
                                     @Html.Hidden("Material")
                                     <div class="input-append">
@@ -142,6 +142,7 @@
     .Columns(columns =>
     {
         columns.Bound(x => x.Numero);
+        columns.Bound(x => x.Unidade);
         columns.Bound(x => x.Referencia);
         columns.Bound(x => x.Colecao);
         columns.Bound(x => x.Data).Format("{0:d}");

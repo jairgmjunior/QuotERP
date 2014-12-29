@@ -2,6 +2,7 @@
 @using (Html.BeginForm(MVC.Almoxarifado.ReservaMaterial.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
 	<div class="form-actions">
 		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>

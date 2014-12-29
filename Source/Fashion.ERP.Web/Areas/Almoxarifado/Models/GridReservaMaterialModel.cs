@@ -13,6 +13,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Ref. Origem")]
         public string Referencia { get; set; }
 
+        [Display(Name = "Unidade")]
+        public string Unidade { get; set; }
+
         [Display(Name = "Coleção")]
         public string Colecao { get; set; }
 

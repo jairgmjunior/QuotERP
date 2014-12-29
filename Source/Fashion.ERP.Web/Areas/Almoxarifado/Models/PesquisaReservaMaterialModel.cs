@@ -7,11 +7,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 {
     public class PesquisaReservaMaterialModel
     {
-        [Display(Name = "Referência")]
+        [Display(Name = "Referência de Origem")]
         public string ReferenciaOrigem { get; set; }
 
         [Display(Name = "Unidade")]
         public long? Unidade { get; set; }
+
+        [Display(Name = "Material")]
+        public long? Material { get; set; }
 
         [Display(Name = "Número")]
         public long? Numero { get; set; }
