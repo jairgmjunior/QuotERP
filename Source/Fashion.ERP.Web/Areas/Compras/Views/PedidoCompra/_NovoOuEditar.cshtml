@@ -197,8 +197,8 @@
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
                 columns.Bound(e => e.ReferenciaExterna).Width(80);
-                columns.Bound(e => e.Quantidade).Format("{0:n2}").Width(60);
-                columns.Bound(e => e.PrevisaoEntrega).EditorTemplateName("DateTime").Width(90);
+                columns.Bound(e => e.Quantidade).EditorTemplateName("Numeric").Width(60);
+                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(90);
                 columns.Bound(e => e.ValorUnitario).Width(80);
                 columns.Bound(e => e.ValorDesconto).Width(80);
                 columns.Bound(e => e.ValorTotal).Width(80);
@@ -221,10 +221,10 @@
             .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class="btn-primary" }))
             .Editable(editable => editable.Mode(GridEditMode.InLine))
             .Resizable(resize => resize.Columns(true))
-            .Events(events => events.DataBound("onDataBound"))
+            .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
             )
     
-        <script id="template" type="text/kendo-tmpl">
+  <script id="template" type="text/kendo-tmpl">
     @(Html.Kendo().TabStrip()
             .Name("tabStrip_#=PedidoCompraId#")
             .SelectedIndex(0)
@@ -467,6 +467,18 @@
 
 <script>
     
+    function onEditGrid(e) {
+        $("#Descricao").attr("readonly", true);
+        $("#Descricao").width('86%');
+        $("#UnidadeMedida").attr("readonly", true);
+        $("#UnidadeMedida").addClass("input-small");
+        $("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
+        if (!e.model.isNew()) {
+            $("#Referencia").attr("readonly", true);
+            $("#pesquisar-material").attr("disabled", true);
+        }
+    }
+
     function onDataBound(e) {
         var gridData = e.sender.dataSource.data();
 

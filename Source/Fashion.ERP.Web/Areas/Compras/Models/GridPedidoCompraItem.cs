@@ -36,6 +36,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Prev. Entrega")]
         public DateTime? PrevisaoEntrega { get; set; }
+        [Display(Name = "Prev. Entrega")]
+        public String PrevisaoEntregaString { get; set; }
+
         [Display(Name = "Referência Externa")]
         public string ReferenciaExterna { get; set; }
     }

@@ -1356,6 +1356,7 @@
     <Content Include="Views\Shared\EditorTemplates\ReadonlyDouble.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BotaoPesquisaMaterialGrid.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

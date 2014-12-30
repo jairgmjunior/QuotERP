@@ -389,6 +389,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     IncluirNovosPedidoCompralItens(model,domain);
 
                     domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
+                    
 
                     // Adicionar itens do pedido de compra
                     //for (int i = 0; i < model.Materiais.Count; i++)
@@ -508,6 +509,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     pedidoCompraItem.ValorDesconto = x.ValorDesconto.Value;
                     pedidoCompraItem.ValorUnitario = x.ValorUnitario.Value;
                     pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
+                    pedidoCompraItem.PrevisaoEntrega = Convert.ToDateTime(x.PrevisaoEntregaString);
                     pedidoCompraItem.UnidadeMedida =
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
