@@ -30,7 +30,8 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Situacao)
                 <div class="controls">
-                    <b>@(Model.Situacao)</b>
+                    @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList())
+                    @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })
                 </div>
             </div>
             <div class="control-group">
@@ -38,6 +39,13 @@
                 <div class="controls">
                     @Html.EditorFor(x => x.DataEmissao)
                     @Html.ValidationMessageFor(x => x.DataEmissao, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Historico)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Historico)
+                    @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
                 </div>
             </div>
             <div class="control-group">
@@ -206,7 +214,7 @@
                                     <th>Nº Cheque</th>
                                     <th>Vencimento</th>
                                     <th>Emitente</th>
-                                    <th>Praço</th>
+                                    <th>Praça</th>
                                     <th>Valor</th>
                                     <th style="width: 16px"></th>
                                 </tr>

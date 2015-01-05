@@ -61,7 +61,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         #region Views
 
         #region Index
-        [PopulateViewData("PopulateViewData")]
+        [ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
             var chequeRecebidos = _chequeRecebidoRepository.Find();
@@ -161,7 +161,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
 
             var model = new ChequeRecebidoModel
             {
-                Situacao = SituacaoTitulo.NaoLiquidado.EnumToString()
+                Situacao = ChequeSituacao.NaoDepositado
             };
 
             return View(model);
@@ -192,6 +192,22 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     {
                         var idx = i;
 
+                        var banco = _bancoRepository.Get(model.IdBancos[idx]);
+
+                        // Validar duplicidade
+                        if (_chequeRecebidoRepository.Find(p =>
+                            p.DataEmissao == model.DataEmissao &&
+                            p.Banco.Id == model.Banco &&
+                            p.Agencia == model.Agencia &&
+                            p.Conta == model.Conta &&
+                            p.NumeroCheque == model.NumeroCheque).Any())
+                        {
+                            ModelState.AddModelError(string.Empty,
+                                string.Format("Não é possível salvar pois já existe cheque cadastrado com: Emissão: {0:dd/MM/yyyy}, Banco: {1}, Agência: {2}, Conta: {3}, Número: {4}",
+                                model.DataEmissao, banco.Nome, model.Agencia, model.Conta, model.NumeroCheque));
+                            return View(model);
+                        }
+
                         var domain = Mapper.Unflat<ChequeRecebido>(model);
                         domain.Saldo = domain.Valor;
 
@@ -202,13 +218,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         domain.AddOcorrenciaCompensacao(new OcorrenciaCompensacao
                         {
                             Data = DateTime.Now,
-                            ChequeSituacao = ChequeSituacao.NaoDepositado,
+                            ChequeSituacao = model.Situacao,
                             Historico = string.Format("Cadastrado em {0} por {1}",
                                             DateTime.Now.ToString("F"), HttpContext.User.Identity.Name)
                         });
 
                         domain.Cmc7 = model.Cmc7s[idx];
-                        domain.Banco = _bancoRepository.Load(model.IdBancos[idx]);
+                        domain.Banco = banco;
                         domain.Agencia = model.Agencias[idx];
                         domain.Conta = model.Contas[idx];
                         domain.NumeroCheque = model.Cheques[idx];
@@ -338,7 +354,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     var domain = _chequeRecebidoRepository.Get(id);
 
                     // Nâo excluir se houver ocorrência
-                    if (domain.OcorrenciaCompensacoes.Any())
+                    if (domain.OcorrenciaCompensacoes.Count() > 1)
                     {
                         ModelState.AddModelError(string.Empty, "Não é possível excluir cheque, pois existem ocorrências para este cheque.");
                         return RedirectToAction("Index");
