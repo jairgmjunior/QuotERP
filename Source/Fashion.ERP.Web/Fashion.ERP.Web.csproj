@@ -560,7 +560,7 @@
     <Compile Include="Areas\Financeiro\Models\PesquisaDespesaReceitaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\PesquisaTituloPagarModel.cs" />
     <Compile Include="Areas\Financeiro\Models\PesquisaTituloReceberModel.cs" />
-    <Compile Include="Areas\Financeiro\Models\RecebimentoChequeRecebidoModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\ListaBaixaChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\TituloPagarCentroCustoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\TituloPagarDespesaReceitaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\TituloPagarModel.cs" />

@@ -15,7 +15,7 @@ namespace Fashion.ERP.Domain.Financeiro
         }
 
         public virtual DateTime Data { get; set; }
-        public virtual double TaxaJuros { get; set; }
+        public virtual double Despesa { get; set; }
         public virtual double ValorJuros { get; set; }
         public virtual double ValorDesconto { get; set; }
         public virtual double Valor { get; set; }

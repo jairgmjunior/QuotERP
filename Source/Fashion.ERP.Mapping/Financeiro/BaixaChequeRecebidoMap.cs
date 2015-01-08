@@ -10,7 +10,7 @@ namespace Fashion.ERP.Mapping.Financeiro
             : base("baixachequerecebido", 100)
         {
             Map(x => x.Data).Not.Nullable();
-            Map(x => x.TaxaJuros).Not.Nullable();
+            Map(x => x.Despesa).Not.Nullable();
             Map(x => x.ValorJuros).Not.Nullable();
             Map(x => x.ValorDesconto).Not.Nullable();
             Map(x => x.Valor).Not.Nullable();

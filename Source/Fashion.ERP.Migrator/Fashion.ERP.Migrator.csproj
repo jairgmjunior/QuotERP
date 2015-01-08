@@ -125,6 +125,7 @@
     <Compile Include="Migrations\Migration201412170947.cs" />
     <Compile Include="Migrations\Migration201412231650.cs" />
     <Compile Include="Migrations\Migration201412291428.cs" />
+    <Compile Include="Migrations\Migration201507011743.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -261,9 +262,7 @@
     <EmbeddedResource Include="Scripts\201411051458\permissao.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\201410142157\permissao.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\201410142157\permissao.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201411190852\atualizacaoUniquekeys.sql" />

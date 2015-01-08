@@ -19,7 +19,7 @@ namespace Fashion.ERP.Migrator
 
             Alter.Table("pedidocompra")
                 .AlterColumn("contato")
-                .AsDouble()
+                .AsString(50)
                 .Nullable();
 
             Alter.Table("pedidocompra")

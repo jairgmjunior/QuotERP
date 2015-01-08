@@ -215,8 +215,6 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             public readonly string id = "id";
             public readonly string chequeRecebido = "chequeRecebido";
             public readonly string model = "model";
-            public readonly string meioPagamentoId = "meioPagamentoId";
-            public readonly string valorRecebimentoChequeRecebido = "valorRecebimentoChequeRecebido";
         }
         static readonly ActionParamsClass_Devolucao s_params_Devolucao = new ActionParamsClass_Devolucao();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -411,15 +409,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
             return callInfo;
         }
 
-        partial void BaixaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Financeiro.Models.BaixaChequeRecebidoModel model, long[] meioPagamentoId, double[] valorRecebimentoChequeRecebido);
+        partial void BaixaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Financeiro.Models.BaixaChequeRecebidoModel model);
 
-        public override System.Web.Mvc.ActionResult Baixa(Fashion.ERP.Web.Areas.Financeiro.Models.BaixaChequeRecebidoModel model, long[] meioPagamentoId, double[] valorRecebimentoChequeRecebido)
+        public override System.Web.Mvc.ActionResult Baixa(Fashion.ERP.Web.Areas.Financeiro.Models.BaixaChequeRecebidoModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Baixa);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "meioPagamentoId", meioPagamentoId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "valorRecebimentoChequeRecebido", valorRecebimentoChequeRecebido);
-            BaixaOverride(callInfo, model, meioPagamentoId, valorRecebimentoChequeRecebido);
+            BaixaOverride(callInfo, model);
             return callInfo;
         }
 
