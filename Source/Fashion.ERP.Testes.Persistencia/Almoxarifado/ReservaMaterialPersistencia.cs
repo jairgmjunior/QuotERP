@@ -43,6 +43,7 @@ namespace Fashion.ERP.Testes.Persistencia.Almoxarifado
             FabricaObjetosPersistidos.ExcluaPessoa(_funcionario);
             FabricaObjetosPersistidos.ExcluaPessoa(_unidade);
             FabricaObjetosPersistidos.ExcluaColecao(_colecao);
+            FabricaObjetosPersistidos.ExcluaMaterial(_material);
 
             Session.Current.Flush();
         }

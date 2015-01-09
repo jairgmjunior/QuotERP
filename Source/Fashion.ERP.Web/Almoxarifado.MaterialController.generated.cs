@@ -257,6 +257,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionParamsClass_PesquisarReferencia
         {
             public readonly string referencia = "referencia";
+            public readonly string tipoItemMaterial = "tipoItemMaterial";
         }
         static readonly ActionParamsClass_PesquisarId s_params_PesquisarId = new ActionParamsClass_PesquisarId();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -446,9 +447,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Models.PesquisarModel model);
+        partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisarMaterialModel model);
 
-        public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Models.PesquisarModel model)
+        public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisarMaterialModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -456,13 +457,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void PesquisarReferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string referencia);
+        partial void PesquisarReferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string referencia, long? tipoItemMaterial);
 
-        public override System.Web.Mvc.ActionResult PesquisarReferencia(string referencia)
+        public override System.Web.Mvc.ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferencia);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
-            PesquisarReferenciaOverride(callInfo, referencia);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tipoItemMaterial", tipoItemMaterial);
+            PesquisarReferenciaOverride(callInfo, referencia, tipoItemMaterial);
             return callInfo;
         }
 

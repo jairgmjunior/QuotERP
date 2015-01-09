@@ -610,7 +610,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region PesquisarFiltro
         [HttpPost, AjaxOnly]
-        public virtual ActionResult PesquisarFiltro(PesquisarModel model)
+        public virtual ActionResult PesquisarFiltro(PesquisarMaterialModel model)
         {
             var filters = new List<FilterExpression>
             {
@@ -619,6 +619,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 // Filtro da tela
                 model.Filtrar<Material>()
             };
+
+            if(model.TipoItemMaterial.HasValue)
+                filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, model.TipoItemMaterial, LogicOperator.And));
 
             var materiais = _materialRepository.Find(filters.ToArray()).ToList();
 
@@ -640,11 +643,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region PesquisarReferencia
         [HttpGet, AjaxOnly]
-        public virtual ActionResult PesquisarReferencia(string referencia)
+        public virtual ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial)
         {
             if (string.IsNullOrWhiteSpace(referencia) == false)
             {
-                var material = _materialRepository.Find(p => p.Referencia == referencia && p.Ativo).FirstOrDefault();
+                var filters = new List<FilterExpression>
+                {
+                    new FilterExpression("Ativo", ComparisonOperator.IsEqual, true, LogicOperator.And),
+                    new FilterExpression("Referencia", ComparisonOperator.IsEqual, referencia, LogicOperator.And)
+                };
+
+                if (tipoItemMaterial.HasValue)
+                    filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, tipoItemMaterial, LogicOperator.And));
+
+                var material = _materialRepository.Find(filters.ToArray()).FirstOrDefault();
 
                 if (material != null)
                     return Json(new { material.Id, material.Referencia, material.Descricao, UnidadeMedida = material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);

@@ -7,13 +7,13 @@ namespace Fashion.ERP.Domain.Almoxarifado
     [TypeConverter(typeof(EnumDisplayTypeConverter<SituacaoReservaMaterial>))]
     public enum SituacaoReservaMaterial
     {
-        [Display(Name = "Não atendida")]
+        [Display(Name = "NÃO ATENDIDA")]
         NaoAtendida,
-        [Display(Name = "Atendida parcial")]
+        [Display(Name = "ATENDIDA PARCIAL")]
         AtendidaParcial,
-        [Display(Name = "Atendida total")]
+        [Display(Name = "ATENDIDA TOTAL")]
         AtendidaTotal,
-        [Display(Name = "Cancelada")]
+        [Display(Name = "CANCELADA")]
         Cancelada
     }
 

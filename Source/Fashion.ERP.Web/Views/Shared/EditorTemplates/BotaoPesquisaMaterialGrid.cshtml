@@ -6,7 +6,9 @@
 
         $('#submit-pesquisar-material').off('click').on('click', function (e) {
             var form = $(this).closest("form");
-            
+           
+            $('input[name=TipoItemMaterial]').val($("#TipoItem").val());
+
             form.ajaxSubmit({
                 dataType: 'json',
                 cache: false,
@@ -50,7 +52,8 @@
 
         var pesquisaMaterial = function (referencia) {
             if (referencia) {
-                var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferencia())?referencia=' + referencia;
+                var tipoItemMaterial = $("#TipoItem").val();
+                var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferencia())?referencia=' + referencia + "&tipoItemMaterial=" + tipoItemMaterial;
                 $.getJSON(url, function(data) {
                     if (data.erro) {
                         alert(data.erro);

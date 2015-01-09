@@ -3,27 +3,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 {
-    public class GridReservaMaterialModel
+    public class GridRequisicaoMaterialModel
     {
         public long Id { get; set; }
 
         [Display(Name = "Número")]
         public long Numero { get; set; }
 
-        [Display(Name = "Ref. Origem")]
-        public string Referencia { get; set; }
+        [Display(Name = "Origem")]
+        public string Origem { get; set; }
 
         [Display(Name = "Unidade")]
-        public string Unidade { get; set; }
+        public string UnidadeRequerente { get; set; }
 
-        [Display(Name = "Coleção")]
-        public string Colecao { get; set; }
+        [Display(Name = "Requerente")]
+        public string Requerente { get; set; }
+
+        [Display(Name = "Tipo de Material")]
+        public string TipoMaterial { get; set; }
 
         [Display(Name = "Data")]
         public DateTime Data { get; set; }
-
-        [Display(Name = "Data da Programação")]
-        public DateTime? DataProgramacao { get; set; }
 
         [Display(Name = "Situação")]
         public string Situacao { get; set; }

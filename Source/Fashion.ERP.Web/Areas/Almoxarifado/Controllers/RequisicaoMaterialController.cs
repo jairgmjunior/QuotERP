@@ -14,6 +14,7 @@ using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -23,28 +24,39 @@ using Telerik.Reporting;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
-    public partial class ReservaMaterialController : BaseController
+    public partial class RequisicaoMaterialController : BaseController
     {
         #region Variaveis
+
+        private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
         private readonly IRepository<ReservaMaterial> _reservaMaterialRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
-        private readonly IRepository<Colecao> _colecaoRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
+        private readonly IRepository<TipoItem> _tipoItemRepository;
+        private readonly IRepository<CentroCusto> _centroCustoRepository;
         private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
 
         #region Construtores
-        public ReservaMaterialController(ILogger logger, IRepository<Colecao> colecaoRepository,
-            IRepository<ReservaMaterial> reservaMaterialRepository,  IRepository<Pessoa> pessoaRepository,
-            IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
+        public RequisicaoMaterialController(ILogger logger, IRepository<TipoItem> tipoItemRepository,
+            IRepository<ReservaMaterial> reservaMaterialRepository, IRepository<Pessoa> pessoaRepository,
+            IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<CentroCusto> centroCustoRepository,
+            IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<Usuario> usuarioRepository )
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
-            _colecaoRepository = colecaoRepository;
+            _tipoItemRepository = tipoItemRepository;
             _materialRepository = materialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
+            _requisicaoMaterialRepository = requisicaoMaterialRepository;
+            _centroCustoRepository = centroCustoRepository;
+            _depositoMaterialRepository = depositoMaterialRepository;
+            _usuarioRepository = usuarioRepository;
 
             _logger = logger;
 
@@ -58,20 +70,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var reservaMaterials = _reservaMaterialRepository.Find();
+            var requisicaoMaterials = _requisicaoMaterialRepository.Find();
 
-            var model = new PesquisaReservaMaterialModel { ModoConsulta = "Listar" };
+            var model = new PesquisaRequisicaoMaterialModel { ModoConsulta = "Listar" };
 
-            model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
+            model.Grid = requisicaoMaterials.Select(p => new GridRequisicaoMaterialModel
             {
                 Id = p.Id.Value,
-                Referencia = p.ReferenciaOrigem,
+                Origem = p.Origem,
                 Numero = p.Numero,
                 Data = p.Data,
-                DataProgramacao = p.DataProgramacao.HasValue ? p.DataProgramacao.Value : default(DateTime?),
-                Situacao = p.SituacaoReservaMaterial.EnumToString(),
-                Colecao = p.Colecao.Descricao,
-                Unidade = p.Unidade.NomeFantasia
+                TipoMaterial = p.TipoItem.Descricao,
+                Requerente = p.Requerente.Nome,
+                Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
+                UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
             }).OrderBy(o => o.Numero).ToList();
 
             return View(model);
@@ -208,30 +220,49 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Novo()
         {
-            return View(new ReservaMaterialModel());
+            var usuarioId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(usuarioId);
+
+            long funcionarioId = 0L;
+            if (usuario.Funcionario != null)
+            {
+                funcionarioId = usuario.Funcionario.Id ?? usuario.Funcionario.Id.Value;
+            }
+
+            return View(new RequisicaoMaterialModel
+            {
+                Requerente = funcionarioId
+            });
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
-        public virtual ActionResult Novo(ReservaMaterialModel model)
+        public virtual ActionResult Novo(RequisicaoMaterialModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var domain = Mapper.Unflat<ReservaMaterial>(model);
+                    var domain = Mapper.Unflat<RequisicaoMaterial>(model);
                     domain.Data = DateTime.Now;
                     domain.Numero = ProximoNumero();
+                    domain.UnidadeRequerente = _pessoaRepository.Get(model.UnidadeRequerente);
+                    domain.UnidadeRequisitada = _pessoaRepository.Get(model.UnidadeRequisitada);
+                    domain.Requerente = _pessoaRepository.Get(model.Requerente);
+                    domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);
+                    domain.TipoItem = _tipoItemRepository.Get(model.TipoItem);
 
-                    IncluaNovosReservaMaterialItens(model, domain);
+                    IncluaNovosRequisicaoMaterialItens(model, domain);
 
                     domain.AtualizeSituacao();
-                    _reservaMaterialRepository.Save(domain);
-                    
-                    this.AddSuccessMessage("Reserva de material cadastrada com sucesso.");
+                    domain.CrieReservaMaterial(ProximoNumeroReservaMaterial(), _reservaEstoqueMaterialRepository);
+
+                    _requisicaoMaterialRepository.Save(domain);
+
+                    this.AddSuccessMessage("Requisição de material cadastrado com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+                    var errorMsg = "Não é possível salvar a requisição de material. Confira se os dados foram informados corretamente: " +
                         exception.Message;
                     this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
@@ -244,6 +275,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
         private long ProximoNumero()
+        {
+            try
+            {
+                return _requisicaoMaterialRepository.Find().Max(p => p.Numero) + 1;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
+
+        private long ProximoNumeroReservaMaterial()
         {
             try
             {
@@ -261,21 +304,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [ImportModelStateFromTempData, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Editar(long? id)
         {
-            var domain = _reservaMaterialRepository.Get(id);
+            var domain = _requisicaoMaterialRepository.Get(id);
 
             if (domain != null)
             {
-                var model = Mapper.Flat<ReservaMaterialModel>(domain);
-
-                model.GridItens = domain.ReservaMaterialItems.Select(x =>
-                    new ReservaMaterialItemModel
+                var model = Mapper.Flat<RequisicaoMaterialModel>(domain);
+                
+                model.GridItens = domain.RequisicaoMaterialItems.Select(x =>
+                    new RequisicaoMaterialItemModel
                     {
                         Descricao = x.Material.Descricao,
                         Referencia = x.Material.Referencia,
-                        SituacaoReservaMaterial = x.SituacaoReservaMaterial,
+                        SituacaoRequisicaoMaterial = x.SituacaoRequisicaoMaterial,
                         QuantidadeAtendida = x.QuantidadeAtendida,
-                        QuantidadeCancelada = x.ReservaMaterialItemCancelado != null ? x.ReservaMaterialItemCancelado.QuantidadeCancelada : 0,
-                        QuantidadeSolicitada = x.QuantidadeReserva,
+                        QuantidadeCancelada = x.RequisicaoMaterialItemCancelado != null ? x.RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0,
+                        QuantidadeSolicitada = x.QuantidadeSolicitada,
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
                         Id = x.Id
                     }).ToList();
@@ -283,37 +326,42 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 return View("Editar", model);
             }
 
-            this.AddErrorMessage("Não foi possível encontrar a reserva de material.");
+            this.AddErrorMessage("Não foi possível encontrar a requisição de material.");
             return RedirectToAction("Index");
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
-        public virtual ActionResult Editar(ReservaMaterialModel model)
+        public virtual ActionResult Editar(RequisicaoMaterialModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var domain = _reservaMaterialRepository.Get(model.Id);
+                    var domain = _requisicaoMaterialRepository.Get(model.Id);
                     
                     Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
 
                     domain = Mapper.Unflat(model, domain);
 
                     domain.Requerente = _pessoaRepository.Get(model.Requerente);
+                    domain.UnidadeRequerente = _pessoaRepository.Get(model.UnidadeRequerente);
+                    domain.UnidadeRequisitada = _pessoaRepository.Get(model.UnidadeRequisitada);
+                    domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);
+                    domain.TipoItem = _tipoItemRepository.Get(model.TipoItem);
 
-                    ExcluaReservaMaterialItens(model, domain);
-                    AtualizeReservaMaterialItens(model, domain);
-                    IncluaNovosReservaMaterialItens(model, domain);
+                    ExcluaRequisicaoMaterialItens(model, domain);
+                    AtualizeRequisicaoMaterialItens(model, domain);
+                    IncluaNovosRequisicaoMaterialItens(model, domain);
                     domain.AtualizeSituacao();
+                    domain.AtualizeReservaMaterial(_reservaEstoqueMaterialRepository);
 
-                    _reservaMaterialRepository.SaveOrUpdate(domain);
+                    _requisicaoMaterialRepository.SaveOrUpdate(domain);
 
-                    this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
+                    this.AddSuccessMessage("Requisição de material atualizado com sucesso.");
                 }
                 catch (Exception exception)
                 {
-                    var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+                    var errorMsg = "Não é possível salvar a requisição de material. Confira se os dados foram informados corretamente: " +
                         exception.Message;
                     this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
@@ -325,64 +373,51 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-
-        private void IncluaNovosReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
+        private void IncluaNovosRequisicaoMaterialItens(RequisicaoMaterialModel requisicaoMaterialModel, RequisicaoMaterial requisicaoMaterial)
         {
-            reservaMaterialModel.GridItens.ForEach(x =>
+            requisicaoMaterialModel.GridItens.ForEach(x =>
             {
-                var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Id == x.Id);
+                var requisicaoMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.Id);
                 var material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
-                if (reservaMaterialItem == null)
+                if (requisicaoMaterialItem == null)
                 {
-                    reservaMaterialItem = new ReservaMaterialItem
+                    requisicaoMaterialItem = new RequisicaoMaterialItem()
                     {
                         Material = material,
                         QuantidadeAtendida = x.QuantidadeAtendida,
-                        QuantidadeReserva = x.QuantidadeSolicitada,
-                        SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
+                        QuantidadeSolicitada = x.QuantidadeSolicitada,
+                        SituacaoRequisicaoMaterial = SituacaoRequisicaoMaterial.NaoAtendido
                     };
-                    reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
-
-                    reservaMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                    requisicaoMaterial.RequisicaoMaterialItems.Add(requisicaoMaterialItem);
                 }
             });
         }
 
-        private void AtualizeReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
+        private void AtualizeRequisicaoMaterialItens(RequisicaoMaterialModel requisicaoMaterialModel, RequisicaoMaterial requisicaoMaterial)
         {
-            reservaMaterialModel.GridItens.ForEach(x =>
+            requisicaoMaterialModel.GridItens.ForEach(x =>
             {
-                var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Id == x.Id);
+                var reservaMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.Id);
                 if (reservaMaterialItem != null)
                 {
-                    if (reservaMaterialItem.QuantidadeReserva != x.QuantidadeSolicitada)
-                    {
-                        var diferenca = x.QuantidadeSolicitada - reservaMaterialItem.QuantidadeReserva;
-                        reservaMaterialItem.QuantidadeReserva = x.QuantidadeSolicitada;
-
-                        reservaMaterial.AtualizeReservaEstoqueMaterial(diferenca, reservaMaterialItem.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
-                    }
+                    reservaMaterialItem.QuantidadeSolicitada = x.QuantidadeSolicitada;
                 }
             });
         }
 
-        private void ExcluaReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
+        private void ExcluaRequisicaoMaterialItens(RequisicaoMaterialModel requisicaoMaterialModel, RequisicaoMaterial requisicaoMaterial)
         {
-            var reservaMaterialItensExcluir = new List<ReservaMaterialItem>();
+            var requisicaoMaterialsItensExcluir = new List<RequisicaoMaterialItem>();
 
-            reservaMaterial.ReservaMaterialItems.ForEach(x =>
+            requisicaoMaterial.RequisicaoMaterialItems.ForEach(x =>
             {
-                if (reservaMaterialModel.GridItens.All(y => y.Id != x.Id))
+                if (requisicaoMaterialModel.GridItens.All(y => y.Id != x.Id))
                 {
-                    reservaMaterialItensExcluir.Add(x);
+                    requisicaoMaterialsItensExcluir.Add(x);
                 }
             });
 
-            reservaMaterialItensExcluir.ForEach(x =>
-            {
-                reservaMaterial.ReservaMaterialItems.Remove(x);
-                reservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
-            });
+            requisicaoMaterialsItensExcluir.ForEach(x => requisicaoMaterial.RequisicaoMaterialItems.Remove(x));
         }
 
         #endregion
@@ -396,18 +431,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             {
                 try
                 {
-                    var domain = _reservaMaterialRepository.Get(id);
-                    _reservaMaterialRepository.Delete(domain);
+                    var domain = _requisicaoMaterialRepository.Get(id);
 
-                    domain.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
+                    domain.ReservaMaterial.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
 
-                    this.AddSuccessMessage("Reserva de material excluído com sucesso");
+                    _requisicaoMaterialRepository.Delete(domain);
+
+                    this.AddSuccessMessage("Requisição de material excluída com sucesso");
 
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao excluir a reserva de material: " + exception.Message);
+                    ModelState.AddModelError("", "Ocorreu um erro ao excluir a requisição de material: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -421,22 +457,30 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Métodos
 
         #region PopulateViewData
-        protected void PopulateViewData(PesquisaReservaMaterialModel model)
+        protected void PopulateViewData(PesquisaRequisicaoMaterialModel model)
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null).OrderBy(o => o.NomeFantasia).ToList();
-            ViewData["Unidade"] = unidades.ToSelectList("NomeFantasia", model.Unidade);
+            ViewData["UnidadeRequerente"] = unidades.ToSelectList("NomeFantasia", model.UnidadeRequerente);
             
             ViewBag.AgruparPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
             ViewBag.OrdenarPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
         }
 
-        protected void PopulateViewDataNovoEditar(ReservaMaterialModel model)
+        protected void PopulateViewDataNovoEditar(RequisicaoMaterialModel model)
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null).OrderBy(o => o.NomeFantasia).ToList();
-            ViewData["Unidade"] = unidades.ToSelectList("NomeFantasia", model.Unidade);
+            ViewData["UnidadeRequerente"] = unidades.ToSelectList("NomeFantasia", model.UnidadeRequerente);
 
-            var colecoes = _colecaoRepository.Find().OrderBy(o => o.Descricao).ToList();
-            ViewData["Colecao"] = colecoes.ToSelectList("Descricao", model.Colecao);
+            var unidadesRequisitadas = _depositoMaterialRepository.Find(p => p.Unidade != null && p.Ativo).Select(x => x.Unidade).ToList()
+                .GroupBy(x => x.Id).Select(x => x.First()).OrderBy(o => o.NomeFantasia).ToList();
+
+            ViewData["UnidadeRequisitada"] = unidadesRequisitadas.ToSelectList("NomeFantasia", model.UnidadeRequisitada);
+            
+            var tipoItems = _tipoItemRepository.Find().OrderBy(o => o.Descricao).ToList();
+            ViewData["TipoItem"] = tipoItems.ToSelectList("Descricao", model.TipoItem);
+
+            var centroCustos = _centroCustoRepository.Find().OrderBy(o => o.Nome).ToList();
+            ViewData["CentroCusto"] = centroCustos.ToSelectList("Nome", model.CentroCusto);
         }
         #endregion
 
