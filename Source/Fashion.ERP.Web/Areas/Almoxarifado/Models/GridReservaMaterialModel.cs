@@ -23,7 +23,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public DateTime Data { get; set; }
 
         [Display(Name = "Data da Programação")]
-        public DateTime DataProgramacao { get; set; }
+        public DateTime? DataProgramacao { get; set; }
 
         [Display(Name = "Situação")]
         public string Situacao { get; set; }

@@ -245,6 +245,9 @@
     <Compile Include="Almoxarifado.MaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Almoxarifado.RequisicaoMaterialController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado.ReservaMaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -266,6 +269,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Almoxarifado\AlmoxarifadoAreaRegistration.cs" />
+    <Compile Include="Areas\Almoxarifado\Controllers\RequisicaoMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\EntradaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\CategoriaController.cs" />
@@ -276,6 +280,11 @@
     <Compile Include="Areas\Almoxarifado\Controllers\ReservaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\PesquisarMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialItemModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\GridRequisicaoMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\PesquisaRequisicaoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ReservaMaterialItemModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ReservaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\DepositoMaterialModel.cs" />
@@ -1067,6 +1076,10 @@
     <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Editar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Index.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\ReservaMaterial\Novo.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Editar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Index.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Novo.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

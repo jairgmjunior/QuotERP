@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Repository;
+using NHibernate.Linq;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
@@ -11,7 +13,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
         public virtual long Numero { get; set; }
         public virtual DateTime Data { get; set; }
-        public virtual DateTime DataProgramacao { get; set; }
+        public virtual DateTime? DataProgramacao { get; set; }
         public virtual String Observacao { get; set; }
         public virtual Pessoa Requerente { get; set; }
         public virtual Pessoa Unidade { get; set; }
@@ -44,7 +46,42 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 SituacaoReservaMaterial = SituacaoReservaMaterial.AtendidaTotal;
             else if (quantidadeReserva > (quantidadeAtendida + quantidadeCancelada))
                 SituacaoReservaMaterial = SituacaoReservaMaterial.AtendidaParcial;
+
+            ReservaMaterialItems.ForEach(x => x.AtualizeSituacao());
         }
 
+        public virtual void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material, Pessoa unidade, 
+            IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
+        {
+            var reservaEstoqueMaterial = reservaEstoqueMaterialRepository.Find(x => x.Material.Id == material.Id && x.Unidade.Id == unidade.Id).FirstOrDefault();
+
+            if (reservaEstoqueMaterial == null)
+            {
+                reservaEstoqueMaterial = new ReservaEstoqueMaterial
+                {
+                    Material = material,
+                    Unidade = unidade
+                };
+            }
+
+            reservaEstoqueMaterial.AtualizeQuantidade(valorAdicional);
+
+            reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
+        }
+
+        public virtual void AtualizeReservaEstoqueMaterialAoExcluir(IRepository<ReservaEstoqueMaterial> reservaEstoquematerialRepository)
+        {
+            ReservaMaterialItems.ForEach(x =>
+            {
+                var reservaEstoqueMaterial = reservaEstoquematerialRepository.Find(y => y.Material.Id == x.Material.Id && y.Unidade.Id == Unidade.Id).FirstOrDefault();
+
+                if (reservaEstoqueMaterial != null)
+                {
+                    reservaEstoqueMaterial.AtualizeQuantidade(x.QuantidadeReserva * -1);
+
+                    reservaEstoquematerialRepository.SaveOrUpdate(reservaEstoqueMaterial);
+                }
+            });
+        }
     }
 }

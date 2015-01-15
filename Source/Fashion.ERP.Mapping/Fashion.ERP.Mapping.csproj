@@ -60,6 +60,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\BordadoMap.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialItemCanceladoMap.cs" />
     <Compile Include="Almoxarifado\CustoMaterialMap.cs" />
     <Compile Include="Almoxarifado\MaterialMap.cs" />
     <Compile Include="Almoxarifado\CategoriaMap.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItemMap.cs" />
     <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterialMap.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributariaMap.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialItemMap.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialMap.cs" />
     <Compile Include="Almoxarifado\ReservaEstoqueMaterialMap.cs" />
     <Compile Include="Almoxarifado\ReservaMaterialItemCanceladoMap.cs" />
     <Compile Include="Almoxarifado\ReservaMaterialItemMap.cs" />

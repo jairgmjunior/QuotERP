@@ -68,7 +68,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Referencia = p.ReferenciaOrigem,
                 Numero = p.Numero,
                 Data = p.Data,
-                DataProgramacao = p.DataProgramacao,
+                DataProgramacao = p.DataProgramacao.HasValue ? p.DataProgramacao.Value : default(DateTime?),
                 Situacao = p.SituacaoReservaMaterial.EnumToString(),
                 Colecao = p.Colecao.Descricao,
                 Unidade = p.Unidade.NomeFantasia
@@ -107,8 +107,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Date >= model.DataProgramacaoInicio.Value
-                                                             && p.DataProgramacao.Date <= model.DataProgramacaoFim.Value);
+                    reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value
+                                                             && p.DataProgramacao.Value.Date <= model.DataProgramacaoFim.Value);
                     filtros.AppendFormat("Data de Programação de '{0}' até '{1}', ",
                                          model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"),
                                          model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
@@ -223,8 +223,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain.Numero = ProximoNumero();
 
                     IncluaNovosReservaMaterialItens(model, domain);
-                    
-                    AtualizeSituacao(domain);
+
+                    domain.AtualizeSituacao();
                     _reservaMaterialRepository.Save(domain);
                     
                     this.AddSuccessMessage("Reserva de material cadastrada com sucesso.");
@@ -305,7 +305,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     ExcluaReservaMaterialItens(model, domain);
                     AtualizeReservaMaterialItens(model, domain);
                     IncluaNovosReservaMaterialItens(model, domain);
-                    AtualizeSituacao(domain);
+                    domain.AtualizeSituacao();
 
                     _reservaMaterialRepository.SaveOrUpdate(domain);
 
@@ -325,11 +325,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-        private void AtualizeSituacao(ReservaMaterial reservaMaterial)
-        {
-            reservaMaterial.ReservaMaterialItems.ForEach(x => x.AtualizeSituacao());
-            reservaMaterial.AtualizeSituacao();
-        }
 
         private void IncluaNovosReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
         {
@@ -348,40 +343,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     };
                     reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
 
-                    AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade);
-                }
-            });
-        }
-
-        private void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material, Pessoa unidade)
-        {
-            var reservaEstoqueMaterial = _reservaEstoqueMaterialRepository.Find(x => x.Material.Id == material.Id && x.Unidade.Id == unidade.Id).FirstOrDefault();
-
-            if (reservaEstoqueMaterial == null)
-            {
-                reservaEstoqueMaterial = new ReservaEstoqueMaterial
-                {
-                    Material = material,
-                    Unidade = unidade
-                };
-            }
-
-            reservaEstoqueMaterial.AtualizeQuantidade(valorAdicional);
-
-            _reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
-        }
-
-        private void AtualizeReservaEstoqueMaterialAoExcluir(ReservaMaterial reservaMaterial)
-        {
-            reservaMaterial.ReservaMaterialItems.ForEach(x =>
-            {
-                var reservaEstoqueMaterial = _reservaEstoqueMaterialRepository.Find(y => y.Material.Id == x.Material.Id && y.Unidade.Id == reservaMaterial.Unidade.Id).FirstOrDefault();
-
-                if (reservaEstoqueMaterial != null)
-                {
-                    reservaEstoqueMaterial.AtualizeQuantidade(x.QuantidadeReserva * -1);
-
-                    _reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
+                    reservaMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
                 }
             });
         }
@@ -393,8 +355,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Id == x.Id);
                 if (reservaMaterialItem != null)
                 {
-                    reservaMaterialItem.QuantidadeAtendida = x.QuantidadeAtendida;
-                    reservaMaterialItem.QuantidadeReserva = x.QuantidadeSolicitada;
+                    if (reservaMaterialItem.QuantidadeReserva != x.QuantidadeSolicitada)
+                    {
+                        var diferenca = x.QuantidadeSolicitada - reservaMaterialItem.QuantidadeReserva;
+                        reservaMaterialItem.QuantidadeReserva = x.QuantidadeSolicitada;
+
+                        reservaMaterial.AtualizeReservaEstoqueMaterial(diferenca, reservaMaterialItem.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                    }
                 }
             });
         }
@@ -411,7 +378,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
             });
 
-            reservaMaterialItensExcluir.ForEach(x => reservaMaterial.ReservaMaterialItems.Remove(x));
+            reservaMaterialItensExcluir.ForEach(x =>
+            {
+                reservaMaterial.ReservaMaterialItems.Remove(x);
+                reservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+            });
         }
 
         #endregion
@@ -428,7 +399,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     var domain = _reservaMaterialRepository.Get(id);
                     _reservaMaterialRepository.Delete(domain);
 
-                    AtualizeReservaEstoqueMaterialAoExcluir(domain);
+                    domain.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
 
                     this.AddSuccessMessage("Reserva de material excluído com sucesso");
 

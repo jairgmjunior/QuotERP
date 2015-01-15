@@ -170,6 +170,9 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo(ChequeRecebidoModel model)
         {
+            if (model.Bancos.Any() == false)
+                ModelState.AddModelError("", "É necessário informar as parcelas antes de salvar.");
+
             if (ModelState.IsValid)
             {
                 try
@@ -357,7 +360,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     if (domain.OcorrenciaCompensacoes.Count() > 1)
                     {
                         ModelState.AddModelError(string.Empty, "Não é possível excluir cheque, pois existem ocorrências para este cheque.");
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Editar", new { id });
                     }
 
                     _chequeRecebidoRepository.Delete(domain);
@@ -803,7 +806,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         protected void PopulateViewData(IChequeRecebidoDropdownModel model)
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
-            ViewData["Unidade"] = unidades.ToSelectList("Nome", model.Unidade);
+            ViewData["Unidade"] = unidades.ToSelectList("NomeFantasia", model.Unidade);
         }
         #endregion
 

@@ -38,7 +38,7 @@
             $.getJSON('/Comum/Funcionario/PesquisarId/' + funcionarioId, function (data) {
                 if (data.Id) {
                     $('#codigo-funcionario').val(data.Codigo);
-                    $('#descricao-funcionario').text(data.Nome);
+                    $('#descricao-funcionario').text(data.Nome).trigger('change');
                 }
             });
         }
@@ -93,31 +93,39 @@
                         alert(data.erro);
                         $('#funcionario').val('').trigger('change');
                         $('#codigo-funcionario').val('');
-                        $('#descricao-funcionario').text('');
+                        $('#descricao-funcionario').text('').trigger('change');
                     } else {
                         $('#funcionario').val(data.Id).trigger('change');
                         $('#codigo-funcionario').val(data.Codigo);
-                        $('#descricao-funcionario').text(data.Nome);
+                        $('#descricao-funcionario').text(data.Nome).trigger('change');
                     }
                 });
             } else {
                 $('#funcionario').val('').trigger('change');
                 $('#codigo-funcionario').val('');
-                $('#descricao-funcionario').text('');
+                $('#descricao-funcionario').text('').trigger('change');
             }
         };
+        var entrouKeyDown = false;
+
         $('#codigo-funcionario').on({
             keydown: function (e) {
                 if (e.which == 13) {
                     e.preventDefault();
                     pesquisaFuncionario($(this).val());
+                    entrouKeyDown = true;
                 }
             },
             focusout: function () {
+                if (entrouKeyDown) {
+                    entrouKeyDown = false;
+                    return;
+                }
+
                 if (!$('#codigo-funcionario').val()) {
                     $('#funcionario').val('');
-                    $('#descricao-funcionario').text('');
-                    $('#descricao-funcionario').val('');
+                    $('#descricao-funcionario').text('').trigger('change');
+                    $('#descricao-funcionario').val('').trigger('change');
                 } else {
                     pesquisaFuncionario($(this).val());
                 }

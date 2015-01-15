@@ -130,6 +130,20 @@
                                 <File Id="fil2F3A30F8F6C56AD4B4210EFAEA4A5CC7" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Material\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir1B5D8A1B60AAFE632A194E7207F99A34" Name="RequisicaoMaterial">
+                            <Component Id="cmpEFE71524F9382156AB1CAC710DAD7D0D" Guid="*">
+                                <File Id="filF8BD615CCCB6409383FBC60AAEAF0887" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterial\Editar.cshtml" />
+                            </Component>
+                            <Component Id="cmpD5EC88D4294F272BBEC505333FA025CD" Guid="*">
+                                <File Id="filB6897747D6A9AD73423B290D6AC94049" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterial\Index.cshtml" />
+                            </Component>
+                            <Component Id="cmpB790BFCB4869882FB7DF1A687F728F97" Guid="*">
+                                <File Id="filE5BE3503D6F812C6A9011A714BA2FC0F" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterial\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmp7DB7D11759CA38BA1BFFB7726EDE75A3" Guid="*">
+                                <File Id="filF2209922F650977234FB7150D9D77419" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterial\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir2B8BA18DB478DAC721BAC00B11F5BEC3" Name="ReservaMaterial">
                             <Component Id="cmp8728AC2EE5315AE2371CF77C6B98F391" Guid="*">
                                 <File Id="fil6FA4D72A4E316FA12B6DD55F6A392C5A" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\ReservaMaterial\Editar.cshtml" />
@@ -1866,6 +1880,10 @@
             <ComponentRef Id="cmpA770476A689ABE5D59EF5BCF1DBCAAC6" />
             <ComponentRef Id="cmp7032705F02EB4A67F87043F97D8F7080" />
             <ComponentRef Id="cmp021B2C5186846AF216E614EB2DC7A3FC" />
+            <ComponentRef Id="cmpEFE71524F9382156AB1CAC710DAD7D0D" />
+            <ComponentRef Id="cmpD5EC88D4294F272BBEC505333FA025CD" />
+            <ComponentRef Id="cmpB790BFCB4869882FB7DF1A687F728F97" />
+            <ComponentRef Id="cmp7DB7D11759CA38BA1BFFB7726EDE75A3" />
             <ComponentRef Id="cmp8728AC2EE5315AE2371CF77C6B98F391" />
             <ComponentRef Id="cmp115DF61EE69D0226379862A247AA8F2E" />
             <ComponentRef Id="cmpB9970DC7EEF2AA820A8ADF8C183EE3EA" />

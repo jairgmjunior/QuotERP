@@ -1,0 +1,21 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
+@using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterial.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+	@Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.Partial("_NovoOuEditar", Model)
+	<div class="form-actions">
+		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+	</div>
+}
+
+@{
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}
+
+<script>
+    function obtenhaUrlActionSubmit() {
+        return '@Url.Action("Novo", "RequisicaoMaterial")';
+    }
+</script> 

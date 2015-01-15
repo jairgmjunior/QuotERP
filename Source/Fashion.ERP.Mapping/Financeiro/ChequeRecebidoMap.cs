@@ -34,14 +34,14 @@ namespace Fashion.ERP.Mapping.Financeiro
                 .Table("chequerecebidofuncionario")
                     .ParentKeyColumn("chequerecebido_id")
                     .ChildKeyColumn("funcionario_id")
-                .Cascade.AllDeleteOrphan()
+                .Cascade.None()
                 .Access.CamelCaseField(Prefix.Underscore);
 
             HasManyToMany(x => x.PrestadorServicos)
                 .Table("chequerecebidoprestadorservico")
                     .ParentKeyColumn("chequerecebido_id")
                     .ChildKeyColumn("prestadorservico_id")
-                .Cascade.AllDeleteOrphan()
+                .Cascade.None()
                 .Access.CamelCaseField(Prefix.Underscore);
 
             HasMany(x => x.BaixaChequeRecebidos)

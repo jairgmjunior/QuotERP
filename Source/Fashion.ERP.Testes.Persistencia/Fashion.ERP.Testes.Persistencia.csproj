@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Almoxarifado\BordadoPersistencia.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\MaterialPersistencia.cs" />
     <Compile Include="Almoxarifado\CategoriaPersistencia.cs" />
     <Compile Include="Almoxarifado\EntradaMaterialPersistencia.cs" />

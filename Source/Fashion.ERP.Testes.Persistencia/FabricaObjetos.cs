@@ -25,6 +25,16 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public RequisicaoMaterialItemCancelado ObtenhaRequisicaoMaterialItemCancelado()
+        {
+            return new RequisicaoMaterialItemCancelado
+            {
+                Data = new DateTime(2014, 1, 1),
+                Observacao = "OBSERVAÇÃO",
+                QuantidadeCancelada = 1
+            };
+        }
+
         public ReservaMaterialItemCancelado ObtenhaReservaMaterialItemCancelado()
         {
             return new ReservaMaterialItemCancelado
@@ -42,6 +52,27 @@ namespace Fashion.ERP.Testes.Persistencia
                 QuantidadeAtendida = 1,
                 QuantidadeReserva = 1,
                 SituacaoReservaMaterial = SituacaoReservaMaterial.AtendidaTotal
+            };
+        }
+
+        public RequisicaoMaterialItem ObtenhaRequisicaoMaterialItem()
+        {
+            return new RequisicaoMaterialItem()
+            {
+                QuantidadeAtendida = 1,
+                QuantidadeSolicitada = 1,
+                SituacaoRequisicaoMaterial = SituacaoRequisicaoMaterial.AtendidoParcial
+            };
+        }
+
+        public RequisicaoMaterial ObtenhaRequisicaoMaterial()
+        {
+            return new RequisicaoMaterial()
+            {
+                Data = new DateTime(2014, 1, 1),
+                Numero = 1,
+                Origem = "ORIGEM",
+                Observacao = "OBSERVAÇÃO"
             };
         }
 

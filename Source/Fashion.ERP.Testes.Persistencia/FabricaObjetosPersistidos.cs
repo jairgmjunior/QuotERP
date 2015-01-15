@@ -159,6 +159,20 @@ namespace Fashion.ERP.Testes.Persistencia
             return bordado;
         }
 
+        public TipoItem ObtenhaTipoItem()
+        {
+            var tipoItem = _fabricaObjetos.ObtenhaTipoItem();
+
+            RepositoryFactory.Create<TipoItem>().Save(tipoItem);
+
+            return tipoItem;
+        }
+
+        public void ExcluaTipoItem(TipoItem tipoItem)
+        {
+            RepositoryFactory.Create<TipoItem>().Delete(tipoItem);
+        }
+
         public Material ObtenhaMaterial()
         {
             var material = _fabricaObjetos.ObtenhaMaterial();
@@ -515,6 +529,21 @@ namespace Fashion.ERP.Testes.Persistencia
         #endregion
 
         #region Comun
+
+        public CentroCusto ObtenhaCentroCusto()
+        {
+            var centroCusto = _fabricaObjetos.ObtenhaCentroCusto();
+
+            RepositoryFactory.Create<CentroCusto>().Save(centroCusto);
+
+            return centroCusto;
+        }
+
+
+        public void ExcluaCentroCusto(CentroCusto centroCusto)
+        {
+            RepositoryFactory.Create<CentroCusto>().Delete(centroCusto);
+        }
 
         public OperacaoProducao ObtenhaOperacaoProducao()
         {

@@ -69,6 +69,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\Bordado.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialItemCancelado.cs" />
     <Compile Include="Almoxarifado\CustoMaterial.cs" />
     <Compile Include="Almoxarifado\Material.cs" />
     <Compile Include="Almoxarifado\Categoria.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Almoxarifado\ConferenciaEntradaMaterialItem.cs" />
     <Compile Include="Almoxarifado\MovimentacaoEstoqueMaterial.cs" />
     <Compile Include="Almoxarifado\OrigemSituacaoTributaria.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterial.cs" />
+    <Compile Include="Almoxarifado\RequisicaoMaterialItem.cs" />
     <Compile Include="Almoxarifado\ReservaEstoqueMaterial.cs" />
     <Compile Include="Almoxarifado\ReservaMaterial.cs" />
     <Compile Include="Almoxarifado\ReservaMaterialItem.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Almoxarifado\SaidaItemMaterial.cs" />
     <Compile Include="Almoxarifado\SituacaoConferencia.cs" />
     <Compile Include="Almoxarifado\SituacaoOrdemEntrada.cs" />
+    <Compile Include="Almoxarifado\SituacaoRequisicaoMaterial.cs" />
     <Compile Include="Almoxarifado\SituacaoReservaMaterial.cs" />
     <Compile Include="Almoxarifado\StoredProcedure.cs" />
     <Compile Include="Almoxarifado\Tecido.cs" />
