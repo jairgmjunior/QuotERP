@@ -22,6 +22,16 @@ namespace Fashion.ERP.Domain.Compras
 
         public virtual PedidoCompraItemCancelado PedidoCompraItemCancelado { get; set; }
 
+        public virtual string ReferenciaExterna
+        {
+            get
+            {
+                var referencia =
+                    Material.ReferenciaExternas.Where(r => r.Fornecedor.Id == PedidoCompra.Fornecedor.Id)
+                        .FirstOrDefault();
+                return referencia.Referencia;
+            }
+        }
         public virtual string ReferenciaExternaMaterial
         {
             get

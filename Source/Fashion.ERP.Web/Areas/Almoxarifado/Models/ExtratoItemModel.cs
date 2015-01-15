@@ -35,5 +35,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public string UnidadeMedida { get; set; }
         
         public List<GridExtratoItemModel> Grid { get; set; }
+
+        [Display(Name = "Qtde. Disponível")]
+        public double QtdeDisponivel
+        {
+            get { return SaldoFinal - QtdeReservada; }
+        }
+
+        public double QtdeReservada { get; set; }
     }
 }

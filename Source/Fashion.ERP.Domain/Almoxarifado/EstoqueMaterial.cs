@@ -9,6 +9,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
     public class EstoqueMaterial : DomainBase<EstoqueMaterial>
     {
         private readonly IList<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMateriais;
+        private readonly IList<ReservaEstoqueMaterial> _reservaEstoqueMaterial;
 
         public virtual double Quantidade { get; set; }
         public virtual double Reserva { get; set; }
@@ -16,6 +17,24 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual Material Material { get; set; }
         public virtual IList<EstoqueMaterial> EstoqueMateriais { get; set; }
 
+        //public virtual double QuantidadeReservada
+        //{
+        //    get
+        //    {
+        //        var reservaEstoqueMaterial =
+        //            _reservaEstoqueMaterial.Where(r => r.Material.Id == Material.Id && r.Unidade.Id == DepositoMaterial.Unidade.Id).FirstOrDefault();
+        //        if (reservaEstoqueMaterial == null)
+        //            return 0;
+
+        //        return reservaEstoqueMaterial.Quantidade;
+        //    }
+        //}
+
+        //public virtual double QuantidadeDisponivel
+        //{
+        //    get { return Quantidade - QuantidadeReservada; }
+        //}
+        
         public EstoqueMaterial()
         {
             _movimentacaoEstoqueMateriais = new List<MovimentacaoEstoqueMaterial>();

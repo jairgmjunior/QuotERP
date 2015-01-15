@@ -61,7 +61,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         #region Views
 
         #region Index
-        [PopulateViewData("PopulateViewData")]
+        [ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
             var chequeRecebidos = _chequeRecebidoRepository.Find();
@@ -161,7 +161,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
 
             var model = new ChequeRecebidoModel
             {
-                Situacao = SituacaoTitulo.NaoLiquidado.EnumToString()
+                Situacao = ChequeSituacao.NaoDepositado
             };
 
             return View(model);
@@ -192,6 +192,22 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     {
                         var idx = i;
 
+                        var banco = _bancoRepository.Get(model.IdBancos[idx]);
+
+                        // Validar duplicidade
+                        if (_chequeRecebidoRepository.Find(p =>
+                            p.DataEmissao == model.DataEmissao &&
+                            p.Banco.Id == model.Banco &&
+                            p.Agencia == model.Agencia &&
+                            p.Conta == model.Conta &&
+                            p.NumeroCheque == model.NumeroCheque).Any())
+                        {
+                            ModelState.AddModelError(string.Empty,
+                                string.Format("Não é possível salvar pois já existe cheque cadastrado com: Emissão: {0:dd/MM/yyyy}, Banco: {1}, Agência: {2}, Conta: {3}, Número: {4}",
+                                model.DataEmissao, banco.Nome, model.Agencia, model.Conta, model.NumeroCheque));
+                            return View(model);
+                        }
+
                         var domain = Mapper.Unflat<ChequeRecebido>(model);
                         domain.Saldo = domain.Valor;
 
@@ -202,13 +218,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         domain.AddOcorrenciaCompensacao(new OcorrenciaCompensacao
                         {
                             Data = DateTime.Now,
-                            ChequeSituacao = ChequeSituacao.NaoDepositado,
+                            ChequeSituacao = model.Situacao,
                             Historico = string.Format("Cadastrado em {0} por {1}",
                                             DateTime.Now.ToString("F"), HttpContext.User.Identity.Name)
                         });
 
                         domain.Cmc7 = model.Cmc7s[idx];
-                        domain.Banco = _bancoRepository.Load(model.IdBancos[idx]);
+                        domain.Banco = banco;
                         domain.Agencia = model.Agencias[idx];
                         domain.Conta = model.Contas[idx];
                         domain.NumeroCheque = model.Cheques[idx];
@@ -338,7 +354,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     var domain = _chequeRecebidoRepository.Get(id);
 
                     // Nâo excluir se houver ocorrência
-                    if (domain.OcorrenciaCompensacoes.Any())
+                    if (domain.OcorrenciaCompensacoes.Count() > 1)
                     {
                         ModelState.AddModelError(string.Empty, "Não é possível excluir cheque, pois existem ocorrências para este cheque.");
                         return RedirectToAction("Index");
@@ -365,42 +381,51 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         [Api]
         public virtual ActionResult Baixa(long? id, long? chequeRecebido)
         {
-            ViewData["MeioPagamento"] = new SelectList(_meioPagamentoRepository.Find(), "Id", "Descricao");
-
-            // Por enquanto não permitir alteração da baixa
-            //if (id.HasValue)
-            //{
-            //    var baixaCheque = _baixaChequeRecebidoRepository.Get(id);
-
-            //    var model = new BaixaChequeRecebidoModel
-            //    {
-            //        Id = baixaCheque.Id,
-            //        ChequeRecebido = baixaCheque.ChequeRecebido.Id.GetValueOrDefault(),
-            //        Valor = baixaCheque.ChequeRecebido.Saldo,
-            //        Data = baixaCheque.Data,
-            //        Historico = baixaCheque.Historico,
-            //        Observacao = baixaCheque.Observacao,
-            //        TaxaJuros = baixaCheque.TaxaJuros,
-            //        ValorTotal = baixaCheque.ChequeRecebido.Saldo,
-            //        ValorDesconto = baixaCheque.ValorDesconto,
-            //        ValorJuros = baixaCheque.ValorJuros
-            //    };
-
-            //    ViewData["Recebimentos"] = baixaCheque.RecebimentoChequeRecebidos;
-            //    return View(model);
-            //}
-
             if (chequeRecebido.HasValue)
             {
-                var cheque = Framework.UnitOfWork.StatelessSession.Current.Get<ChequeRecebido>(chequeRecebido);
+                var cheque = _chequeRecebidoRepository.Get(chequeRecebido);
+
+                if (cheque.Saldo == 0)
+                {
+                    this.AddErrorMessage("Não é possível realizar a baixa pois o Saldo do Cheque é igual a zero.");
+                    return RedirectToAction("Index");
+                }
 
                 var model = new BaixaChequeRecebidoModel
                 {
+                    Unidade = cheque.Unidade.Nome,
+                    Cliente = cheque.Cliente.Nome,
+                    Banco = cheque.Banco.Nome,
+                    Agencia = cheque.Agencia,
+                    Conta = cheque.Conta,
+                    NumeroCheque = cheque.NumeroCheque,
+                    SituacaoCheque = cheque.UltimaOcorrenciaCompensacao().ChequeSituacao.EnumToString(),
+                    Emitente = cheque.Emitente.Nome1,
+                    DataVencimento = cheque.DataVencimento,
+                    DataProrrogacao = cheque.DataProrrogacao,
+                    ValorCheque = cheque.Valor,
+                    SaldoCheque = cheque.Saldo,
                     ChequeRecebido = chequeRecebido.Value,
                     Valor = cheque.Saldo,
                     ValorTotal = cheque.Saldo,
                     Data = DateTime.Now
                 };
+
+                model.BaixasRealizadas = new List<ListaBaixaChequeRecebidoModel>();
+                foreach (var baixaChequeRecebido in cheque.BaixaChequeRecebidos)
+                {
+                    model.BaixasRealizadas.Add(new ListaBaixaChequeRecebidoModel
+                    {
+                        Id = baixaChequeRecebido.Id.GetValueOrDefault(),
+                        Data = baixaChequeRecebido.Data,
+                        Despesa = baixaChequeRecebido.Despesa,
+                        Observacao = baixaChequeRecebido.Observacao,
+                        Valor = baixaChequeRecebido.Valor,
+                        ValorDesconto = baixaChequeRecebido.ValorDesconto,
+                        ValorJuros = baixaChequeRecebido.ValorJuros,
+                        ValorTotal = baixaChequeRecebido.Valor + baixaChequeRecebido.Despesa + baixaChequeRecebido.ValorJuros - baixaChequeRecebido.ValorDesconto
+                    });
+                }
                 return View(model);
             }
 
@@ -408,13 +433,14 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         }
 
         [HttpPost, Api]
-        public virtual ActionResult Baixa(BaixaChequeRecebidoModel model, long[] meioPagamentoId, double[] valorRecebimentoChequeRecebido)
+        public virtual ActionResult Baixa(BaixaChequeRecebidoModel model)
         {
-            var recebimentos = meioPagamentoId.Select((id, index) => new RecebimentoChequeRecebido
-            {
-                MeioPagamento = _meioPagamentoRepository.Get(id),
-                Valor = valorRecebimentoChequeRecebido[index]
-            }).ToArray();
+            // A Data Baixa não deve ser inferior à Data de Vencimento do cheque
+            if (model.Data < model.DataVencimento)
+                ModelState.AddModelError("Data", "A Data Baixa não deve ser inferior à Data de Vencimento do cheque.");
+
+            if (model.Valor > model.SaldoCheque)
+                ModelState.AddModelError("Valor", "O Valor da Baixa não pode ser maior que o Saldo do cheque.");
 
             if (ModelState.IsValid)
             {
@@ -431,9 +457,6 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         ModelState.AddModelError("Valor", "O valor da baixa não pode ser maior que o saldo do cheque. Saldo: " + chequeRecebido.Saldo.ToString("C"));
                         return View(model);
                     }
-
-                    for (int i = 0; i < meioPagamentoId.Length; i++)
-                        baixaChequeRecebido.AddRecebimentoChequeRecebido(recebimentos);
 
                     baixaChequeRecebido.ChequeRecebido = chequeRecebido;
                     _baixaChequeRecebidoRepository.SaveOrUpdate(baixaChequeRecebido);
@@ -464,9 +487,6 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     _logger.Info(exception.GetMessage());
                 }
             }
-
-            ViewData["MeioPagamento"] = new SelectList(_meioPagamentoRepository.Find(), "Id", "Descricao");
-            ViewData["Recebimentos"] = recebimentos;
 
             return View(model);
         }
@@ -563,15 +583,15 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
         public virtual ActionResult ExcluirBaixa(long id)
         {
             var domain = _baixaChequeRecebidoRepository.Get(id);
+            long? chequeRecebidoId = null;
 
             try
             {
                 if (domain != null)
                 {
-                    this.AddSuccessMessage("Baixa de cheque excluída com sucesso");
-                    _baixaChequeRecebidoRepository.Delete(domain);
-
-                    var chequeRecebido = _chequeRecebidoRepository.Get(domain.ChequeRecebido);
+                    chequeRecebidoId = domain.ChequeRecebido.Id;
+                    
+                    var chequeRecebido = _chequeRecebidoRepository.Get(chequeRecebidoId);
                     chequeRecebido.Saldo += domain.Valor;
                     _chequeRecebidoRepository.Update(chequeRecebido);
 
@@ -586,6 +606,9 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         ChequeRecebido = chequeRecebido
                     };
                     _ocorrenciaChequeRecebidoRepository.Save(ocorrencia);
+
+                    _baixaChequeRecebidoRepository.Delete(domain);
+                    this.AddSuccessMessage("Baixa de cheque excluída com sucesso");
                 }
                 else
                 {
@@ -598,10 +621,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 _logger.Info(exception.GetMessage());
             }
 
-            var url = domain != null
-                          ? string.Format("Editar/{0}#complemento", domain.ChequeRecebido.Id)
-                          : "Index";
-            return Redirect(url);
+            return RedirectToAction("Baixa", new { chequeRecebido = chequeRecebidoId });
         }
         #endregion
 

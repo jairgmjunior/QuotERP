@@ -8,8 +8,33 @@
         $('#ValorLiquido').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
 
+        $('#ValorEncargos').blur(function() {
+            AtualizaValorLiquido();
+        });
+
+        $('#ValorFrete').blur(function () {
+            AtualizaValorLiquido();
+        });
+
+        $('#ValorEmbalagem').blur(function () {
+            AtualizaValorLiquido();
+        });
     });
     
+    function AtualizaValorLiquido() {
+        var valorMercadorias = $('#ValorMercadorias').val();
+        var valorEncargos = $('#ValorEncargos').val();
+        var valorFrete = $('#ValorFrete').val();
+        var valorEmbalagem = $('#ValorEmbalagem').val();
+        var valorDesconto = $('#ValorDesconto').val();
+        var valorLiquido = 0;
+
+        valorLiquido = parseFloat(valorMercadorias) + parseFloat(valorEncargos) + parseFloat(valorFrete) + parseFloat(valorEmbalagem);
+        valorLiquido = valorLiquido - parseFloat(valorDesconto);
+
+        $('#ValorLiquido').val(valorLiquido);
+        $('#ValorLiquido').change();
+    }
 </script>
 
 <fieldset>
@@ -331,7 +356,8 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorDesconto)
             <div class="controls">
-                @Html.EditorFor(x => x.ValorDesconto)
+                <input style=" width:130px;" readonly="readonly" id="ValorDesconto" name="ValorDesconto" type="text" value="@Model.ValorLiquido" />
+                @*@Html.EditorFor(x => x.ValorDesconto)*@
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
             </div>
         </div>
@@ -341,7 +367,8 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
-                @Html.EditorFor(x => x.ValorLiquido)
+                <input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />
+                @*@Html.EditorFor(x => x.ValorLiquido)*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
         </div>
@@ -483,12 +510,21 @@
         var gridData = e.sender.dataSource.data();
 
         var total = 0;
+        var desconto = 0;
+        var valorLiquido = 0;
 
         for (var i = 0; i < gridData.length; i++) {
             total = total + gridData[i].ValorTotal;
+            desconto = desconto + gridData[i].ValorDesconto;
         }
+
         $('#ValorMercadorias').val(total);
         $('#ValorMercadorias').change();
+
+        $('#ValorDesconto').val(desconto);
+        $('#ValorDesconto').change();
+
+        AtualizaValorLiquido();
     }
     
 
@@ -517,8 +553,9 @@
             data: JSON.stringify(dados),
             //dataType: "json",
             success: function (retorno) {
-                if (retorno == "error") {
-                    window.location.reload();
+                if (retorno.Data == "error") {
+                    $('#btnSubmit').button('reset');
+                    alert(retorno.Msg);
                     return;
                 }
                 window.location.href = '@Url.Action("Index", "PedidoCompra")';

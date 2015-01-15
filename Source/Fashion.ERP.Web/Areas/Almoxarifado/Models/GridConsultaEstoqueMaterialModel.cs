@@ -21,7 +21,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Un. medida")]
         public string UnidadeMedida { get; set; }
 
-        [Display(Name = "Saldo")]
+        [Display(Name = "Qtde. Estoque")]
         public double Saldo { get; set; }
+
+        [Display(Name = "Qtde. Reservada")]
+        public double QtdeReservada { get; set; }
+
+        [Display(Name = "Qtde. Disponível")]
+        public double QtdeDisponivel
+        {
+            get { return  Saldo - QtdeReservada; }
+        }
+
+        public long? MaterialId { get; set; }
+        public long? UnidadeId { get; set; }
     }
 }

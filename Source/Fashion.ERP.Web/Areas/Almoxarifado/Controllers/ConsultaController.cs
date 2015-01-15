@@ -23,6 +23,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
     {
 		#region Variaveis
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
+        private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly IRepository<Familia> _familiaRepository;
         private readonly IRepository<MarcaMaterial> _marcaMaterialRepository;
         private readonly IRepository<Categoria> _categoriaRepository;
@@ -34,13 +35,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #endregion
 
         #region Construtores
-        public ConsultaController(ILogger logger, IRepository<EstoqueMaterial> estoqueMaterialRepository,
+        public ConsultaController(ILogger logger, IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<DepositoMaterial> depositoMaterialRepository,
             IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository )
         {
             _estoqueMaterialRepository = estoqueMaterialRepository;
+            _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
             _familiaRepository = familiaRepository;
             _marcaMaterialRepository = marcaMaterialRepository;
             _categoriaRepository = categoriaRepository;
@@ -188,8 +190,23 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         UnidadeMedida = p.Material.UnidadeMedida.Descricao,
                         DepositoMaterial = p.DepositoMaterial.Nome,
                         Unidade = p.DepositoMaterial.Unidade.Unidade.Codigo,
-                        Saldo = p.Quantidade
+                        Saldo = p.Quantidade,
+                        MaterialId = p.Material.Id,
+                        UnidadeId = p.DepositoMaterial.Unidade.Id
                     }).ToList();
+
+                    foreach (GridConsultaEstoqueMaterialModel g in model.Grid)
+                    {
+                        long? unidadeId = g.UnidadeId;
+                        long? materialId = g.MaterialId;
+                        var reservaEstoque =
+                            _reservaEstoqueMaterialRepository.Find(r=>r.Unidade.Id == unidadeId.Value 
+                            && r.Material.Id == materialId ).FirstOrDefault();
+                        if (reservaEstoque != null)
+                            g.QtdeReservada = reservaEstoque.Quantidade;
+                        else
+                            g.QtdeReservada = 0;
+                    }
 
                     return View(model);
                 }
@@ -299,6 +316,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     //        .UniqueResult<double>();
 
                     model.UnidadeMedida = estoqueMaterial.Material.UnidadeMedida.Descricao;
+                    var reservaEstoque =
+                            _reservaEstoqueMaterialRepository.Find(r=>r.Unidade.Id == estoqueMaterial.DepositoMaterial.Unidade.Id
+                            && r.Material.Id == estoqueMaterial.Material.Id ).FirstOrDefault();
+                        if (reservaEstoque != null)
+                            model.QtdeReservada = reservaEstoque.Quantidade;
+                        else
+                            model.QtdeReservada = 0;
+                    
 
                 }
                 catch (Exception exception)

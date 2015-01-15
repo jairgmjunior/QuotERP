@@ -37,12 +37,22 @@
             </div>
         </div>
         <div class="span5">
-            <div class="control-group">
-                @Html.LabelFor(x => x.SaldoInicial, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.SaldoInicial, "{0:N4}")
-                </div>
-            </div>
+            <table style="width: 100%;">
+                <tr style="width:50%">
+                    <td>@Html.LabelFor(x => x.SaldoInicial, new { @class = "title-label" })
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.SaldoInicial, "{0:N4}")
+                        </div> 
+                    </td>
+                    <td style="text-align:right;">
+                        @Html.LabelFor(x => x.QtdeDisponivel, new { @class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.QtdeDisponivel, "{0:N4}")
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
         </div>
     </div>
 

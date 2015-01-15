@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Financeiro;
 using Fashion.ERP.Web.Models;
 
 namespace Fashion.ERP.Web.Areas.Financeiro.Models
@@ -24,7 +25,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public long? Id { get; set; }
 
         [Display(Name = "Situação")]
-        public string Situacao { get; set; }
+        [Required(ErrorMessage = "Informe a situação do cheque")]
+        public ChequeSituacao Situacao { get; set; }
 
         [Display(Name = "Comp")]
         public int? Comp { get; set; }
@@ -67,7 +69,6 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public string Praca { get; set; }
         
         [Display(Name = "Histórico")]
-        [DataType(DataType.MultilineText)]
         [StringLength(4000, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Historico { get; set; }
         

@@ -78,6 +78,7 @@ namespace T4MVC
                 public readonly string Cep = "Cep";
                 public readonly string Cnpj = "Cnpj";
                 public readonly string Cpf = "Cpf";
+                public readonly string Date = "Date";
                 public readonly string DateTime = "DateTime";
                 public readonly string DepartamentosList = "DepartamentosList";
                 public readonly string DespesaReceitaList = "DespesaReceitaList";

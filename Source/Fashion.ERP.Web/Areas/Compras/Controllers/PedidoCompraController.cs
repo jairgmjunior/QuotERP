@@ -281,26 +281,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     var domain = Mapper.Unflat<PedidoCompra>(model);
                     IncluirNovosPedidoCompralItens(model, domain);
 
-                    //// Itens do pedido de compra
-                    //for (int i = 0; i < model.Materiais.Count; i++)
-                    //{
-                    //    var idx = i;
-
-                    //    var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
-
-                    //    var item = new PedidoCompraItem
-                    //    {
-                    //        Material = _materialRepository.Load(model.Materiais[idx]),
-                    //        UnidadeMedida = unidadeMedida,
-                    //        Quantidade = model.Quantidades[idx],
-                    //        ValorUnitario = model.ValorUnitarios[i],
-                    //        SituacaoCompra = SituacaoCompra.NaoAtendido,
-                    //        PrevisaoEntrega = domain.PrevisaoEntrega
-                    //    };
-
-                    //    domain.AddPedidoCompraItem(item);
-                    //}
-
                     _pedidoCompraRepository.Save(domain);
 
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
@@ -308,10 +288,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
                 catch (Exception exception)
                 {
-                    //ModelState.AddModelError(string.Empty,
-                    //                         "Não é possível salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
-                    //                         exception.Message);
-                    //_logger.Info(exception.GetMessage());
+                   
                     var errorMsg =
                         "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
                         exception.Message;
@@ -326,7 +303,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                            .Where(y => y.Count > 0)
                            .ToList();
                 this.AddErrorMessage(errors[0][0].ErrorMessage);
-                return new JsonResult { Data = "error" };
+                return Json(new {Data = "error", Msg = errors[0][0].ErrorMessage});
 
             }
 
@@ -584,7 +561,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             // UnidadeEstocadora
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
-            ViewBag.UnidadeEstocadora = unidades.ToSelectList("Nome", model.UnidadeEstocadora);
+            ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);
 
             // PrazoDescricao
             var prazos = _prazoRepository.Find(p => p.Ativo).ToList();

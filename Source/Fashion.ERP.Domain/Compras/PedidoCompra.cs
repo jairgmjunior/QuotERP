@@ -52,6 +52,8 @@ namespace Fashion.ERP.Domain.Compras
             get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
         }
 
+
+
         #region pedidoCompraItem
 
         public virtual IReadOnlyCollection<PedidoCompraItem> PedidoCompraItens
