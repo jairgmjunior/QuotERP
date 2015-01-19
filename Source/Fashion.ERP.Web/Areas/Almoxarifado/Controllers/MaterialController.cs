@@ -624,7 +624,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, model.TipoItemMaterial, LogicOperator.And));
 
             var materiais = _materialRepository.Find(filters.ToArray()).ToList();
-
             var list = materiais.Select(p => new GridMaterialModel
             {
                 Id = p.Id.GetValueOrDefault(),
@@ -634,9 +633,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Categoria = p.Subcategoria.Categoria.Nome,
                 Subcategoria = p.Subcategoria.Nome,
                 Familia = p.Familia.Nome,
-                UnidadeMedida = p.UnidadeMedida.Sigla
+                UnidadeMedida = p.UnidadeMedida.Sigla,
+                ReferenciaExterna = RetornarReferenciaExterna(p.Id.Value,model.FornecedorMaterial.Value)
             }).ToList();
-
+ 
             return Json(list);
         }
         #endregion
@@ -834,6 +834,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #endregion
 
         #region Métodos
+
+        private string RetornarReferenciaExterna(long materialId, long fornecedorId)
+        {
+            var referenciaExterna =
+                _referenciaExternaRepository.Find(
+                    r => r.Fornecedor.Id == fornecedorId && r.Material.Id == materialId)
+                    .Select(r => r.Referencia)
+                    .FirstOrDefault();
+
+            return referenciaExterna;
+        }
 
         #region PopulateViewData
         protected void PopulateViewData(IMaterialDropdownModel model)

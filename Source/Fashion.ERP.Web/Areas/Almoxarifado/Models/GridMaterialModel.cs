@@ -32,5 +32,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Ativo")]
         public bool Ativo { get; set; }
+
+        public string ReferenciaExterna { get; set; }
     }
 }

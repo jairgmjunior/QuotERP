@@ -8,6 +8,11 @@
             var form = $(this).closest("form");
            
             $('input[name=TipoItemMaterial]').val($("#TipoItem").val());
+            //$('input[id=FornecedorMaterial]').val($("#Fornecedor").val());
+            $("#FornecedorMaterial").val($("#Fornecedor").val());
+
+            alert($("#FornecedorMaterial").val());
+            alert('Fornecedor: ' + $("#Fornecedor").val());
 
             form.ajaxSubmit({
                 dataType: 'json',
@@ -107,6 +112,7 @@
                 dataGridItens.set("Descricao", data.Descricao);
                 dataGridItens.set("Referencia", data.Referencia);
                 dataGridItens.set("UnidadeMedida", data.UnidadeMedida);
+                dataGridItens.set("ReferenciaExterna", data.ReferenciaExterna);
                 
                 $('#modal-material').modal('hide');
             }
