@@ -22,18 +22,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Requerente")]
         [Required(ErrorMessage = "Informe o requerente")]
-        public long Requerente { get; set; }
+        public long? Requerente { get; set; }
         
         [Display(Name = "Unidade Requisitada")]
         [Required(ErrorMessage = "Informe a unidade requisitada")]
-        public long UnidadeRequisitada { get; set; }
+        public long? UnidadeRequisitada { get; set; }
 
         [Display(Name = "Unidade Requerente")]
-        public long UnidadeRequerente { get; set; }
+        [Required(ErrorMessage = "Informe a unidade requerente")]
+        public long? UnidadeRequerente { get; set; }
         
         [Display(Name = "Centro de Custo")]
+        [Range(1, int.MaxValue)]
         [Required(ErrorMessage = "Informe o centro de custo")]
-        public long CentroCusto { get; set; }
+        public long? CentroCusto { get; set; }
 
         [Display(Name = "Tipo de Material")]
         [Required(ErrorMessage = "Informe o tipo de material")]

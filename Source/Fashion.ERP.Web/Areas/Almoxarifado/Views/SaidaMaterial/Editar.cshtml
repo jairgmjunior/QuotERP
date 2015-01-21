@@ -4,10 +4,22 @@
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
+
+    if (@Model.PermiteAlterar)
+    {
 	<div class="form-actions">
 		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
 		@Html.ExcluirAuth(MVC.Almoxarifado.SaidaMaterial.Excluir(Model.Id))
 	</div>
+    }
+    else
+    {
+        <br/>
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">×</a>
+            Não é possível alterar uma saída de material criada pela baixa de uma requisição de material.
+        </div>
+    }
 }
 @{
     Html.RenderPartial("_ConfirmDelete");

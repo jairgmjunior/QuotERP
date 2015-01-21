@@ -221,9 +221,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaReservaMaterialModel model);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model);
 
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaReservaMaterialModel model)
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

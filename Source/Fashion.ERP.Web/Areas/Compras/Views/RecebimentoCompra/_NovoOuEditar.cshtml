@@ -560,7 +560,8 @@
 
         $('#Fornecedor, #Unidade').on('change', function (e) {
             var dropdownPedidos = $("#pedidosdropdown").data("kendoDropDownList");
-            dropdownPedidos.dataSource.data({}); 
+
+            //dropdownPedidos.dataSource.data({}); 
             dropdownPedidos.text(""); 
             dropdownPedidos.value("");
 

@@ -37,7 +37,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public long Colecao { get; set; }
 
         [Display(Name = "Referência de Origem")]
-        [Required(ErrorMessage = "Informe a referência de origem")]
         public String ReferenciaOrigem { get; set; }
 
         [Display(Name = "Situação")]
@@ -45,5 +44,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public SituacaoReservaMaterial SituacaoReservaMaterial { get; set; }
         
         public IList<ReservaMaterialItemModel> GridItens { get; set; }
+
+        public bool PermiteAlterar { get; set; }
     }
 }

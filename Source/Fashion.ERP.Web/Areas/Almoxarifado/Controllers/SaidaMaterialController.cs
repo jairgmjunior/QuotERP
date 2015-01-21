@@ -11,7 +11,6 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
@@ -21,26 +20,24 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 		#region Variaveis
         private readonly IRepository<SaidaMaterial> _saidaMaterialRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
-        private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
-        private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
+        private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
 
         private readonly ILogger _logger;
         #endregion
 
         #region Construtores
         public SaidaMaterialController(ILogger logger, IRepository<SaidaMaterial> saidaMaterialRepository,
-            IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<UnidadeMedida> unidadeMedidaRepository, 
+            IRepository<DepositoMaterial> depositoMaterialRepository, 
             IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository,
-            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository)
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository)
         {
             _saidaMaterialRepository = saidaMaterialRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
-            _unidadeMedidaRepository = unidadeMedidaRepository;
             _materialRepository = materialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
-            _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
+            _requisicaoMaterialRepository = requisicaoMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -135,7 +132,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<SaidaMaterialModel>(domain);
-
+                model.PermiteAlterar = PermiteAlterar(id);
                 model.UnidadeOrigem = _depositoMaterialRepository.Get(model.DepositoMaterialOrigem).Unidade.Id;
 
                 if (model.DepositoMaterialDestino.HasValue)
@@ -153,6 +150,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             this.AddErrorMessage("Não foi possível encontrar a saída de mercadoria.");
             return RedirectToAction("Index");
+        }
+
+        private bool PermiteAlterar(long? id)
+        {
+            var requisicaoMaterial =
+            _requisicaoMaterialRepository.Get(y => y.SaidaMaterials.Any(x => x.Id == id));
+            if (requisicaoMaterial != null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]

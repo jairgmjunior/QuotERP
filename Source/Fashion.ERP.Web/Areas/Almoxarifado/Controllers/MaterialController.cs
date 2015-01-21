@@ -634,7 +634,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Subcategoria = p.Subcategoria.Nome,
                 Familia = p.Familia.Nome,
                 UnidadeMedida = p.UnidadeMedida.Sigla,
-                ReferenciaExterna = RetornarReferenciaExterna(p.Id.Value,model.FornecedorMaterial.Value)
+                ReferenciaExterna = RetornarReferenciaExterna(p.Id.Value,model.FornecedorMaterial.HasValue ? model.FornecedorMaterial.Value : 0)
             }).ToList();
  
             return Json(list);
@@ -837,6 +837,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private string RetornarReferenciaExterna(long materialId, long fornecedorId)
         {
+            if (fornecedorId == 0)
+            {
+                return null;
+            }
+
             var referenciaExterna =
                 _referenciaExternaRepository.Find(
                     r => r.Fornecedor.Id == fornecedorId && r.Material.Id == materialId)

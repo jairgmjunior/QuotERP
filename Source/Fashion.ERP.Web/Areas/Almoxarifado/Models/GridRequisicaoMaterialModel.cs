@@ -13,7 +13,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Origem")]
         public string Origem { get; set; }
 
-        [Display(Name = "Unidade")]
+        [Display(Name = "Unidade Requerente")]
         public string UnidadeRequerente { get; set; }
 
         [Display(Name = "Requerente")]

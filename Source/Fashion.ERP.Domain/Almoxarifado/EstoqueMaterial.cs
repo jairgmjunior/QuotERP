@@ -79,7 +79,8 @@ namespace Fashion.ERP.Domain.Almoxarifado
             if (estoqueMaterial == null)
             {
                 if (quantidade < 0)
-                    throw new Exception(string.Format("Não é possível cadastrar o estoque de material para o {0} no depósito {1}, pois ficaria com quantidade negativa.", material.Descricao, depositoMaterial.Nome));
+                    throw new Exception(string.Format("Não é possível cadastrar o estoque de material para o {0} no depósito {1}, pois ficaria com quantidade negativa.", 
+                        material.Descricao, depositoMaterial.Nome));
 
                 estoqueMaterial = new EstoqueMaterial
                 {

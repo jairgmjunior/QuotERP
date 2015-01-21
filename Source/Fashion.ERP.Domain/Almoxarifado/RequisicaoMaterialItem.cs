@@ -8,8 +8,19 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual Double QuantidadeAtendida { get; set; }
         public virtual SituacaoRequisicaoMaterial SituacaoRequisicaoMaterial { get; set; }
         public virtual Material Material { get; set; }
-
         public virtual RequisicaoMaterialItemCancelado RequisicaoMaterialItemCancelado { get; set; }
+
+        public virtual Double QuantidadePendente
+        {
+            get
+            {
+                var quantidadeCancelada = RequisicaoMaterialItemCancelado == null
+                    ? 0
+                    : RequisicaoMaterialItemCancelado.QuantidadeCancelada;
+
+                return QuantidadeSolicitada - (QuantidadeAtendida + quantidadeCancelada);
+            }
+        }
 
         public virtual void AtualizeSituacao()
         {

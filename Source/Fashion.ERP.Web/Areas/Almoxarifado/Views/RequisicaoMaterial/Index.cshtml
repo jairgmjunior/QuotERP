@@ -20,37 +20,9 @@
                     <div class="row">
                         <div class="span6">
                             <div class="control-group">
-                                @Html.LabelForRequired(x => x.UnidadeRequerente, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.DropDownList("UnidadeRequerente", null, "-- Selecione --", new { @class = "input-xlarge" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
                                 @Html.LabelForRequired(x => x.Numero)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Numero, new { @class = "input-small" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span4">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.SituacaoRequisicaoMaterial)
-                                <div class="controls">
-                                    @Html.DropDownListFor(x => x.SituacaoRequisicaoMaterial, Model.SituacaoRequisicaoMaterial.ToSelectList(), "-- Selecione --")
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.Origem)
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.Origem, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
@@ -74,6 +46,77 @@
                     </div>
                     <div class="row">
                         <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.TipoItem, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("TipoItem", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                    @Html.ValidationMessageFor(x => x.TipoItem, string.Empty, new { @class = "help-block" })
+                                    @Html.HiddenFor(x => x.TipoItem)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SituacaoRequisicaoMaterial)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.SituacaoRequisicaoMaterial, Model.SituacaoRequisicaoMaterial.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.UnidadeRequerente, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("UnidadeRequerente", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.CentroCusto)
+                                <div class="controls">
+                                    @Html.DropDownList("CentroCusto", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Requerente)
+                                <div class="controls">
+                                    @Html.HiddenFor(x => x.Requerente, new { id = "funcionario" })
+                                    <div class="input-append">
+                                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                                        <span id="descricao-funcionario" class="add-on"></span>
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Requerente, string.Empty, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.UnidadeRequisitada, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("UnidadeRequisitada", null, "-- Selecione --", new { @class = "input-xlarge" })
+                                    @Html.ValidationMessageFor(x => x.UnidadeRequisitada, string.Empty, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Origem)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Origem, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span2">
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.Material)
                                 <div class="controls">
@@ -150,6 +193,8 @@
         columns.Bound(x => x.Origem);
         columns.Bound(x => x.Situacao);        
         columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.RequisicaoMaterial.Editar(item.Id))).Width(80);        
+        columns.Template(item => Html.ActionLinkAuth("Baixar", MVC.Almoxarifado.RequisicaoMaterialBaixa.Baixar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
+        columns.Template(item => Html.ActionLinkAuth("Cancelar", MVC.Almoxarifado.RequisicaoMaterialCancelamento.Cancelar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
     })
 )
 <script>
@@ -179,5 +224,6 @@
 </script>
 
 @{
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
 }

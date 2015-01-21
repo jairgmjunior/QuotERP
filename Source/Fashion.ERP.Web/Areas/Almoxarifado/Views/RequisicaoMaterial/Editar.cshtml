@@ -1,13 +1,24 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
+﻿@using Fashion.ERP.Domain.Almoxarifado
+@model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
 @using (Html.BeginForm(MVC.Almoxarifado.ReservaMaterial.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Almoxarifado.RequisicaoMaterial.Excluir(Model.Id))
-	</div>
+    if (@Model.SituacaoRequisicaoMaterial == SituacaoRequisicaoMaterial.NaoAtendido)
+    {
+        <div class="form-actions">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+            @Html.ExcluirAuth(MVC.Almoxarifado.RequisicaoMaterial.Excluir(Model.Id))
+        </div>
+    } else
+    {
+        <br/>
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">×</a>
+            Não é possível alterar uma requisição de material com status diferente de não atendido.
+        </div>
+    }
 }
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });

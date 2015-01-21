@@ -8,9 +8,9 @@ namespace Fashion.ERP.Domain.Almoxarifado
 {
     public class SaidaMaterial : DomainBase<SaidaMaterial>
     {
-         private readonly IList<SaidaItemMaterial> _saidaItemMateriais;
+        private readonly IList<SaidaItemMaterial> _saidaItemMateriais;
 
-         public SaidaMaterial()
+        public SaidaMaterial()
         {
             _saidaItemMateriais = new List<SaidaItemMaterial>();
         }

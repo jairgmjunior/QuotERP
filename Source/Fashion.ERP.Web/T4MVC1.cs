@@ -58,6 +58,8 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.FamiliaController Familia = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_FamiliaController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.MarcaMaterialController MarcaMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_MarcaMaterialController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.MaterialController Material = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_MaterialController();
+        public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.RequisicaoMaterialBaixaController RequisicaoMaterialBaixa = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_RequisicaoMaterialBaixaController();
+        public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.RequisicaoMaterialCancelamentoController RequisicaoMaterialCancelamento = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_RequisicaoMaterialCancelamentoController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.RequisicaoMaterialController RequisicaoMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_RequisicaoMaterialController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.ReservaMaterialController ReservaMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_ReservaMaterialController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SaidaMaterialController SaidaMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SaidaMaterialController();

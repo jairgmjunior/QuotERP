@@ -5,7 +5,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 {
     public class RequisicaoMaterialItemModel
     {
-        public long? Id { get; set; }
+        public long? IdRequisicaoMaterialItem { get; set; }
 
         [Display(Name = "Referência")]
         public string Referencia { get; set; }

@@ -1,0 +1,218 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialCancelamentoModel
+
+@using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterialCancelamento.Cancelar(), FormMethod.Post, new { id = "form", @class = "form-horizontal", autocomplete = "off" }))
+{
+    <legend><small>Dados da Requisição de Material</small></legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Numero, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Numero)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Data, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.Data)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.TipoItemDescricao)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.CentroCustoNome)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.RequerenteNome)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Observacao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Observacao)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Origem, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Origem)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend><small>Dados do Cancelamento</small></legend>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ObservacaoCancelamento)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.ObservacaoCancelamento)
+                    </div>
+            </div>
+        </div>
+    </fieldset>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    
+    @(Html.Kendo().Grid(Model.GridItemCancelado)
+        .Name("GridItemCancelado")
+        .Columns(columns =>
+            {
+                columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Id' value='#= Id #' />");
+                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Referencia' value='#= Referencia #' />").Width(100);
+                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(p => p.UND).ClientTemplate("#= UND #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].UND' value='#= UND #' />").Width(100);
+                columns.Bound(p => p.SituacaoRequisicaoMaterialDescricao).ClientTemplate("#= SituacaoRequisicaoMaterialDescricao #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].SituacaoRequisicaoMaterialDescricao' value='#= SituacaoRequisicaoMaterialDescricao #' />").Width(120);;
+                columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= QtdeAtendida #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdeAtendida' value='#= QtdeAtendida #' />").Width(100);
+                columns.Bound(p => p.QtdePendente).ClientTemplate("#= QtdePendente #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdePendente' value='#= QtdePendente #' />").Width(100);
+                columns.Bound(x => x.Check).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                    .Title("Select").ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/>"+
+                    "<input id='Check' type='hidden' name='GridItemCancelado[#= index(data)#].Check' value='#= Check #' /></div>").Width(27);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model => model.Id(e => e.Id))
+            )
+            .Events(events => events.DataBound("onDataBound"))
+    )
+    
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Cancelar Selecionados</button>
+    </div>
+ }
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            if (possuiSelecionados()) {
+                return true;
+            } else {
+                alert("É necessário selecionar ao menos um item do pedido de compra.");
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+        });
+
+        $('#checkAll').click(function () {
+            if ($(this).attr('checked')) {
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    marqueCheckBox($('.chkbx')[i]);
+                }
+            } else {
+                desmarqueCheckBox($('.chkbx'));
+            }
+        });
+    });
+
+    function onDataBound() {
+        $('.chkbx').each(function (index, element) {
+            var grid = $('#GridItemCancelado').data().kendoGrid;
+            var dataItem = grid.dataItem($(element).closest('tr'));
+            if (dataItem.SituacaoRequisicaoMaterialDescricao == 'CANCELADO' || dataItem.SituacaoRequisicaoMaterialDescricao == 'ATENDIDO TOTAL') {
+                $(element).attr('disabled', 'disabled');
+            }
+        });
+    }
+
+    function clicouCheckBox(a) {
+        var checked = $(a).is(':checked');
+
+        if (!checked)
+            desmarqueCheckBox($(a));
+        else marqueCheckBox($(a));
+
+        var numChkBoxes = $('.chkbx').length;
+        var numChkBoxesChecked = $('.chkbx:checked').length;
+        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
+            $('#checkAll').attr('checked', 'checked');
+        }
+        else {
+            $('#checkAll').removeAttr('checked');
+        }
+    }
+
+    function marqueCheckBox(checkBoxElement) {
+        if (checkBoxElement.disabled) return;
+        $(checkBoxElement).parent().find('input[type=hidden]').val(true);
+        $(checkBoxElement).attr('checked', 'checked');
+    }
+
+    function desmarqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(false);
+        $(checkBoxElement).removeAttr('checked');
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItemCancelado").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+    
+    function possuiSelecionados() {
+        return $('.chkbx:checked').length != 0;
+    }
+</script>

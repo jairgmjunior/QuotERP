@@ -1,0 +1,355 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialBaixaModel
+
+@using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterialBaixa.Baixar(), FormMethod.Post, new {id = "form", @class = "form-horizontal", autocomplete = "off"}))
+{
+    @Html.ValidationSummaryEx()
+
+    <legend><small>Dados da Requisição de Material</small></legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Numero, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Numero)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Data, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.Data)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.TipoItemDescricao)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.CentroCustoNome)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.RequerenteNome)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Observacao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Observacao)
+                    </div>
+                </div>
+            </div>        
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Origem, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Origem)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend><small>Itens da Requisição</small></legend>
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
+                <div class="controls">
+                    @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })                    
+                    @Html.ValidationMessageFor(x => x.DepositoMaterial, string.Empty, new { @class = "help-block" })
+                    @*@Html.HiddenFor(x => x.TipoItem)*@
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+    
+    @(Html.Kendo().Grid(Model.GridItems)
+        .Name("GridItems")
+        .Columns(columns =>
+            {
+                columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItems[#= index(data)#].Id' value='#= Id #' />");
+                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].Referencia' value='#= Referencia #' />").Width(100);
+                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(p => p.UND).ClientTemplate("#= UND #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].UND' value='#= UND #' />").Width(100);
+                columns.Bound(p => p.SituacaoRequisicaoMaterialDescricao).ClientTemplate("#= SituacaoRequisicaoMaterialDescricao #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].SituacaoRequisicaoMaterialDescricao' value='#= SituacaoRequisicaoMaterialDescricao #' />").Width(120);;
+                columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= kendo.toString(QtdeAtendida, \"n4\") #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeAtendida' value='#= formateDecimalGrid(QtdeAtendida) #' />").Width(100);
+                columns.Bound(p => p.QtdePendente).ClientTemplate("#= kendo.toString(QtdePendente, \"n4\") #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].QtdePendente' value='#= formateDecimalGrid(QtdePendente) #' />").Width(100);
+                columns.Bound(x => x.Check).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                    .Title("Select").ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/>"+
+                    "<input id='Check' type='hidden' name='GridItems[#= index(data)#].Check' value='#= Check #' /></div>").Width(27);
+                columns.Bound(p => p.QtdeEstoque).ClientTemplate("#= kendo.toString(QtdeEstoque, \"n2\") #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeEstoque' value='#= formateDecimalGrid(QtdeEstoque) #'/>").Width(100); 
+                columns.Bound(p => p.QtdeBaixa).ClientTemplate("#= kendo.toString(QtdeBaixa, \"n4" +"\")  #" +
+                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeBaixa' value='#= formateDecimalGrid(QtdeBaixa) #' />").EditorTemplateName("numeric4casasdecimais").Width(100);                
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .Model(model =>
+                {
+                    model.Id(item => item.Id); 
+                    model.Field(item => item.Descricao).Editable(false); 
+                    model.Field(item => item.Referencia).Editable(false); 
+                    model.Field(item => item.UND).Editable(false); 
+                    model.Field(item => item.Check).Editable(true); 
+                    model.Field(item => item.QtdeAtendida).Editable(false); 
+                    model.Field(item => item.QtdePendente).Editable(false); 
+                    model.Field(item => item.QtdeEstoque).Editable(true);      
+                    model.Field(item => item.SituacaoRequisicaoMaterialDescricao).Editable(false);                   
+                })
+            )
+            .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
+    )
+    
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Baixar Selecionados</button>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            if (possuiSelecionados()) {
+                return true;
+            } else {
+                alert("É necessário selecionar ao menos um item da requisição de material.");
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+        });
+
+        $('#checkAll').click(function () {
+            if ($(this).attr('checked')) {
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    marqueCheckBox($('.chkbx')[i]);
+                }
+            } else {
+                desmarqueCheckBox($('.chkbx'));
+            }
+        });
+
+        $("#DepositoMaterial").on("change", function(e) {
+            var depositoMaterial = $("#DepositoMaterial").val();
+            if (depositoMaterial == '') {
+                $("#btnSubmit").prop("disabled", true);
+                $.each($("#GridItems").data("kendoGrid").dataSource.data(), function (index, value) {
+                    value.set("QtdeEstoque", '0');
+                    value.set("QtdeBaixa", '0');
+                    $('.chkbx').each(function () {
+                        $(this).attr('disabled', 'disabled');
+                        $(this).removeAttr('checked');
+                    });
+                    $('#checkAll').attr('disabled', 'disabled');
+                    $('#checkAll').removeAttr('checked');
+                });
+
+            } else {
+                $("#btnSubmit").prop("disabled", false);
+                var idRequisicaoMaterial = $("#Id").val();
+                var idDepositoMaterial = $("#DepositoMaterial").val();
+
+                var url = '@Html.GetUrl(MVC.Almoxarifado.RequisicaoMaterialBaixa.ObtenhaRequisicaoMaterialItens())?idRequisicaoMaterial='
+                    + idRequisicaoMaterial + '&idDepositoMaterial=' + idDepositoMaterial;
+                $.getJSON(url, function (data) {
+                    atualizeGridItens(data);
+                });
+            }
+        });
+    });
+
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                qtdebaixavalidation: function (input, params) {
+                    if (input.is("[name='QtdeBaixa']") && input.val()) {
+                        return input.val() != 0;
+                    }
+                    return true;
+                },
+                qtdebaixaporqtdeestoquevalidation: function (input, params) {
+                    if (input.is("[name='QtdeBaixa']")) {
+                        var grid = $('#GridItems').data().kendoGrid;
+                        var dataItem = grid.dataItem($(input).closest('tr'));
+                        var qtdeBaixa = parseFloat(input.val().replace(',', '.'));
+                        var qtdeEstoque = parseFloat(dataItem.QtdeEstoque);
+
+                        return qtdeBaixa <= qtdeEstoque;
+                    }
+                    return true;
+                },
+                qtdebaixaporqtdependentevalidation: function (input, params) {
+                    if (input.is("[name='QtdeBaixa']")) {
+                        var grid = $('#GridItems').data().kendoGrid;
+                        var dataItem = grid.dataItem($(input).closest('tr'));
+                        var qtdeBaixa = parseFloat(input.val().replace(',', '.'));
+                        var qtdePendente = parseFloat(dataItem.QtdePendente);
+
+                        return qtdeBaixa <= qtdePendente;
+                    }
+                    return true;
+                }
+            },
+            messages: {
+                qtdebaixavalidation: function (input) {
+                    input.attr("data-qtdebaixavalidation-msg", "A Qtde Baixa não pode ser 0.");
+                    return input.attr("data-qtdebaixadavalidation-msg");
+                },
+                qtdebaixaporqtdeestoquevalidation: function (input) {
+                    input.attr("data-qtdebaixavalidation-msg", "A Qtde Baixa não pode ser maior que a Qtde Estoque.");
+                    return input.attr("data-qtdebaixavalidation-msg");
+                },
+                qtdebaixaporqtdependentevalidation: function (input) {
+                    input.attr("data-qtdebaixavalidation-msg", "A Qtde Baixa não pode ser maior que a Qtde Pendente.");
+                    return input.attr("data-qtdebaixavalidation-msg");
+                }
+            }
+        });
+    })(jQuery, kendo);
+
+    function formateDecimalGrid(valor) {
+        return valor.toString().replace(".", ",");
+    }
+
+    function atualizeGridItens(dados) {
+        if (dados.erro) {
+            alert(dados.erro);
+            return;
+        }
+
+        var grid = $('#GridItems').data("kendoGrid");
+        var model = grid.dataSource.options.schema.model;
+
+        var dataSource = new kendo.data.DataSource({
+            data: dados,
+            schema: {
+                model: model
+            }
+        });
+        dataSource.read();
+        grid.setDataSource(dataSource);
+        grid.refresh();
+    }
+
+    function onDataBound() {
+        $('.chkbx').each(function (index, element) {
+            var grid = $('#GridItems').data().kendoGrid;
+            var dataItem = grid.dataItem($(element).closest('tr'));
+            if (dataItem.SituacaoRequisicaoMaterialDescricao == 'CANCELADO' || dataItem.SituacaoRequisicaoMaterialDescricao == 'ATENDIDO TOTAL'
+                || dataItem.QtdeEstoque <= 0) {
+                $(element).attr('disabled', 'disabled');
+            } else{
+                $(element).removeAttr('disabled');
+            }
+        });
+        $('#checkAll').removeAttr('disabled');
+    }
+
+    function clicouCheckBox(a) {
+        var checked = $(a).is(':checked');
+        
+        if (!checked)
+            desmarqueCheckBox($(a));
+        else marqueCheckBox($(a));
+
+        var numChkBoxes = $('.chkbx').length;
+        var numChkBoxesChecked = $('.chkbx:checked').length;
+        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
+            $('#checkAll').attr('checked', 'checked');
+        }
+        else {
+            $('#checkAll').removeAttr('checked');
+        }
+    }
+
+    function marqueCheckBox(checkBoxElement) {
+        if (checkBoxElement.disabled) return;
+        $(checkBoxElement).parent().find('input[type=hidden]').val(true);
+        $(checkBoxElement).attr('checked', 'checked');
+    }
+
+    function desmarqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(false);
+        $(checkBoxElement).removeAttr('checked');
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItems").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function possuiSelecionados() {
+        return $('.chkbx:checked').length != 0;
+    }
+
+    function onEditGrid(e) {
+        var ehQtdeEstoque = e.container.find("input[id=QtdeEstoque]").get(0) != null;
+        var ehCheck = e.container.find("select[id=Check]").get(0) != null;
+        var depositoFoiSelecionado = $("#DepositoMaterial").val() != '';
+        var checked = e.container.closest("tr").find("#Check").val();
+
+        if (e.model.QtdeEstoque < 0 || ehQtdeEstoque || ehCheck || !depositoFoiSelecionado || checked == 'false') {
+            this.closeCell();
+        }
+    }
+
+</script>

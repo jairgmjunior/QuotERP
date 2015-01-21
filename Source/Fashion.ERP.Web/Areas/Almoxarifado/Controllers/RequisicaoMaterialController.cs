@@ -90,52 +90,76 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
-        public virtual ActionResult Index(PesquisaReservaMaterialModel model)
+        public virtual ActionResult Index(PesquisaRequisicaoMaterialModel model)
         {
-            var reservaMaterials = _reservaMaterialRepository.Find();
+            var requisicaoMaterials = _requisicaoMaterialRepository.Find();
 
             try
             {
                 #region Filtros
                 var filtros = new StringBuilder();
 
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaOrigem))
+                if (!string.IsNullOrWhiteSpace(model.Origem))
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.ReferenciaOrigem == model.ReferenciaOrigem);
-                    filtros.AppendFormat("Referência de origem: {0}, ", model.ReferenciaOrigem);
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Origem == model.Origem);
+                    filtros.AppendFormat("Origem: {0}, ", model.Origem);
                 }
                 
                 if (model.Numero.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.Numero == model.Numero);
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Numero == model.Numero);
                     filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
                 }
 
-                if (model.Unidade.HasValue)
+                if (model.UnidadeRequerente.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.Unidade.Id == model.Unidade);
-                    filtros.AppendFormat("Unidade: {0}, ", _pessoaRepository.Get(model.Unidade.Value).NomeFantasia);
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequerente.Id == model.UnidadeRequerente);
+                    filtros.AppendFormat("Unidade Requerente: {0}, ", _pessoaRepository.Get(model.UnidadeRequerente.Value).NomeFantasia);
                 }
 
-                if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
+                if (model.UnidadeRequisitada.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value
-                                                             && p.DataProgramacao.Value.Date <= model.DataProgramacaoFim.Value);
-                    filtros.AppendFormat("Data de Programação de '{0}' até '{1}', ",
-                                         model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequisitada.Id == model.UnidadeRequisitada);
+                    filtros.AppendFormat("Unidade Requisitada: {0}, ", _pessoaRepository.Get(model.UnidadeRequisitada.Value).NomeFantasia);
                 }
 
-                if (model.SituacaoReservaMaterial.HasValue)
+                if (model.CentroCusto.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.SituacaoReservaMaterial == model.SituacaoReservaMaterial);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoReservaMaterial.Value.EnumToString());
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.CentroCusto.Id == model.CentroCusto);
+                    filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
+                }
+
+                if (model.Requerente.HasValue)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Requerente.Id == model.Requerente);
+                    filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Requerente.Value).Nome);
+                }
+
+                if (model.DataInicio.HasValue && model.DataFim.HasValue)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date >= model.DataInicio.Value
+                                                             && p.Data.Date <= model.DataFim.Value);
+                    filtros.AppendFormat("Data de '{0}' até '{1}', ",
+                                         model.DataInicio.Value.ToString("dd/MM/yyyy"),
+                                         model.DataFim.Value.ToString("dd/MM/yyyy"));
+                }
+
+                if (model.SituacaoRequisicaoMaterial.HasValue)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.SituacaoRequisicaoMaterial == model.SituacaoRequisicaoMaterial);
+                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoRequisicaoMaterial.Value.EnumToString());
                 }
 
                 if (model.Material.HasValue)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.ReservaMaterialItems.Any(i => i.Material.Id == model.Material));
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.RequisicaoMaterialItems.Any(i => i.Material.Id == model.Material));
                     filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+                }
+
+                if (model.TipoItem.HasValue)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Where(p => p.TipoItem.Id == model.TipoItem);
+                    filtros.AppendFormat("Tipo de Material: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
                 }
 
                 #endregion
@@ -144,33 +168,31 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
-                        reservaMaterials = model.OrdenarEm == "asc"
-                            ? reservaMaterials.OrderBy(model.OrdenarPor)
-                            : reservaMaterials.OrderByDescending(model.OrdenarPor);
+                        requisicaoMaterials = model.OrdenarEm == "asc"
+                            ? requisicaoMaterials.OrderBy(model.OrdenarPor)
+                            : requisicaoMaterials.OrderByDescending(model.OrdenarPor);
 
-                    model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
+                    model.Grid = requisicaoMaterials.Select(p => new GridRequisicaoMaterialModel()
                     {
                         Id = p.Id.Value,
-                        Referencia = p.ReferenciaOrigem,
+                        Origem = p.Origem,
                         Numero = p.Numero,
                         Data = p.Data,
-                        DataProgramacao = p.DataProgramacao,
-                        Situacao = p.SituacaoReservaMaterial.EnumToString(),
-                        Colecao = p.Colecao.Descricao,
-                        Unidade = p.Unidade.NomeFantasia
+                        Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
+                        UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
                     }).OrderBy(o => o.Numero).ToList();
 
                     return View(model);
                 }
 
                 // Se não é uma listagem, gerar o relatório
-                var result = reservaMaterials.ToList();
+                var result = requisicaoMaterials.ToList();
 
                 if (!result.Any())
                     return Json(new { Error = "Nenhum item encontrado." });
 
                 #region Montar Relatório
-                var report = new ListaReservaMaterialReport() { DataSource = result };
+                var report = new ListaRequisicaoMaterialReport() { DataSource = result };
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
@@ -254,6 +276,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     IncluaNovosRequisicaoMaterialItens(model, domain);
 
                     domain.AtualizeSituacao();
+                    
                     domain.CrieReservaMaterial(ProximoNumeroReservaMaterial(), _reservaEstoqueMaterialRepository);
 
                     _requisicaoMaterialRepository.Save(domain);
@@ -320,7 +343,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         QuantidadeCancelada = x.RequisicaoMaterialItemCancelado != null ? x.RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0,
                         QuantidadeSolicitada = x.QuantidadeSolicitada,
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
-                        Id = x.Id
+                        IdRequisicaoMaterialItem = x.Id
                     }).ToList();
                 
                 return View("Editar", model);
@@ -377,7 +400,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             requisicaoMaterialModel.GridItens.ForEach(x =>
             {
-                var requisicaoMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.Id);
+                var requisicaoMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.IdRequisicaoMaterialItem && x.IdRequisicaoMaterialItem != null);
                 var material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
                 if (requisicaoMaterialItem == null)
                 {
@@ -397,7 +420,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             requisicaoMaterialModel.GridItens.ForEach(x =>
             {
-                var reservaMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.Id);
+                var reservaMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(y => y.Id == x.IdRequisicaoMaterialItem);
                 if (reservaMaterialItem != null)
                 {
                     reservaMaterialItem.QuantidadeSolicitada = x.QuantidadeSolicitada;
@@ -411,7 +434,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             requisicaoMaterial.RequisicaoMaterialItems.ForEach(x =>
             {
-                if (requisicaoMaterialModel.GridItens.All(y => y.Id != x.Id))
+                if (requisicaoMaterialModel.GridItens.All(y => y.IdRequisicaoMaterialItem != x.Id))
                 {
                     requisicaoMaterialsItensExcluir.Add(x);
                 }
@@ -433,7 +456,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     var domain = _requisicaoMaterialRepository.Get(id);
 
-                    domain.ReservaMaterial.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
+                    if (domain.ReservaMaterial != null)
+                    {
+                        domain.ReservaMaterial.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
+                    }
 
                     _requisicaoMaterialRepository.Delete(domain);
 
@@ -461,6 +487,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var unidades = _pessoaRepository.Find(p => p.Unidade != null).OrderBy(o => o.NomeFantasia).ToList();
             ViewData["UnidadeRequerente"] = unidades.ToSelectList("NomeFantasia", model.UnidadeRequerente);
+
+            var unidadesRequisitadas = _depositoMaterialRepository.Find(p => p.Unidade != null && p.Ativo).Select(x => x.Unidade).ToList()
+                .GroupBy(x => x.Id).Select(x => x.First()).OrderBy(o => o.NomeFantasia).ToList();
+
+            ViewData["UnidadeRequisitada"] = unidadesRequisitadas.ToSelectList("NomeFantasia", model.UnidadeRequisitada);
+
+            var tipoItems = _tipoItemRepository.Find().OrderBy(o => o.Descricao).ToList();
+            ViewData["TipoItem"] = tipoItems.ToSelectList("Descricao", model.TipoItem);
+
+            var centroCustos = _centroCustoRepository.Find().OrderBy(o => o.Nome).ToList();
+            ViewData["CentroCusto"] = centroCustos.ToSelectList("Nome", model.CentroCusto);
             
             ViewBag.AgruparPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
             ViewBag.OrdenarPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
@@ -503,10 +540,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             _colunasPesquisaReservaMaterial = new Dictionary<string, string>
                            {
-                               {"Coleção", "Colecao.Descricao"},
-                               {"Data de Programação", "DataProgramacao"},
-                               {"Unidade", "Unidade.NomeFantasia"},
-                               {"Situação", "SituacaoReservaMaterial"}
+                               {"Centro de Custo", "CentroCusto.Nome"},
+                               {"Origem", "Origem"},
+                               {"Requerente", "Requerente.Nome"},
+                               {"Situação", "SituacaoRequisicaoMaterial"},
+                               {"Tipo de Material", "TipoItem.Descricao"},
+                               {"Unidade Requerente", "UnidadeRequerente.NomeFantasia"},
+                               {"Unidade Requisitada", "UnidadeRequisitada.NomeFantasia"}
                            };
         }
         #endregion

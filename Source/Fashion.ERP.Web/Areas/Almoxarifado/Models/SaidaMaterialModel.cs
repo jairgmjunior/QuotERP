@@ -38,6 +38,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Different("DepositoMaterialOrigem", ErrorMessage = "O depósito de destino deve ser diferente do depósito de origem.")]
         public long? DepositoMaterialDestino { get; set; }
 
+        public bool PermiteAlterar { get; set; }
+
         public IList<long?> SaidaItemMateriais { get; set; }
         public IList<long> Materiais { get; set; }
         public IList<double> Quantidades { get; set; }

@@ -31,6 +31,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
+        private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
@@ -38,13 +39,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Construtores
         public ReservaMaterialController(ILogger logger, IRepository<Colecao> colecaoRepository,
             IRepository<ReservaMaterial> reservaMaterialRepository,  IRepository<Pessoa> pessoaRepository,
-            IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
+            IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository)
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
             _colecaoRepository = colecaoRepository;
             _materialRepository = materialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
+            _requisicaoMaterialRepository = requisicaoMaterialRepository;
 
             _logger = logger;
 
@@ -71,7 +74,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 DataProgramacao = p.DataProgramacao.HasValue ? p.DataProgramacao.Value : default(DateTime?),
                 Situacao = p.SituacaoReservaMaterial.EnumToString(),
                 Colecao = p.Colecao.Descricao,
-                Unidade = p.Unidade.NomeFantasia
+                Unidade = p.Unidade.NomeFantasia,
             }).OrderBy(o => o.Numero).ToList();
 
             return View(model);
@@ -266,6 +269,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<ReservaMaterialModel>(domain);
+                model.PermiteAlterar = PermiteAlterar(id);
 
                 model.GridItens = domain.ReservaMaterialItems.Select(x =>
                     new ReservaMaterialItemModel
@@ -287,6 +291,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return RedirectToAction("Index");
         }
 
+        private bool PermiteAlterar(long? id)
+        {
+            var requisicaoMaterial =
+            _requisicaoMaterialRepository.Get(y => y.ReservaMaterial.Id == id);
+            if (requisicaoMaterial != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Editar(ReservaMaterialModel model)
         {
@@ -301,7 +317,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain = Mapper.Unflat(model, domain);
 
                     domain.Requerente = _pessoaRepository.Get(model.Requerente);
-
+                    
                     ExcluaReservaMaterialItens(model, domain);
                     AtualizeReservaMaterialItens(model, domain);
                     IncluaNovosReservaMaterialItens(model, domain);
@@ -369,7 +385,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private void ExcluaReservaMaterialItens(ReservaMaterialModel reservaMaterialModel, ReservaMaterial reservaMaterial)
         {
             var reservaMaterialItensExcluir = new List<ReservaMaterialItem>();
-
             reservaMaterial.ReservaMaterialItems.ForEach(x =>
             {
                 if (reservaMaterialModel.GridItens.All(y => y.Id != x.Id))
@@ -437,20 +452,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             var colecoes = _colecaoRepository.Find().OrderBy(o => o.Descricao).ToList();
             ViewData["Colecao"] = colecoes.ToSelectList("Descricao", model.Colecao);
-        }
-        #endregion
-
-        #region ValidaNovoOuEditar
-
-        protected override void ValidaNovoOuEditar(IModel model, string actionName)
-        {
-            
-        }
-        #endregion
-
-        #region ValidaExcluir
-        protected override void ValidaExcluir(long id)
-        {
         }
         #endregion
 

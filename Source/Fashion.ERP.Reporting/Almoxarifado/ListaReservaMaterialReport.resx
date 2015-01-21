@@ -133,7 +133,7 @@
         bGVyaWsuUmVwb3J0aW5nLk9iamVjdERhdGFTb3VyY2VQYXJhbWV0ZXICAAAACw==
 </value>
   </metadata>
-  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+  <!--<metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
     <value>0.1cm</value>
-  </metadata>
+  </metadata>-->
 </root>

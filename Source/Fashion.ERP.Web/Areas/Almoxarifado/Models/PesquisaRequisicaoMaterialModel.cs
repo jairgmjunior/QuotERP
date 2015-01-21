@@ -13,11 +13,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Unidade Requerente")]
         public long? UnidadeRequerente { get; set; }
 
+        [Display(Name = "Centro de Custo")]
+        public long? CentroCusto { get; set; }
+
         [Display(Name = "Requerente")]
         public long? Requerente { get; set; }
 
+        [Display(Name = "Unidade Requisitada")]
+        public long? UnidadeRequisitada { get; set; }
+
         [Display(Name = "Tipo do Material")]
-        public long? TipoMaterial { get; set; }
+        public long? TipoItem { get; set; }
 
         [Display(Name = "Material")]
         public long? Material { get; set; }

@@ -8,7 +8,7 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label " })
                 <div class="controls">
-                    @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
                     @{
                         if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
@@ -69,7 +69,7 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Colecao)
                 <div class="controls">
-                    @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
@@ -156,6 +156,13 @@
 </fieldset>
 
 <script>
+    $(document).ready(function () {
+        $("#funcionario").change(function (e) {
+            $("#funcionario").valid();
+        });
+
+    });
+
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
         $("#Descricao").width('86%');
@@ -168,14 +175,43 @@
         }
     }
 
+    function formularioEhValido() {
+        var retorno = true;
+
+        // Requerente 
+        if ($("#codigo-funcionario").val() == false) {
+            $('#funcionario').val("");
+            $('#funcionario').valid();
+            $('#descricao-funcionario').text("");
+            retorno = false;
+        }
+
+        return retorno;
+    }
+
     $('#form').submit(function (e) {
         e.preventDefault();
 
-        //// Validar
-        //var formValido = formularioEhValido();
-        //if (!$("#form").valid() || !formValido) {
+        // Validar
+        var formValido = formularioEhValido();
 
-        if (!$("#form").valid()) {
+        if (!$("#form").valid() || !formValido) {
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+        if (dataGridItens.length == 0) {
+            alert("Insira pelo menos um item na grid.");
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+
+        if (dataGridItens[0].Referencia == '' ||
+            dataGridItens[0].QuantidadeSolicitada == 0) {
+            alert("Preencha os campos do item inserido.");
             $('#btnSubmit').button('reset');
             return true;
         }
@@ -205,26 +241,6 @@
 
         return true;
     });
-
-    function formularioEhValido() {
-        var retorno = true;
-
-        //Valor 
-        //var valor = $('#DataProgramacao').val();
-        //if (valor <= 0 && !$('#DataProgramacao').valid()) {
-        //    retorno = false;
-        //}
-
-        // Fornecedor 
-        if ($("#codigo-funcionario").val() == false) {
-            $('#Requerente').val("");
-            $('#Requerente').valid();
-            $('#descricao-funcionario').text("");
-            retorno = false;
-        }
-
-        return retorno;
-    }
 
     function obtenhaDadosGridItens() {
         var grid = $("#GridItens").data("kendoGrid");

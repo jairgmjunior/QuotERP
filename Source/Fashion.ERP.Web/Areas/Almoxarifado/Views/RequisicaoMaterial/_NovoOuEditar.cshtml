@@ -35,15 +35,9 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.TipoItem, new { @class = "control-label " })
                 <div class="controls">
-                    @Html.DropDownList("TipoItem", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.TipoItem, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.TipoItem, string.Empty, new { @class = "help-block" })
                     @Html.HiddenFor(x => x.TipoItem)
-                    @{
-                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                        {
-                            @Html.HiddenFor(x => x.TipoItem)
-                        }
-                    }
                 </div>
             </div>
         </div>
@@ -59,9 +53,9 @@
     <div class="row">
         <div class="span6">
             <div class="control-group">
-                @Html.LabelForRequired(x => x.UnidadeRequerente, new { @class = "control-label " })
+                @Html.LabelForRequired(x => x.UnidadeRequerente)
                 <div class="controls">
-                    @Html.DropDownList("UnidadeRequerente", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.UnidadeRequerente, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.UnidadeRequerente, string.Empty, new { @class = "help-block" })
                     @{
                         if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
@@ -76,7 +70,7 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.CentroCusto, new { @class = "control-label " })
                 <div class="controls">
-                    @Html.DropDownList("CentroCusto", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.CentroCusto, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.CentroCusto, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
@@ -101,7 +95,7 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.UnidadeRequisitada, new { @class = "control-label " })
                 <div class="controls">
-                    @Html.DropDownList("UnidadeRequisitada", null, "-- Selecione --", new { @class = "input-xlarge" })
+                    @Html.DropDownListFor(x => x.UnidadeRequisitada, null, "-- Selecione --", new { @class = "input-large" })                    
                     @Html.ValidationMessageFor(x => x.UnidadeRequisitada, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
@@ -138,7 +132,7 @@
             .Name("GridItens")
             .Columns(columns =>
             {
-                columns.Bound(x => x.Id).Hidden();            
+                columns.Bound(x => x.IdRequisicaoMaterialItem).Hidden();            
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
@@ -154,7 +148,7 @@
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
-                    model.Id(item => item.Id); 
+                    model.Id(item => item.IdRequisicaoMaterialItem); 
                     model.Field(product => product.Descricao).Editable(true); 
                     model.Field(product => product.QuantidadeAtendida).Editable(false); 
                     model.Field(product => product.QuantidadeCancelada).Editable(false); 
@@ -183,16 +177,21 @@
             grid.hideColumn("QuantidadeAtendida");
             grid.hideColumn("QuantidadeCancelada");
             grid.hideColumn("SituacaoRequisicaoMaterial");
+
+            $('.k-grid-add').addClass("k-state-disabled");
+            $('.k-grid-add').click(function (e) {
+                e.preventDefault();
+                return false;
+            });
         }
 
-        $('.k-grid-add').addClass("k-state-disabled");
-        $('.k-grid-add').click(function(e) {
-            e.preventDefault();
-            return false;
+        $("#funcionario").change(function(e) {
+            $("#funcionario").valid();
         });
+
     });
 
-    $('#TipoItem').change(function(e) {
+    $('select[name=TipoItem]').change(function (e) {
         if ($("#TipoItem option:selected").val() == '') {
             $('.k-grid-add').bind("click");
             $('.k-grid-add').addClass("k-state-disabled");
@@ -200,6 +199,7 @@
             $('.k-grid-add').unbind("click");
             $('.k-grid-add').removeClass("k-state-disabled");
         }
+        $('input[name=TipoItem]').val($("#TipoItem option:selected").val());
     });
 
     function onDataBound(e) {
@@ -224,7 +224,11 @@
         $("#Descricao").width('86%');
         $("#UnidadeMedida").attr("readonly", true);
         $("#UnidadeMedida").addClass("input-small");
-        $("#QuantidadeSolicitada").data("kendoNumericTextBox").wrapper.width("100px");
+
+        if ($("#QuantidadeSolicitada").get(0) != null) {
+            $("#QuantidadeSolicitada").data("kendoNumericTextBox").wrapper.width("100px");
+        }
+        
         if (!e.model.isNew()) {
             $("#Referencia").attr("readonly", true);
             $("#pesquisar-material").attr("disabled", true);
@@ -234,11 +238,26 @@
     $('#form').submit(function(e) {
         e.preventDefault();
 
-        //// Validar
-        //var formValido = formularioEhValido();
-        //if (!$("#form").valid() || !formValido) {
+        // Validar
+        var formValido = formularioEhValido();
 
-        if (!$("#form").valid()) {
+        if (!$("#form").valid() || !formValido) {
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+        if (dataGridItens.length == 0) {
+            alert("Insira pelo menos um item na grid.");
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        
+        if(dataGridItens[0].Referencia == '' ||
+            dataGridItens[0].QuantidadeSolicitada == 0) {
+            alert("Preencha os campos do item inserido.");
             $('#btnSubmit').button('reset');
             return true;
         }
@@ -246,10 +265,6 @@
         var formData = $("#form").serializeObject();
         formData.GridItens = obtenhaDadosGridItens();
         var dados = { "model": formData };
-
-        if (!ehTelaNovo()) {
-            alert($("#SituacaoRequisicaoMaterial").val());
-        }
 
         $.ajax({
             type: "POST",
@@ -276,16 +291,10 @@
     function formularioEhValido() {
         var retorno = true;
 
-        //Valor 
-        //var valor = $('#DataProgramacao').val();
-        //if (valor <= 0 && !$('#DataProgramacao').valid()) {
-        //    retorno = false;
-        //}
-
-        // Fornecedor 
+        // Requerente 
         if ($("#codigo-funcionario").val() == false) {
-            $('#Requerente').val("");
-            $('#Requerente').valid();
+            $('#funcionario').val("");
+            $('#funcionario').valid();
             $('#descricao-funcionario').text("");
             retorno = false;
         }

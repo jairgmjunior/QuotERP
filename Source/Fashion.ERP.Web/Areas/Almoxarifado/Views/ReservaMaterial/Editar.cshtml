@@ -4,10 +4,22 @@
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Almoxarifado.ReservaMaterial.Excluir(Model.Id))
-	</div>
+
+    if (@Model.PermiteAlterar)
+    {
+        <div class="form-actions">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+            @Html.ExcluirAuth(MVC.Almoxarifado.ReservaMaterial.Excluir(Model.Id))
+        </div>
+    }
+    else
+    {
+        <br/>
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" href="javascript:void(0)">×</a>
+            Não é possível alterar uma reserva de material criada por uma requisição de material.
+        </div>
+    }
 }
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });

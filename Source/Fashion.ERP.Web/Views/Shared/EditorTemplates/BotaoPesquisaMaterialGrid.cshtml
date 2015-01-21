@@ -6,13 +6,9 @@
 
         $('#submit-pesquisar-material').off('click').on('click', function (e) {
             var form = $(this).closest("form");
-           
+            
             $('input[name=TipoItemMaterial]').val($("#TipoItem").val());
-            //$('input[id=FornecedorMaterial]').val($("#Fornecedor").val());
             $("#FornecedorMaterial").val($("#Fornecedor").val());
-
-            alert($("#FornecedorMaterial").val());
-            alert('Fornecedor: ' + $("#Fornecedor").val());
 
             form.ajaxSubmit({
                 dataType: 'json',

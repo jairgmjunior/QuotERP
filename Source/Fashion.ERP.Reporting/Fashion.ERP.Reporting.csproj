@@ -50,14 +50,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Reporting, Version=8.1.14.618, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Fashion.ERP\Source\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
+      <HintPath>..\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaRequisicaoMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaRequisicaoMaterialReport.Designer.cs">
+      <DependentUpon>ListaRequisicaoMaterialReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Almoxarifado\ListaReservaMaterialReport.cs">
       <SubType>Component</SubType>
@@ -263,6 +270,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\ListaRequisicaoMaterialReport.resx">
+      <DependentUpon>ListaRequisicaoMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\ListaReservaMaterialReport.resx">
       <DependentUpon>ListaReservaMaterialReport.cs</DependentUpon>
     </EmbeddedResource>

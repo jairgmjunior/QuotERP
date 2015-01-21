@@ -97,3 +97,4 @@ INSERT INTO generofiscal (id, codigo, descricao) VALUES (96, '96' ,'Obras divers
 INSERT INTO generofiscal (id, codigo, descricao) VALUES (97, '97' ,'Objetos de arte, de coleção e antiguidades');
 INSERT INTO generofiscal (id, codigo, descricao) VALUES (98, '98' ,'(Reservado para usos especiais pelas Partes Contratantes)');
 INSERT INTO generofiscal (id, codigo, descricao) VALUES (99, '99' ,'Operações especiais (utilizado exclusivamente pelo Brasil para classificar operações especiais na exportação)');
+INSERT INTO generofiscal (id, codigo, descricao) VALUES (100, '34' ,'Sabões, agentes orgânicos de superfície, preparações para lavagem, preparações lubrificantes, ceras artificiais, ceras preparadas, produtos de conservação e limpeza, velas e artigos semelhantes, massas ou pastas de modelar, "ceras" para dentistas e composições para dentista à base de gesso');

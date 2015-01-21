@@ -203,9 +203,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\T4MVCExtensions.3.7.4\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Reporting, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Reporting, Version=8.1.14.618, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Fashion.ERP\Source\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
+      <HintPath>..\libraries\Telerik.Reporting\Telerik.Reporting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -245,6 +246,12 @@
     <Compile Include="Almoxarifado.MaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Almoxarifado.RequisicaoMaterialBaixaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Almoxarifado.RequisicaoMaterialCancelamentoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado.RequisicaoMaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -269,6 +276,8 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Almoxarifado\AlmoxarifadoAreaRegistration.cs" />
+    <Compile Include="Areas\Almoxarifado\Controllers\RequisicaoMaterialCancelamentoController.cs" />
+    <Compile Include="Areas\Almoxarifado\Controllers\RequisicaoMaterialBaixaController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\RequisicaoMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\EntradaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\MaterialController.cs" />
@@ -280,7 +289,10 @@
     <Compile Include="Areas\Almoxarifado\Controllers\ReservaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\GridRequisicaoMaterialItemCanceladoModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialCancelamentoModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\PesquisarMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialBaixaModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialItemModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridRequisicaoMaterialModel.cs" />
@@ -318,6 +330,7 @@
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItem.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItemDetalhe.cs" />
+    <Compile Include="Areas\Compras\Models\GridRequisicaoMaterialItemBaixaModel.cs" />
     <Compile Include="Areas\Compras\Models\GridTransportadoraModel.cs" />
     <Compile Include="Areas\Compras\Models\NovoTransportadoraModel.cs" />
     <Compile Include="Areas\Compras\Models\TransportadoraModel.cs" />
@@ -1080,6 +1093,8 @@
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Editar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Index.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Novo.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialBaixa\Baixar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialCancelamento\Cancelar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
