@@ -93,7 +93,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
             });
         }
 
-        public virtual void BaixeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository, 
+        public virtual void BaixeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             Material material, double quantidadeBaixa)
         {
             var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
@@ -107,6 +107,26 @@ namespace Fashion.ERP.Domain.Almoxarifado
             reservaMaterialItem.QuantidadeAtendida = quantidadeBaixa;
 
             ReservaMaterial.AtualizeReservaEstoqueMaterial(quantidadeBaixa * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+        }
+
+        public virtual void CanceleReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
+            Material material, double quantidadeCancelada, string observacaoCancelamento)
+        {
+            var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
+
+            if (reservaMaterialItem == null)
+            {
+                return;
+            }
+
+            reservaMaterialItem.ReservaMaterialItemCancelado = new ReservaMaterialItemCancelado()
+            {
+                Data = DateTime.Now,
+                QuantidadeCancelada = quantidadeCancelada,
+                Observacao = observacaoCancelamento
+            };
+
+            ReservaMaterial.AtualizeReservaEstoqueMaterial(quantidadeCancelada * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
         }
 
         public virtual void AtualizeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)

@@ -48,11 +48,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Observação")]
         [StringLength(4000, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Informe um motivo para o cancelamento.")]
         public string ObservacaoCancelamento { get; set; }
-
-        //[Display(Name = "Motivo do cancelamento")]
-        //[Required(ErrorMessage = "Informe o Motivo do Cancelamento")]
-        //public long MotivoCancelamento { get; set; }
 
         public IList<GridRequisicaoMaterialItemCanceladoModel> GridItemCancelado { get; set; }
     }

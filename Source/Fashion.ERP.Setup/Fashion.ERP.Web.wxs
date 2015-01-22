@@ -149,6 +149,11 @@
                                 <File Id="fil3C3AB75DE022B036642D1E71BD1A4717" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterialBaixa\Baixar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dirEED7A061515005F59C1930BDE9C303E6" Name="RequisicaoMaterialCancelamento">
+                            <Component Id="cmp09C63BE7AFCD64887DB2403C72E4EC59" Guid="*">
+                                <File Id="fil8FC50C3F0B829A2ABF4641321F678DA4" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\RequisicaoMaterialCancelamento\Cancelar.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir2B8BA18DB478DAC721BAC00B11F5BEC3" Name="ReservaMaterial">
                             <Component Id="cmp8728AC2EE5315AE2371CF77C6B98F391" Guid="*">
                                 <File Id="fil6FA4D72A4E316FA12B6DD55F6A392C5A" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\ReservaMaterial\Editar.cshtml" />
@@ -1944,6 +1949,7 @@
             <ComponentRef Id="cmpB790BFCB4869882FB7DF1A687F728F97" />
             <ComponentRef Id="cmp7DB7D11759CA38BA1BFFB7726EDE75A3" />
             <ComponentRef Id="cmpD2BE8C1719733A2FCF81A2B8336281CF" />
+            <ComponentRef Id="cmp09C63BE7AFCD64887DB2403C72E4EC59" />
             <ComponentRef Id="cmp8728AC2EE5315AE2371CF77C6B98F391" />
             <ComponentRef Id="cmp115DF61EE69D0226379862A247AA8F2E" />
             <ComponentRef Id="cmpB9970DC7EEF2AA820A8ADF8C183EE3EA" />

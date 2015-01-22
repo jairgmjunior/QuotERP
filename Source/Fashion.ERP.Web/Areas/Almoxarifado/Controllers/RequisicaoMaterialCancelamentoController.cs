@@ -9,6 +9,7 @@ using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
@@ -18,7 +19,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Variaveis
 
         private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
-        private readonly IRepository<RequisicaoMaterialItem> _requisicaoMaterialItemRepository;
+        private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly ILogger _logger;             
 
         #endregion
@@ -26,10 +27,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Construtores
 
         public RequisicaoMaterialCancelamentoController(ILogger logger, IRepository<RequisicaoMaterial> requisicaoMaterialRepository,
-                                      IRepository<RequisicaoMaterialItem> requisicaoMaterialItemRepository)
+                                      IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
         {
             _requisicaoMaterialRepository = requisicaoMaterialRepository;
-            _requisicaoMaterialItemRepository = requisicaoMaterialItemRepository;
+            _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -72,29 +73,30 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
            {
                 try
                 {
+                    var requisicaoMaterial = _requisicaoMaterialRepository.Get(model.Id);
                     foreach (var modelGrid in model.GridItemCancelado)
                     {
-                        var requisicaoMaterialItemCancelado = new RequisicaoMaterialItemCancelado();
-
                         if (modelGrid.Check)
                         {
-                            var domain = _requisicaoMaterialItemRepository.Get(modelGrid.Id);
-                            
-                            requisicaoMaterialItemCancelado.Observacao = model.ObservacaoCancelamento;
+                            var requisicaoMaterialItem = requisicaoMaterial.RequisicaoMaterialItems.FirstOrDefault(x => x.Id == modelGrid.Id);
 
-                            requisicaoMaterialItemCancelado.Data = DateTime.Now;
-                          
-                            requisicaoMaterialItemCancelado.CalculeQuantidade(domain);
+                            var requisicaoMaterialItemCancelado = new RequisicaoMaterialItemCancelado
+                            {
+                                Observacao = model.ObservacaoCancelamento,
+                                Data = DateTime.Now
+                            };
 
-                            domain.AtualizeSituacao();
+                            requisicaoMaterialItemCancelado.CalculeQuantidade(requisicaoMaterialItem);
+                            requisicaoMaterialItem.RequisicaoMaterialItemCancelado = requisicaoMaterialItemCancelado;
 
-                            domain.RequisicaoMaterialItemCancelado = requisicaoMaterialItemCancelado;
-                            _requisicaoMaterialItemRepository.Update(domain);
+                            requisicaoMaterial.CanceleReservaMaterial(_reservaEstoqueMaterialRepository, requisicaoMaterialItem.Material,
+                                requisicaoMaterialItemCancelado.QuantidadeCancelada, model.ObservacaoCancelamento);
                         }  
                     }
 
-                    var requisicaoMaterial = _requisicaoMaterialRepository.Get(model.Id);
                     requisicaoMaterial.AtualizeSituacao();
+                    requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
+
                     _requisicaoMaterialRepository.SaveOrUpdate(requisicaoMaterial);
                     
                     this.AddSuccessMessage("Item cancelados com sucesso.");

@@ -169,13 +169,17 @@
 <script>
     $(document).ready(function () {
         $("form").submit(function () {
-            if (possuiSelecionados()) {
-                return true;
-            } else {
+            if (!possuiSelecionados()) {
                 alert("É necessário selecionar ao menos um item da requisição de material.");
                 $('#btnSubmit').button('reset');
                 return false;
+            } else  if(!possuiQuantidadesBaixaVazias()){
+                alert("Preencha corretamente a Qtde Baixa.");
+                $('#btnSubmit').button('reset');
+                return false;
             }
+
+            return true;
         });
 
         $('#checkAll').click(function () {
@@ -339,6 +343,19 @@
 
     function possuiSelecionados() {
         return $('.chkbx:checked').length != 0;
+    }
+
+    function possuiQuantidadesBaixaVazias() {
+        for (i = 0; i < $('.chkbx').length; i++) {
+            var element = $('.chkbx').get(i);
+            var grid = $('#GridItems').data().kendoGrid;
+            var dataItem = grid.dataItem($(element).closest('tr'));
+            if (dataItem.QtdeBaixa == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     function onEditGrid(e) {

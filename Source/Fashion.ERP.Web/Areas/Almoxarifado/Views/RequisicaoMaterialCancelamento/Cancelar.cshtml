@@ -2,6 +2,10 @@
 
 @using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterialCancelamento.Cancelar(), FormMethod.Post, new { id = "form", @class = "form-horizontal", autocomplete = "off" }))
 {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+
     <legend><small>Dados da Requisição de Material</small></legend>
     <div class="detail">
         <div class="row">
@@ -10,6 +14,7 @@
                     @Html.LabelFor(x => x.Numero, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Numero)
+                        @Html.HiddenFor(x => x.Numero)
                     </div>
                 </div>
             </div>        
@@ -18,6 +23,7 @@
                     @Html.LabelFor(x => x.Data, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.Data)
+                        @Html.HiddenFor(x => x.Data)
                     </div>
                 </div>
             </div>
@@ -28,6 +34,7 @@
                     @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.TipoItemDescricao)
+                        @Html.HiddenFor(x => x.TipoItemDescricao)
                     </div>
                 </div>
             </div>        
@@ -36,6 +43,7 @@
                     @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                        @Html.HiddenFor(x => x.SituacaoRequisicaoMaterialDescricao)
                     </div>
                 </div>
             </div>
@@ -46,6 +54,7 @@
                     @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+                        @Html.HiddenFor(x => x.UnidadeRequerenteNomeFantasia)
                     </div>
                 </div>
             </div>        
@@ -54,6 +63,7 @@
                     @Html.LabelFor(x => x.CentroCustoNome, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.CentroCustoNome)
+                        @Html.HiddenFor(x => x.CentroCustoNome)
                     </div>
                 </div>
             </div>
@@ -64,6 +74,7 @@
                     @Html.LabelFor(x => x.RequerenteNome, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.RequerenteNome)
+                        @Html.HiddenFor(x => x.RequerenteNome)
                     </div>
                 </div>
             </div>        
@@ -72,6 +83,7 @@
                     @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+                        @Html.HiddenFor(x => x.UnidadeRequisitadaNomeFantasia)
                     </div>
                 </div>
             </div>
@@ -82,6 +94,7 @@
                     @Html.LabelFor(x => x.Observacao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Observacao)
+                        @Html.HiddenFor(x => x.Observacao)
                     </div>
                 </div>
             </div>        
@@ -90,6 +103,7 @@
                     @Html.LabelFor(x => x.Origem, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Origem)
+                        @Html.HiddenFor(x => x.Origem)
                     </div>
                 </div>
             </div>
@@ -101,17 +115,14 @@
         <div class="span4">
             <div class="control-group">
                 @Html.LabelForRequired(x => x.ObservacaoCancelamento)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.ObservacaoCancelamento)
-                    </div>
+                <div class="controls">
+                    @Html.EditorFor(x => x.ObservacaoCancelamento)
+                    @Html.ValidationMessageFor(x => x.ObservacaoCancelamento, null, new {@class = "help-block"})
+                </div>
             </div>
         </div>
     </fieldset>
-
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummaryEx()
-    @Html.HiddenFor(x => x.Id)
-    
+   
     @(Html.Kendo().Grid(Model.GridItemCancelado)
         .Name("GridItemCancelado")
         .Columns(columns =>

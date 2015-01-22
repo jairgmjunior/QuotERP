@@ -27,9 +27,9 @@ namespace Fashion.ERP.Domain.Compras
             get
             {
                 var referencia =
-                    Material.ReferenciaExternas.Where(r => r.Fornecedor.Id == PedidoCompra.Fornecedor.Id)
-                        .FirstOrDefault();
-                return referencia.Referencia;
+                    Material.ReferenciaExternas.FirstOrDefault(r => r.Fornecedor.Id == PedidoCompra.Fornecedor.Id);
+
+                return referencia != null ? referencia.Referencia : null;
             }
         }
         public virtual string ReferenciaExternaMaterial
