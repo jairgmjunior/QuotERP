@@ -248,7 +248,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     var modelItem = Mapper.Flat<PedidoCompraItemRecebimentoModel>(item);
                     modelItem.MaterialDescricaoPedido = item.Material.Descricao;
                     modelItem.MaterialReferenciaPedido = item.Material.Referencia;
-                    modelItem.QuantidadePedido = item.Quantidade;
+                    modelItem.QuantidadePedido = item.Quantidade - item.QuantidadeEntrega;
                     modelItem.UnidadeMedidaSiglaPedido = item.UnidadeMedida.Sigla;
                     modelItem.ValorUnitarioPedido = item.ValorUnitario;
 

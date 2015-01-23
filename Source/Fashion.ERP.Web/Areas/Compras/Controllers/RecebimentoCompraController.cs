@@ -474,27 +474,27 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             var model = _fabricaDeObjetos.CriePedidoCompraRecebimentoModel(pedidoCompra);
 
-            if (recebimentoCompra != null)
-            {
-                AtualizeQuantidadeReceber(model, recebimentoCompra);    
-            }
+            //if (recebimentoCompra != null)
+            //{
+            //    AtualizeQuantidadeReceber(model, recebimentoCompra);    
+            //}
 
             ModelState.Clear();
             return PartialView(model);
         }
 
-        private void AtualizeQuantidadeReceber(PedidoCompraRecebimentoModel pedidoCompraModel, RecebimentoCompra recebimentoCompra)
-        {
-            pedidoCompraModel.Grid.Each(pedidoCompraItemModel =>
-            {
-                var detalhamento = recebimentoCompra.RecebimentoCompraItens.SelectMany(x => x.DetalhamentoRecebimentoCompraItens)
-                    .FirstOrDefault(y => y.PedidoCompraItem.Id == pedidoCompraItemModel.Id);
-                if (detalhamento != null)
-                {
-                    pedidoCompraItemModel.QuantidadePedido -= detalhamento.Quantidade;
-                }
-            });
-        }
+        //private void AtualizeQuantidadeReceber(PedidoCompraRecebimentoModel pedidoCompraModel, RecebimentoCompra recebimentoCompra)
+        //{
+        //    pedidoCompraModel.Grid.Each(pedidoCompraItemModel =>
+        //    {
+        //        var detalhamento = recebimentoCompra.RecebimentoCompraItens.SelectMany(x => x.DetalhamentoRecebimentoCompraItens)
+        //            .FirstOrDefault(y => y.PedidoCompraItem.Id == pedidoCompraItemModel.Id);
+        //        if (detalhamento != null)
+        //        {
+        //            pedidoCompraItemModel.QuantidadePedido -= detalhamento.Quantidade;
+        //        }
+        //    });
+        //}
 
         #endregion
 
