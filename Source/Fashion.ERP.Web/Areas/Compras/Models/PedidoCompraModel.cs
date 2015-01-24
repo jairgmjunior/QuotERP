@@ -61,6 +61,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public double ValorFrete { get; set; }
 
         [Display(Name = "Valor desconto")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Required(ErrorMessage = "Informe o valor do desconto")]
         public double ValorDesconto { get; set; }
 
@@ -110,8 +111,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? Transportadora { get; set; }
 
         [Display(Name = "Valor Líquido")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double? ValorLiquido { get; set; }
+
+
         [Display(Name = "Valor Mercadorias")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double? ValorMercadorias { get; set; }
 
         public IList<GridPedidoCompraModel> Grid { get; set; }

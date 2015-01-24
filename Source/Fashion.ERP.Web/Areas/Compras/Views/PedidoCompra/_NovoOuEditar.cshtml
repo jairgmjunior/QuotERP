@@ -1,10 +1,13 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
 
+<script src="~/Scripts/jquery.currency.js"></script>
 
 <script>
     $(document).ready(function () {
+
         $('#ValorMercadorias').attr('readonly', true);
+
         $('#ValorLiquido').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
 
@@ -19,13 +22,14 @@
         $('#ValorEmbalagem').blur(function () {
             AtualizaValorLiquido();
         });
+
     });
     
     function AtualizaValorLiquido() {
         var valorMercadorias = $('#ValorMercadorias').val();
-        var valorEncargos = $('#ValorEncargos').val();
-        var valorFrete = $('#ValorFrete').val();
-        var valorEmbalagem = $('#ValorEmbalagem').val();
+        var valorEncargos = FormatarValores($('#ValorEncargos').val());
+        var valorFrete = FormatarValores($('#ValorFrete').val());
+        var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
         var valorDesconto = $('#ValorDesconto').val();
         var valorLiquido = 0;
 
@@ -33,7 +37,18 @@
         valorLiquido = valorLiquido - parseFloat(valorDesconto);
 
         $('#ValorLiquido').val(valorLiquido);
+        $('#ValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
         $('#ValorLiquido').change();
+
+        //$('#txtValorLiquido').val(valorLiquido);
+        //$('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        //$('#txtValorLiquido').change();
+    }
+
+    function FormatarValores(campo) {
+        var retorno = campo.replace(".", "");
+        retorno = retorno.replace(",", ".");
+        return retorno;
     }
 </script>
 
@@ -220,11 +235,11 @@
                 columns.Bound(x => x.Id).Hidden();            
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
-                columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(e => e.ReferenciaExterna).Width(80);
+                columns.Bound(x => x.UnidadeMedida).Width(60);
+                columns.Bound(e => e.ReferenciaExterna).Width(60);
                 columns.Bound(e => e.Quantidade).EditorTemplateName("Numeric").Width(60);
-                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(90);
-                columns.Bound(e => e.ValorUnitario).Width(80);
+                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Width(100);
                 columns.Bound(e => e.ValorDesconto).Width(80);
                 columns.Bound(e => e.ValorTotal).Width(80);
                 columns.Command(command =>  { command.Edit(); command.Destroy(); } );
@@ -311,7 +326,8 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorMercadorias)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorMercadorias" name="ValorMercadorias" type="text" value="@Model.ValorMercadorias" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" />
+                <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
                 @*@Html.TextBox("ValorMercadorias",@Model.ValorMercadorias, new { @class = "help-block", disabled = "disabled", @readonly = "readonly", @style="whidt:300px"})*@
                 @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block"})
             </div>
@@ -368,6 +384,7 @@
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
                 <input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />
+                @*<input id="ValorLiquido" name="ValorLiquido" type="hidden" value="@Model.ValorLiquido" />*@
                 @*@Html.EditorFor(x => x.ValorLiquido)*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
@@ -375,122 +392,6 @@
     </div>
     
 </div>
-
-@*<script>
-    $(function() {
-
-        $('#btn-add').on('click', function() {
-
-            // Validações
-            // UnidadeEstocadora
-            if ($("#UnidadeEstocadora").prop("selectedIndex") < 0) {
-                $('#UnidadeEstocadora').addClass('input-validation-error');
-                alert('Selecione uma unidade estocadora.');
-                $('#UnidadeEstocadora').focus();
-                return;
-            }
-
-            // Fornecedor 
-            if ($("#Fornecedor").prop("selectedIndex") < 0) {
-                $('#Fornecedor').addClass('input-validation-error');
-                alert('Selecione um fornecedor.');
-                $('#codigo-fornecedor').focus();
-                return;
-            }
-
-            // Quantidade
-            var quantidade = $('#Quantidade').val();
-            if (quantidade <= 0) {
-                $('#Quantidade').addClass('input-validation-error');
-                alert('Informe a quantidade.');
-                $('#Quantidade').focus();
-                return;
-            }
-
-            var materialId = $('#Material').val();
-            var referencia = $('#referencia-material').val();
-            var descricao = $('#descricao-material').text();
-            var unidadeMedidaId = $('#UnidadeMedida').val();
-            var unidadeMedida = $('#UnidadeMedida option:selected').text();
-            var valorUnitario = $('#ValorUnitario').val();
-            var valorTotal = $('#ValorTotal').val();
-
-            // Material
-            if (materialId == '') {
-                $('#Material').addClass('input-validation-error');
-                alert('Selecione uma referência');
-                $('#referencia-material').focus();
-                return;
-            }
-
-            // UnidadeMedida 
-            if ($("#UnidadeMedida").prop("selectedIndex") < 0) {
-                $('#UnidadeMedida').addClass('input-validation-error');
-                alert('Selecione uma unidade de medida.');
-                $('#UnidadeMedida').focus();
-                return;
-            }
-
-            // Verificar se já está na lista
-            //var cadastrado = false;
-            //$('input[name=Materiais]').each(function() {
-            //    if ($(this).val() == materialId) {
-            //        alert("O produto selecionado já foi incluído na lista.");
-            //        $('#referencia-material').focus();
-            //        cadastrado = true;
-            //        return;
-            //    }
-            //});
-
-            //if (cadastrado == false) {
-            //    $('#table-sequencia tbody').append(
-            //        '<tr>\
-            //        <td>' + referencia + '<input type="hidden" name="PedidoCompraItens" /><input type="hidden" name="Materiais" value="' + materialId + '"/></td>\
-            //        <td>' + descricao + '</td>\
-            //        <td>' + unidadeMedida + '<input type="hidden" name="UnidadeMedidas" value="' + unidadeMedidaId + '"/></td>\
-            //        <td>' + quantidade + '<input type="hidden" name="Quantidades" value="' + quantidade + '"/></td>\
-            //        <td>' + valorUnitario + '<input type="hidden" name="ValorUnitarios" value="' + valorUnitario + '"/></td>\
-            //        <td>' + valorTotal + '<input type="hidden" name="ValorTotais" value="' + valorTotal + '"/></td>\
-            //        <td>Não Atendido <input type="hidden" name="SituacaoCompras" value="NaoAtendido"/></td>\
-            //        <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
-            //    </tr>'
-            //    );
-
-            // limpar formulário
-            //    $('#referencia-material').val('');
-            //    $('#Material').val('');
-            //    $('#descricao-material').text('');
-            //    $('#Quantidade').data("kendoNumericTextBox").value(0);
-            //    $('#UnidadeMedida')[0].selectedIndex = 0;
-            //    $('#ValorUnitario').data("kendoNumericTextBox").value(0);
-            //    $('#ValorTotal').data("kendoNumericTextBox").value(0);
-            //}
-
-        });
-    });
-
-    $('#Quantidade, #ValorUnitario').on('change', function () {
-        var quantidade = $('#Quantidade').data("kendoNumericTextBox").value();
-        var valorUnitario = $('#ValorUnitario').data("kendoNumericTextBox").value();
-
-        $('#ValorTotal').data("kendoNumericTextBox").value(quantidade * valorUnitario);
-    });
-    
-    function Delete(a) {
-        var row = $(a).parents('tr:first');
-
-        // Validar
-        var situacao = row.find("input[name=SituacaoCompras]").val();
-        if (situacao != 'NaoAtendido') {
-            alert('Não é possível excluir este item.\r\nSó é possível excluir itens com situação: "Não atendido".');
-            return;
-        }
-
-        row.fadeTo('fast', 0, function () {
-            row.remove();
-        });
-    }
-</script>*@
 
 <script>
     
@@ -520,6 +421,10 @@
 
         $('#ValorMercadorias').val(total);
         $('#ValorMercadorias').change();
+
+        $('#txtValorMercadorias').val(total);
+        $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorMercadorias').change();
 
         $('#ValorDesconto').val(desconto);
         $('#ValorDesconto').change();
@@ -692,4 +597,5 @@
             }
         });
     })(jQuery, kendo);
+
 </script>
