@@ -322,7 +322,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     {
                         Data = DateTime.Now,
                         ChequeSituacao = ChequeSituacao.NaoDepositado,
-                        Historico = historico
+                        Historico = historico,
                     };
 
                     //ocorrencia = _ocorrenciaChequeRecebidoRepository.Save(ocorrencia);
@@ -396,7 +396,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
 
                 var model = new BaixaChequeRecebidoModel
                 {
-                    Unidade = cheque.Unidade.Nome,
+                    Unidade = cheque.Unidade.NomeFantasia,
                     Cliente = cheque.Cliente.Nome,
                     Banco = cheque.Banco.Nome,
                     Agencia = cheque.Agencia,
@@ -558,7 +558,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         Data = DateTime.Now,
                         ChequeSituacao = model.SituacaoChequeRecebido,
                         Historico = string.Format("Devolvido em {0} por {1}",
-                                        DateTime.Now.ToString("F"), HttpContext.User.Identity.Name)
+                                        DateTime.Now.ToString("F"), HttpContext.User.Identity.Name),
+                        CompensacaoCheque = _compensacaoChequeRepository.Get(model.CompensacaoCheque)
                     };
 
                     chequeRecebido.AddOcorrenciaCompensacao(ocorrencia);
@@ -767,7 +768,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 {
                     Id = o.Id.GetValueOrDefault(),
                     Data = o.Data.ToString("dd/MM/yyyy"),
-                    ChequeSituacao = o.ChequeSituacao.EnumToString()
+                    ChequeSituacao = o.ChequeSituacao.EnumToString(),
+                    Compensacao = o.CompensacaoCheque != null ? o.CompensacaoCheque.Descricao : null
                 });
 
             return Json(ocorrencias.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);

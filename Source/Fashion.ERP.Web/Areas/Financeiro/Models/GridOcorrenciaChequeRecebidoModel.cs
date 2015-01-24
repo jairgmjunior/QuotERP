@@ -10,6 +10,9 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public string Data { get; set; }
         
         [Display(Name = "Situação")]
-        public string ChequeSituacao { get; set; } 
+        public string ChequeSituacao { get; set; }
+
+        [Display(Name = "Compensação")]
+        public string Compensacao { get; set; }
     }
 }
