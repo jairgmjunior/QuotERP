@@ -34,8 +34,11 @@
         valorLiquido = valorLiquido - parseFloat(valorDesconto);
 
         $('#ValorLiquido').val(valorLiquido);
-        $('#ValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
         $('#ValorLiquido').change();
+
+        $('#txtValorLiquido').val(valorLiquido);
+        $('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorLiquido').change();
 
         //$('#txtValorLiquido').val(valorLiquido);
         //$('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
@@ -380,9 +383,9 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />
-                @*<input id="ValorLiquido" name="ValorLiquido" type="hidden" value="@Model.ValorLiquido" />*@
-                @*@Html.EditorFor(x => x.ValorLiquido)*@
+                <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias" />
+                <input type="hidden" id="ValorLiquido" name="ValorLiquido"  value=" @Model.ValorMercadorias" />                
+                @*<input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
         </div>

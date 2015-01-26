@@ -10,10 +10,10 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             : base("variacaomodelo", 10)
         {
             References(x => x.Variacao).Not.Nullable();
-            
+
             HasManyToMany(x => x.Cores)
-                .Table("variacaomodelo")
-                .ParentKeyColumn("variacao_id")
+                .Table("variacaomodelocor")
+                .ParentKeyColumn("variacaomodelo_id")
                 .ChildKeyColumn("cor_id")
                 .Access.CamelCaseField(Prefix.Underscore);
         }
