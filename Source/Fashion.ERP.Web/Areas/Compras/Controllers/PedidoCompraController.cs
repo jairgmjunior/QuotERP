@@ -339,7 +339,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                     model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
-
                 
                 return View("Editar", model);
             }
