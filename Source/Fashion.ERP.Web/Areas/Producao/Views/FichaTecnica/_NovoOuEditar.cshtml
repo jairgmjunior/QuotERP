@@ -1,0 +1,537 @@
+﻿@using Fashion.ERP.Web.Areas.Comum.Models
+@using Fashion.ERP.Web.Areas.Financeiro.Models
+@model ChequeRecebidoModel
+
+@using (Html.BeginForm((ActionResult)ViewData["FormResult"], FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Saldo)
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#cadastro" data-toggle="tab">Cadastro</a></li>
+        <li><a href="#complemento" data-toggle="tab">Complemento</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="cadastro">
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Unidade)
+                        <div class="controls">
+                            @Html.DropDownList("Unidade")
+                            @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Cmc7)
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on">
+                                    <label class="checkbox">
+                                        <input id="check-cmc7" type="checkbox">
+                                    </label>
+                                </span>
+                                @Html.TextBoxFor(x => x.Cmc7, new { data_mask = "999999999999999999999999999999", disabled = "disabled" })
+                                @Html.ValidationMessageFor(x => x.Cmc7, null, new { @class = "help-block" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Banco)
+                        <div class="controls">
+                            <div class="input-append">
+                                @Html.HiddenFor(x => x.Banco)
+                                <input id="codigo-banco" class="input-small" type="text" />
+                                <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
+                                <span id="descricao-banco" class="add-on"></span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Agencia)
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Agencia)
+                            @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Conta)
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Conta)
+                            @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.NumeroCheque)
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.NumeroCheque)
+                            @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Valor)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Valor)
+                            @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.DataEmissao)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.DataEmissao)
+                            @Html.ValidationMessageFor(x => x.DataEmissao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.DataVencimento)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.DataVencimento)
+                            @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.DataProrrogacao)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.DataProrrogacao)
+                            @Html.ValidationMessageFor(x => x.DataProrrogacao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Cliente)
+                        <div class="controls">
+                            <div class="input-append">
+                                @Html.HiddenFor(x => x.Cliente)
+                                <input id="codigo-cliente" class="input-small" type="text" />
+                                <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
+                                <span id="descricao-cliente" class="add-on"></span>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Cliente, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Emitente)
+                        <div class="controls">
+                            <button id="cadastrar-emitente" class="btn" type="button"><i class="icon-edit"></i>Editar</button>
+                            <div id="emitente-painel"></div>
+                            @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Observacao)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Observacao)
+                            @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="complemento">
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Nominal)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Nominal)
+                            @Html.ValidationMessageFor(x => x.Nominal, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Praca)
+                        <div class="controls">
+                            @Html.EditorFor(x => x.Praca)
+                            @Html.ValidationMessageFor(x => x.Praca, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Funcionarios</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <input id="codigo-funcionario" class="input-small" type="text" />
+                                <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                                <button id="adicionar-funcionario" class="btn" type="button">Adicionar</button>
+                                <span id="descricao-funcionario" class="add-on"></span>
+                            </div>
+                            @(Html.Kendo().Grid((IEnumerable<GridFuncionarioModel>)ViewBag.Funcionarios)
+                                  .Name("grid-funcionario")
+                                  .Columns(columns =>
+                                               {
+                                                   columns.Bound(x => x.Codigo).Width(60);
+                                                   columns.Bound(x => x.Nome);
+                                                   columns.Bound(x => x.Id)
+                                                       .ClientTemplate("<a href='RemoverFuncionario/#= Id #' onclick='RemoverFuncionario(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
+                                                       .Title("")
+                                                       .Width(80);
+                                               }).DataSource(s =>
+                                                             s.Ajax()
+                                                                 .Read(r => r.Action("LerFuncionarios", "ChequeRecebido")
+                                                                             .Type(HttpVerbs.Get))
+                                  ))
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Prestadores de serviço</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <input id="codigo-prestadorservico" class="input-small" type="text" />
+                                <button id="pesquisar-prestadorservico" class="btn" type="button"><i class="icon-search"></i></button>
+                                <button id="adicionar-prestadorservico" class="btn" type="button">Adicionar</button>
+                                <span id="descricao-prestadorservico" class="add-on"></span>
+                            </div>
+                            @(Html.Kendo().Grid((IEnumerable<GridPrestadorServicoModel>)ViewBag.Prestadores)
+                                  .Name("grid-prestadorservico")
+                                  .Columns(columns =>
+                                               {
+                                                   columns.Bound(x => x.Codigo).Width(60);
+                                                   columns.Bound(x => x.Nome);
+                                                   columns.Bound(x => x.Id)
+                                                       .ClientTemplate("<a href='RemoverPrestador/#= Id #' onclick='RemoverPrestador(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
+                                                       .Title("")
+                                                       .Width(80);
+                                               }).DataSource(s =>
+                                                   s.Ajax()
+                                                   .Read(r => r.Action("LerPrestadores", "ChequeRecebido")
+                                                               .Type(HttpVerbs.Get))
+                                  ))
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Historico)
+                        <div class="controls">
+                            @Html.TextAreaFor(x => x.Historico, new { @readonly = "readonly" })
+                            @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Compensado)
+                        <div class="controls">
+                            @if (Model.Compensado)
+                            { <i class="icon-ok-circle"></i> }
+                            else
+                            { <i class="icon-ban-circle"></i> }
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelForRequired(x => x.Saldo)
+                        <div class="controls">
+                            <b>@((Model.Saldo.HasValue ? Model.Saldo.Value : 0).ToString("c"))</b>
+                        </div>
+                    </div>
+                    @if (Model.Id.HasValue)
+                    {
+                        <div class="control-group">
+                            <label class="control-label">Ocorrências</label>
+                            <div class="controls">
+
+                                @(Html.Kendo().Grid<GridOcorrenciaCompensacaoModel>()
+                                      .Name("grid-ocorrencias")
+                                      .Columns(columns =>
+                                                   {
+                                                       columns.Bound(x => x.Data).Width(80);
+                                                       columns.Bound(x => x.ChequeSituacao);
+                                                   }).DataSource(s =>
+                                                                 s.Ajax()
+                                                                     .Read(r => r.Action("LerOcorrencias", "ChequeRecebido", new { id = Model.Id.Value })
+                                                                                 .Type(HttpVerbs.Get))
+                                      ))
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Baixas realizadas</label>
+                            <div class="controls">
+                                @(Html.Kendo().Grid<GridBaixaChequeRecebidoModel>()
+                                      .Name("grid-baixasrealizadas")
+                                      .Columns(columns =>
+                                                   {
+                                                       columns.Bound(x => x.Data).Width(80);
+                                                       columns.Bound(x => x.ValorJuros);
+                                                       columns.Bound(x => x.ValorDesconto);
+                                                       columns.Bound(x => x.Valor);
+                                                       columns.Bound(x => x.Id)
+                                                           .ClientTemplate("<a href='/Financeiro/ChequeRecebido/ExcluirBaixa/#= Id #' class='delete btn btn-small btn-primary'>Excluir</a>")
+                                                           .Width(70).Title("");
+                                                   }).DataSource(s =>
+                                                                 s.Ajax()
+                                                                     .Read(r => r.Action("LerBaixasRealizadas", "ChequeRecebido", new { id = Model.Id.Value })
+                                                                                 .Type(HttpVerbs.Get))
+                                      ))
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @if (this.ActionName() == MVC.Financeiro.ChequeRecebido.ActionNames.Editar)
+        {
+            @Html.ExcluirAuth(MVC.Financeiro.ChequeRecebido.Excluir(Model.Id))
+        }
+    </div>
+}
+<script>
+    // Cmc7
+    $(function () {
+        $('#Cmc7').on('keydown', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+            }
+        });
+        $('#Cmc7').on('change', function () {
+            var cmc7 = $(this).val().replace(/\D/g, '');
+
+            if (cmc7 == '')
+                return;
+
+            var banco = '';
+            var agencia = '';
+            var conta = '';
+            var numeroCheque = '';
+
+            if (ValidarCMC7(cmc7)) {
+                banco = cmc7.substring(0, 3);
+                agencia = cmc7.substring(3, 7);
+                conta = cmc7.substring(23, 29);
+                numeroCheque = cmc7.substring(11, 17);
+            } else {
+                alert('O código CMC7 informado é inválido.');
+                $(this).val('');
+                $(this).focus();
+            }
+
+            $('#codigo-banco').val(banco).trigger('change');
+            $('#Agencia').val(agencia);
+            $('#Conta').val(conta);
+            $('#NumeroCheque').val(numeroCheque);
+            carregaEmitente();
+        });
+        
+        $('#check-cmc7').change(function() {
+            if($(this).is(":checked")) {
+                $('#Cmc7').removeAttr('disabled').focus();
+                $('#codigo-banco').attr('disabled', 'disabled');
+                $('#pesquisar-banco').attr('disabled', 'disabled');
+                $('#Agencia').attr('disabled', 'disabled');
+                $('#Conta').attr('disabled', 'disabled');
+                $('#NumeroCheque').attr('disabled', 'disabled');
+            } else {
+                $('#Cmc7').attr('disabled', 'disabled');
+                $('#codigo-banco').removeAttr('disabled').focus();
+                $('#pesquisar-banco').removeAttr('disabled');
+                $('#Agencia').removeAttr('disabled');
+                $('#Conta').removeAttr('disabled');
+                $('#NumeroCheque').removeAttr('disabled');
+            }
+        });
+    });
+    // Funcionário
+    function RemoverFuncionario(a, e) {
+        e.preventDefault();
+        var url = $(a).attr('href');
+
+        $.post(url, function () {
+            var grid = $('#grid-funcionario').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }
+    $(function () {
+        $('#adicionar-funcionario').on('click', function () {
+            var codigo = $('#codigo-funcionario').val();
+
+            if (codigo != '') {
+                var url = '/Financeiro/ChequeRecebido/AdicionarFuncionario?codigo=' + codigo;
+                $.post(url, function () {
+                    var grid = $('#grid-funcionario').data("kendoGrid");
+                    grid.dataSource.read();
+
+                    $('#codigo-funcionario').val('');
+                    $('#descricao-funcionario').text('');
+                });
+            }
+        });
+    });
+    // Prestador de serviço
+    function RemoverPrestador(a, e) {
+        e.preventDefault();
+        var url = $(a).attr('href');
+
+        $.post(url, function () {
+            var grid = $('#grid-prestadorservico').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }
+    $(function () {
+        $('#adicionar-prestadorservico').on('click', function () {
+            var codigo = $('#codigo-prestadorservico').val();
+
+            if (codigo != '') {
+                var url = '/Financeiro/ChequeRecebido/AdicionarPrestador?codigo=' + codigo;
+                $.post(url, function () {
+                    var grid = $('#grid-prestadorservico').data("kendoGrid");
+                    grid.dataSource.read();
+
+                    $('#codigo-prestadorservico').val('');
+                    $('#descricao-prestadorservico').text('');
+                });
+            }
+        });
+    });
+    // Emitente
+    $(function () {
+        carregaEmitente();
+
+        // Banco
+        $('#Banco').change(function () {
+            carregaEmitente();
+        });
+
+        // Agencia
+        $('#Agencia').change(function () {
+            carregaEmitente();
+        });
+
+        // Conta
+        $('#Conta').change(function () {
+            carregaEmitente();
+        });
+    });
+    function carregaEmitente() {
+        var banco = $('#Banco').val();
+        var agencia = $('#Agencia').val();
+        var conta = $('#Conta').val();
+
+        if (banco != '' && agencia != '' && conta != '') {
+            var url = '/Financeiro/Emitente/Detalhe/' + '?banco=' + banco + '&agencia=' + agencia + '&conta=' + conta;
+            $('#emitente-painel').load(url);
+        } else {
+            $('#emitente-painel').empty();
+        }
+    }
+
+    // Seleciona qual campo irá aparecer ao mostrar a tela
+    var selecionaCpfCnpj = function () {
+        if ($("#Cnpj1").val() == '') {
+            $("#control-cnpj1").hide();
+            $('#pessoa-fisica1').attr('checked', true);
+        } else {
+            $("#control-cpf1").hide();
+            $('#pessoa-juridica1').attr('checked', true);
+        }
+        if ($("#Cnpj2").val() == '') {
+            $("#control-cnpj2").hide();
+            $('#pessoa-fisica2').attr('checked', true);
+        } else {
+            $("#control-cpf2").hide();
+            $('#pessoa-juridica2').attr('checked', true);
+        }
+    };
+</script>
+<!-- CADASTRO DE EMITENTE -->
+<div id="modal-emitente" class="modal hide fade">
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Emitente</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Financeiro.Emitente.NovoOuEditar(), FormMethod.Post, new { id = "form-cadastrar-emitente", @class = "form-horizontal" }))
+    {
+        <div id="modal-body-emitente" class="modal-body"></div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="submit-salvar-emitente" class="btn btn-primary" type="submit">Salvar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#cadastrar-emitente').on('click', function () {
+            // Copiar o Banco/Agencia/Conta do cheque para a tela de emitente
+            var banco = $('#Banco').val();
+            var agencia = $('#Agencia').val();
+            var conta = $('#Conta').val();
+            var idEmitente = $('#Emitente').val();
+
+            if (banco == '' || agencia == '' || conta == '') {
+                alert('É preciso selecionar o Banco, Agência e Conta antes de cadastrar o emitente');
+                return false;
+            }
+
+            var url = '/Financeiro/Emitente/NovoOuEditar' + '?banco=' + banco + '&agencia=' + agencia + '&conta=' + conta;
+
+            // Buscar o emitente ou carregar formulário novo
+            $.get(url, function (data) {
+                $('#modal-body-emitente').html(data);
+                selecionaCpfCnpj();
+                $('#emitente-banco').val(banco);
+                $('#emitente-agencia').val(agencia);
+                $('#emitente-conta').val(conta);
+                $('#emitente-id').val(idEmitente);
+                adicionaEventoTipoPessoa();
+                // Seleciona o campo 'Cliente desde'
+                $('#ClienteDesde').focus();
+            });
+
+            $('#modal-emitente').modal('show');
+        });
+
+        $('#submit-salvar-emitente').off('click').on('click', function () {
+            var form = $('#form-cadastrar-emitente');
+
+            form.ajaxSubmit({
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    if (typeof data == 'object') {
+                        if (data.Error) {
+                            alert(data.Error);
+                            return;
+                        }
+
+                        $('#modal-emitente').modal('hide');
+                        $('#Emitente').val(data.Id);
+                        carregaEmitente();
+                    } else {
+                        $('#modal-body-emitente').html(data);
+                        selecionaCpfCnpj();
+                    }
+                },
+            });
+        });
+
+        var adicionaEventoTipoPessoa = function () {
+            $("#pessoa-fisica1").off().on("click", function () {
+                $("#control-cpf1").show();
+                $("#control-cnpj1").hide('slow').val('');
+                $("#Cpf1").focus();
+            });
+            $("#pessoa-juridica1").off().on("click", function () {
+                $("#control-cpf1").hide('slow').val('');
+                $("#control-cnpj1").show();
+                $("#Cnpj1").focus();
+            });
+            $("#pessoa-fisica2").off().on("click", function () {
+                $("#control-cpf2").show();
+                $("#control-cnpj2").hide('slow').val('');
+                $("#Cpf2").focus();
+            });
+            $("#pessoa-juridica2").off().on("click", function () {
+                $("#control-cpf2").hide('slow').val('');
+                $("#control-cnpj2").show();
+                $("#Cnpj2").focus();
+            });
+        };
+    });
+</script>
+@{
+    Html.RenderAction("Pesquisar", "Cliente", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Banco", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "PrestadorServico", new { area = "Comum" });
+}

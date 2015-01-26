@@ -44,7 +44,17 @@ namespace Fashion.ERP.Domain.Comum
         public virtual Endereco EnderecoPadrao
         {
             //todo retornar TipoEndereco.Comercial se TipoPessoa.Juridico
-            get { return Enderecos.FirstOrDefault(x => x.TipoEndereco == TipoEndereco.Residencial); }
+            get
+            {
+                var enderecoResidencial = Enderecos.FirstOrDefault(x => x.TipoEndereco == TipoEndereco.Residencial);
+                
+                if (enderecoResidencial == null)
+                {
+                    return Enderecos.FirstOrDefault();
+                }
+
+                return enderecoResidencial;
+            }
         }
 
         public virtual Contato ContatoPadrao

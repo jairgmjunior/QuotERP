@@ -35,6 +35,7 @@ namespace Links
             public static readonly string JqueryColor = "~/bundles/jcolor";
             public static readonly string PdfObject = "~/bundles/pdfobject";
             public static readonly string Lightbox = "~/bundles/lightbox";
+            public static readonly string Currency = "~/bundles/Currency";
         }
         #endregion
     }
@@ -140,6 +141,9 @@ namespace Fashion.ERP.Web
 
             bundles.Add(new ScriptBundle(Links.Bundles.Scripts.Lightbox)
                             .Include("~/Scripts/lightbox-{version}.js"));
+
+            bundles.Add(new ScriptBundle(Links.Bundles.Scripts.Currency)
+                            .Include("~/Scripts/jquery.currency.js"));
         }
         #endregion
     }
