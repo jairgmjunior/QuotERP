@@ -324,7 +324,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var model = Mapper.Flat<PedidoCompraModel>(domain);
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorLiquido = domain.ValorLiquido;
-
+                model.GridItens = new List<GridPedidoCompraItem>();
                 foreach (var item in domain.PedidoCompraItens)
                 {
                     //model.PedidoCompraItens.Add(item.Id);
@@ -334,7 +334,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     //model.ValorUnitarios.Add(item.ValorUnitario);
                     //model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
                     //model.SituacaoCompras.Add(item.SituacaoCompra);
-                    model.GridItens = new List<GridPedidoCompraItem>();
                     model.GridItens.Add(ObterPedidoCompraItem(item));
                     model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                     model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
