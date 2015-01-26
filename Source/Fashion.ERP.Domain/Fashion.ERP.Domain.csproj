@@ -134,6 +134,7 @@
     <Compile Include="Comum\ProcessoOperacional.cs" />
     <Compile Include="Comum\Prazo.cs" />
     <Compile Include="Comum\SequenciaOperacional.cs" />
+    <Compile Include="EngenhariaProduto\VariacaoModelo.cs" />
     <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
@@ -229,7 +230,9 @@
     <None Include="EngenhariaProduto.cd" />
     <None Include="Financeiro.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Producao\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

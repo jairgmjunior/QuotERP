@@ -428,6 +428,7 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\AprovarModeloController.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ClassificacaoController.cs" />
@@ -1102,10 +1103,20 @@
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Novo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialBaixa\Baixar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialCancelamento\Cancelar.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Novo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Editar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Index.cshtml" />
+=======
+    <Content Include="Areas\Producao\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Baixa.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Devolucao.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Index.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Novo.cshtml" />
+>>>>>>> ceba02ada10e35dd383de2413531fcac8113b2d8
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1406,6 +1417,9 @@
     <Folder Include="Areas\Dev\Shared\" />
     <Folder Include="Areas\EngenhariaProduto\Shared\" />
     <Folder Include="Areas\Financeiro\Shared\" />
+    <Folder Include="Areas\Producao\Controllers\" />
+    <Folder Include="Areas\Producao\Models\" />
+    <Folder Include="Areas\Producao\Shared\" />
     <Folder Include="CodeTemplates\MvcControllerEmpty\" />
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Temp\" />

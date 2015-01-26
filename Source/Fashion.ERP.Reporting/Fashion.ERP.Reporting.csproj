@@ -271,7 +271,9 @@
     <Compile Include="Helpers\UserFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Producao\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Almoxarifado\ListaRequisicaoMaterialReport.resx">
       <DependentUpon>ListaRequisicaoMaterialReport.cs</DependentUpon>

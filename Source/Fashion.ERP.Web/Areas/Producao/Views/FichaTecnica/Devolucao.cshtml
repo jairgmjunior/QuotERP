@@ -1,0 +1,143 @@
+﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.DevolucaoChequeRecebidoModel
+<hr />
+<fieldset>
+    <legend>Dados do cheque</legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Unidade, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Unidade)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Cliente, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Cliente)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Banco, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Banco)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Agencia, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Agencia)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Conta, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Conta)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.NumeroCheque, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.NumeroCheque)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.SituacaoCheque, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.SituacaoCheque)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Emitente, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Emitente)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataEmissao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.DataEmissao, "{0:dd/MM/yyyy}")
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataVencimento, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.DataVencimento, "{0:dd/MM/yyyy}")
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataProrrogacao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.DataProrrogacao, "{0:dd/MM/yyyy}")
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Valor, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Valor, "{0:C}")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<hr />
+
+@using (Html.BeginForm(MVC.Financeiro.ChequeRecebido.Devolucao(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Unidade)
+    @Html.HiddenFor(x => x.Cliente)
+    @Html.HiddenFor(x => x.Banco)
+    @Html.HiddenFor(x => x.Agencia)
+    @Html.HiddenFor(x => x.Conta)
+    @Html.HiddenFor(x => x.NumeroCheque)
+    @Html.HiddenFor(x => x.SituacaoCheque)
+    @Html.HiddenFor(x => x.Emitente)
+    @Html.HiddenFor(x => x.DataEmissao)
+    @Html.HiddenFor(x => x.DataVencimento)
+    @Html.HiddenFor(x => x.DataProrrogacao)
+    @Html.HiddenFor(x => x.Valor)
+    <fieldset>
+        <legend>Dados da devolução</legend>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.DataDevolucao)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.DataDevolucao)
+                        @Html.ValidationMessageFor(x => x.DataDevolucao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.CompensacaoCheque)
+                    <div class="controls">
+                        @Html.DropDownList("CompensacaoCheque", null, new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.CompensacaoCheque, null, new { @class="help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.SituacaoChequeRecebido)
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.SituacaoChequeRecebido, Model.SituacaoChequeRecebido.ToSelectList())
+                        @Html.ValidationMessageFor(x => x.SituacaoChequeRecebido, null, new { @class="help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Observacao)
+                    <div class="controls">
+                        @Html.TextAreaFor(x => x.Observacao)
+                        @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}

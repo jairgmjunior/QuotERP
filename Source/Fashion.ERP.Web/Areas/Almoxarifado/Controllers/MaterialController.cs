@@ -624,6 +624,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, model.TipoItemMaterial, LogicOperator.And));
 
             var materiais = _materialRepository.Find(filters.ToArray()).ToList();
+
             var list = materiais.Select(p => new GridMaterialModel
             {
                 Id = p.Id.GetValueOrDefault(),
@@ -632,12 +633,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 MarcaMaterial = p.MarcaMaterial.Nome,
                 Categoria = p.Subcategoria.Categoria.Nome,
                 Subcategoria = p.Subcategoria.Nome,
-                Familia = p.Familia.Nome,
+                Familia = p.Familia == null ? null : p.Familia.Nome,
                 UnidadeMedida = p.UnidadeMedida.Sigla,
-                ReferenciaExterna = RetornarReferenciaExterna(p.Id.Value,model.FornecedorMaterial.HasValue ? model.FornecedorMaterial.Value : 0)
+                ReferenciaExterna =
+                    RetornarReferenciaExterna(p.Id.Value,
+                        model.FornecedorMaterial.HasValue ? model.FornecedorMaterial.Value : 0)
             }).ToList();
- 
             return Json(list);
+            
         }
         #endregion
 

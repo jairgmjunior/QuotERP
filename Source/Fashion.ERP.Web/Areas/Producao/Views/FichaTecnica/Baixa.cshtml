@@ -1,0 +1,258 @@
+﻿@using Fashion.ERP.Web.Areas.Financeiro.Models
+@model BaixaChequeRecebidoModel
+<hr />
+<fieldset>
+    <legend>Dados do cheque</legend>
+    <div class="detail">
+        <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Unidade, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Unidade)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Cliente, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Cliente)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Banco, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Banco)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Agencia, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Agencia)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Conta, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Conta)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.NumeroCheque, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.NumeroCheque)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.SituacaoCheque, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.SituacaoCheque)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Emitente, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Emitente)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataVencimento, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.DataVencimento, "{0:dd/MM/yyyy}")
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataProrrogacao, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.DataProrrogacao, "{0:dd/MM/yyyy}")
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(x => x.ValorCheque, new { @class = "title-label" })
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.ValorCheque, "{0:C}")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<hr />
+
+<fieldset>
+    <legend>Baixas realizadas</legend>
+    <div class="row">
+        <div class="span12">
+            <table id="table-parcelas" class="table table-striped table-condensed" style="width: 900px">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Valor baixa</th>
+                                    <th>Juros</th>
+                                    <th>Despesas</th>
+                                    <th>Descontos</th>
+                                    <th>Valor total</th>
+                                    <th>Observação</th>
+                                    <th style="width: 16px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.BaixasRealizadas != null)
+                                    {
+                                        for (int i = 0; i < Model.BaixasRealizadas.Count; i++)
+                                        {
+                                            var id = Model.BaixasRealizadas[i].Id;
+                                            var data = Model.BaixasRealizadas[i].Data;
+                                            var valor = Model.BaixasRealizadas[i].Valor;
+                                            var valorJuros = Model.BaixasRealizadas[i].ValorJuros;
+                                            var despesa = Model.BaixasRealizadas[i].Despesa;
+                                            var valorDesconto = Model.BaixasRealizadas[i].ValorDesconto;
+                                            var valorTotal = Model.BaixasRealizadas[i].ValorTotal;
+                                            var observacao = Model.BaixasRealizadas[i].Observacao;
+
+                                        <tr>
+                                            <td>
+                                                @data.GetValueOrDefault().ToString("dd/MM/yyyy")
+                                                <input type="hidden" name="BaixasRealizadas[@i].Data" value="@data"/>
+                                            </td>
+                                            <td>
+                                                @valor.ToString("N")
+                                                <input type="hidden" name="BaixasRealizadas[@i].Valor" value="@valor"/>
+                                            </td>
+                                            <td>
+                                                @valorJuros.ToString("N")
+                                                <input type="hidden" name="BaixasRealizadas[@i].ValorJuros" value="@valorJuros"/>
+                                            </td>
+                                            <td>
+                                                @despesa.ToString("N")
+                                                <input type="hidden" name="BaixasRealizadas[@i].Despesa" value="@despesa"/>
+                                            </td>
+                                            <td>
+                                                @valorDesconto.ToString("N")
+                                                <input type="hidden" name="BaixasRealizadas[@i].ValorDesconto" value="@valorDesconto"/>
+                                            </td>
+                                            <td>
+                                                @valorTotal.ToString("N")
+                                                <input type="hidden" name="BaixasRealizadas[@i].ValorTotal" value="@valorTotal"/>
+                                            </td>
+                                            <td>
+                                                @observacao
+                                                <input type="hidden" name="BaixasRealizadas[@i].Observacao" value="@observacao"/>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="BaixasRealizadas[@i].Id" value="@id"/>
+                                                @Html.ActionLinkAuth("Baixar", MVC.Financeiro.ChequeRecebido.ExcluirBaixa(id), new { @class = "delete btn btn-danger"})
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                            </tbody>
+                        </table>
+        </div>    
+    </div>
+</fieldset>
+<hr />
+
+@using (Html.BeginForm(MVC.Financeiro.ChequeRecebido.Baixa(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.ChequeRecebido)
+    @Html.HiddenFor(x => x.Unidade)
+    @Html.HiddenFor(x => x.Cliente)
+    @Html.HiddenFor(x => x.Banco)
+    @Html.HiddenFor(x => x.Agencia)
+    @Html.HiddenFor(x => x.Conta)
+    @Html.HiddenFor(x => x.NumeroCheque)
+    @Html.HiddenFor(x => x.SituacaoCheque)
+    @Html.HiddenFor(x => x.Emitente)
+    @Html.HiddenFor(x => x.DataVencimento)
+    @Html.HiddenFor(x => x.DataProrrogacao)
+    @Html.HiddenFor(x => x.ValorCheque)
+    @Html.HiddenFor(x => x.SaldoCheque)
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Data)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Data)
+                    @Html.ValidationMessageFor(x => x.Data, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Valor)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Valor)
+                    @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorJuros)
+                <div class="controls">
+                    @Html.EditorFor(x => x.ValorJuros)
+                    @Html.ValidationMessageFor(x => x.ValorJuros, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Despesa)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Despesa)
+                    @Html.ValidationMessageFor(x => x.Despesa, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorDesconto)
+                <div class="controls">
+                    @Html.EditorFor(x => x.ValorDesconto)
+                    @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorTotal)
+                <div class="controls">
+                    @Html.TextBox("ValorTotal", Model.ValorTotal.ToString("N"), new { @readonly = "readonly"})
+                    @Html.ValidationMessageFor(x => x.ValorTotal, null, new { @class = "help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Observacao)
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.Observacao)
+                    @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+<script>
+    $(function () {
+        // Calcula o valor total
+        $('#Valor, #ValorJuros, #Despesa, #ValorDesconto').change(function () {
+            calculaTotal();
+        });
+    });
+
+    function calculaTotal() {
+        var valor = $('#Valor').val().toNumber();
+        var juro = $('#ValorJuros').val().toNumber();
+        var despesa = $('#Despesa').val().toNumber();
+        var desconto = $('#ValorDesconto').val().toNumber();
+        var valorTotal = valor + juro + despesa - desconto;
+        $('#ValorTotal').val(valorTotal.toText());
+    }
+
+    function Delete(id) {
+        if (confirm("Deseja realmente excluir esta baixa?")) {
+            //todo: chamar a exclusão de baixa
+        }
+    }
+</script>
+@{Html.RenderPartial("_ConfirmDelete");}
