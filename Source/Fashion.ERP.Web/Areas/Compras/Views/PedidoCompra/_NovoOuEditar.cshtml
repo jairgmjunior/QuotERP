@@ -27,13 +27,13 @@
         var valorEncargos = FormatarValores($('#ValorEncargos').val());
         var valorFrete = FormatarValores($('#ValorFrete').val());
         var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
-        var valorDesconto = $('#ValorDesconto').val();
+        var valorDesconto = FormatarValores($('#ValorDesconto').val());
         var valorLiquido = 0;
 
         valorLiquido = parseFloat(valorMercadorias) + parseFloat(valorEncargos) + parseFloat(valorFrete) + parseFloat(valorEmbalagem);
         valorLiquido = valorLiquido - parseFloat(valorDesconto);
 
-        $('#ValorLiquido').val(valorLiquido);
+        $('#ValorLiquido').val(FormatarValores(valorLiquido.toString()));
         $('#ValorLiquido').change();
 
         $('#txtValorLiquido').val(valorLiquido);
@@ -46,8 +46,8 @@
     }
 
     function FormatarValores(campo) {
-        var retorno = campo.replace(".", "");
-        retorno = retorno.replace(",", ".");
+        //var retorno = campo.replace(".", "");
+        var retorno = campo.replace(",", ".");
         return retorno;
     }
 </script>
@@ -222,43 +222,43 @@
                 </div>
             </div>
         </div>
-
+        
     </div>
     <div class="tab-pane" id="itens">
         
- 
+    
         
         @(Html.Kendo().Grid(@Model.GridItens)
             .Name("GridItens")
             .Columns(columns =>
             {
-                columns.Bound(x => x.Id).Hidden();            
+                columns.Bound(x => x.Id).Hidden();
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(60);
                 columns.Bound(e => e.ReferenciaExterna).Width(60);
                 columns.Bound(e => e.Quantidade).EditorTemplateName("Numeric").Width(60);
                 columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
-                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Width(100);
-                columns.Bound(e => e.ValorDesconto).Width(80);
-                columns.Bound(e => e.ValorTotal).Width(80);
-                columns.Command(command =>  { command.Edit(); command.Destroy(); } );
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:C}").Width(100);
+                columns.Bound(e => e.ValorDesconto).Format("{0:C}").Width(80);
+                columns.Bound(e => e.ValorTotal).Format("{0:C}").Width(80);
+                columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
-                    model.Id(item => item.Id); 
-                    model.Field(product => product.Descricao).Editable(true); 
+                    model.Id(item => item.Id);
+                    model.Field(product => product.Descricao).Editable(true);
                     model.Field(product => product.UnidadeMedida).Editable(true);
-                    model.Field(product => product.PrevisaoEntrega).Editable(true); 
+                    model.Field(product => product.PrevisaoEntrega).Editable(true);
                 })
                 .Create(update => update.Action("EditingInline_Create", "PedidoCompra"))
                 .Read(read => read.Action("EditingInline_Read", "PedidoCompra"))
                 .Update(update => update.Action("EditingInline_Update", "PedidoCompra"))
                 .Destroy(update => update.Action("EditingInline_Destroy", "PedidoCompra"))
             )
-            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class="btn-primary" }))
+            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class = "btn-primary" }))
             .Editable(editable => editable.Mode(GridEditMode.InLine))
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
@@ -272,37 +272,120 @@
             .Items(items =>
             {
                 items.Add().Text("Detalhes Itens").Content(@<text>
-                    @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
-                        .Name("grid_#=PedidoCompraId#")
-                        .Columns(columns =>
-                        {
-                            columns.Bound(o => o.Id).Hidden();
-                            columns.Bound(o => o.Referencia).Width(80);
-                            columns.Bound(o => o.ReferenciaExterna).Width(80);
-                            columns.Bound(o => o.Descricao).Width(500);
-                            columns.Bound(o => o.UnidadeMedida).Width(60);
-                            columns.Bound(o => o.Quantidade).Format("{0:n2}").Width(60);
-                            columns.Bound(o => o.QuantidadeEntregue).Width(80);
-                            columns.Bound(o => o.Diferenca).Width(80);
-                            columns.Bound(o => o.ValorUnitario).Width(80);
-                            columns.Bound(o => o.ValorDesconto).Width(80);
-                            columns.Bound(o => o.ValorTotal).Width(80);
-                            columns.Bound(o => o.Situacao).Width(120);
-                        })
-                        .DataSource(dataSource => dataSource
-                            .Ajax()
-                            .PageSize(5)
-                            .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                    <table class="table table-bordered">
+      <thead>
+                        <tr class="active">
+                            <td>
+                                <b>Referência</b>
+                            </td>
+                              <td>
+                                <b>Referência Externa</b>
+                            </td>
+                            <td>
+                                <b>Descrição</b>
+                            </td>
+      
+                            <td>
+                                <b>Unidade</b>
+                            </td>
+                            <td>
+                                <b>Qtde</b>
+                            </td>
+                            <td>
+                                <b>Qtde Entregue</b>
+                            </td>
+                            <td>
+                                <b>Diferença</b>
+                            </td>
+                            <td>
+                                <b>Preço</b>
+                            </td>
+                            <td>
+                                <b>Desconto</b>
+                            </td>
+                             <td>
+                                <b>Valor Total</b>
+                            </td>
+                            <td>
+                                <b>Situação</b>
+                            </td>
+                        </tr>
+      </thead>
+      <tbody>
+                        <tr>
+                            <td>
+                                #: Referencia #
+                            </td>
+                              <td>
+                                #: ReferenciaExterna #
+                            </td>
+                            <td>
+                                #: Descricao #
+                            </td>
+      
+                            <td>
+                                #: UnidadeMedida #
+                            </td>
+                            <td>
+                                #: Quantidade #
+                            </td>
+                            <td>
+                                  #: QuantidadeEntregue #
+                            </td>
+                            <td>
+                                #: Diferenca #
+                            </td>
+                            <td>
+                                #: kendo.toString(ValorUnitario,'C') #
+                            </td>
+                            <td>
+                                #: kendo.toString(ValorDesconto,'C') #
+                            </td>
+                             <td>
+                                    
+                               #: kendo.toString(ValorTotal,'C') #
+                                
+                            </td>
+                            <td>
+                                    #: Situacao #
+                            </td>
+                        </tr>
+      </tbody>
+                    </table>
+                    @*<div>Descrição: #: Descricao #</div>*@
+                   @* @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
+                          .Name("grid_#=PedidoCompraId#")
+                          .Columns(columns =>
+                          {
+                              columns.Bound(o => o.Id).Hidden();
+                              columns.Bound(o => o.Referencia).Width(80);
+                              columns.Bound(o => o.ReferenciaExterna).Width(80);
+                              columns.Bound(o => o.Descricao).Width(500);
+                              columns.Bound(o => o.UnidadeMedida).Width(60);
+                              columns.Bound(o => o.Quantidade).Format("{0:n2}").Width(60);
+                              columns.Bound(o => o.QuantidadeEntregue).Width(80);
+                              columns.Bound(o => o.Diferenca).Width(80);
+                              columns.Bound(o => o.ValorUnitario).Width(80);
+                              columns.Bound(o => o.ValorDesconto).Width(80);
+                              columns.Bound(o => o.ValorTotal).Width(80);
+                              columns.Bound(o => o.Situacao).Width(120);
+                          })
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .PageSize(5)
+                              .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
                               .Model(model =>
                               {
-                                   model.Id(e => e.Id);
-                                   model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
+                                  model.Id(e => e.Id);
+                                  model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
                               })
-                        )
-                        .Pageable()
-                        .Sortable()
-                        .ToClientTemplate())
-                </text>                        
+                          )
+                          .Pageable()
+                          .Sortable()
+                          .ToClientTemplate())*@
+                
+                                                            
+                                                            </text>
                 );
                 items.Add().Text("Recebimento").Content(
                     "<div class='employee-details'>" +
@@ -310,7 +393,7 @@
                             "<li>teste</li>" +
                         "</ul>" +
                     "</div>"
-                );                
+                );
             })
             .ToClientTemplate())
 </script>
@@ -329,7 +412,7 @@
                 <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" />
                 <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
                 @*@Html.TextBox("ValorMercadorias",@Model.ValorMercadorias, new { @class = "help-block", disabled = "disabled", @readonly = "readonly", @style="whidt:300px"})*@
-                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block"})
+                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
@@ -372,7 +455,8 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorDesconto)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorDesconto" name="ValorDesconto" type="text" value="@Model.ValorLiquido" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" />
+                <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDesconto" />
                 @*@Html.EditorFor(x => x.ValorDesconto)*@
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
             </div>
@@ -395,6 +479,11 @@
 
 <script>
     
+    function ehTelaNovo() {
+        var pathArray = window.location.pathname.split('/');
+        return $.inArray('Novo', pathArray) > -1;
+    }
+
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
         $("#Descricao").width('86%');
@@ -407,17 +496,27 @@
         }
     }
 
+
     function onDataBound(e) {
+
+        if (ehTelaNovo()) {
+            //desabilita a coluna de detalhes
+            $(".k-hierarchy-cell").remove();
+            $(".k-hierarchy-col").remove();
+            alert('e');
+        }
+
         var gridData = e.sender.dataSource.data();
 
         var total = 0;
         var desconto = 0;
         var valorLiquido = 0;
-
+        
         for (var i = 0; i < gridData.length; i++) {
             total = total + gridData[i].ValorTotal;
             desconto = desconto + gridData[i].ValorDesconto;
         }
+
 
         $('#ValorMercadorias').val(total);
         $('#ValorMercadorias').change();
@@ -428,6 +527,10 @@
 
         $('#ValorDesconto').val(desconto);
         $('#ValorDesconto').change();
+
+        $('#txtValorDesconto').val(desconto);
+        $('#txtValorDesconto').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorDesconto').change();
 
         AtualizaValorLiquido();
     }
