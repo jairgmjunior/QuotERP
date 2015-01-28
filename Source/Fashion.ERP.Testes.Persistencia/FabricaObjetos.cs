@@ -316,6 +316,15 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public SimboloConservacao ObtenhaSimboloConservacao()
+        {
+            return new SimboloConservacao
+            {
+                Descricao = "DESCRIÇÃO",
+                CategoriaConservacao = CategoriaConservacao.Alvejamento,
+            };
+        }
+
         #endregion
 
         #region Engenharia de Produto
@@ -1064,5 +1073,7 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
         #endregion
+
+        
     }
 }

@@ -6,7 +6,7 @@
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.SimboloConservacao.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@using (Html.BeginForm(MVC.Compras.PedidoCompra.Index(), FormMethod.Post, new {@class = "form-horizontal small-labels"}))
+@using (Html.BeginForm(MVC.Almoxarifado.SimboloConservacao.Index(), FormMethod.Post, new {@class = "form-horizontal small-labels"}))
 {
     @Html.AntiForgeryToken()
     <div class="accordion" id="accordion2">
@@ -54,7 +54,7 @@
                                 <div id="row-imprimir" class="control-group" style="display: none">
                                     @Html.LabelForRequired(x => x.AgruparPor)
                                     <div class="controls">
-                                        @*@Html.DropDownList("AgruparPor", "--Selecione--")*@
+                                        @Html.DropDownList("AgruparPor", "--Selecione--")
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                 <div class="control-group">
                                     @Html.LabelForRequired(x => x.OrdenarPor, new {@class = "control-label "})
                                     <div class="controls">
-                                        @*@Html.DropDownList("OrdenarPor", "--Selecione--")*@
+                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,9 @@
 	{
         columns.Bound(x => x.Descricao);
         columns.Bound(x => x.CategoriaConservacao);
-        columns.Bound(x => x.Foto);
+        columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<img src=\"" + item.Foto + "\" class=\"img-rounded\" style=\"width: 48px; height: 48px;\"/>" : string.Empty)).Width(60);
+        //columns.Bound(c => c.Foto).ClientTemplate("<img src='" + Url.Content("~/") + "#=Foto#' alt='#=Desricao #' Title='#=Desricao #'/>");
+        //columns.Bound(x => x.Foto);
         columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.SimboloConservacao.Editar(item.Id))).Width(80);
 	})
       )

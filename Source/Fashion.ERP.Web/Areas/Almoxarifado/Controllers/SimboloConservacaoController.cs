@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
-using Fashion.ERP.Domain.Extensions;
+using Fashion.ERP.Reporting.Almoxarifado;
+using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Helpers;
@@ -12,10 +13,11 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using Fashion.Framework.UnitOfWork.DinamicFilter;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using System.Text;
+using Telerik.Reporting;
+using Kendo.Mvc.Extensions;
 
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
@@ -25,6 +27,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Variaveis
         private readonly IRepository<SimboloConservacao> _simboloRepository;
         private readonly ILogger _logger;
+        private Dictionary<string, string> _colunasPesquisaSimbolo;
+        private readonly string[] _tipoRelatorio = new[] { "Detalhado", "Listagem", "Sintético" };
+
         #endregion
 
         #region Construtores
@@ -32,12 +37,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             _simboloRepository = simboloRepository;
             _logger = logger;
+
+            PreecheColunasPesquisa();
         }
         #endregion
 
 
 
         #region Index
+         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
             var simbolos = _simboloRepository.Find();
@@ -55,102 +63,101 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return View(model);
         }
 
-        //[HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
-        //public virtual ActionResult Index(PesquisaSimboloConservacaoModel model)
-        //{
-        //    var simbolosConservacao = _simboloRepository.Find();
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        public virtual ActionResult Index(PesquisaSimboloConservacaoModel model)
+        {
+            var simbolosConservacao = _simboloRepository.Find();
 
-        //    try
-        //    {
-        //        #region Filtros
+            try
+            {
+                #region Filtros
 
-        //        var filtros = new StringBuilder();
+                var filtros = new StringBuilder();
 
-        //        if (model.Descricao != String.Empty)
-        //        {
-        //            simbolosConservacao = simbolosConservacao.Where(s => s.Descricao.Contains(model.Descricao));
-        //            filtros.AppendFormat("Descrição: {0}, ",
-        //                                 model.Descricao);
-        //        }
+                if (model.Descricao != null)
+                {
+                    simbolosConservacao = simbolosConservacao.Where(s => s.Descricao.Contains(model.Descricao));
+                    filtros.AppendFormat("Descrição: {0}, ",
+                                         model.Descricao);
+                }
 
-        //        if (model.CategoriaConservacao.HasValue)
-        //        {
-        //            simbolosConservacao = simbolosConservacao.Where(p => p.CategoriaConservacao == model.CategoriaConservacao.Value);
-        //            filtros.AppendFormat("Categoria: {0}, ", model.CategoriaConservacao.Value);
-        //        }
+                if (model.CategoriaConservacao.HasValue)
+                {
+                    simbolosConservacao = simbolosConservacao.Where(p => p.CategoriaConservacao == model.CategoriaConservacao.Value);
+                    filtros.AppendFormat("Categoria: {0}, ", model.CategoriaConservacao.Value);
+                }
 
 
-        //        #endregion
+                #endregion
 
-        //        // Verifica se é uma listagem
-        //        if (model.ModoConsulta == "Listar")
-        //        {
-        //            if (model.OrdenarPor != null)
-        //                simbolosConservacao = model.OrdenarEm == "asc"
-        //                                    ? simbolosConservacao.OrderBy(model.OrdenarPor)
-        //                                    : simbolosConservacao.OrderByDescending(model.OrdenarPor);
+                // Verifica se é uma listagem
+                if (model.ModoConsulta == "Listar")
+                {
+                    if (model.OrdenarPor != null)
+                        simbolosConservacao = model.OrdenarEm == "asc"
+                                            ? simbolosConservacao.OrderBy(model.OrdenarPor)
+                                            : simbolosConservacao.OrderByDescending(model.OrdenarPor);
 
-        //            model.Grid = simbolosConservacao.Select(p => new GridSimboloConservacaoModel
-        //            {
-        //                Id = p.Id.GetValueOrDefault(),
-        //                Descricao = p.Descricao,
-        //                CategoriaConservacao = p.CategoriaConservacao.ToString(),
-        //                Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty)
-        //            }).ToList();
+                    model.Grid = simbolosConservacao.Select(p => new GridSimboloConservacaoModel
+                    {
+                        Id = p.Id.GetValueOrDefault(),
+                        Descricao = p.Descricao,
+                        CategoriaConservacao = p.CategoriaConservacao.ToString(),
+                        Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty)
+                    }).ToList();
 
-        //            return View(model);
-        //        }
+                    return View(model);
+                }
 
-        //        // Se não é uma listagem, gerar o relatório
-        //        var result = simbolosConservacao.Fetch(s => s.Descricao).Fetch(s => s.CategoriaConservacao).ToList();
+                // Se não é uma listagem, gerar o relatório
+                var result = simbolosConservacao.ToList();
+                if (!result.Any())
+                    return Json(new { Error = "Nenhum item encontrado." });
 
-        //        if (!result.Any())
-        //            return Json(new { Error = "Nenhum item encontrado." });
+                #region Montar Relatório
 
-        //        #region Montar Relatório
+                var report = new ListaSimboloConservacaoReport { DataSource = result };
 
-        //        var report = new ListaPedidoCompraReport { DataSource = result };
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
 
-        //        if (filtros.Length > 2)
-        //            report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
 
-        //        var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+                if (model.AgruparPor != null)
+                {
+                    grupo.Groupings.Add("=Fields." + model.AgruparPor);
 
-        //        if (model.AgruparPor != null)
-        //        {
-        //            grupo.Groupings.Add("=Fields." + model.AgruparPor);
+                    var key = _colunasPesquisaSimbolo.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
+                }
 
-        //            var key = ColunasPesquisaPedidoCompra.First(p => p.Value == model.AgruparPor).Key;
-        //            var titulo = string.Format("= \"{0}: \" + Fields.{1}", key, model.AgruparPor);
-        //            grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
-        //        }
-        //        else
-        //        {
-        //            report.Groups.Remove(grupo);
-        //        }
+                if (model.OrdenarPor != null)
+                    report.Sortings.Add("=Fields." + model.OrdenarPor,
+                                        model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
 
-        //        if (model.OrdenarPor != null)
-        //            report.Sortings.Add("=Fields." + model.OrdenarPor,
-        //                                model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+                #endregion
 
-        //        #endregion
+                var filename = report.ToByteStream().SaveFile(".pdf");
 
-        //        var filename = report.ToByteStream().SaveFile(".pdf");
+                return Json(new { Url = filename });
+            }
+            catch (Exception exception)
+            {
+                var message = exception.GetMessage();
+                _logger.Info(message);
 
-        //        return Json(new { Url = filename });
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        var message = exception.GetMessage();
-        //        _logger.Info(message);
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(new { Error = message });
 
-        //        if (HttpContext.Request.IsAjaxRequest())
-        //            return Json(new { Error = message });
-
-        //        ModelState.AddModelError(string.Empty, message);
-        //        return View(model);
-        //    }
-        //}
+                ModelState.AddModelError(string.Empty, message);
+                return View(model);
+            }
+        }
         #endregion
 
         #region Novo
@@ -281,6 +288,31 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #endregion
+
+        #region PopulateViewData
+        protected void PopulateViewData()
+        {
+            if (ValueProvider.GetValue("action").AttemptedValue == "Index")
+            {
+                ViewBag.TipoRelatorio = new SelectList(_tipoRelatorio);
+                ViewBag.AgruparPor = new SelectList(_colunasPesquisaSimbolo, "value", "key");
+                ViewBag.OrdenarPor = new SelectList(_colunasPesquisaSimbolo, "value", "key");
+            }
+        }
+
+
+        #endregion
+        #region PreecheColunasPesquisa
+        private void PreecheColunasPesquisa()
+        {
+            _colunasPesquisaSimbolo = new Dictionary<string, string>
+                           {
+                               {"Categoria", "CategoriaConservacao"},
+                               {"Descrição", "Descricao"},
+                           };
+
+        }
         #endregion
     }
 }
