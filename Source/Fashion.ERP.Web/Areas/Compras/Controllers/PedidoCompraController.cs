@@ -445,11 +445,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     pedidoCompraItem = new PedidoCompraItem();
                     pedidoCompraItem.Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
-                    pedidoCompraItem.Quantidade = x.Quantidade.Value;
-                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.Value;
-                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.Value;
+                    pedidoCompraItem.Quantidade = x.Quantidade.HasValue ? x.Quantidade.Value : 0;
+                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.HasValue ? x.ValorDesconto.Value : 0;
+                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.HasValue ? x.ValorUnitario.Value : 0;
                     pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
-                    pedidoCompraItem.PrevisaoEntrega = Convert.ToDateTime(x.PrevisaoEntregaString);
+                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
                     pedidoCompraItem.UnidadeMedida =
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
