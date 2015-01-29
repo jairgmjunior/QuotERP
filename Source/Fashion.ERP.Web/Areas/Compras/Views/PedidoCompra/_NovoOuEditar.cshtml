@@ -274,7 +274,7 @@
             .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
             .Items(items =>
             {
-                items.Add().Text("Detalhes Itens").Content(@<text>
+                items.Add().Text("Detalhes").Content(@<text>
                     <table class="table table-bordered">
       <thead>
                         <tr class="active">
@@ -301,13 +301,13 @@
                                 <b>Diferença</b>
                             </td>
                             <td>
-                                <b>Preço</b>
+                                <b>Preço(R$)</b>
                             </td>
                             <td>
-                                <b>Desconto</b>
+                                <b>Desconto(R$)</b>
                             </td>
                              <td>
-                                <b>Valor Total</b>
+                                <b>Valor Total(R$)</b>
                             </td>
                             <td>
                                 <b>Situação</b>
@@ -339,14 +339,14 @@
                                 #: Diferenca #
                             </td>
                             <td>
-                                #: kendo.toString(ValorUnitario,'C') #
+                                #: kendo.toString(ValorUnitario,'n4') #
                             </td>
                             <td>
-                                #: kendo.toString(ValorDesconto,'C') #
+                                #: kendo.toString(ValorUnitario,'n4') #
                             </td>
                              <td>
                                     
-                               #: kendo.toString(ValorTotal,'C') #
+                               #: kendo.toString(ValorUnitario,'n4') #
                                 
                             </td>
                             <td>
@@ -393,7 +393,7 @@
                 items.Add().Text("Recebimento").Content(
                     "<div class='employee-details'>" +
                         "<ul>" +
-                            "<li>teste</li>" +
+                            "<li>Em desenvolvimento.</li>" +
                         "</ul>" +
                     "</div>"
                 );

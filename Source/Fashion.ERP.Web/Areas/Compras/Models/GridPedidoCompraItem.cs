@@ -25,11 +25,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public string UnidadeMedida { get; set; }
         [Display(Name = "Qtde")]
         public double? Quantidade { get; set; }
-        [Display(Name = "Preço")]
+        [Display(Name = "Preço(R$)")]
         public double? ValorUnitario { get; set; }
-        [Display(Name = "Desconto")]
+        [Display(Name = "Desconto(R$)")]
         public double? ValorDesconto { get; set; }
-        [Display(Name = "Valor Total")]
+        [Display(Name = "Valor Total(R$)")]
         public double? ValorTotal
         {
             get { return ValorUnitario * Quantidade; }
