@@ -8,7 +8,7 @@
         $('#ValorLiquido').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
 
-        $('#ValorEncargos').blur(function() {
+        $('#ValorEncargos').blur(function () {
             AtualizaValorLiquido();
         });
 
@@ -19,9 +19,8 @@
         $('#ValorEmbalagem').blur(function () {
             AtualizaValorLiquido();
         });
-
     });
-    
+
     function AtualizaValorLiquido() {
         var valorMercadorias = $('#ValorMercadorias').val();
         var valorEncargos = FormatarValores($('#ValorEncargos').val());
@@ -33,7 +32,7 @@
         valorLiquido = parseFloat(valorMercadorias) + parseFloat(valorEncargos) + parseFloat(valorFrete) + parseFloat(valorEmbalagem);
         valorLiquido = valorLiquido - parseFloat(valorDesconto);
 
-        $('#ValorLiquido').val(FormatarValores(valorLiquido.toString()));
+        $('#ValorLiquido').val(formateDecimal(valorLiquido));
         $('#ValorLiquido').change();
 
         $('#txtValorLiquido').val(valorLiquido);
@@ -49,6 +48,10 @@
         //var retorno = campo.replace(".", "");
         var retorno = campo.replace(",", ".");
         return retorno;
+    }
+
+    function formateDecimal(valor) {
+        return valor.toString().replace(".", ",");
     }
 </script>
 
@@ -237,11 +240,11 @@
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(60);
                 columns.Bound(e => e.ReferenciaExterna).Width(60);
-                columns.Bound(e => e.Quantidade).EditorTemplateName("Numeric").Width(60);
+                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(60);
                 columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
-                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:C}").Width(100);
-                columns.Bound(e => e.ValorDesconto).Format("{0:C}").Width(80);
-                columns.Bound(e => e.ValorTotal).Format("{0:C}").Width(80);
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
+                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
+                columns.Bound(e => e.ValorTotal).Format("{0:N4}").Width(80);
                 columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
@@ -478,7 +481,6 @@
 </div>
 
 <script>
-    
     function ehTelaNovo() {
         var pathArray = window.location.pathname.split('/');
         return $.inArray('Novo', pathArray) > -1;
@@ -496,36 +498,47 @@
         }
     }
 
+    function desabilitaColunaDetalhes() {
+        $("tr", "#GridItens").on("click", ".k-grid-edit", function (e) {
+            $("tr", "#GridItens").on("click", ".k-grid-cancel", function (e) {
+                setTimeout(function () {
+                    if (ehTelaNovo()) {
+                        $(".k-hierarchy-cell").remove();
+                        $(".k-hierarchy-col").remove();
+                    }
+                }, 300);
+            });
+        });
+        if (ehTelaNovo()) {
+            $(".k-hierarchy-cell").remove();
+            $(".k-hierarchy-col").remove();
+        }
+    }
 
     function onDataBound(e) {
 
-        if (ehTelaNovo()) {
-            //desabilita a coluna de detalhes
-            $(".k-hierarchy-cell").remove();
-            $(".k-hierarchy-col").remove();
-            alert('e');
-        }
+        desabilitaColunaDetalhes();
 
         var gridData = e.sender.dataSource.data();
 
         var total = 0;
         var desconto = 0;
         var valorLiquido = 0;
-        
+
         for (var i = 0; i < gridData.length; i++) {
             total = total + gridData[i].ValorTotal;
             desconto = desconto + gridData[i].ValorDesconto;
         }
 
 
-        $('#ValorMercadorias').val(total);
+        $('#ValorMercadorias').val(formateDecimal(total));
         $('#ValorMercadorias').change();
 
         $('#txtValorMercadorias').val(total);
         $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
         $('#txtValorMercadorias').change();
 
-        $('#ValorDesconto').val(desconto);
+        $('#ValorDesconto').val(formateDecimal(desconto));
         $('#ValorDesconto').change();
 
         $('#txtValorDesconto').val(desconto);
@@ -534,7 +547,7 @@
 
         AtualizaValorLiquido();
     }
-    
+
 
     $('#form').submit(function (e) {
         e.preventDefault();
@@ -545,6 +558,22 @@
         }
 
         if (!validaFormulario()) {
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+        if (dataGridItens.length == 0) {
+            alert("Insira pelo menos um item na grid.");
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        if (dataGridItens[0].Referencia == '' ||
+            dataGridItens[0].ValorUnitario == 0 || dataGridItens[0].ValorUnitario == null ||
+            dataGridItens[0].Quantidade == 0 || dataGridItens[0].Quantidade == null) {
+            alert("Preencha os campos do item inserido.");
             $('#btnSubmit').button('reset');
             return true;
         }
@@ -626,20 +655,20 @@
         return o;
     };
 
-   
+
 
     function dataBound() {
         this.expandRow(this.tbody.find("tr.k-master-row").first());
     }
 
-    $(".k-grid-save-changes").on("click", function () {
-        var datasourcedata = $("#GridItens").data("kendoGrid").dataSource.data();
+    //$(".k-grid-save-changes").on("click", function () {
+    //    var datasourcedata = $("#GridItens").data("kendoGrid").dataSource.data();
 
-        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
-        for (var i = 0; i < datasourcedata.length; i++) {
-            datasourcedata[i].id = null;
-        }
-    });
+    //    //marca todos os itens da grid como novos para serem passados para a action de salvamento.
+    //    for (var i = 0; i < datasourcedata.length; i++) {
+    //        datasourcedata[i].id = null;
+    //    }
+    //});
 
     function error_handler(e) {
         if (e.errors) {
@@ -675,9 +704,15 @@
     (function ($, kendo) {
         $.extend(true, kendo.ui.validator, {
             rules: {
-                quantidadesolicitadavalidation: function (input, params) {
-                    if (input.is("[name='Quantidade']") && input.val()) {
-                        return input.val() != 0;
+                quantidadevalidation: function (input, params) {
+                    if (input.is("[name='Quantidade']")) {
+                        return input.val() != '';
+                    }
+                    return true;
+                },
+                valorunitariovalidation: function (input, params) {
+                    if (input.is("[name='ValorUnitario']")) {
+                        return input.val() != '';
                     }
                     return true;
                 },
@@ -689,9 +724,13 @@
                 }
             },
             messages: {
-                quantidadesolicitadavalidation: function (input) {
-                    input.attr("data-quantidadesolicitadavalidation-msg", "A Quantidade não pode ser 0.");
-                    return input.attr("data-quantidadesolicitadavalidation-msg");
+                quantidadevalidation: function (input) {
+                    input.attr("data-quantidadevalidation-msg", "A Quantidade não pode ser 0.");
+                    return input.attr("data-quantidadevalidation-msg");
+                },
+                valorunitariovalidation: function (input) {
+                    input.attr("data-valorunitariovalidation-msg", "O Preço não pode ser 0.");
+                    return input.attr("data-valorunitariovalidation-msg");
                 },
                 referenciavalidation: function (input) {
                     input.attr("data-referenciavalidation-msg", "O material deve ser selecionado");

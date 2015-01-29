@@ -685,6 +685,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
         {
+            //simula a persistência do item
+            var random = new Random();
+            int randomNumber = random.Next(0, 10000);
+            pedidoMaterialItemModel.Id = randomNumber * -1;
+
             return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
 
