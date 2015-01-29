@@ -440,7 +440,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {
-                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id);
+                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id && y.Id != null);
                 if (pedidoCompraItem == null)
                 {
                     pedidoCompraItem = new PedidoCompraItem();
@@ -454,7 +454,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
                 }
-
             });
         }
 
