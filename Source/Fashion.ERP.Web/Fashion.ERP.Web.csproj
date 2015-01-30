@@ -546,6 +546,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\VariacaoModeloModel.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ChequeRecebidoController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ContaBancariaController.cs" />
+    <Compile Include="Areas\Financeiro\Controllers\DepositoChequeRecebidoController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\DespesaReceitaController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\EmitenteController.cs" />
     <Compile Include="Areas\Financeiro\Controllers\ExtratoBancarioController.cs" />
@@ -560,6 +561,7 @@
     <Compile Include="Areas\Financeiro\Models\BaixaTituloReceberModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\ContaBancariaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\DepositoChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\DespesaReceitaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\DevolucaoChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\EmitenteModel.cs" />
@@ -567,6 +569,7 @@
     <Compile Include="Areas\Financeiro\Models\GridBaixaChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridChequeRecebidoModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridContaBancariaModel.cs" />
+    <Compile Include="Areas\Financeiro\Models\GridDepositoChequeRecebido.cs" />
     <Compile Include="Areas\Financeiro\Models\GridDespesaReceitaModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridEmitenteModel.cs" />
     <Compile Include="Areas\Financeiro\Models\GridExtratoBancarioModel.cs" />
@@ -779,6 +782,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Financeiro.ContaBancariaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro.DepositoChequeRecebidoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Financeiro.DespesaReceitaController.generated.cs">
@@ -1095,6 +1101,7 @@
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterial\Novo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialBaixa\Baixar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\RequisicaoMaterialCancelamento\Cancelar.cshtml" />
+    <Content Include="Areas\Financeiro\Views\DepositoChequeRecebido\Index.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
