@@ -136,10 +136,10 @@
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric").Width(100);
+                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
                 if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
                 {
-                    columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric").Width(100);
+                    columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
                 }
                 columns.Bound(x => x.QuantidadeCancelada).Width(100);
                 columns.Bound(x => x.SituacaoRequisicaoMaterial).Template(s => s.SituacaoRequisicaoMaterial.HasValue ? s.SituacaoRequisicaoMaterial.Value.EnumToString() : "");   

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Fashion.ERP.Domain.Comum;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Compras;
 
 namespace Fashion.ERP.Web.Areas.Compras.Models
 {
@@ -24,15 +25,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public string UnidadeMedida { get; set; }
         [Display(Name = "Qtde")]
         public double? Quantidade { get; set; }
-        [Display(Name = "Preço")]
+        [Display(Name = "Preço(R$)")]
         public double? ValorUnitario { get; set; }
-        [Display(Name = "Desconto")]
+        [Display(Name = "Desconto(R$)")]
         public double? ValorDesconto { get; set; }
-        [Display(Name = "Valor Total")]
-        public double? ValorTotal 
+        [Display(Name = "Valor Total(R$)")]
+        public double? ValorTotal
         {
-            get { return ValorUnitario * Quantidade; } 
+            get { return ValorUnitario * Quantidade; }
         }
+
+        //[Display(Name = "Valor Total")]
+        //public double? ValorTotal { get; set; }
 
         [Display(Name = "Prev. Entrega")]
         public DateTime? PrevisaoEntrega { get; set; }
@@ -41,5 +45,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Referência Externa")]
         public string ReferenciaExterna { get; set; }
+
+        [Display(Name = "Diferença")]
+        public double? Diferenca { get; set; }
+        [Display(Name = "Situação")]
+        public String Situacao { get; set; }
+
+        [Display(Name = "Qtde Entregue")]
+        public double? QuantidadeEntregue { get; set; }
+
+        [Display(Name = "Entrega")]
+        public DateTime? DataEntrega { get; set; }
+
+
     }
 } 

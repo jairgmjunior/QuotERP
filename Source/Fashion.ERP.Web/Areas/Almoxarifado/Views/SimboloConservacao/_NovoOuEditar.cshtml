@@ -1,0 +1,82 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.SimboloConservacaoModel
+
+
+@{
+    var helper = new UrlHelper(Request.RequestContext);
+    var urlFoto = string.Empty;
+    var temFoto = Model.FotoNome != null && Model.FotoId.HasValue;
+
+    if (temFoto)
+    {
+        urlFoto = helper.RouteUrl(MVC.Arquivo.Imagens(Model.FotoId.Value).GetRouteValueDictionary());
+    }
+}
+
+@using (Html.BeginForm((ActionResult) ViewData["FormResult"], FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Descricao)
+                    @Html.ValidationMessageFor(x => x.Descricao, null, new {@class = "help-block"})
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.CategoriaConservacao)
+                <div class="controls">
+                    @Html.DropDownListFor(x => x.CategoriaConservacao, Model.CategoriaConservacao.ToSelectList())
+                    @Html.ValidationMessageFor(x => x.CategoriaConservacao, null, new {@class = "help-block"})
+                </div>
+            </div>   
+
+        </div>
+
+
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.FotoNome)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.FotoId)
+                    <div class="clearfix">
+                        <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
+                            <div class="thumbnail">
+                                <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
+                            </div>
+                            <div>
+                                <span class="btn btn-file">
+                                    <span class="fileupload-new">Novo</span>
+                                    <span class="fileupload-exists">Alterar</span>
+                                    <input type="file" name="foto" />
+                                    @Html.HiddenFor(x => x.FotoNome)
+                                </span>
+                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress" style="display: none">
+                        <div class="bar"></div>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
+                </div>
+            </div>    
+        </div> 
+        
+    </div>
+    
+     <div class="form-actions">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+            @if (this.IsEditar())
+            {
+                @Html.ExcluirAuth(MVC.Almoxarifado.SimboloConservacao.Excluir(Model.Id))
+            }
+        </div>
+
+}
+
+@{Html.RenderPartial("_RecortarImagem");}

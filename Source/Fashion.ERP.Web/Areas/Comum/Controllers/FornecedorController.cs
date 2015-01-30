@@ -79,8 +79,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 CpfCnpj = p.CpfCnpj.FormateCpfCnpj(),
                 Nome = p.Nome,
                 NomeFantasia = p.NomeFantasia,
-                Cidade = p.EnderecoPadrao.Cidade.Nome,
-                Estado = p.EnderecoPadrao.Cidade.UF.Sigla,
+                Cidade = p.EnderecoPadrao == null? null : p.EnderecoPadrao.Cidade.Nome,
+                Estado = p.EnderecoPadrao == null ? null : p.EnderecoPadrao.Cidade.UF.Sigla,
                 Ativo = p.Fornecedor.Ativo
             }).ToList();
 

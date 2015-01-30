@@ -305,7 +305,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
         private double ObtenhaQuantidadeDeEntrada(PedidoCompraItem pedidoCompraItem)
         {
-            return pedidoCompraItem.UnidadeMedida.ConvertaQuantidadeParaEntrada(pedidoCompraItem.Quantidade);
+            return pedidoCompraItem.UnidadeMedida.ConvertaQuantidadeParaEntrada(pedidoCompraItem.Quantidade - pedidoCompraItem.QuantidadeEntrega);
         }
 
         #endregion

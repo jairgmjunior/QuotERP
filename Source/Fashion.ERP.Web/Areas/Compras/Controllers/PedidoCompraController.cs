@@ -324,22 +324,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var model = Mapper.Flat<PedidoCompraModel>(domain);
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorLiquido = domain.ValorLiquido;
-
+                model.GridItens = new List<GridPedidoCompraItem>();
+                //model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                 foreach (var item in domain.PedidoCompraItens)
                 {
-                    //model.PedidoCompraItens.Add(item.Id);
-                    //model.Materiais.Add(item.Material.Id.GetValueOrDefault());
-                    //model.UnidadeMedidas.Add(item.UnidadeMedida.Id.GetValueOrDefault());
-                    //model.Quantidades.Add(item.Quantidade);
-                    //model.ValorUnitarios.Add(item.ValorUnitario);
-                    //model.ValorTotais.Add(item.ValorUnitario * item.Quantidade);
-                    //model.SituacaoCompras.Add(item.SituacaoCompra);
-                    model.GridItens = new List<GridPedidoCompraItem>();
                     model.GridItens.Add(ObterPedidoCompraItem(item));
-                    model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
-                    model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
+                    //model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
-
                 
                 return View("Editar", model);
             }
@@ -357,39 +348,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
 
-                    // Pesquisar os itens que estão no DB e não estão no model
-                    //var idsExcluidos = domain.PedidoCompraItens.Select(p => p.Id).Except(model.PedidoCompraItens);
-                    //var itensExcluidos = domain.PedidoCompraItens.Where(p => idsExcluidos.Contains(p.Id)).ToArray();
-                    //domain.RemovePedidoCompraItem(itensExcluidos);
-
                     ExcluirPedidoCompraItens(model,domain);
                     IncluirNovosPedidoCompralItens(model,domain);
 
                     domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
-                    
 
-                    // Adicionar itens do pedido de compra
-                    //for (int i = 0; i < model.Materiais.Count; i++)
-                    //{
-                    //    var idx = i;
-
-                    //    if (model.PedidoCompraItens[idx].HasValue)
-                    //        continue;
-
-                    //    var unidadeMedida = _unidadeMedidaRepository.Get(model.UnidadeMedidas[idx]);
-
-                    //    var item = new PedidoCompraItem
-                    //    {
-                    //        Material = _materialRepository.Load(model.Materiais[idx]),
-                    //        UnidadeMedida = unidadeMedida,
-                    //        Quantidade = model.Quantidades[idx],
-                    //        ValorUnitario = model.ValorUnitarios[i],
-                    //        SituacaoCompra = SituacaoCompra.NaoAtendido,
-                    //        PrevisaoEntrega = domain.PrevisaoEntrega
-                    //    };
-
-                    //    domain.AddPedidoCompraItem(item);
-                    //}
 
                     if (domain.Autorizado.Equals(true))
                     {
@@ -477,21 +440,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {
-                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id);
+                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id && y.Id != null);
                 if (pedidoCompraItem == null)
                 {
                     pedidoCompraItem = new PedidoCompraItem();
                     pedidoCompraItem.Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
-                    pedidoCompraItem.Quantidade = x.Quantidade.Value;
-                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.Value;
-                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.Value;
+                    pedidoCompraItem.Quantidade = x.Quantidade.HasValue ? x.Quantidade.Value : 0;
+                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.HasValue ? x.ValorDesconto.Value : 0;
+                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.HasValue ? x.ValorUnitario.Value : 0;
                     pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
-                    pedidoCompraItem.PrevisaoEntrega = Convert.ToDateTime(x.PrevisaoEntregaString);
+                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
                     pedidoCompraItem.UnidadeMedida =
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
                 }
-
             });
         }
 
@@ -655,12 +617,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.PrevisaoEntrega = item.PrevisaoEntrega;
             pedidoCompraItemModel.Quantidade = item.Quantidade;
             pedidoCompraItemModel.Referencia = item.Material.Referencia;
-            pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
+            if (item.ReferenciaExternaMaterial != null)
+                pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
+            else
+                pedidoCompraItemModel.ReferenciaExterna = String.Empty;
             pedidoCompraItemModel.ValorDesconto = item.ValorDesconto;
             pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
-            //pedidoCompraItemModel.ValorTotal = item.ValorTotal;
             pedidoCompraItemModel.Descricao = item.Material.Descricao;
             pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
+            pedidoCompraItemModel.Situacao = item.SituacaoCompra.ToString();
+            pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
+            //pedidoCompraItemModel.ValorTotal = item.ValorTotal;
+            pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
 
             return pedidoCompraItemModel;
         }
@@ -716,6 +684,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
         {
+            //simula a persistência do item
+            var random = new Random();
+            int randomNumber = random.Next(0, 10000);
+            pedidoMaterialItemModel.Id = randomNumber * -1;
+
             return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
 

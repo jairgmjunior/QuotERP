@@ -60,6 +60,12 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Almoxarifado\ListaSimboloConservacaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\ListaSimboloConservacaoReport.Designer.cs">
+      <DependentUpon>ListaSimboloConservacaoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado\ListaRequisicaoMaterialReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -268,8 +274,13 @@
     <Compile Include="Helpers\UserFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Producao\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\ListaSimboloConservacaoReport.resx">
+      <DependentUpon>ListaSimboloConservacaoReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\ListaRequisicaoMaterialReport.resx">
       <DependentUpon>ListaRequisicaoMaterialReport.cs</DependentUpon>
     </EmbeddedResource>

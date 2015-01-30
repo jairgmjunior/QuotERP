@@ -131,6 +131,7 @@
     <Compile Include="Migrations\Migration201501071743.cs" />
     <Compile Include="Migrations\Migration201501050947.cs" />
     <Compile Include="Migrations\Migration201501131653.cs" />
+    <Compile Include="Migrations\Migration201501231346.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -304,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201501232115\permissao.sql" />
+    <EmbeddedResource Include="Scripts\201501231346\permissao.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201501201054\permissao.sql" />

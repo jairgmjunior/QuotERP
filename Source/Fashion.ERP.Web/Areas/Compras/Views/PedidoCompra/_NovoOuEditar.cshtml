@@ -1,14 +1,14 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
-
-
 <script>
     $(document).ready(function () {
+
         $('#ValorMercadorias').attr('readonly', true);
+
         $('#ValorLiquido').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
 
-        $('#ValorEncargos').blur(function() {
+        $('#ValorEncargos').blur(function () {
             AtualizaValorLiquido();
         });
 
@@ -20,20 +20,38 @@
             AtualizaValorLiquido();
         });
     });
-    
+
     function AtualizaValorLiquido() {
         var valorMercadorias = $('#ValorMercadorias').val();
-        var valorEncargos = $('#ValorEncargos').val();
-        var valorFrete = $('#ValorFrete').val();
-        var valorEmbalagem = $('#ValorEmbalagem').val();
-        var valorDesconto = $('#ValorDesconto').val();
+        var valorEncargos = FormatarValores($('#ValorEncargos').val());
+        var valorFrete = FormatarValores($('#ValorFrete').val());
+        var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
+        var valorDesconto = FormatarValores($('#ValorDesconto').val());
         var valorLiquido = 0;
 
         valorLiquido = parseFloat(valorMercadorias) + parseFloat(valorEncargos) + parseFloat(valorFrete) + parseFloat(valorEmbalagem);
         valorLiquido = valorLiquido - parseFloat(valorDesconto);
 
-        $('#ValorLiquido').val(valorLiquido);
+        $('#ValorLiquido').val(formateDecimal(valorLiquido));
         $('#ValorLiquido').change();
+
+        $('#txtValorLiquido').val(valorLiquido);
+        $('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorLiquido').change();
+
+        //$('#txtValorLiquido').val(valorLiquido);
+        //$('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        //$('#txtValorLiquido').change();
+    }
+
+    function FormatarValores(campo) {
+        //var retorno = campo.replace(".", "");
+        var retorno = campo.replace(",", ".");
+        return retorno;
+    }
+
+    function formateDecimal(valor) {
+        return valor.toString().replace(".", ",");
     }
 </script>
 
@@ -207,43 +225,43 @@
                 </div>
             </div>
         </div>
-
+        
     </div>
     <div class="tab-pane" id="itens">
         
- 
+    
         
         @(Html.Kendo().Grid(@Model.GridItens)
             .Name("GridItens")
             .Columns(columns =>
             {
-                columns.Bound(x => x.Id).Hidden();            
+                columns.Bound(x => x.Id).Hidden();
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
-                columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(e => e.ReferenciaExterna).Width(80);
-                columns.Bound(e => e.Quantidade).EditorTemplateName("Numeric").Width(60);
-                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(90);
-                columns.Bound(e => e.ValorUnitario).Width(80);
-                columns.Bound(e => e.ValorDesconto).Width(80);
-                columns.Bound(e => e.ValorTotal).Width(80);
-                columns.Command(command =>  { command.Edit(); command.Destroy(); } );
+                columns.Bound(x => x.UnidadeMedida).Width(60);
+                columns.Bound(e => e.ReferenciaExterna).Width(60);
+                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(60);
+                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
+                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
+                columns.Bound(e => e.ValorTotal).Format("{0:N4}").Width(80);
+                columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
-                    model.Id(item => item.Id); 
-                    model.Field(product => product.Descricao).Editable(true); 
+                    model.Id(item => item.Id);
+                    model.Field(product => product.Descricao).Editable(true);
                     model.Field(product => product.UnidadeMedida).Editable(true);
-                    model.Field(product => product.PrevisaoEntrega).Editable(true); 
+                    model.Field(product => product.PrevisaoEntrega).Editable(true);
                 })
                 .Create(update => update.Action("EditingInline_Create", "PedidoCompra"))
                 .Read(read => read.Action("EditingInline_Read", "PedidoCompra"))
                 .Update(update => update.Action("EditingInline_Update", "PedidoCompra"))
                 .Destroy(update => update.Action("EditingInline_Destroy", "PedidoCompra"))
             )
-            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class="btn-primary" }))
+            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class = "btn-primary" }))
             .Editable(editable => editable.Mode(GridEditMode.InLine))
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
@@ -256,46 +274,129 @@
             .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
             .Items(items =>
             {
-                items.Add().Text("Detalhes Itens").Content(@<text>
-                    @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
-                        .Name("grid_#=PedidoCompraId#")
-                        .Columns(columns =>
-                        {
-                            columns.Bound(o => o.Id).Hidden();
-                            columns.Bound(o => o.Referencia).Width(80);
-                            columns.Bound(o => o.ReferenciaExterna).Width(80);
-                            columns.Bound(o => o.Descricao).Width(500);
-                            columns.Bound(o => o.UnidadeMedida).Width(60);
-                            columns.Bound(o => o.Quantidade).Format("{0:n2}").Width(60);
-                            columns.Bound(o => o.QuantidadeEntregue).Width(80);
-                            columns.Bound(o => o.Diferenca).Width(80);
-                            columns.Bound(o => o.ValorUnitario).Width(80);
-                            columns.Bound(o => o.ValorDesconto).Width(80);
-                            columns.Bound(o => o.ValorTotal).Width(80);
-                            columns.Bound(o => o.Situacao).Width(120);
-                        })
-                        .DataSource(dataSource => dataSource
-                            .Ajax()
-                            .PageSize(5)
-                            .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                items.Add().Text("Detalhes").Content(@<text>
+                    <table class="table table-bordered">
+      <thead>
+                        <tr class="active">
+                            <td>
+                                <b>Referência</b>
+                            </td>
+                              <td>
+                                <b>Referência Externa</b>
+                            </td>
+                            <td>
+                                <b>Descrição</b>
+                            </td>
+      
+                            <td>
+                                <b>Unidade</b>
+                            </td>
+                            <td>
+                                <b>Qtde</b>
+                            </td>
+                            <td>
+                                <b>Qtde Entregue</b>
+                            </td>
+                            <td>
+                                <b>Diferença</b>
+                            </td>
+                            <td>
+                                <b>Preço(R$)</b>
+                            </td>
+                            <td>
+                                <b>Desconto(R$)</b>
+                            </td>
+                             <td>
+                                <b>Valor Total(R$)</b>
+                            </td>
+                            <td>
+                                <b>Situação</b>
+                            </td>
+                        </tr>
+      </thead>
+      <tbody>
+                        <tr>
+                            <td>
+                                #: Referencia #
+                            </td>
+                              <td>
+                                #: ReferenciaExterna #
+                            </td>
+                            <td>
+                                #: Descricao #
+                            </td>
+      
+                            <td>
+                                #: UnidadeMedida #
+                            </td>
+                            <td>
+                                #: Quantidade #
+                            </td>
+                            <td>
+                                  #: QuantidadeEntregue #
+                            </td>
+                            <td>
+                                #: Diferenca #
+                            </td>
+                            <td>
+                                #: kendo.toString(ValorUnitario,'n4') #
+                            </td>
+                            <td>
+                                #: kendo.toString(ValorUnitario,'n4') #
+                            </td>
+                             <td>
+                                    
+                               #: kendo.toString(ValorUnitario,'n4') #
+                                
+                            </td>
+                            <td>
+                                    #: Situacao #
+                            </td>
+                        </tr>
+      </tbody>
+                    </table>
+                    @*<div>Descrição: #: Descricao #</div>*@
+                   @* @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
+                          .Name("grid_#=PedidoCompraId#")
+                          .Columns(columns =>
+                          {
+                              columns.Bound(o => o.Id).Hidden();
+                              columns.Bound(o => o.Referencia).Width(80);
+                              columns.Bound(o => o.ReferenciaExterna).Width(80);
+                              columns.Bound(o => o.Descricao).Width(500);
+                              columns.Bound(o => o.UnidadeMedida).Width(60);
+                              columns.Bound(o => o.Quantidade).Format("{0:n2}").Width(60);
+                              columns.Bound(o => o.QuantidadeEntregue).Width(80);
+                              columns.Bound(o => o.Diferenca).Width(80);
+                              columns.Bound(o => o.ValorUnitario).Width(80);
+                              columns.Bound(o => o.ValorDesconto).Width(80);
+                              columns.Bound(o => o.ValorTotal).Width(80);
+                              columns.Bound(o => o.Situacao).Width(120);
+                          })
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .PageSize(5)
+                              .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
                               .Model(model =>
                               {
-                                   model.Id(e => e.Id);
-                                   model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
+                                  model.Id(e => e.Id);
+                                  model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
                               })
-                        )
-                        .Pageable()
-                        .Sortable()
-                        .ToClientTemplate())
-                </text>                        
+                          )
+                          .Pageable()
+                          .Sortable()
+                          .ToClientTemplate())*@
+                
+                                                            
+                                                            </text>
                 );
                 items.Add().Text("Recebimento").Content(
                     "<div class='employee-details'>" +
                         "<ul>" +
-                            "<li>teste</li>" +
+                            "<li>Em desenvolvimento.</li>" +
                         "</ul>" +
                     "</div>"
-                );                
+                );
             })
             .ToClientTemplate())
 </script>
@@ -311,9 +412,10 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorMercadorias)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorMercadorias" name="ValorMercadorias" type="text" value="@Model.ValorMercadorias" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" />
+                <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
                 @*@Html.TextBox("ValorMercadorias",@Model.ValorMercadorias, new { @class = "help-block", disabled = "disabled", @readonly = "readonly", @style="whidt:300px"})*@
-                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block"})
+                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
@@ -356,7 +458,8 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorDesconto)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorDesconto" name="ValorDesconto" type="text" value="@Model.ValorLiquido" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" />
+                <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDesconto" />
                 @*@Html.EditorFor(x => x.ValorDesconto)*@
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
             </div>
@@ -367,8 +470,9 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />
-                @*@Html.EditorFor(x => x.ValorLiquido)*@
+                <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias" />
+                <input type="hidden" id="ValorLiquido" name="ValorLiquido"  value=" @Model.ValorMercadorias" />                
+                @*<input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
         </div>
@@ -376,124 +480,12 @@
     
 </div>
 
-@*<script>
-    $(function() {
-
-        $('#btn-add').on('click', function() {
-
-            // Validações
-            // UnidadeEstocadora
-            if ($("#UnidadeEstocadora").prop("selectedIndex") < 0) {
-                $('#UnidadeEstocadora').addClass('input-validation-error');
-                alert('Selecione uma unidade estocadora.');
-                $('#UnidadeEstocadora').focus();
-                return;
-            }
-
-            // Fornecedor 
-            if ($("#Fornecedor").prop("selectedIndex") < 0) {
-                $('#Fornecedor').addClass('input-validation-error');
-                alert('Selecione um fornecedor.');
-                $('#codigo-fornecedor').focus();
-                return;
-            }
-
-            // Quantidade
-            var quantidade = $('#Quantidade').val();
-            if (quantidade <= 0) {
-                $('#Quantidade').addClass('input-validation-error');
-                alert('Informe a quantidade.');
-                $('#Quantidade').focus();
-                return;
-            }
-
-            var materialId = $('#Material').val();
-            var referencia = $('#referencia-material').val();
-            var descricao = $('#descricao-material').text();
-            var unidadeMedidaId = $('#UnidadeMedida').val();
-            var unidadeMedida = $('#UnidadeMedida option:selected').text();
-            var valorUnitario = $('#ValorUnitario').val();
-            var valorTotal = $('#ValorTotal').val();
-
-            // Material
-            if (materialId == '') {
-                $('#Material').addClass('input-validation-error');
-                alert('Selecione uma referência');
-                $('#referencia-material').focus();
-                return;
-            }
-
-            // UnidadeMedida 
-            if ($("#UnidadeMedida").prop("selectedIndex") < 0) {
-                $('#UnidadeMedida').addClass('input-validation-error');
-                alert('Selecione uma unidade de medida.');
-                $('#UnidadeMedida').focus();
-                return;
-            }
-
-            // Verificar se já está na lista
-            //var cadastrado = false;
-            //$('input[name=Materiais]').each(function() {
-            //    if ($(this).val() == materialId) {
-            //        alert("O produto selecionado já foi incluído na lista.");
-            //        $('#referencia-material').focus();
-            //        cadastrado = true;
-            //        return;
-            //    }
-            //});
-
-            //if (cadastrado == false) {
-            //    $('#table-sequencia tbody').append(
-            //        '<tr>\
-            //        <td>' + referencia + '<input type="hidden" name="PedidoCompraItens" /><input type="hidden" name="Materiais" value="' + materialId + '"/></td>\
-            //        <td>' + descricao + '</td>\
-            //        <td>' + unidadeMedida + '<input type="hidden" name="UnidadeMedidas" value="' + unidadeMedidaId + '"/></td>\
-            //        <td>' + quantidade + '<input type="hidden" name="Quantidades" value="' + quantidade + '"/></td>\
-            //        <td>' + valorUnitario + '<input type="hidden" name="ValorUnitarios" value="' + valorUnitario + '"/></td>\
-            //        <td>' + valorTotal + '<input type="hidden" name="ValorTotais" value="' + valorTotal + '"/></td>\
-            //        <td>Não Atendido <input type="hidden" name="SituacaoCompras" value="NaoAtendido"/></td>\
-            //        <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
-            //    </tr>'
-            //    );
-
-            // limpar formulário
-            //    $('#referencia-material').val('');
-            //    $('#Material').val('');
-            //    $('#descricao-material').text('');
-            //    $('#Quantidade').data("kendoNumericTextBox").value(0);
-            //    $('#UnidadeMedida')[0].selectedIndex = 0;
-            //    $('#ValorUnitario').data("kendoNumericTextBox").value(0);
-            //    $('#ValorTotal').data("kendoNumericTextBox").value(0);
-            //}
-
-        });
-    });
-
-    $('#Quantidade, #ValorUnitario').on('change', function () {
-        var quantidade = $('#Quantidade').data("kendoNumericTextBox").value();
-        var valorUnitario = $('#ValorUnitario').data("kendoNumericTextBox").value();
-
-        $('#ValorTotal').data("kendoNumericTextBox").value(quantidade * valorUnitario);
-    });
-    
-    function Delete(a) {
-        var row = $(a).parents('tr:first');
-
-        // Validar
-        var situacao = row.find("input[name=SituacaoCompras]").val();
-        if (situacao != 'NaoAtendido') {
-            alert('Não é possível excluir este item.\r\nSó é possível excluir itens com situação: "Não atendido".');
-            return;
-        }
-
-        row.fadeTo('fast', 0, function () {
-            row.remove();
-        });
-    }
-</script>*@
-
 <script>
-    
+    function ehTelaNovo() {
+        var pathArray = window.location.pathname.split('/');
+        return $.inArray('Novo', pathArray) > -1;
+    }
+
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
         $("#Descricao").width('86%');
@@ -506,7 +498,27 @@
         }
     }
 
+    function desabilitaColunaDetalhes() {
+        $("tr", "#GridItens").on("click", ".k-grid-edit", function (e) {
+            $("tr", "#GridItens").on("click", ".k-grid-cancel", function (e) {
+                setTimeout(function () {
+                    if (ehTelaNovo()) {
+                        $(".k-hierarchy-cell").remove();
+                        $(".k-hierarchy-col").remove();
+                    }
+                }, 300);
+            });
+        });
+        if (ehTelaNovo()) {
+            $(".k-hierarchy-cell").remove();
+            $(".k-hierarchy-col").remove();
+        }
+    }
+
     function onDataBound(e) {
+
+        desabilitaColunaDetalhes();
+
         var gridData = e.sender.dataSource.data();
 
         var total = 0;
@@ -518,15 +530,24 @@
             desconto = desconto + gridData[i].ValorDesconto;
         }
 
-        $('#ValorMercadorias').val(total);
+
+        $('#ValorMercadorias').val(formateDecimal(total));
         $('#ValorMercadorias').change();
 
-        $('#ValorDesconto').val(desconto);
+        $('#txtValorMercadorias').val(total);
+        $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorMercadorias').change();
+
+        $('#ValorDesconto').val(formateDecimal(desconto));
         $('#ValorDesconto').change();
+
+        $('#txtValorDesconto').val(desconto);
+        $('#txtValorDesconto').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorDesconto').change();
 
         AtualizaValorLiquido();
     }
-    
+
 
     $('#form').submit(function (e) {
         e.preventDefault();
@@ -537,6 +558,22 @@
         }
 
         if (!validaFormulario()) {
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+        if (dataGridItens.length == 0) {
+            alert("Insira pelo menos um item na grid.");
+            $('#btnSubmit').button('reset');
+            return true;
+        }
+
+        if (dataGridItens[0].Referencia == '' ||
+            dataGridItens[0].ValorUnitario == 0 || dataGridItens[0].ValorUnitario == null ||
+            dataGridItens[0].Quantidade == 0 || dataGridItens[0].Quantidade == null) {
+            alert("Preencha os campos do item inserido.");
             $('#btnSubmit').button('reset');
             return true;
         }
@@ -618,20 +655,20 @@
         return o;
     };
 
-   
+
 
     function dataBound() {
         this.expandRow(this.tbody.find("tr.k-master-row").first());
     }
 
-    $(".k-grid-save-changes").on("click", function () {
-        var datasourcedata = $("#GridItens").data("kendoGrid").dataSource.data();
+    //$(".k-grid-save-changes").on("click", function () {
+    //    var datasourcedata = $("#GridItens").data("kendoGrid").dataSource.data();
 
-        //marca todos os itens da grid como novos para serem passados para a action de salvamento.
-        for (var i = 0; i < datasourcedata.length; i++) {
-            datasourcedata[i].id = null;
-        }
-    });
+    //    //marca todos os itens da grid como novos para serem passados para a action de salvamento.
+    //    for (var i = 0; i < datasourcedata.length; i++) {
+    //        datasourcedata[i].id = null;
+    //    }
+    //});
 
     function error_handler(e) {
         if (e.errors) {
@@ -667,9 +704,15 @@
     (function ($, kendo) {
         $.extend(true, kendo.ui.validator, {
             rules: {
-                quantidadesolicitadavalidation: function (input, params) {
-                    if (input.is("[name='Quantidade']") && input.val()) {
-                        return input.val() != 0;
+                quantidadevalidation: function (input, params) {
+                    if (input.is("[name='Quantidade']")) {
+                        return input.val() != '' && input.val() != 0;
+                    }
+                    return true;
+                },
+                valorunitariovalidation: function (input, params) {
+                    if (input.is("[name='ValorUnitario']")) {
+                        return input.val() != '' && input.val() != 0;
                     }
                     return true;
                 },
@@ -681,9 +724,13 @@
                 }
             },
             messages: {
-                quantidadesolicitadavalidation: function (input) {
-                    input.attr("data-quantidadesolicitadavalidation-msg", "A Quantidade não pode ser 0.");
-                    return input.attr("data-quantidadesolicitadavalidation-msg");
+                quantidadevalidation: function (input) {
+                    input.attr("data-quantidadevalidation-msg", "A Quantidade não pode ser 0.");
+                    return input.attr("data-quantidadevalidation-msg");
+                },
+                valorunitariovalidation: function (input) {
+                    input.attr("data-valorunitariovalidation-msg", "O Preço não pode ser 0.");
+                    return input.attr("data-valorunitariovalidation-msg");
                 },
                 referenciavalidation: function (input) {
                     input.attr("data-referenciavalidation-msg", "O material deve ser selecionado");
@@ -692,4 +739,5 @@
             }
         });
     })(jQuery, kendo);
+
 </script>

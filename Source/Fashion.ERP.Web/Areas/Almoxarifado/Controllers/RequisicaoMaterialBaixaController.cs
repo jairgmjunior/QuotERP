@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Compras.Models;
@@ -10,6 +11,7 @@ using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
 
@@ -23,6 +25,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
+
         private readonly ILogger _logger;             
 
         #endregion
@@ -32,12 +36,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public RequisicaoMaterialBaixaController(ILogger logger, IRepository<RequisicaoMaterial> requisicaoMaterialRepository,
                                       IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
                                       IRepository<EstoqueMaterial> estoqueMaterialRepository,
-                                      IRepository<DepositoMaterial> depositoMaterialRepository)
+                                      IRepository<DepositoMaterial> depositoMaterialRepository,
+                                      IRepository<Usuario> usuarioRepository)
         {
             _requisicaoMaterialRepository = requisicaoMaterialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
+            _usuarioRepository = usuarioRepository;
             _logger = logger;
         }
         #endregion
@@ -200,8 +206,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region PopulateViewData
         protected void PopulateViewData(RequisicaoMaterialBaixaModel model)
         {
+            var userId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(userId);
+            var funcionarioId = usuario.Funcionario != null ? usuario.Funcionario.Id : null;
+
             var depositoMaterials = _depositoMaterialRepository.Find(x => x.Unidade.Id == model.UnidadeRequisitada
-                    && x.Funcionarios.Any(y => y.Id == model.Requerente)).ToList();
+                    && x.Funcionarios.Any(y => y.Id == funcionarioId)).ToList();
 
             if (depositoMaterials.Count() == 1)
             {

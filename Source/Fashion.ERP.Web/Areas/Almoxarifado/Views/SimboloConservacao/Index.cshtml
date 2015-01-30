@@ -1,0 +1,130 @@
+﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaSimboloConservacaoModel
+@using Kendo.Mvc.UI
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.SimboloConservacao.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@using (Html.BeginForm(MVC.Almoxarifado.SimboloConservacao.Index(), FormMethod.Post, new {@class = "form-horizontal small-labels"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.CategoriaConservacao, new {@class = "control-label "})
+                                <div class="controls">
+                                    @Html.DropDownList("CategoriaConservacao", Model.CategoriaConservacao.ToSelectList(), "-- Selecione --", new {@class = "input-xlarge"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Descricao)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Descricao, new {@class = "input-small"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="well">
+                        <div class="row">
+                            <div class="span3">
+                                @Html.HiddenFor(x => x.ModoConsulta)
+                                <div class="btn-group" data-toggle="buttons-radio">
+                                    <button name="btn-ModoConsulta" class="btn btn-info active" type="button" value="listagem">Listagem</button>
+                                    <button name="btn-ModoConsulta" class="btn btn-info" type="button" value="impressao">Impressão</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="span3">
+                                <div id="row-imprimir" class="control-group" style="display: none">
+                                    @Html.LabelForRequired(x => x.AgruparPor)
+                                    <div class="controls">
+                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarPor, new {@class = "control-label "})
+                                    <div class="controls">
+                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarEm, new {@class = "control-label "})
+                                    <div class="controls">
+                                        <select name="OrdenarEm">
+                                            <option value="asc">Ascendente</option>
+                                            <option value="desc">Descendente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="pdf"></div>
+
+@(Html.Kendo().Grid(Model.Grid)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+        columns.Bound(x => x.Descricao);
+        columns.Bound(x => x.CategoriaConservacao);
+        columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<img src=\"" + item.Foto + "\" class=\"img-rounded\" style=\"width: 48px; height: 48px;\"/>" : string.Empty)).Width(60);
+        //columns.Bound(c => c.Foto).ClientTemplate("<img src='" + Url.Content("~/") + "#=Foto#' alt='#=Desricao #' Title='#=Desricao #'/>");
+        //columns.Bound(x => x.Foto);
+        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.SimboloConservacao.Editar(item.Id))).Width(80);
+	})
+      )
+
+<script>
+    $(function () {
+        // Seleciona o modo de consulta
+        $('button[name=btn-ModoConsulta]').on('click', function () {
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if (this.value == 'impressao') {
+                $ModoConsulta.val('Imprimir');
+
+                $('#row-imprimir').show();
+                $('#pesquisar-relatorio').show();
+                $('#pesquisar-grid').hide();
+
+            } else {
+                $ModoConsulta.val('Listar');
+
+                $('#row-imprimir').hide();
+                $('#pesquisar-relatorio').hide();
+                $('#pesquisar-grid').show();
+
+            }
+        });
+    })
+</script>

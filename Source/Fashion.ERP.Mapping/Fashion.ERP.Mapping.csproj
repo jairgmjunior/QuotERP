@@ -83,6 +83,7 @@
     <Compile Include="Almoxarifado\ReservaMaterialMap.cs" />
     <Compile Include="Almoxarifado\SaidaMaterialMap.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterialMap.cs" />
+    <Compile Include="Almoxarifado\SimboloConservacaoMap.cs" />
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
@@ -182,7 +183,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Almoxarifado\StoredProcedures.hbm.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Producao\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

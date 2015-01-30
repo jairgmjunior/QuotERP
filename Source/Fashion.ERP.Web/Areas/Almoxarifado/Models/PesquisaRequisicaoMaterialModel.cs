@@ -10,6 +10,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Origem")]
         public string Origem { get; set; }
 
+        [Display(Name = "Referência Externa")]
+        public string ReferenciaExterna { get; set; }
+
         [Display(Name = "Unidade Requerente")]
         public long? UnidadeRequerente { get; set; }
 

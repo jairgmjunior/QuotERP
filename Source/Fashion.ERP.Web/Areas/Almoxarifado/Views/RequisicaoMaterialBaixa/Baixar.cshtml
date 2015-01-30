@@ -346,8 +346,8 @@
     }
 
     function possuiQuantidadesBaixaVazias() {
-        for (i = 0; i < $('.chkbx').length; i++) {
-            var element = $('.chkbx').get(i);
+        for (i = 0; i < $('.chkbx[checked=checked]').length; i++) {
+            var element = $('.chkbx[checked=checked]').get(i);
             var grid = $('#GridItems').data().kendoGrid;
             var dataItem = grid.dataItem($(element).closest('tr'));
             if (dataItem.QtdeBaixa == 0) {

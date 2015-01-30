@@ -63,6 +63,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.RequisicaoMaterialController RequisicaoMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_RequisicaoMaterialController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.ReservaMaterialController ReservaMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_ReservaMaterialController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SaidaMaterialController SaidaMaterial = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SaidaMaterialController();
+        public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SimboloConservacaoController SimboloConservacao = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SimboloConservacaoController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SubcategoriaController Subcategoria = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SubcategoriaController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.UnidadeMedidaController UnidadeMedida = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_UnidadeMedidaController();
         public T4MVC.Almoxarifado.SharedController Shared = new T4MVC.Almoxarifado.SharedController();
@@ -247,6 +248,7 @@ namespace Links
         public static readonly string jquery_color_2_1_2_min_js = Url("jquery.color-2.1.2.min.js");
         public static readonly string jquery_color_svg_names_2_1_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.color.svg-names-2.1.2.min.js") ? Url("jquery.color.svg-names-2.1.2.min.js") : Url("jquery.color.svg-names-2.1.2.js");
         public static readonly string jquery_color_svg_names_2_1_2_min_js = Url("jquery.color.svg-names-2.1.2.min.js");
+        public static readonly string jquery_currency_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.currency.min.js") ? Url("jquery.currency.min.js") : Url("jquery.currency.js");
         public static readonly string jquery_form_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.form.min.js") ? Url("jquery.form.min.js") : Url("jquery.form.js");
         public static readonly string jquery_form_min_js = Url("jquery.form.min.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

@@ -69,6 +69,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Almoxarifado\Bordado.cs" />
+    <Compile Include="Almoxarifado\CategoriaConservacao.cs" />
     <Compile Include="Almoxarifado\RequisicaoMaterialItemCancelado.cs" />
     <Compile Include="Almoxarifado\CustoMaterial.cs" />
     <Compile Include="Almoxarifado\Material.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Almoxarifado\ReservaMaterialItemCancelado.cs" />
     <Compile Include="Almoxarifado\SaidaMaterial.cs" />
     <Compile Include="Almoxarifado\SaidaItemMaterial.cs" />
+    <Compile Include="Almoxarifado\SimboloConservacao.cs" />
     <Compile Include="Almoxarifado\SituacaoConferencia.cs" />
     <Compile Include="Almoxarifado\SituacaoOrdemEntrada.cs" />
     <Compile Include="Almoxarifado\SituacaoRequisicaoMaterial.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Comum\ProcessoOperacional.cs" />
     <Compile Include="Comum\Prazo.cs" />
     <Compile Include="Comum\SequenciaOperacional.cs" />
+    <Compile Include="EngenhariaProduto\VariacaoModelo.cs" />
     <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
@@ -227,7 +230,9 @@
     <None Include="EngenhariaProduto.cd" />
     <None Include="Financeiro.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Producao\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
