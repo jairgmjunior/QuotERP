@@ -54,7 +54,8 @@
         var pesquisaMaterial = function (referencia) {
             if (referencia) {
                 var tipoItemMaterial = $("#TipoItem").val();
-                var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferencia())?referencia=' + referencia + "&tipoItemMaterial=" + tipoItemMaterial;
+                var fornecedorId = $("#Fornecedor").val();
+                var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferencia())?referencia=' + referencia + "&tipoItemMaterial=" + tipoItemMaterial + "&fornecedorId=" + fornecedorId;
                 $.getJSON(url, function(data) {
                     if (data.erro) {
                         alert(data.erro);
@@ -62,11 +63,17 @@
                         $('#Descricao').text('');
                     } else {
                         var gridItens = $('#GridItens').data("kendoGrid");
+                        
+                        if (!valideReferenciaExistenteNaGrid(data.Referencia)) {
+                            return;
+                        }
+
                         var tr = $("#Referencia").closest("tr");
                         var dataGridItens = gridItens.dataItem(tr);
                         dataGridItens.set("Descricao", data.Descricao);
                         dataGridItens.set("Referencia", data.Referencia);
                         dataGridItens.set("UnidadeMedida", data.UnidadeMedida);
+                        dataGridItens.set("ReferenciaExterna", data.ReferenciaExterna);
                     }
                 });
             } else {
@@ -86,12 +93,36 @@
                     $('#Descricao').text('');
                     $('#Descricao').val('');
                     $('#UnidadeMedida').val('');
+                    $('#ReferenciaExterna').val('');
                 } else {
+                    //if ($('#Referencia').is('[readonly]')) {
+                    //    return;
+                    //}
                     pesquisaMaterial($(this).val());
                 }
             }
         });
         $('#selecionar-material').on('click', selecionarMaterial);
+
+        function valideReferenciaExistenteNaGrid(referencia) {
+            var grid = $('#GridItens').data("kendoGrid");
+            var dadosGrid = grid.dataSource.data();
+
+            for (var i = 0; i < dadosGrid.length; i++) {
+                var dataItem = dadosGrid[i];
+
+                var dataItemEmEdicao = grid.dataItem(grid.tbody.find("#pesquisar-material").closest("tr"));
+                if (dataItem.uid == dataItemEmEdicao.uid) {
+                    continue;
+                }
+
+                if (dataItem.Referencia == referencia) {
+                    alert("Não é possível selecionar o mesmo material mais de uma vez.");
+                    return false;
+                }
+            }
+            return true;
+        }
         
         function selecionarMaterial() {
             var grid = $('#grid-pesquisa-material').data("kendoGrid");
@@ -103,6 +134,11 @@
             if (data) {
                 
                 var gridItens = $('#GridItens').data("kendoGrid");
+                
+                if (!valideReferenciaExistenteNaGrid(data.Referencia)) {
+                    return;
+                }
+
                 var tr = $("#Referencia").closest("tr"); 
                 var dataGridItens = gridItens.dataItem(tr);
                 dataGridItens.set("Descricao", data.Descricao);

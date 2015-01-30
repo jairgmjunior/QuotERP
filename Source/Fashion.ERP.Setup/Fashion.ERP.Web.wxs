@@ -1841,6 +1841,9 @@
                         <Component Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" Guid="*">
                             <File Id="filB54CCF1EDE33D1CD1BB24B09379EB0FF" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Cpf.cshtml" />
                         </Component>
+                        <Component Id="cmpEDD286513B4EF9DE34B7D2EF2D381754" Guid="*">
+                            <File Id="filB3B78DE2625D4D274DB291FC96C194DA" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\currency4casasdecimais.cshtml" />
+                        </Component>
                         <Component Id="cmpE6235A93F204AD0978E4D35AB20D8A57" Guid="*">
                             <File Id="filB71E6AE2DDB8A6862EC0EE03783A9C84" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Date.cshtml" />
                         </Component>
@@ -2427,6 +2430,7 @@
             <ComponentRef Id="cmpF35EB43EE6B214B21010E96500DA4940" />
             <ComponentRef Id="cmp8AF99D01671392E6605DC6DB8D5E320D" />
             <ComponentRef Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" />
+            <ComponentRef Id="cmpEDD286513B4EF9DE34B7D2EF2D381754" />
             <ComponentRef Id="cmpE6235A93F204AD0978E4D35AB20D8A57" />
             <ComponentRef Id="cmp2899BD3D54B8A33F7BB8508FF8F2DC7E" />
             <ComponentRef Id="cmp65805FE8523764EF205143DC08213466" />

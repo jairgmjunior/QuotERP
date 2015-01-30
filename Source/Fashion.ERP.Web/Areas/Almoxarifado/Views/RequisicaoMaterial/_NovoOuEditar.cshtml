@@ -222,6 +222,7 @@
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
         $("#Descricao").width('86%');
+        $("#ReferenciaExterna").attr("readonly", true);
         $("#UnidadeMedida").attr("readonly", true);
         $("#UnidadeMedida").addClass("input-small");
 
@@ -335,7 +336,7 @@
             rules: { 
                 quantidadesolicitadavalidation: function (input, params) {
                     if (input.is("[name='QuantidadeSolicitada']") && input.val()) {
-                        return input.val() != 0;
+                        return input.val() != 0 && input.val() != '';
                     }
                     return true;
                 },

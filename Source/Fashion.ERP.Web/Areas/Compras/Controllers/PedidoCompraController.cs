@@ -180,6 +180,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
                 }
 
+                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+                {
+                    pedidoCompras =
+                        pedidoCompras.Where(
+                            p =>
+                                p.PedidoCompraItens.SelectMany(x => x.Material.ReferenciaExternas)
+                                    .Any(y => y.Referencia == model.ReferenciaExterna));
+                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+                }
+
                 #endregion
 
                 // Verifica se é uma listagem

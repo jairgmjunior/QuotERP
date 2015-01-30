@@ -874,6 +874,9 @@
     <Compile Include="Models\PesquisarModel.cs" />
     <Compile Include="Models\RelatorioModel.cs" />
     <Compile Include="Models\VisualizarRelatorioModel.cs" />
+    <Compile Include="Producao.FichaTecnicaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1412,6 +1415,7 @@
     <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BotaoPesquisaMaterialGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\currency4casasdecimais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

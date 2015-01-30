@@ -1,60 +1,5 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
-<script>
-    $(document).ready(function () {
-
-        $('#ValorMercadorias').attr('readonly', true);
-
-        $('#ValorLiquido').attr('readonly', true);
-        $('#ValorDesconto').attr('readonly', true);
-
-        $('#ValorEncargos').blur(function () {
-            AtualizaValorLiquido();
-        });
-
-        $('#ValorFrete').blur(function () {
-            AtualizaValorLiquido();
-        });
-
-        $('#ValorEmbalagem').blur(function () {
-            AtualizaValorLiquido();
-        });
-    });
-
-    function AtualizaValorLiquido() {
-        var valorMercadorias = $('#ValorMercadorias').val();
-        var valorEncargos = FormatarValores($('#ValorEncargos').val());
-        var valorFrete = FormatarValores($('#ValorFrete').val());
-        var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
-        var valorDesconto = FormatarValores($('#ValorDesconto').val());
-        var valorLiquido = 0;
-
-        valorLiquido = parseFloat(valorMercadorias) + parseFloat(valorEncargos) + parseFloat(valorFrete) + parseFloat(valorEmbalagem);
-        valorLiquido = valorLiquido - parseFloat(valorDesconto);
-
-        $('#ValorLiquido').val(formateDecimal(valorLiquido));
-        $('#ValorLiquido').change();
-
-        $('#txtValorLiquido').val(valorLiquido);
-        $('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
-        $('#txtValorLiquido').change();
-
-        //$('#txtValorLiquido').val(valorLiquido);
-        //$('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
-        //$('#txtValorLiquido').change();
-    }
-
-    function FormatarValores(campo) {
-        //var retorno = campo.replace(".", "");
-        var retorno = campo.replace(",", ".");
-        return retorno;
-    }
-
-    function formateDecimal(valor) {
-        return valor.toString().replace(".", ",");
-    }
-</script>
-
 <fieldset>
     <legend></legend>
     <div class="row">
@@ -244,7 +189,7 @@
                 columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
                 columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
                 columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
-                columns.Bound(e => e.ValorTotal).Format("{0:N4}").Width(80);
+                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
                 columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
@@ -255,6 +200,7 @@
                     model.Field(product => product.Descricao).Editable(true);
                     model.Field(product => product.UnidadeMedida).Editable(true);
                     model.Field(product => product.PrevisaoEntrega).Editable(true);
+                    model.Field(product => product.ValorTotal).Editable(true);
                 })
                 .Create(update => update.Action("EditingInline_Create", "PedidoCompra"))
                 .Read(read => read.Action("EditingInline_Read", "PedidoCompra"))
@@ -481,6 +427,79 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+
+        $('#ValorMercadorias').attr('readonly', true);
+        $('#ValorLiquido').attr('readonly', true);
+        $('#ValorDesconto').attr('readonly', true);
+
+        $('#ValorEncargos').blur(function () {
+            AtualizaValorLiquido();
+        });
+
+        $('#ValorFrete').blur(function () {
+            AtualizaValorLiquido();
+        });
+
+        $('#ValorEmbalagem').blur(function () {
+            AtualizaValorLiquido();
+        });
+    });
+
+    function registreScriptsGrid() {
+        $("#Quantidade.k-input").change(function (e) {
+            AtualizeValorTotal(e.target);
+        });
+
+        $("#ValorUnitario.k-input").change(function (e) {
+            AtualizeValorTotal(e.target);
+        });
+
+        $("#ValorDesconto.k-input").change(function (e) {
+            AtualizeValorTotal(e.target);
+        });
+    }
+
+    function AtualizeValorTotal(target) {
+        var item = ObtenhaDataItemGridItens(target);
+        var valorCalculado = (item.Quantidade * item.ValorUnitario) - item.ValorDesconto;
+        item.set("ValorTotal", valorCalculado);
+    }
+
+    function ObtenhaDataItemGridItens(target) {
+        var row = $(target).closest("tr");
+        var grid = $('#GridItens').data("kendoGrid");
+        return grid.dataItem(row);
+    }
+
+    function AtualizaValorLiquido() {
+        var valorMercadorias = $('#ValorMercadorias').val();
+        var valorEncargos = FormatarValores($('#ValorEncargos').val());
+        var valorFrete = FormatarValores($('#ValorFrete').val());
+        var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
+        var valorDesconto = FormatarValores($('#ValorDesconto').val());
+        var valorLiquido = 0;
+
+        valorLiquido = parseFloat(FormatarValores(valorMercadorias)) +  parseFloat(FormatarValores(valorEncargos)) +  parseFloat(FormatarValores(valorFrete)) + parseFloat(FormatarValores(valorEmbalagem));
+        valorLiquido = valorLiquido - parseFloat(FormatarValores(valorDesconto));
+
+        $('#ValorLiquido').val(formateDecimal(valorLiquido));
+        $('#ValorLiquido').change();
+
+        $('#txtValorLiquido').val(valorLiquido);
+        $('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
+        $('#txtValorLiquido').change();
+    }
+
+    function FormatarValores(campo) {
+        var retorno = campo.replace(",", ".");
+        return retorno;
+    }
+
+    function formateDecimal(valor) {
+        return valor.toString().replace(".", ",");
+    }
+
     function ehTelaNovo() {
         var pathArray = window.location.pathname.split('/');
         return $.inArray('Novo', pathArray) > -1;
@@ -491,11 +510,21 @@
         $("#Descricao").width('86%');
         $("#UnidadeMedida").attr("readonly", true);
         $("#UnidadeMedida").addClass("input-small");
+        $("#ReferenciaExterna").attr("readonly", true);
+
         $("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
         if (!e.model.isNew()) {
             $("#Referencia").attr("readonly", true);
             $("#pesquisar-material").attr("disabled", true);
         }
+
+        $("#ValorTotal").data("kendoNumericTextBox").enable(false);
+        $("#ValorTotal").data("kendoNumericTextBox").wrapper
+               .find(".k-numeric-wrap")
+               .addClass("expand-padding")
+               .find(".k-select").hide();
+        
+        registreScriptsGrid();
     }
 
     function desabilitaColunaDetalhes() {
@@ -535,14 +564,14 @@
         $('#ValorMercadorias').change();
 
         $('#txtValorMercadorias').val(total);
-        $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
         $('#txtValorMercadorias').change();
 
         $('#ValorDesconto').val(formateDecimal(desconto));
         $('#ValorDesconto').change();
 
         $('#txtValorDesconto').val(desconto);
-        $('#txtValorDesconto').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 2 });
+        $('#txtValorDesconto').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
         $('#txtValorDesconto').change();
 
         AtualizaValorLiquido();
@@ -716,6 +745,19 @@
                     }
                     return true;
                 },
+                descontovalidation: function (input, params) {
+                    if (input.is("[name='ValorDesconto']")) {
+                        var dataItem = ObtenhaDataItemGridItens(input);
+
+                        if (dataItem.ValorTotal == null) {
+                            return true;
+                        }
+                        
+                        var valorDesconto = input.val() == '' ? '0' : input.val();
+                        return parseFloat(FormatarValores(valorDesconto)) <= dataItem.ValorTotal;
+                    }
+                    return true;
+                },
                 referenciavalidation: function (input, params) {
                     if (input.is("[name='Referencia']")) {
                         return input.val() != '';
@@ -731,6 +773,10 @@
                 valorunitariovalidation: function (input) {
                     input.attr("data-valorunitariovalidation-msg", "O Preço não pode ser 0.");
                     return input.attr("data-valorunitariovalidation-msg");
+                },
+                descontovalidation: function (input) {
+                    input.attr("data-descontovalidation-msg", "O Desconto não pode ser maior que o valor total.");
+                    return input.attr("data-descontovalidation-msg");
                 },
                 referenciavalidation: function (input) {
                     input.attr("data-referenciavalidation-msg", "O material deve ser selecionado");

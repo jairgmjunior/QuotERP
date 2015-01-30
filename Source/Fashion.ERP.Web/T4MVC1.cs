@@ -36,6 +36,8 @@ public static class MVC
     public static EngenhariaProdutoClass EngenhariaProduto { get { return s_EngenhariaProduto; } }
     static readonly FinanceiroClass s_Financeiro = new FinanceiroClass();
     public static FinanceiroClass Financeiro { get { return s_Financeiro; } }
+    static readonly ProducaoClass s_Producao = new ProducaoClass();
+    public static ProducaoClass Producao { get { return s_Producao; } }
     public static Fashion.ERP.Web.Controllers.ArquivoController Arquivo = new Fashion.ERP.Web.Controllers.T4MVC_ArquivoController();
     public static Fashion.ERP.Web.Controllers.ErrorController Error = new Fashion.ERP.Web.Controllers.T4MVC_ErrorController();
     public static Fashion.ERP.Web.Controllers.HomeController Home = new Fashion.ERP.Web.Controllers.T4MVC_HomeController();
@@ -157,6 +159,12 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_RelatorioController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.TituloPagarController TituloPagar = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_TituloPagarController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.TituloReceberController TituloReceber = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_TituloReceberController();
+    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class ProducaoClass
+    {
+        public readonly string Name = "Producao";
+        public T4MVC.Producao.FichaTecnicaController FichaTecnica = new T4MVC.Producao.FichaTecnicaController();
     }
 }
 
