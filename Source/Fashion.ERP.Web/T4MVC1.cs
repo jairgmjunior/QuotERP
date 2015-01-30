@@ -149,6 +149,7 @@ namespace T4MVC
         public readonly string Name = "Financeiro";
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.ChequeRecebidoController ChequeRecebido = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_ChequeRecebidoController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.ContaBancariaController ContaBancaria = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_ContaBancariaController();
+        public Fashion.ERP.Web.Areas.Financeiro.Controllers.DepositoChequeRecebidoController DepositoChequeRecebido = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_DepositoChequeRecebidoController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.DespesaReceitaController DespesaReceita = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_DespesaReceitaController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.EmitenteController Emitente = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_EmitenteController();
         public Fashion.ERP.Web.Areas.Financeiro.Controllers.ExtratoBancarioController ExtratoBancario = new Fashion.ERP.Web.Areas.Financeiro.Controllers.T4MVC_ExtratoBancarioController();

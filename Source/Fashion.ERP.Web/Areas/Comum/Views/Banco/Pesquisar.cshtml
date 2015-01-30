@@ -83,17 +83,17 @@
                 $.getJSON(url, function(data) {
                     if (data.erro) {
                         alert(data.erro);
-                        $('#Banco').val('');
+                        $('#Banco').val('').trigger('change');
                         $('#codigo-banco').val('');
                         $('#descricao-banco').text('');
                     } else {
-                        $('#Banco').val(data.Id);
+                        $('#Banco').val(data.Id).trigger('change');
                         $('#codigo-banco').val(data.Codigo);
                         $('#descricao-banco').text(data.Nome);
                     }
                 });
             } else {
-                $('#Banco').val('');
+                $('#Banco').val('').trigger('change');
                 $('#codigo-banco').val('');
                 $('#descricao-banco').text('');
             }
@@ -106,11 +106,6 @@
                 }
             }
         });
-        $('#Banco').on({
-            change: function () {
-                    pesquisaBanco($(this).val());
-            }
-        });
         $('#selecionar-banco').on('click', selecionarBanco);
 
         function selecionarBanco() {
@@ -121,7 +116,7 @@
             var data = grid.dataItem(grid.select());
             
             if (data) {
-                $('#Banco').val(data.Id);
+                $('#Banco').val(data.Id).trigger('change');
                 $('#codigo-banco').val(data.Codigo);
                 $('#descricao-banco').text(data.Nome);
 

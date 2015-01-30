@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using Fashion.Framework.Domain;
 using Fashion.Framework.UnitOfWork;
+using FluentNHibernate.Conventions;
 
 namespace Fashion.ERP.Web.Helpers.Extensions
 {
@@ -13,7 +14,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         #region IsNullOrEmpty
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
         {
-            return collection == null || !collection.Any();
+            return collection == null || collection.IsEmpty();
         }
         #endregion
 
