@@ -1,6 +1,6 @@
 ﻿-- Cheque recebido / Devolução
 
-DECLARE @CHEQUERECEBIDOID AS BIGINT, @ID AS BIGINT;
+DECLARE @CHEQUEID AS BIGINT;
 SET @CHEQUEID = (SELECT id FROM permissao WHERE area = 'Financeiro' AND descricao = 'Cheque' AND [action] is NULL);
 
 -- Cria o item Devolução

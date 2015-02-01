@@ -66,6 +66,8 @@ $(document).ready(function () {
         if (e.ctrlKey || e.altKey || e.metaKey || e.which < 32) return; // ignora teclas de controle
 
         if ($(this).data('inputmask')) return; // ignora quando existe máscara (jasny-bootstrap)
+
+        if ($(this).hasClass('k-input')) return; // ignora quando é um campo do Kendo UI
         
         if (input.readOnly || input.disabled) return; // ignorar campos somente leitura e desabilitados
 
