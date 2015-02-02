@@ -1416,6 +1416,8 @@
     <Content Include="Views\Shared\EditorTemplates\BotaoPesquisaMaterialGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\currency4casasdecimais.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\numeric5casasdecimais.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\currency5casasdecimais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

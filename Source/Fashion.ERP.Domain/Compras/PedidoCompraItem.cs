@@ -54,7 +54,7 @@ namespace Fashion.ERP.Domain.Compras
         {
             get
             {
-                return (ValorUnitario * Quantidade);    
+                return (ValorUnitario * Quantidade) - ValorDesconto;    
             }
         }
 

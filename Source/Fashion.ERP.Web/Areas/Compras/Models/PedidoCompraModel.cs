@@ -56,28 +56,28 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Valor frete")]
         [Required(ErrorMessage = "Informe o valor do frete")]
-        [UIHint("currency4casasdecimais")]
+        [UIHint("currency5casasdecimais")]
         public double ValorFrete { get; set; }
 
         [Display(Name = "Valor desconto")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         [Required(ErrorMessage = "Informe o valor do desconto")]
-        [UIHint("currency4casasdecimais")]
+        [UIHint("currency5casasdecimais")]
         public double ValorDesconto { get; set; }
 
         [Display(Name = "Valor compra")]
         [Required(ErrorMessage = "Informe o valor da compra")]
-        [UIHint("currency4casasdecimais")]
+        [UIHint("currency5casasdecimais")]
         public double ValorCompra { get; set; }
 
         [Display(Name = "Valor encargos")]
         [Required(ErrorMessage = "Informe o valor dos encargos")]
-        [UIHint("currency4casasdecimais")]
+        [UIHint("currency5casasdecimais")]
         public double ValorEncargos { get; set; }
 
         [Display(Name = "Valor embalagem")]
         [Required(ErrorMessage = "Informe o valor da embalagem")]
-        [UIHint("currency4casasdecimais")]
+        [UIHint("currency5casasdecimais")]
         public double ValorEmbalagem { get; set; }
 
         [Display(Name = "Observação")]

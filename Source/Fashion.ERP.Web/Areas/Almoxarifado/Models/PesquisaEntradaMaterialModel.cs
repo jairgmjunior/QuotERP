@@ -24,6 +24,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Referência")]
         [StringLength(20, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Referencia { get; set; }
+        
+        [Display(Name = "Referência Externa")]
+        public string ReferenciaExterna { get; set; }
 
         [Display(Name = "Data da entrada")]
         public DateTime? DataEntradaDe { get; set; }

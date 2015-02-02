@@ -87,7 +87,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 DataCompra = p.DataCompra,
                 Fornecedor = p.Fornecedor.Nome,
                 Numero = p.Numero,
-                ValorCompra = p.ValorCompra,
+                ValorLiquido = p.ObtenhaValorLiquido(),
                 Autorizado = p.Autorizado,
                 SituacaoCompra = p.SituacaoCompra
             }).ToList();
@@ -207,7 +207,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                             DataCompra = p.DataCompra,
                             Fornecedor = p.Fornecedor.Nome,
                             Numero = p.Numero,
-                            ValorCompra = p.ValorCompra,
+                            ValorLiquido = p.ObtenhaValorLiquido(),
                             Autorizado = p.Autorizado,
                             SituacaoCompra = p.SituacaoCompra
                         }).ToList();

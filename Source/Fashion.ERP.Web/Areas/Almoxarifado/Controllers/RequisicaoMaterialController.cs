@@ -162,7 +162,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     filtros.AppendFormat("Tipo de Material: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
                 }
 
-
                 if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
                 {
                     requisicaoMaterials =

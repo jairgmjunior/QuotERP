@@ -268,6 +268,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _estoqueMaterialRepository,
                         _entradaMaterialRepository);
 
+                    domain.SituacaoRecebimentoCompra = SituacaoRecebimentoCompra.Finalizada;
+
                     _recebimentoCompraRepository.Save(domain);
 
                     domain.AtualizePedidosCompra(_recebimentoCompraRepository, _pedidoCompraRepository);

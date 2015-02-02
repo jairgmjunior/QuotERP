@@ -39,20 +39,16 @@ namespace Fashion.ERP.Domain.Compras
         public virtual MeioPagamento MeioPagamento { get; set; }
 
         public virtual Pessoa Transportadora { get; set; }
-
-
-
+        
         public virtual double ValorMercadoria
         {
             get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
         }
-
+        
         public virtual double ValorLiquido
         {
             get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
         }
-
-
 
         #region pedidoCompraItem
 
@@ -104,6 +100,11 @@ namespace Fashion.ERP.Domain.Compras
         {
             return PedidoCompraItens.SingleOrDefault(
                 s => s.Material.Referencia == referenciaMaterial);
+        }
+
+        public virtual double ObtenhaValorLiquido()
+        {
+            return ValorLiquido;
         }
 
         #endregion

@@ -185,11 +185,11 @@
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(60);
                 columns.Bound(e => e.ReferenciaExterna).Width(60);
-                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(60);
+                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric5casasdecimais").Width(60);
                 columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
-                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
-                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
-                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(80);
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(100);
+                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(80);
+                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(80);
                 columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
@@ -285,14 +285,14 @@
                                 #: Diferenca #
                             </td>
                             <td>
-                                #: kendo.toString(ValorUnitario,'n4') #
+                                #: kendo.toString(ValorUnitario,'n5') #
                             </td>
                             <td>
-                                #: kendo.toString(ValorUnitario,'n4') #
+                                #: kendo.toString(ValorUnitario,'n5') #
                             </td>
                              <td>
                                     
-                               #: kendo.toString(ValorUnitario,'n4') #
+                               #: kendo.toString(ValorUnitario,'n5') #
                                 
                             </td>
                             <td>
@@ -358,7 +358,7 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorMercadorias)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
                 @*@Html.TextBox("ValorMercadorias",@Model.ValorMercadorias, new { @class = "help-block", disabled = "disabled", @readonly = "readonly", @style="whidt:300px"})*@
                 @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
@@ -404,7 +404,7 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorDesconto)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDesconto" />
                 @*@Html.EditorFor(x => x.ValorDesconto)*@
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
@@ -416,7 +416,7 @@
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias" />
+                <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias"  class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorLiquido" name="ValorLiquido"  value=" @Model.ValorMercadorias" />                
                 @*<input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
@@ -446,6 +446,8 @@
         });
     });
 
+
+
     function registreScriptsGrid() {
         $("#Quantidade.k-input").change(function (e) {
             AtualizeValorTotal(e.target);
@@ -458,6 +460,25 @@
         $("#ValorDesconto.k-input").change(function (e) {
             AtualizeValorTotal(e.target);
         });
+
+        $('#ValorDesconto.k-input').bind("keydown", function (e) {
+            if (e.which == 13) { //Enter key
+                e.preventDefault();
+                var botaoAtualizar = $('#ValorDesconto.k-input').closest("tr").find(".k-grid-update");
+                setTimeout(function () { botaoAtualizar.focus(); }, 100);
+                return false;
+            }
+            return true;
+        });
+
+        //$('#ValorDesconto.k-input').bind('keypress', function (event) {
+        //    if (event.which === 13) {
+        //        e.preventDefault();
+        //        //$(this).next().focus();
+        //        var botaoAtualizar = $('#ValorDesconto.k-input').closest("tr").find(".k-grid-update");
+        //        botaoAtualizar.focus();
+        //    }
+        //});
     }
 
     function AtualizeValorTotal(target) {
@@ -486,8 +507,7 @@
         $('#ValorLiquido').val(formateDecimal(valorLiquido));
         $('#ValorLiquido').change();
 
-        $('#txtValorLiquido').val(valorLiquido);
-        $('#txtValorLiquido').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
+        $('#txtValorLiquido').val(kendo.toString(valorLiquido, "c5"));
         $('#txtValorLiquido').change();
     }
 
@@ -563,15 +583,13 @@
         $('#ValorMercadorias').val(formateDecimal(total));
         $('#ValorMercadorias').change();
 
-        $('#txtValorMercadorias').val(total);
-        $('#txtValorMercadorias').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
+        $('#txtValorMercadorias').val(kendo.toString(total, "c5"));
         $('#txtValorMercadorias').change();
 
         $('#ValorDesconto').val(formateDecimal(desconto));
         $('#ValorDesconto').change();
-
-        $('#txtValorDesconto').val(desconto);
-        $('#txtValorDesconto').currency({ region: "BRL", thousands: '.', decimal: ',', decimals: 4 });
+        
+        $('#txtValorDesconto').val(kendo.toString(desconto, "c5"));
         $('#txtValorDesconto').change();
 
         AtualizaValorLiquido();

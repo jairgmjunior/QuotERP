@@ -15,6 +15,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Material")]
         public long? Material { get; set; }
+        
+        [Display(Name = "Referência Externa")]
+        public string ReferenciaExterna { get; set; }
 
         [Display(Name = "Número")]
         public long? Numero { get; set; }
