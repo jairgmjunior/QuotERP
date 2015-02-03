@@ -182,6 +182,20 @@
                                 <File Id="fil89F0B1551F52B18A4C94B76B09FC0BC2" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\SaidaMaterial\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir3E57B22DA1D1376EA33575483EBB1652" Name="SimboloConservacao">
+                            <Component Id="cmpF5069A9C4FC2AC1F38EDDA7D74C1FF1D" Guid="*">
+                                <File Id="fil5B6A2E422FF23E35678EB1F96A381D84" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\SimboloConservacao\Editar.cshtml" />
+                            </Component>
+                            <Component Id="cmp16DC71B7E3A8F679DAFC66088667A6E4" Guid="*">
+                                <File Id="fil2A5E10FEA76809B4AD173B82DF028DC1" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\SimboloConservacao\Index.cshtml" />
+                            </Component>
+                            <Component Id="cmp56B9197EA5CD3B08E283E13492BEA989" Guid="*">
+                                <File Id="fil0E93BE0A465F320168F3A9D1B5D732B2" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\SimboloConservacao\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmpC44518A8B457CF600DA11C79107FD1DD" Guid="*">
+                                <File Id="fil3B96A3A5D651894BB17B336FB2DD5B53" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\SimboloConservacao\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir15D4C6B478BA13B8DE09C272D7535628" Name="Subcategoria">
                             <Component Id="cmp8F2D02CE6A9DE8086AD83B746AA3CB68" Guid="*">
                                 <File Id="fil456C2E0CC24EEB2A150CB5160F45F0D4" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Subcategoria\Editar.cshtml" />
@@ -997,6 +1011,11 @@
                             </Component>
                             <Component Id="cmp53C67FEA9974FCEA7AA9F1A778163049" Guid="*">
                                 <File Id="fil117C79F195DDA517225098805F8D7BF2" KeyPath="yes" Source="SourceDir\Areas\Financeiro\Views\ContaBancaria\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir40A814FB134C1BE9EE26F3F54D3B24F8" Name="DepositoChequeRecebido">
+                            <Component Id="cmpB707BB3B8994FDF56072DE9AFD2A347F" Guid="*">
+                                <File Id="filDA0B564124F043C11E39C00EA6FBF42D" KeyPath="yes" Source="SourceDir\Areas\Financeiro\Views\DepositoChequeRecebido\Index.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dir4B70F981BF14E53A5213DFA970738AB3" Name="DespesaReceita">
@@ -1873,6 +1892,12 @@
                         <Component Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" Guid="*">
                             <File Id="filB54CCF1EDE33D1CD1BB24B09379EB0FF" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Cpf.cshtml" />
                         </Component>
+                        <Component Id="cmpEDD286513B4EF9DE34B7D2EF2D381754" Guid="*">
+                            <File Id="filB3B78DE2625D4D274DB291FC96C194DA" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\currency4casasdecimais.cshtml" />
+                        </Component>
+                        <Component Id="cmp2475F5E3F89CF9F208B79E01A9FB20D7" Guid="*">
+                            <File Id="filF50C78743DB669FEEB374DAD4922CB6E" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\currency5casasdecimais.cshtml" />
+                        </Component>
                         <Component Id="cmpE6235A93F204AD0978E4D35AB20D8A57" Guid="*">
                             <File Id="filB71E6AE2DDB8A6862EC0EE03783A9C84" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Date.cshtml" />
                         </Component>
@@ -1908,6 +1933,9 @@
                         </Component>
                         <Component Id="cmp298122EF251B8255A4CEE4150EEB9283" Guid="*">
                             <File Id="filE91F6D7C3F4E80006905DB2D2E73A38B" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric4casasdecimais.cshtml" />
+                        </Component>
+                        <Component Id="cmpC34F22665E842E3BF70988CD4F4BC31D" Guid="*">
+                            <File Id="fil2DF4E9C3391673E47D455082B386747B" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric5casasdecimais.cshtml" />
                         </Component>
                         <Component Id="cmp1A455F67228E9129F8793015A2597BAE" Guid="*">
                             <File Id="fil877C7EB4596D2BBAA382B158EB1A8D4E" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\OperacaoProducaoList.cshtml" />
@@ -1988,6 +2016,10 @@
             <ComponentRef Id="cmp8A2BF3850CF149290E8F1E14D25A71FD" />
             <ComponentRef Id="cmp1A479A5062362B5FBBDDDD79F44A3BC3" />
             <ComponentRef Id="cmpC890FA126A8A9C291F387F0CAD6A520A" />
+            <ComponentRef Id="cmpF5069A9C4FC2AC1F38EDDA7D74C1FF1D" />
+            <ComponentRef Id="cmp16DC71B7E3A8F679DAFC66088667A6E4" />
+            <ComponentRef Id="cmp56B9197EA5CD3B08E283E13492BEA989" />
+            <ComponentRef Id="cmpC44518A8B457CF600DA11C79107FD1DD" />
             <ComponentRef Id="cmp8F2D02CE6A9DE8086AD83B746AA3CB68" />
             <ComponentRef Id="cmp77D38AF1B416F62C38D10486A2E82023" />
             <ComponentRef Id="cmp305E464D9C73D138883ACC60C92F39F2" />
@@ -2215,6 +2247,7 @@
             <ComponentRef Id="cmpE187D0A320FBEDB7292545524A10BD9F" />
             <ComponentRef Id="cmp27EDF7212D9CD1A28CBF7DD1F0951EF8" />
             <ComponentRef Id="cmp53C67FEA9974FCEA7AA9F1A778163049" />
+            <ComponentRef Id="cmpB707BB3B8994FDF56072DE9AFD2A347F" />
             <ComponentRef Id="cmpF587F5C03347F09D1C51DC663F19918E" />
             <ComponentRef Id="cmpD4FA6465D3B362736DED4AC62DA479CE" />
             <ComponentRef Id="cmpBEFF811DE4C16EF63B6E264AEF813DCD" />
@@ -2471,6 +2504,8 @@
             <ComponentRef Id="cmpF35EB43EE6B214B21010E96500DA4940" />
             <ComponentRef Id="cmp8AF99D01671392E6605DC6DB8D5E320D" />
             <ComponentRef Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" />
+            <ComponentRef Id="cmpEDD286513B4EF9DE34B7D2EF2D381754" />
+            <ComponentRef Id="cmp2475F5E3F89CF9F208B79E01A9FB20D7" />
             <ComponentRef Id="cmpE6235A93F204AD0978E4D35AB20D8A57" />
             <ComponentRef Id="cmp2899BD3D54B8A33F7BB8508FF8F2DC7E" />
             <ComponentRef Id="cmp65805FE8523764EF205143DC08213466" />
@@ -2483,6 +2518,7 @@
             <ComponentRef Id="cmp9708FDC0D77343023B24310FD67AADDF" />
             <ComponentRef Id="cmp124A668736CBADA3F907FFAB4C4C1BDA" />
             <ComponentRef Id="cmp298122EF251B8255A4CEE4150EEB9283" />
+            <ComponentRef Id="cmpC34F22665E842E3BF70988CD4F4BC31D" />
             <ComponentRef Id="cmp1A455F67228E9129F8793015A2597BAE" />
             <ComponentRef Id="cmp68C5CA4C9B56BD0AE336CE6D14972615" />
             <ComponentRef Id="cmp64BDD23A81506C80DBFB7EA3D0B9B41D" />

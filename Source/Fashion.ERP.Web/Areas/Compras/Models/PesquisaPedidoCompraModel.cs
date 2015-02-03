@@ -49,6 +49,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Comprador")]
         public long? Comprador { get; set; }
 
+        [Display(Name = "Referência Externa")]
+        public string ReferenciaExterna { get; set; }
+
         public string ModoConsulta { get; set; }
 
         [Display(Name = "Agrupar por")]

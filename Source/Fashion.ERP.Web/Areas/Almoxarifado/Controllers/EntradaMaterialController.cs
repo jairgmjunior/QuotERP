@@ -134,6 +134,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                          model.DataEntradaAte.Value.ToString("dd/MM/yyyy"));
                 }
 
+                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+                {
+                    entradaMateriais =
+                        entradaMateriais.Where(
+                            p =>
+                                p.EntradaItemMateriais.SelectMany(x => x.Material.ReferenciaExternas)
+                                    .Any(y => y.Referencia == model.ReferenciaExterna));
+                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+                }
+
                 #endregion
 
                 // Verifica se é uma listagem

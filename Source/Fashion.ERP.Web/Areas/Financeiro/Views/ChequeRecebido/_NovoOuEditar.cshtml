@@ -235,6 +235,7 @@
                                                    {
                                                        columns.Bound(x => x.Data).Width(80);
                                                        columns.Bound(x => x.ChequeSituacao);
+                                                       columns.Bound(x => x.Compensacao);
                                                    }).DataSource(s =>
                                                                  s.Ajax()
                                                                      .Read(r => r.Action("LerOcorrencias", "ChequeRecebido", new { id = Model.Id.Value })

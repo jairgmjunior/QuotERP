@@ -130,6 +130,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.ReferenciaExterna)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.ReferenciaExterna, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="well">
                         <div class="row">
                             <div class="span3">

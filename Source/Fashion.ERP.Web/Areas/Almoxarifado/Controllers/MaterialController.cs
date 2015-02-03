@@ -21,6 +21,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Criterion;
 using NHibernate.Linq;
+using NHibernate.Util;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 using Telerik.Reporting.Drawing;
@@ -328,7 +329,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar o catálogo de material. Confira se os dados foram informados corretamente: " + exception.Message);
+                    ModelState.AddModelError(string.Empty, "Não é possível salvar o material. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -428,7 +429,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o catálogo de material. Confira se os dados foram informados corretamente: " + exception.Message);
+                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o material. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -455,7 +456,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao excluir o catálogo de material: " + exception.Message);
+                    ModelState.AddModelError("", "Ocorreu um erro ao excluir o material: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -487,7 +488,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
             catch (Exception exception)
             {
-                this.AddErrorMessage("Ocorreu um erro ao editar a situação do catálogo de material: " + exception.Message);
+                this.AddErrorMessage("Ocorreu um erro ao editar a situação do material: " + exception.Message);
                 _logger.Info(exception.GetMessage());
             }
 
@@ -646,7 +647,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region PesquisarReferencia
         [HttpGet, AjaxOnly]
-        public virtual ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial)
+        public virtual ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial, long? fornecedorId)
         {
             if (string.IsNullOrWhiteSpace(referencia) == false)
             {
@@ -657,15 +658,31 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 };
 
                 if (tipoItemMaterial.HasValue)
-                    filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, tipoItemMaterial, LogicOperator.And));
+                    filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, tipoItemMaterial,
+                        LogicOperator.And));
 
                 var material = _materialRepository.Find(filters.ToArray()).FirstOrDefault();
 
                 if (material != null)
-                    return Json(new { material.Id, material.Referencia, material.Descricao, UnidadeMedida = material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);
+                {
+                    var referenciaExterna =
+                        material.ReferenciaExternas.FirstOrDefault(x => x.Fornecedor.Id == fornecedorId);
+                    
+                    return
+                        Json(
+                            new
+                            {
+                                material.Id,
+                                material.Referencia,
+                                material.Descricao,
+                                UnidadeMedida = material.UnidadeMedida.Sigla,
+                                ReferenciaExterna = referenciaExterna != null ? referenciaExterna.Referencia : null
+                            }, JsonRequestBehavior.AllowGet);
+                }
+
             }
 
-            return Json(new { erro = "Nenhum catálogo de material encontrado." }, JsonRequestBehavior.AllowGet);
+            return Json(new { erro = "Nenhum material encontrado." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -678,7 +695,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if (material != null)
                 return Json(new { material.Id, material.Referencia, material.Descricao, material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);
 
-            return Json(new { erro = "Nenhum catálogo de material encontrado." }, JsonRequestBehavior.AllowGet);
+            return Json(new { erro = "Nenhum material encontrado." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -830,7 +847,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 _logger.Error(exception.GetMessage());
             }
 
-            return Json(new { Error = "Ocorreu um erro ao buscar a unidade de medida do catálogo de material." }, JsonRequestBehavior.AllowGet);
+            return Json(new { Error = "Ocorreu um erro ao buscar a unidade de medida do material." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -895,14 +912,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var material = (MaterialModel)model;
 
-            // Verificar se existe catálogo com esta referência
+            // Verificar se existe material com esta referência
             if (_materialRepository.Find().Any(p => p.Referencia == material.Referencia && p.Id != material.Id))
-                ModelState.AddModelError("Referencia", "Já existe catálogo de material cadastrado com esta referência.");
+                ModelState.AddModelError("Referencia", "Já existe material cadastrado com esta referência.");
 
-            // Verificar se existe catálogo com este código de barras
+            // Verificar se existe material com este código de barras
             if (string.IsNullOrWhiteSpace(material.CodigoBarra) == false &&
                 _materialRepository.Find().Any(p => p.CodigoBarra == material.CodigoBarra && p.Id != material.Id))
-                ModelState.AddModelError("CodigoBarra", "Já existe catálogo de material cadastrado com este código de barras.");
+                ModelState.AddModelError("CodigoBarra", "Já existe material cadastrado com este código de barras.");
         }
         #endregion
 

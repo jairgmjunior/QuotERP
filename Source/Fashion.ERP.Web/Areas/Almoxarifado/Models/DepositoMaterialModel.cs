@@ -77,7 +77,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
                 TreeView.Add(new TreeViewModel
                 {
                     Id = unidade.Id,
-                    Name = unidade.Nome,
+                    Name = unidade.NomeFantasia,
                     Itens = depositoTreeView
                 });
             }

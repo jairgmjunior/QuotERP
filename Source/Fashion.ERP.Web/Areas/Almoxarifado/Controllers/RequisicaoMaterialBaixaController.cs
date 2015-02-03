@@ -50,7 +50,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region Views
 
-        #region CancelamentoPedido
+        #region Baixar
 
         [ImportModelStateFromTempData, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Baixar(long id)
@@ -97,9 +97,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return estoqueMaterial != null ? estoqueMaterial.Quantidade : 0;
         }
 
-        #endregion
-
-        #region IndexCancelarItem
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Baixar(RequisicaoMaterialBaixaModel model)
         {
@@ -190,10 +187,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #endregion
 
+        private IList<DepositoMaterial> ObtenhaDepositoMaterials(long unidadeRequisitada)
+        {
+            var userId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(userId);
+            var funcionarioId = usuario.Funcionario != null ? usuario.Funcionario.Id : null;
+
+            var depositoMaterials = _depositoMaterialRepository.Find(x => x.Unidade.Id == unidadeRequisitada
+                    && x.Funcionarios.Any(y => y.Id == funcionarioId)).ToList();
+
+            return depositoMaterials;
+        }
+
         private long? ObtenhaDepositoMaterial(RequisicaoMaterialBaixaModel model)
         {
-            var depositoMaterials = _depositoMaterialRepository.Find(x => x.Unidade.Id == model.UnidadeRequisitada
-                    && x.Funcionarios.Any(y => y.Id == model.Requerente)).ToList();
+            var depositoMaterials = ObtenhaDepositoMaterials(model.UnidadeRequisitada.Value);
 
             if (depositoMaterials.Count() == 1)
             {
@@ -206,12 +214,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region PopulateViewData
         protected void PopulateViewData(RequisicaoMaterialBaixaModel model)
         {
-            var userId = FashionSecurity.GetLoggedUserId();
-            var usuario = _usuarioRepository.Get(userId);
-            var funcionarioId = usuario.Funcionario != null ? usuario.Funcionario.Id : null;
-
-            var depositoMaterials = _depositoMaterialRepository.Find(x => x.Unidade.Id == model.UnidadeRequisitada
-                    && x.Funcionarios.Any(y => y.Id == funcionarioId)).ToList();
+            var depositoMaterials = ObtenhaDepositoMaterials(model.UnidadeRequisitada.Value);
 
             if (depositoMaterials.Count() == 1)
             {

@@ -7,7 +7,6 @@ using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Reporting.Compras;
-using Fashion.ERP.Reporting.EngenhariaProduto;
 using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Compras.Models;
@@ -18,8 +17,6 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Kendo.Mvc.Extensions;
-using Microsoft.Ajax.Utilities;
-using NHibernate.Id;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -87,7 +84,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 DataCompra = p.DataCompra,
                 Fornecedor = p.Fornecedor.Nome,
                 Numero = p.Numero,
-                ValorCompra = p.ValorCompra,
+                ValorLiquido = p.ObtenhaValorLiquido(),
                 Autorizado = p.Autorizado,
                 SituacaoCompra = p.SituacaoCompra
             }).ToList();
@@ -180,6 +177,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
                 }
 
+                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+                {
+                    pedidoCompras =
+                        pedidoCompras.Where(
+                            p =>
+                                p.PedidoCompraItens.SelectMany(x => x.Material.ReferenciaExternas)
+                                    .Any(y => y.Referencia == model.ReferenciaExterna));
+                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+                }
+
                 #endregion
 
                 // Verifica se é uma listagem
@@ -197,7 +204,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                             DataCompra = p.DataCompra,
                             Fornecedor = p.Fornecedor.Nome,
                             Numero = p.Numero,
-                            ValorCompra = p.ValorCompra,
+                            ValorLiquido = p.ObtenhaValorLiquido(),
                             Autorizado = p.Autorizado,
                             SituacaoCompra = p.SituacaoCompra
                         }).ToList();
@@ -325,11 +332,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorLiquido = domain.ValorLiquido;
                 model.GridItens = new List<GridPedidoCompraItem>();
-                //model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                 foreach (var item in domain.PedidoCompraItens)
                 {
                     model.GridItens.Add(ObterPedidoCompraItem(item));
-                    //model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
                 
                 return View("Editar", model);
@@ -383,44 +388,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = "sucesso" };
         }
 
-        //[HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
-        //public virtual ActionResult Editar(ReservaMaterialModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            var domain = _reservaMaterialRepository.Get(model.Id);
-
-        //            Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
-
-        //            domain = Mapper.Unflat(model, domain);
-
-        //            domain.Requerente = _pessoaRepository.Get(model.Requerente);
-
-        //            ExcluaReservaMaterialItens(model, domain);
-        //            AtualizeReservaMaterialItens(model, domain);
-        //            IncluaNovosReservaMaterialItens(model, domain);
-        //            AtualizeSituacao(domain);
-
-        //            _reservaMaterialRepository.SaveOrUpdate(domain);
-
-        //            this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
-        //        }
-        //        catch (Exception exception)
-        //        {
-        //            var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
-        //                exception.Message;
-        //            this.AddErrorMessage(errorMsg);
-        //            _logger.Info(exception.GetMessage());
-
-        //            return new JsonResult { Data = "error" };
-        //        }
-        //    }
-
-        //    return new JsonResult { Data = "sucesso" };
-        //}
-
         public void ExcluirPedidoCompraItens(PedidoCompraModel model, PedidoCompra domain)
         {
             var reservaMaterialItensExcluir = new List<PedidoCompraItem>();
@@ -440,21 +407,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {
-                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id);
+                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id && y.Id != null);
                 if (pedidoCompraItem == null)
                 {
                     pedidoCompraItem = new PedidoCompraItem();
                     pedidoCompraItem.Material = _materialRepository.Find(y => y.Referencia == x.Referencia).First();
-                    pedidoCompraItem.Quantidade = x.Quantidade.Value;
-                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.Value;
-                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.Value;
+                    pedidoCompraItem.Quantidade = x.Quantidade.HasValue ? x.Quantidade.Value : 0;
+                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.HasValue ? x.ValorDesconto.Value : 0;
+                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.HasValue ? x.ValorUnitario.Value : 0;
                     pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
-                    pedidoCompraItem.PrevisaoEntrega = Convert.ToDateTime(x.PrevisaoEntregaString);
+                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
                     pedidoCompraItem.UnidadeMedida =
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
                 }
-
             });
         }
 
@@ -628,7 +594,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
             pedidoCompraItemModel.Situacao = item.SituacaoCompra.ToString();
             pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
-            //pedidoCompraItemModel.ValorTotal = item.ValorTotal;
             pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
 
             return pedidoCompraItemModel;
@@ -685,6 +650,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, GridPedidoCompraItem pedidoMaterialItemModel)
         {
+            //simula a persistência do item
+            var random = new Random();
+            int randomNumber = random.Next(0, 10000);
+            pedidoMaterialItemModel.Id = randomNumber * -1;
+
             return Json(new[] { pedidoMaterialItemModel }.ToDataSourceResult(request, ModelState));
         }
 

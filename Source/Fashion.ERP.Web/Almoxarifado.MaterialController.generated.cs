@@ -258,6 +258,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             public readonly string referencia = "referencia";
             public readonly string tipoItemMaterial = "tipoItemMaterial";
+            public readonly string fornecedorId = "fornecedorId";
         }
         static readonly ActionParamsClass_PesquisarId s_params_PesquisarId = new ActionParamsClass_PesquisarId();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -457,14 +458,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void PesquisarReferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string referencia, long? tipoItemMaterial);
+        partial void PesquisarReferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string referencia, long? tipoItemMaterial, long? fornecedorId);
 
-        public override System.Web.Mvc.ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial)
+        public override System.Web.Mvc.ActionResult PesquisarReferencia(string referencia, long? tipoItemMaterial, long? fornecedorId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferencia);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tipoItemMaterial", tipoItemMaterial);
-            PesquisarReferenciaOverride(callInfo, referencia, tipoItemMaterial);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fornecedorId", fornecedorId);
+            PesquisarReferenciaOverride(callInfo, referencia, tipoItemMaterial, fornecedorId);
             return callInfo;
         }
 

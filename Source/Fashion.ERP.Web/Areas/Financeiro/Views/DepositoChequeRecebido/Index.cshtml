@@ -1,0 +1,166 @@
+﻿@using Fashion.ERP.Domain.Financeiro
+@using Fashion.ERP.Web.Areas.Financeiro.Models
+@model Fashion.ERP.Web.Areas.Financeiro.Models.DepositoChequeRecebidoModel
+
+@using (Html.BeginForm(MVC.Financeiro.DepositoChequeRecebido.Index(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    <div class="row">
+        <div class="span4">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Unidade)
+                <div class="controls">
+                    @Html.DropDownList("Unidade", null, " -- Selecione -- ", new { @class = "input-large" })
+                    @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.VencimentoDe, new { @class = "control-label"})
+                <div class="controls">
+                    @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.Label("VencimentoAte", "Até", new { @class = "control-label"})
+                <div class="controls">
+                    @(Html.Kendo().DatePickerFor(x => x.VencimentoAte))
+                </div>
+            </div>
+        </div>
+         <div class="span4">
+             <div class="control-group">
+                 @Html.LabelForRequired(x => x.Situacao)
+                 <div class="controls">
+                     @{
+                         var naoDepositado = ChequeSituacao.NaoDepositado.EnumToString();
+                         var devolvido = ChequeSituacao.Devolvido.EnumToString();
+                         var custodia = ChequeSituacao.Custodia.EnumToString();
+                     }
+                     <label class="checkbox"><input id="naoDepositado" name="Situacao" type="checkbox" value="NaoDepositado" checked="checked" /> @naoDepositado</label>
+                     <label class="checkbox"><input id="devolvido" name="Situacao" type="checkbox" value="Devolvido" checked="checked" /> @devolvido</label>
+                     <label class="checkbox"><input id="custodia" name="Situacao" type="checkbox" value="Custodia" /> @custodia</label>
+                     @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })
+                 </div>
+             </div>
+             <button id="pesquisar" class="btn btn-info pull-right" type="button">Pesquisar</button>
+        </div>
+            
+    </div>
+    
+    <fieldset>
+        <legend>Cheques</legend>
+        <div class="row">
+            <div class="span12">
+                <div class="control-group">
+                    <div class="controls">
+                    @(Html.Kendo().Grid<GridDepositoChequeRecebido>()
+                          .Name("grid-cheque")
+                          .Columns(columns =>
+                          {
+                              columns.Bound(x => x.Unidade);
+                              columns.Bound(x => x.Emitente);
+                              columns.Bound(x => x.NumeroCheque);
+                              columns.Bound(x => x.Banco);
+                              columns.Bound(x => x.Valor).Format("{0:C}");
+                              columns.Bound(x => x.DataVencimento).Format("{0:dd/MM/yyyy}");
+                              columns.Bound(x => x.Situacao);
+                              columns.Bound(x => x.Id)
+                                  .ClientTemplate("<input type='checkbox' name='Cheques' value='#= Id #' />")
+                                  .Title("Depositar")
+                                  .Width(60).HtmlAttributes(new { @class = "text-center" });
+                          }).DataSource(s =>
+                                  s.Ajax()
+                                      .Read(r => r.Action("LerCheques", "DepositoChequeRecebido")
+                                          .Type(HttpVerbs.Get))
+                              )
+                          )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Dados bancários</legend>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Banco, new { @class = "control-label required-label"})
+                    <div class="controls">
+                        @Html.DropDownList("Banco", null, " -- Selecione -- ", new { @class = "input-large" })
+                        @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.ContaBancaria)
+                    <div class="controls">
+                        <select id="ContaBancaria" name="ContaBancaria"><option>-- Selecione --</option></select>
+                        @Html.ValidationMessageFor(x => x.ContaBancaria, null, new {@class = "help-block"})
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.DataDeposito)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.DataDeposito)
+                        @Html.ValidationMessageFor(x => x.DataDeposito, null, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        </div>
+    </fieldset>
+}
+<script>
+    $(function () {
+        $('#pesquisar').on('click', function () {
+            var unidade = $('#Unidade').val();
+            var vencimentoDe = $('#VencimentoDe').val();
+            var vencimentoAte = $('#VencimentoAte').val();
+            var naoDepositado = $('#naoDepositado').is(':checked') ? $('#naoDepositado').val() : '';
+            var devolvido = $('#devolvido').is(':checked') ? $('#devolvido').val() : '';
+            var custodia = $('#custodia').is(':checked') ? $('#custodia').val() : '';
+
+            var url = '/Financeiro/DepositoChequeRecebido/PesquisaCheque?unidade=' + unidade + '&vencimentoDe='
+                + vencimentoDe + '&vencimentoAte=' + vencimentoAte + '&naoDepositado=' + naoDepositado
+                + '&devolvido=' + devolvido + '&custodia=' + custodia;
+            $.post(url, function () {
+                var grid = $('#grid-cheque').data("kendoGrid");
+                grid.dataSource.read();
+            });
+        });
+    });
+
+    $(function () {
+        carregaAgenciaConta();
+
+        // Banco
+        $('#Banco').change(function () {
+            carregaAgenciaConta();
+        });
+    });
+
+    function carregaAgenciaConta() {
+        var banco = $('#Banco').val();
+
+        var agenciaConta = $('#ContaBancaria');
+        agenciaConta.empty();
+        agenciaConta.append($('<option />').text("-- Selecione --"));
+
+        if (banco) {
+            var url = '/Financeiro/DepositoChequeRecebido/PesquisarAgenciaContaPorBanco/' + banco;
+            $.getJSON(url, function (result) {
+                $.each(result, function (index, item) {
+                    agenciaConta.append($('<option />').val(item.Id).text(item.Agencia + '/' + item.Conta));
+                });
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        }
+    }
+</script>
+@{
+    Html.RenderAction("Pesquisar", "Banco", new { area = "Comum" });
+}
