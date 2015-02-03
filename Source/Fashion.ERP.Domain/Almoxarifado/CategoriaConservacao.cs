@@ -12,13 +12,13 @@ namespace Fashion.ERP.Domain.Almoxarifado
         Alvejamento,
         [Display(Name = "Secagem em tambor")]
         Bordado,
-        [Display(Name = "Secanagem Bordado")]
+        [Display(Name = "Secagem Natural")]
         Estampa,
         [Display(Name = "Passadoria")]
         Lavada,
-        [Display(Name = "Limpeza a Seco Prfissional")]
+        [Display(Name = "Limpeza a Seco Profissional")]
         LimpezaSecoProfissional,
-        [Display(Name = "Limpeza à Úmido")]
+        [Display(Name = "Limpeza a Úmido Profissional")]
         LimpezaAUmido
     }
 }
