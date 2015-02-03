@@ -13,11 +13,9 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using System.Text;
 using Telerik.Reporting;
-using Kendo.Mvc.Extensions;
 
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
@@ -41,8 +39,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             PreecheColunasPesquisa();
         }
         #endregion
-
-
 
         #region Index
          [PopulateViewData("PopulateViewData")]
@@ -262,8 +258,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return RedirectToAction("Editar", new { id });
         }
         #endregion
-
-
+        
         #region Métodos
 
         #region ValidaNovoOuEditar
@@ -303,6 +298,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
 
         #endregion
+
         #region PreecheColunasPesquisa
         private void PreecheColunasPesquisa()
         {

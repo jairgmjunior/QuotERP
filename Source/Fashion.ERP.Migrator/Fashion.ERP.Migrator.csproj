@@ -56,12 +56,6 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Migrations\Migration201502031545.cs" />
-=======
-    <Compile Include="Migrations\Migration201501292315.cs" />
-    <Compile Include="Migrations\Migration201501232115.cs" />
->>>>>>> 3d98bf66add8eac3a32ae7597bd1aa99fb000a05
     <Compile Include="Migrations\Migration201501201054.cs" />
     <Compile Include="Migrations\Migration201412191021.cs" />
     <Compile Include="Migrations\Migration201412171041.cs" />
@@ -136,6 +130,9 @@
     <Compile Include="Migrations\Migration201501050947.cs" />
     <Compile Include="Migrations\Migration201501131653.cs" />
     <Compile Include="Migrations\Migration201501231346.cs" />
+    <Compile Include="Migrations\Migration201501232115.cs" />
+    <Compile Include="Migrations\Migration201501292315.cs" />
+    <Compile Include="Migrations\Migration201502031545.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
