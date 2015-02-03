@@ -25,7 +25,6 @@ namespace Fashion.ERP.Mapping.Compras
             Map(x => x.ObservacaoAutorizacao).Length(4000);
             Map(x => x.SituacaoCompra).Not.Nullable();
             Map(x => x.Contato).Length(50);
-            //Map(x => x.ValorLiquido).Generated.Always().Formula("((valormercadoria + valorencargos + valorfrete + valorembalagem) - valordesconto)");
 
             References(x => x.Comprador).Not.Nullable();
             References(x => x.FuncionarioAutorizador).Nullable();

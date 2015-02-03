@@ -226,7 +226,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             // Unidades
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).OrderBy(p => p.Nome).ToList();
-            ViewData["Unidade"] = unidades.ToSelectList("Nome", model.Unidade);
+            ViewData["Unidade"] = unidades.ToSelectList("NomeFantasia", model.Unidade);
 
             // Funcionários
             var funcionarios = _pessoaRepository.Find(p => p.Funcionario != null).OrderBy(p => p.Nome).ToList();

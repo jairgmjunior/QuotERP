@@ -13,64 +13,63 @@
             </div>
         </div>
         <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.SituacaoCompra)
-            <div class="controls">
-                @Html.EditorFor(x => x.SituacaoCompra)
-            </div>
-        </div>
-        </div>
-    </div>
-    
-    <div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Numero)
-            <div class="controls">
-                @Html.EditorFor(x => x.Numero)
-                @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DataCompra)
-            <div class="controls">
-                @Html.EditorFor(x => x.DataCompra)
-                @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-    
-    <div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Fornecedor)
-            <div class="controls">
-                @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                <div class="input-append">
-                    <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
-                    <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                    <span id="descricao-fornecedor" class="add-on"></span>
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.SituacaoCompra)
+                <div class="controls">
+                    @Html.EditorFor(x => x.SituacaoCompra)
                 </div>
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Comprador)
-            <div class="controls">
-                @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
-                <div class="input-append">
-                    <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                    <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                    <span id="descricao-funcionario" class="add-on"></span>
+    
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Numero)
+                <div class="controls">
+                    @Html.EditorFor(x => x.Numero)
+                    @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.DataCompra)
+                <div class="controls">
+                    @Html.EditorFor(x => x.DataCompra)
+                    @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Fornecedor)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+                    <div class="input-append">
+                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-fornecedor" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Comprador)
+                <div class="controls">
+                    @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
+                    <div class="input-append">
+                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
+                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
+                        <span id="descricao-funcionario" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </fieldset>
 
 <ul class="nav nav-tabs" id="myTab">
@@ -159,7 +158,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Contato)
@@ -173,9 +171,6 @@
         
     </div>
     <div class="tab-pane" id="itens">
-        
-    
-        
         @(Html.Kendo().Grid(@Model.GridItens)
             .Name("GridItens")
             .Columns(columns =>
@@ -183,13 +178,13 @@
                 columns.Bound(x => x.Id).Hidden();
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
-                columns.Bound(x => x.UnidadeMedida).Width(60);
+                columns.Bound(x => x.UnidadeMedida).Width(55);
                 columns.Bound(e => e.ReferenciaExterna).Width(60);
-                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric5casasdecimais").Width(60);
+                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric5casasdecimais").Width(80);
                 columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
-                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(100);
-                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(80);
-                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(80);
+                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(110);
+                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(100);
+                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(110);
                 columns.Command(command => { command.Edit(); command.Destroy(); });
             })
             .ClientDetailTemplateId("template")
@@ -222,12 +217,12 @@
             {
                 items.Add().Text("Detalhes").Content(@<text>
                     <table class="table table-bordered">
-      <thead>
+                      <thead>
                         <tr class="active">
                             <td>
                                 <b>Referência</b>
                             </td>
-                              <td>
+                                <td>
                                 <b>Referência Externa</b>
                             </td>
                             <td>
@@ -252,20 +247,20 @@
                             <td>
                                 <b>Desconto(R$)</b>
                             </td>
-                             <td>
+                                <td>
                                 <b>Valor Total(R$)</b>
                             </td>
                             <td>
                                 <b>Situação</b>
                             </td>
                         </tr>
-      </thead>
-      <tbody>
+                      </thead>
+                      <tbody>
                         <tr>
                             <td>
                                 #: Referencia #
                             </td>
-                              <td>
+                                <td>
                                 #: ReferenciaExterna #
                             </td>
                             <td>
@@ -279,7 +274,7 @@
                                 #: Quantidade #
                             </td>
                             <td>
-                                  #: QuantidadeEntregue #
+                                    #: QuantidadeEntregue #
                             </td>
                             <td>
                                 #: Diferenca #
@@ -290,51 +285,18 @@
                             <td>
                                 #: kendo.toString(ValorUnitario,'n5') #
                             </td>
-                             <td>
+                                <td>
                                     
-                               #: kendo.toString(ValorUnitario,'n5') #
+                                #: kendo.toString(ValorUnitario,'n5') #
                                 
                             </td>
                             <td>
                                     #: Situacao #
                             </td>
                         </tr>
-      </tbody>
+                      </tbody>
                     </table>
-                    @*<div>Descrição: #: Descricao #</div>*@
-                   @* @(Html.Kendo().Grid(Model.GridPedidoItemDetalhe)
-                          .Name("grid_#=PedidoCompraId#")
-                          .Columns(columns =>
-                          {
-                              columns.Bound(o => o.Id).Hidden();
-                              columns.Bound(o => o.Referencia).Width(80);
-                              columns.Bound(o => o.ReferenciaExterna).Width(80);
-                              columns.Bound(o => o.Descricao).Width(500);
-                              columns.Bound(o => o.UnidadeMedida).Width(60);
-                              columns.Bound(o => o.Quantidade).Format("{0:n2}").Width(60);
-                              columns.Bound(o => o.QuantidadeEntregue).Width(80);
-                              columns.Bound(o => o.Diferenca).Width(80);
-                              columns.Bound(o => o.ValorUnitario).Width(80);
-                              columns.Bound(o => o.ValorDesconto).Width(80);
-                              columns.Bound(o => o.ValorTotal).Width(80);
-                              columns.Bound(o => o.Situacao).Width(120);
-                          })
-                          .DataSource(dataSource => dataSource
-                              .Ajax()
-                              .PageSize(5)
-                              .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
-                              .Model(model =>
-                              {
-                                  model.Id(e => e.Id);
-                                  model.Field(detalhe => detalhe.PedidoCompraId).DefaultValue(@Model.Id);
-                              })
-                          )
-                          .Pageable()
-                          .Sortable()
-                          .ToClientTemplate())*@
-                
-                                                            
-                                                            </text>
+                </text>
                 );
                 items.Add().Text("Recebimento").Content(
                     "<div class='employee-details'>" +
@@ -360,12 +322,10 @@
             <div class="controls">
                 <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
-                @*@Html.TextBox("ValorMercadorias",@Model.ValorMercadorias, new { @class = "help-block", disabled = "disabled", @readonly = "readonly", @style="whidt:300px"})*@
                 @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
-
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorFrete)
@@ -387,7 +347,6 @@
             </div>
         </div>
     </div>
-
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorEmbalagem)
@@ -406,19 +365,16 @@
             <div class="controls">
                 <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDesconto" />
-                @*@Html.EditorFor(x => x.ValorDesconto)*@
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
-
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorLiquido)
             <div class="controls">
                 <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias"  class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorLiquido" name="ValorLiquido"  value=" @Model.ValorMercadorias" />                
-                @*<input style=" width:130px;" readonly="readonly" id="ValorLiquido" name="ValorLiquido" type="text" value="@Model.ValorLiquido" />*@
                 @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
             </div>
         </div>

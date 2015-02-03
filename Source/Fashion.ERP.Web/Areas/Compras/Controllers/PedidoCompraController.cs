@@ -7,7 +7,6 @@ using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Reporting.Compras;
-using Fashion.ERP.Reporting.EngenhariaProduto;
 using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Compras.Models;
@@ -18,8 +17,6 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Kendo.Mvc.Extensions;
-using Microsoft.Ajax.Utilities;
-using NHibernate.Id;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -335,11 +332,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorLiquido = domain.ValorLiquido;
                 model.GridItens = new List<GridPedidoCompraItem>();
-                //model.GridPedidoItemDetalhe = new List<GridPedidoCompraItemDetalhe>();
                 foreach (var item in domain.PedidoCompraItens)
                 {
                     model.GridItens.Add(ObterPedidoCompraItem(item));
-                    //model.GridPedidoItemDetalhe.Add(ObterPedidoCompraItemDetalhe(item));
                 }
                 
                 return View("Editar", model);
@@ -392,44 +387,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             return new JsonResult { Data = "sucesso" };
         }
-
-        //[HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
-        //public virtual ActionResult Editar(ReservaMaterialModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            var domain = _reservaMaterialRepository.Get(model.Id);
-
-        //            Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
-
-        //            domain = Mapper.Unflat(model, domain);
-
-        //            domain.Requerente = _pessoaRepository.Get(model.Requerente);
-
-        //            ExcluaReservaMaterialItens(model, domain);
-        //            AtualizeReservaMaterialItens(model, domain);
-        //            IncluaNovosReservaMaterialItens(model, domain);
-        //            AtualizeSituacao(domain);
-
-        //            _reservaMaterialRepository.SaveOrUpdate(domain);
-
-        //            this.AddSuccessMessage("Reserva de material atualizado com sucesso.");
-        //        }
-        //        catch (Exception exception)
-        //        {
-        //            var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
-        //                exception.Message;
-        //            this.AddErrorMessage(errorMsg);
-        //            _logger.Info(exception.GetMessage());
-
-        //            return new JsonResult { Data = "error" };
-        //        }
-        //    }
-
-        //    return new JsonResult { Data = "sucesso" };
-        //}
 
         public void ExcluirPedidoCompraItens(PedidoCompraModel model, PedidoCompra domain)
         {
@@ -637,7 +594,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
             pedidoCompraItemModel.Situacao = item.SituacaoCompra.ToString();
             pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
-            //pedidoCompraItemModel.ValorTotal = item.ValorTotal;
             pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
 
             return pedidoCompraItemModel;

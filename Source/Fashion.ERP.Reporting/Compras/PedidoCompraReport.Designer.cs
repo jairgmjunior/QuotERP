@@ -471,11 +471,11 @@ namespace Fashion.ERP.Reporting.Compras
             // 
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.PedidoCompraItens"));
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.PedidoCompraItens)"));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9750562906265259D)));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.896642804145813D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9750561714172363D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.8966429233551025D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.8356175422668457D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.3141173124313355D)));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.678040623664856D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6780405044555664D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9649479389190674D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9649479389190674D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9909425973892212D)));
@@ -598,7 +598,7 @@ namespace Fashion.ERP.Reporting.Compras
             // 
             // textBox59
             // 
-            this.textBox59.Format = "{0:C4}";
+            this.textBox59.Format = "{0:C5}";
             this.textBox59.Name = "textBox59";
             this.textBox59.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9649479389190674D), Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D));
             this.textBox59.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
