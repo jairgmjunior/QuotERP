@@ -85,7 +85,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var recebimentoCompras = _recebimentoCompraRepository.Find();
+            var recebimentoCompras = _recebimentoCompraRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaRecebimentoCompraModel {ModoConsulta = "Listar"};
             
@@ -166,9 +166,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
+                    {
                         recebimentoCompras = model.OrdenarEm == "asc"
-                                            ? recebimentoCompras.OrderBy(model.OrdenarPor)
-                                            : recebimentoCompras.OrderByDescending(model.OrdenarPor);
+                            ? recebimentoCompras.OrderBy(model.OrdenarPor)
+                            : recebimentoCompras.OrderByDescending(model.OrdenarPor);
+                    }
+                    else
+                    {
+                        recebimentoCompras = recebimentoCompras.OrderByDescending(x => x.DataAlteracao);
+                    }
 
                     model.Grid = recebimentoCompras.Select(p => new GridRecebimentoCompraModel()
                         {

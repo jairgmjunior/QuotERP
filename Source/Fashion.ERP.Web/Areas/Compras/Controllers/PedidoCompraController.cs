@@ -73,7 +73,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var pedidoCompras = _pedidoCompraRepository.Find();
+            var pedidoCompras = _pedidoCompraRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaPedidoCompraModel {ModoConsulta = "Listar"};
 
@@ -193,9 +193,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
+                    {
                         pedidoCompras = model.OrdenarEm == "asc"
-                                            ? pedidoCompras.OrderBy(model.OrdenarPor)
-                                            : pedidoCompras.OrderByDescending(model.OrdenarPor);
+                            ? pedidoCompras.OrderBy(model.OrdenarPor)
+                            : pedidoCompras.OrderByDescending(model.OrdenarPor);
+                    }
+                    else
+                    {
+                        pedidoCompras = pedidoCompras.OrderByDescending(x => x.DataAlteracao);
+                    }
 
                     model.Grid = pedidoCompras.Select(p => new GridPedidoCompraModel
                         {
@@ -288,6 +294,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     var domain = Mapper.Unflat<PedidoCompra>(model);
                     IncluirNovosPedidoCompralItens(model, domain);
 
+                    //domain.DataAlteracao = DateTime.Now;
                     _pedidoCompraRepository.Save(domain);
 
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
@@ -357,23 +364,19 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     IncluirNovosPedidoCompralItens(model,domain);
 
                     domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
-
-
+                    
                     if (domain.Autorizado.Equals(true))
                     {
                         _pedidoCompraRepository.Evict(domain);
 
                         this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
                         return new JsonResult { Data = "sucesso" };
-                    }
+                    } 
+                    
+                    _pedidoCompraRepository.Update(domain);
 
-                    if (domain.Autorizado.Equals(false))
-                    {
-                        _pedidoCompraRepository.Update(domain);
-
-                        this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
-                        return new JsonResult { Data = "sucesso" };
-                    }
+                    this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
+                    return new JsonResult { Data = "sucesso" };
                 }
                 catch (Exception exception)
                 {
@@ -383,7 +386,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     return new JsonResult { Data = "error" };
                 }
             }
-
 
             return new JsonResult { Data = "sucesso" };
         }

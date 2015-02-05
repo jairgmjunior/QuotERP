@@ -19,6 +19,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             Map(x => x.PesoLiquido).Not.Nullable();
             Map(x => x.Localizacao).Length(100);
             Map(x => x.Ativo).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
 
             References(x => x.OrigemSituacaoTributaria).Not.Nullable();
             References(x => x.Foto).Cascade.All().Fetch.Join().LazyLoad(Laziness.False);

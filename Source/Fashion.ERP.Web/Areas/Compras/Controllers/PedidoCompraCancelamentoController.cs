@@ -91,7 +91,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
            {
                 try
                 {
-                    
                     foreach (var modelGrid in model.GridItemCancelado)
                     {
                         var pedidoCompraItemCancelado = new PedidoCompraItemCancelado();
@@ -117,6 +116,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                     var pedidocompra = _pedidoCompraRepository.Get(model.Id);
                     pedidocompra.AtualizeSituacao();
+                    //pedidocompra.DataAlteracao = DateTime.Now;
                     _pedidoCompraRepository.SaveOrUpdate(pedidocompra);
                     
                     this.AddSuccessMessage("Item cancelados com sucesso.");

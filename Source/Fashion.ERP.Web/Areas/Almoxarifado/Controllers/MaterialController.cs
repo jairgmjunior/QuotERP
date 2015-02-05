@@ -79,7 +79,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var materiais = _materialRepository.Find(p => p.Ativo);
+            var materiais = _materialRepository.Find(p => p.Ativo).OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaMaterialModel { ModoConsulta = "Listar" };
 
@@ -190,6 +190,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         materiais = model.OrdenarEm == "asc"
                             ? materiais.OrderBy(model.OrdenarPor)
                             : materiais.OrderByDescending(model.OrdenarPor);
+                    else
+                        materiais = materiais.OrderByDescending(x => x.DataAlteracao);
 
                     model.Grid = materiais.Select(p => new GridMaterialModel
                     {

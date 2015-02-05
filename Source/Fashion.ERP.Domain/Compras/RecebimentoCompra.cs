@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Common.Base;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using FluentNHibernate.Conventions;
 
 namespace Fashion.ERP.Domain.Compras
 {
-    public class RecebimentoCompra : DomainBase<RecebimentoCompra>
+    public class RecebimentoCompra : DomainBase<RecebimentoCompra>, IPesquisavelPorData
     {
         private IList<ConferenciaEntradaMaterial> _conferenciaEntradaMateriais = new List<ConferenciaEntradaMaterial>();
         private IList<PedidoCompra> _pedidosCompras = new List<PedidoCompra>();

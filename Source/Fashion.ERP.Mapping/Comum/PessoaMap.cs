@@ -21,6 +21,7 @@ namespace Fashion.ERP.Mapping.Comum
             Map(x => x.DataNascimento);
             Map(x => x.Site).Length(100);
             Map(x => x.DataCadastro).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
 
             References(x => x.Foto).Cascade.Delete();
             References(x => x.Fornecedor).Cascade.All();

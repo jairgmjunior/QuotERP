@@ -70,7 +70,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var fornecedores = _pessoaRepository.Find(p => p.Fornecedor != null).ToList();
+            var fornecedores = _pessoaRepository.Find(p => p.Fornecedor != null).OrderByDescending(x => x.DataAlteracao).ToList();
 
             var list = fornecedores.Select(p => new GridFornecedorModel
             {
@@ -146,6 +146,10 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                         fornecedores = model.OrdenarEm == "asc"
                             ? fornecedores.OrderBy(model.OrdenarPor)
                             : fornecedores.OrderByDescending(model.OrdenarPor);
+                    }
+                    else
+                    {
+                        fornecedores = fornecedores.OrderByDescending(x => x.Pessoa.DataAlteracao);
                     }
                     var resultado = fornecedores.ToList();
 

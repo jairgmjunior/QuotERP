@@ -61,7 +61,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var reservaMaterials = _reservaMaterialRepository.Find();
+            var reservaMaterials = _reservaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaReservaMaterialModel { ModoConsulta = "Listar" };
 
@@ -148,6 +148,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         reservaMaterials = model.OrdenarEm == "asc"
                             ? reservaMaterials.OrderBy(model.OrdenarPor)
                             : reservaMaterials.OrderByDescending(model.OrdenarPor);
+                    else 
+                        reservaMaterials = reservaMaterials.OrderByDescending(x => x.DataAlteracao);
 
                     model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
                     {

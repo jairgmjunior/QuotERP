@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Fashion.Framework.Common.Base;
 using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
-    public class Material : DomainBase<Material>
+    public class Material : DomainBase<Material>, IPesquisavelPorData
     {
         private readonly IList<ReferenciaExterna> _referenciaExternas;
         private IList<CustoMaterial> _custoMaterials = new List<CustoMaterial>();
@@ -37,6 +39,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         //todo remover essa propriedade
         public virtual Bordado Bordado { get; set; }
         public virtual Tecido Tecido { get; set; }
+        public virtual DateTime DataAlteracao { get; set; }
 
         #region ReferenciaExternas
 

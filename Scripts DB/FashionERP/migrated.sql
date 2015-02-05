@@ -1,99 +1,45 @@
 /* Using Database sqlserver2012 and Connection String server=.\SQLEXPRESS;Database=FashionERP;User Id=sa;Password=123456; */
-/* 201501231346: Migration201501231346 migrating ============================= */
+/* 201502041339: Migration201502041339 migrating ============================= */
 
 /* Beginning Transaction */
-/* CreateTable simboloconservacao */
-CREATE TABLE [dbo].[simboloconservacao] ([id] BIGINT NOT NULL, [descricao] NVARCHAR(100) NOT NULL, [categoriaconservacao] NVARCHAR(255) NOT NULL, [foto_id] BIGINT NOT NULL, CONSTRAINT [PK_simboloconservacao] PRIMARY KEY ([id]))
+/* AlterTable pedidocompra */
+/* No SQL statement executed. */
 
-/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201501231346.permissao.sql */
-DECLARE @BASICOID AS BIGINT, @id_pai AS BIGINT;
-SET @BASICOID = (SELECT id FROM permissao WHERE area = 'Almoxarifado' AND controller is null AND descricao='Básicos');
+/* CreateColumn pedidocompra dataalteracao DateTime */
+ALTER TABLE [dbo].[pedidocompra] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_pedidocompra_dataalteracao] DEFAULT '2015-02-05T11:10:26'
 
-INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Símbolo Conservação'
-           ,'Index'
-           ,'Almoxarifado'
-           ,'SimboloConservacao'
-           ,1
-           ,1
-           ,@BASICOID
-           ,0
-		   )
-		   SET @id_pai = SCOPE_IDENTITY()
+/* AlterTable entradamaterial */
+/* No SQL statement executed. */
 
-		   INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Novo'
-           ,'Novo'
-           ,'Almoxarifado'
-           ,'SimboloConservacao'
-           ,0
-           ,1
-           ,@id_pai
-           ,0
-		   )
+/* CreateColumn entradamaterial dataalteracao DateTime */
+ALTER TABLE [dbo].[entradamaterial] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_entradamaterial_dataalteracao] DEFAULT '2015-02-05T11:10:26'
 
-		   INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Editar'
-           ,'Editar'
-           ,'Almoxarifado'
-           ,'SimboloConservacao'
-           ,0
-           ,1
-           ,@id_pai
-           ,0
-		   )
+/* AlterTable saidamaterial */
+/* No SQL statement executed. */
 
-		   INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Excluir'
-           ,'Excluir'
-           ,'Almoxarifado'
-           ,'SimboloConservacao'
-           ,0
-           ,1
-           ,@id_pai
-           ,0
-		   )
+/* CreateColumn saidamaterial dataalteracao DateTime */
+ALTER TABLE [dbo].[saidamaterial] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_saidamaterial_dataalteracao] DEFAULT '2015-02-05T11:10:26'
 
+/* AlterTable reservamaterial */
+/* No SQL statement executed. */
 
+/* CreateColumn reservamaterial dataalteracao DateTime */
+ALTER TABLE [dbo].[reservamaterial] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_reservamaterial_dataalteracao] DEFAULT '2015-02-05T11:10:26'
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201501231346, '2015-01-29T13:10:28', 'Migration201501231346')
+/* AlterTable material */
+/* No SQL statement executed. */
+
+/* CreateColumn material dataalteracao DateTime */
+ALTER TABLE [dbo].[material] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_material_dataalteracao] DEFAULT '2015-02-05T11:10:26'
+
+/* AlterTable pessoa */
+/* No SQL statement executed. */
+
+/* CreateColumn pessoa dataalteracao DateTime */
+ALTER TABLE [dbo].[pessoa] ADD [dataalteracao] DATETIME NOT NULL CONSTRAINT [DF_pessoa_dataalteracao] DEFAULT '2015-02-05T11:10:26'
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201502041339, '2015-02-05T13:10:26', 'Migration201502041339')
 /* Committing Transaction */
-/* 201501231346: Migration201501231346 migrated */
+/* 201502041339: Migration201502041339 migrated */
 
 /* Task completed. */

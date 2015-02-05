@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Common.Base;
 using Fashion.Framework.Repository;
 using NHibernate.Linq;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
-    public class ReservaMaterial : DomainEmpresaBase<ReservaMaterial>
+    public class ReservaMaterial : DomainEmpresaBase<ReservaMaterial>, IPesquisavelPorData
     {
         private IList<ReservaMaterialItem> _reservaMaterialItems = new List<ReservaMaterialItem>();
 
@@ -20,6 +21,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual Colecao Colecao { get; set; }
         public virtual String ReferenciaOrigem { get; set; }
         public virtual SituacaoReservaMaterial SituacaoReservaMaterial { get; set; }
+        public virtual DateTime DataAlteracao { get; set; }
 
         public virtual IList<ReservaMaterialItem> ReservaMaterialItems
         {

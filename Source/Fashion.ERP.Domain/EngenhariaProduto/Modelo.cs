@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.EngenhariaProduto
 {
-    public class Modelo : DomainBase<Modelo>
+    public class Modelo : DomainBase<Modelo>, IPesquisavelPorData
     {
         #region Variáveis
         private readonly IList<ModeloFoto> _fotos;

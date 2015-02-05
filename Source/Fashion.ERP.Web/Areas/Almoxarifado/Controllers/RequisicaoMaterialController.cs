@@ -70,7 +70,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var requisicaoMaterials = _requisicaoMaterialRepository.Find();
+            var requisicaoMaterials = _requisicaoMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaRequisicaoMaterialModel { ModoConsulta = "Listar" };
 
@@ -178,9 +178,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
+                    {
                         requisicaoMaterials = model.OrdenarEm == "asc"
                             ? requisicaoMaterials.OrderBy(model.OrdenarPor)
                             : requisicaoMaterials.OrderByDescending(model.OrdenarPor);
+                    }
+                    else
+                    {
+                        requisicaoMaterials = requisicaoMaterials.OrderByDescending(x => x.DataAlteracao);
+                    }
 
                     model.Grid = requisicaoMaterials.Select(p => new GridRequisicaoMaterialModel()
                     {

@@ -10,11 +10,12 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             : base("entradamaterial", 0)
         {
             Map(x => x.DataEntrada).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
 
             References(x => x.DepositoMaterialDestino).Not.Nullable();
             References(x => x.DepositoMaterialOrigem);
             References(x => x.Fornecedor);
-
+            
             HasMany(x => x.EntradaItemMateriais)
                 .Not.LazyLoad()
                 .Inverse()

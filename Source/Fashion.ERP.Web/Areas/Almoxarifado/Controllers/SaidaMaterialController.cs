@@ -47,7 +47,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Index
         public virtual ActionResult Index()
         {
-            var saidaMaterials = _saidaMaterialRepository.Find();
+            var saidaMaterials = _saidaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var list = saidaMaterials.Select(p => new GridSaidaMaterialModel
             {

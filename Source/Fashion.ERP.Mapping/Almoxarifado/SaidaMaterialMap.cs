@@ -10,6 +10,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             : base("saidamaterial", 0)
         {
             Map(x => x.DataSaida).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
 
             References(x => x.DepositoMaterialDestino);
             References(x => x.DepositoMaterialOrigem).Not.Nullable();

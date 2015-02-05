@@ -14,6 +14,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             Map(x => x.Observacao).Nullable();
             Map(x => x.ReferenciaOrigem).Nullable();
             Map(x => x.SituacaoReservaMaterial).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
             
             References(x => x.Unidade).Not.Nullable();
             References(x => x.Colecao).Nullable();

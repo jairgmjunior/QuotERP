@@ -63,7 +63,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var entradaMaterials = _entradaMaterialRepository.Find();
+            var entradaMaterials = _entradaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaEntradaMaterialModel { ModoConsulta = "Listar" };
 
@@ -150,9 +150,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 if (model.ModoConsulta == "Listar")
                 {
                     if (model.OrdenarPor != null)
+                    {
                         entradaMateriais = model.OrdenarEm == "asc"
                             ? entradaMateriais.OrderBy(model.OrdenarPor)
                             : entradaMateriais.OrderByDescending(model.OrdenarPor);
+                    }
+                    else
+                    {
+                        entradaMateriais = entradaMateriais.OrderByDescending(x => x.DataAlteracao);
+                    }
 
                     model.Grid = entradaMateriais.Select(p => new GridEntradaMaterialModel
                     {

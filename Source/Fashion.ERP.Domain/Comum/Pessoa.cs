@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.Comum
 {
-    public class Pessoa : DomainBase<Pessoa>
+    public class Pessoa : DomainBase<Pessoa>, IPesquisavelPorData
     {
         private readonly IList<Endereco> _enderecos;
         private readonly IList<InformacaoBancaria> _informacaoBancarias;
@@ -40,6 +41,7 @@ namespace Fashion.ERP.Domain.Comum
         public virtual DateTime? DataNascimento { get; set; }
         public virtual string Site { get; set; }
         public virtual DateTime DataCadastro { get; set; }
+        public virtual DateTime DataAlteracao { get; set; }
 
         public virtual Endereco EnderecoPadrao
         {

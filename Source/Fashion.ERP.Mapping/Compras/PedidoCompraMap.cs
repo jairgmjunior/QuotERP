@@ -11,6 +11,7 @@ namespace Fashion.ERP.Mapping.Compras
         {
             Map(x => x.Numero).Not.Nullable();
             Map(x => x.DataCompra).Not.Nullable();
+            Map(x => x.DataAlteracao).Not.Nullable();
             Map(x => x.PrevisaoFaturamento).Not.Nullable();
             Map(x => x.PrevisaoEntrega).Not.Nullable();
             Map(x => x.TipoCobrancaFrete).Not.Nullable();

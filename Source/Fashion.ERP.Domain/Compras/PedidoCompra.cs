@@ -3,10 +3,11 @@ using System.Linq;
 using Fashion.ERP.Domain.Comum;
 using System;
 using System.Collections.Generic;
+using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.Compras
 {
-    public class PedidoCompra : DomainBase<PedidoCompra>
+    public class PedidoCompra : DomainBase<PedidoCompra>, IPesquisavelPorData
     {
         private readonly IList<PedidoCompraItem> _pedidoCompraItens;
 
@@ -19,6 +20,7 @@ namespace Fashion.ERP.Domain.Compras
         public virtual DateTime DataCompra { get; set; }
         public virtual DateTime PrevisaoFaturamento { get; set; }
         public virtual DateTime PrevisaoEntrega { get; set; }
+        public virtual DateTime DataAlteracao { get; set; }
         public virtual TipoCobrancaFrete TipoCobrancaFrete { get; set; }
         public virtual double ValorFrete { get; set; }
         public virtual double ValorDesconto { get; set; }
@@ -37,7 +39,6 @@ namespace Fashion.ERP.Domain.Compras
         public virtual Pessoa UnidadeEstocadora { get; set; }
         public virtual Prazo Prazo { get; set; }
         public virtual MeioPagamento MeioPagamento { get; set; }
-
         public virtual Pessoa Transportadora { get; set; }
         
         public virtual double ValorMercadoria

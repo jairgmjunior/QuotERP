@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Fashion.ERP.Domain.Comum;
+using Fashion.Framework.Common.Base;
 using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Domain.Almoxarifado
 {
-    public class EntradaMaterial : DomainBase<EntradaMaterial>
+    public class EntradaMaterial : DomainBase<EntradaMaterial>, IPesquisavelPorData
     {
         private readonly IList<EntradaItemMaterial> _entradaItemMateriais;
 
@@ -17,7 +18,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         }
 
         public virtual DateTime DataEntrada { get; set; }
-
+        public virtual DateTime DataAlteracao { get; set; }
         public virtual DepositoMaterial DepositoMaterialOrigem { get; set; }
         public virtual DepositoMaterial DepositoMaterialDestino { get; set; }
         public virtual Pessoa Fornecedor { get; set; }
