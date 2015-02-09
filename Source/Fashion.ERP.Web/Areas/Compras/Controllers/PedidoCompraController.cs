@@ -73,10 +73,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var pedidoCompras = _pedidoCompraRepository.Find().OrderByDescending(x => x.DataAlteracao);
+            var pedidoCompras = _pedidoCompraRepository.Find(p => !p.Autorizado).OrderByDescending(x => x.DataAlteracao);
 
             var model = new PesquisaPedidoCompraModel {ModoConsulta = "Listar"};
-
+            model.Validados = "Não";
             model.Grid = pedidoCompras.Select(p => new GridPedidoCompraModel
             {
                 Id = p.Id.GetValueOrDefault(),
@@ -84,7 +84,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 DataCompra = p.DataCompra,
                 Fornecedor = p.Fornecedor.Nome,
                 Numero = p.Numero,
-                ValorLiquido = p.ObtenhaValorLiquido(),
+                ValorCompra = p.ValorCompra,
                 Autorizado = p.Autorizado,
                 SituacaoCompra = p.SituacaoCompra
             }).ToList();
@@ -187,6 +187,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
                 }
 
+                if (!string.IsNullOrWhiteSpace(model.Validados))
+                {
+                    if (model.Validados == "Sim")
+                    {
+                        pedidoCompras = pedidoCompras.Where(p => p.Autorizado);
+                        filtros.AppendFormat("Validado: Sim");
+                    }
+                    else if (model.Validados == "Não")
+                    {
+                        pedidoCompras = pedidoCompras.Where(p => !p.Autorizado);
+                        filtros.AppendFormat("Validado: Não");
+                    }
+                }
+
                 #endregion
 
                 // Verifica se é uma listagem
@@ -210,7 +224,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                             DataCompra = p.DataCompra,
                             Fornecedor = p.Fornecedor.Nome,
                             Numero = p.Numero,
-                            ValorLiquido = p.ObtenhaValorLiquido(),
+                            ValorCompra = p.ValorCompra,
                             Autorizado = p.Autorizado,
                             SituacaoCompra = p.SituacaoCompra
                         }).ToList();
@@ -280,7 +294,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         {
             var model = new PedidoCompraModel { Numero = ProximoNumero() };
             model.GridItens = new List<GridPedidoCompraItem>();
-
+            
             return View(model);
         }
 
@@ -294,7 +308,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     var domain = Mapper.Unflat<PedidoCompra>(model);
                     IncluirNovosPedidoCompralItens(model, domain);
 
-                    //domain.DataAlteracao = DateTime.Now;
                     _pedidoCompraRepository.Save(domain);
 
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
@@ -302,7 +315,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
                 catch (Exception exception)
                 {
-                   
                     var errorMsg =
                         "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " +
                         exception.Message;
@@ -337,7 +349,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 var model = Mapper.Flat<PedidoCompraModel>(domain);
                 model.ValorMercadorias = domain.ValorMercadoria;
-                model.ValorLiquido = domain.ValorLiquido;
+                model.ValorCompra = domain.ValorCompra;
+                model.FuncionarioAutorizador = domain.FuncionarioAutorizador != null ? domain.FuncionarioAutorizador.Nome : "";
                 model.GridItens = new List<GridPedidoCompraItem>();
                 foreach (var item in domain.PedidoCompraItens)
                 {
@@ -425,7 +438,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
             });
         }
-
  
         #endregion
 
@@ -533,6 +545,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             // UnidadeEstocadora
             var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).ToList();
             ViewBag.UnidadeEstocadora = unidades.ToSelectList("NomeFantasia", model.UnidadeEstocadora);
+
+            ViewBag.Validados = new SelectList(new []{ "Todos", "Sim", "Não"}, model.Validados);
 
             ViewBag.TipoRelatorio = new SelectList(_tipoRelatorio);
             ViewBag.OrdenarPor = new SelectList(ColunasPesquisaPedidoCompra, "value", "key");

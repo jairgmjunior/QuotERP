@@ -1,36 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using Fashion.ERP.Domain.Compras;
-using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Models;
 
 namespace Fashion.ERP.Web.Areas.Compras.Models
 {
     public class PedidoCompraModel : IModel
     {
-        public PedidoCompraModel()
-        {
-            PedidoCompraItens = new List<long?>();
-            Materiais = new List<long>();
-            UnidadeMedidas = new List<long>();
-            Referenciaexterna = new List<long>();
-            ValorUnitarios = new List<double>();
-            ValorTotais = new List<double>();
-            Quantidades = new List<double>();
-            SituacaoCompras = new List<SituacaoCompra>();
-        }
-
-        public IList<long?> PedidoCompraItens { get; set; }
-        public IList<long> Materiais { get; set; }
-        public IList<long> UnidadeMedidas { get; set; }
-        public IList<long> Referenciaexterna { get; set; }
-        public IList<double> ValorUnitarios { get; set; }
-        public IList<double> ValorTotais { get; set; }
-        public IList<double> Quantidades { get; set; }
-        public IList<SituacaoCompra> SituacaoCompras { get; set; }
-
         public long? Id { get; set; }
 
         [Display(Name = "Número")]
@@ -38,15 +15,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Range(1, int.MaxValue)]
         public long Numero { get; set; }
 
-        [Display(Name = "Data compra")]
+        [Display(Name = "Data da compra")]
         [Required(ErrorMessage = "Informe a data da compra")]
         public DateTime? DataCompra { get; set; }
 
-        [Display(Name = "Previsão faturamento")]
+        [Display(Name = "Previsão de faturamento")]
         [Required(ErrorMessage = "Informe a data da previsão do faturamento")]
         public DateTime? PrevisaoFaturamento { get; set; }
 
-        [Display(Name = "Previsão entrega")]
+        [Display(Name = "Previsão de entrega")]
         [Required(ErrorMessage = "Informe a data de previsão da entrega")]
         public DateTime? PrevisaoEntrega { get; set; }
 
@@ -54,28 +31,23 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Required(ErrorMessage = "Informe o tipo de frete")]
         public TipoCobrancaFrete TipoCobrancaFrete { get; set; }
 
-        [Display(Name = "Valor frete")]
+        [Display(Name = "Valor do frete")]
         [Required(ErrorMessage = "Informe o valor do frete")]
         [UIHint("currency5casasdecimais")]
         public double ValorFrete { get; set; }
 
-        [Display(Name = "Valor desconto")]
+        [Display(Name = "Valor do desconto")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         [Required(ErrorMessage = "Informe o valor do desconto")]
         [UIHint("currency5casasdecimais")]
         public double ValorDesconto { get; set; }
 
-        [Display(Name = "Valor compra")]
-        [Required(ErrorMessage = "Informe o valor da compra")]
-        [UIHint("currency5casasdecimais")]
-        public double ValorCompra { get; set; }
-
-        [Display(Name = "Valor encargos")]
+        [Display(Name = "Valor dos encargos")]
         [Required(ErrorMessage = "Informe o valor dos encargos")]
         [UIHint("currency5casasdecimais")]
         public double ValorEncargos { get; set; }
 
-        [Display(Name = "Valor embalagem")]
+        [Display(Name = "Valor da embalagem")]
         [Required(ErrorMessage = "Informe o valor da embalagem")]
         [UIHint("currency5casasdecimais")]
         public double ValorEmbalagem { get; set; }
@@ -110,15 +82,28 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [StringLength(50, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Contato { get; set; }
 
+        [Display(Name = "Data da autorização")]
+        public virtual DateTime? DataAutorizacao { get; set; }
+
+        [Display(Name = "Autorizado por")]
+        public virtual String FuncionarioAutorizador { get; set; }
+
+        public virtual bool Autorizado { get; set; }
+        
         [Display(Name = "Transportadora")]
         public long? Transportadora { get; set; }
-
-        [Display(Name = "Valor Líquido")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
-        public double? ValorLiquido { get; set; }
-
-
-        [Display(Name = "Valor Mercadorias")]
+        
+        [Display(Name = "Valor da compra")]
+        [Required(ErrorMessage = "Informe o valor da compra")]
+        [UIHint("currency5casasdecimais")]
+        public double? ValorCompra { get; set; }
+        
+        //[Display(Name = "Valor compra")]
+        //[Required(ErrorMessage = "Informe o valor da compra")]
+        //[UIHint("currency5casasdecimais")]
+        //public double ValorCompra { get; set; }
+        
+        [Display(Name = "Valor das mercadorias")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double? ValorMercadorias { get; set; }
 

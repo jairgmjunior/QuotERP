@@ -23,8 +23,6 @@ namespace Fashion.ERP.Domain.Compras
         public virtual DateTime DataAlteracao { get; set; }
         public virtual TipoCobrancaFrete TipoCobrancaFrete { get; set; }
         public virtual double ValorFrete { get; set; }
-        public virtual double ValorDesconto { get; set; }
-        public virtual double ValorCompra { get; set; }
         public virtual double ValorEmbalagem { get; set; }
         public virtual double ValorEncargos { get; set; }
         public virtual string Observacao { get; set; }
@@ -40,16 +38,20 @@ namespace Fashion.ERP.Domain.Compras
         public virtual Prazo Prazo { get; set; }
         public virtual MeioPagamento MeioPagamento { get; set; }
         public virtual Pessoa Transportadora { get; set; }
+        public virtual double ValorMercadoria { get; set; }
+        public virtual double ValorDesconto { get; set; }
+        public virtual double ValorCompra { get; set; }
+
+
+        //public virtual double ValorMercadoria
+        //{
+        //    get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
+        //}
         
-        public virtual double ValorMercadoria
-        {
-            get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
-        }
-        
-        public virtual double ValorLiquido
-        {
-            get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
-        }
+        //public virtual double ValorLiquido
+        //{
+        //    get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
+        //}
 
         #region pedidoCompraItem
 
@@ -103,10 +105,10 @@ namespace Fashion.ERP.Domain.Compras
                 s => s.Material.Referencia == referenciaMaterial);
         }
 
-        public virtual double ObtenhaValorLiquido()
-        {
-            return ValorLiquido;
-        }
+        //public virtual double ObtenhaValorLiquido()
+        //{
+        //    return ValorLiquido;
+        //}
 
         #endregion
     }

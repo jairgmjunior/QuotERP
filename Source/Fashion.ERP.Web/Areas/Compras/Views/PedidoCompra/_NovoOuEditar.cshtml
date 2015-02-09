@@ -21,7 +21,6 @@
             </div>
         </div>
     </div>
-    
     <div class="row">
         <div class="span6">
             <div class="control-group">
@@ -75,7 +74,6 @@
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#pedido" data-toggle="tab">Dados do pedido</a></li>
     <li><a href="#itens" data-toggle="tab">Itens do pedido</a></li>
-  
 </ul>
 
 <div class="tab-content">
@@ -100,11 +98,8 @@
                     </div>
                 </div>
             </div>
-    
         </div>
-        
         <div class="row">
-            
             <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Transportadora)
@@ -114,7 +109,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.TipoCobrancaFrete)
@@ -125,7 +119,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="row">
             <div class="span6">
                 <div class="control-group">
@@ -136,7 +129,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Prazo)
@@ -147,7 +139,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="row">
             <div class="span6">
                 <div class="control-group">
@@ -168,7 +159,32 @@
                 </div>
             </div>
         </div>
-        
+        @{
+            if (@Model.Autorizado)
+            {
+                <fieldset>
+                    <legend><small>Dados da autorização</small></legend>
+                </fieldset>
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.FuncionarioAutorizador)
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.FuncionarioAutorizador, new {disabled = "disabled"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.DataAutorizacao)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.DataAutorizacao)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
     <div class="tab-pane" id="itens">
         @(Html.Kendo().Grid(@Model.GridItens)
@@ -208,106 +224,104 @@
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
             )
     
-  <script id="template" type="text/kendo-tmpl">
-    @(Html.Kendo().TabStrip()
-            .Name("tabStrip_#=PedidoCompraId#")
-            .SelectedIndex(0)
-            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
-            .Items(items =>
-            {
-                items.Add().Text("Detalhes").Content(@<text>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr class="active">
-                            <td>
-                                <b>Referência</b>
-                            </td>
+        <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+                .Name("tabStrip_#=PedidoCompraId#")
+                .SelectedIndex(0)
+                .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+                .Items(items =>
+                {
+                    items.Add().Text("Detalhes").Content(@<text>
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr class="active">
                                 <td>
-                                <b>Referência Externa</b>
-                            </td>
-                            <td>
-                                <b>Descrição</b>
-                            </td>
+                                    <b>Referência</b>
+                                </td>
+                                    <td>
+                                    <b>Referência Externa</b>
+                                </td>
+                                <td>
+                                    <b>Descrição</b>
+                                </td>
       
-                            <td>
-                                <b>Unidade</b>
-                            </td>
-                            <td>
-                                <b>Qtde</b>
-                            </td>
-                            <td>
-                                <b>Qtde Entregue</b>
-                            </td>
-                            <td>
-                                <b>Diferença</b>
-                            </td>
-                            <td>
-                                <b>Preço(R$)</b>
-                            </td>
-                            <td>
-                                <b>Desconto(R$)</b>
-                            </td>
                                 <td>
-                                <b>Valor Total(R$)</b>
-                            </td>
-                            <td>
-                                <b>Situação</b>
-                            </td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                            <td>
-                                #: Referencia #
-                            </td>
+                                    <b>Unidade</b>
+                                </td>
                                 <td>
-                                #: ReferenciaExterna #
-                            </td>
-                            <td>
-                                #: Descricao #
-                            </td>
+                                    <b>Qtde</b>
+                                </td>
+                                <td>
+                                    <b>Qtde Entregue</b>
+                                </td>
+                                <td>
+                                    <b>Diferença</b>
+                                </td>
+                                <td>
+                                    <b>Preço(R$)</b>
+                                </td>
+                                <td>
+                                    <b>Desconto(R$)</b>
+                                </td>
+                                    <td>
+                                    <b>Valor Total(R$)</b>
+                                </td>
+                                <td>
+                                    <b>Situação</b>
+                                </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                                <td>
+                                    #: Referencia #
+                                </td>
+                                    <td>
+                                    #: ReferenciaExterna #
+                                </td>
+                                <td>
+                                    #: Descricao #
+                                </td>
       
-                            <td>
-                                #: UnidadeMedida #
-                            </td>
-                            <td>
-                                #: Quantidade #
-                            </td>
-                            <td>
-                                    #: QuantidadeEntregue #
-                            </td>
-                            <td>
-                                #: Diferenca #
-                            </td>
-                            <td>
-                                #: kendo.toString(ValorUnitario,'n5') #
-                            </td>
-                            <td>
-                                #: kendo.toString(ValorUnitario,'n5') #
-                            </td>
                                 <td>
-                                    
-                                #: kendo.toString(ValorUnitario,'n5') #
-                                
-                            </td>
-                            <td>
+                                    #: UnidadeMedida #
+                                </td>
+                                <td>
+                                    #: Quantidade #
+                                </td>
+                                <td>
+                                        #: QuantidadeEntregue #
+                                </td>
+                                <td>
+                                    #: Diferenca #
+                                </td>
+                                <td>
+                                    #: kendo.toString(ValorUnitario,'n5') #
+                                </td>
+                                <td>
+                                    #: kendo.toString(ValorDesconto,'n5') #
+                                </td>
+                                <td>                                    
+                                    #: kendo.toString(ValorTotal,'n5') #                                
+                                </td>
+                                <td>
                                     #: Situacao #
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </text>
-                );
-                items.Add().Text("Recebimento").Content(
-                    "<div class='employee-details'>" +
-                        "<ul>" +
-                            "<li>Em desenvolvimento.</li>" +
-                        "</ul>" +
-                    "</div>"
-                );
-            })
-            .ToClientTemplate())
-</script>
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </text>
+                    );
+                    items.Add().Text("Recebimento").Content(
+                        "<div class='employee-details'>" +
+                            "<ul>" +
+                                "<li>Em desenvolvimento.</li>" +
+                            "</ul>" +
+                        "</div>"
+                    );
+                })
+                .ToClientTemplate())
+        </script>
     </div>
 </div>
 
@@ -336,7 +350,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="span6">
         <div class="control-group">
@@ -357,13 +370,12 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="span6">
         <div class="control-group">
             @Html.LabelForRequired(x => x.ValorDesconto)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorLiquido" class="k-input k-state-disabled"/>
+                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDesconto" class="k-input k-state-disabled"/>
                 <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDesconto" />
                 @Html.ValidationMessageFor(x => x.ValorDesconto, null, new { @class = "help-block" })
             </div>
@@ -371,38 +383,36 @@
     </div>
     <div class="span6">
         <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorLiquido)
+            @Html.LabelForRequired(x => x.ValorCompra)
             <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorLiquido" name="txtValorLiquido" type="text" value=" @Model.ValorMercadorias"  class="k-input k-state-disabled"/>
-                <input type="hidden" id="ValorLiquido" name="ValorLiquido"  value=" @Model.ValorMercadorias" />                
-                @Html.ValidationMessageFor(x => x.ValorLiquido, null, new { @class = "help-block" })
+                <input style=" width:130px;" readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="k-input k-state-disabled"/>
+                <input type="hidden" id="ValorCompra" name="ValorCompra"  value=" @Model.ValorCompra" />                
+                @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
             </div>
         </div>
     </div>
-    
 </div>
 
 <script>
     $(document).ready(function () {
 
         $('#ValorMercadorias').attr('readonly', true);
-        $('#ValorLiquido').attr('readonly', true);
+        $('#ValorCompra').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
+        $('#DataAutorizacao').data("kendoDatePicker").enable(false);
 
         $('#ValorEncargos').blur(function () {
-            AtualizaValorLiquido();
+            AtualizaValorCompra();
         });
 
         $('#ValorFrete').blur(function () {
-            AtualizaValorLiquido();
+            AtualizaValorCompra();
         });
 
         $('#ValorEmbalagem').blur(function () {
-            AtualizaValorLiquido();
+            AtualizaValorCompra();
         });
     });
-
-
 
     function registreScriptsGrid() {
         $("#Quantidade.k-input").change(function (e) {
@@ -418,7 +428,7 @@
         });
 
         $('#ValorDesconto.k-input').bind("keydown", function (e) {
-            if (e.which == 13) { //Enter key
+            if (e.which == 13) { 
                 e.preventDefault();
                 var botaoAtualizar = $('#ValorDesconto.k-input').closest("tr").find(".k-grid-update");
                 setTimeout(function () { botaoAtualizar.focus(); }, 100);
@@ -426,15 +436,6 @@
             }
             return true;
         });
-
-        //$('#ValorDesconto.k-input').bind('keypress', function (event) {
-        //    if (event.which === 13) {
-        //        e.preventDefault();
-        //        //$(this).next().focus();
-        //        var botaoAtualizar = $('#ValorDesconto.k-input').closest("tr").find(".k-grid-update");
-        //        botaoAtualizar.focus();
-        //    }
-        //});
     }
 
     function AtualizeValorTotal(target) {
@@ -449,30 +450,31 @@
         return grid.dataItem(row);
     }
 
-    function AtualizaValorLiquido() {
+    function AtualizaValorCompra() {
         var valorMercadorias = $('#ValorMercadorias').val();
         var valorEncargos = FormatarValores($('#ValorEncargos').val());
         var valorFrete = FormatarValores($('#ValorFrete').val());
         var valorEmbalagem = FormatarValores($('#ValorEmbalagem').val());
         var valorDesconto = FormatarValores($('#ValorDesconto').val());
-        var valorLiquido = 0;
+        var valorCompra = 0;
 
-        valorLiquido = parseFloat(FormatarValores(valorMercadorias)) +  parseFloat(FormatarValores(valorEncargos)) +  parseFloat(FormatarValores(valorFrete)) + parseFloat(FormatarValores(valorEmbalagem));
-        valorLiquido = valorLiquido - parseFloat(FormatarValores(valorDesconto));
+        valorCompra = parseFloat(FormatarValores(valorMercadorias)) +  parseFloat(FormatarValores(valorEncargos)) +  parseFloat(FormatarValores(valorFrete)) + parseFloat(FormatarValores(valorEmbalagem));
+        valorCompra = valorCompra - parseFloat(FormatarValores(valorDesconto));
 
-        $('#ValorLiquido').val(formateDecimal(valorLiquido));
-        $('#ValorLiquido').change();
+        $('#ValorCompra').val(formateDecimal(valorCompra));
+        $('#ValorCompra').change();
 
-        $('#txtValorLiquido').val(kendo.toString(valorLiquido, "c5"));
-        $('#txtValorLiquido').change();
+        $('#txtValorCompra').val(kendo.toString(valorCompra, "c5"));
+        $('#txtValorCompra').change();
     }
 
     function FormatarValores(campo) {
-        var retorno = campo.replace(",", ".");
-        return retorno;
+        if (!campo) return 0;
+        return campo.replace(",", ".");
     }
 
     function formateDecimal(valor) {
+        if (!valor) return 0;
         return valor.toString().replace(".", ",");
     }
 
@@ -482,6 +484,7 @@
     }
 
     function onEditGrid(e) {
+
         $("#Descricao").attr("readonly", true);
         $("#Descricao").width('86%');
         $("#UnidadeMedida").attr("readonly", true);
@@ -504,6 +507,7 @@
     }
 
     function desabilitaColunaDetalhes() {
+
         $("tr", "#GridItens").on("click", ".k-grid-edit", function (e) {
             $("tr", "#GridItens").on("click", ".k-grid-cancel", function (e) {
                 setTimeout(function () {
@@ -528,13 +532,12 @@
 
         var total = 0;
         var desconto = 0;
-        var valorLiquido = 0;
+        var valorCompra = 0;
 
         for (var i = 0; i < gridData.length; i++) {
             total = total + gridData[i].ValorTotal;
             desconto = desconto + gridData[i].ValorDesconto;
         }
-
 
         $('#ValorMercadorias').val(formateDecimal(total));
         $('#ValorMercadorias').change();
@@ -548,9 +551,8 @@
         $('#txtValorDesconto').val(kendo.toString(desconto, "c5"));
         $('#txtValorDesconto').change();
 
-        AtualizaValorLiquido();
+        AtualizaValorCompra();
     }
-
 
     $('#form').submit(function (e) {
         e.preventDefault();
@@ -609,7 +611,6 @@
     });
 
     function validaFormulario() {
-        var retorno = true;
 
         if ($("#UnidadeEstocadora").prop("selectedIndex") <= 0) {
             $('#UnidadeEstocadora').addClass('input-validation-error');
@@ -626,8 +627,7 @@
             return false;
         }
 
-
-        return retorno;
+        return true;
     }
 
     function obtenhaDadosGridItens() {
@@ -658,20 +658,9 @@
         return o;
     };
 
-
-
     function dataBound() {
         this.expandRow(this.tbody.find("tr.k-master-row").first());
     }
-
-    //$(".k-grid-save-changes").on("click", function () {
-    //    var datasourcedata = $("#GridItens").data("kendoGrid").dataSource.data();
-
-    //    //marca todos os itens da grid como novos para serem passados para a action de salvamento.
-    //    for (var i = 0; i < datasourcedata.length; i++) {
-    //        datasourcedata[i].id = null;
-    //    }
-    //});
 
     function error_handler(e) {
         if (e.errors) {
@@ -687,8 +676,6 @@
             $("#GridItens").data("kendoGrid").dataSource.read();
         }
     }
-
-
 
     function Delete(a) {
         var row = $(a).parents('tr:first');

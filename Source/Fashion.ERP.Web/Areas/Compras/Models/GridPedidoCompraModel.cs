@@ -25,8 +25,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [Display(Name = "Data entrega")]
         public DateTime? DataEntrega { get; set; }
 
-        [Display(Name = "Valor líquido")]
-        public double ValorLiquido { get; set; }
+        [Display(Name = "Valor da compra")]
+        public double ValorCompra { get; set; }
 
         [Display(Name = "Situação")]
         public SituacaoCompra SituacaoCompra { get; set; }

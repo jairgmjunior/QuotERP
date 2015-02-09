@@ -132,6 +132,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Validados, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("Validados", null, null, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="well">
                         <div class="row">
@@ -192,7 +200,7 @@
 		columns.Bound(x => x.Fornecedor);
 		columns.Bound(x => x.Comprador);
         columns.Bound(x => x.DataCompra).Format("{0:dd/MM/yyyy}");
-        columns.Bound(x => x.ValorLiquido).Format("{0:C}");
+        columns.Bound(x => x.ValorCompra).Format("{0:C}");
 	    columns.Bound(x => x.SituacaoCompra).Template(s => s.SituacaoCompra.EnumToString());
 		columns.Template(item => Html.EditarAuth(MVC.Compras.PedidoCompra.Editar(item.Id))).Width(80);
         columns.Template(item => Html.ActionLinkAuth(item.Autorizado ? "Invalidar" : "Validar", MVC.Compras.ValidaPedidoCompra.Validar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);        

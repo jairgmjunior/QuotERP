@@ -15,6 +15,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Fornecedor")]
         public long? Fornecedor { get; set; }
+        
+        [Display(Name = "Validados")]
+        public string Validados { get; set; }
 
         [Display(Name = "Situação")]
         public SituacaoCompra? SituacaoCompra { get; set; }

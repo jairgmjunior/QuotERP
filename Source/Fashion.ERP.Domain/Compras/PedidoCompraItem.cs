@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Fashion.ERP.Domain.Almoxarifado;
-using NHibernate.Util;
 
 namespace Fashion.ERP.Domain.Compras
 {

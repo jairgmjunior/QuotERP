@@ -43,6 +43,14 @@ namespace Fashion.ERP.Migrator
                 .AsDateTime()
                 .WithDefaultValue(DateTime.Now)
                 .NotNullable();
+
+            Alter.Table("pedidocompra")
+                .AddColumn("valormercadoria")
+                .AsDouble()
+                .WithDefaultValue(0)
+                .NotNullable();
+            
+            Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201502041339.atualizacaopedidocompra.sql");
         }
 
         public override void Down()
