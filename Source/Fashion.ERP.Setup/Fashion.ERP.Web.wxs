@@ -279,9 +279,6 @@
                             </Component>
                         </Directory>
                         <Directory Id="dir87F5775BB130C868998A720B0E07AB4B" Name="PedidoCompra">
-                            <Component Id="cmpE21DF0CEB4665B8C5BA213CEF1C22FB6" Guid="*">
-                                <File Id="fil5DBF6212CC54DF78BF17FA824AEEEC18" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\PedidoCompra\CancelarItem.cshtml" />
-                            </Component>
                             <Component Id="cmp5192F58C0A1E43DBF95FB0B111B73D66" Guid="*">
                                 <File Id="filD2604EE01609B7059857124C76BB7149" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\PedidoCompra\Editar.cshtml" />
                             </Component>
@@ -290,9 +287,6 @@
                             </Component>
                             <Component Id="cmp2972B48F2640FA05B9C683B02D86842A" Guid="*">
                                 <File Id="filC1EB568D6616CF0CAE3BC70D9168CCFC" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\PedidoCompra\Novo.cshtml" />
-                            </Component>
-                            <Component Id="cmp7024D7FC7DA6935D421005051996BEFB" Guid="*">
-                                <File Id="filBDD0A1D56E93AA5D322A98F81E852481" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\PedidoCompra\_ExcluirItemPedido.cshtml" />
                             </Component>
                             <Component Id="cmp49BFC9D6CD2A1F48CC2D2CD105D4705A" Guid="*">
                                 <File Id="fil75C99D87F7673CA2277A61F856E80978" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\PedidoCompra\_NovoOuEditar.cshtml" />
@@ -2042,11 +2036,9 @@
             <ComponentRef Id="cmpE926D8905D4037A81697C3D8B5956B93" />
             <ComponentRef Id="cmpB69E962C72D03ECE7643A61D40290284" />
             <ComponentRef Id="cmpC1807BDCABDA535178210CEF6B442712" />
-            <ComponentRef Id="cmpE21DF0CEB4665B8C5BA213CEF1C22FB6" />
             <ComponentRef Id="cmp5192F58C0A1E43DBF95FB0B111B73D66" />
             <ComponentRef Id="cmpF6D56B420C0765CB82E305DBBCC774C7" />
             <ComponentRef Id="cmp2972B48F2640FA05B9C683B02D86842A" />
-            <ComponentRef Id="cmp7024D7FC7DA6935D421005051996BEFB" />
             <ComponentRef Id="cmp49BFC9D6CD2A1F48CC2D2CD105D4705A" />
             <ComponentRef Id="cmp29F7AF8087DDFEA5996E61D765921B31" />
             <ComponentRef Id="cmpAEBBAE5356E53E68BE8E202BFDEC99C4" />

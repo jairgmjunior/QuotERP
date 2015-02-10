@@ -134,6 +134,7 @@
     <Compile Include="Comum\ProcessoOperacional.cs" />
     <Compile Include="Comum\Prazo.cs" />
     <Compile Include="Comum\SequenciaOperacional.cs" />
+    <Compile Include="Comum\UltimoNumero.cs" />
     <Compile Include="EngenhariaProduto\VariacaoModelo.cs" />
     <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />

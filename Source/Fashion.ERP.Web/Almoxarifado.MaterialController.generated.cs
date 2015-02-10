@@ -119,6 +119,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnidadeMedida);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult VerificarReferencia()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarReferencia);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public MaterialController Actions { get { return MVC.Almoxarifado.Material; } }
@@ -152,6 +158,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string PesquisarReferenciaReferenciaExterna = "PesquisarReferenciaReferenciaExterna";
             public readonly string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public readonly string UnidadeMedida = "UnidadeMedida";
+            public readonly string VerificarReferencia = "VerificarReferencia";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -174,6 +181,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string PesquisarReferenciaReferenciaExterna = "PesquisarReferenciaReferenciaExterna";
             public const string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public const string UnidadeMedida = "UnidadeMedida";
+            public const string VerificarReferencia = "VerificarReferencia";
         }
 
 
@@ -299,6 +307,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionParamsClass_UnidadeMedida
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_VerificarReferencia s_params_VerificarReferencia = new ActionParamsClass_VerificarReferencia();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_VerificarReferencia VerificarReferenciaParams { get { return s_params_VerificarReferencia; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_VerificarReferencia
+        {
+            public readonly string referencia = "referencia";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -526,6 +542,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnidadeMedida);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             UnidadeMedidaOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void VerificarReferenciaOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string referencia);
+
+        public override System.Web.Mvc.JsonResult VerificarReferencia(string referencia)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarReferencia);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
+            VerificarReferenciaOverride(callInfo, referencia);
             return callInfo;
         }
 

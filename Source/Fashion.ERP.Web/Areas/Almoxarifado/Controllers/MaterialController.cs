@@ -42,6 +42,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<OrigemSituacaoTributaria> _origemSituacaoTributariaRepository;
         private readonly IRepository<ReferenciaExterna> _referenciaExternaRepository;
+        private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaMaterial;
         private readonly string[] _tipoRelatorio = new[] { "Detalhado", "Listagem", "Sintético" };
@@ -54,7 +55,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<UnidadeMedida> unidadeMedidaRepository, IRepository<TipoItem> tipoItemRepository,
             IRepository<GeneroFiscal> generoFiscalRepository, IRepository<Pessoa> pessoaRepository,
-            IRepository<OrigemSituacaoTributaria> origemSituacaoTributariaRepository, IRepository<ReferenciaExterna> referenciaExternaRepository)
+            IRepository<OrigemSituacaoTributaria> origemSituacaoTributariaRepository, 
+            IRepository<ReferenciaExterna> referenciaExternaRepository,
+            IRepository<UltimoNumero> ultimoNumeroRepository)
         {
             _materialRepository = materialRepository;
             _categoriaRepository = categoriaRepository;
@@ -67,6 +70,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _pessoaRepository = pessoaRepository;
             _origemSituacaoTributariaRepository = origemSituacaoTributariaRepository;
             _referenciaExternaRepository = referenciaExternaRepository;
+            _ultimoNumeroRepository = ultimoNumeroRepository;
             _logger = logger;
 
             PreecheColunasPesquisa();
@@ -324,6 +328,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         ? ArquivoController.SalvarArquivo(model.FotoNome, model.Descricao) 
                         : null;
 
+                    if (string.IsNullOrEmpty(domain.Referencia))
+                    {
+                        domain.Referencia = ObtenhaProximaReferencia().ToString();
+                    }
+
                     _materialRepository.Save(domain);
 
                     this.AddSuccessMessage("Material cadastrado com sucesso.");
@@ -339,22 +348,31 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return View(model);
         }
 
-        private string ObtenhaReferencia(Material domain)
+        private long ObtenhaProximaReferencia()
         {
-            if (domain.Referencia != null)
+            var ultimoNumero = _ultimoNumeroRepository.Get(x => x.NomeTabela == "material");
+            long numero = 0;
+
+            if (ultimoNumero != null)
             {
-                return domain.Referencia;
+                ultimoNumero = ObtenhaProximaReferenciaDisponivel(ultimoNumero);
+                numero = ultimoNumero.Numero;
+                _ultimoNumeroRepository.SaveOrUpdate(ultimoNumero);
             }
-
-            //var referencia = 
-            //   (from m in _materialRepository.Find()
-            //    where m.Referencia.Contains("%[^0-9]%")
-            //    select m.Referencia).Max().First();
+            else
+            {
+                _ultimoNumeroRepository.SaveOrUpdate(new UltimoNumero{NomeTabela = "material", Numero = 1});
+                numero = 1;
+            }
             
+            return numero;
+        }
 
-            var retorno = _materialRepository.Find().Where(x => !x.Referencia.IsLike("something", MatchMode.Anywhere)).Max(x => x.Referencia) + 1;
-            
-            return retorno;
+        private UltimoNumero ObtenhaProximaReferenciaDisponivel(UltimoNumero ultimoNumero)
+        {
+            ultimoNumero.Numero++;
+            var material = _materialRepository.Get(x => x.Referencia == ultimoNumero.Numero.ToString());
+            return material != null ? ObtenhaProximaReferenciaDisponivel(ultimoNumero) : ultimoNumero;
         }
 
         #endregion
@@ -956,6 +974,25 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                {"Unidade de medida", "UnidadeMedida.Descricao"},
                            };
 
+        }
+        #endregion
+
+        #region VerificarReferencia
+        [AjaxOnly]
+        public virtual JsonResult VerificarReferencia(string referencia)
+        {
+            bool existeMaterial = false;
+            long materialId = 0;
+            var material = _materialRepository.Get(p => p.Referencia == referencia);
+
+            if (material != null)
+            {
+                existeMaterial = true;
+                materialId = material.Id.GetValueOrDefault();
+            }
+
+            var result = new { existeMaterial, materialId };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

@@ -277,6 +277,24 @@
 @{Html.RenderPartial("_RecortarImagem");}
 
 <script>
+    
+    $(document).ready(function () {
+        var materialId = function () {
+            var url = "/Almoxarifado/Material/VerificarReferencia?referencia=" + $(this).val();
+            $.getJSON(url, function (result) {
+                console.log(JSON.stringify(result));
+                if (result.existeMaterial) {
+                    alert("Referência já utilizada no cadastro do material.");
+                    document.location.href = "/Almoxarifado/Material/Editar/" + result.materialId;
+                }
+                // Criar uma tela modal e perguntar ao usuário o q fazer
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        };
+        $("#Referencia").on("change", materialId);
+    });
+
     $(function() {
 
         $.ajaxSetup({ cache: false });
@@ -330,17 +348,17 @@
                 }
 
                 switch (data.GeneroCategoria) {
-                    case 'Bordado':
-                        bordado.show('slow');
-                        escondeTecido();
-                        break;
-                    case 'Tecido':
-                        tecido.show('slow');
-                        escondeBordado();
-                        break;
-                    default:
-                        escondeTecido();
-                        escondeBordado();
+                case 'Bordado':
+                    bordado.show('slow');
+                    escondeTecido();
+                    break;
+                case 'Tecido':
+                    tecido.show('slow');
+                    escondeBordado();
+                    break;
+                default:
+                    escondeTecido();
+                    escondeBordado();
                 }
             });
         };

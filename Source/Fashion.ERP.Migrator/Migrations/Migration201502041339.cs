@@ -51,6 +51,13 @@ namespace Fashion.ERP.Migrator
                 .NotNullable();
             
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201502041339.atualizacaopedidocompra.sql");
+
+            Create.Table("ultimonumero")
+                .WithColumn("id").AsInt64().PrimaryKey()
+                .WithColumn("idTenant").AsInt64()
+                .WithColumn("idEmpresa").AsInt64()
+                .WithColumn("nometabela").AsString()
+                .WithColumn("numero").AsInt64();
         }
 
         public override void Down()

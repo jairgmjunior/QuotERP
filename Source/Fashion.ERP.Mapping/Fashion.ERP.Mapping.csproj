@@ -113,6 +113,7 @@
     <Compile Include="Comum\PrazoMap.cs" />
     <Compile Include="Comum\SequenciaOperacionalMap.cs" />
     <Compile Include="Comum\TamanhoMap.cs" />
+    <Compile Include="Comum\UltimoNumeroMap.cs" />
     <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ComprimentoMap.cs" />

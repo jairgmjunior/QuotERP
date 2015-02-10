@@ -654,6 +654,15 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Comum
 
+        public UltimoNumero ObtenhaUltimoNumero()
+        {
+            return new UltimoNumero
+            {
+                NomeTabela = "NOMEDATABELA",
+                Numero = 1
+            };
+        }
+
         public SequenciaOperacional ObtenhaSequenciaOperacional()
         {
             return new SequenciaOperacional
@@ -1073,7 +1082,5 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
         #endregion
-
-        
     }
 }

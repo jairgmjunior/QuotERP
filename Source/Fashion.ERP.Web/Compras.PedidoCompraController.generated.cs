@@ -227,16 +227,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _ExcluirItemPedido = "_ExcluirItemPedido";
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
-                public readonly string CancelarItem = "CancelarItem";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
             }
-            public readonly string _ExcluirItemPedido = "~/Areas/Compras/Views/PedidoCompra/_ExcluirItemPedido.cshtml";
             public readonly string _NovoOuEditar = "~/Areas/Compras/Views/PedidoCompra/_NovoOuEditar.cshtml";
-            public readonly string CancelarItem = "~/Areas/Compras/Views/PedidoCompra/CancelarItem.cshtml";
             public readonly string Editar = "~/Areas/Compras/Views/PedidoCompra/Editar.cshtml";
             public readonly string Index = "~/Areas/Compras/Views/PedidoCompra/Index.cshtml";
             public readonly string Novo = "~/Areas/Compras/Views/PedidoCompra/Novo.cshtml";

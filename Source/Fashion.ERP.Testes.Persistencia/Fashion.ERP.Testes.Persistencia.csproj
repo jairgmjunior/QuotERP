@@ -122,6 +122,7 @@
     <Compile Include="Comum\ProfissaoPersistencia.cs" />
     <Compile Include="Comum\ReferenciaPersistencia.cs" />
     <Compile Include="Comum\TamanhoPersistencia.cs" />
+    <Compile Include="Comum\UltimoNumeroPersistencia.cs" />
     <Compile Include="Comum\UnidadePersistencia.cs" />
     <Compile Include="Comum\UsuarioPersistencia.cs" />
     <Compile Include="EngenhariaProduto\ArtigoPersistencia.cs" />
