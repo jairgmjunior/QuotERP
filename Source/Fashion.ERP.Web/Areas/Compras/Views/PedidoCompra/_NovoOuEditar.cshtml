@@ -399,7 +399,9 @@
         $('#ValorMercadorias').attr('readonly', true);
         $('#ValorCompra').attr('readonly', true);
         $('#ValorDesconto').attr('readonly', true);
-        $('#DataAutorizacao').data("kendoDatePicker").enable(false);
+        if($('#DataAutorizacao').get(0) != null) {
+            $('#DataAutorizacao').data("kendoDatePicker").enable(false);
+        }
 
         $('#ValorEncargos').blur(function () {
             AtualizaValorCompra();
@@ -491,7 +493,7 @@
         $("#UnidadeMedida").addClass("input-small");
         $("#ReferenciaExterna").attr("readonly", true);
 
-        $("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
+        //$("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
         if (!e.model.isNew()) {
             $("#Referencia").attr("readonly", true);
             $("#pesquisar-material").attr("disabled", true);

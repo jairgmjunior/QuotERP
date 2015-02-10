@@ -598,6 +598,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.Id = item.Id;
             pedidoCompraItemModel.MaterialId = item.Material.Id.GetValueOrDefault();
             pedidoCompraItemModel.PrevisaoEntrega = item.PrevisaoEntrega;
+            pedidoCompraItemModel.PrevisaoEntregaString = item.PrevisaoEntrega.HasValue ? item.PrevisaoEntrega.Value.ToString("MM/dd/yyyy") : null;
             pedidoCompraItemModel.Quantidade = item.Quantidade;
             pedidoCompraItemModel.Referencia = item.Material.Referencia;
             if (item.ReferenciaExternaMaterial != null)
@@ -611,27 +612,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.Situacao = item.SituacaoCompra.ToString();
             pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
             pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
-
-            return pedidoCompraItemModel;
-        }
-
-        public GridPedidoCompraItemDetalhe ObterPedidoCompraItemDetalhe(PedidoCompraItem item)
-        {
-            GridPedidoCompraItemDetalhe pedidoCompraItemModel = new GridPedidoCompraItemDetalhe();
-            pedidoCompraItemModel.Id = item.Id;
-            pedidoCompraItemModel.MaterialId = item.Material.Id.GetValueOrDefault();
-            pedidoCompraItemModel.DataEntrega = item.DataEntrega;
-            pedidoCompraItemModel.Quantidade = item.Quantidade;
-            pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
-            pedidoCompraItemModel.Referencia = item.Material.Referencia;
-            pedidoCompraItemModel.ReferenciaExterna = item.ReferenciaExternaMaterial;
-            pedidoCompraItemModel.ValorDesconto = item.ValorDesconto;
-            pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
-            pedidoCompraItemModel.ValorTotal = item.ValorTotal;
-            pedidoCompraItemModel.Descricao = item.Material.Descricao;
-            pedidoCompraItemModel.Situacao = item.SituacaoCompra;
-            pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
-            pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
 
             return pedidoCompraItemModel;
         }

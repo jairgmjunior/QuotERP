@@ -98,11 +98,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [UIHint("currency5casasdecimais")]
         public double? ValorCompra { get; set; }
         
-        //[Display(Name = "Valor compra")]
-        //[Required(ErrorMessage = "Informe o valor da compra")]
-        //[UIHint("currency5casasdecimais")]
-        //public double ValorCompra { get; set; }
-        
         [Display(Name = "Valor das mercadorias")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public double? ValorMercadorias { get; set; }
@@ -110,6 +105,5 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public IList<GridPedidoCompraModel> Grid { get; set; }
 
         public IList<GridPedidoCompraItem> GridItens { get; set; }
-        public IList<GridPedidoCompraItemDetalhe> GridPedidoItemDetalhe { get; set; }
     }
 }
