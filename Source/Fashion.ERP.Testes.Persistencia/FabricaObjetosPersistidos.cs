@@ -339,6 +339,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             var pedidoCompra = _fabricaObjetos.ObtenhaPedidoCompra();
             pedidoCompra.Fornecedor = ObtenhaFuncionario();
+            pedidoCompra.Comprador = ObtenhaFuncionario();
             pedidoCompra.FuncionarioAutorizador = ObtenhaFuncionario();
             pedidoCompra.UnidadeEstocadora = ObtenhaUnidade();
             pedidoCompra.Prazo = ObtenhaPrazo();
@@ -359,6 +360,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             RepositoryFactory.Create<PedidoCompra>().Delete(pedidoCompra);
             ExcluaFornecedor(pedidoCompra.Fornecedor);
+            ExcluaPessoa(pedidoCompra.Comprador);
             ExcluaPessoa(pedidoCompra.FuncionarioAutorizador);
             ExcluaPessoa(pedidoCompra.UnidadeEstocadora);
             ExcluaPrazo(pedidoCompra.Prazo);
@@ -379,13 +381,23 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Engenharia de Produto
 
-        public Variacao ObtenhaVariacao()
+        public VariacaoModelo ObtenhaVariacaoModelo()
         {
-            var variacao = _fabricaObjetos.ObtenhaVariacao();
-            
-            RepositoryFactory.Create<Variacao>().Save(variacao);
+            var variacaoModelo = _fabricaObjetos.ObtenhaVariacaoModelo();
+         
+            variacaoModelo.Variacao = ObtenhaVariacao();
+            variacaoModelo.AddCor(ObtenhaCor());
 
-            return variacao;
+            RepositoryFactory.Create<VariacaoModelo>().Save(variacaoModelo);
+
+            return variacaoModelo;
+        }
+
+        public void ExcluaVariacaoModelo(VariacaoModelo variacaoModelo)
+        {
+            RepositoryFactory.Create<VariacaoModelo>().Delete(variacaoModelo);
+            ExcluaVariacao(variacaoModelo.Variacao);
+            ExcluaCor(variacaoModelo.Cores.ToList()[0]);
         }
 
         public Natureza ObtenhaNatureza()
@@ -529,6 +541,20 @@ namespace Fashion.ERP.Testes.Persistencia
         #endregion
 
         #region Comun
+
+        public Variacao ObtenhaVariacao()
+        {
+            var variacao = _fabricaObjetos.ObtenhaVariacao();
+
+            RepositoryFactory.Create<Variacao>().Save(variacao);
+
+            return variacao;
+        }
+        
+        public void ExcluaVariacao(Variacao variacao)
+        {
+            RepositoryFactory.Create<Variacao>().Delete(variacao);
+        }
 
         public CentroCusto ObtenhaCentroCusto()
         {

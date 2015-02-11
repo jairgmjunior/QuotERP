@@ -377,6 +377,7 @@
     <Compile Include="Areas\Compras\Models\ValidaPedidoCompraModel.cs" />
     <Compile Include="Areas\Comum\Controllers\CentroCustoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ClassificacaoDificuldadeController.cs" />
+    <Compile Include="Areas\Comum\Controllers\VariacaoController.cs" />
     <Compile Include="Areas\Comum\Controllers\CorController.cs" />
     <Compile Include="Areas\Comum\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Comum\Controllers\MarcaController.cs" />
@@ -390,6 +391,8 @@
     <Compile Include="Areas\Comum\Controllers\PrazoController.cs" />
     <Compile Include="Areas\Comum\Models\CentroCustoModel.cs" />
     <Compile Include="Areas\Comum\Models\ClassificacaoDificuldadeModel.cs" />
+    <Compile Include="Areas\Comum\Models\GridVariacaoModel.cs" />
+    <Compile Include="Areas\Comum\Models\VariacaoModel.cs" />
     <Compile Include="Areas\Comum\Models\CorModel.cs" />
     <Compile Include="Areas\Comum\Models\EmpresaModel.cs" />
     <Compile Include="Areas\Comum\Models\EnderecoModelEdicao.cs" />
@@ -748,6 +751,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Comum.UsuarioController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comum.VariacaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ArquivoController.cs" />
@@ -1127,6 +1133,10 @@
     <Content Include="Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Index.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Novo.cshtml" />
+    <Content Include="Areas\Comum\Views\Variacao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Comum\Views\Variacao\Editar.cshtml" />
+    <Content Include="Areas\Comum\Views\Variacao\Index.cshtml" />
+    <Content Include="Areas\Comum\Views\Variacao\Novo.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

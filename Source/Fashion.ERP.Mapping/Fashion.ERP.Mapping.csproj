@@ -114,6 +114,8 @@
     <Compile Include="Comum\SequenciaOperacionalMap.cs" />
     <Compile Include="Comum\TamanhoMap.cs" />
     <Compile Include="Comum\UltimoNumeroMap.cs" />
+    <Compile Include="Comum\VariacaoMap.cs" />
+    <Compile Include="Comum\VariacaoModeloMap.cs" />
     <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ComprimentoMap.cs" />
@@ -130,7 +132,6 @@
     <Compile Include="EngenhariaProduto\SegmentoMap.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducaoMap.cs" />
     <Compile Include="Comum\SetorProducaoMap.cs" />
-    <Compile Include="EngenhariaProduto\VariacaoMap.cs" />
     <Compile Include="EngenhariaProduto\View\ConsumoMaterialColecaoViewMap.cs" />
     <Compile Include="Financeiro\ContaBancariaMap.cs" />
     <Compile Include="Financeiro\DespesaReceitaMap.cs" />

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Fashion.ERP.Domain.Comum;
 
-namespace Fashion.ERP.Domain.EngenhariaProduto
+namespace Fashion.ERP.Domain.Comum
 {
     public class VariacaoModelo : DomainBase<VariacaoModelo>
     {

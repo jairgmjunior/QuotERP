@@ -125,6 +125,7 @@
     <Compile Include="Comum\UltimoNumeroPersistencia.cs" />
     <Compile Include="Comum\UnidadePersistencia.cs" />
     <Compile Include="Comum\UsuarioPersistencia.cs" />
+    <Compile Include="Comum\VariacaoPersistencia.cs" />
     <Compile Include="EngenhariaProduto\ArtigoPersistencia.cs" />
     <Compile Include="EngenhariaProduto\BarraPersistencia.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoPersistencia.cs" />

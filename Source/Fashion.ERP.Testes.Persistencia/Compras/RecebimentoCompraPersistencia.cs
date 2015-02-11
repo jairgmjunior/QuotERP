@@ -9,7 +9,6 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
     public class RecebimentoCompraPersistencia : TestPersistentObject<RecebimentoCompra>
     {
         private Pessoa _fornecedor;
-        private Pessoa _comprador;
         private Pessoa _unidadeEstocadora;
         private ConferenciaEntradaMaterial _conferenciaEntradaMaterial;
         private PedidoCompra _pedidoCompra;
@@ -36,7 +35,6 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
         public override void Init()
         {
             _fornecedor = FabricaObjetosPersistidos.ObtenhaFornecedor();
-            _comprador = FabricaObjetosPersistidos.ObtenhaFuncionario();
             _unidadeEstocadora = FabricaObjetosPersistidos.ObtenhaUnidade();
             _conferenciaEntradaMaterial = FabricaObjetosPersistidos.ObtenhaConferenciaEntradaMaterial();
             _pedidoCompra = FabricaObjetosPersistidos.ObtenhaPedidoCompra();
@@ -61,7 +59,6 @@ namespace Fashion.ERP.Testes.Persistencia.Compras
         public override void Cleanup()
         {
             FabricaObjetosPersistidos.ExcluaFornecedor(_fornecedor);
-            FabricaObjetosPersistidos.ExcluaPessoa(_comprador);
             FabricaObjetosPersistidos.ExcluaPessoa(_unidadeEstocadora);
             FabricaObjetosPersistidos.ExcluaConferenciaEntradaMaterial(_conferenciaEntradaMaterial);
             FabricaObjetosPersistidos.ExcluaPedidoCompra(_pedidoCompra);

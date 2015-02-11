@@ -14,7 +14,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Material).Not.Nullable();
             References(x => x.Tamanho);
             References(x => x.Cor);
-            References(x => x.Variacao);
+            References(x => x.VariacaoModelo);
         }
     }
 }

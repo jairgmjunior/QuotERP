@@ -587,7 +587,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 LinhaPespontos = domain.LinhasPesponto.ToArray(),
                 LinhaTravetes = domain.LinhasTravete.ToArray(),
                 Variacoes =
-                    domain.Variacoes.ToDictionary(k => k.Nome, e => e.Cores.Select(c => c.Nome).ToList()),
+                    domain.VariacaoModelos.ToDictionary(k => k.Variacao.Nome, e => e.Cores.Select(c => c.Nome).ToList()),
                 SequenciaProducao = domain.SequenciaProducoes
                     .Select(p => new GridSequenciaProducaoModel
                                         {
@@ -604,18 +604,19 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #endregion 
 
         #region Variacao
+        [PopulateViewData("PopulaVariacaoViewData")]
         public virtual ActionResult Variacao(long modeloId)
         {
             var modelo = _modeloRepository.Get(modeloId);
 
-            var variacoes = new List<string>();
+            var variacoes = new List<long?>();
             var cores = new List<long>();
 
-            foreach (var variacao in modelo.Variacoes)
+            foreach (var variacaoModelo in modelo.VariacaoModelos)
             {
-                foreach (var cor in variacao.Cores)
+                foreach (var cor in variacaoModelo.Cores)
                 {
-                    variacoes.Add(variacao.Nome);
+                    variacoes.Add(variacaoModelo.Variacao.Id);
                     cores.Add(cor.Id ?? 0);
                 }
             }
@@ -630,13 +631,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 Variacoes = variacoes,
                 Cores = cores
             };
-
-            PopulaVariacaoViewData();
-
+            
             return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [PopulateViewData("PopulaVariacaoViewData")]
         public virtual ActionResult Variacao(VariacaoModeloModel model)
         {
             if (model.Variacoes.IsNullOrEmpty())
@@ -647,28 +647,31 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var modelo = _modeloRepository.Get(model.ModeloId);
-                    modelo.ClearVariacao();
+                    modelo.ClearVariacaoModelo();
+                    Framework.UnitOfWork.Session.Current.Flush();
 
-                    Variacao variacao = null;
-                    var variacaoNome = string.Empty;
+                    VariacaoModelo variacaoModelo = null;
+                    double variacaoId = 0;
                     for (int i = 0; i < model.Variacoes.Count; i++)
                     {
-                        if (variacaoNome != model.Variacoes[i])
+                        if (variacaoId != model.Variacoes[i])
                         {
-                            variacaoNome = model.Variacoes[i];
+                            variacaoId = model.Variacoes[i].Value;
 
-                            if (variacao != null)
-                                modelo.AddVariacao(variacao);
+                            if (variacaoModelo != null)
+                                modelo.AddVariacaoModelo(variacaoModelo);
 
-                            variacao = new Variacao { Nome = model.Variacoes[i] };
+                            variacaoModelo = new VariacaoModelo
+                            {
+                                Variacao = _variacaoRepository.Get(model.Variacoes[i])
+                            };
                         }
 
-                        variacao.AddCor(_corRepository.Load(model.Cores[i]));
+                        variacaoModelo.AddCor(_corRepository.Load(model.Cores[i]));
                     }
 
-                    modelo.AddVariacao(variacao);
-
-                    modelo.DataAlteracao = DateTime.Now;
+                    modelo.AddVariacaoModelo(variacaoModelo);
+                    
                     _modeloRepository.Update(modelo);
                     return RedirectToAction("Detalhar", new { id = model.ModeloId });
                 }
@@ -678,8 +681,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     _logger.Info(exception.GetMessage());
                 }
             }
-
-            PopulaVariacaoViewData();
+            
             return View(model);
         }
         #endregion
@@ -1372,7 +1374,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                     Quantidade = composicao.Quantidade,
                                     Tamanho = composicao.Tamanho,
                                     UnidadeMedida = composicao.UnidadeMedida,
-                                    Variacao = composicao.Variacao
+                                    VariacaoModelo = composicao.VariacaoModelo
                                 };
 
                                 novaSequencia.MaterialComposicaoModelos.Add(novaComposicao);
@@ -1381,15 +1383,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                             novo.AddSequenciaProducao(novaSequencia);
                         }
 
-                        foreach (var variacao in domain.Variacoes)
+                        foreach (var variacaoModelo in domain.VariacaoModelos)
                         {
-                            var novaVariacao = new Variacao
+                            var novaVariacaoModelo = new VariacaoModelo
                             {
-                                Nome = variacao.Nome
+                                Variacao = variacaoModelo.Variacao
                             };
-                            novaVariacao.AddCor(variacao.Cores.ToArray());
+                            novaVariacaoModelo.AddCor(variacaoModelo.Cores.ToArray());
 
-                            novo.AddVariacao(novaVariacao);
+                            novo.AddVariacaoModelo(novaVariacaoModelo);
                         }
 
                         _modeloRepository.Save(novo);
@@ -1484,12 +1486,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #endregion
 
         #region PopulaVariacaoViewData
-        protected void PopulaVariacaoViewData()
+        protected void PopulaVariacaoViewData(VariacaoModeloModel model)
         {
             var cores = _corRepository.Find().OrderBy(p => p.Nome).ToList();
             ViewBag.Cor = new SelectList(cores.Where(p => p.Ativo), "Id", "Nome");
-
             ViewBag.CoresDicionario = cores.ToDictionary(t => t.Id, t => t.Nome);
+
+            var variacoes = _variacaoRepository.Find().OrderBy(p => p.Nome).ToList();
+            ViewBag.Variacao = new SelectList(variacoes.Where(p => p.Ativo), "Id", "Nome");
+            ViewBag.VariacoesDicionario = variacoes.ToDictionary(t => t.Id, t => t.Nome);
         }
         #endregion
       

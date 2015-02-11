@@ -28,7 +28,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<SequenciaProducao> _sequenciaProducaoRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
         private readonly IRepository<UnidadeMedida> _unidadeMedidaRepository;
-        private readonly IRepository<Variacao> _variacaoRepository;
+        private readonly IRepository<VariacaoModelo> _variacaoModeloRepository;
         private readonly IRepository<SetorProducao> _setorProducaoRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly ILogger _logger;
@@ -38,7 +38,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public MaterialComposicaoModeloController(ILogger logger, IRepository<Modelo> modeloRepository, 
             IRepository<Cor> corRepository, IRepository<DepartamentoProducao> departamentoProducaoRepository,
             IRepository<Tamanho> tamanhoRepository, IRepository<UnidadeMedida> unidadeMedidaRepository,
-            IRepository<Variacao> variacaoRepository, IRepository<SetorProducao> setorProducaoRepository,
+            IRepository<VariacaoModelo> variacaoModeloRepository, IRepository<SetorProducao> setorProducaoRepository,
             IRepository<Material> materialRepository,
             IRepository<SequenciaProducao> sequenciaRepository)
         {
@@ -47,7 +47,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _departamentoProducaoRepository = departamentoProducaoRepository;
             _tamanhoRepository = tamanhoRepository;
             _unidadeMedidaRepository = unidadeMedidaRepository;
-            _variacaoRepository = variacaoRepository;
+            _variacaoModeloRepository = variacaoModeloRepository;
             _setorProducaoRepository = setorProducaoRepository;
             _materialRepository = materialRepository;
             _sequenciaProducaoRepository = sequenciaRepository;
@@ -81,7 +81,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         Id = composicao.Id,
                         Departamento = sequenciaProducao.DepartamentoProducao.Id ?? 0,
                         IdSetor = sequenciaProducao.SetorProducao != null ? sequenciaProducao.SetorProducao.Id : null,
-                        Variacao = composicao.Variacao != null ? composicao.Variacao.Id : null,
+                        VariacaoModelo = composicao.VariacaoModelo != null ? composicao.VariacaoModelo.Id : null,
                         Cor = composicao.Cor != null ? composicao.Cor.Id : null,
                         Tamanho = composicao.Tamanho != null ? composicao.Tamanho.Id : null,
                         Referencia = composicao.Material.Id ?? 0,
@@ -144,7 +144,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                         var composicao = new MaterialComposicaoModelo
                         {
-                            Variacao = materialModel.Variacao != null ? _variacaoRepository.Load(materialModel.Variacao) : null,
+                            VariacaoModelo = materialModel.VariacaoModelo != null ? _variacaoModeloRepository.Load(materialModel.VariacaoModelo) : null,
                             Cor = materialModel.Cor != null ? _corRepository.Load(materialModel.Cor) : null,
                             Tamanho = materialModel.Tamanho != null ? _tamanhoRepository.Load(materialModel.Tamanho) : null,
                             Material = _materialRepository.Load(materialModel.Referencia),
@@ -174,7 +174,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         private bool ExisteMaterialComposicaoComValoresIguais(IEnumerable<GridMaterialComposicaoModel> materialModel)
         {
-            var duplicados = materialModel.Select(m => new { m.Departamento, m.IdSetor, m.Variacao, m.Cor, m.Referencia })
+            var duplicados = materialModel.Select(m => new { m.Departamento, m.IdSetor, Variacao = m.VariacaoModelo, m.Cor, m.Referencia })
                 .GroupBy(item => item).SelectMany(grp => grp.Skip(1));
             return !duplicados.IsEmpty();
         }
@@ -196,12 +196,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             ViewBag.Setor = new SelectList(Enumerable.Empty<string>());
             ViewBag.SetoresDicionario = setores.ToDictionary(k => k.Id, v => v.Nome);
 
-            // Variacao
-            var variacoes = _modeloRepository.Load(model.ModeloId).Variacoes
-                .Select(s => new { s.Id, s.Nome })
+            // Variacao Modelo
+            var variacoes = _modeloRepository.Load(model.ModeloId).VariacaoModelos
+                .Select(s => new { s.Id, s.Variacao.Nome })
                 .OrderBy(o => o.Nome);
-            ViewBag.Variacao = new SelectList(variacoes, "Id", "Nome");
-            ViewBag.VariacoesDicionario = variacoes.ToDictionary(k => k.Id, v => v.Nome);
+            ViewBag.VariacaoModelo = new SelectList(variacoes, "Id", "Nome");
+            ViewBag.VariacaoModelosDicionario = variacoes.ToDictionary(k => k.Id, v => v.Nome);
 
             // Cor
             var cores = _corRepository.Find()
@@ -241,10 +241,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #endregion
 
         #region CoresVariacao
-        [OutputCache(Duration = 60, VaryByParam = "id"), AjaxOnly]
-        public virtual JsonResult CoresVariacao(long id /* Id da variacao*/)
+        [AjaxOnly]
+        public virtual JsonResult CoresVariacao(long variacaoModeloId /* Id da variacao*/)
         {
-            var variacao = _variacaoRepository.Get(id);
+            var variacao = _variacaoModeloRepository.Get(variacaoModeloId);
             var cores = variacao.Cores.Select(s => new { s.Id, s.Nome }).OrderBy(o => o.Nome);
 
             return Json(cores, JsonRequestBehavior.AllowGet);

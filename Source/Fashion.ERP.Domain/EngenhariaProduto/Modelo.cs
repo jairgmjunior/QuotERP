@@ -11,7 +11,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
     {
         #region Variáveis
         private readonly IList<ModeloFoto> _fotos;
-        private readonly IList<Variacao> _variacoes;
+        private readonly IList<VariacaoModelo> _variacaoModelos;
         private readonly IList<SequenciaProducao> _sequenciaProducoes;
         private readonly IList<string> _linhasTravete;
         private readonly IList<string> _linhasBordado;
@@ -23,7 +23,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public Modelo()
         {
             _fotos = new List<ModeloFoto>();
-            _variacoes = new List<Variacao>();
+            _variacaoModelos = new List<VariacaoModelo>();
             _sequenciaProducoes = new List<SequenciaProducao>();
             _linhasTravete = new List<string>();
             _linhasBordado = new List<string>();
@@ -220,32 +220,32 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
 
         #region Variacoes
 
-        public virtual IReadOnlyCollection<Variacao> Variacoes
+        public virtual IReadOnlyCollection<VariacaoModelo> VariacaoModelos
         {
-            get { return new ReadOnlyCollection<Variacao>(_variacoes); }
+            get { return new ReadOnlyCollection<VariacaoModelo>(_variacaoModelos); }
         }
 
-        public virtual void AddVariacao(params Variacao[] variacoes)
+        public virtual void AddVariacaoModelo(params VariacaoModelo[] variacaoModelos)
         {
-            foreach (var variacao in variacoes)
+            foreach (var variacaoModelo in variacaoModelos)
             {
                 //variacao.Modelo = this;
-                _variacoes.Add(variacao);
+                _variacaoModelos.Add(variacaoModelo);
             }
         }
 
-        public virtual void RemoveVariacao(params Variacao[] variacoes)
+        public virtual void RemoveVariacaoModelo(params VariacaoModelo[] variacaoModelos)
         {
-            foreach (var variacao in variacoes)
+            foreach (var variacaoModelo in variacaoModelos)
             {
-                if (_variacoes.Contains(variacao))
-                    _variacoes.Remove(variacao);
+                if (_variacaoModelos.Contains(variacaoModelo))
+                    _variacaoModelos.Remove(variacaoModelo);
             }
         }
 
-        public virtual void ClearVariacao()
+        public virtual void ClearVariacaoModelo()
         {
-            _variacoes.Clear();
+            _variacaoModelos.Clear();
         }
 
         #endregion

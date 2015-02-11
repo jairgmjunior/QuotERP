@@ -61,10 +61,10 @@
                 </div>
             </div>
             <div class="control-group">
-                @Html.Label("Variacao", "Variação", new { @class = "control-label"})
+                @Html.Label("VariacaoModelo", "Variação", new { @class = "control-label"})
                 <div class="controls">
-                    @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessage("Variacao", new { @class = "help-block" })
+                    @Html.DropDownList("VariacaoModelo", null, "-- Selecione --", new { @class = "input-large" })
+                    @Html.ValidationMessage("VariacaoModelo", new { @class = "help-block" })
                 </div>
             </div>
             <div class="control-group">
@@ -152,8 +152,8 @@
                                     @Html.HiddenFor(m => Model.Grid[i].IdSetor)                                    
                                 </td>
                                 <td>
-                                    @if (materialComposicao.Variacao != null) { @ViewBag.VariacoesDicionario[materialComposicao.Variacao] }
-                                    @Html.HiddenFor(m => Model.Grid[i].Variacao)                                    
+                                    @if (materialComposicao.VariacaoModelo != null) { @ViewBag.VariacaoModelosDicionario[materialComposicao.VariacaoModelo] }
+                                    @Html.HiddenFor(m => Model.Grid[i].VariacaoModelo)                                    
                                 </td>
                                 <td>
                                     @if (materialComposicao.Cor != null) { @ViewBag.CoresDicionario[materialComposicao.Cor] }
@@ -259,19 +259,19 @@
             });
         });
 
-        $("#Variacao").on('change', function () {
+        $("#VariacaoModelo").on('change', function () {
 
             var cores = $('#Cor');
             cores.empty();
             cores.append($('<option value="">-- Selecione --</option>'));
 
-            var variacao = $(this).val();
+            var variacao = parseInt($(this).val());
 
             if (variacao == '') {
                 return;
             }
 
-            var url = '@Html.GetUrl(MVC.EngenhariaProduto.MaterialComposicaoModelo.CoresVariacao())/' + variacao;
+            var url = '@Html.GetUrl(MVC.EngenhariaProduto.MaterialComposicaoModelo.CoresVariacao())?variacaoModeloId=' + variacao;
 
             $.getJSON(url, function (result) {
 
@@ -313,8 +313,8 @@
                 var departamento = $('#Departamento option:selected').text();
                 var setorId = $('#Setor').val() == null ? '' : $('#Setor').val();
                 var setor = setorId != '' ? $('#Setor option:selected').text() : '';
-                var variacaoId = $('#Variacao').val();
-                var variacao = variacaoId != '' ? $('#Variacao option:selected').text() : '';
+                var variacaoModeloId = $('#VariacaoModelo').val();
+                var variacaoModelo = variacaoModeloId != '' ? $('#VariacaoModelo option:selected').text() : '';
                 var corId = $('#Cor').val();
                 var cor = corId != '' ? $('#Cor option:selected').text() : '';
                 var tamanhoId = $('#Cor').val();
@@ -331,7 +331,7 @@
                     '<tr>' + '<input type="hidden" name="Grid.Index" value="' + ultimoIndiceTabela + '" /> ' + '\
                     <td>' + departamento + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Departamento" value="' + departamentoId + '"/></td>\
                     <td>' + setor + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].IdSetor" value="' + setorId + '"/></td>\
-                    <td>' + variacao + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Variacao" value="' + variacaoId + '"/></td>\
+                    <td>' + variacaoModelo + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].VariacaoModelo" value="' + variacaoModeloId + '"/></td>\
                     <td>' + cor + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Cor" value="' + corId + '"/></td>\
                     <td>' + tamanho + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Tamanho" value="' + tamanhoId + '"/></td>\
                     <td>' + material + '<input type="hidden" id="Grid_' + ultimoIndiceTabela + '__Id" name="Grid[' + ultimoIndiceTabela + '].Referencia" value="' + materialId + '"/></td>\
@@ -345,7 +345,7 @@
                 // limpar formulário
                 clearForm($('form')[0]);
                 $('#Departamento').change();
-                $('#Variacao').change();
+                $('#VariacaoModelo').change();
                 $("#Quantidade").data("kendoNumericTextBox").value(1);
                 $('#Material').val('');
             }

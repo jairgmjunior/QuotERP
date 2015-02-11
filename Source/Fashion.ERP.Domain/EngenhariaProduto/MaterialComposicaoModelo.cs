@@ -11,6 +11,6 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Material Material { get; set; }
         public virtual Tamanho Tamanho { get; set; }
         public virtual Cor Cor { get; set; }
-        public virtual Variacao Variacao { get; set; }
+        public virtual VariacaoModelo VariacaoModelo { get; set; }
     }
 }

@@ -48,8 +48,9 @@
     <div class="row">
         <div class="span6">
             <div class="control-group">
+                <label class="control-label">Variação</label>
                 <div class="controls">
-                    @Html.TextBox("Variacao", null, new { @class = "input-large" })
+                    @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "input-large" })
                     @Html.ValidationMessage("Variacao", new { @class = "help-block" })
                 </div>
             </div>
@@ -71,19 +72,19 @@
                         <tbody>
                             @if (Model.Variacoes != null)
                             {
-                                string variacao = string.Empty;
+                                long variacaoid = 0;
                                 
                                 for (int i = 0; i < Model.Variacoes.Count; i++)
                                 {
                                     var cor = Model.Cores[i];
                                     
                                     <tr>
-                                        @if (variacao != Model.Variacoes[i])
+                                        @if (variacaoid != Model.Variacoes[i].Value)
                                         {
-                                            variacao = Model.Variacoes[i];
+                                            variacaoid = Model.Variacoes[i].Value;
                                             
-                                            <td rowspan="@Model.Variacoes.Count(s => s == variacao)">
-                                                @variacao
+                                            <td rowspan="@Model.Variacoes.Count(s => s == variacaoid)">
+                                                @(ViewBag.VariacoesDicionario[variacaoid])
                                             </td>
                                         }
 
@@ -138,8 +139,9 @@
 
             var corId = $('#Cor').val();
             var cor = $('#Cor option:selected').text();
+            var variacao = $('#Variacao option:selected').text();
 
-            var variacao = $('#Variacao').val();
+            var variacaoId = $('#Variacao').val();
             var variacoes = $('input[name=Variacoes]').map(function () {
                 return this.value;
             }).get();
@@ -149,7 +151,7 @@
             // Verificar se já tem uma cor para esta variação
             $('input[name=Cores]').each(function (index) {
 
-                if (variacoes[index] == variacao) {
+                if (variacoes[index] == variacaoId) {
                     if ($(this).val() == corId) {
                         alert("A cor escolhida já está cadastrada.");
                         duplicado = true;
@@ -162,7 +164,7 @@
             // Adiciona apenas se não existir
             if (duplicado == false) {
                 
-                var idxVariacao = jQuery.inArray(variacao, variacoes);
+                var idxVariacao = jQuery.inArray(variacaoId, variacoes);
                 if (idxVariacao == -1) {
 
                     // Se não existir variação, criá-la com a td:rowspan
@@ -170,7 +172,7 @@
                     '<tr>\
                         <td rowspan="1">' + variacao + '</td>\
                         <td>' + cor + '<input type="hidden" name="Cores" value="' + corId + '"/>\
-                            <input type="hidden" name="Variacoes" value="' + variacao + '"/></td>\
+                            <input type="hidden" name="Variacoes" value="' + variacaoId + '"/></td>\
                         <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                     </tr>');
                     
@@ -184,7 +186,7 @@
                     var lastRow = $($('#table-variacao tbody tr').get(idxVariacao + lastIdx - 2));
                     lastRow.after('<tr>\
                             <td>' + cor + '<input type="hidden" name="Cores" value="' + corId + '"/>\
-                                <input type="hidden" name="Variacoes" value="' + variacao + '"/></td>\
+                                <input type="hidden" name="Variacoes" value="' + variacaoId + '"/></td>\
                             <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                         </tr>');
                 }

@@ -97,6 +97,7 @@ namespace Fashion.ERP.Testes.Persistencia
             compareLogic.Config.MembersToIgnore.Add("IdEmpresa");
             compareLogic.Config.MembersToIgnore.Add("IdTenant");
             compareLogic.Config.MembersToIgnore.Add("CpfCnpj");
+            compareLogic.Config.MembersToIgnore.Add("DataAlteracao");
             compareLogic.Config.IgnoreObjectTypes = true;
             var result = compareLogic.Compare(GetPersistentObject(), persistentObject);
             Assert.IsTrue(result.AreEqual, result.DifferencesString);

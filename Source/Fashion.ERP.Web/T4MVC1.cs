@@ -126,6 +126,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Comum.Controllers.TipoFornecedorController TipoFornecedor = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_TipoFornecedorController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.UnidadeController Unidade = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_UnidadeController();
         public Fashion.ERP.Web.Areas.Comum.Controllers.UsuarioController Usuario = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_UsuarioController();
+        public Fashion.ERP.Web.Areas.Comum.Controllers.VariacaoController Variacao = new Fashion.ERP.Web.Areas.Comum.Controllers.T4MVC_VariacaoController();
         public T4MVC.Comum.SharedController Shared = new T4MVC.Comum.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

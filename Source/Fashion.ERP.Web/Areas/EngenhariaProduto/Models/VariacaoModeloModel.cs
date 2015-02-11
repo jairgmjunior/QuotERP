@@ -20,7 +20,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Criação")]
         public DateTime ModeloDataCriacao { get; set; }
 
-        public List<string> Variacoes { get; set; }
+        public List<long?> Variacoes { get; set; }
         public List<long> Cores { get; set; }
     }
 }

@@ -486,16 +486,11 @@ namespace Fashion.ERP.Testes.Persistencia
             return modelo;
         }
 
-        public Variacao ObtenhaVariacao()
+        public VariacaoModelo ObtenhaVariacaoModelo()
         {
-            var variacao = new Variacao
-            {
-                Nome = "NOME DA VARIAÇÃO"
-            };
-
-            return variacao;
+            return new VariacaoModelo();
         }
-
+        
         #endregion
 
         #region Financeiro
@@ -653,6 +648,15 @@ namespace Fashion.ERP.Testes.Persistencia
         #endregion
 
         #region Comum
+
+        public Variacao ObtenhaVariacao()
+        {
+            return new Variacao()
+            {
+                Ativo = true,
+                Nome = "NOME DA VARIAÇÃO"
+            };
+        }
 
         public UltimoNumero ObtenhaUltimoNumero()
         {

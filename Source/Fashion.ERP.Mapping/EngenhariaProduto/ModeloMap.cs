@@ -80,8 +80,8 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
                 .Cascade.AllDeleteOrphan()
                 .Access.CamelCaseField(Prefix.Underscore);
 
-            HasMany(x => x.Variacoes)
-                //.Not.Inverse()
+            HasMany(x => x.VariacaoModelos)
+                .Not.Inverse()
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan()
                 .Access.CamelCaseField(Prefix.Underscore);

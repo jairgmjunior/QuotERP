@@ -135,7 +135,8 @@
     <Compile Include="Comum\Prazo.cs" />
     <Compile Include="Comum\SequenciaOperacional.cs" />
     <Compile Include="Comum\UltimoNumero.cs" />
-    <Compile Include="EngenhariaProduto\VariacaoModelo.cs" />
+    <Compile Include="Comum\Variacao.cs" />
+    <Compile Include="Comum\VariacaoModelo.cs" />
     <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="EngenhariaProduto\Barra.cs" />
     <Compile Include="EngenhariaProduto\SequenciaProducao.cs" />
     <Compile Include="Comum\SetorProducao.cs" />
-    <Compile Include="EngenhariaProduto\Variacao.cs" />
     <Compile Include="EngenhariaProduto\Views\ConsumoMaterialColecaoView.cs" />
     <Compile Include="Financeiro\ContaBancaria.cs" />
     <Compile Include="Financeiro\DespesaReceita.cs" />

@@ -136,7 +136,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_CoresVariacao
         {
-            public readonly string id = "id";
+            public readonly string variacaoModeloId = "variacaoModeloId";
         }
         static readonly ActionParamsClass_SequenciaProducao s_params_SequenciaProducao = new ActionParamsClass_SequenciaProducao();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -222,13 +222,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void CoresVariacaoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long id);
+        partial void CoresVariacaoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long variacaoModeloId);
 
-        public override System.Web.Mvc.JsonResult CoresVariacao(long id)
+        public override System.Web.Mvc.JsonResult CoresVariacao(long variacaoModeloId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CoresVariacao);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            CoresVariacaoOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "variacaoModeloId", variacaoModeloId);
+            CoresVariacaoOverride(callInfo, variacaoModeloId);
             return callInfo;
         }
 

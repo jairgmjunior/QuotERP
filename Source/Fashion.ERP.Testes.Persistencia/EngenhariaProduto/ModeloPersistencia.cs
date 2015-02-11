@@ -22,6 +22,7 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
         private SetorProducao _setorProducao;
         private ProgramacaoBordado _programacaoBordado;
         private Variacao _variacao;
+        private VariacaoModelo _variacaoModelo;
         private Cor _cor;
         private MaterialComposicaoModelo _materialComposicaoModelo;
         private MaterialComposicaoModelo _materialComposicaoModelo2;
@@ -42,7 +43,7 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             modelo.AddSequenciaProducao(_sequenciaProducao);
             modelo.AddSequenciaProducao(_sequenciaProducao2);
             modelo.AddProgramacaoBordado(_programacaoBordado);
-            modelo.AddVariacao(_variacao);
+            modelo.AddVariacaoModelo(_variacaoModelo);
 
             return modelo;
         }
@@ -86,8 +87,10 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _programacaoBordado.ProgramadorBordado = _funcionario;
             _programacaoBordado.Arquivo = FabricaObjetosPersistidos.ObtenhaArquivo();
 
-            _variacao = FabricaObjetos.ObtenhaVariacao();
-            _variacao.AddCor(_cor);
+            _variacao = FabricaObjetosPersistidos.ObtenhaVariacao();
+            _variacaoModelo = FabricaObjetos.ObtenhaVariacaoModelo();
+            _variacaoModelo.Variacao = _variacao;
+            _variacaoModelo.AddCor(_cor);
 
             Session.Current.Flush();
         }
@@ -105,6 +108,7 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             FabricaObjetosPersistidos.ExcluaCor(_cor);
             FabricaObjetosPersistidos.ExcluaMaterial(_material);
             FabricaObjetosPersistidos.ExcluaUnidadeMedida(_unidadeMedida);
+            FabricaObjetosPersistidos.ExcluaVariacao(_variacao);
 
             Session.Current.Flush();
         }

@@ -13,7 +13,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public long? IdSetor { get; set; }
 
         [Display(Name = "Variacao")]
-        public long? Variacao { get; set; }
+        public long? VariacaoModelo { get; set; }
 
         [Display(Name = "Cor")]
         public long? Cor { get; set; }
