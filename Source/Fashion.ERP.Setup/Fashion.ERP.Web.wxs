@@ -846,6 +846,20 @@
                                 <File Id="filE5178D5B23EB0127BD027BD183DE262B" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Usuario\Novo.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir323AA7E213F932BD05DB4D9B121EE2D2" Name="Variacao">
+                            <Component Id="cmp7212301B5F7A6D650A5CD6B9AA9E35D5" Guid="*">
+                                <File Id="fil7C18D38EB5674DEBD27E879FD4497E69" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Variacao\Editar.cshtml" />
+                            </Component>
+                            <Component Id="cmp6D769246B7ACBAC1F874CD00B21A05A7" Guid="*">
+                                <File Id="fil475A1FE10C24623BCDE2B2C19503515D" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Variacao\Index.cshtml" />
+                            </Component>
+                            <Component Id="cmpA882455609E23E19CAED5017386655EF" Guid="*">
+                                <File Id="fil1D52A7C5937994271068F4633C4596D4" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Variacao\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmp55B29187499195D1840FD11734DC8E60" Guid="*">
+                                <File Id="fil65A00A4939D2C5A0205ADB913D2FD420" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Variacao\_NovoOuEditar.cshtml" />
+                            </Component>
+                        </Directory>
                     </Directory>
                 </Directory>
                 <Directory Id="dir38833E71D43E0230B870D21D0F5F3D53" Name="Dev">
@@ -2196,6 +2210,10 @@
             <ComponentRef Id="cmpB7B1BE6E5E4EB229D8A67CDF7870103C" />
             <ComponentRef Id="cmpB845C146D20A1EFE87CD55B0573DEF85" />
             <ComponentRef Id="cmp04BE32F11DC26A985FA6A9AF57B7BA7F" />
+            <ComponentRef Id="cmp7212301B5F7A6D650A5CD6B9AA9E35D5" />
+            <ComponentRef Id="cmp6D769246B7ACBAC1F874CD00B21A05A7" />
+            <ComponentRef Id="cmpA882455609E23E19CAED5017386655EF" />
+            <ComponentRef Id="cmp55B29187499195D1840FD11734DC8E60" />
             <ComponentRef Id="cmp017E0047EC85C370A4F58D72A8963E37" />
             <ComponentRef Id="cmpE57EFC62ADBC07F5347189BA1068909E" />
             <ComponentRef Id="cmpD7AA5C34223E6BEE43EED6AB0C42729C" />

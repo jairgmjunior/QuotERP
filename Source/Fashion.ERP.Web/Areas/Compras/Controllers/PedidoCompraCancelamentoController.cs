@@ -106,10 +106,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                                 _motivoCancelamentoPedidoCompraRepository.Load(model.MotivoCancelamento);
                           
                             pedidoCompraItemCancelado.CalculeQuantidade(domain);
-
+                            
+                            domain.PedidoCompraItemCancelado = pedidoCompraItemCancelado;
                             domain.AtualizeSituacao();
 
-                            domain.PedidoCompraItemCancelado = pedidoCompraItemCancelado;
                             _pedidoCompraItemRepository.Update(domain);
                         }  
                     }
@@ -119,7 +119,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     //pedidocompra.DataAlteracao = DateTime.Now;
                     _pedidoCompraRepository.SaveOrUpdate(pedidocompra);
                     
-                    this.AddSuccessMessage("Item cancelados com sucesso.");
+                    this.AddSuccessMessage("Item(s) cancelado(s) com sucesso.");
                     return RedirectToAction("Index", "PedidoCompra");
                 }
                 catch (Exception exception)
