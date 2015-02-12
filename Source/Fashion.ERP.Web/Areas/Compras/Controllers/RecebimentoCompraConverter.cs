@@ -182,7 +182,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
 
                 var item = Mapper.Unflat(recebimentoCompraItemModel, itemSalvo);
-                item.Quantidade = recebimentoCompraItemModel.QuantidadeEntrada;
+                //item.Quantidade = recebimentoCompraItemModel.QuantidadeEntrada;
                 var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
                 
                 foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero))

@@ -8,13 +8,6 @@
         
         public virtual void CalculeQuantidade(ref double quantidadeEntradaDisponivel)
         {
-            if (quantidadeEntradaDisponivel >= PedidoCompraItem.Quantidade)
-            {
-                quantidadeEntradaDisponivel = quantidadeEntradaDisponivel - PedidoCompraItem.Quantidade;
-                Quantidade = PedidoCompraItem.Quantidade;
-                return;
-            }
-
             var retorno = quantidadeEntradaDisponivel;
             quantidadeEntradaDisponivel = 0;
             Quantidade =  retorno;

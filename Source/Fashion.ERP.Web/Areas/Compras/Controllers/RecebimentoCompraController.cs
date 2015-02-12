@@ -373,7 +373,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = _fabricaDeObjetos.AtualizeRecebimentoCompra(_recebimentoCompraRepository.Get(model.Id), model, this);
-
+                    
+                    domain.SituacaoRecebimentoCompra = SituacaoRecebimentoCompra.Finalizada;
+                    
                     domain.AtualizeCustoMaterial(_materialRepository, domain.Fornecedor);
 
                     _recebimentoCompraRepository.SaveOrUpdate(domain);
