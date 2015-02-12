@@ -58,6 +58,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Estilista).Not.Nullable();
             References(x => x.Modelista);
             References(x => x.Tamanho);
+            References(x => x.FichaTecnica);
 
             Map(x => x.DataPrevisaoEnvio);
 

@@ -223,7 +223,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var fichaTecnica = new FichaTecnica();
                     fichaTecnica.Referencia = modelo.Tag;
                     fichaTecnica.Descricao = modelo.Descricao;
-                    fichaTecnica.Modelo = modelo;
                     fichaTecnica.Marca = modelo.Marca;
                     fichaTecnica.Colecao = _colecaoRepository.Get(model.Colecao);
                     fichaTecnica.Barra = modelo.Barra;
@@ -301,7 +300,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 				    domain.ObservacaoAprovacao = null;
 				    domain.Aprovado = false;
 
-				    var fichas = _fichaTecnica.Find(p => p.Modelo.Id == id);
+				    var fichas = _fichaTecnica.Find(p => p.Id == id);
 
 				    foreach (var fichaTecnica in fichas)
 				        _fichaTecnica.Delete(fichaTecnica);
@@ -414,9 +413,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             var ano = DateTime.Now.Year;
 
-            var numeros = _fichaTecnica
-                .Find(f => f.Modelo.AnoAprovacao == ano)
-                .Select(s => s.Modelo.NumeroAprovacao);
+            var numeros = _modeloRepository
+                .Find(f => f.AnoAprovacao == ano)
+                .Select(s => s.NumeroAprovacao);
             var ultimoNumero = numeros.Any() ? numeros.Max() : 0;
 
             return string.Format("{0}-{1}", ano, ultimoNumero + 1);
@@ -436,7 +435,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 DataCadastro = fichaTecnica.DataCadastro,
                 Modelagem = fichaTecnica.Modelagem,
                 QuantidadeProducao = fichaTecnica.QuantidadeProducao,
-                Modelo = fichaTecnica.Modelo,
                 Marca = fichaTecnica.Marca,
                 Colecao = fichaTecnica.Colecao,
                 Barra = fichaTecnica.Barra,

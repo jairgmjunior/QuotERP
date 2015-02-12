@@ -14,7 +14,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual string Modelagem { get; set; }
         public virtual int QuantidadeProducao { get; set; }
 
-        public virtual Modelo Modelo { get; set; }
+        //public virtual Modelo Modelo { get; set; }
         public virtual Marca Marca { get; set; }
         public virtual Colecao Colecao { get; set; }
         public virtual Barra Barra { get; set; }

@@ -16,8 +16,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.DataCadastro).Not.Nullable();
             Map(x => x.Modelagem).Length(100);
             Map(x => x.QuantidadeProducao).Not.Nullable();
-
-            References(x => x.Modelo).Not.Nullable();
+            
             References(x => x.Marca).Not.Nullable();
             References(x => x.Colecao).Not.Nullable();
             References(x => x.Barra);
