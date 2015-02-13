@@ -135,7 +135,6 @@
     <Compile Include="Migrations\Migration201501292315.cs" />
     <Compile Include="Migrations\Migration201502031545.cs" />
     <Compile Include="Migrations\Migration201502100952.cs" />
-    <Compile Include="Migrations\Migration201502120956.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -322,9 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201502100952\variacaomodelo.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\201502120956\modelofichatecnica.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -419,40 +419,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, AjaxOnly, PopulateViewData("PopulateListagemModelosAprovados")]
         public virtual JsonResult ListagemModelosAprovados(ListagemModelosAprovadosModel model)
         {
-            var query = _modeloRepository.Find(x => x.FichaTecnica != null);
+            var query = _modeloRepository.Find(x => x.FichaTecnicas.Any())
+                .SelectMany(x => x.FichaTecnicas, (x, s) => new {Modelo = x, FichaTecnica = s});
 
             var filtros = new StringBuilder();
 
-          /*  if (model.DataInicial.HasValue && model.DataFinal.HasValue)
-            {
-                query = query.Where(p => p.DataCadastro.Date >= model.DataInicial.Value
-                                      && p.DataCadastro.Date <= model.DataFinal.Value);
-                filtros.AppendFormat("Data aprovação de '{0}' até '{1}', ",
-                                      model.DataInicial.Value.ToString("dd/MM/yyyy"),
-                                      model.DataFinal.Value.ToString("dd/MM/yyyy"));
-            }*/
-
-            /*if (model.DataInicial.HasValue)
-            {
-                query = query.Where(p => p.DataCadastro.Date >= model.DataInicial.Value);
-                filtros.AppendFormat("Data aprovação de: {0:dd/MM/yyyy}, ", model.DataInicial.Value);
-            }
-
-            if (model.DataFinal.HasValue)
-            {
-                query = query.Where(p => p.DataCadastro.Date <= model.DataFinal.Value);
-                filtros.AppendFormat("até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
-            }*/
-
             if (model.IntervaloInicial.HasValue)
             {
-                query = query.Where(p => p.DataAprovacao >= model.IntervaloInicial.Value);
+                query = query.Where(p => p.Modelo.DataAprovacao >= model.IntervaloInicial.Value);
                 filtros.AppendFormat("Intervalos entre: {0:dd/MM/yyyy}, ", model.IntervaloInicial.Value);
             }
 
             if (model.IntervaloFinal.HasValue)
             {
-                query = query.Where(p => p.DataAprovacao <= model.IntervaloFinal.Value);
+                query = query.Where(p => p.Modelo.DataAprovacao <= model.IntervaloFinal.Value);
                 filtros.AppendFormat("à: {0:dd/MM/yyyy}, ", model.IntervaloFinal.Value);
             }
 
@@ -464,31 +444,34 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             if (model.Estilista.HasValue)
             {
-                query = query.Where(p => p.Estilista.Id == model.Estilista);
+                query = query.Where(p => p.Modelo.Estilista.Id == model.Estilista);
                 filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Estilista.Value).Nome);
             }
 
             if (model.Natureza.HasValue)
             {
-                query = query.Where(p => p.Natureza.Id == model.Natureza);
+                query = query.Where(p => p.Modelo.Natureza.Id == model.Natureza);
                 filtros.AppendFormat("Natureza: {0}, ", _naturezaRepository.Get(model.Natureza.Value).Descricao);
             }
 
             if (model.Classificacao.HasValue)
             {
-                query = query.Where(p => p.Classificacao.Id == model.Classificacao);
-                filtros.AppendFormat("Classificação: {0}, ", _classificacaoRepository.Get(model.Classificacao.Value).Descricao);
+                query = query.Where(p => p.Modelo.Classificacao.Id == model.Classificacao);
+                filtros.AppendFormat("Classificação: {0}, ",
+                    _classificacaoRepository.Get(model.Classificacao.Value).Descricao);
             }
 
             if (model.ClassificacaoDificuldade.HasValue)
             {
-                query = query.Where(p => p.FichaTecnica.ClassificacaoDificuldade.Id == model.ClassificacaoDificuldade);
-                filtros.AppendFormat("Dificuldade: {0}, ", _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade.Value).Descricao);
+                query =
+                    query.Where(p => p.FichaTecnica.ClassificacaoDificuldade.Id == model.ClassificacaoDificuldade);
+                filtros.AppendFormat("Dificuldade: {0}, ",
+                    _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade.Value).Descricao);
             }
 
             if (model.Modelista.HasValue)
             {
-                query = query.Where(p => p.Modelista.Id == model.Modelista);
+                query = query.Where(p => p.Modelo.Modelista.Id == model.Modelista);
                 filtros.AppendFormat("Modelista: {0}, ", _pessoaRepository.Get(model.Modelista.Value).Nome);
             }
 
@@ -502,30 +485,31 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             {
 
                 query = query.Where(p =>
-                p.SequenciaProducoes.Any(seq =>
-                seq.MaterialComposicaoModelos.Any(material =>
-                material.Material.Referencia == model.ReferenciaMaterial)));
+                    p.Modelo.SequenciaProducoes.Any(seq =>
+                        seq.MaterialComposicaoModelos.Any(material =>
+                            material.Material.Referencia == model.ReferenciaMaterial)));
 
                 filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
             }
-                      
+
 
             var result = query.ToList();
 
             if (!result.Any())
-                return Json(new { Error = "Nenhum modelo aprovado foi encontrado." });
+                return Json(new {Error = "Nenhum modelo aprovado foi encontrado."});
 
-            var report = new ListagemModelosAprovadosReport { DataSource = result };
+            var report = new ListagemModelosAprovadosReport {DataSource = result};
 
             if (filtros.Length > 2)
                 report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-            
+
             if (model.OrdenarPor != null)
-                report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+                report.Sortings.Add("=Fields." + model.OrdenarPor,
+                    model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
 
             var filename = report.ToByteStream().SaveFile(".pdf");
 
-            return Json(new { Url = filename });
+            return Json(new {Url = filename});
         }
 
         #endregion
@@ -589,7 +573,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             if (model.ColecaoAprovada.HasValue)
             {
-                query = query.Where(p => p.Modelo.FichaTecnica.Colecao.Id == model.ColecaoAprovada);
+                query = query.Where(p => p.Modelo.FichaTecnicas.Any(ficha => ficha.Colecao.Id == model.ColecaoAprovada));
                 filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
             }
 
@@ -600,7 +584,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     q.Modelo.Descricao,
                     ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
                     DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
-                    Quantidade = q.MaterialComposicao.Quantidade * q.Modelo.FichaTecnica.QuantidadeProducao,
+                    Quantidade = q.MaterialComposicao.Quantidade * q.Modelo.FichaTecnicas.Sum(x => x.QuantidadeProducao),
                     NomeFoto = q.MaterialComposicao.Material.Foto.Nome
                 });
             

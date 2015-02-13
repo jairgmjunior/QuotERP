@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using System.Web.Mvc;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
@@ -77,6 +78,7 @@ namespace Fashion.ERP.Web.Filters
             }
             catch (Exception exception)
             {
+                Debugger.Break();
                 _logger.Info(exception.GetMessage());
                 Session.Current.Dispose();
                 

@@ -453,7 +453,7 @@ namespace Fashion.ERP.Setup.CustomAction
 
                 if (Directory.Exists(backupLocation) == false)
                 {
-                    session.ShowErrorMessage("O diretório '" + backupLocation + "' não foi encontrado. O becape não será realizado ");
+                    session.ShowErrorMessage("O diretório '" + backupLocation + "' não foi encontrado. O backup não será realizado ");
                     return ActionResult.Success;
                 }
 

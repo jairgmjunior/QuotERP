@@ -17,6 +17,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         private readonly IList<string> _linhasBordado;
         private readonly IList<string> _linhasPesponto;
         private readonly IList<ProgramacaoBordado> _programacaoBordados;
+        private readonly IList<FichaTecnica> _fichaTecnicas = new List<FichaTecnica>();
         #endregion
 
         #region Construtores
@@ -82,10 +83,15 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Marca Marca { get; set; }
         public virtual ProdutoBase ProdutoBase { get; set; }
         public virtual Artigo Artigo { get; set; }
-        public virtual FichaTecnica FichaTecnica { get; set; }
         public virtual Pessoa Estilista { get; set; }
         public virtual Pessoa Modelista { get; set; }
         public virtual Tamanho Tamanho { get; set; }
+
+        public virtual IList<FichaTecnica> FichaTecnicas
+        {
+            get { return _fichaTecnicas; }
+            set { value = _fichaTecnicas; }
+        }
         #endregion
 
         #region LinhasTravete

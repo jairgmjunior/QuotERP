@@ -261,12 +261,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                             subficha.Comprimento = _comprimentoRepository.Get(comprimento);
                             subficha.Barra = _barraRepository.Get(barra);
 
-                            _fichaTecnica.Save(subficha);
+                            //_fichaTecnica.Save(subficha);
+                            modelo.FichaTecnicas.Add(subficha);
                         }
                     }
                     else
                     {
-                        _fichaTecnica.Save(fichaTecnica);
+                        //_fichaTecnica.Save(fichaTecnica);
+                        modelo.FichaTecnicas.Add(fichaTecnica);
                     }
 
                     _modeloRepository.Update(modelo);

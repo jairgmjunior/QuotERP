@@ -17,10 +17,10 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.DataCriacao).Not.Nullable();
             Map(x => x.DataAlteracao).Not.Nullable();
             Map(x => x.Aprovado).Nullable();
-            Map(x => x.DataAprovacao);
+            Map(x => x.DataAprovacao).Nullable();
             Map(x => x.ObservacaoAprovacao).Length(250);
             Map(x => x.Lavada).Length(200);
-            Map(x => x.DataModelagem);
+            Map(x => x.DataModelagem).Nullable();
             Map(x => x.Observacao).Length(4000);
             Map(x => x.Cos);
             Map(x => x.Passante);
@@ -38,12 +38,13 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.ZiperDetalhe).Length(100);
             Map(x => x.Dificuldade).Length(100);
             Map(x => x.QuantidadeMix);
-            Map(x => x.DataRemessaProducao);
+            Map(x => x.DataRemessaProducao).Nullable();
             Map(x => x.ChaveExterna).Length(5);
 
             Map(x => x.Tag).Length(100);
             Map(x => x.AnoAprovacao).Not.Nullable();
             Map(x => x.NumeroAprovacao).Not.Nullable();
+            Map(x => x.DataPrevisaoEnvio).Nullable();
 
             References(x => x.Grade).Not.Nullable();
             References(x => x.Colecao).Not.Nullable();
@@ -58,9 +59,10 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Estilista).Not.Nullable();
             References(x => x.Modelista);
             References(x => x.Tamanho);
-            References(x => x.FichaTecnica);
-
-            Map(x => x.DataPrevisaoEnvio);
+            
+            HasMany(x => x.FichaTecnicas)
+                .Not.KeyNullable()
+                .Cascade.SaveUpdate();
 
             HasMany(x => x.LinhasTravete)
                 .Table("modelolinhatravete")
