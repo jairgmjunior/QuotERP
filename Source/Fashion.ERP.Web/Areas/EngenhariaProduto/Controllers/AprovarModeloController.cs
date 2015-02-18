@@ -26,7 +26,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<ProdutoBase> _produtoBaseRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
         private readonly IRepository<Barra> _barraRepository;
-        private readonly IRepository<FichaTecnica> _fichaTecnica;
+        //private readonly IRepository<FichaTecnica> _fichaTecnica;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Marca> _marcaRepository;
 
@@ -47,8 +47,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public AprovarModeloController(ILogger logger, IRepository<Modelo> modeloRepository, IRepository<Pessoa> pessoaRepository,
             IRepository<Colecao> colecaoRepository, IRepository<ProdutoBase> produtoBaseRepository, 
             IRepository<Comprimento> comprimentoRepository, IRepository<Marca> marcaRepository,
-            IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository, IRepository<Barra> barraRepository,
-            IRepository<FichaTecnica> fichaTecnica)
+            IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository, IRepository<Barra> barraRepository
+            //IRepository<FichaTecnica> fichaTecnica
+            )
         {
             _modeloRepository = modeloRepository;
             _colecaoRepository = colecaoRepository;
@@ -57,7 +58,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _produtoBaseRepository = produtoBaseRepository;
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
             _barraRepository = barraRepository;
-            _fichaTecnica = fichaTecnica;
+            //_fichaTecnica = fichaTecnica;
             _pessoaRepository = pessoaRepository;
             _logger = logger;
         }
@@ -213,63 +214,63 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     // Fim TAG
 
                     var modelo = _modeloRepository.Get(model.Id);
-                    modelo.DataAprovacao = model.DataAprovacao;
-                    modelo.Tag = model.Tag;
-                    modelo.AnoAprovacao = anoAprovacao;
-                    modelo.NumeroAprovacao = numeroAprovacao;
-                    modelo.ObservacaoAprovacao = model.ObservacaoAprovacao;
-                    modelo.Aprovado = true;
+                    //modelo.DataAprovacao = model.DataAprovacao;
+                    //modelo.Tag = model.Tag;
+                    //modelo.AnoAprovacao = anoAprovacao;
+                    //modelo.NumeroAprovacao = numeroAprovacao;
+                    //modelo.ObservacaoAprovacao = model.ObservacaoAprovacao;
+                    //modelo.Aprovado = true;
                     
-                    var fichaTecnica = new FichaTecnica();
-                    fichaTecnica.Referencia = modelo.Tag;
-                    fichaTecnica.Descricao = modelo.Descricao;
-                    fichaTecnica.Marca = modelo.Marca;
-                    fichaTecnica.Colecao = _colecaoRepository.Get(model.Colecao);
-                    fichaTecnica.Barra = modelo.Barra;
-                    fichaTecnica.Segmento = modelo.Segmento;
-                    fichaTecnica.ProdutoBase = modelo.ProdutoBase;
-                    fichaTecnica.Comprimento = modelo.Comprimento;
-                    fichaTecnica.Natureza = modelo.Natureza;
-                    fichaTecnica.ClassificacaoDificuldade = model.ClassificacaoDificuldade != null 
-                                                          ? _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade)
-                                                          : null;
-                    fichaTecnica.Grade = modelo.Grade;
-                    fichaTecnica.DataCadastro = DateTime.Now;
-                    fichaTecnica.Detalhamento = modelo.Detalhamento;
-                    fichaTecnica.Modelagem = modelo.Modelagem;
+                    //var fichaTecnica = new FichaTecnicaJeans();
+                    //fichaTecnica.Tag = modelo.Tag;
+                    //fichaTecnica.Descricao = modelo.Descricao;
+                    //fichaTecnica.Marca = modelo.Marca;
+                    //fichaTecnica.Colecao = _colecaoRepository.Get(model.Colecao);
+                    //fichaTecnica.Barra = modelo.Barra;
+                    //fichaTecnica.Segmento = modelo.Segmento;
+                    //fichaTecnica.ProdutoBase = modelo.ProdutoBase;
+                    //fichaTecnica.Comprimento = modelo.Comprimento;
+                    //fichaTecnica.Natureza = modelo.Natureza;
+                    //fichaTecnica.ClassificacaoDificuldade = model.ClassificacaoDificuldade != null 
+                    //                                      ? _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade)
+                    //                                      : null;
+                    //fichaTecnica.Grade = modelo.Grade;
+                    //fichaTecnica.DataCadastro = DateTime.Now;
+                    //fichaTecnica.Detalhamento = modelo.Detalhamento;
+                    ////fichaTecnica.Modelagem = modelo.Modelagem;
 
-                    fichaTecnica.ProgramacaoProducao = model.ProgramacaoProducao ?? DateTime.Now;
-                    fichaTecnica.QuantidadeProducao = model.QuantidadeProducao ?? 0;
+                    //fichaTecnica.ProgramacaoProducao = model.ProgramacaoProducao ?? DateTime.Now;
+                    //fichaTecnica.QuantidadeProducao = model.QuantidadeProducao ?? 0;
 
-                    if (model.Sequencias != null && model.Sequencias.Any())
-                    {
-                        for (int i = 0; i < model.Sequencias.Count; i++)
-                        {
-                            var sequencia = model.Sequencias[i];
-                            var produtoBase = model.ProdutoBases[i];
-                            var comprimento = model.Comprimentos[i];
-                            var descricao = model.Descricoes[i];
-                            var barra = model.Barras[i];
-                            var quantidadeProducao = model.QuantidadeProducoes[i];
+                    //if (model.Sequencias != null && model.Sequencias.Any())
+                    //{
+                    //    for (int i = 0; i < model.Sequencias.Count; i++)
+                    //    {
+                    //        var variante = model.Sequencias[i];
+                    //        var produtoBase = model.ProdutoBases[i];
+                    //        var comprimento = model.Comprimentos[i];
+                    //        var descricao = model.Descricoes[i];
+                    //        var barra = model.Barras[i];
+                    //        var quantidadeProducao = model.QuantidadeProducoes[i];
 
-                            var subficha = CloneFichaTecnica(fichaTecnica);
-                            subficha.Sequencia = sequencia;
-                            subficha.Referencia = string.Format("{0}-{1}", modelo.Tag, sequencia);
-                            subficha.Descricao = descricao;
-                            subficha.QuantidadeProducao = quantidadeProducao;
-                            subficha.ProdutoBase = _produtoBaseRepository.Get(produtoBase);
-                            subficha.Comprimento = _comprimentoRepository.Get(comprimento);
-                            subficha.Barra = _barraRepository.Get(barra);
+                    //        var subficha = CloneFichaTecnica(fichaTecnica);
+                    //        subficha.Variante = variante;
+                    //        subficha.Tag = string.Format("{0}-{1}", modelo.Tag, variante);
+                    //        subficha.Descricao = descricao;
+                    //        subficha.QuantidadeProducao = quantidadeProducao;
+                    //        subficha.ProdutoBase = _produtoBaseRepository.Get(produtoBase);
+                    //        subficha.Comprimento = _comprimentoRepository.Get(comprimento);
+                    //        subficha.Barra = _barraRepository.Get(barra);
 
-                            //_fichaTecnica.Save(subficha);
-                            modelo.FichaTecnicas.Add(subficha);
-                        }
-                    }
-                    else
-                    {
-                        //_fichaTecnica.Save(fichaTecnica);
-                        modelo.FichaTecnicas.Add(fichaTecnica);
-                    }
+                    //        //_fichaTecnica.Save(subficha);
+                    //        modelo.FichaTecnicas.Add(subficha);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //_fichaTecnica.Save(fichaTecnica);
+                    //    modelo.FichaTecnicas.Add(fichaTecnica);
+                    //}
 
                     _modeloRepository.Update(modelo);
 
@@ -302,10 +303,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 				    domain.ObservacaoAprovacao = null;
 				    domain.Aprovado = false;
 
-				    var fichas = _fichaTecnica.Find(p => p.Id == id);
+				    //var fichas = _fichaTecnica.Find(p => p.Id == id);
 
-				    foreach (var fichaTecnica in fichas)
-				        _fichaTecnica.Delete(fichaTecnica);
+                    //foreach (var fichaTecnica in fichas)
+                    //    _fichaTecnica.Delete(fichaTecnica);
 
 					this.AddSuccessMessage("Modelo desaprovado com sucesso");
 					return RedirectToAction("Index");
@@ -424,31 +425,31 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         #endregion
 
-        #region CloneFichaTecnica
-        private static FichaTecnica CloneFichaTecnica(FichaTecnica fichaTecnica)
-        {
-            return new FichaTecnica
-            {
-                Referencia = fichaTecnica.Referencia,
-                Descricao = fichaTecnica.Descricao,
-                Detalhamento = fichaTecnica.Detalhamento,
-                Sequencia = fichaTecnica.Sequencia,
-                ProgramacaoProducao = fichaTecnica.ProgramacaoProducao,
-                DataCadastro = fichaTecnica.DataCadastro,
-                Modelagem = fichaTecnica.Modelagem,
-                QuantidadeProducao = fichaTecnica.QuantidadeProducao,
-                Marca = fichaTecnica.Marca,
-                Colecao = fichaTecnica.Colecao,
-                Barra = fichaTecnica.Barra,
-                Segmento = fichaTecnica.Segmento,
-                ProdutoBase = fichaTecnica.ProdutoBase,
-                Comprimento = fichaTecnica.Comprimento,
-                Natureza = fichaTecnica.Natureza,
-                ClassificacaoDificuldade = fichaTecnica.ClassificacaoDificuldade,
-                Grade = fichaTecnica.Grade
-            };
-        }
-        #endregion
+        //#region CloneFichaTecnica
+        //private static FichaTecnicaJeans CloneFichaTecnica(FichaTecnicaJeans fichaTecnica)
+        //{
+        //    return new FichaTecnicaJeans
+        //    {
+        //        Tag = fichaTecnica.Tag,
+        //        Descricao = fichaTecnica.Descricao,
+        //        Detalhamento = fichaTecnica.Detalhamento,
+        //        //Sequencia = fichaTecnica.Sequencia,
+        //        ProgramacaoProducao = fichaTecnica.ProgramacaoProducao,
+        //        DataCadastro = fichaTecnica.DataCadastro,
+        //        //Modelagem = fichaTecnica.Modelagem,
+        //        QuantidadeProducao = fichaTecnica.QuantidadeProducao,
+        //        Marca = fichaTecnica.Marca,
+        //        Colecao = fichaTecnica.Colecao,
+        //        Barra = fichaTecnica.Barra,
+        //        Segmento = fichaTecnica.Segmento,
+        //        ProdutoBase = fichaTecnica.ProdutoBase,
+        //        Comprimento = fichaTecnica.Comprimento,
+        //        Natureza = fichaTecnica.Natureza,
+        //        ClassificacaoDificuldade = fichaTecnica.ClassificacaoDificuldade,
+        //        //Grade = fichaTecnica.Grade
+        //    };
+        //}
+        //#endregion
 
         #endregion
     }

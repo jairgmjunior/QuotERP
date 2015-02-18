@@ -32,7 +32,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Grade> _gradeRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Classificacao> _classificacaoRepository;
-        private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
+        //private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
         private readonly IRepository<Segmento> _segmentoRepository;
         private readonly IRepository<Natureza> _naturezaRepository;
         private readonly IRepository<Barra> _barraRepository;
@@ -92,7 +92,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository, IRepository<UnidadeMedida> unidadeMedidaRepository,
             IRepository<Variacao> variacaoRepository, IRepository<SetorProducao> setorProducaoRepository,
             IRepository<Material> materialRepository, IRepository<MaterialComposicaoModelo> materialComposicaoModeloRepository,
-            IRepository<ProgramacaoBordado> programacaoBordadoRepository, IRepository<FichaTecnica> fichaTecnicaRepository,
+            IRepository<ProgramacaoBordado> programacaoBordadoRepository, //IRepository<FichaTecnica> fichaTecnicaRepository,
             IRepository<SequenciaProducao> sequenciaRepository)
         {
             _modeloRepository = modeloRepository;
@@ -117,7 +117,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _materialRepository = materialRepository;
             _materialComposicaoModeloRepository = materialComposicaoModeloRepository;
             _programacaoBordadoRepository = programacaoBordadoRepository;
-            _fichaTecnicaRepository = fichaTecnicaRepository;
+            //_fichaTecnicaRepository = fichaTecnicaRepository;
             _sequenciaProducaoRepository = sequenciaRepository;
             _logger = logger;
         }

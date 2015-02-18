@@ -445,6 +445,34 @@ namespace Fashion.ERP.Testes.Persistencia
             return grade;
         }
 
+        public Comprimento ObtenhaComprimento()
+        {
+            var comprimento = _fabricaObjetos.ObtenhaComprimento();
+
+            RepositoryFactory.Create<Comprimento>().Save(comprimento);
+
+            return comprimento;
+        }
+
+        public void ExcluaComprimento(Comprimento comprimento)
+        {
+            RepositoryFactory.Create<Comprimento>().Delete(comprimento);
+        }
+
+        public ProdutoBase ObtenhaProdutoBase()
+        {
+            var produtoBase = _fabricaObjetos.ObtenhaProdutoBase();
+            
+            RepositoryFactory.Create<ProdutoBase>().Save(produtoBase);
+
+            return produtoBase;
+        }
+
+        public void ExcluaProdutoBase(ProdutoBase produtoBase)
+        {
+            RepositoryFactory.Create<ProdutoBase>().Delete(produtoBase);
+        }
+
         public Barra ObtenhaBarra()
         {
             var barra = _fabricaObjetos.ObtenhaBarra();
@@ -452,6 +480,20 @@ namespace Fashion.ERP.Testes.Persistencia
             RepositoryFactory.Create<Barra>().Save(barra);
 
             return barra;
+        }
+
+        public Segmento ObtenhaSegmento()
+        {
+            var segmento = _fabricaObjetos.ObtenhaSegmento();
+
+            RepositoryFactory.Create<Segmento>().Save(segmento);
+
+            return segmento;
+        }
+
+        public void ExcluaSegmento(Segmento segmento)
+        {
+            RepositoryFactory.Create<Segmento>().Delete(segmento);
         }
 
         public Classificacao ObtenhaClassificacao()
@@ -541,6 +583,20 @@ namespace Fashion.ERP.Testes.Persistencia
         #endregion
 
         #region Comun
+
+        public ClassificacaoDificuldade ObtenhaClassificacaoDificuldade()
+        {
+            var classificacaoDificuldade = _fabricaObjetos.ObtenhaClassificacaoDificuldade();
+
+            RepositoryFactory.Create<ClassificacaoDificuldade>().Save(classificacaoDificuldade);
+
+            return classificacaoDificuldade;
+        }
+
+        public void ExcluaClassificacaoDificuldade(ClassificacaoDificuldade classificacaoDificuldade)
+        {
+            RepositoryFactory.Create<ClassificacaoDificuldade>().Delete(classificacaoDificuldade);
+        }
 
         public Variacao ObtenhaVariacao()
         {

@@ -5,6 +5,7 @@ using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Domain.Financeiro;
+using Fashion.ERP.Domain.Producao;
 
 namespace Fashion.ERP.Testes.Persistencia
 {
@@ -352,6 +353,24 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public Comprimento ObtenhaComprimento()
+        {
+            return new Comprimento()
+            {
+                Ativo = true,
+                Descricao = "COMPRIMENTO"
+            };
+        }
+
+        public ProdutoBase ObtenhaProdutoBase()
+        {
+            return new ProdutoBase()
+            {
+                Ativo = true,
+                Descricao = "DESCRIÇÃO PRODUTO BASE"
+            };
+        }
+
         public Grade ObtenhaGrade()
         {
             return new Grade
@@ -368,6 +387,15 @@ namespace Fashion.ERP.Testes.Persistencia
             {
                 Ativo = true,
                 Descricao = "DESCRIÇÃO DO ARTIGO"
+            };
+        }
+
+        public Segmento ObtenhaSegmento()
+        {
+            return new Segmento()
+            {
+                Ativo = true,
+                Descricao = "DESCRIÇÃO DO SEGMENTO"
             };
         }
 
@@ -1084,6 +1112,45 @@ namespace Fashion.ERP.Testes.Persistencia
                 Tempo = 10,
                 PesoProdutividade = 10
             };
+        }
+        #endregion
+
+        #region Producao
+
+        public FichaTecnicaVariacaoMatriz ObtenhaFichaTecnicaVariacaoMatriz()
+        {
+            return new FichaTecnicaVariacaoMatriz();
+        }
+
+        public FichaTecnicaMatriz ObtenhaFichaTecnicaMatriz()
+        {
+            return new FichaTecnicaMatriz();
+        }
+
+        public FichaTecnicaJeans ObtenhaFichaTecnicaJeans()
+        {
+            var fichaTecnicajeans = new FichaTecnicaJeans()
+            {
+                Descricao = "DESCRIÇÃO DO MODELO",
+                Detalhamento = "DETALHAMENTO DO TECIDO",
+                DataAlteracao = new DateTime(2014, 1, 1),
+                Observacao = "OBSERVAÇÃO",
+                Cos = "10",
+                Passante = "10",
+                Entrepernas = "10",
+                Lavada = "LAVADA",
+                Boca = "10",
+                Tag = "TAG",
+                Ano = 2015,
+                DataCadastro = new DateTime(2015, 1, 1),
+                Pedraria = "PEDRARIA",
+                ProgramacaoProducao = new DateTime(2015, 1, 1),
+                QuantidadeProducaoAprovada = 50,
+                Silk = "SILK",
+                Variante = 1
+            };
+
+            return fichaTecnicajeans;
         }
         #endregion
     }

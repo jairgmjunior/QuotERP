@@ -35,6 +35,8 @@ namespace Fashion.ERP.Domain.Comum
         SupervisorEngenhariaProdução,
         [Display(Name = "Programador bordado")]
         ProgramadorBordado,
+        [Display(Name = "Faturista")]
+        Faturista
     }
 
     public static class FuncaoFuncionarioExtensions

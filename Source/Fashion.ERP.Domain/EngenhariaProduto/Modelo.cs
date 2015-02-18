@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Producao;
 using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.EngenhariaProduto
@@ -17,7 +18,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         private readonly IList<string> _linhasBordado;
         private readonly IList<string> _linhasPesponto;
         private readonly IList<ProgramacaoBordado> _programacaoBordados;
-        private readonly IList<FichaTecnica> _fichaTecnicas = new List<FichaTecnica>();
+        private IList<FichaTecnica> _fichaTecnicas = new List<FichaTecnica>();
         #endregion
 
         #region Construtores
@@ -90,7 +91,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual IList<FichaTecnica> FichaTecnicas
         {
             get { return _fichaTecnicas; }
-            set { value = _fichaTecnicas; }
+            set { _fichaTecnicas = value; }
         }
         #endregion
 

@@ -61,7 +61,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Tamanho);
             
             HasMany(x => x.FichaTecnicas)
-                .Not.KeyNullable()
+                .KeyNullable()
                 .Cascade.SaveUpdate();
 
             HasMany(x => x.LinhasTravete)

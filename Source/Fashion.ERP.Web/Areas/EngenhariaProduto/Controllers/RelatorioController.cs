@@ -41,7 +41,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Categoria> _categoriaRepository;
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
         private readonly IRepository<Familia> _familiaRepository;
-        private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
+        //private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
         private readonly IRepository<ConsumoMaterialColecaoView> _consumoRepository;
         private readonly IRepository<Segmento> _segmentoRepository;
         private readonly IRepository<Artigo> _artigoRepository;
@@ -110,7 +110,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<ProcessoOperacional> naturezaRepository, IRepository<Classificacao> classificacaoRepository,
             IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
-            IRepository<Familia> familiaRepository, IRepository<FichaTecnica> fichaTecnicaRepository,
+            IRepository<Familia> familiaRepository, //IRepository<FichaTecnica> fichaTecnicaRepository,
             IRepository<ConsumoMaterialColecaoView> consumoRepository, IRepository<Grade> gradeRepository,
             IRepository<Marca> marcaRepository, IRepository<ProdutoBase> produtoBaseRepository,
             IRepository<Comprimento> comprimentoRepository, IRepository<Barra> barraRepository, 
@@ -126,7 +126,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _categoriaRepository = categoriaRepository;
             _subcategoriaRepository = subcategoriaRepository;
             _familiaRepository = familiaRepository;
-            _fichaTecnicaRepository = fichaTecnicaRepository;
+            //_fichaTecnicaRepository = fichaTecnicaRepository;
             _consumoRepository = consumoRepository;
             _gradeRepository = gradeRepository;
             _marcaRepository = marcaRepository;
@@ -477,7 +477,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Tag))
             {
-                query = query.Where(p => p.FichaTecnica.Referencia.Contains(model.Tag));
+                query = query.Where(p => p.FichaTecnica.Tag.Contains(model.Tag));
                 filtros.AppendFormat("Tag: {0}, ", model.Tag);
             }
 
@@ -584,7 +584,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     q.Modelo.Descricao,
                     ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
                     DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
-                    Quantidade = q.MaterialComposicao.Quantidade * q.Modelo.FichaTecnicas.Sum(x => x.QuantidadeProducao),
+                    Quantidade = q.MaterialComposicao.Quantidade * q.Modelo.FichaTecnicas.Sum(x => x.QuantidadeProducaoAprovada),
                     NomeFoto = q.MaterialComposicao.Material.Foto.Nome
                 });
             
