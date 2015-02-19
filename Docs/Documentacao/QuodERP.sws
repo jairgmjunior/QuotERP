@@ -11,7 +11,7 @@
 		<Model ID="{D1E7C892-56D8-4109-9B34-97291123F771}" Loaded="No" Name="Compras" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Compras/Compras.oom"/>
 		<Model ID="{361063CB-736F-4E8B-B25C-65648D4E0503}" Loaded="No" Name="Financeiro" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Financeiro/Financeiro.oom"/>
 		<Model ID="{F9FFB9B0-F65E-42A0-AE46-E8B3DBFA2367}" Name="Producao" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Produção/Producao.oom"/>
-		<Model Expanded="Yes" ID="{36D34C6B-0471-4F53-89B0-8C3331601DE4}" Loaded="No" Name="EngenhariaProduto" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Engenharia de Produto/EngenhariaProduto.oom"/>
+		<Model ID="{36D34C6B-0471-4F53-89B0-8C3331601DE4}" Name="EngenhariaProduto" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Engenharia de Produto/EngenhariaProduto.oom"/>
 		<Model ID="{511159E6-922F-40C4-A20E-6AAF7F9B8D20}" Loaded="No" Name="SPED" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="SPED/SPED.oom"/>
 		<Model ID="{3EE9D17B-2F2E-4260-ABB1-719077057118}" Loaded="No" Name="Sistêmico" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Sistemico/Sistêmico.oom"/>
 	</Local>
