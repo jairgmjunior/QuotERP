@@ -12,9 +12,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public long? DepositoMaterial { get; set; }
 
         [Display(Name = "Referência")]
-        [StringLength(20, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
-        public string Referencia { get; set; }
-
+        public long? Material { get; set; }
+        
         [Display(Name = "Descrição")]
         [StringLength(100, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Descricao { get; set; }

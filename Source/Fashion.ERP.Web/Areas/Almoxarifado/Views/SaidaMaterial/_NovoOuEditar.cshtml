@@ -230,6 +230,12 @@
                 return;
             }
 
+            // Verifica se já existe material com o mesmo id na grid
+            var valorMaterial = $("#Material").val();
+            if ($("input[name=Materiais][value=" + valorMaterial + "]").get(0) != null) {
+                alert('Material já selecionado.');
+                return;
+            }
 
             $('#table-sequencia tbody').append(
                     '<tr>\

@@ -29,9 +29,14 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
+                                @Html.Label("referencia-material", "Referência", new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(x => x.Referencia, new { @class = "input-large" })
+                                    @Html.Hidden("Material")
+                                    <div class="input-append">
+                                        <input id="referencia-material" class="input-small" type="text" />
+                                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                                        <span id="descricao-material" class="add-on"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -142,6 +147,12 @@
         columns.Template(item => Html.ActionLink("Extrato", MVC.Almoxarifado.Consulta.ExtratoItem(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-extratoitem" })).Width(80);
     })
 )
+
+
+@{
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}
+
 <script>
 
     $(function () {

@@ -455,8 +455,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                 {
                     var baixaTitulo = new BaixaItemTituloPagarModel
                     {
-                        Id = tituloPagarBaixa.Id,
-                        DataPagamento = tituloPagarBaixa.DataPagamento,
+                        Id = tituloPagarBaixa.Id,                        
+                        DataPagamentoString = tituloPagarBaixa.DataPagamento.ToString("dd/MM/yyyy"),
                         Desconto = tituloPagarBaixa.Descontos,
                         Despesa = tituloPagarBaixa.Despesas,
                         Juro = tituloPagarBaixa.Juros,
@@ -664,7 +664,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         tituloPagar.AddTituloPagarBaixa(new TituloPagarBaixa
                         {
                             DataAlteracao = tituloPagar.DataAlteracao,
-                            DataPagamento = baixa.DataPagamento,
+                            DataPagamento = Convert.ToDateTime(baixa.DataPagamentoString),
                             Descontos = baixa.Desconto.GetValueOrDefault(),
                             Despesas = baixa.Despesa.GetValueOrDefault(),
                             Historico = tituloPagar.Historico,
@@ -709,7 +709,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                         var baixaAtualizar = tituloPagar.TituloPagarBaixas.First(x => x.Id == baixaAtualizarModel.Id);
 
                         baixaAtualizar.DataAlteracao = tituloPagar.DataAlteracao;
-                        baixaAtualizar.DataPagamento = baixaAtualizarModel.DataPagamento;
+                        baixaAtualizar.DataPagamento = Convert.ToDateTime(baixaAtualizarModel.DataPagamentoString);
                         baixaAtualizar.Descontos = baixaAtualizarModel.Desconto.GetValueOrDefault();
                         baixaAtualizar.Despesas = baixaAtualizarModel.Despesa.GetValueOrDefault();
                         baixaAtualizar.Historico = tituloPagar.Historico;

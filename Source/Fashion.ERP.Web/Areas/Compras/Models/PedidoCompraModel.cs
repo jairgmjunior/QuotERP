@@ -11,9 +11,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? Id { get; set; }
 
         [Display(Name = "Número")]
-        [Required(ErrorMessage = "Informe o número do pedido de compra")]
         [Range(1, int.MaxValue)]
-        public long Numero { get; set; }
+        public long? Numero { get; set; }
 
         [Display(Name = "Data da compra")]
         [Required(ErrorMessage = "Informe a data da compra")]

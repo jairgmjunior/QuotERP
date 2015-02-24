@@ -99,12 +99,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         filtros.AppendFormat("Depósito: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterial).Nome);
                 }
 
-                if (!string.IsNullOrWhiteSpace(model.Referencia))
+                if (model.Material.HasValue)
                 {
-                    estoqueMateriais = estoqueMateriais.Where(p => p.Material.Referencia == model.Referencia);
+                    estoqueMateriais = estoqueMateriais.Where(p => p.Material.Id == model.Material);
 
                     if (ehImpressao)
-                        filtros.AppendFormat("Referência: {0}, ", model.Referencia);
+                        filtros.AppendFormat("Referência: {0}, ", model.Material);
                 }
 
                 if (!string.IsNullOrWhiteSpace(model.Descricao))

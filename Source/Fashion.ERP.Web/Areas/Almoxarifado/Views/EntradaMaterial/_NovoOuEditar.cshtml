@@ -292,6 +292,13 @@
                 return;
             }
 
+            // Verifica se já existe material com o mesmo id na grid
+            var valorMaterial = $("#Material").val();
+            if ($("input[name=Materiais][value=" + valorMaterial + "]").get(0) != null) {
+                alert('Material já selecionado.');
+                return;
+            }
+
             // Consultar a unidade de entrada pelo id do catálogo de material
             $.get('/Almoxarifado/Material/UnidadeMedida/' + materialId, function (data) {
                 if (data.Error) {

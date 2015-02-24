@@ -292,7 +292,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo()
         {
-            var model = new PedidoCompraModel { Numero = ProximoNumero() };
+            var model = new PedidoCompraModel();//Numero = ProximoNumero(
             model.GridItens = new List<GridPedidoCompraItem>();
             
             return View(model);
@@ -305,11 +305,16 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
+                    if (!model.Numero.HasValue)
+                    {
+                        model.Numero = ProximoNumero();
+                    }
+
                     var domain = Mapper.Unflat<PedidoCompra>(model);
                     IncluirNovosPedidoCompralItens(model, domain);
-
+                    
                     _pedidoCompraRepository.Save(domain);
-
+                    
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
                     //return RedirectToAction("Index");
                 }
@@ -606,7 +611,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.Id = item.Id;
             pedidoCompraItemModel.MaterialId = item.Material.Id.GetValueOrDefault();
             pedidoCompraItemModel.PrevisaoEntrega = item.PrevisaoEntrega;
-            pedidoCompraItemModel.PrevisaoEntregaString = item.PrevisaoEntrega.HasValue ? item.PrevisaoEntrega.Value.ToString("MM/dd/yyyy") : null;
+            pedidoCompraItemModel.PrevisaoEntregaString = item.PrevisaoEntrega.HasValue ? item.PrevisaoEntrega.Value.ToString("dd/MM/yyyy") : null;
             pedidoCompraItemModel.Quantidade = item.Quantidade;
             pedidoCompraItemModel.Referencia = item.Material.Referencia;
             if (item.ReferenciaExternaMaterial != null)
