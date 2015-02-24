@@ -67,8 +67,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var item = Mapper.Unflat<RecebimentoCompraItem>(recebimentoCompraItemModel);
             item.Material = _materialRepository.Find(p => p.Referencia == recebimentoCompraItemModel.MaterialReferencia).First();
             var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
+
+            var pedidosCompraOrdenados = recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero);
+            var ultimoPedidoCompraId = pedidosCompraOrdenados.Last().Id;
             
-            foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero))
+            foreach (var pedidoCompraId in pedidosCompraOrdenados)
             {
                 if (quantidadeEntradaDisponível <= 0)
                 {
@@ -79,17 +82,21 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                 var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
                 var pedidoCompraItem = pedidoCompra.ObtenhaPedidoCompraItem(item.Material.Referencia);
-
+                
                 if (pedidoCompraItem == null)
                     throw new Exception("Não foi possível localizar no banco o pedidoCompraItem referente ao material: " +
                                         recebimentoCompraItemModel.MaterialReferencia);
                 
-                recebimentoCompra.CrieDetalhamentoRecebimentoCompraItem(pedidoCompra, pedidoCompraItem, ref quantidadeEntradaDisponível, item);
+                var ehUltimo = ultimoPedidoCompraId == pedidoCompraId.Id;
+                var quantidadeDetalhamento = recebimentoCompra.CalculeQuantidadeDetalhamento(quantidadeEntradaDisponível, pedidoCompraItem.Quantidade, ehUltimo);
+                quantidadeEntradaDisponível = quantidadeEntradaDisponível - pedidoCompraItem.Quantidade;
+
+                recebimentoCompra.CrieDetalhamentoRecebimentoCompraItem(pedidoCompra, pedidoCompraItem, quantidadeDetalhamento, item);
             }
 
             return item;
         }
-
+        
         private long ProximoNumero()
         {
             try
@@ -181,11 +188,14 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     continue;
                 }
 
+                var pedidosCompraOrdenados = recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero);
+                var ultimoPedidoCompraId = pedidosCompraOrdenados.Last().Id;
+
                 var item = Mapper.Unflat(recebimentoCompraItemModel, itemSalvo);
-                //item.Quantidade = recebimentoCompraItemModel.QuantidadeEntrada;
-                var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
                 
-                foreach (var pedidoCompraId in recebimentoCompraItemModel.PedidosCompra.OrderBy(x => x.Numero))
+                var quantidadeEntradaDisponível = recebimentoCompraItemModel.QuantidadeEntrada;
+
+                foreach (var pedidoCompraId in pedidosCompraOrdenados)
                 {
                     var pedidoCompra = recebimentoCompra.PedidoCompras.First(p => p.Id == pedidoCompraId.Id);
 
@@ -196,7 +206,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         throw new Exception(
                             "Não foi possível localizar no banco o pedidoCompraItem referente ao material: " +
                             recebimentoCompraItemModel.MaterialReferencia);
-                    
+
                     var detalhamento = item.ObtenhaDetalhamentoRecebimentoCompraItem(pedidoCompra.Id) ??
                         new DetalhamentoRecebimentoCompraItem();
 
@@ -214,10 +224,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         continue;
                     }
 
+                    var ehUltimo = ultimoPedidoCompraId == pedidoCompraId.Id;
+                    var quantidadeDetalhamento = recebimentoCompra.CalculeQuantidadeDetalhamento(quantidadeEntradaDisponível, pedidoCompraItem.Quantidade, ehUltimo);
+                    quantidadeEntradaDisponível = quantidadeEntradaDisponível - pedidoCompraItem.Quantidade;
+
                     detalhamento.PedidoCompra = pedidoCompra;
                     detalhamento.PedidoCompraItem = pedidoCompraItem;
-
-                    detalhamento.CalculeQuantidade(ref quantidadeEntradaDisponível);
+                    detalhamento.Quantidade = quantidadeDetalhamento;
                     
                     if (detalhamento.Id == null)
                     {

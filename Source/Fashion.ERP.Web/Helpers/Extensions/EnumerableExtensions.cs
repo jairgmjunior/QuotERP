@@ -57,6 +57,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         }
         #endregion
 
+        //todo só funciona para agrupar propriedades string
         #region GroupBy
         public static IEnumerable<IGrouping<string, T>> GroupBy<T>(this IEnumerable<T> source, string keySelector)
         {
@@ -74,9 +75,9 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                     body = Expression.Property(body, key);
             }
 
-// ReSharper disable AssignNullToNotNullAttribute
+            // ReSharper disable AssignNullToNotNullAttribute
             return source.GroupBy(Expression.Lambda<Func<T, string>>(body, parameter).Compile());
-// ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore AssignNullToNotNullAttribute
         }
         #endregion
 

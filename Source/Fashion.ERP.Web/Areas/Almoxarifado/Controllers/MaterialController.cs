@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -19,12 +20,12 @@ using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.Util;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 using Telerik.Reporting.Drawing;
+using Expression = NHibernate.Criterion.Expression;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -267,7 +268,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         total.Grafico.DataSource = result;
 
                         // Altura do gráfico
-                        total.Grafico.Height = Unit.Pixel(result.GroupBy(model.AgruparPor).Count() * 30 + 50);
+                        total.Grafico.Height = Unit.Pixel(ObtenhaCountAgrupamentoMaterial(result, model.AgruparPor) * 30 + 50);
 
                         // Agrupar
                         total.Grafico.Series[0].CategoryGroup.Groupings[0].Expression = "=Fields." + model.AgruparPor;
@@ -297,6 +298,50 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 ModelState.AddModelError(string.Empty, message);
                 return View(model);
+            }
+        }
+
+        private int ObtenhaCountAgrupamentoMaterial(IEnumerable<Material> result,  string agruparPor)
+        {switch (agruparPor)
+            {
+                case "Aliquota":
+                    return result.GroupBy(x => x.Aliquota).Count();
+                case "Ativo":
+                    return result.GroupBy(x => x.Ativo).Count();
+                case "Subcategoria.Categoria.Nome":
+                    return result.GroupBy(x => x.Subcategoria.Categoria.Nome).Count();
+                case "CodigoBarra":
+                    return result.GroupBy(x => x.CodigoBarra).Count();
+                case "Descricao":
+                    return result.GroupBy(x => x.Descricao).Count();
+                case "Detalhamento":
+                    return result.GroupBy(x => x.Detalhamento).Count();
+                case "Familia.Nome":
+                    return result.GroupBy(x => x.Familia.Nome).Count();
+                case "GeneroFiscal.Codigo":
+                    return result.GroupBy(x => x.GeneroFiscal.Codigo).Count();
+                case "Localizacao":
+                    return result.GroupBy(x => x.Localizacao).Count();
+                case "Marca.Nome":
+                    return result.GroupBy(x => x.MarcaMaterial.Nome).Count();
+                case "Ncm":
+                    return result.GroupBy(x => x.Ncm).Count();
+                case "Origem":
+                    return result.GroupBy(x => x.OrigemSituacaoTributaria.Descricao).Count();
+                case "PesoBruto":
+                    return result.GroupBy(x => x.PesoBruto).Count();
+                case "PesoLiquido":
+                    return result.GroupBy(x => x.PesoLiquido).Count();
+                case "Referencia":
+                    return result.GroupBy(x => x.Referencia).Count();
+                case "Subcategoria.Nome":
+                    return result.GroupBy(x => x.Subcategoria.Nome).Count();
+                case "TipoItem.Codigo":
+                    return result.GroupBy(x => x.Aliquota).Count();
+                case "UnidadeMedida.Descricao":
+                    return result.GroupBy(x => x.Aliquota).Count();
+                default:
+                    throw new Exception("Agrupador não cadastrado.");
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
+@Html.HiddenFor(x => x.Autorizado)
+
 <fieldset>
     <legend></legend>
     <div class="row">
@@ -17,6 +19,7 @@
                 @Html.LabelForRequired(x => x.SituacaoCompra)
                 <div class="controls">
                     @Html.EditorFor(x => x.SituacaoCompra)
+                    @Html.HiddenFor(x => x.SituacaoCompra)
                 </div>
             </div>
         </div>

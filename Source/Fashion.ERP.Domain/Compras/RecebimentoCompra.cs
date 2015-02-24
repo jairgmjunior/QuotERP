@@ -218,17 +218,27 @@ namespace Fashion.ERP.Domain.Compras
         }
 
         public virtual void CrieDetalhamentoRecebimentoCompraItem(PedidoCompra pedidoCompra, PedidoCompraItem pedidoCompraItem, 
-            ref double quantidadeEntradaDisponível, RecebimentoCompraItem recebimentoCompraItem)
+            double quantidadeDetalhamento, RecebimentoCompraItem recebimentoCompraItem)
         {
             var detalhamento = new DetalhamentoRecebimentoCompraItem
             {
                 PedidoCompra = pedidoCompra,
-                PedidoCompraItem = pedidoCompraItem
+                PedidoCompraItem = pedidoCompraItem,
+                Quantidade = quantidadeDetalhamento
             };
-            detalhamento.CalculeQuantidade(ref quantidadeEntradaDisponível);
-
+            
             DetalhamentoRecebimentoCompraItens.Add(detalhamento);
             recebimentoCompraItem.DetalhamentoRecebimentoCompraItens.Add(detalhamento);
+        }
+
+        public virtual double CalculeQuantidadeDetalhamento(double quantidadeEntradaDisponivel, double quantidadeCompra, bool ehUltimo)
+        {
+            if (ehUltimo || quantidadeCompra > quantidadeEntradaDisponivel)
+            {
+                return quantidadeEntradaDisponivel;
+            }
+
+            return quantidadeCompra;
         }
     }
 }

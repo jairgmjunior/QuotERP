@@ -181,6 +181,7 @@ namespace Fashion.ERP.Reporting.Almoxarifado
             // Filtros
             // 
             this.Filtros.CanGrow = true;
+            this.Filtros.Format = "{0:N2}";
             this.Filtros.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(0D));
             this.Filtros.Name = "Filtros";
             this.Filtros.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(18.897083282470703D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));

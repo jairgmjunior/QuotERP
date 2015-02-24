@@ -9,6 +9,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.Compras.Controllers
@@ -50,12 +51,11 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             {
                 try
                 {
-                    var domain = Mapper.Unflat<ParametroModuloCompra>(model);
+                    var domain = _parametroModuloCompraRepository.Find().FirstOrDefault();
 
-                    if (domain.Id.HasValue)
-                        _parametroModuloCompraRepository.Update(domain);
-                    else
-                        _parametroModuloCompraRepository.Save(domain);
+                    domain = domain == null ? Mapper.Unflat<ParametroModuloCompra>(model) : Mapper.Unflat(model, domain);
+
+                    _parametroModuloCompraRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Parâmetro atualizado com sucesso.");
                     return RedirectToAction("Index");

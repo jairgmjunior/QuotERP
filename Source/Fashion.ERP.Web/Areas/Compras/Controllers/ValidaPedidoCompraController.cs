@@ -128,6 +128,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     }
                     else
                     {
+
+                        if (domain.SituacaoCompra == SituacaoCompra.Cancelado)
+                        {
+                            this.AddErrorMessage("Não é possível validar um pedido de compra com situação 'Cancelado'.");
+                            return View(model);
+                        }
+
                         domain.Autorizado = true;
                         domain.DataAutorizacao = DateTime.Now;
                         domain.ObservacaoAutorizacao = model.ObservacaoValidacao;

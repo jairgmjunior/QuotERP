@@ -372,12 +372,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
-
-                    ExcluirPedidoCompraItens(model,domain);
-                    IncluirNovosPedidoCompralItens(model,domain);
-
-                    domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
                     
+                    if (domain.SituacaoCompra == SituacaoCompra.Cancelado)
+                    {
+                        _pedidoCompraRepository.Evict(domain);
+
+                        this.AddErrorMessage("Pedido de Compra cancelado. Exclusão/Alteração não permitida.");
+                        return new JsonResult { Data = "sucesso" };
+                    }
+
                     if (domain.Autorizado.Equals(true))
                     {
                         _pedidoCompraRepository.Evict(domain);
@@ -385,8 +388,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
                         return new JsonResult { Data = "sucesso" };
                     } 
+
+                    ExcluirPedidoCompraItens(model,domain);
+                    IncluirNovosPedidoCompralItens(model,domain);
+
+                    domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
                     
-                    _pedidoCompraRepository.Update(domain);
+                     _pedidoCompraRepository.Update(domain);
 
                     this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
                     return new JsonResult { Data = "sucesso" };

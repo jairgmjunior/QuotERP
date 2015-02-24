@@ -375,12 +375,13 @@ namespace Fashion.ERP.Reporting.Almoxarifado
             // 
             // FotoCliente
             // 
+            this.FotoCliente.Bindings.Add(new Telerik.Reporting.Binding("Value", "= FashionErp.EnderecoFoto(Fields.Foto.Nome)"));
             this.FotoCliente.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(17.951457977294922D), Telerik.Reporting.Drawing.Unit.Cm(0.00020024616969749332D));
             this.FotoCliente.MimeType = "";
             this.FotoCliente.Name = "FotoCliente";
             this.FotoCliente.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1D), Telerik.Reporting.Drawing.Unit.Cm(1D));
             this.FotoCliente.Sizing = Telerik.Reporting.Drawing.ImageSizeMode.ScaleProportional;
-            this.FotoCliente.Value = "=\"/Uploads/Files/\" + Fields.Foto.Nome";
+            this.FotoCliente.Value = "";
             // 
             // ListaMaterialReport
             // 

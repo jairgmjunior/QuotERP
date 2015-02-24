@@ -557,9 +557,9 @@ namespace Fashion.ERP.Reporting.Almoxarifado
             this.table1.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.ReferenciaExternas"));
             this.table1.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "= FashionErp.Any(ReportItem.DataObject.ReferenciaExternas)"));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6436048746109009D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.1944375038146973D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.1944379806518555D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.1306881904602051D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.5327185392379761D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.5327186584472656D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(5.3956356048583984D)));
             this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.5D)));
             this.table1.Body.SetCellContent(0, 0, this.textBox41);
@@ -648,11 +648,12 @@ namespace Fashion.ERP.Reporting.Almoxarifado
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Bindings.Add(new Telerik.Reporting.Binding("Value", "= FashionErp.EnderecoFoto(Fields.Foto.Nome)"));
             this.pictureBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(15.451457977294922D), Telerik.Reporting.Drawing.Unit.Cm(0.10070121288299561D));
             this.pictureBox1.MimeType = "";
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.4999995231628418D), Telerik.Reporting.Drawing.Unit.Cm(3.5D));
-            this.pictureBox1.Value = "=\"/Uploads/Files/\" + Fields.Foto.Nome";
+            this.pictureBox1.Value = "";
             // 
             // reportHeaderSection1
             // 
