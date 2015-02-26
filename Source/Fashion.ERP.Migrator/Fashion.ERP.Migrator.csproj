@@ -59,6 +59,7 @@
     <Compile Include="Migrations\Migration201503231541.cs" />
     <Compile Include="Migrations\Migration201503201408.cs" />
     <Compile Include="Migrations\Migration201503111115.cs" />
+    <Compile Include="Migrations\Migration201503032233.cs" />
     <Compile Include="Migrations\Migration201502041339.cs" />
     <Compile Include="Migrations\Migration201501201054.cs" />
     <Compile Include="Migrations\Migration201412191021.cs" />

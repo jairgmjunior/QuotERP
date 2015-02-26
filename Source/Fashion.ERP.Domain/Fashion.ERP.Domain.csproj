@@ -138,6 +138,7 @@
     <Compile Include="Comum\Variacao.cs" />
     <Compile Include="Comum\VariacaoModelo.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovado.cs" />
+    <Compile Include="Producao\DefeitoProducao.cs" />
     <Compile Include="Producao\FichaTecnicaFoto.cs" />
     <Compile Include="Producao\FichaTecnicaJeans.cs" />
     <Compile Include="Producao\FichaTecnicaMatriz.cs" />
@@ -221,6 +222,16 @@
     <Compile Include="Financeiro\TituloPagarBaixa.cs" />
     <Compile Include="Financeiro\TituloReceber.cs" />
     <Compile Include="Financeiro\TituloReceberBaixa.cs" />
+    <Compile Include="Producao\OrdemProducao.cs" />
+    <Compile Include="Producao\OrdemProducaoAndamentoFluxo.cs" />
+    <Compile Include="Producao\OrdemProducaoItem.cs" />
+    <Compile Include="Producao\OrdemProducaoItemFechamento.cs" />
+    <Compile Include="Producao\OrdemProducaoItemFechamentoSinistro.cs" />
+    <Compile Include="Producao\OrdemProducaoMaterial.cs" />
+    <Compile Include="Producao\SituacaoOrdemProducao.cs" />
+    <Compile Include="Producao\TipoAndamento.cs" />
+    <Compile Include="Producao\TipoOrdemProducao.cs" />
+    <Compile Include="Producao\TipoSinistroFechamentoOrdemProducao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comum\Usuario.cs" />
     <Compile Include="Relatorio.cs" />
@@ -230,7 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Almoxarifado.cd" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Comum.cd">
       <SubType>Designer</SubType>
     </None>

@@ -87,6 +87,7 @@
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
+    <Compile Include="Producao\OrdemProducaoMap.cs" />
     <Compile Include="Compras\TransportadoraMap.cs" />
     <Compile Include="Compras\PedidoCompraItemCanceladoMap.cs" />
     <Compile Include="Compras\MotivoCancelamentoPedidoCompraMap.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ComprimentoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovadoMap.cs" />
+    <Compile Include="Producao\DefeitoProducaoMap.cs" />
     <Compile Include="Producao\FichaTecnicaFotoMap.cs" />
     <Compile Include="Producao\FichaTecnicaJeansMap.cs" />
     <Compile Include="Producao\FichaTecnicaMap.cs" />
@@ -178,6 +180,11 @@
     <Compile Include="Producao\FichaTecnicaMatrizMap.cs" />
     <Compile Include="Producao\FichaTecnicaSequenciaOperacionalMap.cs" />
     <Compile Include="Producao\FichaTecnicaVariacaoMatrizMap.cs" />
+    <Compile Include="Producao\OrdemProducaoAndamentoFluxoMap.cs" />
+    <Compile Include="Producao\OrdemProducaoItemFechamentoMap.cs" />
+    <Compile Include="Producao\OrdemProducaoItemFechamentoSinistroMap.cs" />
+    <Compile Include="Producao\OrdemProducaoItemMap.cs" />
+    <Compile Include="Producao\OrdemProducaoMaterialMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioMap.cs" />
     <Compile Include="RelatorioParametroMap.cs" />

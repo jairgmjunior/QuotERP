@@ -12,6 +12,9 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
 
         #region Tamanhos
 
+        /// <summary>
+        /// Lista de tamanhos, com ordenação.
+        /// </summary>
         public virtual IDictionary<Tamanho, int> Tamanhos { get; set; }
 
         #endregion
