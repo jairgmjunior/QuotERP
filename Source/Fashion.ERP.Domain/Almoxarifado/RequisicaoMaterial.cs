@@ -98,6 +98,11 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual void BaixeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             Material material, double quantidadeBaixa)
         {
+            if (ReservaMaterial == null)
+            {
+                return;
+            }
+            
             var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
 
             if (reservaMaterialItem == null)
@@ -114,6 +119,11 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual void CanceleReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             Material material, double quantidadeCancelada, string observacaoCancelamento)
         {
+            if (ReservaMaterial == null)
+            {
+                return;
+            }
+            
             var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
 
             if (reservaMaterialItem == null)

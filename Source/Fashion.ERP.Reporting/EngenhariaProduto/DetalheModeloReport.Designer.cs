@@ -649,8 +649,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // table5
             // 
-            this.table5.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.Variacoes"));
-            this.table5.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Variacoes)"));
+            this.table5.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.VariacaoModelos"));
+            this.table5.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.VariacaoModelos)"));
             this.table5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.0307013988494873D)));
             this.table5.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(7.8663825988769531D)));
             this.table5.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999988079071045D)));
@@ -679,7 +679,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox51.Name = "textBox51";
             this.textBox51.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.0307011604309082D), Telerik.Reporting.Drawing.Unit.Cm(0.49999997019767761D));
             this.textBox51.StyleName = "Data";
-            this.textBox51.Value = "= Fields.Nome";
+            this.textBox51.Value = "= Fields.Variacao.Nome";
             // 
             // textBox50
             // 

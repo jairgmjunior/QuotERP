@@ -95,11 +95,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     }
 
                     requisicaoMaterial.AtualizeSituacao();
-                    requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
+
+                    if (requisicaoMaterial.ReservaMaterial != null)
+                    {
+                        requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
+                    }
 
                     _requisicaoMaterialRepository.SaveOrUpdate(requisicaoMaterial);
                     
-                    this.AddSuccessMessage("Item cancelados com sucesso.");
+                    this.AddSuccessMessage("Item(s) cancelados com sucesso.");
                     return RedirectToAction("Index", "RequisicaoMaterial");
                 }
                 catch (Exception exception)

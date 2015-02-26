@@ -95,7 +95,7 @@
                 .Columns(columns =>
                 {
                     columns.Bound(x => x.Id).Hidden();
-                    columns.Bound(x => x.DataRecebimento).Width(150).Format("{0:d}");
+                    columns.Bound(x => x.DataRecebimentoString).Width(150).EditorTemplateName("Date");
                     columns.Bound(x => x.ValorBaixa).Width(120).ClientTemplate("#= kendo.toString(ValorBaixa, 'c') #");
                     columns.Bound(x => x.Juro).Width(120).ClientTemplate("#= kendo.toString(Juro, 'c') #");
                     columns.Bound(x => x.Despesa).Width(120).ClientTemplate("#= kendo.toString(Despesa, 'c') #");
@@ -114,7 +114,6 @@
 
                         model.Id(e => e.Id);
                         model.Field(f => f.TituloReceberId).DefaultValue(Model.Id);
-                        model.Field(f => f.DataRecebimento).DefaultValue(DateTime.Now);
                         model.Field(f => f.ValorBaixa).DefaultValue(0);
                         model.Field(f => f.Juro).DefaultValue(0);
                         model.Field(f => f.Despesa).DefaultValue(0);

@@ -10,9 +10,9 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
 
         public long TituloReceberId { get; set; }
 
-        [Display(Name = "Recebimento")]
-        [Required(ErrorMessage = "Informe a data de recebimento")]
-        public DateTime DataRecebimento { get; set; }
+        [Display(Name = "Pagamento")]
+        [Required(ErrorMessage = "Informe a data de pagamento")]
+        public String DataRecebimentoString { get; set; }
 
         public double Juro { get; set; }
         public double Despesa { get; set; }

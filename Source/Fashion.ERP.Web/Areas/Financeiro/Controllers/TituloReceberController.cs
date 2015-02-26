@@ -456,7 +456,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     {
                         tituloReceber.AddTituloReceberBaixa(new TituloReceberBaixa
                         {
-                            DataRecebimento = baixa.DataRecebimento,
+                            DataRecebimento = Convert.ToDateTime(baixa.DataRecebimentoString),
                             Descontos = baixa.Desconto,
                             Despesas = baixa.Despesa,
                             Historico = tituloReceber.Historico,
@@ -499,8 +499,8 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     foreach (var baixaAtualizarModel in baixasAtualizar)
                     {
                         var baixaAtualizar = tituloReceber.TituloReceberBaixas.First(x => x.Id == baixaAtualizarModel.Id);
-                        
-                        baixaAtualizar.DataRecebimento = baixaAtualizarModel.DataRecebimento;
+
+                        baixaAtualizar.DataRecebimento = Convert.ToDateTime(baixaAtualizarModel.DataRecebimentoString);;
                         baixaAtualizar.Descontos = baixaAtualizarModel.Desconto;
                         baixaAtualizar.Despesas = baixaAtualizarModel.Despesa;
                         baixaAtualizar.Historico = tituloReceber.Historico;
