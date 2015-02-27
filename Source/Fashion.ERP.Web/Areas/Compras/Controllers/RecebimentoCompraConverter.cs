@@ -88,15 +88,21 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                                         recebimentoCompraItemModel.MaterialReferencia);
                 
                 var ehUltimo = ultimoPedidoCompraId == pedidoCompraId.Id;
-                var quantidadeDetalhamento = recebimentoCompra.CalculeQuantidadeDetalhamento(quantidadeEntradaDisponível, pedidoCompraItem.Quantidade, ehUltimo);
-                quantidadeEntradaDisponível = quantidadeEntradaDisponível - pedidoCompraItem.Quantidade;
+                var quantidadeDetalhamento = ObtenhaQuantidadeDetalhamento(recebimentoCompra, pedidoCompraItem, ehUltimo, ref quantidadeEntradaDisponível);
 
                 recebimentoCompra.CrieDetalhamentoRecebimentoCompraItem(pedidoCompra, pedidoCompraItem, quantidadeDetalhamento, item);
             }
 
             return item;
         }
-        
+
+        private double ObtenhaQuantidadeDetalhamento(RecebimentoCompra recebimentoCompra, PedidoCompraItem pedidoCompraItem, bool ehUltimo, ref double quantidadeEntradaDisponível)
+        {
+            var quantidadeDetalhamento = recebimentoCompra.CalculeQuantidadeDetalhamento(quantidadeEntradaDisponível, pedidoCompraItem.ObtenhaDiferenca(), ehUltimo);
+            quantidadeEntradaDisponível = quantidadeEntradaDisponível - quantidadeDetalhamento;
+            return quantidadeDetalhamento;
+        }
+
         private long ProximoNumero()
         {
             try
@@ -225,8 +231,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     }
 
                     var ehUltimo = ultimoPedidoCompraId == pedidoCompraId.Id;
-                    var quantidadeDetalhamento = recebimentoCompra.CalculeQuantidadeDetalhamento(quantidadeEntradaDisponível, pedidoCompraItem.Quantidade, ehUltimo);
-                    quantidadeEntradaDisponível = quantidadeEntradaDisponível - pedidoCompraItem.Quantidade;
+                    var quantidadeDetalhamento = ObtenhaQuantidadeDetalhamento(recebimentoCompra, pedidoCompraItem, ehUltimo, ref quantidadeEntradaDisponível);
 
                     detalhamento.PedidoCompra = pedidoCompra;
                     detalhamento.PedidoCompraItem = pedidoCompraItem;
@@ -253,7 +258,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             model.Grid = new List<PedidoCompraItemRecebimentoModel>();
 
-            foreach (var item in domain.PedidoCompraItens)
+            foreach (var item in domain.PedidoCompraItens.OrderBy(x => x.Material.Referencia))
             {
                 if (item.SituacaoCompra == SituacaoCompra.NaoAtendido ||
                     item.SituacaoCompra == SituacaoCompra.AtendidoParcial)

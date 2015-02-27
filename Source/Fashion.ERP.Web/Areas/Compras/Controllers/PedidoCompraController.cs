@@ -357,7 +357,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 model.ValorCompra = domain.ValorCompra;
                 model.FuncionarioAutorizador = domain.FuncionarioAutorizador != null ? domain.FuncionarioAutorizador.Nome : "";
                 model.GridItens = new List<GridPedidoCompraItem>();
-                foreach (var item in domain.PedidoCompraItens)
+                foreach (var item in domain.PedidoCompraItens.OrderBy(x => x.Material.Referencia))
                 {
                     model.GridItens.Add(ObterPedidoCompraItem(item));
                 }

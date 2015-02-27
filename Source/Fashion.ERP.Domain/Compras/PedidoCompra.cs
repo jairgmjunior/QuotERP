@@ -41,18 +41,7 @@ namespace Fashion.ERP.Domain.Compras
         public virtual double ValorMercadoria { get; set; }
         public virtual double ValorDesconto { get; set; }
         public virtual double ValorCompra { get; set; }
-
-
-        //public virtual double ValorMercadoria
-        //{
-        //    get { return PedidoCompraItens.Sum(x => x.ValorTotal); }
-        //}
         
-        //public virtual double ValorLiquido
-        //{
-        //    get { return ((ValorMercadoria + ValorEncargos + ValorFrete + ValorEmbalagem) - ValorDesconto); }
-        //}
-
         #region pedidoCompraItem
 
         public virtual IReadOnlyCollection<PedidoCompraItem> PedidoCompraItens
@@ -101,14 +90,16 @@ namespace Fashion.ERP.Domain.Compras
 
         public virtual PedidoCompraItem ObtenhaPedidoCompraItem(string referenciaMaterial)
         {
-            return PedidoCompraItens.SingleOrDefault(
-                s => s.Material.Referencia == referenciaMaterial);
+            try
+            {
+                return PedidoCompraItens.SingleOrDefault(
+                    s => s.Material.Referencia == referenciaMaterial);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("O mesmo material foi cadastrado mais de uma vez no pedido de compra. Referência: " +  referenciaMaterial);
+            }
         }
-
-        //public virtual double ObtenhaValorLiquido()
-        //{
-        //    return ValorLiquido;
-        //}
 
         #endregion
     }

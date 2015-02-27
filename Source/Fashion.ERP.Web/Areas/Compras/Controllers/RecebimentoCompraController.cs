@@ -337,7 +337,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     model.DepositoMaterial = domain.EntradaMaterial.DepositoMaterialDestino.Id;
                 }
 
-                model.GridItens = new List<RecebimentoCompraItemModel>(domain.RecebimentoCompraItens.Select( x => 
+                model.GridItens = new List<RecebimentoCompraItemModel>(domain.RecebimentoCompraItens.OrderBy(x => x.Material.Referencia).Select( x => 
                     {
                         var retorno = Mapper.Flat<RecebimentoCompraItemModel>(x);
                         retorno.PedidosCompra =
@@ -567,7 +567,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
             }
             
-            return new JsonResult { Data = listaRetorno };
+            return new JsonResult { Data = listaRetorno.OrderBy(x => x.MaterialReferencia) };
         }
     }
 }

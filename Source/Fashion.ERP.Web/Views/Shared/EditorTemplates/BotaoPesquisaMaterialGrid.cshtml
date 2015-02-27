@@ -118,6 +118,7 @@
 
                 if (dataItem.Referencia == referencia) {
                     alert("Não é possível selecionar o mesmo material mais de uma vez.");
+                    $("#Referencia").val('');
                     return false;
                 }
             }
