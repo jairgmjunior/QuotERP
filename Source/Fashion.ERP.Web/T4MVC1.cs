@@ -166,6 +166,8 @@ namespace T4MVC
     {
         public readonly string Name = "Producao";
         public Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController FichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_FichaTecnicaController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.OrdemProducaoController OrdemProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_OrdemProducaoController();
+        public T4MVC.Producao.FichaTecnicaController FichaTecnica = new T4MVC.Producao.FichaTecnicaController();
     }
 }
 

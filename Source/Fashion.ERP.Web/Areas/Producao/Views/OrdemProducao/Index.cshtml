@@ -1,0 +1,19 @@
+﻿@model Fashion.ERP.Web.Areas.Producao.Models.PesquisaOrdemProducaoModel
+<div class="well well-small">
+    @Html.ActionLinkAuth("Novo", MVC.Producao.OrdemProducao.Novo(), new { @class = "btn btn-primary" })
+</div>
+@Html.ValidationSummaryEx()
+@(Html.Kendo().Grid(Model.Grid)
+	.Name("Grid")
+	.Columns(columns =>
+	{
+		columns.Bound(x => x.Numero);
+		columns.Bound(x => x.Tag);
+		columns.Bound(x => x.Ano);
+		columns.Bound(x => x.Data);
+		columns.Bound(x => x.Descricao);
+		columns.Bound(x => x.Situacao);
+		columns.Bound(x => x.Foto);
+		columns.Template(item => Html.EditarAuth(MVC.Producao.OrdemProducao.Editar(item.Id))).Width(80);
+	})
+)

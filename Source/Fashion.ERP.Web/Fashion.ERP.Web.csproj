@@ -444,6 +444,10 @@
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaVariacaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Controllers\OrdemProducaoController.cs" />
+    <Compile Include="Areas\Producao\Models\GridOrdemProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\OrdemProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaOrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\AprovarModeloController.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
@@ -896,6 +900,9 @@
     <Compile Include="Producao.FichaTecnicaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Producao.OrdemProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1145,6 +1152,9 @@
     <Content Include="Areas\Comum\Views\Variacao\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Variacao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
+    <Content Include="Areas\Producao\Views\OrdemProducao\Index.cshtml" />
+    <Content Include="Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
+    <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

@@ -13,9 +13,9 @@ namespace Fashion.ERP.Domain.Producao
             _ordemProducaoItemFechamentos = new List<OrdemProducaoItemFechamento>();            
         }
 
-        public virtual double QuantidadeSolicitada { get; set; }
-        public virtual double QuantidadeAdicional { get; set; }
-        public virtual double QuantidadeCancelada { get; set; }
+        public virtual int QuantidadeSolicitada { get; set; }
+        public virtual int QuantidadeAdicional { get; set; }
+        public virtual int QuantidadeCancelada { get; set; }
         public virtual SituacaoOrdemProducao SituacaoOrdemProducao { get; set; }
 
         public virtual FichaTecnicaVariacaoMatriz FichaTecnicaVariacaoMatriz { get; set; }

@@ -25,6 +25,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual SituacaoOrdemProducao SituacaoOrdemProducao { get; set; }
         public virtual Pessoa Unidade { get; set; }
         public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
+        public virtual FichaTecnica FichaTecnica { get; set; }
 
         #region OrdemProducaoFluxoBasico
 

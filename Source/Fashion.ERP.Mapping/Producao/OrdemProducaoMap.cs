@@ -18,6 +18,8 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.SituacaoOrdemProducao);
 
             References(x => x.Unidade).Not.Nullable();
+            References(x => x.FichaTecnicaMatriz).Not.Nullable();
+            References(x => x.FichaTecnica).Not.Nullable();
 
             HasMany(x => x.OrdemProducaoFluxoBasico)
                 .Table("ordemproducaofluxobasico")

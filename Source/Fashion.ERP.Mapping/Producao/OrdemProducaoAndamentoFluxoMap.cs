@@ -13,6 +13,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.Quantidade).Not.Nullable();
 
             References(x => x.OrdemProducao).Not.Nullable();
+            References(x => x.DepartamentoProducao).Not.Nullable();
         } 
     }
 }
