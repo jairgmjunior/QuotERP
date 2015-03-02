@@ -104,21 +104,30 @@
                 $('#descricao-material').text('');
             }
         };
+
+        var entrouKeyDown = false;
+
         $('#referencia-material').on({
             keydown: function (e) {
                 if (e.which == 13) {
                     e.preventDefault();
                     pesquisaMaterial($(this).val());
+                    entrouKeyDown = true;
                 }
             },
             focusout: function () {
+                if (entrouKeyDown) {
+                    entrouKeyDown = false;
+                    return;
+                }
+
                 if (!$('#referencia-material').val()) {
                     $('#Material').val('');
                     $('#descricao-material').text('');
                     $('#descricao-material').val('');
-            } else {
-                pesquisaMaterial($(this).val());
-            }
+                } else {
+                    pesquisaMaterial($(this).val());
+                }
         }
         });
         $('#selecionar-material').on('click', selecionarMaterial);

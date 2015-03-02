@@ -145,7 +145,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             var motivoCancelamento = _motivoCancelamentoPedidoCompraRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
             ViewBag.MotivoCancelamento = motivoCancelamento.ToSelectList("Descricao", model.MotivoCancelamento);
             
-            // Catálogo de materiais
+            // Materiais
             var catalogoMateriais = _materialRepository.Find();
             ViewBag.CatalogoReferenciasDicionario = catalogoMateriais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Referencia })
                                                                .ToDictionary(k => k.Id, v => v.Referencia);

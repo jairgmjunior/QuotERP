@@ -126,7 +126,7 @@ namespace Fashion.ERP.Testes.Persistencia
                 Ncm = "NCM",
                 PesoBruto = 1.0,
                 PesoLiquido = 1.0,
-                Localizacao = "LOCALIZAÇÃO DO CATÁLOGO",
+                Localizacao = "LOCALIZAÇÃO DO MATERIAL",
                 TipoItem = ObtenhaTipoItem(),
                 GeneroFiscal = ObtenhaGeneroFiscal(),
                 Tecido = ObtenhaTecido(),

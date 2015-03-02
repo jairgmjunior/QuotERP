@@ -107,6 +107,14 @@
                 @Html.ValidationMessage("Quantidade", new { @class = "help-block" })
             </div>
         </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("QuantidadeEstoque", "Qtde. Estoque", new { @class = "control-label"})
+                <div class="controls">
+                    <input id="quantidadeEstoque" type="text" disabled="disabled"/>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="control-group">
@@ -157,6 +165,26 @@
 
 </fieldset>
 <script>
+    $(document).ready(function () {
+        if ($('#DepositoMaterialOrigem').val() == '') {
+            $("#referencia-material").prop("disabled", true);
+            $("#pesquisar-material").prop("disabled", true);
+        }
+
+        $(function () {
+            $('#DepositoMaterialOrigem').on("change", function () {
+
+                if ($('#DepositoMaterialOrigem').val() == '') {
+                    $("#referencia-material").prop("disabled", true);
+                    $("#pesquisar-material").prop("disabled", true);
+                } else {
+                    $("#referencia-material").prop("disabled", false);
+                    $("#pesquisar-material").prop("disabled", false);
+                }
+            });
+        });
+    });
+
     $(function () {
         $('#UnidadeDestino').on("change", function () {
 
@@ -203,15 +231,12 @@
         $('#Material').on("change", function () {
             var url = '/Almoxarifado/Material/UnidadeMedida/' + this.value;
             $.getJSON(url, function (result) {
-                if (result.Error) {
-                    alert(result.Error);
-                    return;
-                }
-
                 $('#sigla').val(result.Sigla);
+            });
 
-            }).fail(function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
+            url = '/Almoxarifado/Material/QuantidadeEstoque?id=' + this.value + "&depositoId=" + $("#DepositoMaterialOrigem").val();
+            $.getJSON(url, function (result) {
+                $('#quantidadeEstoque').val(result);
             });
         });
 
@@ -238,20 +263,22 @@
             }
 
             $('#table-sequencia tbody').append(
-                    '<tr>\
+                '<tr>\
                     <td>' + referencia + '<input type="hidden" name="Materiais" value="' + materialId + '"/><input type="hidden" name="SaidaItemMateriais" /></td>\
                     <td>' + descricao + '</td>\
                     <td>' + quantidade + '<input type="hidden" name="Quantidades" value="' + quantidade + '"/></td>\
                     <td>' + unidadeMedida + '</td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                 </tr>'
-                );
+            );
 
             // limpar formulário
             $('#referencia-material').val('');
             $('#Material').val('');
             $('#descricao-material').text('');
             $('#Quantidade').data("kendoNumericTextBox").value(0);
+            $('#quantidadeEstoque').val('');
+            $('#sigla').val('');
         });
     });
 

@@ -201,9 +201,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var domain = _familiaRepository.Get(id);
 
-            // Verificar se existe um catálogo de material com esta família
+            // Verificar se existe um material com esta família
             if (_materialRepository.Find().Any(p => p.Familia == domain))
-                ModelState.AddModelError("", "Não é possível excluir esta família, pois existe(m) catálogo(s) de material associadas a ela.");
+                ModelState.AddModelError("", "Não é possível excluir esta família, pois existe(m) material(s) associados a ela.");
         }
         #endregion
 

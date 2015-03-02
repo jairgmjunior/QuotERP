@@ -14,7 +14,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
 
-        [Display(Name = "Referência Catálogo Material")]
+        [Display(Name = "Referência Material")]
         public string ReferenciaMaterial { get; set; }
 
         [Display(Name = "Natureza")]

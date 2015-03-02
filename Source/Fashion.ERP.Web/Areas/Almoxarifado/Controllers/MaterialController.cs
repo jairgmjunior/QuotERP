@@ -44,6 +44,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<OrigemSituacaoTributaria> _origemSituacaoTributariaRepository;
         private readonly IRepository<ReferenciaExterna> _referenciaExternaRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
+        private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaMaterial;
         private readonly string[] _tipoRelatorio = new[] { "Detalhado", "Listagem", "Sintético" };
@@ -58,7 +59,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<GeneroFiscal> generoFiscalRepository, IRepository<Pessoa> pessoaRepository,
             IRepository<OrigemSituacaoTributaria> origemSituacaoTributariaRepository, 
             IRepository<ReferenciaExterna> referenciaExternaRepository,
-            IRepository<UltimoNumero> ultimoNumeroRepository)
+            IRepository<UltimoNumero> ultimoNumeroRepository,
+            IRepository<EstoqueMaterial> estoqueMaterialRepository)
         {
             _materialRepository = materialRepository;
             _categoriaRepository = categoriaRepository;
@@ -72,6 +74,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _origemSituacaoTributariaRepository = origemSituacaoTributariaRepository;
             _referenciaExternaRepository = referenciaExternaRepository;
             _ultimoNumeroRepository = ultimoNumeroRepository;
+            _estoqueMaterialRepository = estoqueMaterialRepository;
             _logger = logger;
 
             PreecheColunasPesquisa();
@@ -886,7 +889,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         #region UnidadeMedida
         [AjaxOnly]
-        public virtual ActionResult UnidadeMedida(long? id /* Id do catálogo de material */)
+        public virtual ActionResult UnidadeMedida(long? id)
         {
             try
             {
@@ -913,6 +916,31 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
 
             return Json(new { Error = "Ocorreu um erro ao buscar a unidade de medida do material." }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Qtde. em Estoque
+        [AjaxOnly]
+        public virtual ActionResult QuantidadeEstoque(long? id, long? depositoId)
+        {
+            try
+            {
+                var domain = _estoqueMaterialRepository.Get(c => c.DepositoMaterial.Id == depositoId.Value && c.Material.Id == id);
+
+                if (domain != null)
+                {
+                    var qtdeEstoque = domain.Quantidade;
+                    return Json(qtdeEstoque, JsonRequestBehavior.AllowGet);
+                }
+                
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.GetMessage());
+            }
+
+            return Json(new { Error = "Ocorreu um erro ao buscar a quantidade em estoque do material." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

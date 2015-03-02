@@ -34,7 +34,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Produto base")]
         public long? ProdutoBase { get; set; }
 
-        [Display(Name = "Referência Catálogo Material")]
+        [Display(Name = "Referência Material")]
         public string ReferenciaMaterial { get; set; }
 
         public long? Comprimento { get; set; }

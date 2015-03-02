@@ -37,7 +37,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Unidade de medida")]
         public long? UnidadeMedida { get; set; }
 
-        [Display(Name = "Marca do catálogo")]
+        [Display(Name = "Marca do material")]
         public long? MarcaMaterial { get; set; }
 
         [Display(Name = "Família")]

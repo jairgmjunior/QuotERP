@@ -469,7 +469,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var unidadeMediasAtivo = unidadeMedidas.Where(p => p.Ativo).ToList();
             ViewData["UnidadeMedida"] = unidadeMediasAtivo.ToSelectList("Sigla", model.UnidadeDestino);
 
-            // Catálogo de materiais
+            // materiais
             var materiais = _materialRepository.Find().Select(s => new {s.Id, s.Referencia, s.Descricao}).ToList();
             ViewBag.MaterialReferenciasDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Referencia })
                                                                .ToDictionary(k => k.Id, v => v.Referencia);

@@ -134,6 +134,14 @@
                 @Html.ValidationMessage("QuantidadeEntrada", new { @class="help-block" })
             </div>
         </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.Label("QuantidadeEstoque", "Qtde. Estoque", new { @class = "control-label"})
+                <div class="controls">
+                    <input id="quantidadeEstoque" type="text" disabled="disabled"/>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="control-group">
@@ -201,6 +209,27 @@
 
 </fieldset>
 <script>
+    
+    $(document).ready(function () {
+        if ($('#DepositoMaterialDestino').val() == '') {
+            $("#referencia-material").prop("disabled", true);
+            $("#pesquisar-material").prop("disabled", true);
+        }
+
+        $(function () {
+            $('#DepositoMaterialDestino').on("change", function () {
+
+                if ($('#DepositoMaterialDestino').val() == '') {
+                    $("#referencia-material").prop("disabled", true);
+                    $("#pesquisar-material").prop("disabled", true);
+                } else {
+                    $("#referencia-material").prop("disabled", false);
+                    $("#pesquisar-material").prop("disabled", false);
+                }
+
+            });
+        });
+    });
     $(function() {
         $('#UnidadeDestino').on("change", function () {
 
@@ -245,18 +274,17 @@
         });
 
         $('#Material').on("change", function () {
+
             var url = '/Almoxarifado/Material/UnidadeMedida/' + this.value;
             $.getJSON(url, function (result) {
-                if (result.Error) {
-                    alert(result.Error);
-                    return;
-                }
-                
                 $('#sigla').val(result.Sigla);
-                
-            }).fail(function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
             });
+
+            url = '/Almoxarifado/Material/QuantidadeEstoque?id=' + this.value + "&depositoId=" + $("#DepositoMaterialDestino").val();
+            $.getJSON(url, function (result) {
+                $('#quantidadeEstoque').val(result);
+            });
+
         });
 
         $('#UnidadeMedida').on('change', function () {
@@ -299,7 +327,7 @@
                 return;
             }
 
-            // Consultar a unidade de entrada pelo id do catálogo de material
+            // Consultar a unidade de entrada pelo id do material
             $.get('/Almoxarifado/Material/UnidadeMedida/' + materialId, function (data) {
                 if (data.Error) {
                     alert(data.Error);
@@ -328,6 +356,8 @@
                 $('#QuantidadeCompra').data("kendoNumericTextBox").value(0);
                 $('#UnidadeMedida')[0].selectedIndex = 0;
                 $('#QuantidadeEntrada').data("kendoNumericTextBox").value(0);
+                $('#sigla').val('');
+                $('#quantidadeEstoque').val('');
             });
         });
     });

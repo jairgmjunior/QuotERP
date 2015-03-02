@@ -28,7 +28,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Tag")]
         public string Tag { get; set; }
 
-        [Display(Name = "Referência Catálogo Material")]
+        [Display(Name = "Referência Material")]
         public string ReferenciaMaterial { get; set; }
 
         /*[Display(Name = "Aprovado em")]

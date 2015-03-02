@@ -288,7 +288,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             else
                 ViewData["DepositoMaterialOrigem"] = new List<DepositoMaterial>().ToSelectList("Nome");
 
-            // Catálogo de materiais
+            // Materiais
             var materiais = _materialRepository.Find().ToList();
             ViewBag.MaterialReferenciasDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.Referencia })
                                                                .ToDictionary(k => k.Id, v => v.Referencia);

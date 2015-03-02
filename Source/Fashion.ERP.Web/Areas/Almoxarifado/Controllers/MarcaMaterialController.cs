@@ -68,12 +68,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain.Ativo = true;
                     _marcaMaterialRepository.Save(domain);
 
-                    this.AddSuccessMessage("Marca do catálogo cadastrada com sucesso.");
+                    this.AddSuccessMessage("Marca do material cadastrada com sucesso.");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar a marca do catálogo. Confira se os dados foram informados corretamente: " + exception.Message);
+                    ModelState.AddModelError(string.Empty, "Não é possível salvar a marca do material. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -95,7 +95,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 return View("Editar", model);
             }
 
-            this.AddErrorMessage("Não foi possível encontrar a marca do catálogo.");
+            this.AddErrorMessage("Não foi possível encontrar a marca do material.");
             return RedirectToAction("Index");
         }
 
@@ -110,12 +110,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     _marcaMaterialRepository.Update(domain);
 
-                    this.AddSuccessMessage("Marca do catálogo atualizada com sucesso.");
+                    this.AddSuccessMessage("Marca do material atualizada com sucesso.");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a marca do catálogo. Confira se os dados foram informados corretamente: " + exception.Message);
+                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a marca do material. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -136,12 +136,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     var domain = _marcaMaterialRepository.Get(id);
                     _marcaMaterialRepository.Delete(domain);
 
-                    this.AddSuccessMessage("Marca do catálogo excluída com sucesso");
+                    this.AddSuccessMessage("Marca do material excluída com sucesso");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao excluir a marca do catálogo: " + exception.Message);
+                    ModelState.AddModelError("", "Ocorreu um erro ao excluir a marca do material: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
@@ -164,7 +164,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     domain.Ativo = situacao;
                     _marcaMaterialRepository.Update(domain);
-                    this.AddSuccessMessage("Marca do catálogo {0} com sucesso", situacao ? "ativada" : "inativada");
+                    this.AddSuccessMessage("Marca do material {0} com sucesso", situacao ? "ativada" : "inativada");
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
             catch (Exception exception)
             {
-                this.AddErrorMessage("Ocorreu um erro ao editar a situação da marca do catálogo: " + exception.Message);
+                this.AddErrorMessage("Ocorreu um erro ao editar a situação da marca do material: " + exception.Message);
                 _logger.Info(exception.GetMessage());
             }
 
@@ -192,7 +192,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             // Verificar duplicado
             if (_marcaMaterialRepository.Find(p => p.Nome == marcaMaterial.Nome && p.Id != marcaMaterial.Id).Any())
-                ModelState.AddModelError("Nome", "Já existe uma marca do catálogo cadastrada com este nome.");
+                ModelState.AddModelError("Nome", "Já existe uma marca do material cadastrada com este nome.");
         }
         #endregion
 
@@ -201,9 +201,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var domain = _marcaMaterialRepository.Get(id);
 
-            // Verificar se existe um catálogo de material com esta subcategoria
+            // Verificar se existe um material com esta subcategoria
             if (_materialRepository.Find().Any(p => p.MarcaMaterial == domain))
-                ModelState.AddModelError("", "Não é possível excluir esta marca do catálogo, pois existe(m) catálogo(s) de material associadas a ela.");
+                ModelState.AddModelError("", "Não é possível excluir esta marca do material, pois existe(m) material(s) associados a ela.");
         }
         #endregion
 

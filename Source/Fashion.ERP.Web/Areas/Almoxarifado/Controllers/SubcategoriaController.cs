@@ -231,9 +231,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var domain = _subcategoriaRepository.Get(id);
 
-            // Verificar se existe um catálogo de material com esta subcategoria
+            // Verificar se existe um material com esta subcategoria
             if (_materialRepository.Find().Any(p => p.Subcategoria == domain))
-                ModelState.AddModelError("", "Não é possível excluir esta subcategoria, pois existe(m) catálogo(s) de material associadas a ela.");
+                ModelState.AddModelError("", "Não é possível excluir esta subcategoria, pois existe(m) material(s) associadas a ela.");
         }
         #endregion
 

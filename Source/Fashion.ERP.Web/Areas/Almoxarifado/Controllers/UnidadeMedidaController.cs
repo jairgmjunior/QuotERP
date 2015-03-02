@@ -235,9 +235,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var domain = _unidadeMedidaRepository.Get(id);
 
-            // Verificar se existe um catálogo de material com esta unidade de medida
+            // Verificar se existe um material com esta unidade de medida
             if (_materialRepository.Find().Any(p => p.UnidadeMedida == domain))
-                ModelState.AddModelError("", "Não é possível excluir esta unidade de medida, pois existe(m) catálogo(s) de material associadas a ela.");
+                ModelState.AddModelError("", "Não é possível excluir esta unidade de medida, pois existe(m) material(s) associados a ela.");
         }
         #endregion
 
