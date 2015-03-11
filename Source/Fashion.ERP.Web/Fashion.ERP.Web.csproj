@@ -436,6 +436,12 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
+    <Compile Include="Areas\Producao\Models\FichaTecnicaBasicosModel.cs" />
+    <Compile Include="Areas\Producao\Models\FichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridFichaTecnicaVariacaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaFichaTecnicaModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\AprovarModeloController.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
@@ -1128,7 +1134,7 @@
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Index.cshtml" />
     <Content Include="Areas\Producao\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\Producao\Views\FichaTecnica\Baixa.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Devolucao.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Index.cshtml" />
@@ -1431,6 +1437,8 @@
     <Content Include="Views\Shared\EditorTemplates\currency4casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\numeric5casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\currency5casasdecimais.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\VariacaoList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CorList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1440,8 +1448,6 @@
     <Folder Include="Areas\Dev\Shared\" />
     <Folder Include="Areas\EngenhariaProduto\Shared\" />
     <Folder Include="Areas\Financeiro\Shared\" />
-    <Folder Include="Areas\Producao\Controllers\" />
-    <Folder Include="Areas\Producao\Models\" />
     <Folder Include="Areas\Producao\Shared\" />
     <Folder Include="CodeTemplates\MvcControllerEmpty\" />
     <Folder Include="Uploads\Files\" />

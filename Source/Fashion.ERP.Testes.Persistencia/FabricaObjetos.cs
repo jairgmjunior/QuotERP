@@ -1122,6 +1122,16 @@ namespace Fashion.ERP.Testes.Persistencia
             return new FichaTecnicaVariacaoMatriz();
         }
 
+        public FichaTecnicaFoto ObtenhaFichaTecnicaFoto()
+        {
+            return new FichaTecnicaFoto()
+            {
+                Descricao = "DESCRIÇÃO",
+                Impressao = true,
+                Padrao = true
+            };
+        }
+
         public FichaTecnicaMatriz ObtenhaFichaTecnicaMatriz()
         {
             return new FichaTecnicaMatriz();
@@ -1144,10 +1154,9 @@ namespace Fashion.ERP.Testes.Persistencia
                 Ano = 2015,
                 DataCadastro = new DateTime(2015, 1, 1),
                 Pedraria = "PEDRARIA",
-                ProgramacaoProducao = new DateTime(2015, 1, 1),
                 QuantidadeProducaoAprovada = 50,
-                Silk = "SILK",
-                Variante = 1
+                Silk = "SILK"
+                //Variante = 1
             };
 
             return fichaTecnicajeans;

@@ -1,0 +1,9 @@
+﻿@model String
+
+@(Html.Kendo().DropDownList()
+    .BindTo(ViewBag.Variacaos)
+    .OptionLabel("- Selecione -")
+    .DataTextField("Nome")
+    .DataValueField("Id")
+    .Name("Variacao")
+)

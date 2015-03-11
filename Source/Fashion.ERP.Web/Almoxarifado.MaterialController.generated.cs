@@ -121,6 +121,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult QuantidadeEstoque()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuantidadeEstoque);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult VerificarReferencia()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarReferencia);
@@ -158,6 +164,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string PesquisarReferenciaReferenciaExterna = "PesquisarReferenciaReferenciaExterna";
             public readonly string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public readonly string UnidadeMedida = "UnidadeMedida";
+            public readonly string QuantidadeEstoque = "QuantidadeEstoque";
             public readonly string VerificarReferencia = "VerificarReferencia";
         }
 
@@ -181,6 +188,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string PesquisarReferenciaReferenciaExterna = "PesquisarReferenciaReferenciaExterna";
             public const string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public const string UnidadeMedida = "UnidadeMedida";
+            public const string QuantidadeEstoque = "QuantidadeEstoque";
             public const string VerificarReferencia = "VerificarReferencia";
         }
 
@@ -307,6 +315,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionParamsClass_UnidadeMedida
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_QuantidadeEstoque s_params_QuantidadeEstoque = new ActionParamsClass_QuantidadeEstoque();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_QuantidadeEstoque QuantidadeEstoqueParams { get { return s_params_QuantidadeEstoque; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_QuantidadeEstoque
+        {
+            public readonly string id = "id";
+            public readonly string depositoId = "depositoId";
         }
         static readonly ActionParamsClass_VerificarReferencia s_params_VerificarReferencia = new ActionParamsClass_VerificarReferencia();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -542,6 +559,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnidadeMedida);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             UnidadeMedidaOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void QuantidadeEstoqueOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id, long? depositoId);
+
+        public override System.Web.Mvc.ActionResult QuantidadeEstoque(long? id, long? depositoId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuantidadeEstoque);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "depositoId", depositoId);
+            QuantidadeEstoqueOverride(callInfo, id, depositoId);
             return callInfo;
         }
 

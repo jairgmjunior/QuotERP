@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
-using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Comum.Models;
 using Fashion.ERP.Web.Helpers;
@@ -207,7 +206,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 ModelState.AddModelError("", "Não é possível excluir esta cor, pois existe(m) variação(ões) de modelo associadas a ela.");
         }
         #endregion
-
+        
         #endregion
     }
 }

@@ -108,5 +108,11 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             return new SelectList(collection, dataValueField, dataTextField, selectedValue);
         }
         #endregion
+
+        public static string FromDictionaryToJson(this Dictionary<string, string> dictionary)
+        {
+            var kvs = dictionary.Select(kvp => string.Format("\"{0}\":\"{1}\"", kvp.Key, string.Join(",", kvp.Value)));
+            return string.Concat("{", string.Join(",", kvs), "}");
+        }
     }
 }

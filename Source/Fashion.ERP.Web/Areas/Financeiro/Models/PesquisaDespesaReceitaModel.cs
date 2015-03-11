@@ -32,6 +32,5 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         public TipoDespesaReceita? TipoDespesaReceita { get; set; }
 
         public IList<GridDespesaReceitaModel> Grid { get; set; }
-        
     }
 }

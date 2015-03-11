@@ -77,6 +77,7 @@ namespace T4MVC
                 public readonly string CentroCustoList = "CentroCustoList";
                 public readonly string Cep = "Cep";
                 public readonly string Cnpj = "Cnpj";
+                public readonly string CorList = "CorList";
                 public readonly string Cpf = "Cpf";
                 public readonly string currency4casasdecimais = "currency4casasdecimais";
                 public readonly string currency5casasdecimais = "currency5casasdecimais";
@@ -100,6 +101,7 @@ namespace T4MVC
                 public readonly string SituacaoTitulo = "SituacaoTitulo";
                 public readonly string UnidadeList = "UnidadeList";
                 public readonly string UnidadeMedidaList = "UnidadeMedidaList";
+                public readonly string VariacaoList = "VariacaoList";
             }
         }
     }

@@ -20,11 +20,171 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace T4MVC.Producao
+namespace Fashion.ERP.Web.Areas.Producao.Controllers
 {
-    public class FichaTecnicaController
+    public partial class FichaTecnicaController
     {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected FichaTecnicaController(Dummy d) { }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Basicos()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Basicos);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Editar()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Excluir()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Create()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Create);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Update()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Update);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInline_Destroy()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Destroy);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public FichaTecnicaController Actions { get { return MVC.Producao.FichaTecnica; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "Producao";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "FichaTecnica";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "FichaTecnica";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Novo = "Novo";
+            public readonly string Basicos = "Basicos";
+            public readonly string Editar = "Editar";
+            public readonly string Excluir = "Excluir";
+            public readonly string EditingInline_Read = "EditingInline_Read";
+            public readonly string EditingInline_Create = "EditingInline_Create";
+            public readonly string EditingInline_Update = "EditingInline_Update";
+            public readonly string EditingInline_Destroy = "EditingInline_Destroy";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Novo = "Novo";
+            public const string Basicos = "Basicos";
+            public const string Editar = "Editar";
+            public const string Excluir = "Excluir";
+            public const string EditingInline_Read = "EditingInline_Read";
+            public const string EditingInline_Create = "EditingInline_Create";
+            public const string EditingInline_Update = "EditingInline_Update";
+            public const string EditingInline_Destroy = "EditingInline_Destroy";
+        }
+
+
+        static readonly ActionParamsClass_Basicos s_params_Basicos = new ActionParamsClass_Basicos();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Basicos BasicosParams { get { return s_params_Basicos; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Basicos
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Editar
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Excluir ExcluirParams { get { return s_params_Excluir; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Excluir
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_EditingInline_Read s_params_EditingInline_Read = new ActionParamsClass_EditingInline_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Read EditingInline_ReadParams { get { return s_params_EditingInline_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_EditingInline_Create s_params_EditingInline_Create = new ActionParamsClass_EditingInline_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Create EditingInline_CreateParams { get { return s_params_EditingInline_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Create
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaVariacaoModel = "fichaTecnicaVariacaoModel";
+        }
+        static readonly ActionParamsClass_EditingInline_Update s_params_EditingInline_Update = new ActionParamsClass_EditingInline_Update();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Update EditingInline_UpdateParams { get { return s_params_EditingInline_Update; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Update
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaVariacaoModel = "fichaTecnicaVariacaoModel";
+        }
+        static readonly ActionParamsClass_EditingInline_Destroy s_params_EditingInline_Destroy = new ActionParamsClass_EditingInline_Destroy();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInline_Destroy EditingInline_DestroyParams { get { return s_params_EditingInline_Destroy; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInline_Destroy
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaVariacaoModel = "fichaTecnicaVariacaoModel";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -36,14 +196,14 @@ namespace T4MVC.Producao
             public class _ViewNamesClass
             {
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
-                public readonly string Baixa = "Baixa";
+                public readonly string Basicos = "Basicos";
                 public readonly string Devolucao = "Devolucao";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/FichaTecnica/_NovoOuEditar.cshtml";
-            public readonly string Baixa = "~/Areas/Producao/Views/FichaTecnica/Baixa.cshtml";
+            public readonly string Basicos = "~/Areas/Producao/Views/FichaTecnica/Basicos.cshtml";
             public readonly string Devolucao = "~/Areas/Producao/Views/FichaTecnica/Devolucao.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/FichaTecnica/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
@@ -51,6 +211,113 @@ namespace T4MVC.Producao
         }
     }
 
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_FichaTecnicaController : Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController
+    {
+        public T4MVC_FichaTecnicaController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Novo()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Novo);
+            NovoOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void BasicosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.ActionResult Basicos(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Basicos);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            BasicosOverride(callInfo, fichaTecnicaId);
+            return callInfo;
+        }
+
+        partial void BasicosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaBasicosModel model);
+
+        public override System.Web.Mvc.ActionResult Basicos(Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaBasicosModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Basicos);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            BasicosOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult Editar(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            EditarOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void ExcluirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
+
+        public override System.Web.Mvc.ActionResult Excluir(long? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ExcluirOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void EditingInline_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            EditingInline_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void EditingInline_CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Create(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaVariacaoModel", fichaTecnicaVariacaoModel);
+            EditingInline_CreateOverride(callInfo, request, fichaTecnicaVariacaoModel);
+            return callInfo;
+        }
+
+        partial void EditingInline_UpdateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Update(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Update);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaVariacaoModel", fichaTecnicaVariacaoModel);
+            EditingInline_UpdateOverride(callInfo, request, fichaTecnicaVariacaoModel);
+            return callInfo;
+        }
+
+        partial void EditingInline_DestroyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel);
+
+        public override System.Web.Mvc.ActionResult EditingInline_Destroy(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Destroy);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaVariacaoModel", fichaTecnicaVariacaoModel);
+            EditingInline_DestroyOverride(callInfo, request, fichaTecnicaVariacaoModel);
+            return callInfo;
+        }
+
+    }
 }
 
 #endregion T4MVC

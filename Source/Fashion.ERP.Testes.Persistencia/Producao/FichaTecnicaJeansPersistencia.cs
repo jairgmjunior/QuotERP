@@ -1,4 +1,4 @@
-﻿using Fashion.ERP.Domain.Almoxarifado;
+﻿using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Domain.Producao;
@@ -19,12 +19,14 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private Variacao _variacao;
         private FichaTecnicaVariacaoMatriz _fichaTecnicaVariacaoMatriz;
         private FichaTecnicaMatriz _fichaTecnicaMatriz;
+        private FichaTecnicaFoto _fichaTecnicaFoto;
         private Cor _cor;
         private ClassificacaoDificuldade _classificacaoDificuldade;
         private Segmento _segmento;
         private Barra _barra;
         private ProdutoBase _produtoBase;
         private Comprimento _comprimento;
+        private Arquivo _arquivo;
 
         public override FichaTecnicaJeans GetPersistentObject()
         {
@@ -60,6 +62,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _barra = FabricaObjetosPersistidos.ObtenhaBarra();
             _produtoBase = FabricaObjetosPersistidos.ObtenhaProdutoBase();
             _comprimento = FabricaObjetosPersistidos.ObtenhaComprimento();
+            _arquivo = FabricaObjetosPersistidos.ObtenhaArquivo();
             
             _fichaTecnicaVariacaoMatriz = FabricaObjetos.ObtenhaFichaTecnicaVariacaoMatriz();
             _fichaTecnicaVariacaoMatriz.Variacao = _variacao;
@@ -67,7 +70,9 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _fichaTecnicaMatriz = FabricaObjetos.ObtenhaFichaTecnicaMatriz();
             _fichaTecnicaMatriz.Grade = _grade;
             _fichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(_fichaTecnicaVariacaoMatriz);
-
+            _fichaTecnicaFoto = FabricaObjetos.ObtenhaFichaTecnicaFoto();
+            _fichaTecnicaFoto.Arquivo = _arquivo;
+            
             Session.Current.Flush();
         }
 
