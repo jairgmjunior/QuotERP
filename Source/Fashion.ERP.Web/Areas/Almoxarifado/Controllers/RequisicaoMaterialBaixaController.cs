@@ -163,10 +163,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 saidaMaterial.CrieSaidaItemMaterial(_estoqueMaterialRepository, material, itemModel.QtdeBaixa);
                 requisicaoMaterial.BaixeReservaMaterial(_reservaEstoqueMaterialRepository, material, itemModel.QtdeBaixa);
             }
-            
 
             requisicaoMaterial.SaidaMaterials.Add(saidaMaterial);
-            requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
+
+            if (requisicaoMaterial.ReservaMaterial != null)
+            {
+                requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
+            }
 
             return true;
         }

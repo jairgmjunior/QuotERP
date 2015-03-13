@@ -2,6 +2,8 @@
 
 @Html.HiddenFor(x => x.Autorizado)
 
+@*Criada para contornar um BUG no kendo*@
+@Html.Hidden("FlagValidacaoValorUnitario")
 <fieldset>
     <legend></legend>
     <div class="row">
@@ -215,6 +217,7 @@
                     model.Field(product => product.UnidadeMedida).Editable(true);
                     model.Field(product => product.PrevisaoEntrega).Editable(true);
                     model.Field(product => product.ValorTotal).Editable(true);
+                    model.Field(product => product.ValorUnitario).Editable(true);
                 })
                 .Create(update => update.Action("EditingInline_Create", "PedidoCompra"))
                 .Read(read => read.Action("EditingInline_Read", "PedidoCompra"))
@@ -417,6 +420,8 @@
         $('#ValorEmbalagem').blur(function () {
             AtualizaValorCompra();
         });
+
+        $('#FlagValidacaoValorUnitario').val(true);
     });
 
     function registreScriptsGrid() {
@@ -440,6 +445,22 @@
                 return false;
             }
             return true;
+        });
+
+        $('#Descricao').change(function (e) {
+            var referencia = $("#Referencia").val();
+            if (referencia != '') {
+                var url = '/Almoxarifado/Material/ObtenhaCusto?referencia=' + referencia;
+                $.getJSON(url, function (result) {
+                    var item = ObtenhaDataItemGridItens(e.target);
+                    $('#FlagValidacaoValorUnitario').val(false);
+                    item.set("ValorUnitario", result.Custo);
+                    //setTimeout(500);
+                    $('#FlagValidacaoValorUnitario').val(true);
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            }
         });
     }
 
@@ -705,13 +726,20 @@
                     }
                     return true;
                 },
-                valorunitariovalidation: function (input, params) {
+                ValorUnitariovalidation: function (input, params) {
                     if (input.is("[name='ValorUnitario']")) {
-                        return input.val() != '' && input.val() != 0;
+                        if ($('#FlagValidacaoValorUnitario').val() == "false") {
+                            return true;
+                        }
+                        var dataItem = ObtenhaDataItemGridItens(input);
+
+                        if (dataItem.ValorUnitario == null) {
+                            return false;
+                        }
                     }
                     return true;
                 },
-                descontovalidation: function (input, params) {
+                valordescontovalidation: function (input, params) {
                     if (input.is("[name='ValorDesconto']")) {
                         var dataItem = ObtenhaDataItemGridItens(input);
 
@@ -736,13 +764,13 @@
                     input.attr("data-quantidadevalidation-msg", "A Quantidade não pode ser 0.");
                     return input.attr("data-quantidadevalidation-msg");
                 },
-                valorunitariovalidation: function (input) {
-                    input.attr("data-valorunitariovalidation-msg", "O Preço não pode ser 0.");
-                    return input.attr("data-valorunitariovalidation-msg");
+                ValorUnitariovalidation: function (input) {
+                    input.attr("data-ValorUnitariovalidation-msg", "O Preço não pode ser 0.");
+                    return input.attr("data-ValorUnitariovalidation-msg");
                 },
-                descontovalidation: function (input) {
-                    input.attr("data-descontovalidation-msg", "O Desconto não pode ser maior que o valor total.");
-                    return input.attr("data-descontovalidation-msg");
+                valordescontovalidation: function (input) {
+                    input.attr("data-valordescontovalidation-msg", "O Desconto não pode ser maior que o valor total.");
+                    return input.attr("data-valordescontovalidation-msg");
                 },
                 referenciavalidation: function (input) {
                     input.attr("data-referenciavalidation-msg", "O material deve ser selecionado");

@@ -59,50 +59,62 @@
                 $.getJSON(url, function(data) {
                     if (data.erro) {
                         alert(data.erro);
-                        $('#Referencia').val('');
-                        $('#Descricao').text('');
+                        limpeLinhaGrid();
                     } else {
                         var gridItens = $('#GridItens').data("kendoGrid");
                         
                         if (!valideReferenciaExistenteNaGrid(data.Referencia)) {
                             return;
                         }
-
                         var tr = $("#Referencia").closest("tr");
                         var dataGridItens = gridItens.dataItem(tr);
                         dataGridItens.set("Descricao", data.Descricao);
                         dataGridItens.set("Referencia", data.Referencia);
                         dataGridItens.set("UnidadeMedida", data.UnidadeMedida);
                         dataGridItens.set("ReferenciaExterna", data.ReferenciaExterna);
+                        $("#Descricao").trigger("change");
                     }
                 });
             } else {
-                $('#Referencia').val('');
-                $('#Descricao').text('');
+                limpeLinhaGrid();
             }
         };
+
+        var entrouKeyDown = false;
         $('#Referencia').on({
             keydown: function (e) {
                 if (e.which == 13) {
                     e.preventDefault();
+                    if (!$('#Referencia').val()) {
+                        limpeLinhaGrid();
+                    }
                     pesquisaMaterial($(this).val());
+                    entrouKeyDown = true;
                 }
             },
             focusout: function () {
+                if (entrouKeyDown) {
+                    entrouKeyDown = false;
+                    return;
+                }
                 if (!$('#Referencia').val()) {
-                    $('#Descricao').text('');
-                    $('#Descricao').val('');
-                    $('#UnidadeMedida').val('');
-                    $('#ReferenciaExterna').val('');
+                    limpeLinhaGrid();
                 } else {
-                    //if ($('#Referencia').is('[readonly]')) {
-                    //    return;
-                    //}
                     pesquisaMaterial($(this).val());
                 }
             }
         });
         $('#selecionar-material').on('click', selecionarMaterial);
+
+        function limpeLinhaGrid() {
+            var gridItens = $('#GridItens').data("kendoGrid");
+            var tr = $("#Referencia").closest("tr");
+            var dataGridItens = gridItens.dataItem(tr);
+            dataGridItens.set("Descricao", null);
+            dataGridItens.set("Referencia", null);
+            dataGridItens.set("UnidadeMedida", null);
+            dataGridItens.set("ReferenciaExterna", null);
+        }
 
         function valideReferenciaExistenteNaGrid(referencia) {
             var grid = $('#GridItens').data("kendoGrid");

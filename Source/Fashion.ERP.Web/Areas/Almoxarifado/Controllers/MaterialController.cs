@@ -1069,6 +1069,26 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region ValorCusto
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaCusto(string referencia)
+        {
+            var material = _materialRepository.Get(p => p.Referencia == referencia);
+            double? valorcusto = null;
+            if (material != null)
+            {
+                var custoMaterial = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
+                if (custoMaterial != null)
+                {
+                    valorcusto = custoMaterial.Custo;
+                }
+            }
+
+            var result = new { Custo = valorcusto };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #endregion
     }
 }
