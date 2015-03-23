@@ -204,8 +204,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível aprovar o modelo. Confira se os dados foram informados corretamente: " + exception.Message);
-                    _logger.Info(exception.GetMessage());
+                    var mensagem = "Não é possível aprovar o modelo. Confira se os dados foram informados corretamente: " + exception.Message;
+                    ModelState.AddModelError(string.Empty, mensagem);
+                    _logger.Info(mensagem);
                 }
             }
 
@@ -316,7 +317,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             var userId = FashionSecurity.GetLoggedUserId();
             var usuario = _usuarioRepository.Get(userId);
-            return usuario.Funcionario != null ? usuario.Funcionario.Id : null;
+            
+            if (usuario.Funcionario == null)
+            {
+                throw new Exception("O usuário logado não possui funcionário associado a ele.");
+            }
+
+            return usuario.Funcionario.Id;
         }
 
         #endregion
