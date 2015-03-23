@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Web.Models;
 
@@ -33,6 +32,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
 
+        [Display(Name = "Descrição")]
+        public string Descricao { get; set; }
+
         [Display(Name = "Data aprovação")]
         [Required(ErrorMessage = "Informe a data de aprovação")]
         public DateTime? DataAprovacao { get; set; }
@@ -46,48 +48,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [StringLength(250, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string ObservacaoAprovacao { get; set; }
 
-        [Display(Name = "Programação produção")]
+        [Display(Name = "Programação de produção")]
+        [Required(ErrorMessage = "informe a data de programação da produção")]
         public DateTime? ProgramacaoProducao { get; set; }
 
         [Display(Name = "Quantidade produção")]
         [Required(ErrorMessage = "Informe a quantidade de itens para a produção")]
-        public int? QuantidadeProducao { get; set; }
+        public long? QuantidadeProducao { get; set; }
 
         [Display(Name = "Coleção aprovada")]
+        [Required(ErrorMessage = "Informe a coleção aprovada")]
         public long? Colecao { get; set; }
-        
-        public long? Barra { get; set; }
-        public long? Segmento { get; set; }
-
-        [Display(Name = "Produto base")]
-        public long? ProdutoBase { get; set; }
-        public long? Comprimento { get; set; }
-        public long? Natureza { get; set; }
-        public long? Grade { get; set; }
 
         [Display(Name = "Dificuldade")]
+        [Required(ErrorMessage = "Informe a dificuldade")]
         public long? ClassificacaoDificuldade { get; set; }
-
-        public string ProdutoBaseDescricao { get; set; }
-        public string ComprimentoDescricao { get; set; }
-        public string BarraDescricao { get; set; }
-
-        [Display(Name = "Descrição")]
-        public string Descricao { get; set; }
-
-        [Display(Name = "Possui submodelos")]
-        public bool PossuiSubmodelos { get; set; }
-
-        public List<int> Sequencias { get; set; }
-
-        public List<long> ProdutoBases { get; set; }
-
-        public List<long> Comprimentos { get; set; }
-
-        public List<string> Descricoes { get; set; }
-
-        public List<long> Barras { get; set; }
-
-        public List<int> QuantidadeProducoes { get; set; }
     }
 }

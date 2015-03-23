@@ -236,7 +236,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                 if (!string.IsNullOrWhiteSpace(model.Tag))
                 {
-                    modelos = modelos.Where(p => p.Tag.Contains(model.Tag));
+                    modelos = modelos.Where(p => p.ModeloAprovado!= null && p.ModeloAprovado.Tag.Contains(model.Tag));
                     filtros.AppendFormat("Tag: {0}, ", model.Tag);
                 }
 
@@ -368,11 +368,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var dataAgora = DateTime.Now;
                     domain.DataCriacao = dataAgora;
                     domain.DataAlteracao = dataAgora;
-                    if (domain.DataPrevisaoEnvio.HasValue)
-                    {
-                        DateTime dataPrevisaoEnvio = domain.DataPrevisaoEnvio.GetValueOrDefault();
-                        domain.DataPrevisaoEnvio = new DateTime(dataPrevisaoEnvio.Year, dataPrevisaoEnvio.Month, dataPrevisaoEnvio.Day);
-                    }
 
                     // Fotos
                     foreach (var foto in Fotos)
@@ -453,12 +448,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _modeloRepository.Get(model.Id));
-
-                    if (domain.DataPrevisaoEnvio.HasValue)
-                    {
-                        DateTime dataPrevisaoEnvio = domain.DataPrevisaoEnvio.GetValueOrDefault();
-                        domain.DataPrevisaoEnvio = new DateTime(dataPrevisaoEnvio.Year, dataPrevisaoEnvio.Month, dataPrevisaoEnvio.Day);
-                    }
 
                     // Fotos
                     var fotos = domain.Fotos.Where(p => Fotos.Any(q => p.Id == q.Id) == false).ToList();
@@ -560,8 +549,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                 : domain.Aprovado.Value ? "Aprovado" : "Reprovado",
                 DataAprovacao = domain.Aprovado ?? false
                                 ? DateTime.Now.ToString("dd/MM/yyyy") : string.Empty,
-                DataPrevisaoEnvio = domain.DataPrevisaoEnvio.HasValue
-                                    ? domain.DataPrevisaoEnvio.Value.ToString("dd/MM/yyyy")
+                DataPrevisaoEnvio = domain.ModeloAprovado != null
+                                    ? domain.ModeloAprovado.DataProgramacaoProducao.ToString("dd/MM/yyyy")
                                     : string.Empty,
                 Modelista = domain.Modelista != null ? domain.Modelista.Nome : null,
                 Cos = domain.Cos.HasValue ? domain.Cos.Value.ToString("N2") : string.Empty,
@@ -571,16 +560,16 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 Modelagem = domain.Modelagem,
                 EtiquetaMarca = domain.EtiquetaMarca,
                 EtiquetaComposicao = domain.EtiquetaComposicao,
-                Tag = domain.Tag,
+                Tag = domain.ModeloAprovado != null ? domain.ModeloAprovado.Tag : null,
                 Observacao = domain.Observacao,
                 Forro = domain.Forro,
                 TecidoComplementar = domain.TecidoComplementar,
                 Dificuldade = domain.Dificuldade,
-                QuantidadeMix = domain.QuantidadeMix.ToString(),
+                QuantidadeMix = domain.ModeloAprovado != null ? domain.ModeloAprovado.Quantidade.ToString() : null,
                 DataRemessaProducao = domain.DataRemessaProducao.HasValue
                                     ? domain.DataRemessaProducao.Value.ToString("dd/MM/yyyy")
                                     : string.Empty,
-                ObservacaoAprovacao = domain.ObservacaoAprovacao,
+                ObservacaoAprovacao = domain.ModeloAprovado != null ? domain.ModeloAprovado.Observacao : null,
                 QuantidadeSubmodelos = 0,
                 Fotos = domain.Fotos.Select(Mapper.Flat<ModeloFotoModel>).ToList(),
                 LinhaBordados = domain.LinhasBordado.ToArray(),
@@ -711,7 +700,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 Localizacao = domain.Localizacao,
                 EtiquetaMarca = domain.EtiquetaMarca,
                 EtiquetaComposicao = domain.EtiquetaComposicao,
-                Tag = domain.Tag,
+                Tag = domain.ModeloAprovado!= null ? domain.ModeloAprovado.Tag : null,
                 Observacao = domain.Observacao
             };
 
@@ -741,7 +730,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     domain.Localizacao = model.Localizacao;
                     domain.EtiquetaMarca = model.EtiquetaMarca;
                     domain.EtiquetaComposicao = model.EtiquetaComposicao;
-                    domain.Tag = model.Tag;
                     domain.Observacao = model.Observacao;
 
                     domain.DataAlteracao = DateTime.Now;
@@ -1292,7 +1280,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         novo.Passante = domain.Passante;
                         novo.ProdutoBase = domain.ProdutoBase;
                         novo.Segmento = domain.Segmento;
-                        novo.Tag = domain.Tag;
                         novo.Tamanho = domain.Tamanho;
                         novo.TamanhoPadrao = domain.TamanhoPadrao;
                         novo.Tecido = domain.Tecido;
@@ -1300,8 +1287,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         novo.ZiperBraguilha = domain.ZiperBraguilha;
                         novo.ZiperDetalhe = domain.ZiperDetalhe;
                         novo.ChaveExterna = domain.ChaveExterna;
-                        //novo.DataPrevisaoEnvio = domain.DataPrevisaoEnvio;
-
+                        
                         foreach (var foto in domain.Fotos)
                         {
                             var novaFoto = new ModeloFoto

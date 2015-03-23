@@ -1109,8 +1109,8 @@
                             <File Id="fil7FF6B9EA6AA4277A6C53C22454D50BD9" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\_ViewStart.cshtml" />
                         </Component>
                         <Directory Id="dir717C84859A7171B0421B2C4652E001BF" Name="FichaTecnica">
-                            <Component Id="cmpC76A182D265911383FE1DA2C95EF19E5" Guid="*">
-                                <File Id="fil6A90EF77BB431B32ADE19665F3CD4328" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Baixa.cshtml" />
+                            <Component Id="cmpF8B11053552E29A1F9EAED18C6E6330D" Guid="*">
+                                <File Id="fil7D0D23FFD23B89785A5C7A39D3A92AF0" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
                             </Component>
                             <Component Id="cmp417DA72BA1AFB05FAB4795D28248E082" Guid="*">
                                 <File Id="fil8EC0FFE506523394C549FC7BD6229ED5" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Devolucao.cshtml" />
@@ -1897,6 +1897,9 @@
                         <Component Id="cmp8AF99D01671392E6605DC6DB8D5E320D" Guid="*">
                             <File Id="filFB1F1FB033633206B0E47328665FD046" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Cnpj.cshtml" />
                         </Component>
+                        <Component Id="cmpB941857FA0CE728131001C2CF91B52DF" Guid="*">
+                            <File Id="fil06D08AE4DD23D65A0D96C87C728023AF" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\CorList.cshtml" />
+                        </Component>
                         <Component Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" Guid="*">
                             <File Id="filB54CCF1EDE33D1CD1BB24B09379EB0FF" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\Cpf.cshtml" />
                         </Component>
@@ -1965,6 +1968,9 @@
                         </Component>
                         <Component Id="cmp516F1BF3C0A3CE3390C52D4AFF4D99D7" Guid="*">
                             <File Id="filC318D2B69AB2AA540E86CA9C9DD34320" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\UnidadeMedidaList.cshtml" />
+                        </Component>
+                        <Component Id="cmp3818DA9720616210B31D2D80530EEC4E" Guid="*">
+                            <File Id="fil6181C8C12459DBFB947002F3208CCE33" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\VariacaoList.cshtml" />
                         </Component>
                     </Directory>
                 </Directory>
@@ -2280,7 +2286,7 @@
             <ComponentRef Id="cmp310F9CA760248A1911EB1D10F31067D5" />
             <ComponentRef Id="cmpE6F200BBB851050C40ABC9D31DBE28C2" />
             <ComponentRef Id="cmp3B3898A3CDDA999DC7591066C78400FC" />
-            <ComponentRef Id="cmpC76A182D265911383FE1DA2C95EF19E5" />
+            <ComponentRef Id="cmpF8B11053552E29A1F9EAED18C6E6330D" />
             <ComponentRef Id="cmp417DA72BA1AFB05FAB4795D28248E082" />
             <ComponentRef Id="cmp5A76138E085374B6A537CF8001EC860B" />
             <ComponentRef Id="cmpEFDFD81337699AB1AE245A6FD3F04728" />
@@ -2513,6 +2519,7 @@
             <ComponentRef Id="cmp9B08988C388BCE73BC46B3363F775F36" />
             <ComponentRef Id="cmpF35EB43EE6B214B21010E96500DA4940" />
             <ComponentRef Id="cmp8AF99D01671392E6605DC6DB8D5E320D" />
+            <ComponentRef Id="cmpB941857FA0CE728131001C2CF91B52DF" />
             <ComponentRef Id="cmp89BCF02F6347CB453FA82C0BB5FB43C1" />
             <ComponentRef Id="cmpEDD286513B4EF9DE34B7D2EF2D381754" />
             <ComponentRef Id="cmp2475F5E3F89CF9F208B79E01A9FB20D7" />
@@ -2536,6 +2543,7 @@
             <ComponentRef Id="cmp8DD6DB3836B735735CF6DA077F3F1FFA" />
             <ComponentRef Id="cmpAD13943DEC2B1A2D27651095E59B6B4B" />
             <ComponentRef Id="cmp516F1BF3C0A3CE3390C52D4AFF4D99D7" />
+            <ComponentRef Id="cmp3818DA9720616210B31D2D80530EEC4E" />
         </ComponentGroup>
     </Fragment>
 </Wix>

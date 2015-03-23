@@ -3,10 +3,10 @@ using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Areas.EngenhariaProduto.Models;
 using Fashion.ERP.Web.Controllers;
-using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
 using System;
@@ -22,11 +22,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 		#region Variaveis
         private readonly IRepository<Modelo> _modeloRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
-        private readonly IRepository<Comprimento> _comprimentoRepository;
-        private readonly IRepository<ProdutoBase> _produtoBaseRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
-        private readonly IRepository<Barra> _barraRepository;
-        //private readonly IRepository<FichaTecnica> _fichaTecnica;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Marca> _marcaRepository;
 
@@ -45,21 +42,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         #region Construtores
         public AprovarModeloController(ILogger logger, IRepository<Modelo> modeloRepository, IRepository<Pessoa> pessoaRepository,
-            IRepository<Colecao> colecaoRepository, IRepository<ProdutoBase> produtoBaseRepository, 
-            IRepository<Comprimento> comprimentoRepository, IRepository<Marca> marcaRepository,
-            IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository, IRepository<Barra> barraRepository
-            //IRepository<FichaTecnica> fichaTecnica
-            )
+            IRepository<Colecao> colecaoRepository, IRepository<Marca> marcaRepository, IRepository<Usuario> usuarioRepository, 
+            IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository)
         {
             _modeloRepository = modeloRepository;
             _colecaoRepository = colecaoRepository;
-            _comprimentoRepository = comprimentoRepository;
             _marcaRepository = marcaRepository;
-            _produtoBaseRepository = produtoBaseRepository;
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
-            _barraRepository = barraRepository;
-            //_fichaTecnica = fichaTecnica;
             _pessoaRepository = pessoaRepository;
+            _usuarioRepository = usuarioRepository;
             _logger = logger;
         }
         #endregion
@@ -70,7 +61,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var aprovarModelos = _modeloRepository.Find(p => p.Aprovado == true).OrderByDescending(o => o.DataAprovacao).Take(20);
+            var aprovarModelos = _modeloRepository.Find(p => p.Aprovado == false).OrderByDescending(o => o.DataAlteracao).Take(20);
 
             var model = new PesquisaAprovarModeloModel();
 
@@ -141,7 +132,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         ? modelos.OrderBy(model.OrdenarPor)
                         : modelos.OrderByDescending(model.OrdenarPor);
                 else
-                    modelos = modelos.OrderBy(o => o.DataAprovacao).ThenBy(t => t.DataCriacao);
+                    modelos = modelos.OrderBy(o => o.DataAlteracao);
 
                 model.Grid = modelos.Select(p => new GridAprovarModeloModel
                 {
@@ -185,93 +176,27 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateAprovarViewData")]
         public virtual ActionResult Aprovar(AprovarModeloModel model)
         {
-            // Validações
-            if (model.QuantidadeProducoes != null && model.PossuiSubmodelos && model.QuantidadeProducao != model.QuantidadeProducoes.Sum())
-                ModelState.AddModelError("QuantidadeProducao", "A soma da quantidade dos submodelos deve ser igual a quantidade de produção.");
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // TAG
-                    var anoAprovacao = DateTime.Now.Year;
-                    var numeroAprovacao = 1;
-                    if (model.Tag.IndexOf('-') > 0)
-                    {
-                        var temp = model.Tag.Substring(model.Tag.IndexOf('-') + 1);
-                        int num;
-                        if (int.TryParse(temp, out num))
-                            numeroAprovacao = num;
-                    }
-
-                    //var numeros = _fichaTecnica
-                    //    .Find(f => f.Modelo.AnoAprovacao == anoAprovacao)
-                    //    .Select(s => s.Modelo.NumeroAprovacao);
-                    //var ultimoNumero = numeros.Any() ? numeros.Max() : 0;
-                    //var numeroAprovacao = ultimoNumero + 1;
-
-                    //var tag = string.Format("{0}-{1}", anoAprovacao, numeroAprovacao);
-                    // Fim TAG
-
                     var modelo = _modeloRepository.Get(model.Id);
-                    //modelo.DataAprovacao = model.DataAprovacao;
-                    //modelo.Tag = model.Tag;
-                    //modelo.AnoAprovacao = anoAprovacao;
-                    //modelo.NumeroAprovacao = numeroAprovacao;
-                    //modelo.ObservacaoAprovacao = model.ObservacaoAprovacao;
-                    //modelo.Aprovado = true;
+                    modelo.Aprovado = true;
+
+                    modelo.ModeloAprovado = new ModeloAprovado
+                    {
+                        Ano = DateTime.Now.Year,
+                        Data = model.DataAprovacao.HasValue ? model.DataAprovacao.Value : DateTime.Now,
+                        DataProgramacaoProducao = model.ProgramacaoProducao.HasValue ? model.ProgramacaoProducao.Value : DateTime.Now,
+                        Tag = model.Tag,
+                        Quantidade = model.QuantidadeProducao.HasValue ? model.QuantidadeProducao.Value : 0,
+                        Observacao = model.ObservacaoAprovacao,
+                        ClassificacaoDificuldade =
+                            _classificacaoDificuldadeRepository.Load(model.ClassificacaoDificuldade),
+                        Colecao = _colecaoRepository.Load(model.Colecao),
+                        Funcionario = _pessoaRepository.Load(ObtenhaFuncionarioLogadoId())
+                    };
                     
-                    //var fichaTecnica = new FichaTecnicaJeans();
-                    //fichaTecnica.Tag = modelo.Tag;
-                    //fichaTecnica.Descricao = modelo.Descricao;
-                    //fichaTecnica.Marca = modelo.Marca;
-                    //fichaTecnica.Colecao = _colecaoRepository.Get(model.Colecao);
-                    //fichaTecnica.Barra = modelo.Barra;
-                    //fichaTecnica.Segmento = modelo.Segmento;
-                    //fichaTecnica.ProdutoBase = modelo.ProdutoBase;
-                    //fichaTecnica.Comprimento = modelo.Comprimento;
-                    //fichaTecnica.Natureza = modelo.Natureza;
-                    //fichaTecnica.ClassificacaoDificuldade = model.ClassificacaoDificuldade != null 
-                    //                                      ? _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade)
-                    //                                      : null;
-                    //fichaTecnica.Grade = modelo.Grade;
-                    //fichaTecnica.DataCadastro = DateTime.Now;
-                    //fichaTecnica.Detalhamento = modelo.Detalhamento;
-                    ////fichaTecnica.Modelagem = modelo.Modelagem;
-
-                    //fichaTecnica.ProgramacaoProducao = model.ProgramacaoProducao ?? DateTime.Now;
-                    //fichaTecnica.QuantidadeProducao = model.QuantidadeProducao ?? 0;
-
-                    //if (model.Sequencias != null && model.Sequencias.Any())
-                    //{
-                    //    for (int i = 0; i < model.Sequencias.Count; i++)
-                    //    {
-                    //        var variante = model.Sequencias[i];
-                    //        var produtoBase = model.ProdutoBases[i];
-                    //        var comprimento = model.Comprimentos[i];
-                    //        var descricao = model.Descricoes[i];
-                    //        var barra = model.Barras[i];
-                    //        var quantidadeProducao = model.QuantidadeProducoes[i];
-
-                    //        var subficha = CloneFichaTecnica(fichaTecnica);
-                    //        subficha.Variante = variante;
-                    //        subficha.Tag = string.Format("{0}-{1}", modelo.Tag, variante);
-                    //        subficha.Descricao = descricao;
-                    //        subficha.QuantidadeProducao = quantidadeProducao;
-                    //        subficha.ProdutoBase = _produtoBaseRepository.Get(produtoBase);
-                    //        subficha.Comprimento = _comprimentoRepository.Get(comprimento);
-                    //        subficha.Barra = _barraRepository.Get(barra);
-
-                    //        //_fichaTecnica.Save(subficha);
-                    //        modelo.FichaTecnicas.Add(subficha);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //_fichaTecnica.Save(fichaTecnica);
-                    //    modelo.FichaTecnicas.Add(fichaTecnica);
-                    //}
-
                     _modeloRepository.Update(modelo);
 
                     this.AddSuccessMessage("Modelo aprovado com sucesso.");
@@ -298,15 +223,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 				try
 				{
 					var domain = _modeloRepository.Get(id);
-				    domain.DataAprovacao = null;
-				    domain.Tag = null;
-				    domain.ObservacaoAprovacao = null;
 				    domain.Aprovado = false;
-
-				    //var fichas = _fichaTecnica.Find(p => p.Id == id);
-
-                    //foreach (var fichaTecnica in fichas)
-                    //    _fichaTecnica.Delete(fichaTecnica);
+				    domain.ModeloAprovado = null;
 
 					this.AddSuccessMessage("Modelo desaprovado com sucesso");
 					return RedirectToAction("Index");
@@ -384,72 +302,22 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             model.ClassificacaoDescricao = modelo.Classificacao.Descricao;
             model.Observacao = modelo.Observacao;
             model.DataAprovacao = DateTime.Now;
-            model.Tag = GerarTag();
             model.Colecao = modelo.Colecao.Id;
-            model.Barra = modelo.Barra != null ? modelo.Barra.Id : null;
-            model.Segmento = modelo.Segmento != null ? modelo.Segmento.Id : null;
-            model.ProdutoBase = modelo.ProdutoBase != null ? modelo.ProdutoBase.Id : null;
-            model.Comprimento = modelo.Comprimento != null ? modelo.Comprimento.Id : null;;
-            model.Natureza = modelo.Natureza.Id;
-            model.Grade = modelo.Grade.Id;
-            model.ProdutoBase = modelo.ProdutoBase != null ? modelo.ProdutoBase.Id : null;
 
             var colecoes = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
             ViewData["Colecao"] = colecoes.ToSelectList("Descricao", model.Colecao);
-
-            var barras = _barraRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Barra"] = barras.ToSelectList("Descricao", model.Barra);
-
-            var comprimentos = _comprimentoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Comprimento"] = comprimentos.ToSelectList("Descricao", model.Comprimento);
-
-            var produtosBase = _produtoBaseRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["ProdutoBase"] = produtosBase.ToSelectList("Descricao", model.ProdutoBase);
-
+            
             var marcas = _classificacaoDificuldadeRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
             ViewData["ClassificacaoDificuldade"] = marcas.ToSelectList("Descricao", model.ClassificacaoDificuldade);
         }
         #endregion
 
-        #region GerarTag
-        private string GerarTag()
+        public virtual long? ObtenhaFuncionarioLogadoId()
         {
-            var ano = DateTime.Now.Year;
-
-            var numeros = _modeloRepository
-                .Find(f => f.AnoAprovacao == ano)
-                .Select(s => s.NumeroAprovacao);
-            var ultimoNumero = numeros.Any() ? numeros.Max() : 0;
-
-            return string.Format("{0}-{1}", ano, ultimoNumero + 1);
+            var userId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(userId);
+            return usuario.Funcionario != null ? usuario.Funcionario.Id : null;
         }
-        #endregion
-
-        //#region CloneFichaTecnica
-        //private static FichaTecnicaJeans CloneFichaTecnica(FichaTecnicaJeans fichaTecnica)
-        //{
-        //    return new FichaTecnicaJeans
-        //    {
-        //        Tag = fichaTecnica.Tag,
-        //        Descricao = fichaTecnica.Descricao,
-        //        Detalhamento = fichaTecnica.Detalhamento,
-        //        //Sequencia = fichaTecnica.Sequencia,
-        //        ProgramacaoProducao = fichaTecnica.ProgramacaoProducao,
-        //        DataCadastro = fichaTecnica.DataCadastro,
-        //        //Modelagem = fichaTecnica.Modelagem,
-        //        QuantidadeProducao = fichaTecnica.QuantidadeProducao,
-        //        Marca = fichaTecnica.Marca,
-        //        Colecao = fichaTecnica.Colecao,
-        //        Barra = fichaTecnica.Barra,
-        //        Segmento = fichaTecnica.Segmento,
-        //        ProdutoBase = fichaTecnica.ProdutoBase,
-        //        Comprimento = fichaTecnica.Comprimento,
-        //        Natureza = fichaTecnica.Natureza,
-        //        ClassificacaoDificuldade = fichaTecnica.ClassificacaoDificuldade,
-        //        //Grade = fichaTecnica.Grade
-        //    };
-        //}
-        //#endregion
 
         #endregion
     }

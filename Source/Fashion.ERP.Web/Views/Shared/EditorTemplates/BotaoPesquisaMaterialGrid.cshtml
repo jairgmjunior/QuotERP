@@ -59,7 +59,7 @@
                 $.getJSON(url, function(data) {
                     if (data.erro) {
                         alert(data.erro);
-                        limpeLinhaGrid();
+                        limpeLinhaGridInterno();
                     } else {
                         var gridItens = $('#GridItens').data("kendoGrid");
                         
@@ -76,7 +76,7 @@
                     }
                 });
             } else {
-                limpeLinhaGrid();
+                limpeLinhaGridInterno();
             }
         };
 
@@ -86,7 +86,7 @@
                 if (e.which == 13) {
                     e.preventDefault();
                     if (!$('#Referencia').val()) {
-                        limpeLinhaGrid();
+                        limpeLinhaGridInterno();
                     }
                     pesquisaMaterial($(this).val());
                     entrouKeyDown = true;
@@ -98,7 +98,7 @@
                     return;
                 }
                 if (!$('#Referencia').val()) {
-                    limpeLinhaGrid();
+                    limpeLinhaGridInterno();
                 } else {
                     pesquisaMaterial($(this).val());
                 }
@@ -106,7 +106,11 @@
         });
         $('#selecionar-material').on('click', selecionarMaterial);
 
-        function limpeLinhaGrid() {
+        function limpeLinhaGridInterno() {
+            if (typeof limpeLinhaGrid == 'function') {
+                limpeLinhaGrid();
+                return;
+            }
             var gridItens = $('#GridItens').data("kendoGrid");
             var tr = $("#Referencia").closest("tr");
             var dataGridItens = gridItens.dataItem(tr);

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
-using Fashion.ERP.Domain.Producao;
 using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.EngenhariaProduto
@@ -18,7 +16,6 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         private readonly IList<string> _linhasBordado;
         private readonly IList<string> _linhasPesponto;
         private readonly IList<ProgramacaoBordado> _programacaoBordados;
-        private IList<FichaTecnica> _fichaTecnicas = new List<FichaTecnica>();
         #endregion
 
         #region Construtores
@@ -33,7 +30,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
             _programacaoBordados = new List<ProgramacaoBordado>();
         }
         #endregion
-
+        
         #region Propriedades
         public virtual string Referencia { get; set; }
         public virtual string Descricao { get; set; }
@@ -43,8 +40,6 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual DateTime DataCriacao { get; set; }
         public virtual DateTime DataAlteracao { get; set; }
         public virtual bool? Aprovado { get; set; }
-        public virtual DateTime? DataAprovacao { get; set; }
-        public virtual string ObservacaoAprovacao { get; set; }
         public virtual string Observacao { get; set; }
         public virtual double? Cos { get; set; }
         public virtual double? Passante { get; set; }
@@ -57,26 +52,18 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual string Modelagem { get; set; }
         public virtual string EtiquetaMarca { get; set; }
         public virtual string EtiquetaComposicao { get; set; }
-        public virtual string Tag { get; set; }
         public virtual DateTime? DataModelagem { get; set; }
         public virtual string TecidoComplementar { get; set; }
         public virtual string Forro { get; set; }
         public virtual string ZiperBraguilha { get; set; }
         public virtual string ZiperDetalhe { get; set; }
         public virtual string Dificuldade { get; set; }
-        public virtual int? QuantidadeMix { get; set; }
         public virtual DateTime? DataRemessaProducao { get; set; }
-        public virtual DateTime? DataPrevisaoEnvio { get; set; }
         public virtual String ChaveExterna { get; set; }
-
-        public virtual int AnoAprovacao { get; set; }
-        public virtual int NumeroAprovacao { get; set; }
-
+        
         public virtual Grade Grade { get; set; }
         public virtual Colecao Colecao { get; set; }
         public virtual Classificacao Classificacao { get; set; }
-        //public virtual ClassificacaoDificuldade ClassificacaoDificuldade { get; set; }
-        //public virtual Material Material { get; set; }
         public virtual Segmento Segmento { get; set; }
         public virtual Natureza Natureza { get; set; }
         public virtual Barra Barra { get; set; }
@@ -87,12 +74,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Pessoa Estilista { get; set; }
         public virtual Pessoa Modelista { get; set; }
         public virtual Tamanho Tamanho { get; set; }
-
-        public virtual IList<FichaTecnica> FichaTecnicas
-        {
-            get { return _fichaTecnicas; }
-            set { _fichaTecnicas = value; }
-        }
+        public virtual ModeloAprovado ModeloAprovado { get; set; }
         #endregion
 
         #region LinhasTravete

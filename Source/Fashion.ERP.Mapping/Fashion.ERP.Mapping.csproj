@@ -119,6 +119,7 @@
     <Compile Include="EngenhariaProduto\ArtigoMap.cs" />
     <Compile Include="EngenhariaProduto\ClassificacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ComprimentoMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloAprovadoMap.cs" />
     <Compile Include="Producao\FichaTecnicaFotoMap.cs" />
     <Compile Include="Producao\FichaTecnicaJeansMap.cs" />
     <Compile Include="Producao\FichaTecnicaMap.cs" />

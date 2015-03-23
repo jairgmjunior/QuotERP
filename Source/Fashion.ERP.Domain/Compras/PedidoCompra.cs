@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Fashion.ERP.Domain.Comum;
 using System;
 using System.Collections.Generic;
@@ -69,23 +70,22 @@ namespace Fashion.ERP.Domain.Compras
 
         public virtual void AtualizeSituacao()
         {
-            double quantidadePedida = _pedidoCompraItens.Select(p => p.Quantidade)
-                .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-
-            double quantidadeEntregue = _pedidoCompraItens.Select(p => p.QuantidadeEntrega)
-                .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-
-            double quantidadeCancelada = _pedidoCompraItens.Select(
-                p => p.PedidoCompraItemCancelado == null ? 0 : p.PedidoCompraItemCancelado.QuantidadeCancelada)
-                .Aggregate((quantidadeTotal, quantidade) => quantidadeTotal + quantidade);
-            if ((quantidadeEntregue + quantidadeCancelada) == 0)
-                SituacaoCompra = SituacaoCompra.NaoAtendido;
-            else if (quantidadePedida.Equals(quantidadeCancelada))
+            if (_pedidoCompraItens.All(x => x.SituacaoCompra == SituacaoCompra.Cancelado))
+            {
                 SituacaoCompra = SituacaoCompra.Cancelado;
-            else if (quantidadePedida <= (quantidadeEntregue + quantidadeCancelada))
+            }
+            else if (_pedidoCompraItens.All(x => x.SituacaoCompra == SituacaoCompra.NaoAtendido || x.SituacaoCompra == SituacaoCompra.Cancelado))
+            {
+                SituacaoCompra = SituacaoCompra.NaoAtendido;
+            }
+            else if (_pedidoCompraItens.All(x => x.SituacaoCompra == SituacaoCompra.Cancelado || x.SituacaoCompra == SituacaoCompra.AtendidoTotal))
+            {
                 SituacaoCompra = SituacaoCompra.AtendidoTotal;
-            else if (quantidadePedida > (quantidadeEntregue + quantidadeCancelada))
+            } 
+            else 
+            {
                 SituacaoCompra = SituacaoCompra.AtendidoParcial;
+            } 
         }
 
         public virtual PedidoCompraItem ObtenhaPedidoCompraItem(string referenciaMaterial)
