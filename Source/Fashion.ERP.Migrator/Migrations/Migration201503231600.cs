@@ -2,8 +2,8 @@
 
 namespace Fashion.ERP.Migrator
 {
-    [Migration(201503231418)]
-    public class Migration201503231418 : Migration
+    [Migration(201503231600)]
+    public class Migration201503231600 : Migration
     {
         public override void Up()
         {
