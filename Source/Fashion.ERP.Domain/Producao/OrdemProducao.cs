@@ -23,18 +23,8 @@ namespace Fashion.ERP.Domain.Producao
         public virtual string Observacao { get; set; }
         public virtual TipoOrdemProducao TipoOrdemProducao { get; set; }
         public virtual SituacaoOrdemProducao SituacaoOrdemProducao { get; set; }
-        public virtual Pessoa Unidade { get; set; }
-        public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
         public virtual FichaTecnica FichaTecnica { get; set; }
-
-        #region OrdemProducaoFluxoBasico
-
-        /// <summary>
-        /// Lista com o fluxo de andamento ordenado.
-        /// </summary>
-        public virtual IDictionary<OrdemProducaoAndamentoFluxo, int> OrdemProducaoFluxoBasico { get; set; }
-
-        #endregion
+        public virtual OrdemProducaoFluxoBasico OrdemProducaoFluxoBasico { get; set; }
 
         #region OrdemProducaoItens
 
@@ -46,11 +36,10 @@ namespace Fashion.ERP.Domain.Producao
         public virtual void AddOrdemProducaoItem(params OrdemProducaoItem[] ordemProducaoItens)
         {
             foreach (var ordemProducaoItem in ordemProducaoItens)
-                if (!_ordemProducaoItens.Contains(ordemProducaoItem))
-                {
-                    ordemProducaoItem.OrdemProducao = this;
-                    _ordemProducaoItens.Add(ordemProducaoItem);
-                }
+            {
+                ordemProducaoItem.OrdemProducao = this;
+                _ordemProducaoItens.Add(ordemProducaoItem);
+            }
         }
 
         public virtual void RemoveOrdemProducaoItem(params OrdemProducaoItem[] ordemProducaoItens)
@@ -58,6 +47,11 @@ namespace Fashion.ERP.Domain.Producao
             foreach (var ordemProducaoItem in ordemProducaoItens)
                 if (_ordemProducaoItens.Contains(ordemProducaoItem))
                     _ordemProducaoItens.Remove(ordemProducaoItem);
+        }
+
+        public virtual void ClearOrdemProducaoItem()
+        {
+            _ordemProducaoItens.Clear();
         }
 
         #endregion

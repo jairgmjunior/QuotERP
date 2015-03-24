@@ -1155,6 +1155,7 @@
     <Content Include="Areas\Producao\Views\OrdemProducao\Index.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Producao\Views\OrdemProducao\Editar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

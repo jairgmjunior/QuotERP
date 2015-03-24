@@ -53,6 +53,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarMatriz()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarMatriz);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public OrdemProducaoController Actions { get { return MVC.Producao.OrdemProducao; } }
@@ -73,6 +79,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Novo = "Novo";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
+            public readonly string PesquisarMatriz = "PesquisarMatriz";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +89,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Novo = "Novo";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
+            public const string PesquisarMatriz = "PesquisarMatriz";
         }
 
 
@@ -118,6 +126,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_PesquisarMatriz s_params_PesquisarMatriz = new ActionParamsClass_PesquisarMatriz();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarMatriz PesquisarMatrizParams { get { return s_params_PesquisarMatriz; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarMatriz
+        {
+            public readonly string tag = "tag";
+            public readonly string ano = "ano";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -128,9 +145,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Index = "Index";
+                public readonly string Novo = "Novo";
             }
+            public readonly string _NovoOuEditar = "~/Areas/Producao/Views/OrdemProducao/_NovoOuEditar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/OrdemProducao/Index.cshtml";
+            public readonly string Novo = "~/Areas/Producao/Views/OrdemProducao/Novo.cshtml";
         }
     }
 
@@ -204,6 +225,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ExcluirOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void PesquisarMatrizOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, long ano);
+
+        public override System.Web.Mvc.ActionResult PesquisarMatriz(string tag, long ano)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarMatriz);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ano", ano);
+            PesquisarMatrizOverride(callInfo, tag, ano);
             return callInfo;
         }
 

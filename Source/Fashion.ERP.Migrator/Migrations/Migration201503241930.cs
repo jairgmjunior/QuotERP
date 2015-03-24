@@ -2,11 +2,18 @@
 
 namespace Fashion.ERP.Migrator
 {
-    [Migration(201503032233)]
-    public class Migration201503032233 : Migration
+    [Migration(201503241930)]
+    public class Migration201503241930 : Migration
     {
         public override void Up()
         {
+            Create.Table("ordemproducaofluxobasico")
+                .WithColumn("id").AsInt64().PrimaryKey();
+
+            Create.Table("ordemproducaofluxobasicodepartamentoproducao")
+                .WithColumn("ordemproducaofluxobasico_id").AsInt64().ForeignKey("FK_ordemproducaofluxobasicodepartamentoproducao_ordemproducaofluxobasico", "ordemproducaofluxobasico", "id")
+                .WithColumn("departamentoproducao_id").AsInt64().ForeignKey("FK_ordemproducaofluxobasicodepartamentoproducao_departamentoproducao", "departamentoproducao", "id");
+
             Create.Table("ordemproducao")
                 .WithColumn("id").AsInt64().PrimaryKey()
                 .WithColumn("idtenant").AsInt64()
@@ -18,9 +25,8 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("observacao").AsString(4000).Nullable()
                 .WithColumn("tipoordemproducao").AsString().Nullable()
                 .WithColumn("situacaoordemproducao").AsString().Nullable()
-                .WithColumn("unidade_id").AsInt64().ForeignKey("FK_ordemproducao_unidade", "unidade", "id")
-                .WithColumn("fichatecnicamatriz_id").AsInt64().ForeignKey("FK_ordemproducao_fichatecnicamatriz", "fichatecnicamatriz", "id")
-                .WithColumn("fichatecnica_id").AsInt64().ForeignKey("FK_ordemproducao_fichatecnica", "fichatecnica", "id");
+                .WithColumn("fichatecnica_id").AsInt64().ForeignKey("FK_ordemproducao_fichatecnica", "fichatecnica", "id")
+                .WithColumn("ordemproducaofluxobasico_id").AsInt64().ForeignKey("FK_ordemproducao_ordemproducaofluxobasico", "ordemproducaofluxobasico", "id").Nullable();
 
             Create.Table("ordemproducaomaterial")
                 .WithColumn("id").AsInt64().PrimaryKey()
@@ -29,20 +35,8 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("requisitado").AsBoolean()
                 .WithColumn("material_id").AsInt64().ForeignKey("FK_ordemproducaomaterial_material", "material", "id")
                 .WithColumn("ordemproducaomaterialpai_id").AsInt64().ForeignKey("FK_ordemproducaomaterial_ordemproducaomaterialpai", "ordemproducaomaterial", "id").Nullable()
-                .WithColumn("departamentoproducao_id").AsInt64().ForeignKey("FK_ordemproducaomaterial_departamentoproducao", "departamentoproducao", "id").Nullable();
-
-            Create.Table("ordemproducaoandamentofluxo")
-                .WithColumn("id").AsInt64().PrimaryKey()
-                .WithColumn("data").AsDateTime()
-                .WithColumn("tipoandamento").AsString()
-                .WithColumn("quantidade").AsDouble()
-                .WithColumn("ordemproducao_id").AsInt64().ForeignKey("FK_ordemproducaoandamentofluxo_ordemproducao", "ordemproducao", "id")
-                .WithColumn("departamentoproducao_id").AsInt64().ForeignKey("FK_ordemproducaoandamentofluxo_departamentoproducao", "departamentoproducao", "id");
-
-            Create.Table("ordemproducaofluxobasico")
-                .WithColumn("ordem").AsInt32()
-                .WithColumn("ordemproducaoandamentofluxo_id").AsInt64().ForeignKey("FK_ordemproducaofluxobasico_ordemproducaoandamentofluxo", "ordemproducaoandamentofluxo", "id")
-                .WithColumn("ordemproducao_id").AsInt64().ForeignKey("FK_ordemproducaofluxobasico_ordemproducao", "ordemproducao", "id");
+                .WithColumn("departamentoproducao_id").AsInt64().ForeignKey("FK_ordemproducaomaterial_departamentoproducao", "departamentoproducao", "id").Nullable()
+                .WithColumn("ordemproducao_id").AsInt64().ForeignKey("FK_ordemproducaomaterial_ordemproducao", "ordemproducao", "id");
 
             Create.Table("ordemproducaoitem")
                 .WithColumn("id").AsInt64().PrimaryKey()
@@ -74,6 +68,14 @@ namespace Fashion.ERP.Migrator
 
         public override void Down()
         {
+            Delete.Table("ordemproducaoitemfechamentosinistro");
+            Delete.Table("ordemproducaoitemfechamento");
+            Delete.Table("defeitoproducao");
+            Delete.Table("ordemproducaoitem");
+            Delete.Table("ordemproducaomaterial");
+            Delete.Table("ordemproducao");
+            Delete.Table("ordemproducaofluxobasicodepartamentoproducao");
+            Delete.Table("ordemproducaofluxobasico");
         }
     }
 }

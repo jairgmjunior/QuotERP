@@ -223,7 +223,7 @@
     <Compile Include="Financeiro\TituloReceber.cs" />
     <Compile Include="Financeiro\TituloReceberBaixa.cs" />
     <Compile Include="Producao\OrdemProducao.cs" />
-    <Compile Include="Producao\OrdemProducaoAndamentoFluxo.cs" />
+    <Compile Include="Producao\OrdemProducaoFluxoBasico.cs" />
     <Compile Include="Producao\OrdemProducaoItem.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamento.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamentoSinistro.cs" />

@@ -5,7 +5,7 @@ using Fashion.Framework.Common.Utils;
 namespace Fashion.ERP.Domain.Producao
 {
     [TypeConverter(typeof(EnumDisplayTypeConverter<TipoOrdemProducao>))]
-    public enum TipoAndamento
+    public enum TipoAndamentoFluxoOrdemProducao
     {
         [Display(Name = "Entrada")]
         Entrada,

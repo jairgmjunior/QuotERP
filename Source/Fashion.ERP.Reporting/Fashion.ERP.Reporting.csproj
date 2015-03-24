@@ -272,11 +272,15 @@
     </Compile>
     <Compile Include="Helpers\ReportExtensions.cs" />
     <Compile Include="Helpers\UserFunctions.cs" />
+    <Compile Include="Producao\ListaOrdemProducaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\ListaOrdemProducaoReport.Designer.cs">
+      <DependentUpon>ListaOrdemProducaoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Producao\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Almoxarifado\ListaSimboloConservacaoReport.resx">
       <DependentUpon>ListaSimboloConservacaoReport.cs</DependentUpon>
@@ -382,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Financeiro\ListaTituloReceberReport.resx">
       <DependentUpon>ListaTituloReceberReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\ListaOrdemProducaoReport.resx">
+      <DependentUpon>ListaOrdemProducaoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\StyleSheet.xml" />
   </ItemGroup>

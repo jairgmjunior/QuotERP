@@ -17,14 +17,8 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.TipoOrdemProducao);
             Map(x => x.SituacaoOrdemProducao);
 
-            References(x => x.Unidade).Not.Nullable();
-            References(x => x.FichaTecnicaMatriz).Not.Nullable();
             References(x => x.FichaTecnica).Not.Nullable();
-
-            HasMany(x => x.OrdemProducaoFluxoBasico)
-                .Table("ordemproducaofluxobasico")
-                .AsEntityMap("ordemproducaoandamentofluxo_id")
-                .Element("ordem", part => part.Type<int>());
+            References(x => x.OrdemProducaoFluxoBasico).Cascade.Delete();
 
             HasMany(x => x.OrdemProducaoItens)
                 .Not.LazyLoad()

@@ -1,13 +1,5 @@
 ﻿@model Fashion.ERP.Web.Areas.Producao.Models.OrdemProducaoModel
 
-<style>
-    /* Esconde o primeiro ^ e o último ˅ */
-    #table-departamento tr:first-child .icon-chevron-up,
-    #table-departamento tr:last-child .icon-chevron-down {
-        display: none;
-    }
-</style>
-
 <fieldset>
     <legend><small>Dados básicos</small></legend>
     <div class="row">
@@ -15,15 +7,19 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Numero)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Numero)
+                    @(Html.Kendo().NumericTextBoxFor(x => x.Numero)
+                      .Format("n0").Decimals(0)
+                      .HtmlAttributes(new { @class = "integer input-small" })
+                          .Min(0).Enable(false).Spinners(false))
+                    @Html.HiddenFor(x => x.Numero)
                     @Html.ValidationMessageFor(x => x.Numero, null, new { @class="help-block" })
                 </div>
             </div>
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Tag)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Tag)
-                    @Html.EditorFor(x => x.Ano)
+                    @Html.TextBoxFor(x => x.Tag, new { @class = "input-small"}) / 
+                    @Html.TextBoxFor(x => x.Ano, new { @class = "integer numeric-only input-mini"})
                     @Html.ValidationMessageFor(x => x.Tag, null, new { @class="help-block" })
                     @Html.ValidationMessageFor(x => x.Ano, null, new { @class="help-block" })
                 </div>
@@ -31,14 +27,15 @@
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Data)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Data)
+                    @Html.Kendo().DatePickerFor(x => x.Data).Min(DateTime.Now)
                     @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
                 </div>
             </div>
             <div class="control-group">
                 @Html.LabelForRequired(x => x.Descricao)
                 <div class="controls">
-                    @Html.EditorFor(x => x.Descricao)
+                    @Html.TextBoxFor(x => x.Descricao, new { disabled = "disabled" })
+                    @Html.HiddenFor(x => x.Descricao)
                     @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
                 </div>
             </div>
@@ -66,16 +63,16 @@
                 </div>
             </div>
             <div class="control-group">
-                @Html.LabelForRequired(x => x.DataProgramação)
+                @Html.LabelForRequired(x => x.DataProgramacao)
                 <div class="controls">
-                    @Html.EditorFor(x => x.DataProgramação)
-                    @Html.ValidationMessageFor(x => x.DataProgramação, null, new { @class="help-block" })
+                    @Html.Kendo().DatePickerFor(x => x.DataProgramacao).Min(DateTime.Now)
+                    @Html.ValidationMessageFor(x => x.DataProgramacao, null, new { @class="help-block" })
                 </div>
             </div>
             <div class="control-group">
                 @Html.LabelForRequired(x => x.DataPrevisao)
                 <div class="controls">
-                    @Html.EditorFor(x => x.DataPrevisao)
+                    @Html.Kendo().DatePickerFor(x => x.DataPrevisao).Min(DateTime.Now)
                     @Html.ValidationMessageFor(x => x.DataPrevisao, null, new { @class="help-block" })
                 </div>
             </div>
@@ -88,33 +85,49 @@
     <legend><small>Matriz solicitada</small></legend>
     <table id="table-matriz" class="table table-striped table-condensed" style="width: 250px"><!-- Alterar dinamicamente o tamanho -->
         <thead>
-            <tr>
-                @if (Model.ItemTamanhos != null)
-                {
+            @if (Model.ItemTamanhos.Any())
+            {
+                <tr>
                     <th>Variação</th>
-                    foreach (var tamanho in Model.ItemTamanhos)
+                    @foreach (var tamanho in Model.ItemTamanhos)
                     {
                         <th>@(ViewBag.TamanhosDicionario[tamanho])</th>
                     }
-                }
-            </tr>
+                </tr>
+            }
         </thead>
         <tbody>
-            @if (Model.ItemVariacaoMatrizes != null && Model.ItemTamanhos != null)
+            @{
+                long totalQtdMatriz = 0;
+            }
+            @if (Model.ItemVariacaoMatrizes.Any() && Model.ItemTamanhos.Any())
             {
+                int cntItemQuantidade = 0;
                 foreach (var variacao in Model.ItemVariacaoMatrizes)
                 {
                     <tr>
-                        <td>@(ViewBag.VariacoesDicionario[variacao])</td>
+                        <td>
+                            <input name="ItemVariacaoMatrizes" type="hidden" value="@variacao" />
+                            @(ViewBag.VariacoesDicionario[variacao])
+                        </td>
                         @foreach (var tamanho in Model.ItemTamanhos)
                         {
+                            totalQtdMatriz += Model.ItemQuantidades.ElementAtOrDefault(cntItemQuantidade);
                             <td>
-                                <input name="ItemQuantidades"/>
+                                <input name="ItemTamanhos" type="hidden" value="@tamanho"/>
+                                <input type="text" name="ItemQuantidades" class="item-matriz integer" style="width: 60px" value="@Model.ItemQuantidades.ElementAtOrDefault(cntItemQuantidade)"/>
                             </td>
+                            ++cntItemQuantidade;
                         }
                     </tr>
                 }
             }
+            
+            <tr>
+                <td id="totalPecas" colspan="@(Model.ItemTamanhos != null ? Model.ItemTamanhos.Count + 1 : 0)" style="text-align: right; display: @(totalQtdMatriz == 0 ? "none" : "table-cell");">
+                    <label style="padding-top: 5px;">Total peças: <input id="totalItens" type="text" class="integer input-small" readonly="readonly" value="@totalQtdMatriz"/></label>
+                </td>
+            </tr>
         </tbody>
     </table>
 </fieldset>
@@ -145,8 +158,6 @@
                                     @(ViewBag.DepartamentosDicionario[departamento])
                                     <input type="hidden" name="FluxoDepartamentos" value="@(departamento)"/>
                                 </td>
-                                <td><a href="javascript:void(0)" onclick="ShiftUp(this)"><i class="icon-chevron-up"></i></a></td>
-                                <td><a href="javascript:void(0)" onclick="ShiftDown(this)"><i class="icon-chevron-down"></i></a></td>
                                 <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
                             </tr>
                         }
@@ -157,7 +168,94 @@
     </div>
 </fieldset>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+
+        @if (this.IsEditar())
+        {
+        <text>
+        // Cria os kendoNumericTextBox da matriz
+        $(".item-matriz").each(function () {
+            $(this).kendoNumericTextBox({
+                format: "n0",
+                min: 0,
+                spinners: false,
+                width: 60,
+                change: atualizaQuantidadeTotal
+            });
+        });
+        </text>
+        }
+
+        $('#Tag, #Ano').on('change', function() {
+            var tag = $('#Tag').val();
+            var ano = $('#Ano').val();
+
+            if (tag != '' && ano != '') {
+                $.getJSON('/Producao/OrdemProducao/PesquisarMatriz?tag=' + tag + '&ano=' + ano, function (data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $("#Tag").focus();
+                    } else {
+                        $('input[name=Descricao]').val(data.descricao);
+
+                        // Adiciona o Header
+                        var thead = '<tr>\
+                                    <th>Variação</th>';
+                        $.each(data.tamanhoSiglas, function (i, sigla) {
+                            thead += '<th>' + sigla + '</th>';
+                        });
+                        thead += '</tr>';
+                        $('#table-matriz thead').append(thead);
+
+                        // Adiciona o Body
+                        var tbody = '';
+                        $.each(data.variacaoIds, function (i, variacaoId) {
+                            tbody +=
+                                '<tr>\
+                                    <td><input name="ItemVariacaoMatrizes" type="hidden" value="' + variacaoId + '"/>' + data.variacaoNomes[i] + '</td>';
+
+                            $.each(data.tamanhoIds, function (j, tamanhoId) {
+                                tbody +=
+                                    '<td>\
+                                        <input name="ItemTamanhos" type="hidden" value="' + tamanhoId + '"/>\
+                                        <input type="text" name="ItemQuantidades" class="item-matriz integer" style="width: 60px" />\
+                                    </td>';
+                            });
+                            tbody += '</tr>';
+                        });
+                        $('#table-matriz tbody').prepend(tbody);
+
+
+                        // Cria os kendoNumericTextBox da matriz
+                        $(".item-matriz").each(function () {
+                            $(this).kendoNumericTextBox({
+                                format: "n0",
+                                min: 0,
+                                spinners: false,
+                                width: 60,
+                                change: atualizaQuantidadeTotal
+                            });
+                        });
+
+                        $('#totalPecas').show().attr('colspan', data.tamanhoIds.length + 1);;
+                    }
+                });
+            }
+        });
+
+
+        function atualizaQuantidadeTotal() {
+
+            var totalItens = 0;
+
+            $('.item-matriz[data-role="numerictextbox"]').each(function () {
+                var item = $(this).data("kendoNumericTextBox");
+                totalItens += item.value();
+            });
+
+            $('#totalItens').val(totalItens);
+        }
+
         $('#btn-add').on('click', function () {
             
             var departamentoId = $('#DepartamentoProducao').val();
@@ -174,33 +272,15 @@
             });
 
             if (cadastrado == false) {
-                $('#table-grade tbody').append(
+                $('#table-departamento tbody').append(
                     '<tr>\
                     <td>' + departamento + '<input type="hidden" name="FluxoDepartamentos" value="' + departamentoId + '"/></td>\
-                    <td><a href="javascript:void(0)" onclick="ShiftUp(this)"><i class="icon-chevron-up"></i></a></td>\
-                    <td><a href="javascript:void(0)" onclick="ShiftDown(this)"><i class="icon-chevron-down"></i></a></td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                 </tr>');
             }
         });
     });
 
-    function ShiftUp(a) {
-        var row = $(a).parents('tr:first');
-        row.fadeTo('fast', 0.5, function () {
-            row.insertBefore(row.prev());
-            row.fadeTo('fast', 1.0);
-        });
-    }
-    
-    function ShiftDown(a) {
-        var row = $(a).parents('tr:first');
-        row.fadeTo('fast', 0.5, function () {
-            row.insertAfter(row.next());
-            row.fadeTo('fast', 1.0);
-        });
-    }
-    
     function Delete(a) {
         var row = $(a).parents('tr:first');
         row.fadeTo('fast', 0, function () {

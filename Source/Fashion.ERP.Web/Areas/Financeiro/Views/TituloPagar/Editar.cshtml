@@ -9,6 +9,12 @@
 		@Html.ExcluirAuth(MVC.Financeiro.TituloPagar.Excluir(Model.Id))
 	</div>
 }
+<script>
+    $(document).ready(function () {
+        $('#Tag').attr('disabled', 'disabled');
+        $('#Ano').attr('disabled', 'disabled');
+    });
+</script>
 @{
     Html.RenderPartial("_ConfirmDelete");
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
