@@ -126,9 +126,9 @@
                               .Columns(columns =>
                               {
                                   columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoList").Width(250)
-                                      .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= index(data)#].Variacao' value='#= Variacao #' />");
+                                      .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
                                   columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
-                                      .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= index(data)#].Cor' value='#= Cor #' />");
+                                      .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
                                   columns.Command(command => command.Destroy()).Width(100);
                               }
                               )
@@ -156,7 +156,6 @@
                         @Html.EditorFor(x => x.QuantidadeAprovada) 
                     </div>
                 </div>
-            
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.PrazoMaximo, new {@class = "title-label"})
                     <div class="controls">
@@ -254,7 +253,6 @@
     </fieldset>
     <hr />
     <div class="form-actions">
-        <button id="btnSubmitBasicos" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.Producao.FichaTecnica.Excluir(Model.Id))
+        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Basicos(), "btnSubmitBasicos")
     </div>
 }

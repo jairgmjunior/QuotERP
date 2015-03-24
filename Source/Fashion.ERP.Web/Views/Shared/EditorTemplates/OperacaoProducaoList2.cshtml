@@ -1,0 +1,12 @@
+﻿@model String
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .OptionLabel("- Selecione -")
+    .HtmlAttributes(new { data_value_primitive = "true" })
+    .Name("OperacaoProducao")
+    .DataTextField("Descricao")
+    .DataValueField("Id")
+    .DataSource(dataSource => dataSource.Read(read => read.Action("OperacoesPorIdSetor", "OperacaoProducao",new {Area="Comum"}).Data("filtroOperacoes")).ServerFiltering(true))
+    .CascadeFrom("SetorProducao")
+      )
+@Html.ValidationMessageFor(m => m)

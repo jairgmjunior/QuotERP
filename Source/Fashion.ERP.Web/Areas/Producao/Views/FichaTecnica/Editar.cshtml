@@ -3,5 +3,8 @@
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.Partial("_NovoOuEditar", Model)
+    <div class="form-actions">
+        @Html.ExcluirAuth(MVC.Producao.FichaTecnica.Excluir(Model.Id))
+    </div>
 }
 @{Html.RenderPartial("_ConfirmDelete");}

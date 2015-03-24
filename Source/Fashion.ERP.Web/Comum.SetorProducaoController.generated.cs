@@ -77,6 +77,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SetoresDepartamento2);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaSetoresPorIdDepartamento()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaSetoresPorIdDepartamento);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SetorProducaoController Actions { get { return MVC.Comum.SetorProducao; } }
@@ -101,6 +107,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string SetoresDepartamento_ = "SetoresDepartamento_";
             public readonly string SetoresDepartamento = "SetoresDepartamento";
             public readonly string SetoresDepartamento2 = "SetoresDepartamento2";
+            public readonly string ObtenhaSetoresPorIdDepartamento = "ObtenhaSetoresPorIdDepartamento";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -114,6 +121,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string SetoresDepartamento_ = "SetoresDepartamento_";
             public const string SetoresDepartamento = "SetoresDepartamento";
             public const string SetoresDepartamento2 = "SetoresDepartamento2";
+            public const string ObtenhaSetoresPorIdDepartamento = "ObtenhaSetoresPorIdDepartamento";
         }
 
 
@@ -174,6 +182,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionParamsClass_SetoresDepartamento2
         {
             public readonly string NomeDepartamento = "NomeDepartamento";
+        }
+        static readonly ActionParamsClass_ObtenhaSetoresPorIdDepartamento s_params_ObtenhaSetoresPorIdDepartamento = new ActionParamsClass_ObtenhaSetoresPorIdDepartamento();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaSetoresPorIdDepartamento ObtenhaSetoresPorIdDepartamentoParams { get { return s_params_ObtenhaSetoresPorIdDepartamento; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaSetoresPorIdDepartamento
+        {
+            public readonly string DepartamentoProducao = "DepartamentoProducao";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -298,6 +314,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SetoresDepartamento2);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "NomeDepartamento", NomeDepartamento);
             SetoresDepartamento2Override(callInfo, NomeDepartamento);
+            return callInfo;
+        }
+
+        partial void ObtenhaSetoresPorIdDepartamentoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string DepartamentoProducao);
+
+        public override System.Web.Mvc.JsonResult ObtenhaSetoresPorIdDepartamento(string DepartamentoProducao)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaSetoresPorIdDepartamento);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "DepartamentoProducao", DepartamentoProducao);
+            ObtenhaSetoresPorIdDepartamentoOverride(callInfo, DepartamentoProducao);
             return callInfo;
         }
 

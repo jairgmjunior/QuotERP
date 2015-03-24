@@ -15,6 +15,21 @@ namespace Fashion.ERP.Web.Helpers.Extensions
 {
     public static class HtmlExtensions
     {
+        #region SubmitButtonAuth
+        public static MvcHtmlString SubmitButtonAuth(this HtmlHelper helper, ActionResult action, string id = "btnSubmit", string text = "Salvar", object htmlAttributes = null, bool? enabled = null)
+        {
+            var result = action.GetT4MVCResult();
+            var actionName = result.Action;
+            var controllerName = result.Controller;
+            var areaName = GetAreaName(action.GetRouteValueDictionary());
+
+            if ((enabled ?? true) == false || PermissaoHelper.PossuiPermissao(actionName, controllerName, areaName) == false)
+                return new MvcHtmlString(string.Empty);
+            
+            return BuildSubmitAuthButton(id, text, htmlAttributes);
+        }
+        #endregion
+
         #region ActionLinkAuth
         public static MvcHtmlString ActionLinkAuth(this HtmlHelper helper, string text, string actionName, string controllerName, object routeValues, object htmlAttributes)
         {
@@ -56,8 +71,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             return ActionLinkAuth(helper, "Editar", action, new { @class = "btn btn-small btn-primary" });
         }
         #endregion
-
-
+        
         #region ExcluirAuth
         public static MvcHtmlString ExcluirAuth(this HtmlHelper helper, ActionResult action)
         {
@@ -150,6 +164,21 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             return new MvcHtmlString(buttonBuilder.ToString());
         }
         #endregion
+        
+        #region BuildLinkAuthButton
+        private static MvcHtmlString BuildSubmitAuthButton(string id, string text, object htmlAttributes)
+        {
+            var buttonBuilder = new TagBuilder("button");
+            buttonBuilder.Attributes.Add("id", id);
+            buttonBuilder.Attributes.Add("class", "btn btn-primary");
+            buttonBuilder.Attributes.Add("data-loading-text", "Aguarde...");
+            buttonBuilder.SetInnerText(text);
+            buttonBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            return new MvcHtmlString(buttonBuilder.ToString());
+        }
+        #endregion
+
 
         #region BeginForm
         /// <summary>

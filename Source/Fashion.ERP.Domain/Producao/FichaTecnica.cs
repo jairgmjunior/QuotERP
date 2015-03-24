@@ -9,6 +9,7 @@ namespace Fashion.ERP.Domain.Producao
     public class FichaTecnica : DomainEmpresaBase<FichaTecnica>, IPesquisavelPorData
     {
         private readonly IList<FichaTecnicaFoto> _fichaTecnicaFotos = new List<FichaTecnicaFoto>();
+        private readonly IList<FichaTecnicaSequenciaOperacional> _fichaTecnicaSequenciaOperacionals = new List<FichaTecnicaSequenciaOperacional>();
 
         public virtual string Tag { get; set; }
         public virtual long Ano { get; set; }
@@ -34,10 +35,15 @@ namespace Fashion.ERP.Domain.Producao
         public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
         
         //public virtual int? Variante { get; set; }
-        
+
         public virtual IList<FichaTecnicaFoto> FichaTecnicaFotos
         {
             get { return _fichaTecnicaFotos; }
+        }
+
+        public virtual IList<FichaTecnicaSequenciaOperacional> FichaTecnicaSequenciaOperacionals
+        {
+            get { return _fichaTecnicaSequenciaOperacionals; }
         }
 
         //public virtual Modelagem Modelagem { get; set; }

@@ -437,6 +437,8 @@
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
+    <Compile Include="Areas\Producao\Models\GridFichaTecnicaProcessosModel.cs" />
+    <Compile Include="Areas\Producao\Models\FichaTecnicaProcessosModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaBasicosModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaModel.cs" />
@@ -1135,7 +1137,6 @@
     <Content Include="Areas\Producao\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
-    <Content Include="Areas\Producao\Views\FichaTecnica\Devolucao.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Index.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Novo.cshtml" />
@@ -1143,6 +1144,7 @@
     <Content Include="Areas\Comum\Views\Variacao\Editar.cshtml" />
     <Content Include="Areas\Comum\Views\Variacao\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Variacao\Novo.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1172,6 +1174,8 @@
     <Content Include="js\arquivoupload.js" />
     <Content Include="js\formatacao.js" />
     <Content Include="js\fotoupload.js" />
+    <Content Include="js\Producao\FichaTecnica\basicos.js" />
+    <Content Include="js\Producao\FichaTecnica\processos.js" />
     <Content Include="js\validacao.js" />
     <Content Include="Areas\Comum\Views\Endereco\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Endereco\Novo.cshtml" />
@@ -1439,6 +1443,10 @@
     <Content Include="Views\Shared\EditorTemplates\currency5casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\VariacaoList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CorList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SetorProducaoList2.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DepartamentoProducaoList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList2.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\numeric3casasdecimais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

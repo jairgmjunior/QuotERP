@@ -83,6 +83,7 @@ namespace T4MVC
                 public readonly string currency5casasdecimais = "currency5casasdecimais";
                 public readonly string Date = "Date";
                 public readonly string DateTime = "DateTime";
+                public readonly string DepartamentoProducaoList = "DepartamentoProducaoList";
                 public readonly string DepartamentosList = "DepartamentosList";
                 public readonly string DespesaReceitaList = "DespesaReceitaList";
                 public readonly string @double = "double";
@@ -95,9 +96,11 @@ namespace T4MVC
                 public readonly string numeric4casasdecimais = "numeric4casasdecimais";
                 public readonly string numeric5casasdecimais = "numeric5casasdecimais";
                 public readonly string OperacaoProducaoList = "OperacaoProducaoList";
+                public readonly string OperacaoProducaoList2 = "OperacaoProducaoList2";
                 public readonly string percent = "percent";
                 public readonly string ReadonlyDouble = "ReadonlyDouble";
                 public readonly string SetorProducaoList = "SetorProducaoList";
+                public readonly string SetorProducaoList2 = "SetorProducaoList2";
                 public readonly string SituacaoTitulo = "SituacaoTitulo";
                 public readonly string UnidadeList = "UnidadeList";
                 public readonly string UnidadeMedidaList = "UnidadeMedidaList";

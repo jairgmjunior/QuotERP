@@ -37,6 +37,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<ProdutoBase> _produtoBaseRepository;
         private readonly IRepository<Comprimento> _comprimentoRepository;
         private readonly IRepository<Barra> _barraRepository;
+        private readonly IRepository<SetorProducao> _setorProducaoRepository;
+        private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
+        private readonly IRepository<OperacaoProducao> _operacaoProducaoRepository;
 
         private readonly ILogger _logger;
         #endregion
@@ -57,7 +60,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             IRepository<Grade> gradeRepository,
             IRepository<ProdutoBase> produtoBaseRepository,
             IRepository<Comprimento> comprimentoRepository,
-            IRepository<Barra> barraRepository)
+            IRepository<Barra> barraRepository,
+            IRepository<SetorProducao> setorProducaoRepository,
+            IRepository<DepartamentoProducao> departamentoProducaoRepository,
+            IRepository<OperacaoProducao> operacaoProducaoRepository)
         {
             _fichaTecnicaRepository = fichaTecnicaRepository;
             _fichaTecnicaJeansRepository = fichaTecnicaJeansRepository;
@@ -75,6 +81,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _comprimentoRepository = comprimentoRepository;
             _barraRepository = barraRepository;
             _logger = logger;
+            _setorProducaoRepository = setorProducaoRepository;
+            _departamentoProducaoRepository = departamentoProducaoRepository;
+            _operacaoProducaoRepository = operacaoProducaoRepository;
         }
         #endregion
 
@@ -102,13 +111,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return View(pesquisaFichaTecnicaModel);
         }
         #endregion
-     
+
+        #region Novo
         public virtual ActionResult Novo()
         {
             return View(new FichaTecnicaModel());
         }
+        #endregion
 
-        [PopulateViewData("PopulateViewData")]
+        #region Básicos
+
+        [PopulateViewData("PopulateViewDataBasicos")]
         public virtual ActionResult Basicos(long? fichaTecnicaId)
         {
             if (!fichaTecnicaId.HasValue)
@@ -141,7 +154,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return PartialView("Basicos", new FichaTecnicaBasicosModel());
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataBasicos")]
         public virtual ActionResult Basicos(FichaTecnicaBasicosModel model)
         {
             if (ModelState.IsValid)
@@ -151,15 +164,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     if (!model.Id.HasValue)
                     {
                         NovoBasicos(model);
-                        this.AddSuccessMessage("Ficha técnica cadastrada com sucesso.");
+                        this.AddSuccessMessage("Dados básicos da ficha técnica cadastrados com sucesso.");
+                        
+                        return RedirectToAction("Novo");
                     }
-                    else
-                    {
-                        EditarBasicos(model);
-                        this.AddSuccessMessage("Ficha técnica atualizada com sucesso.");
-                    } 
+                    
+                    EditarBasicos(model);
+                    this.AddSuccessMessage("Dados básicos da ficha técnica atualizados com sucesso.");
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Editar", new { model.Id });
                 }
                 catch (Exception exception)
                 {
@@ -236,8 +249,101 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return fichaTecnicaVariacaoMatrizs;
         }
 
-        #region Editar
+        #endregion 
+
+        #region Processos
+
+        [PopulateViewData("PopulateViewDataProcessos")]
+        public virtual ActionResult Processos(long? fichaTecnicaId)
+        {
+            if (!fichaTecnicaId.HasValue)
+            {
+                return PartialView("Processos", new FichaTecnicaProcessosModel());
+            }
+
+            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+
+            if (domain != null)
+            {
+                var model = new FichaTecnicaProcessosModel {Id = domain.Id};
+                var modelList = new List<GridFichaTecnicaProcessosModel>();
+                model.GridFichaTecnicaProcessos = modelList;
+
+                domain.FichaTecnicaSequenciaOperacionals.ForEach(y => modelList.Add(new GridFichaTecnicaProcessosModel
+                {
+                    Custo = y.Custo,
+                    Tempo = y.Tempo,
+                    PesoProdutividade = y.PesoProdutividade,
+                    SetorProducao = y.SetorProducao.Id.ToString(),
+                    DepartamentoProducao = y.DepartamentoProducao.Id.ToString(),
+                    OperacaoProducao = y.OperacaoProducao.Id.ToString()
+                }));
+
+                return PartialView("Processos", model);
+            }
+
+            this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
+
+            return PartialView("Processos", new FichaTecnicaProcessosModel());
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataProcessos")]
+        public virtual ActionResult Processos(FichaTecnicaProcessosModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var domain = _fichaTecnicaJeansRepository.Get(model.Id);
+
+                    if (domain.FichaTecnicaSequenciaOperacionals.IsNullOrEmpty())
+                    {
+                        NovoProcessos(domain, model);
+                        this.AddSuccessMessage("Dados de processo da ficha técnica cadastrados com sucesso.");
+                    }
+                    else
+                    {
+                        EditarProcessos(domain, model);
+                        this.AddSuccessMessage("Dados de processo da ficha técnica atualizados com sucesso.");
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Não é possível salvar a ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return View(model);
+        }
+
+        protected virtual void EditarProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
+        {
+            //_fichaTecnicaJeansRepository.SaveOrUpdate(domain);
+        }
+
+        protected virtual void NovoProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
+        {
+            model.GridFichaTecnicaProcessos.ForEach(x => domain.FichaTecnicaSequenciaOperacionals.Add(new FichaTecnicaSequenciaOperacional()
+            {
+                Custo = x.Custo,
+                Tempo = x.Tempo,
+                PesoProdutividade = x.PesoProdutividade,
+                DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao)),
+                SetorProducao = _setorProducaoRepository.Load(long.Parse(x.SetorProducao)),
+                OperacaoProducao = _operacaoProducaoRepository.Load(long.Parse(x.OperacaoProducao)),
+            }));
+            
+            _fichaTecnicaJeansRepository.Update(domain);
+        }
+
+
+        #endregion
         
+        #region Editar
+
         public virtual ActionResult Editar(long id)
         {            
             var model = new FichaTecnicaModel {Id = id};
@@ -272,8 +378,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         #endregion
 
-        #region PopulateViewData
-        protected void PopulateViewData(FichaTecnicaBasicosModel model)
+        #region PopulateViewDataBasicos
+
+        protected void PopulateViewDataBasicos(FichaTecnicaBasicosModel model)
         {
             var naturezas = _naturezaRepository.Find(p => p.Ativo).ToList();
             ViewBag.Natureza = naturezas.ToSelectList("Descricao", model.Natureza);
@@ -320,7 +427,23 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         #endregion
 
-        #region Actions Grid
+        #region PopulateViewDataProcessos
+
+        protected void PopulateViewDataProcessos(FichaTecnicaProcessosModel model)
+        {
+            var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
+            ViewBag.DepartamentoProducaos = departamentoProducaos.Select(s => new { Id = s.Id.ToString(), s.Nome }).OrderBy(x => x.Nome);
+            ViewBag.DepartamentoProducaosDicionarioJson = departamentoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
+
+            var setorProducaos = _setorProducaoRepository.Find(p => p.Ativo).ToList();
+            ViewBag.SetorProducaosDicionarioJson = setorProducaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
+
+            var operacaoProducaos = _operacaoProducaoRepository.Find(p => p.Ativo).ToList();
+            ViewBag.OperacaoProducaosDicionarioJson = operacaoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
+        }
+        #endregion
+
+        #region Actions Grid Variação
         //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
         public virtual ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
         {
@@ -348,6 +471,37 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public virtual ActionResult EditingInline_Destroy([DataSourceRequest] DataSourceRequest request, GridFichaTecnicaVariacaoModel fichaTecnicaVariacaoModel)
         {
             return Json(new[] { fichaTecnicaVariacaoModel }.ToDataSourceResult(request, ModelState));
+        }
+        #endregion
+        
+        #region Actions Grid Processos
+        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
+        public virtual ActionResult EditingInlineFichaTecnicaProcessos_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(request);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInlineFichaTecnicaProcessos_Create([DataSourceRequest] DataSourceRequest request, FichaTecnicaProcessosModel fichaTecnicaProcessosModel)
+        {
+            return Json(new[] { fichaTecnicaProcessosModel }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInlineFichaTecnicaProcessos_Update([DataSourceRequest] DataSourceRequest request, FichaTecnicaProcessosModel fichaTecnicaProcessosModel)
+        {
+            //simula a persistência do item
+            var random = new Random();
+            int randomNumber = random.Next(0, 10000);
+            fichaTecnicaProcessosModel.Id = randomNumber * -1;
+
+            return Json(new[] { fichaTecnicaProcessosModel }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public virtual ActionResult EditingInlineFichaTecnicaProcessos_Destroy([DataSourceRequest] DataSourceRequest request, FichaTecnicaProcessosModel fichaTecnicaProcessosModel)
+        {
+            return Json(new[] { fichaTecnicaProcessosModel }.ToDataSourceResult(request, ModelState));
         }
         #endregion
     }

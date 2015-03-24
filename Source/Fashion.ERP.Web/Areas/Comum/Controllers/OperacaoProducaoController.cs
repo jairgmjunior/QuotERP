@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Controllers;
@@ -11,8 +12,6 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
 using Fashion.ERP.Web.Areas.Comum.Models;
-using Fashion.ERP.Domain.EngenhariaProduto;
-
 
 namespace Fashion.ERP.Web.Areas.Comum.Controllers
 {
@@ -200,6 +199,38 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 .Select(s => new { s.Id, s.Descricao }).ToList().OrderBy(o => o.Descricao);
 
             return Json(operacores, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region OperacoesPorSetor
+        [AjaxOnly]
+        public virtual JsonResult OperacoesPorIdSetor(long? setorProducaoId)
+        {
+            var operacores = _operacaoProducaoRepository
+                .Find(p => p.SetorProducao.Id == setorProducaoId)
+                .Select(s => new { s.Id, s.Descricao }).ToList().OrderBy(o => o.Descricao);
+
+            return Json(operacores, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region ObtenhaOperacaoProducao
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaOperacaoProducao(long? operacaoProducaoId)
+        {
+            var domain = _operacaoProducaoRepository.Get(operacaoProducaoId);
+
+            var result = new
+            {
+                Custo = domain.Custo,
+                Tempo = domain.Tempo,
+                PesoProdutividade = domain.PesoProdutividade,
+                SetorProducao = domain.SetorProducao.Id,
+                DepartamentoProducao = domain.SetorProducao.DepartamentoProducao.Id,
+                Id = domain.Id
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

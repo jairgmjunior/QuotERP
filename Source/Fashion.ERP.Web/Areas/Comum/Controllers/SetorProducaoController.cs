@@ -226,6 +226,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return Json(setores, JsonRequestBehavior.AllowGet);
         }
 
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaSetoresPorIdDepartamento(String DepartamentoProducao)
+        {
+            var setores = _setorProducaoRepository
+                .Find(p => p.DepartamentoProducao.Id == int.Parse(DepartamentoProducao))
+                .Select(s => new { s.Id, s.Nome }).ToList().OrderBy(o => o.Nome);
+
+            return Json(setores, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #endregion

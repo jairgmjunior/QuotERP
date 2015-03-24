@@ -141,6 +141,7 @@
     <Compile Include="Producao\FichaTecnicaFoto.cs" />
     <Compile Include="Producao\FichaTecnicaJeans.cs" />
     <Compile Include="Producao\FichaTecnicaMatriz.cs" />
+    <Compile Include="Producao\FichaTecnicaSequenciaOperacional.cs" />
     <Compile Include="Producao\FichaTecnicaVariacaoMatriz.cs" />
     <Compile Include="Extensions\CpfCpnjExtensions.cs" />
     <Compile Include="DomainEmpresaBase.cs" />

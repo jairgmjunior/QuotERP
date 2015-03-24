@@ -13,82 +13,23 @@
         tabstrip.Add().Text("Básicos")
             .Selected(true)
             .LoadContentFrom("Basicos", "FichaTecnica", new { fichaTecnicaId = Model.Id });
-
         tabstrip.Add().Text("Processos")
             .Selected(false)
-            .Enabled(false)
+            .Enabled(true)
             .LoadContentFrom("Processos", "FichaTecnica", new { fichaTecnicaId = Model.Id });
-
         tabstrip.Add().Text("Material")
             .Selected(false)
-            .Enabled(false)
+            .Enabled(true)
             .LoadContentFrom("Material", "FichaTecnica", new { fichaTecnicaId = Model.Id });
-    })
+    }).SelectedIndex(0)
 )
 
+@Scripts.Render("~/js/Producao/FichaTecnica/basicos.js")
+@Scripts.Render("~/js/Producao/FichaTecnica/processos.js")
+
 <script>
-
-
-    function displayVariacao(id) {
-        var variacaosDicionario = $("#VariacaosDicionario").data("value");
-        var nome = "";
-        $.each(variacaosDicionario, function(index) {
-            if (index == id) {
-                nome = this;
-                return false;
-            }
-            return true;
-        });
-        return nome;
-    }
-
-    function displayCor(id) {
-        var corsDicionario = $("#CorsDicionario").data("value");
-        var nome = "";
-        $.each(corsDicionario, function(index) {
-            if (index == id) {
-                nome = this;
-                return false;
-            }
-            return true;
-        });
-        return nome;
-    }
-
-    function index(dataItem) {
-        var data = $("#GridFichaTecnicaVariacao").data("kendoGrid").dataSource.data();
-        return data.indexOf(dataItem);
-    }
-
     function onContentLoad(e) {
-        if (window.location.href.indexOf("Editar") <= 0) {
-            $(".delete").hide();
-        } else {
-            $('.delete').on('click', function(ev) {
-                var href = $(this).attr('href');
-                $('#modal-form').attr('action', href);
-                $('#confirm-delete').modal('show');
-                return false;
-            });
-        }
-        //reparseform();
-
-        //$('#formBasicos').submit(function(e) {
-        //    //e.preventDefault();
-        //    $("#formBasicos").validate();
-        //    if (!$("#formBasicos").valid()) {
-        //        $('#btnSubmitBasicos').button('reset');
-        //        e.preventDefault();
-        //        return true;
-        //    }
-        //    return false;
-        //});
+        onContentLoadBasicos(e);
+        onContentLoadProcessos(e);
     }
-
-    //function reparseform() {
-    //    $("formBasicos").removeData("validator");
-    //    $("formBasicos").removeData("unobtrusiveValidation");
-    //    $.validator.unobtrusive.parse("formBasicos");
-    //}
-
 </script>

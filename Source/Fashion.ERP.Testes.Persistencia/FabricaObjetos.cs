@@ -1117,6 +1117,16 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Producao
 
+        public FichaTecnicaSequenciaOperacional OBtenhaFichaTecnicaSequenciaOperacional()
+        {
+            return new FichaTecnicaSequenciaOperacional
+            {
+                Custo = 1,
+                PesoProdutividade = 1,
+                Tempo = 1
+            };
+        }
+
         public FichaTecnicaVariacaoMatriz ObtenhaFichaTecnicaVariacaoMatriz()
         {
             return new FichaTecnicaVariacaoMatriz();

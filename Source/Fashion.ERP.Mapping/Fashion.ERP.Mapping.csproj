@@ -176,6 +176,7 @@
     <Compile Include="Financeiro\TituloReceberBaixaMap.cs" />
     <Compile Include="Financeiro\TituloReceberMap.cs" />
     <Compile Include="Producao\FichaTecnicaMatrizMap.cs" />
+    <Compile Include="Producao\FichaTecnicaSequenciaOperacionalMap.cs" />
     <Compile Include="Producao\FichaTecnicaVariacaoMatrizMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioMap.cs" />

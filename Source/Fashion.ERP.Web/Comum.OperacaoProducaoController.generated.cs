@@ -65,6 +65,18 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorSetor);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult OperacoesPorIdSetor()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorIdSetor);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaOperacaoProducao()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaOperacaoProducao);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public OperacaoProducaoController Actions { get { return MVC.Comum.OperacaoProducao; } }
@@ -87,6 +99,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
             public readonly string OperacoesPorSetor = "OperacoesPorSetor";
+            public readonly string OperacoesPorIdSetor = "OperacoesPorIdSetor";
+            public readonly string ObtenhaOperacaoProducao = "ObtenhaOperacaoProducao";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +112,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
             public const string OperacoesPorSetor = "OperacoesPorSetor";
+            public const string OperacoesPorIdSetor = "OperacoesPorIdSetor";
+            public const string ObtenhaOperacaoProducao = "ObtenhaOperacaoProducao";
         }
 
 
@@ -141,6 +157,22 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionParamsClass_OperacoesPorSetor
         {
             public readonly string NomeSetor = "NomeSetor";
+        }
+        static readonly ActionParamsClass_OperacoesPorIdSetor s_params_OperacoesPorIdSetor = new ActionParamsClass_OperacoesPorIdSetor();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_OperacoesPorIdSetor OperacoesPorIdSetorParams { get { return s_params_OperacoesPorIdSetor; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_OperacoesPorIdSetor
+        {
+            public readonly string setorProducaoId = "setorProducaoId";
+        }
+        static readonly ActionParamsClass_ObtenhaOperacaoProducao s_params_ObtenhaOperacaoProducao = new ActionParamsClass_ObtenhaOperacaoProducao();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaOperacaoProducao ObtenhaOperacaoProducaoParams { get { return s_params_ObtenhaOperacaoProducao; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaOperacaoProducao
+        {
+            public readonly string operacaoProducaoId = "operacaoProducaoId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -244,6 +276,26 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorSetor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "NomeSetor", NomeSetor);
             OperacoesPorSetorOverride(callInfo, NomeSetor);
+            return callInfo;
+        }
+
+        partial void OperacoesPorIdSetorOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? setorProducaoId);
+
+        public override System.Web.Mvc.JsonResult OperacoesPorIdSetor(long? setorProducaoId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.OperacoesPorIdSetor);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "setorProducaoId", setorProducaoId);
+            OperacoesPorIdSetorOverride(callInfo, setorProducaoId);
+            return callInfo;
+        }
+
+        partial void ObtenhaOperacaoProducaoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? operacaoProducaoId);
+
+        public override System.Web.Mvc.JsonResult ObtenhaOperacaoProducao(long? operacaoProducaoId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaOperacaoProducao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "operacaoProducaoId", operacaoProducaoId);
+            ObtenhaOperacaoProducaoOverride(callInfo, operacaoProducaoId);
             return callInfo;
         }
 
