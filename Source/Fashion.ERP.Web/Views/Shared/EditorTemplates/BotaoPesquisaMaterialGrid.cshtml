@@ -3,7 +3,6 @@
 
 <script>
     $(function () {
-
         $('#submit-pesquisar-material').off('click').on('click', function (e) {
             var form = $(this).closest("form");
             
@@ -61,8 +60,8 @@
                         alert(data.erro);
                         limpeLinhaGridInterno();
                     } else {
-                        var gridItens = $('#GridItens').data("kendoGrid");
-                        
+                        var gridItens = obtenhaGridItens();
+
                         if (!valideReferenciaExistenteNaGrid(data.Referencia)) {
                             return;
                         }
@@ -82,7 +81,7 @@
 
         var entrouKeyDown = false;
         $('#Referencia').on({
-            keydown: function (e) {
+            keydown: function(e) {
                 if (e.which == 13) {
                     e.preventDefault();
                     if (!$('#Referencia').val()) {
@@ -92,7 +91,7 @@
                     entrouKeyDown = true;
                 }
             },
-            focusout: function () {
+            focusout: function() {
                 if (entrouKeyDown) {
                     entrouKeyDown = false;
                     return;
@@ -111,7 +110,7 @@
                 limpeLinhaGrid();
                 return;
             }
-            var gridItens = $('#GridItens').data("kendoGrid");
+            var gridItens = obtenhaGridItens();
             var tr = $("#Referencia").closest("tr");
             var dataGridItens = gridItens.dataItem(tr);
             dataGridItens.set("Descricao", null);
@@ -121,7 +120,7 @@
         }
 
         function valideReferenciaExistenteNaGrid(referencia) {
-            var grid = $('#GridItens').data("kendoGrid");
+            var grid = obtenhaGridItens();
             var dadosGrid = grid.dataSource.data();
 
             for (var i = 0; i < dadosGrid.length; i++) {
@@ -140,31 +139,40 @@
             }
             return true;
         }
-        
+
         function selecionarMaterial() {
             var grid = $('#grid-pesquisa-material').data("kendoGrid");
 
             if (!grid) return;
 
             var data = grid.dataItem(grid.select());
-            
+
             if (data) {
-                
-                var gridItens = $('#GridItens').data("kendoGrid");
-                
+
+                var gridItens = obtenhaGridItens();
+
                 if (!valideReferenciaExistenteNaGrid(data.Referencia)) {
                     return;
                 }
 
-                var tr = $("#Referencia").closest("tr"); 
+                var tr = $("#Referencia").closest("tr");
                 var dataGridItens = gridItens.dataItem(tr);
                 dataGridItens.set("Descricao", data.Descricao);
                 dataGridItens.set("Referencia", data.Referencia);
                 dataGridItens.set("UnidadeMedida", data.UnidadeMedida);
                 dataGridItens.set("ReferenciaExterna", data.ReferenciaExterna);
-                
+
                 $('#modal-material').modal('hide');
             }
+        }
+
+        function obtenhaGridItens() {
+            var nomeGrid = '@ViewData["nomeGrid"]';
+
+            if (nomeGrid == '') 
+                nomeGrid = "GridItens";
+            
+            return $('#' + nomeGrid).data("kendoGrid");
         }
     });
 </script>

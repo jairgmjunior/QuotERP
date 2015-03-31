@@ -55,6 +55,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Material()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Material);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -113,6 +119,78 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineFichaTecnicaProcessos_Destroy);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Create()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Create);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Update()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Update);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Destroy()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Destroy);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Create()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Create);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Update()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Update);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Destroy()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Destroy);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Create()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Create);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Update()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Update);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Destroy()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Destroy);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public FichaTecnicaController Actions { get { return MVC.Producao.FichaTecnica; } }
@@ -133,6 +211,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Novo = "Novo";
             public readonly string Basicos = "Basicos";
             public readonly string Processos = "Processos";
+            public readonly string Material = "Material";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditingInline_Read = "EditingInline_Read";
@@ -143,6 +222,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string EditingInlineFichaTecnicaProcessos_Create = "EditingInlineFichaTecnicaProcessos_Create";
             public readonly string EditingInlineFichaTecnicaProcessos_Update = "EditingInlineFichaTecnicaProcessos_Update";
             public readonly string EditingInlineFichaTecnicaProcessos_Destroy = "EditingInlineFichaTecnicaProcessos_Destroy";
+            public readonly string EditingInlineMaterialConsumoMatriz_Read = "EditingInlineMaterialConsumoMatriz_Read";
+            public readonly string EditingInlineMaterialConsumoMatriz_Create = "EditingInlineMaterialConsumoMatriz_Create";
+            public readonly string EditingInlineMaterialConsumoMatriz_Update = "EditingInlineMaterialConsumoMatriz_Update";
+            public readonly string EditingInlineMaterialConsumoMatriz_Destroy = "EditingInlineMaterialConsumoMatriz_Destroy";
+            public readonly string EditingInlineMaterialConsumoItem_Read = "EditingInlineMaterialConsumoItem_Read";
+            public readonly string EditingInlineMaterialConsumoItem_Create = "EditingInlineMaterialConsumoItem_Create";
+            public readonly string EditingInlineMaterialConsumoItem_Update = "EditingInlineMaterialConsumoItem_Update";
+            public readonly string EditingInlineMaterialConsumoItem_Destroy = "EditingInlineMaterialConsumoItem_Destroy";
+            public readonly string EditingInlineMaterialComposicaoCustoMatriz_Read = "EditingInlineMaterialComposicaoCustoMatriz_Read";
+            public readonly string EditingInlineMaterialComposicaoCustoMatriz_Create = "EditingInlineMaterialComposicaoCustoMatriz_Create";
+            public readonly string EditingInlineMaterialComposicaoCustoMatriz_Update = "EditingInlineMaterialComposicaoCustoMatriz_Update";
+            public readonly string EditingInlineMaterialComposicaoCustoMatriz_Destroy = "EditingInlineMaterialComposicaoCustoMatriz_Destroy";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -152,6 +243,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Novo = "Novo";
             public const string Basicos = "Basicos";
             public const string Processos = "Processos";
+            public const string Material = "Material";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditingInline_Read = "EditingInline_Read";
@@ -162,6 +254,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string EditingInlineFichaTecnicaProcessos_Create = "EditingInlineFichaTecnicaProcessos_Create";
             public const string EditingInlineFichaTecnicaProcessos_Update = "EditingInlineFichaTecnicaProcessos_Update";
             public const string EditingInlineFichaTecnicaProcessos_Destroy = "EditingInlineFichaTecnicaProcessos_Destroy";
+            public const string EditingInlineMaterialConsumoMatriz_Read = "EditingInlineMaterialConsumoMatriz_Read";
+            public const string EditingInlineMaterialConsumoMatriz_Create = "EditingInlineMaterialConsumoMatriz_Create";
+            public const string EditingInlineMaterialConsumoMatriz_Update = "EditingInlineMaterialConsumoMatriz_Update";
+            public const string EditingInlineMaterialConsumoMatriz_Destroy = "EditingInlineMaterialConsumoMatriz_Destroy";
+            public const string EditingInlineMaterialConsumoItem_Read = "EditingInlineMaterialConsumoItem_Read";
+            public const string EditingInlineMaterialConsumoItem_Create = "EditingInlineMaterialConsumoItem_Create";
+            public const string EditingInlineMaterialConsumoItem_Update = "EditingInlineMaterialConsumoItem_Update";
+            public const string EditingInlineMaterialConsumoItem_Destroy = "EditingInlineMaterialConsumoItem_Destroy";
+            public const string EditingInlineMaterialComposicaoCustoMatriz_Read = "EditingInlineMaterialComposicaoCustoMatriz_Read";
+            public const string EditingInlineMaterialComposicaoCustoMatriz_Create = "EditingInlineMaterialComposicaoCustoMatriz_Create";
+            public const string EditingInlineMaterialComposicaoCustoMatriz_Update = "EditingInlineMaterialComposicaoCustoMatriz_Update";
+            public const string EditingInlineMaterialComposicaoCustoMatriz_Destroy = "EditingInlineMaterialComposicaoCustoMatriz_Destroy";
         }
 
 
@@ -179,6 +283,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public ActionParamsClass_Processos ProcessosParams { get { return s_params_Processos; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Processos
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Material s_params_Material = new ActionParamsClass_Material();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Material MaterialParams { get { return s_params_Material; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Material
         {
             public readonly string fichaTecnicaId = "fichaTecnicaId";
             public readonly string model = "model";
@@ -269,6 +382,111 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string request = "request";
             public readonly string fichaTecnicaProcessosModel = "fichaTecnicaProcessosModel";
         }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoMatriz_Read s_params_EditingInlineMaterialConsumoMatriz_Read = new ActionParamsClass_EditingInlineMaterialConsumoMatriz_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoMatriz_Read EditingInlineMaterialConsumoMatriz_ReadParams { get { return s_params_EditingInlineMaterialConsumoMatriz_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoMatriz_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoMatriz_Create s_params_EditingInlineMaterialConsumoMatriz_Create = new ActionParamsClass_EditingInlineMaterialConsumoMatriz_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoMatriz_Create EditingInlineMaterialConsumoMatriz_CreateParams { get { return s_params_EditingInlineMaterialConsumoMatriz_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoMatriz_Create
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoMatriz_Update s_params_EditingInlineMaterialConsumoMatriz_Update = new ActionParamsClass_EditingInlineMaterialConsumoMatriz_Update();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoMatriz_Update EditingInlineMaterialConsumoMatriz_UpdateParams { get { return s_params_EditingInlineMaterialConsumoMatriz_Update; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoMatriz_Update
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoMatriz_Destroy s_params_EditingInlineMaterialConsumoMatriz_Destroy = new ActionParamsClass_EditingInlineMaterialConsumoMatriz_Destroy();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoMatriz_Destroy EditingInlineMaterialConsumoMatriz_DestroyParams { get { return s_params_EditingInlineMaterialConsumoMatriz_Destroy; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoMatriz_Destroy
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoItem_Read s_params_EditingInlineMaterialConsumoItem_Read = new ActionParamsClass_EditingInlineMaterialConsumoItem_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoItem_Read EditingInlineMaterialConsumoItem_ReadParams { get { return s_params_EditingInlineMaterialConsumoItem_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoItem_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoItem_Create s_params_EditingInlineMaterialConsumoItem_Create = new ActionParamsClass_EditingInlineMaterialConsumoItem_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoItem_Create EditingInlineMaterialConsumoItem_CreateParams { get { return s_params_EditingInlineMaterialConsumoItem_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoItem_Create
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoItem_Update s_params_EditingInlineMaterialConsumoItem_Update = new ActionParamsClass_EditingInlineMaterialConsumoItem_Update();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoItem_Update EditingInlineMaterialConsumoItem_UpdateParams { get { return s_params_EditingInlineMaterialConsumoItem_Update; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoItem_Update
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialConsumoItem_Destroy s_params_EditingInlineMaterialConsumoItem_Destroy = new ActionParamsClass_EditingInlineMaterialConsumoItem_Destroy();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialConsumoItem_Destroy EditingInlineMaterialConsumoItem_DestroyParams { get { return s_params_EditingInlineMaterialConsumoItem_Destroy; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialConsumoItem_Destroy
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Read s_params_EditingInlineMaterialComposicaoCustoMatriz_Read = new ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Read EditingInlineMaterialComposicaoCustoMatriz_ReadParams { get { return s_params_EditingInlineMaterialComposicaoCustoMatriz_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Create s_params_EditingInlineMaterialComposicaoCustoMatriz_Create = new ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Create EditingInlineMaterialComposicaoCustoMatriz_CreateParams { get { return s_params_EditingInlineMaterialComposicaoCustoMatriz_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Create
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Update s_params_EditingInlineMaterialComposicaoCustoMatriz_Update = new ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Update();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Update EditingInlineMaterialComposicaoCustoMatriz_UpdateParams { get { return s_params_EditingInlineMaterialComposicaoCustoMatriz_Update; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Update
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
+        static readonly ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Destroy s_params_EditingInlineMaterialComposicaoCustoMatriz_Destroy = new ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Destroy();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Destroy EditingInlineMaterialComposicaoCustoMatriz_DestroyParams { get { return s_params_EditingInlineMaterialComposicaoCustoMatriz_Destroy; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditingInlineMaterialComposicaoCustoMatriz_Destroy
+        {
+            public readonly string request = "request";
+            public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -283,6 +501,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string Basicos = "Basicos";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
+                public readonly string Material = "Material";
                 public readonly string Novo = "Novo";
                 public readonly string Processos = "Processos";
             }
@@ -290,6 +509,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Basicos = "~/Areas/Producao/Views/FichaTecnica/Basicos.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/FichaTecnica/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
+            public readonly string Material = "~/Areas/Producao/Views/FichaTecnica/Material.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/FichaTecnica/Novo.cshtml";
             public readonly string Processos = "~/Areas/Producao/Views/FichaTecnica/Processos.cshtml";
         }
@@ -355,6 +575,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Processos);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ProcessosOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void MaterialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.ActionResult Material(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Material);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            MaterialOverride(callInfo, fichaTecnicaId);
+            return callInfo;
+        }
+
+        partial void MaterialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaMaterialModel model);
+
+        public override System.Web.Mvc.ActionResult Material(Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaMaterialModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Material);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MaterialOverride(callInfo, model);
             return callInfo;
         }
 
@@ -461,6 +701,135 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaProcessosModel", fichaTecnicaProcessosModel);
             EditingInlineFichaTecnicaProcessos_DestroyOverride(callInfo, request, fichaTecnicaProcessosModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoMatriz_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            EditingInlineMaterialConsumoMatriz_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoMatriz_CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Create(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoMatriz_CreateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoMatriz_UpdateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Update(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Update);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoMatriz_UpdateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoMatriz_DestroyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoMatriz_Destroy(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoMatriz_Destroy);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoMatriz_DestroyOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoItem_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            EditingInlineMaterialConsumoItem_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoItem_CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Create(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoItem_CreateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoItem_UpdateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Update(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Update);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoItem_UpdateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialConsumoItem_DestroyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialConsumoItem_Destroy(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialConsumoItem_Destroy);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialConsumoItem_DestroyOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialComposicaoCustoMatriz_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            EditingInlineMaterialComposicaoCustoMatriz_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialComposicaoCustoMatriz_CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Create(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialComposicaoCustoMatriz_CreateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialComposicaoCustoMatriz_UpdateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Update(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Update);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialComposicaoCustoMatriz_UpdateOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void EditingInlineMaterialComposicaoCustoMatriz_DestroyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel);
+
+        public override System.Web.Mvc.ActionResult EditingInlineMaterialComposicaoCustoMatriz_Destroy(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Destroy);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
+            EditingInlineMaterialComposicaoCustoMatriz_DestroyOverride(callInfo, request, fichaTecnicaMaterialModel);
             return callInfo;
         }
 

@@ -13,6 +13,14 @@ namespace Fashion.ERP.Mapping.Producao
             HasMany(x => x.FichaTecnicaVariacaoMatrizs)
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
+
+            HasMany(x => x.MaterialConsumoMatrizs)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
+
+            HasMany(x => x.MaterialConsumoItems)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

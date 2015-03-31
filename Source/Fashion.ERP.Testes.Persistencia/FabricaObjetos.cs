@@ -1117,6 +1117,33 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Producao
 
+        public MaterialConsumoItem ObtenhaMaterialConsumoItem()
+        {
+            return new MaterialConsumoItem
+            {
+                Custo = 1,
+                Quantidade = 1,
+                CompoeCusto = true
+            };
+        }
+
+        public MaterialConsumoMatriz ObtenhaMaterialConsumoMatriz()
+        {
+            return new MaterialConsumoMatriz()
+            {
+                Custo = 1,
+                Quantidade = 1
+            };
+        }
+
+        public MaterialComposicaoCustoMatriz ObtenhaMaterialComposicaoCustoMatriz()
+        {
+            return new MaterialComposicaoCustoMatriz()
+            {
+                Custo = 1
+            };
+        }
+
         public FichaTecnicaSequenciaOperacional OBtenhaFichaTecnicaSequenciaOperacional()
         {
             return new FichaTecnicaSequenciaOperacional

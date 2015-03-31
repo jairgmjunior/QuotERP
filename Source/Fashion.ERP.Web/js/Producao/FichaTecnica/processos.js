@@ -117,10 +117,6 @@ function onContentLoadProcessos(e) {
     }
 }
 
-function formateDecimalGrid(valor) {
-    return valor.toString().replace(".", ",");
-}
-
 (function ($, kendo) {
     $.extend(true, kendo.ui.validator, {
         rules: {

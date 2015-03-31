@@ -2,18 +2,26 @@
  
 @if (ViewData.ModelMetadata.IsNullableValueType)
 {
-    @Html.DropDownListFor(model => model, new List<SelectListItem>
-    {
-        new SelectListItem {Text = "-- Selecione --", Value = ""},
-        new SelectListItem {Text = "Sim", Value = "true", Selected = (Model == true)},
-        new SelectListItem {Text = "Não", Value = "false", Selected = (Model == false)}
-    })
+    @(Html.Kendo().DropDownListFor(model => model)
+        .BindTo(new List<SelectListItem>
+        {
+            new SelectListItem {Text = "Sim", Value = "true"},
+            new SelectListItem {Text = "Não", Value = "false"}
+        })
+        .OptionLabel("- Selecione -")
+        .Name(@Html.NameFor(model => model).ToString())
+        .Value(Model.HasValue? Model.ToString() : "")
+    )
 }
 else
 {
-    @Html.DropDownListFor(model => model, new List<SelectListItem>
-    {
-        new SelectListItem {Text = "Sim", Value = "true", Selected = (Model == true)},
-        new SelectListItem {Text = "Não", Value = "false", Selected = (Model == false)}
-    })
+    @(Html.Kendo().DropDownListFor(model => model)
+        .BindTo(new List<SelectListItem>
+        {
+            new SelectListItem {Text = "Sim", Value = "true"},
+            new SelectListItem {Text = "Não", Value = "false"}
+        })
+        .Name(@Html.NameFor(model => model).ToString())
+        .Value(Model.ToString())
+    )
 }

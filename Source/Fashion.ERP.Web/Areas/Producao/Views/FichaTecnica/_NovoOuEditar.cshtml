@@ -24,12 +24,34 @@
     }).SelectedIndex(0)
 )
 
+@{
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}
+
 @Scripts.Render("~/js/Producao/FichaTecnica/basicos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/processos.js")
+@Scripts.Render("~/js/Producao/FichaTecnica/material.js")
 
 <script>
+    $(document).ready(function(e) {
+        var tabStrip = $("#tabstrip").data("kendoTabStrip");
+        var tabProcessos = $('li[aria-controls="tabstrip-2"]');
+        var tabMateriais = $('li[aria-controls="tabstrip-3"]');
+
+        tabStrip.enable(tabProcessos, false);
+        tabStrip.enable(tabMateriais, false);
+    });
+
     function onContentLoad(e) {
         onContentLoadBasicos(e);
         onContentLoadProcessos(e);
+        onContentLoadMaterial(e);
+    }
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return null;
+        }
+        return valor.toString().replace(".", ",");
     }
 </script>

@@ -181,6 +181,9 @@
     <Compile Include="Producao\FichaTecnicaMatrizMap.cs" />
     <Compile Include="Producao\FichaTecnicaSequenciaOperacionalMap.cs" />
     <Compile Include="Producao\FichaTecnicaVariacaoMatrizMap.cs" />
+    <Compile Include="Producao\MaterialComposicaoCustoMatrizMap.cs" />
+    <Compile Include="Producao\MaterialConsumoItemMap.cs" />
+    <Compile Include="Producao\MaterialConsumoMatrizMap.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamentoMap.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamentoSinistroMap.cs" />
     <Compile Include="Producao\OrdemProducaoItemMap.cs" />

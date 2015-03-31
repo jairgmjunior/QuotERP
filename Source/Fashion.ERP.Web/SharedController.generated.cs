@@ -93,6 +93,7 @@ namespace T4MVC
                 public readonly string @int = "int";
                 public readonly string @long = "long";
                 public readonly string numeric = "numeric";
+                public readonly string numeric3casasdecimais = "numeric3casasdecimais";
                 public readonly string numeric4casasdecimais = "numeric4casasdecimais";
                 public readonly string numeric5casasdecimais = "numeric5casasdecimais";
                 public readonly string OperacaoProducaoList = "OperacaoProducaoList";
@@ -102,8 +103,10 @@ namespace T4MVC
                 public readonly string SetorProducaoList = "SetorProducaoList";
                 public readonly string SetorProducaoList2 = "SetorProducaoList2";
                 public readonly string SituacaoTitulo = "SituacaoTitulo";
+                public readonly string TamanhoGradeList = "TamanhoGradeList";
                 public readonly string UnidadeList = "UnidadeList";
                 public readonly string UnidadeMedidaList = "UnidadeMedidaList";
+                public readonly string VariacaoFichaTecnicaList = "VariacaoFichaTecnicaList";
                 public readonly string VariacaoList = "VariacaoList";
             }
         }

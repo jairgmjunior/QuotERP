@@ -437,6 +437,10 @@
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
+    <Compile Include="Areas\Producao\Models\FichaTecnicaMaterialModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridMaterialConsumoMatrizModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridMaterialConsumoItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridMaterialComposicaoCustoMatrizModel.cs" />
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaProcessosModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaProcessosModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaBasicosModel.cs" />
@@ -1152,6 +1156,7 @@
     <Content Include="Areas\Comum\Views\Variacao\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Variacao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Material.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\Index.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
@@ -1186,6 +1191,7 @@
     <Content Include="js\formatacao.js" />
     <Content Include="js\fotoupload.js" />
     <Content Include="js\Producao\FichaTecnica\basicos.js" />
+    <Content Include="js\Producao\FichaTecnica\material.js" />
     <Content Include="js\Producao\FichaTecnica\processos.js" />
     <Content Include="js\validacao.js" />
     <Content Include="Areas\Comum\Views\Endereco\Index.cshtml" />
@@ -1458,6 +1464,8 @@
     <Content Include="Views\Shared\EditorTemplates\DepartamentoProducaoList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OperacaoProducaoList2.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\numeric3casasdecimais.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TamanhoGradeList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\VariacaoFichaTecnicaList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

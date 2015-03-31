@@ -222,6 +222,9 @@
     <Compile Include="Financeiro\TituloPagarBaixa.cs" />
     <Compile Include="Financeiro\TituloReceber.cs" />
     <Compile Include="Financeiro\TituloReceberBaixa.cs" />
+    <Compile Include="Producao\MaterialComposicaoCustoMatriz.cs" />
+    <Compile Include="Producao\MaterialConsumoItem.cs" />
+    <Compile Include="Producao\MaterialConsumoMatriz.cs" />
     <Compile Include="Producao\OrdemProducao.cs" />
     <Compile Include="Producao\OrdemProducaoFluxoBasico.cs" />
     <Compile Include="Producao\OrdemProducaoItem.cs" />

@@ -10,6 +10,7 @@ namespace Fashion.ERP.Domain.Producao
     {
         private readonly IList<FichaTecnicaFoto> _fichaTecnicaFotos = new List<FichaTecnicaFoto>();
         private readonly IList<FichaTecnicaSequenciaOperacional> _fichaTecnicaSequenciaOperacionals = new List<FichaTecnicaSequenciaOperacional>();
+        private readonly IList<MaterialComposicaoCustoMatriz> _materialComposicaoCustoMatrizs = new List<MaterialComposicaoCustoMatriz>();
 
         public virtual string Tag { get; set; }
         public virtual long Ano { get; set; }
@@ -44,6 +45,11 @@ namespace Fashion.ERP.Domain.Producao
         public virtual IList<FichaTecnicaSequenciaOperacional> FichaTecnicaSequenciaOperacionals
         {
             get { return _fichaTecnicaSequenciaOperacionals; }
+        }
+
+        public virtual IList<MaterialComposicaoCustoMatriz> MaterialComposicaoCustoMatrizs
+        {
+            get { return _materialComposicaoCustoMatrizs; }
         }
 
         //public virtual Modelagem Modelagem { get; set; }

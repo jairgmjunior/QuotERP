@@ -22,8 +22,6 @@ namespace Fashion.ERP.Migrator
                 .ForeignKey("FK_fichatecnicasequenciaoperacional_operacaoproducao", "operacaoproducao", "id")
                 .WithColumn("fichatecnica_id").AsInt64()
                 .ForeignKey("FK_fichatecnicasequenciaoperacional_fichatecnica", "fichatecnica", "id");
-
-            //Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201513031748.permissao.sql");
         }
 
         public override void Down()

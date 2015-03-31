@@ -36,6 +36,10 @@ namespace Fashion.ERP.Mapping.Producao
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
 
+            HasMany(x => x.MaterialComposicaoCustoMatrizs)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
+
             //HasMany(x => x.RecebimentoCompraItens)
             //    .Not.KeyNullable()
             //    .Cascade.AllDeleteOrphan();
