@@ -51,6 +51,8 @@
                         @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new {@class = "help-block"})
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Marca, new {@class = "title-label"})
                     <div class="controls">
@@ -58,13 +60,19 @@
                         @Html.ValidationMessageFor(x => x.Marca, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="control-group">
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Classificacao, new {@class = "title-label"})
                     <div class="controls">
                         @Html.DropDownListFor(x => x.Classificacao, null, "-- Selecione --", new {@class = "input-large"})
                         @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Artigo, new {@class = "title-label"})
                     <div class="controls">
@@ -72,13 +80,19 @@
                         @Html.ValidationMessageFor(x => x.Artigo, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="control-group">
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+               <div class="control-group">
                     @Html.LabelForRequired(x => x.Segmento, new {@class = "title-label"})
                     <div class="controls">
                         @Html.DropDownListFor(x => x.Segmento, null, "-- Selecione --", new {@class = "input-large"})
                         @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.ClassificacaoDificuldade, new {@class = "title-label"})
                     <div class="controls">
@@ -86,20 +100,30 @@
                         @Html.ValidationMessageFor(x => x.ClassificacaoDificuldade, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="control-group">
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+               <div class="control-group">
                     @Html.LabelForRequired(x => x.Silk, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.Silk)
                         @Html.ValidationMessageFor(x => x.Silk, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="control-group">
+            </div>
+            <div class="span6">
+              <div class="control-group">
                     @Html.LabelForRequired(x => x.Bordado, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.Bordado)
                         @Html.ValidationMessageFor(x => x.Bordado, null, new {@class = "help-block"})
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Pedraria, new {@class = "title-label"})
                     <div class="controls">
@@ -107,6 +131,8 @@
                         @Html.ValidationMessageFor(x => x.Pedraria, null, new {@class = "help-block"})
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Detalhamento, new {@class = "title-label"})
                     <div class="controls">
@@ -115,53 +141,29 @@
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.GridFichaTecnicaVariacao, new {@class = "control-label"})
-                    <div class="controls">
-                        @(Html.Kendo().Grid(Model.GridFichaTecnicaVariacao)
-                              .Name("GridFichaTecnicaVariacao")
-                              .Editable(e => e.Mode(GridEditMode.InCell))
-                              .Navigatable()
-                              .Columns(columns =>
-                              {
-                                  columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoList").Width(250)
-                                      .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
-                                  columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
-                                      .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
-                                  columns.Command(command => command.Destroy()).Width(100);
-                              }
-                              )
-                              .DataSource(dataSource => dataSource
-                                  .Ajax()
-                                  .Model(model => model.Id(e => e.Id))
-                                  .Create(update => update.Action("EditingInline_Create", "FichaTecnica"))
-                                  .Read(read => read.Action("EditingInline_Read", "FichaTecnica"))
-                                  .Update(update => update.Action("EditingInline_Update", "FichaTecnica"))
-                                  .Destroy(update => update.Action("EditingInline_Destroy", "FichaTecnica"))
-                              )
-                              .ToolBar(toolbar => toolbar.Create())
-                              )
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.Grade, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Grade, null, "-- Selecione --", new {@class = "input-large"})
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.QuantidadeAprovada, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.QuantidadeAprovada) 
                     </div>
                 </div>
+
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.PrazoMaximo, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.PrazoMaximo) 
                     </div>
                 </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Observacao, new {@class = "title-label"})
                     <div class="controls">
@@ -170,36 +172,62 @@
                 </div>
             </div>
         </div>
-    </fieldset>
-
+    </fieldset>    
     <hr />
-
+    <fieldset>
+        <legend>Dados da Matriz</legend>
+        <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Grade, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.Grade, null, "-- Selecione --", new {@class = "input-large"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.GridFichaTecnicaVariacao, new {@class = "control-label"})
+            <div class="controls">
+                @(Html.Kendo().Grid(Model.GridFichaTecnicaVariacao)
+                        .Name("GridFichaTecnicaVariacao")
+                        .Editable(e => e.Mode(GridEditMode.InCell))
+                        .Navigatable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoList").Width(250)
+                                .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
+                            columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
+                                .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
+                            columns.Command(command => command.Destroy()).Width(100);
+                        }
+                        )
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Model(model => model.Id(e => e.Id))
+                            .Create(update => update.Action("EditingInline_Create", "FichaTecnica"))
+                            .Read(read => read.Action("EditingInline_Read", "FichaTecnica"))
+                            .Update(update => update.Action("EditingInline_Update", "FichaTecnica"))
+                            .Destroy(update => update.Action("EditingInline_Destroy", "FichaTecnica"))
+                        )
+                        .ToolBar(toolbar => toolbar.Create())
+                        )
+            </div>
+        </div>
+    </fieldset>    
+    <hr />
     <fieldset>
         <legend>Dados Específicos Jeans</legend>
         <div class="row">
-            <div class="span6">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.ProdutoBase, new {@class = "title-label"})
                     <div class="controls">
                         @Html.DropDownListFor(x => x.ProdutoBase, null, "-- Selecione --", new {@class = "input-large"})
                     </div>
                 </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.Passante, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Passante) 
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="row">
             <div class="span6">
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.Comprimento, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Comprimento, null, "-- Selecione --", new {@class = "input-large"})
-                    </div>
-                </div>
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Boca, new {@class = "title-label"})
                     <div class="controls">
@@ -207,15 +235,35 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>    
         <div class="row">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Passante, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Passante) 
+                    </div>
+                </div>
+            </div>
             <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Comprimento, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.Comprimento, null, "-- Selecione --", new {@class = "input-large"})
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Barra, new {@class = "title-label"})
                     <div class="controls">
                         @Html.DropDownListFor(x => x.Barra, null, "-- Selecione --", new {@class = "input-large"})
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Lavada, new {@class = "title-label"})
                     <div class="controls">
@@ -223,15 +271,17 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
         <div class="row">
-            <div class="span6">
+            <div class="span4">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Cos, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.Cos)
                     </div>
                 </div>
+            </div>
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Pesponto, new {@class = "title-label"})
                     <div class="controls">
@@ -239,7 +289,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="row">
             <div class="span6">
                 <div class="control-group">

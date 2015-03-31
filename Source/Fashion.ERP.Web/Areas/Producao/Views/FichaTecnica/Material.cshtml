@@ -1,0 +1,156 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model FichaTecnicaMaterialModel
+
+@using (Html.BeginForm(MVC.Producao.FichaTecnica.Material(), FormMethod.Post, new {id = "formMaterial", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    <hr />
+    <input type="hidden" id="DepartamentoProducaosDicionario_Material" data-value = "@ViewBag.DepartamentoProducaosDicionarioJson_Material" />
+    <input type="hidden" id="VariacaosDicionario_Material" data-value = "@ViewBag.VariacaosDicionarioJson_Material" />
+    <input type="hidden" id="TamanhosDicionario_Material" data-value = "@ViewBag.TamanhosDicionarioJson_Material" />
+    <hr />
+    <fieldset>
+        <legend>Materiais de Consumo Geral</legend>
+            <div class="control-group">
+                @(Html.Kendo().Grid(Model.GridMaterialConsumoMatriz)
+                        .Name("GridMaterialConsumoMatriz")
+                        .Editable(e => e.Mode(GridEditMode.InLine))
+                        .Navigatable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.Id).Hidden()
+                                .ClientTemplate("<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Id' value='#= Id #' />");
+                            columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").EditorViewData(new { nomeGrid = "GridMaterialConsumoMatriz" })
+                                .ClientTemplate("#= Referencia #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Referencia' value='#= Referencia #' />");
+                            columns.Bound(x => x.Descricao)
+                                .ClientTemplate("#= Descricao #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Descricao' value='#= Descricao #' />");
+                            columns.Bound(x => x.UnidadeMedida)
+                                .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                            columns.Bound(x => x.Quantidade).EditorTemplateName("numeric3casasdecimais")
+                                .ClientTemplate("#= kendo.toString(Quantidade, \"n3\") #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                            columns.Bound(x => x.Custo).EditorTemplateName("numeric3casasdecimais")
+                                .ClientTemplate("#= kendo.toString(Custo, \"n3\") #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                            columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric3casasdecimais")
+                                .ClientTemplate("#= kendo.toString(CustoTotal, \"n3\") #");
+                            columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
+                                .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                            columns.Command(command => { command.Edit(); command.Destroy(); });
+                        }
+                        )
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(events => events.Error("error_handler"))
+                            .Model(model =>
+                            {
+                                model.Id(item => item.Id);
+                                model.Field(item => item.Id).DefaultValue(0);
+                            })
+                            .Create(update => update.Action("EditingInlineMaterialConsumoMatriz_Create", "FichaTecnica"))
+                            .Read(read => read.Action("EditingInlineMaterialConsumoMatriz_Read", "FichaTecnica"))
+                            .Update(update => update.Action("EditingInlineMaterialConsumoMatriz_Update", "FichaTecnica"))
+                            .Destroy(update => update.Action("EditingInlineMaterialConsumoMatriz_Destroy", "FichaTecnica"))
+                        )
+                        .ToolBar(toolbar => toolbar.Create())
+                        .Events(events => events.Edit("onEditGridMaterialConsumoMatriz"))
+                        )
+            </div>
+    </fieldset>
+    <hr />
+    <fieldset>
+        <legend>Materiais de Consumo Por Item</legend>
+            <div class="control-group">
+                    @(Html.Kendo().Grid(Model.GridMaterialConsumoItem)
+                          .Name("GridMaterialConsumoItem")
+                          .Editable(e => e.Mode(GridEditMode.InLine))
+                          .Navigatable()
+                          .Columns(columns =>
+                          {
+                              columns.Bound(x => x.Id).Hidden()
+                                  .ClientTemplate("<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Id' value='#= Id #' />");
+                              columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoFichaTecnicaList")
+                                  .ClientTemplate("#= displayVariacao_Material(Variacao) #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Variacao' value='#= Variacao #' />");
+                              columns.Bound(x => x.Tamanho).EditorTemplateName("TamanhoGradeList")
+                                  .ClientTemplate("#= displayTamanho_Material(Tamanho) #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Tamanho' value='#= Tamanho #' />");
+                              columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").EditorViewData(new { nomeGrid = "GridMaterialConsumoItem" })
+                                  .ClientTemplate("#= Referencia #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Referencia' value='#= Referencia #' />");
+                              columns.Bound(x => x.Descricao)
+                                  .ClientTemplate("#= Descricao #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Descricao' value='#= Descricao #' />");
+                              columns.Bound(x => x.UnidadeMedida)
+                                  .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                              columns.Bound(x => x.Quantidade).EditorTemplateName("numeric3casasdecimais")
+                                  .ClientTemplate("#= kendo.toString(Quantidade, \"n3\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                              columns.Bound(x => x.Custo).EditorTemplateName("numeric3casasdecimais")
+                                  .ClientTemplate("#= kendo.toString(Custo, \"n3\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                              columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric3casasdecimais")
+                                  .ClientTemplate("#= kendo.toString(CustoTotal, \"n3\") #");
+                              columns.Bound(x => x.CompoeCusto)
+                                  .ClientTemplate("#= CompoeCusto == false ? 'Não' : 'Sim' #<input id='CompoeCusto' type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].CompoeCusto' value='#= CompoeCusto #' />");                            
+                              columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
+                                  .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                              columns.Command(command => { command.Edit(); command.Destroy(); });
+                          }
+                          )
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .Events(events => events.Error("error_handler"))
+                              .Model(model =>
+                              {
+                                  model.Id(item => item.Id);
+                                  model.Field(item => item.Id).DefaultValue(0);
+                              })
+                              .Create(update => update.Action("EditingInlineMaterialConsumoItem_Create", "FichaTecnica"))
+                              .Read(read => read.Action("EditingInlineMaterialConsumoItem_Read", "FichaTecnica"))
+                              .Update(update => update.Action("EditingInlineMaterialConsumoItem_Update", "FichaTecnica"))
+                              .Destroy(update => update.Action("EditingInlineMaterialConsumoItem_Destroy", "FichaTecnica"))
+                          )
+                          .ToolBar(toolbar => toolbar.Create())
+                          .Events(events => events.Edit("onEditGridMaterialConsumoItem"))
+                          )
+                </div>
+    </fieldset>
+    <hr />
+    <fieldset>
+        <legend>Materiais de Composição de Custo</legend>
+            <div class="control-group">
+                @(Html.Kendo().Grid(Model.GridMaterialComposicaoCustoMatriz)
+                    .Name("GridMaterialComposicaoCustoMatriz")
+                    .Editable(e => e.Mode(GridEditMode.InLine))
+                    .Navigatable()
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Id).Hidden()
+                            .ClientTemplate("<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Id' value='#= Id #' />");
+                        columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").EditorViewData(new { nomeGrid = "GridMaterialComposicaoCustoMatriz" })
+                            .ClientTemplate("#= Referencia #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Referencia' value='#= Referencia #' />");
+                        columns.Bound(x => x.Descricao)
+                            .ClientTemplate("#= Descricao #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Descricao' value='#= Descricao #' />");
+                        columns.Bound(x => x.UnidadeMedida)
+                            .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                        columns.Bound(x => x.Custo).EditorTemplateName("numeric3casasdecimais")
+                            .ClientTemplate("#= kendo.toString(Custo, \"n3\") #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                        columns.Command(command => { command.Edit(); command.Destroy(); });
+                    }
+                    )
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Events(events => events.Error("error_handler"))
+                        .Model(model =>
+                        {
+                            model.Id(item => item.Id);
+                            model.Field(item => item.Id).DefaultValue(0);
+                        })
+                        .Create(update => update.Action("EditingInlineMaterialComposicaoCustoMatriz_Create", "FichaTecnica"))
+                        .Read(read => read.Action("EditingInlineMaterialComposicaoCustoMatriz_Read", "FichaTecnica"))
+                        .Update(update => update.Action("EditingInlineMaterialComposicaoCustoMatriz_Update", "FichaTecnica"))
+                        .Destroy(update => update.Action("EditingInlineMaterialComposicaoCustoMatriz_Destroy", "FichaTecnica"))
+                    )
+                    .ToolBar(toolbar => toolbar.Create())
+                )
+            </div>
+    </fieldset>
+    <div class="form-actions">
+        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Material(), "btnSubmitMaterial")        
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model String
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .OptionLabel("- Selecione -")
+    .BindTo(ViewBag.TamanhoGrades)
+    .Name("Tamanho")
+    .DataTextField("Descricao")
+    .DataValueField("Id")
+)
+
+@Html.ValidationMessageFor(m => m)

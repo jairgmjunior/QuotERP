@@ -1,0 +1,10 @@
+﻿@model String
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .BindTo(ViewBag.VariacaoFichaTecnicas)
+    .OptionLabel("- Selecione -")
+    .DataTextField("Nome")
+    .DataValueField("Id")
+    .Name("Variacao")
+      )
+@Html.ValidationMessageFor(m => m)
