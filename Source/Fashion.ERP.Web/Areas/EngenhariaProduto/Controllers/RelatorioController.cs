@@ -45,6 +45,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<ConsumoMaterialColecaoView> _consumoRepository;
         private readonly IRepository<Segmento> _segmentoRepository;
         private readonly IRepository<Artigo> _artigoRepository;
+        private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
         private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
         #region ColunasListagemModelos
         private static readonly Dictionary<string, string> ColunasListagemModelos = new Dictionary<string, string>
@@ -102,6 +103,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             {"Descrição", "Descricao"}
         };
         #endregion
+        #region MateriaisModelosAprovados
+        private static readonly Dictionary<string, string> ColunasMateriaisModelosAprovados = new Dictionary<string, string>
+        {
+            {"Coleção", "Colecao.Descricao"},
+            {"Coleção Aprovada", "ModeloAprovado.Colecao.Descricao"},
+            {"Data de Programação da Produção", "ModeloAprovado.DataProgramacaoProducao"}
+        };
+        #endregion
+       
         #endregion
 
         #region Construtores
@@ -114,7 +124,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<ConsumoMaterialColecaoView> consumoRepository, IRepository<Grade> gradeRepository,
             IRepository<Marca> marcaRepository, IRepository<ProdutoBase> produtoBaseRepository,
             IRepository<Comprimento> comprimentoRepository, IRepository<Barra> barraRepository, 
-            IRepository<Segmento> segmentoRepository, IRepository<Artigo> artigoRepository)
+            IRepository<Segmento> segmentoRepository, IRepository<Artigo> artigoRepository,
+            IRepository<DepartamentoProducao> departamentoProducaoRepository )
         {
             _logger = logger;
             _modeloRepository = modeloRepository;
@@ -135,6 +146,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _barraRepository = barraRepository;
             _segmentoRepository = segmentoRepository;
             _artigoRepository = artigoRepository;
+            _departamentoProducaoRepository = departamentoProducaoRepository;
         }
 
         #endregion
@@ -180,7 +192,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     modelos = modelos.Where(p => p.Referencia == model.Referencia);
                     filtros.AppendFormat("Referência: {0}, ", model.Referencia);
                 }
-
 
                 if (!string.IsNullOrWhiteSpace(model.Descricao))
                 {
@@ -623,6 +634,144 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         #endregion
 
+        #region MateriaisModelosAprovados
+        [PopulateViewData("PopulateMateriaisModelosAprovados")]
+        public virtual ActionResult MateriaisModelosAprovados()
+        {
+            return View(new MateriaisModelosAprovadosModel());
+        }
+
+        [HttpPost, AjaxOnly, PopulateViewData("PopulateMateriaisModelosAprovados")]
+        public virtual JsonResult MateriaisModelosAprovados(MateriaisModelosAprovadosModel model)
+        {
+            var query =
+                _modeloRepository.Find()
+                    .Where(x => x.Aprovado == true && x.ModeloAprovado != null);
+
+            
+            var filtros = new StringBuilder();
+            try
+            {
+                if (model.Colecoes.IsNullOrEmpty() == false)
+                {
+                    query = query.Where(p => model.Colecoes.Contains(p.Colecao.Id ?? 0));
+
+                    var colecoesDomain = _colecaoRepository.Find(m => model.Colecoes.Contains(m.Id ?? 0));
+                    filtros.AppendFormat("Coleção(s): {0}, ", colecoesDomain.Select(c => c.Descricao).ToList().Join(","));
+            
+                }
+
+                if (model.ColecoesAprovadas.IsNullOrEmpty() == false)
+                {
+                    query = query.Where(p => model.ColecoesAprovadas.Contains(p.ModeloAprovado.Colecao.Id ?? 0));
+
+                    var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.ColecoesAprovadas.Contains(m.Id ?? 0));
+                    filtros.AppendFormat("Coleção Aprovada(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
+                }
+
+                if (model.Categorias.IsNullOrEmpty() == false)
+                {
+                    var categorias = new List<long?>(model.Categorias);
+                    
+                    //var categoriasClosure = categorias; // Copiar para variável local
+                    var categoriasDomain = _categoriaRepository.Find(c => model.Categorias.Contains(c.Id ?? 0));
+                    filtros.AppendFormat("Categoria(s): {0}, ", categoriasDomain.Select(c => c.Nome).ToList().Join(","));
+                    
+                    // Inserir a subcategoria antes da categoria com 'OR'
+                    if (model.Subcategorias.IsNullOrEmpty() == false)
+                    {
+                        //var subcategorias = model.Subcategorias.ConvertAll(long.Parse);
+                        var subcategoriasDomain = _subcategoriaRepository.Find(s => model.Subcategorias.Contains(s.Id ?? 0L)).ToList();
+
+                        // Remover o filtro de categoria que já possui subcategoria para não filtrar 2 vezes
+                        categorias = categorias.Except(subcategoriasDomain.Select(s => s.Categoria.Id)).ToList();
+
+                        // Selecionar as subcategorias ou as outras categorias
+                        query = query.Where(p => p.SequenciaProducoes.Any(seq =>
+                            seq.MaterialComposicaoModelos.Any(materialComposicao => model.Subcategorias.Contains(materialComposicao.Material.Subcategoria.Id ?? 0L)
+                            || categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
+                        
+                        filtros.AppendFormat("Subcategoria: {0}, ", subcategoriasDomain.Select(s => s.Nome).ToList().Join(","));
+                    }
+                    else
+                    {
+                        // Se não existe subcategoria, selecionar todas as categorias selecionadas na tela
+                        query = query.Where(p => p.SequenciaProducoes.Any(seq =>
+                            seq.MaterialComposicaoModelos.Any(materialComposicao => categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
+                    }
+                }
+            
+                if (model.DataProgramacaoProducao.HasValue)
+                {
+                    query = query.Where(p => p.ModeloAprovado.DataProgramacaoProducao.Date == model.DataProgramacaoProducao.Value.Date);
+                    
+                    filtros.AppendFormat("Data de Programação da Produção: {0:dd/MM/yyyy}, ", model.DataProgramacaoProducao.Value.Date);
+                }
+
+                if (!string.IsNullOrWhiteSpace(model.Tag))
+                {
+                    query = query.Where(p => p.ModeloAprovado.Tag.Contains(model.Tag));
+                    
+                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                }
+
+                if (model.DepartamentoProducao.IsNullOrEmpty() == false)
+                {
+                    query = query.Where(p => model.DepartamentoProducao.Contains(p.ModeloAprovado.Colecao.Id ?? 0));
+
+                    var colecoesDomain = _colecaoRepository.Find(m => model.Colecoes.Contains(m.Id ?? 0));
+                    filtros.AppendFormat("Coleção Aprovada(s): {0}, ", colecoesDomain.Select(c => c.Descricao).ToList().Join(","));
+                }
+
+                // Se não é uma listagem, gerar o relatório
+                query
+                   .FetchMany(x => x.SequenciaProducoes).ThenFetchMany(x => x.MaterialComposicaoModelos)
+                   .ThenFetch(x =>x.Material).ThenFetch(x => x.Subcategoria);
+                
+                var result = query.ToList();
+
+                if (!query.Any())
+                    return Json(new { Error = "Nenhum item encontrado." });
+
+                #region Montar Relatório
+                Report report = new MateriaisModelosAprovadosReport() { DataSource = result };
+
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+                
+                if (model.AgruparPor != null)
+                {
+                    grupo.Groupings.Add("= FashionErp.AjusteValores(Fields." + model.AgruparPor + ")");
+
+                    var key = ColunasMateriaisModelosAprovados.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + FashionErp.AjusteValores(Fields.{1})", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
+                }
+
+                //if (model.OrdenarPor != null)
+                //    report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+                #endregion
+
+                var filename = report.ToByteStream().SaveFile(".pdf");
+
+                return Json(new { Url = filename });
+            }
+            catch (Exception exception)
+            {
+                var message = exception.GetMessage();
+                _logger.Info(message);
+                
+                return Json(new { Error = message });
+            }
+        }
+        #endregion
+
         #region ConsumoMaterialColecao
         [PopulateViewData("PopulateConsumoMaterialColecao")]
         public virtual ActionResult ConsumoMaterialColecao()
@@ -896,7 +1045,36 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             ViewBag.OrdenarPor = new SelectList(ColunasConsumoMaterialPorModelo, "value", "key");
         }
         #endregion
+        
+        #region PopulateMateriaisModelosAprovados
+        protected void PopulateMateriaisModelosAprovados(MateriaisModelosAprovadosModel model)
+        {
+            var colecoes = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
+            ViewData["Colecoes"] = colecoes.ToSelectList("Descricao");
 
+            var colecaoAprovada = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
+            ViewData["ColecoesAprovadas"] = colecaoAprovada.ToSelectList("Descricao");
+
+            var categorias = _categoriaRepository.Find(p => p.Ativo).OrderBy(o => o.Nome).ToList();
+            ViewData["Categorias"] = categorias.ToSelectList("Nome");
+
+            if (model.Categorias.IsNullOrEmpty())
+            {
+                ViewBag.Subcategorias = new SelectList(Enumerable.Empty<Subcategoria>(), "Id", "Nome");
+            }
+            else
+            {   
+                var subcategorias = _subcategoriaRepository.Find(p => model.Subcategorias.Contains(p.Categoria.Id ?? 0) && p.Ativo).ToList();
+                ViewData["Subcategorias"] = subcategorias.ToSelectList("Nome");
+            }
+            
+            var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).OrderBy(o => o.Nome).ToList();
+            ViewData["DepartamentosProducao"] = departamentoProducaos.ToSelectList("Nome");
+
+            ViewBag.AgruparPor = new SelectList(ColunasMateriaisModelosAprovados, "value", "key");
+        }
+        #endregion
+        
         #endregion
     }
 }

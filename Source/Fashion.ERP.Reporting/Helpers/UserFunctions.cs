@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -105,5 +106,19 @@ namespace Fashion.ERP.Reporting.Helpers
         }
         #endregion
 
+        [Function(Category = "Fomart", Namespace = "FashionErp", Description = "Ajuste os valores de data se necessário.")]
+        public static object AjusteValores(object value)
+        {
+            if (value == null || value == DBNull.Value)
+                return null;
+
+            if (value is DateTime)
+            {
+                var datetime = (DateTime) value;
+                return datetime.Date.ToString("dd/MM/yyyy");
+            }
+
+            return value;
+        }
     }
 }

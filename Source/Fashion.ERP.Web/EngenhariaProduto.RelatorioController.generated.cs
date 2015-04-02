@@ -60,6 +60,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string ListagemModelos = "ListagemModelos";
             public readonly string ListagemModelosAprovados = "ListagemModelosAprovados";
             public readonly string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
+            public readonly string MateriaisModelosAprovados = "MateriaisModelosAprovados";
             public readonly string ConsumoMaterialColecao = "ConsumoMaterialColecao";
         }
 
@@ -69,6 +70,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public const string ListagemModelos = "ListagemModelos";
             public const string ListagemModelosAprovados = "ListagemModelosAprovados";
             public const string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
+            public const string MateriaisModelosAprovados = "MateriaisModelosAprovados";
             public const string ConsumoMaterialColecao = "ConsumoMaterialColecao";
         }
 
@@ -97,6 +99,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_MateriaisModelosAprovados s_params_MateriaisModelosAprovados = new ActionParamsClass_MateriaisModelosAprovados();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_MateriaisModelosAprovados MateriaisModelosAprovadosParams { get { return s_params_MateriaisModelosAprovados; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_MateriaisModelosAprovados
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_ConsumoMaterialColecao s_params_ConsumoMaterialColecao = new ActionParamsClass_ConsumoMaterialColecao();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ConsumoMaterialColecao ConsumoMaterialColecaoParams { get { return s_params_ConsumoMaterialColecao; } }
@@ -120,12 +130,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 public readonly string ListagemModelos = "ListagemModelos";
                 public readonly string ListagemModelos2 = "ListagemModelos2";
                 public readonly string ListagemModelosAprovados = "ListagemModelosAprovados";
+                public readonly string MateriaisModelosAprovados = "MateriaisModelosAprovados";
             }
             public readonly string ConsumoMaterialColecao = "~/Areas/EngenhariaProduto/Views/Relatorio/ConsumoMaterialColecao.cshtml";
             public readonly string ConsumoMaterialPorModelo = "~/Areas/EngenhariaProduto/Views/Relatorio/ConsumoMaterialPorModelo.cshtml";
             public readonly string ListagemModelos = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelos.cshtml";
             public readonly string ListagemModelos2 = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelos2.cshtml";
             public readonly string ListagemModelosAprovados = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelosAprovados.cshtml";
+            public readonly string MateriaisModelosAprovados = "~/Areas/EngenhariaProduto/Views/Relatorio/MateriaisModelosAprovados.cshtml";
         }
     }
 
@@ -188,6 +200,25 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ConsumoMaterialPorModelo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ConsumoMaterialPorModeloOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void MateriaisModelosAprovadosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult MateriaisModelosAprovados()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MateriaisModelosAprovados);
+            MateriaisModelosAprovadosOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void MateriaisModelosAprovadosOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.MateriaisModelosAprovadosModel model);
+
+        public override System.Web.Mvc.JsonResult MateriaisModelosAprovados(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.MateriaisModelosAprovadosModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.MateriaisModelosAprovados);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MateriaisModelosAprovadosOverride(callInfo, model);
             return callInfo;
         }
 

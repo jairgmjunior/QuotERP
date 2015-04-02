@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.Common.Base;
 
@@ -315,6 +316,11 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         }
 
         #endregion
+
+        public virtual IEnumerable<MaterialComposicaoModelo> MaterialComposicaoModelos
+        {
+            get { return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos); }
+        }
 
         public virtual void GereChaveExterna()
         {

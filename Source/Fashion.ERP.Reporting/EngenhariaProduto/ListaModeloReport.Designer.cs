@@ -249,7 +249,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(18.897083282470703D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.titleTextBox.StyleName = "Title";
-            this.titleTextBox.Value = "Modelo";
+            this.titleTextBox.Value = "Materiais de Modelos Aprovados";
             // 
             // reportFooter
             // 
@@ -291,7 +291,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // descricaoDataTextBox
             // 
             this.descricaoDataTextBox.CanGrow = true;
-            this.descricaoDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(1.5531165599822998D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.descricaoDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(1.5531165599822998D), Telerik.Reporting.Drawing.Unit.Cm(0D));
             this.descricaoDataTextBox.Name = "descricaoDataTextBox";
             this.descricaoDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(6.5999999046325684D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.descricaoDataTextBox.StyleName = "Data";
