@@ -1,0 +1,1 @@
+﻿update permissao  set controller= 'RelatorioMateriaisModelosAprovados' where action = 'MateriaisModelosAprovados';

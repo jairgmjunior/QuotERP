@@ -322,6 +322,16 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
             get { return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos); }
         }
 
+        //public virtual IEnumerable<MaterialComposicaoModelo> ObtenhaMaterialComposicaoModelos(IEnumerable<long?> departamentosProducaoId )
+        //{
+        //     return SequenciaProducoes.Where(seq => departamentosProducaoId.Contains(seq.DepartamentoProducao.Id))
+        //         .SelectMany(x => x.MaterialComposicaoModelos); 
+        //}
+
+        public virtual IEnumerable<MaterialComposicaoModelo> ObtenhaMaterialComposicaoModelos()
+        {
+            return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos);
+        }
         public virtual void GereChaveExterna()
         {
 

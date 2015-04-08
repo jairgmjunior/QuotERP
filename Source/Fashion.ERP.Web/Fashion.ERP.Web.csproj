@@ -436,6 +436,7 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaMaterialModel.cs" />
@@ -806,6 +807,9 @@
     <Compile Include="EngenhariaProduto.RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="EngenhariaProduto.RelatorioMateriaisModelosAprovadosController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="EngenhariaProduto.SequenciaProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1162,7 +1166,7 @@
     <Content Include="Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\Editar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\Relatorio\MateriaisModelosAprovados.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

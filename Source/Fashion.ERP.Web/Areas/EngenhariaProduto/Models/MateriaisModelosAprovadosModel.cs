@@ -14,7 +14,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
             ColecoesAprovadas = new List<long?>();
             Categorias = new List<long?>();
             Subcategorias = new List<long?>();
-            DepartamentoProducao = new List<long?>();
+            DepartamentosProducao = new List<long?>();
         }
 
         [Display(Name = "Coleção")]
@@ -30,7 +30,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public List<long?> Subcategorias { get; set; }
         
         [Display(Name = "Departamento de Produção")]
-        public List<long?> DepartamentoProducao { get; set; }
+        public List<long?> DepartamentosProducao { get; set; }
         
         [Display(Name = "Data de Programação da Produção")]
         public DateTime? DataProgramacaoProducao { get; set; }

@@ -2,7 +2,7 @@
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.Relatorio.MateriaisModelosAprovados(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+@using (Html.BeginForm(MVC.EngenhariaProduto.RelatorioMateriaisModelosAprovados.MateriaisModelosAprovados(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
 <div class="accordion" id="accordion">
     <div class="accordion-group">
@@ -84,6 +84,20 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.DepartamentosProducao)
+                            <div class="controls">
+                                @(Html.Kendo().MultiSelect()
+                                        .Name("DepartamentosProducao")
+                                        .BindTo(ViewBag.DepartamentosProducao)
+                                        .Value(Model.DepartamentosProducao)
+                                        )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="span3">
                         <div class="control-group">
                             @Html.LabelForRequired(x => x.AgruparPor)
@@ -91,6 +105,8 @@
                                 @Html.DropDownList("AgruparPor", "--Selecione--")
                             </div>
                         </div>
+                    </div>
+                    <div class="span6">
                     </div>
                     <div class="span3">
                         <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>

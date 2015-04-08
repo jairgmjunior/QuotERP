@@ -146,10 +146,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
+                public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/OrdemProducao/_NovoOuEditar.cshtml";
+            public readonly string Editar = "~/Areas/Producao/Views/OrdemProducao/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/OrdemProducao/Index.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/OrdemProducao/Novo.cshtml";
         }

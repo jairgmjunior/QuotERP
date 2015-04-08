@@ -375,6 +375,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     var baixaTitulo = new BaixaItemTituloReceberModel
                     {
                         Id = tituloReceberBaixa.Id,
+                        DataRecebimentoString = tituloReceberBaixa.DataRecebimento.ToString("dd/MM/yyyy"),
                         Desconto = tituloReceberBaixa.Descontos,
                         Despesa = tituloReceberBaixa.Despesas,
                         Juro = tituloReceberBaixa.Juros,
