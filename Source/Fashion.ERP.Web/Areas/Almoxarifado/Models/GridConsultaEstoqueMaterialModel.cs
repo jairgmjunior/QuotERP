@@ -6,8 +6,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
     {
         public long Id { get; set; }
 
-        [Display(Name = "U.E.")]
-        public long Unidade { get; set; }
+        [Display(Name = "Unidade")]
+        public string Unidade { get; set; }
         
         [Display(Name = "Depósito")]
         public string DepositoMaterial { get; set; }
@@ -18,7 +18,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        [Display(Name = "Un. medida")]
+        [Display(Name = "Und.")]
         public string UnidadeMedida { get; set; }
 
         [Display(Name = "Qtde. Estoque")]

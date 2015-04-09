@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Reporting.Almoxarifado;
+using Fashion.ERP.Reporting.Almoxarifado.Models;
 using Fashion.ERP.Reporting.Helpers;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
@@ -32,6 +33,28 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
         private readonly ILogger _logger;
+        #endregion
+
+        #region Colunas Agrupamento
+        private static readonly Dictionary<string, string> ColunasAgrupamentoEstoqueMaterial = new Dictionary<string, string>
+        {
+            {"Unidade", "Unidade.Pessoa.Nome"},
+            {"Depósito", "Deposito.Nome"},
+            {"Categoria", "Material.Subcategoria.Categoria.Nome"},
+            {"Subcategoria", "Material.Subcategoria.Nome"},
+            {"Família", "Material.Familia.Nome"},
+            {"Marca", "Material.Marca.Nome"},
+        };
+        #endregion
+        
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoEstoqueMaterial = new Dictionary<string, string>
+        {
+            {"Referência", "Material.Referencia"},
+            {"Descrição", "Material.Descricao"},
+            {"Qtde. Estoque", "Quantidade"}
+            //Qtde. Disponível (ver índice 20)//demanda mais tempo
+        };
         #endregion
 
         #region Construtores
@@ -63,6 +86,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var model = new ConsultaEstoqueMaterialModel
             {
                 ModoConsulta = "Listar",
+                SomenteQtdeDisponivel = false,
+                SomenteQtdeEstoque = false
                 //Categorias = new List<string>(),
                 //Subcategorias = new List<string>(),
                 //Familias = new List<string>(),
@@ -76,6 +101,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public virtual ActionResult EstoqueMaterial(ConsultaEstoqueMaterialModel model)
         {
             var estoqueMateriais = _estoqueMaterialRepository.Find();
+             
             var ehImpressao = model.ModoConsulta == "Imprimir";
 
             try
@@ -172,62 +198,100 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         filtros.AppendFormat("Família: {0}, ", familiasDomain.Select(c => c.Nome).ToList().Join(","));
                     }
                 }
+
+                if (model.SomenteQtdeEstoque)
+                {
+                    estoqueMateriais = estoqueMateriais.Where(p => p.Quantidade > 0 );
+
+                    if (ehImpressao)
+                        filtros.AppendFormat("Somente se houver qtde. em estoque: Sim");
+                }
+
                 #endregion
                 
+                if (model.OrdenarPor != null)
+                    estoqueMateriais = model.OrdenarEm == "asc"
+                        ? estoqueMateriais.OrderBy(model.OrdenarPor)
+                        : estoqueMateriais.OrderByDescending(model.OrdenarPor);
+
+                var resultado = estoqueMateriais.Select(p => new GridConsultaEstoqueMaterialModel
+                {
+                    Id = p.Id.GetValueOrDefault(),
+                    Referencia = p.Material.Referencia,
+                    Descricao = p.Material.Descricao,
+                    UnidadeMedida = p.Material.UnidadeMedida.Sigla,
+                    DepositoMaterial = p.DepositoMaterial.Nome,
+                    Unidade = p.DepositoMaterial.Unidade.NomeFantasia,
+                    Saldo = p.Quantidade,
+                    MaterialId = p.Material.Id,
+                    UnidadeId = p.DepositoMaterial.Unidade.Id
+                }).ToList();
+
+                foreach (GridConsultaEstoqueMaterialModel g in resultado)
+                {
+                    long? unidadeId = g.UnidadeId;
+                    long? materialId = g.MaterialId;
+                    var reservaEstoque =
+                        _reservaEstoqueMaterialRepository.Find(r => r.Unidade.Id == unidadeId.Value
+                        && r.Material.Id == materialId).FirstOrDefault();
+                    g.QtdeReservada = reservaEstoque != null ? reservaEstoque.Quantidade : 0;
+                }
+
+                if (model.SomenteQtdeDisponivel)
+                {
+                    model.Grid = model.Grid.Where(p => p.QtdeDisponivel > 0).ToList();
+
+                    if (ehImpressao)
+                        filtros.AppendFormat("Somente se houver qtde. disponível: Sim");
+                }
+
                 // Verifica se é uma listagem
                 if (model.ModoConsulta == "Listar")
                 {
-                    if (model.OrdenarPor != null)
-                        estoqueMateriais = model.OrdenarEm == "asc"
-                            ? estoqueMateriais.OrderBy(model.OrdenarPor)
-                            : estoqueMateriais.OrderByDescending(model.OrdenarPor);
-
-                    model.Grid = estoqueMateriais.Select(p => new GridConsultaEstoqueMaterialModel
-                    {
-                        Id = p.Id.GetValueOrDefault(),
-                        Referencia = p.Material.Referencia,
-                        Descricao = p.Material.Descricao,
-                        UnidadeMedida = p.Material.UnidadeMedida.Descricao,
-                        DepositoMaterial = p.DepositoMaterial.Nome,
-                        Unidade = p.DepositoMaterial.Unidade.Unidade.Codigo,
-                        Saldo = p.Quantidade,
-                        MaterialId = p.Material.Id,
-                        UnidadeId = p.DepositoMaterial.Unidade.Id
-                    }).ToList();
-
-                    foreach (GridConsultaEstoqueMaterialModel g in model.Grid)
-                    {
-                        long? unidadeId = g.UnidadeId;
-                        long? materialId = g.MaterialId;
-                        var reservaEstoque =
-                            _reservaEstoqueMaterialRepository.Find(r=>r.Unidade.Id == unidadeId.Value 
-                            && r.Material.Id == materialId ).FirstOrDefault();
-                        if (reservaEstoque != null)
-                            g.QtdeReservada = reservaEstoque.Quantidade;
-                        else
-                            g.QtdeReservada = 0;
-                    }
+                    model.Grid = resultado;
 
                     return View(model);
                 }
 
-                // Se não é uma listagem, gerar o relatório
-                var result = estoqueMateriais
-                    .Fetch(p => p.Material).ThenFetch(p => p.Familia)
-                    .Fetch(p => p.Material).ThenFetch(p => p.Subcategoria).ThenFetch(p => p.Categoria)
-                    .Fetch(p => p.Material).ThenFetch(p => p.MarcaMaterial)
-                    .Fetch(p => p.Material).ThenFetch(p => p.UnidadeMedida)
-                    .Fetch(p => p.DepositoMaterial).ThenFetch(p => p.Unidade)
-                    .ToList();
-
-                if (!result.Any())
+                if (!resultado.Any())
                     return Json(new { Error = "Nenhum item encontrado." });
 
+                var resultadoPronto = resultado.Select(x => new EstoqueMaterialSinteticoModel
+                {
+                    Id = x.Id,
+                    Unidade = x.Unidade,
+                    DepositoMaterial = x.DepositoMaterial,
+                    Referencia = x.Referencia,
+                    Descricao = x.Descricao,
+                    UnidadeMedida = x.UnidadeMedida,
+                    QuantidadeEstoque = x.Saldo,
+                    QuantidadeReservada = x.QtdeReservada
+                });
+
                 #region Montar Relatório
-                Report report = new ListaEstoqueMaterialReport { DataSource = result };
+                Report report = new ListaEstoqueMaterialReport { DataSource = resultadoPronto };
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+
+                if (model.AgruparPor != null)
+                {
+                    grupo.Groupings.Add("= FashionErp.AjusteValores(Fields." + model.AgruparPor + ")");
+
+                    var key = ColunasAgrupamentoEstoqueMaterial.First(p => p.Value == model.AgruparPor).Key;
+                    var titulo = string.Format("= \"{0}: \" + FashionErp.AjusteValores(Fields.{1})", key, model.AgruparPor);
+                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+                }
+                else
+                {
+                    report.Groups.Remove(grupo);
+                }
+
+                if (model.AgruparPor != null)
+                    report.Sortings.Add("=Fields." + model.AgruparPor, SortDirection.Asc);
+
 
                 if (model.OrdenarPor != null)
                     report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);

@@ -5,8 +5,8 @@
     @(Html.Kendo().DropDownListFor(model => model)
         .BindTo(new List<SelectListItem>
         {
-            new SelectListItem {Text = "Sim", Value = "true"},
-            new SelectListItem {Text = "Não", Value = "false"}
+            new SelectListItem {Text = "Sim", Value = "True"},
+            new SelectListItem {Text = "Não", Value = "False"}
         })
         .OptionLabel("- Selecione -")
         .Name(@Html.NameFor(model => model).ToString())
@@ -18,8 +18,8 @@ else
     @(Html.Kendo().DropDownListFor(model => model)
         .BindTo(new List<SelectListItem>
         {
-            new SelectListItem {Text = "Sim", Value = "true"},
-            new SelectListItem {Text = "Não", Value = "false"}
+            new SelectListItem {Text = "Sim", Value = "True"},
+            new SelectListItem {Text = "Não", Value = "False"}
         })
         .Name(@Html.NameFor(model => model).ToString())
         .Value(Model.ToString())

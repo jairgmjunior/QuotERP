@@ -36,7 +36,9 @@ namespace Fashion.ERP.Domain.Comum
         [Display(Name = "Programador bordado")]
         ProgramadorBordado,
         [Display(Name = "Faturista")]
-        Faturista
+        Faturista,
+        [Display(Name = "Outros")]
+        Outros
     }
 
     public static class FuncaoFuncionarioExtensions

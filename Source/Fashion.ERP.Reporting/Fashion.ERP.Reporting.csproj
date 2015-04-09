@@ -102,6 +102,7 @@
     <Compile Include="Almoxarifado\ListaEstoqueMaterialReport.Designer.cs">
       <DependentUpon>ListaEstoqueMaterialReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Almoxarifado\Models\EstoqueMaterialSinteticoModel.cs" />
     <Compile Include="Almoxarifado\ReferenciaExternaSubreport.cs">
       <SubType>Component</SubType>
     </Compile>

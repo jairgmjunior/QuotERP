@@ -17,6 +17,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Descrição")]
         [StringLength(100, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Descricao { get; set; }
+        
+        [Display(Name = "Somente com Qtde. disponível")]
+        public bool SomenteQtdeDisponivel { get; set; }
+
+        [Display(Name = "Somente com Qtde. Estoque")]
+        public bool SomenteQtdeEstoque { get; set; }
 
         [Display(Name = "Categoria")]
         public List<string> Categorias { get; set; }
@@ -29,7 +35,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Marca")]
         public List<string> Marcas { get; set; }
-
+        
+        [Display(Name = "Agrupar por")]
+        public string AgruparPor { get; set; }
+        
         public string ModoConsulta { get; set; }
 
         [Display(Name = "Ordenar por")]

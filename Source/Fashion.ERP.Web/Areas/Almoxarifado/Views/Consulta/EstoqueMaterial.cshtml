@@ -51,10 +51,10 @@
                                 @Html.LabelForRequired(x => x.Categorias)
                                 <div class="controls">
                                     @(Html.Kendo().MultiSelect()
-                                        .Name("Categorias")
-                                        .BindTo(ViewBag.Categorias)
-                                        .Value(Model.Categorias)
-                                    )
+                                          .Name("Categorias")
+                                          .BindTo(ViewBag.Categorias)
+                                          .Value(Model.Categorias)
+                                          )
                                 </div>
                             </div>
                             <div class="control-group">
@@ -71,20 +71,38 @@
                                 @Html.LabelForRequired(x => x.Familias)
                                 <div class="controls">
                                     @(Html.Kendo().MultiSelect()
-                                        .Name("Familias")
-                                        .BindTo(ViewBag.Familias)
-                                        .Value(Model.Familias)
-                                    )
+                                          .Name("Familias")
+                                          .BindTo(ViewBag.Familias)
+                                          .Value(Model.Familias)
+                                          )
                                 </div>
                             </div>
                             <div class="control-group">
                                 @Html.LabelForRequired(x => x.Marcas)
                                 <div class="controls">
                                     @(Html.Kendo().MultiSelect()
-                                        .Name("Marcas")
-                                        .BindTo(ViewBag.Marcas)
-                                        .Value(Model.Marcas)
-                                    )
+                                          .Name("Marcas")
+                                          .BindTo(ViewBag.Marcas)
+                                          .Value(Model.Marcas)
+                                          )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SomenteQtdeEstoque)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.SomenteQtdeEstoque)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SomenteQtdeDisponivel) 
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.SomenteQtdeDisponivel)
                                 </div>
                             </div>
                         </div>
@@ -136,10 +154,10 @@
     .Name("Grid")
     .Columns(columns =>
     {
-        columns.Bound(x => x.Unidade);
-        columns.Bound(x => x.DepositoMaterial);
         columns.Bound(x => x.Referencia);
         columns.Bound(x => x.Descricao);
+        columns.Bound(x => x.Unidade);
+        columns.Bound(x => x.DepositoMaterial);
         columns.Bound(x => x.UnidadeMedida);
         columns.Bound(x => x.Saldo).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Bound(x => x.QtdeReservada).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
