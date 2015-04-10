@@ -10,6 +10,11 @@
         public string UnidadeMedida { get; set; }
         public double QuantidadeEstoque { get; set; }
         public double QuantidadeReservada { get; set; }
+        public string Categoria { get; set; }
+        public string Subcategoria { get; set; }
+        public string Familia { get; set; }
+        public string Marca { get; set; }
+        public string Foto { get; set; }
         
         public double QuantidadeDisponivel
         {

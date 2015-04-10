@@ -10,9 +10,9 @@ namespace Fashion.ERP.Reporting.Almoxarifado
     /// <summary>
     /// Summary description for ListaEstoqueMaterialReport.
     /// </summary>
-    public partial class ListaEstoqueMaterialReport : Telerik.Reporting.Report
+    public partial class EstoqueMaterialAnaliticoReport : Telerik.Reporting.Report
     {
-        public ListaEstoqueMaterialReport()
+        public EstoqueMaterialAnaliticoReport()
         {
             //
             // Required for telerik Reporting designer support

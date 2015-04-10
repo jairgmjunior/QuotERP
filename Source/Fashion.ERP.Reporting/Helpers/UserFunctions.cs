@@ -23,7 +23,7 @@ namespace Fashion.ERP.Reporting.Helpers
 
         static UserFunctions()
         {
-            FotoPadrao = HttpContext.Current.Server.MapPath(@"~\Content\images\no_image_report.png");
+            FotoPadrao = HttpContext.Current.Server.MapPath(@"~\Content\images\no_image.jpg");//no_image_report.png
         }
 
         #region CTipoPrestadorServico
@@ -77,7 +77,7 @@ namespace Fashion.ERP.Reporting.Helpers
         [Function(Category = "Text", Namespace = "FashionErp", Description = "Retorna o endereço completo para a imagem.")]
         public static string EnderecoFoto(string nomeFoto)
         {
-            var foto = HttpContext.Current.Server.MapPath(@"~\Uploads\Files\" + nomeFoto);
+            var foto = HttpContext.Current.Server.MapPath(@"~\" + nomeFoto);
 
             return File.Exists(foto) ? foto : FotoPadrao;
         }

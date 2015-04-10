@@ -60,6 +60,12 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Almoxarifado\EstoqueMaterialAnaliticoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\EstoqueMaterialAnaliticoReport.Designer.cs">
+      <DependentUpon>EstoqueMaterialAnaliticoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado\ListaSimboloConservacaoReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -96,11 +102,11 @@
     <Compile Include="Almoxarifado\ListaMaterialReport.Designer.cs">
       <DependentUpon>ListaMaterialReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Almoxarifado\ListaEstoqueMaterialReport.cs">
+    <Compile Include="Almoxarifado\EstoqueMaterialSinteticoReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Almoxarifado\ListaEstoqueMaterialReport.Designer.cs">
-      <DependentUpon>ListaEstoqueMaterialReport.cs</DependentUpon>
+    <Compile Include="Almoxarifado\EstoqueMaterialSinteticoReport.Designer.cs">
+      <DependentUpon>EstoqueMaterialSinteticoReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Almoxarifado\Models\EstoqueMaterialSinteticoModel.cs" />
     <Compile Include="Almoxarifado\ReferenciaExternaSubreport.cs">
@@ -289,6 +295,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Almoxarifado\EstoqueMaterialAnaliticoReport.resx">
+      <DependentUpon>EstoqueMaterialAnaliticoReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\ListaSimboloConservacaoReport.resx">
       <DependentUpon>ListaSimboloConservacaoReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -307,8 +316,8 @@
     <EmbeddedResource Include="Almoxarifado\ListaMaterialReport.resx">
       <DependentUpon>ListaMaterialReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Almoxarifado\ListaEstoqueMaterialReport.resx">
-      <DependentUpon>ListaEstoqueMaterialReport.cs</DependentUpon>
+    <EmbeddedResource Include="Almoxarifado\EstoqueMaterialSinteticoReport.resx">
+      <DependentUpon>EstoqueMaterialSinteticoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\ReferenciaExternaSubreport.resx">
       <DependentUpon>ReferenciaExternaSubreport.cs</DependentUpon>

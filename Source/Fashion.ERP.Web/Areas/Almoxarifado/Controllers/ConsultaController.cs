@@ -14,7 +14,6 @@ using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
-using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 
@@ -35,25 +34,27 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly ILogger _logger;
         #endregion
 
+        private readonly string[] _tipoRelatorio = { "Analítico", "Sintético" };
+
         #region Colunas Agrupamento
         private static readonly Dictionary<string, string> ColunasAgrupamentoEstoqueMaterial = new Dictionary<string, string>
         {
-            {"Unidade", "Unidade.Pessoa.Nome"},
-            {"Depósito", "Deposito.Nome"},
-            {"Categoria", "Material.Subcategoria.Categoria.Nome"},
-            {"Subcategoria", "Material.Subcategoria.Nome"},
-            {"Família", "Material.Familia.Nome"},
-            {"Marca", "Material.Marca.Nome"},
+            {"Unidade", "Unidade"},
+            {"Depósito", "DepositoMaterial"},
+            {"Categoria", "Categoria"},
+            {"Subcategoria", "Subcategoria"},
+            {"Família", "Familia"},
+            {"Marca", "Marca"},
         };
         #endregion
         
         #region Colunas Ordenação
         private static readonly Dictionary<string, string> ColunasOrdenacaoEstoqueMaterial = new Dictionary<string, string>
         {
-            {"Referência", "Material.Referencia"},
-            {"Descrição", "Material.Descricao"},
-            {"Qtde. Estoque", "Quantidade"}
-            //Qtde. Disponível (ver índice 20)//demanda mais tempo
+            {"Referência", "Referencia"},
+            {"Descrição", "Descricao"},
+            {"Qtde. Estoque", "QuantidadeEstoque"},
+            {"Qtde. Disponivel", "QuantidadeDisponivel"}
         };
         #endregion
 
@@ -208,8 +209,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
 
                 #endregion
-                
-                if (model.OrdenarPor != null)
+
+                if (model.OrdenarPor != null && model.OrdenarEm == "QuantidadeDisponivel")
                     estoqueMateriais = model.OrdenarEm == "asc"
                         ? estoqueMateriais.OrderBy(model.OrdenarPor)
                         : estoqueMateriais.OrderByDescending(model.OrdenarPor);
@@ -224,7 +225,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     Unidade = p.DepositoMaterial.Unidade.NomeFantasia,
                     Saldo = p.Quantidade,
                     MaterialId = p.Material.Id,
-                    UnidadeId = p.DepositoMaterial.Unidade.Id
+                    UnidadeId = p.DepositoMaterial.Unidade.Id,
+                    Categoria = p.Material.Subcategoria.Categoria.Nome,
+                    Subcategoria = p.Material.Subcategoria.Nome,
+                    Familia = p.Material.Familia.Nome,
+                    Marca = p.Material.MarcaMaterial.Nome,
+                    Foto = (p.Material.Foto != null ? p.Material.Foto.Nome.GetFileUrl() : string.Empty),
                 }).ToList();
 
                 foreach (GridConsultaEstoqueMaterialModel g in resultado)
@@ -239,7 +245,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 if (model.SomenteQtdeDisponivel)
                 {
-                    model.Grid = model.Grid.Where(p => p.QtdeDisponivel > 0).ToList();
+                    resultado = resultado.Where(p => p.QtdeDisponivel > 0).ToList();
 
                     if (ehImpressao)
                         filtros.AppendFormat("Somente se houver qtde. disponível: Sim");
@@ -265,11 +271,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     Descricao = x.Descricao,
                     UnidadeMedida = x.UnidadeMedida,
                     QuantidadeEstoque = x.Saldo,
-                    QuantidadeReservada = x.QtdeReservada
+                    QuantidadeReservada = x.QtdeReservada,
+                    Categoria = x.Categoria,
+                    Subcategoria = x.Subcategoria,
+                    Familia = x.Familia,
+                    Marca = x.Marca,
+                    Foto = x.Foto
                 });
 
                 #region Montar Relatório
-                Report report = new ListaEstoqueMaterialReport { DataSource = resultadoPronto };
+                Report report = model.TipoRelatorio == "Sintético" ?
+                    (Report) new EstoqueMaterialSinteticoReport() { DataSource = resultadoPronto }
+                    : new EstoqueMaterialAnaliticoReport() { DataSource = resultadoPronto };
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
@@ -441,18 +454,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 ViewBag.DepositoMaterial = new SelectList(Enumerable.Empty<DepositoMaterial>(), "Id", "Nome");
             }
             
-            var colunasConsultaEstoqueMaterial = new Dictionary<string, string>
-            {
-                {"U.E.", "DepositoMaterial.Unidade.Nome"},
-                {"Depósito", "DepositoMaterial.Nome"},
-                {"Referência", "Material.Referencia"},
-                {"Descrição", "Material.Descricao"},
-                {"Un. medida", "Material.UnidadeMedida.Sigla"},
-                {"Saldo", "Quantidade"},
-            };
-
-            ViewBag.OrdenarPor = new SelectList(colunasConsultaEstoqueMaterial, "value", "key");
-
+            ViewBag.OrdenarPor = new SelectList(ColunasOrdenacaoEstoqueMaterial, "value", "key");
+            ViewBag.AgruparPor = new SelectList(ColunasAgrupamentoEstoqueMaterial, "value", "key");
+            ViewBag.TipoRelatorio = new SelectList(_tipoRelatorio);
+            
             // Hack: preencher as listas para não bugar o componente de multiselect
             if (model.Categorias == null)
                 model.Categorias = new List<string>();

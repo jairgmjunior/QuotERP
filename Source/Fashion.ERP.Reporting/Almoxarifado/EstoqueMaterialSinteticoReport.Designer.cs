@@ -1,6 +1,6 @@
 namespace Fashion.ERP.Reporting.Almoxarifado
 {
-    partial class ListaEstoqueMaterialReport
+    partial class EstoqueMaterialSinteticoReport
     {
         #region Component Designer generated code
         /// <summary>
@@ -404,7 +404,7 @@ namespace Fashion.ERP.Reporting.Almoxarifado
             this.detail,
             this.groupHeader,
             this.groupFooterSection});
-            this.Name = "ListaEstoqueMaterialReport";
+            this.Name = "EstoqueMaterialSinteticoReport";
             this.PageSettings.Landscape = true;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(5D), Telerik.Reporting.Drawing.Unit.Mm(5D), Telerik.Reporting.Drawing.Unit.Mm(10D), Telerik.Reporting.Drawing.Unit.Mm(5D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;

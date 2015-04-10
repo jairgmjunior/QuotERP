@@ -118,6 +118,24 @@
                             </div>
                         </div>
                         <br />
+                        <div id="row-imprimir" class="row" style="display: none">
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.TipoRelatorio, new { @class = "control-label " })
+                                    <div class="controls">
+                                        @Html.DropDownList("TipoRelatorio")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.AgruparPor)
+                                    <div class="controls">
+                                        @Html.DropDownList("AgruparPor", "")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="span3">
                                 <div class="control-group">
@@ -144,10 +162,11 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    
 }
 <div id="pdf"></div>
 @(Html.Kendo().Grid(Model.Grid)

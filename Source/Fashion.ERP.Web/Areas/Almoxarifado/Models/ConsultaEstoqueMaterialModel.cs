@@ -40,6 +40,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public string AgruparPor { get; set; }
         
         public string ModoConsulta { get; set; }
+        
+        [Display(Name = "Tipo")]
+        public string TipoRelatorio { get; set; }
 
         [Display(Name = "Ordenar por")]
         public string OrdenarPor { get; set; }

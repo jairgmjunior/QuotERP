@@ -8,9 +8,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Unidade")]
         public string Unidade { get; set; }
-        
+
         [Display(Name = "Depósito")]
         public string DepositoMaterial { get; set; }
+
+        [Display(Name = "Categoria")]
+        public string Categoria { get; set; }
+
+        [Display(Name = "Subcategoria")]
+        public string Subcategoria { get; set; }
+
+        [Display(Name = "Família")]
+        public string Familia { get; set; }
+
+        [Display(Name = "Marca")]
+        public string Marca { get; set; }
 
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
@@ -20,6 +32,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Und.")]
         public string UnidadeMedida { get; set; }
+        
+        [Display(Name = "Foto")]
+        public string Foto { get; set; }
 
         [Display(Name = "Qtde. Estoque")]
         public double Saldo { get; set; }
