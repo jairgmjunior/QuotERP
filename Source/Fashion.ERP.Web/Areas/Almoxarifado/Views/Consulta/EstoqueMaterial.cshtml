@@ -181,6 +181,7 @@
         columns.Bound(x => x.Saldo).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Bound(x => x.QtdeReservada).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Bound(x => x.QtdeDisponivel).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
+        columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<img src='" + item.Foto + "' class='img-rounded' style='width: 48px; height: 48px;'/>" : string.Empty)).Width(60);
         columns.Template(item => Html.ActionLink("Extrato", MVC.Almoxarifado.Consulta.ExtratoItem(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-extratoitem" })).Width(80);
     })
 )

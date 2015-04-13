@@ -436,6 +436,7 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
@@ -804,6 +805,9 @@
     <Compile Include="EngenhariaProduto.NaturezaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="EngenhariaProduto.RelatorioConsumoMaterialPorModeloController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="EngenhariaProduto.RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1114,7 +1118,7 @@
     <Content Include="Areas\Compras\Views\RecebimentoCompra\Novo.cshtml" />
     <Content Include="Areas\Compras\Views\RecebimentoCompra\PesquisarPedidoCompra.cshtml" />
     <Content Include="Areas\Compras\Views\RecebimentoCompra\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialPorModelo.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\RelatorioConsumoMaterialPorModelo\ConsumoMaterialPorModelo.cshtml" />
     <Content Include="Areas\Financeiro\Views\TituloPagar\Baixar.cshtml" />
     <Content Include="Areas\Financeiro\Views\TituloPagar\Editar.cshtml" />
     <Content Include="Areas\Financeiro\Views\TituloPagar\Index.cshtml" />

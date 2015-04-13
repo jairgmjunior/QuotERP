@@ -974,8 +974,10 @@
                             <Component Id="cmp17706FAD42E91F0F370D193507552C7A" Guid="*">
                                 <File Id="filADFEB797C2AED57246A58D19C47632A4" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\ListagemModelosAprovados.cshtml" />
                             </Component>
-                            <Component Id="cmp5EF4C2E75670E9BC4B618A2874EF464F" Guid="*">
-                                <File Id="filAB2A97B15011C5BDABF1642CED44BFA8" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\MateriaisModelosAprovados.cshtml" />
+                        </Directory>
+                        <Directory Id="dir425745D8545B97783AF4BBDD6F3E6E18" Name="RelatorioMateriaisModelosAprovados">
+                            <Component Id="cmpB0A98DF8296D9E9713C3835180EBDCE1" Guid="*">
+                                <File Id="filF203E9AC596AC14A2A3B1FBBE2A5E18B" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dir40136628E2F660D5AD98BA0C3D251CA3" Name="SequenciaProducao">
@@ -2302,7 +2304,7 @@
             <ComponentRef Id="cmp0CF2E6D00F9B3CC812130B71273C5372" />
             <ComponentRef Id="cmp2DF19A357274DDEB5628FD85286D4DC6" />
             <ComponentRef Id="cmp17706FAD42E91F0F370D193507552C7A" />
-            <ComponentRef Id="cmp5EF4C2E75670E9BC4B618A2874EF464F" />
+            <ComponentRef Id="cmpB0A98DF8296D9E9713C3835180EBDCE1" />
             <ComponentRef Id="cmp7FF08372C535431658EB4362C900E369" />
             <ComponentRef Id="cmp2EF7EBC3B7F9DC9B54B8735D1F007188" />
             <ComponentRef Id="cmpCEAC2051BBF681B0DC4AAA5B7647D5BE" />
