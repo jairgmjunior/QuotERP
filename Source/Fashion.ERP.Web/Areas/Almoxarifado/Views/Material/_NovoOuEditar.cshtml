@@ -1,6 +1,10 @@
 ﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
 @model MaterialModel
 
+<div class='header'>
+        <h2 class="color-primary">Material</h2>
+    </div>
+
 @{
     var helper = new UrlHelper(Request.RequestContext);
     var urlFoto = string.Empty;
@@ -18,11 +22,12 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     @Html.HiddenFor(x => x.Ativo)
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Referencia)
-                <div class="controls">
+
+<div class="content">    
+        
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Referencia, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @if (this.IsEditar())
                     {
                         @Html.HiddenFor(x => x.Referencia)
@@ -35,109 +40,122 @@
                     }
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Descricao)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Descricao, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.EditorFor(x => x.Descricao)
                     @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Detalhamento)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Detalhamento, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.EditorFor(x => x.Detalhamento)
                     @Html.ValidationMessageFor(x => x.Detalhamento, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.UnidadeMedida)
-                <div class="controls">
-                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "input-large" })
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.UnidadeMedida, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.UnidadeMedida, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Categoria)
-                <div class="controls">
-                    @Html.DropDownList("Categoria", null, "-- Selecione --", new { @class = "input-large" })
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Categoria, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("Categoria", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.Categoria, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Subcategoria)
-                <div class="controls">
-                    @Html.DropDownList("Subcategoria", null, "-- Selecione --", new { @class = "input-large" })
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Subcategoria, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("Subcategoria", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.Subcategoria, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Familia)
-                <div class="controls">
-                    @Html.DropDownList("Familia", null, "-- Selecione --", new { @class = "input-large" })
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Familia, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("Familia", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.Familia, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.MarcaMaterial)
-                <div class="controls">
-                    @Html.DropDownList("MarcaMaterial", null, "-- Selecione --", new { @class = "input-large" })
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.MarcaMaterial, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("MarcaMaterial", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.MarcaMaterial, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Ncm)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Ncm, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.TextBoxFor(x => x.Ncm, new { data_mask = "99999999" })
                     @Html.ValidationMessageFor(x => x.Ncm, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Aliquota)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Aliquota, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6 padding-none">
                     @Html.EditorFor(x => x.Aliquota, "numeric")
                     @Html.ValidationMessageFor(x => x.Aliquota, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.GeneroFiscal)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.GeneroFiscal, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.DropDownList("GeneroFiscal", null, new { @class = "input-xlarge" })
                     @Html.ValidationMessageFor(x => x.GeneroFiscal, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.TipoItem)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.TipoItem, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.DropDownList("TipoItem", null, new { @class = "input-large" })
                     @Html.ValidationMessageFor(x => x.TipoItem, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.PesoBruto)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.PesoBruto, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6 padding-none">
                     @Html.EditorFor(x => x.PesoBruto, "numeric")
                     @Html.ValidationMessageFor(x => x.PesoBruto, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.PesoLiquido)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.PesoLiquido, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6 padding-none">
                     @Html.EditorFor(x => x.PesoLiquido, "numeric")
                     @Html.ValidationMessageFor(x => x.PesoLiquido, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.OrigemSituacaoTributaria)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.OrigemSituacaoTributaria, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.DropDownList("OrigemSituacaoTributaria", null, new { @class = "input-xlarge" })
                     @Html.ValidationMessageFor(x => x.OrigemSituacaoTributaria, null, new { @class = "help-block" })
                 </div>
-            </div>
-        </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.FotoNome)
-                <div class="controls">
+            </div>   
+        
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.FotoNome, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.HiddenFor(x => x.FotoId)
                     <div class="clearfix">
                         <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
@@ -162,21 +180,22 @@
                     @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.CodigoBarra)
-                <div class="controls">
+
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.CodigoBarra, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.EditorFor(x => x.CodigoBarra)
                     @Html.ValidationMessageFor(x => x.CodigoBarra, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Localizacao)
-                <div class="controls">
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Localizacao, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.EditorFor(x => x.Localizacao)
                     @Html.ValidationMessageFor(x => x.Localizacao, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Referência externa</label>
                 <div class="controls">
                     <button id="adicionar-referencia-externa" class="btn" type="button">Adicionar</button>
@@ -264,8 +283,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        
+    
     <div class="form-actions">
         <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
         @if (this.IsEditar())
@@ -273,6 +292,7 @@
             @Html.ExcluirAuth(MVC.Almoxarifado.Material.Excluir(Model.Id))
         }
     </div>
+</div>
 }
 @{Html.RenderPartial("_RecortarImagem");}
 

@@ -2,12 +2,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*//Links.Bundles.Styles.Layout,*@
 @section css{
-    @Styles.Render(Links.Bundles.Styles.Bootstrap,
-                   Links.Bundles.Styles.Kendo,
+    @Styles.Render(Links.Bundles.Styles.Kendo,
                    Links.Bundles.Styles.JasnyBootstrap,
                    Links.Bundles.Styles.Lightbox,
-                   Links.Bundles.Styles.Layout)
+                   Links.Bundles.Styles.JqueryPushMenu,
+                   Links.Bundles.Styles.JqueryNanoScroller,
+                   Links.Bundles.Styles.FontAwesome,
+                   Links.Bundles.Styles.Bootstrap,
+                   Links.Bundles.Styles.Flatdream,
+                   Links.Bundles.Styles.Site)
     @RenderSection("css", false)
 }
 
@@ -21,7 +26,11 @@
                     Links.Bundles.Scripts.JasnyBootstrap,
                     Links.Bundles.Scripts.JqueryForm,
                     Links.Bundles.Scripts.Lightbox,
-                    Links.Bundles.Scripts.FashionErp)
+                    Links.Bundles.Scripts.FashionErp,
+                    Links.Bundles.Scripts.Flatdream,
+                    Links.Bundles.Scripts.JqueryPushMenu,
+                    Links.Bundles.Scripts.JqueryNanoScroller,
+                    Links.Bundles.Scripts.JqueryCookie)
     @RenderSection("javascript", false)
 }
 

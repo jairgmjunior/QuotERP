@@ -1,4 +1,6 @@
 ﻿@using System.Web.Mvc.Html
+@using System.Web.Script.Serialization;
+
 @model SiteMapNodeModelList
 
 @functions{
@@ -17,14 +19,16 @@
 
 @if (ContainsShowableNodes(Model))
 {
-        <ul class="dropdown-menu">
+    @*adiciona aqui sub-menu-nivel2 quando for nivel 2*@
+    <ul class="sub-menu @(Model.Count != 0 @*Model[0]node.Children.Any() && ContainsShowableNodes(node.Children)*@ ? "sub-menu-nivel2" : "")">
         @foreach (var node in Model)
         {
             if (node.Attributes.ContainsKey("show") && node.Attributes["show"] == "false")
             {
                 continue;
             }
-            <li class="@(node.Children.Any() && ContainsShowableNodes(node.Children) ? "dropdown-submenu" : "") @(node.IsCurrentNode ? "active" : "")">
+            <li  class="parent pai-filho">
+            @*<li class="@(node.Children.Any() && ContainsShowableNodes(node.Children) ? "submenu teste" : "")">*@
                 @Html.DisplayFor(m => node)
                 @if (node.Children.Any() && ContainsShowableNodes(node.Children)) 
                 {

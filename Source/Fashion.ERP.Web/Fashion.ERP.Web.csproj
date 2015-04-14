@@ -769,6 +769,7 @@
     <Compile Include="Helpers\ActionResults\JsonNetResult.cs" />
     <Compile Include="Helpers\Extensions\MessageExtensions.cs" />
     <Compile Include="Helpers\Extensions\QueryableExtensions.cs" />
+    <Compile Include="Helpers\Extensions\TagBuilderExtensions.cs" />
     <Compile Include="Helpers\Extensions\UploadExtensions.cs" />
     <Compile Include="Helpers\Extensions\ValidatorExtensions.cs" />
     <Compile Include="Helpers\Mapper.cs" />
@@ -828,9 +829,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-override.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Bootstrap\editor.png" />
@@ -840,16 +838,25 @@
     <Content Include="Content\Bootstrap\slider-h.gif" />
     <Content Include="Content\Bootstrap\slider-v.gif" />
     <Content Include="Content\Bootstrap\sprite.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\avatar-quod-2.jpg" />
     <Content Include="Content\images\avatar_unknown.jpg" />
+    <Content Include="Content\images\bg-login.jpg" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo_quod.jpg" />
+    <Content Include="Content\images\logo_quod_white.png" />
     <Content Include="Content\images\no_image.jpg" />
     <Content Include="Content\images\no_image_report.png" />
     <Content Include="Content\jasny-bootstrap-responsive.css" />
     <Content Include="Content\jasny-bootstrap-responsive.min.css" />
     <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\jasny-bootstrap.min.css" />
     <Content Include="Content\Jcrop.gif" />
+    <Content Include="Content\jPushMenu.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\kendo.bootstrap.css" />
@@ -863,10 +870,11 @@
     <Content Include="Content\Lightbox\next.png" />
     <Content Include="Content\Lightbox\prev.png" />
     <Content Include="Content\login.css" />
-    <Content Include="Content\images\bg-login.jpg" />
-    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\nanoscroller.css" />
     <Content Include="Content\pick-a-color.css" />
+    <Content Include="Content\pygments.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\textures\glass.png" />
     <Content Include="Content\textures\highlight.png" />
     <Content Include="Content\themes\custom-theme\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -1035,13 +1043,13 @@
     <None Include="CodeTemplates\MvcView\_NovoOuEditar.cs.t4">
       <LastGenOutput>_NovoOuEditar.cshtml</LastGenOutput>
     </None>
-    <Content Include="font\iconic_fill.eot" />
-    <Content Include="font\iconic_stroke.eot" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="DllInscE32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1190,25 +1198,41 @@
     <Content Include="Areas\EngenhariaProduto\Views\Barra\_NovoOuEditar.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Barra\Novo.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Barra\Editar.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\iconic_fill.eot" />
+    <Content Include="fonts\iconic_stroke.eot" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\FashionERP.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\behaviour\core.js" />
+    <Content Include="Scripts\behaviour\dashboard.js" />
+    <Content Include="Scripts\behaviour\dashboard2.js" />
+    <Content Include="Scripts\behaviour\ui-buttons.js" />
+    <Content Include="Scripts\behaviour\voice-commands.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="js\icons-control.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jasny-bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jPushMenu.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.custom.min.js" />
     <Content Include="Scripts\jquery.color-2.1.2.js" />
     <Content Include="Scripts\jquery.color-2.1.2.min.js" />
     <Content Include="Scripts\jquery.color.svg-names-2.1.2.js" />
     <Content Include="Scripts\jquery.color.svg-names-2.1.2.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Scripts\jquery.globalize\cultures\globalize.culture.pt-BR.js" />
@@ -1216,7 +1240,10 @@
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery.nanoscroller.min.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.nanoscroller.js" />
+    <Content Include="Scripts\jquery.nanoscroller.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1248,6 +1275,8 @@
     </None>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Cep.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\percent.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathNodeModel.cshtml" />
@@ -1286,8 +1315,6 @@
     <Content Include="Views\Shared\EditorTemplates\Cnpj.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\_RecortarImagem.cshtml" />

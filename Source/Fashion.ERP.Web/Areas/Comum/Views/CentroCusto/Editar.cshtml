@@ -1,12 +1,16 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.CentroCustoModel
-@using (Html.BeginForm(MVC.Comum.CentroCusto.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+<div class="block-flat">
+    @using (Html.BeginForm(MVC.Comum.CentroCusto.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Comum.CentroCusto.Excluir(Model.Id))
-	</div>
-}
+	<div class="form-group clearfix">
+        <div class="col-sm-offset-3 col-sm-10 topOffset-15">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+            @Html.ExcluirAuth(MVC.Comum.CentroCusto.Excluir(Model.Id))
+        </div>
+    </div>
+    }
 @{Html.RenderPartial("_ConfirmDelete");}
+</div>

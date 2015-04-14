@@ -76,7 +76,7 @@
             return false;
         });
         $('#pesquisar-funcionario').on('click', function () {
-            $('#modal-funcionario').modal('show').one('hidden', function () {
+            $('#modal-funcionario').modal({ show: true }).one('hidden', function () {
                 $('#ColunaPesquisa')[0].selectedIndex = 0;
                 $('input[name$="ValorPesquisa"]').val('');
                 $('#grid-pesquisa-funcionario').empty();

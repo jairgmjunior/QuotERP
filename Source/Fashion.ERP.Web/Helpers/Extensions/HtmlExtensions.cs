@@ -53,7 +53,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         #region EditarAuth
         public static MvcHtmlString EditarAuth(this HtmlHelper helper, ActionResult action)
         {
-            return ActionLinkAuth(helper, "Editar", action, new { @class = "btn btn-small btn-primary" });
+            return ActionLinkAuth(helper, "", action, new { @class = "btn btn-small btn-primary btn-edit", @title="Editar" });
         }
         #endregion
 
@@ -77,8 +77,8 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         {
             // Gerar o botão de acordo com a situação
             return ativo
-                    ? ActionLinkAuth(helper, "Inativar", action, new { @class = "btn btn-small btn-danger btn-editar-situacao" })
-                    : ActionLinkAuth(helper, "Ativar", action, new { @class = "btn btn-small btn-success btn-editar-situacao" });
+                    ? ActionLinkAuth(helper, "", action, new { @class = "btn btn-small btn-danger btn-editar-situacao btn-inativar", @title = "Inativar" })
+                    : ActionLinkAuth(helper, "", action, new { @class = "btn btn-small btn-success btn-editar-situacao btn-ativar", @title = "Ativar" });
         }
         #endregion
 
@@ -235,7 +235,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                 tag.Attributes["class"] += " required-label";
 
             tag.SetInnerText(labelText);
-            tag.MergeAttributes(htmlAttributes);
+            tag.TrueMergeAttributes(htmlAttributes);
 
             var output = tag.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(output);

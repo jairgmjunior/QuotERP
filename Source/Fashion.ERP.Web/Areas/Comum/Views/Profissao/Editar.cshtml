@@ -1,12 +1,18 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProfissaoModel
 
-@using (Html.BeginForm(MVC.Comum.Profissao.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+<div class="block-flat">
+    @using (Html.BeginForm(MVC.Comum.Profissao.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.Comum.Profissao.Excluir(Model.Id))
-	</div>
-}
-@{ Html.RenderPartial("_ConfirmDelete"); }
+        <div class="form-group clearfix">
+            <div class="col-sm-offset-3 col-sm-10 topOffset-15">
+                <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                @Html.ExcluirAuth(MVC.Comum.Profissao.Excluir(Model.Id))
+            </div>
+        </div>
+
+    }
+    @{Html.RenderPartial("_ConfirmDelete");}
+
+</div>

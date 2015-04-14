@@ -1,141 +1,137 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.EntradaMaterialModel
 
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DataEntrada)
-            <div class="controls">
+<div class="clearfix">
+    <div class='header'>
+        <h2 class="color-primary">Entrada de mercadoria</h2>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DataEntrada, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6 padding-none">
                 @Html.EditorFor(x => x.DataEntrada)
                 @Html.ValidationMessageFor(x => x.DataEntrada, null, new { @class="help-block" })
             </div>
-        </div>
     </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.UnidadeDestino)
-            <div class='controls @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
+
+
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.UnidadeDestino, new { @class="col-sm-3 control-label" })
+            <div class='col-sm-6 @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
                 @Html.DropDownList("UnidadeDestino", null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.UnidadeDestino, null, new { @class="help-block" })
             </div>
-        </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DepositoMaterialDestino)
-            <div class='controls @(@ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
+
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DepositoMaterialDestino, new { @class="col-sm-3 control-label" })
+            <div class='col-sm-6 @(@ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
                 @Html.DropDownList("DepositoMaterialDestino", null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.DepositoMaterialDestino, null, new { @class="help-block" })
             </div>
-        </div>
     </div>
-</div>
 
-<fieldset>
-    <legend><small>Dados da origem</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Fornecedor)
-                <div class="controls">
-                    <div class="input-append">
-                        @Html.HiddenFor(x => x.Fornecedor)
-                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
-                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-fornecedor" class="add-on"></span>
-                    </div>
-                </div>
+    <div class='header topOffset-30'>
+        <h3>Dados da origem</h3>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Fornecedor, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            @Html.HiddenFor(x => x.Fornecedor)
+            <div class="input-group">
+                <input id="codigo-fornecedor" class="form-control" type="text" />
+                <span class="input-group-btn">
+                    <button id="pesquisar-fornecedor" class="btn" type="button"><i class="fa fa-search"></i></button>
+                </span>
+                <span id="descricao-fornecedor" class="add-on"></span>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.UnidadeOrigem)
-                <div class="controls">
-                    @Html.DropDownList("UnidadeOrigem", null, "-- Selecione --", new { @class = "input-large" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.UnidadeOrigem, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("UnidadeOrigem", null, "-- Selecione --")
                     @Html.ValidationMessageFor(x => x.UnidadeOrigem, null, new { @class="help-block" })
                 </div>
-            </div>
-        </div>
     </div>
-    <div class="row">
-        <div class="span6"></div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.DepositoMaterialOrigem)
-                <div class="controls">
+
+
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DepositoMaterialOrigem, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
                     @Html.DropDownList("DepositoMaterialOrigem", null, "-- Selecione --", new { @class = "input-large" })
                     @Html.ValidationMessageFor(x => x.DepositoMaterialOrigem, null, new { @class="help-block" })
                 </div>
-            </div>
-        </div>
     </div>
-</fieldset>
 
-<fieldset>
-    <legend><small>Itens da entrada</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.Label("Material", "Referência", new { @class = "control-label" })
-                <div class="controls">
-                    @Html.Hidden("Material")
-                    <div class="input-append">
-                        <input id="referencia-material" class="input-small" type="text" />
-                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-material" class="add-on"></span>
-                    </div>
-                </div>
+
+    <div class='header topOffset-30'>
+        <h3>Itens da entrada</h3>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Material", "Referência", new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            @Html.Hidden("Material")
+            <div class="input-group">
+                <input id="referencia-material" class="form-control" type="text" />
+                <span class="input-group-btn">
+                    <button id="pesquisar-material" class="btn" type="button"><i class="fa fa-search"></i></button>
+                </span>
+                <span id="descricao-material" class="add-on"></span>
             </div>
-        </div>
-        <div class="span6">
-            <div class="control-group">
-                <div class="controls">
-                    <input id="sigla" type="text" disabled="disabled"/>
-                </div>
-            </div>
-            
         </div>
     </div>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.Label("QuantidadeCompra", "Qtd. compra", new { @class = "control-label"})
-                <div class="controls">
+
+    <div class="form-group">
+        <div class="col-sm-6">
+            <input id="sigla" type="text" disabled="disabled" />
+        </div>
+    </div>
+
+    
+        
+            <div class="form-group">
+                @Html.Label("QuantidadeCompra", "Qtd. compra", new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6 padding-none">
                     @(Html.Kendo().NumericTextBox()
                           .Name("QuantidadeCompra")
                           .Format("n4").Decimals(4)
                           .Min(0)
-                          .HtmlAttributes(new { @class = "numeric input-small" }))
+                          .HtmlAttributes(new { @class = "numeric" }))
                     @Html.ValidationMessage("QuantidadeCompra", new { @class="help-block" })
                 </div>
             </div>
-        </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.Label("UnidadeMedida", "Und. compra", new { @class = "control-label"})
-                <div class="controls">
-                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "input-large" })
+       
+            <div class="form-group">
+                @Html.Label("UnidadeMedida", "Und. compra", new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --")
                     @Html.ValidationMessage("UnidadeMedida", new { @class = "help-block" })
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span6">
-            @Html.Label("QuantidadeEntrada", "Qtd. entrada", new { @class = "control-label"})
-            <div class="controls">
+       
+   
+    
+        <div class="form-group">
+            @Html.Label("QuantidadeEntrada", "Qtd. entrada", new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6 padding-none">
                 @(Html.Kendo().NumericTextBox()
                       .Name("QuantidadeEntrada")
                       .Format("n4").Decimals(4)
                       .Min(0)
-                      .HtmlAttributes(new { @class = "numeric input-small" }))
-                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+                      .HtmlAttributes(new { @class = ""}))
+                <button id="btn-add" type="button" class="btn btn-info btn-flat"><i class="fa fa-plus"></i></button>
                 @Html.ValidationMessage("QuantidadeEntrada", new { @class="help-block" })
             </div>
         </div>
-    </div>
     
+
     <div class="control-group">
         <div class="controls">
             <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
@@ -164,145 +160,138 @@
                             var unidadeEntrada = Model.UnidadeMedidas[i];
 
                             <tr>
-                                <td>
-                                    @ViewBag.MaterialReferenciasDicionario[material]
-                                    <input type="hidden" name="Materiais" value="@material"/>
-                                    <input type="hidden" name="EntradaItemMateriais" value="@entradaItem"/>
+                                <td>@ViewBag.MaterialReferenciasDicionario[material]
+                                    <input type="hidden" name="Materiais" value="@material" />
+                                    <input type="hidden" name="EntradaItemMateriais" value="@entradaItem" />
                                 </td>
-                                <td>
-                                    @ViewBag.MaterialDescricoesDicionario[material]
+                                <td>@ViewBag.MaterialDescricoesDicionario[material]
                                 </td>
-                                <td>
-                                    @quantidadeCompra.ToString("N4")
-                                    <input type="hidden" name="QuantidadeCompras" value="@quantidadeCompra"/>
+                                <td>@quantidadeCompra.ToString("N4")
+                                    <input type="hidden" name="QuantidadeCompras" value="@quantidadeCompra" />
                                 </td>
-                                <td>
-                                    @ViewBag.UnidadeMedidasDicionario[unidadeCompra]
-                                    <input type="hidden" name="UnidadeMedidas" value="@unidadeCompra"/>
+                                <td>@ViewBag.UnidadeMedidasDicionario[unidadeCompra]
+                                    <input type="hidden" name="UnidadeMedidas" value="@unidadeCompra" />
                                 </td>
-                                <td>
-                                    @ViewBag.FatoresDicionario[unidadeCompra].ToString("N4")
+                                <td>@ViewBag.FatoresDicionario[unidadeCompra].ToString("N4")
                                 </td>
-                                <td>
-                                    @quantidadeEntrada.ToString("N4")
-                                    <input type="hidden" name="Quantidades" value="@quantidadeEntrada"/>
+                                <td>@quantidadeEntrada.ToString("N4")
+                                    <input type="hidden" name="Quantidades" value="@quantidadeEntrada" />
                                 </td>
-                                <td>
-                                    @ViewBag.UnidadeMedidasDicionario[unidadeEntrada]
+                                <td>@ViewBag.UnidadeMedidasDicionario[unidadeEntrada]
                                 </td>
                                 <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
                             </tr>
-                        }
+                    }
                     }
                 </tbody>
             </table>
         </div>
     </div>
 
-</fieldset>
-<script>
-    $(function() {
-        $('#UnidadeDestino').on("change", function () {
 
-            // Preenche o combo de depósito de destino de acordo com a unidade escolhida
-            var depositoMaterialDestino = $('#DepositoMaterialDestino');
-            depositoMaterialDestino.empty();
-            depositoMaterialDestino.append($('<option />').text('-- Selecione --').val(''));
+    <script>
+        $(function () {
+            $('#UnidadeDestino').on("change", function () {
 
-            var unidadeDestinoId = $(this).val();
-            if (unidadeDestinoId != '') {
-                var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeDestinoId;
-                $.getJSON(url, function(result) {
-                    $.each(result, function(index, item) {
-                        var option = $('<option />').val(item.Id).text(item.Nome);
-                        depositoMaterialDestino.append(option);
+                // Preenche o combo de depósito de destino de acordo com a unidade escolhida
+                var depositoMaterialDestino = $('#DepositoMaterialDestino');
+                depositoMaterialDestino.empty();
+                depositoMaterialDestino.append($('<option />').text('-- Selecione --').val(''));
+
+                var unidadeDestinoId = $(this).val();
+                if (unidadeDestinoId != '') {
+                    var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeDestinoId;
+                    $.getJSON(url, function (result) {
+                        $.each(result, function (index, item) {
+                            var option = $('<option />').val(item.Id).text(item.Nome);
+                            depositoMaterialDestino.append(option);
+                        });
+                    }).fail(function (jqXhr, textStatus, errorThrown) {
+                        alert(errorThrown);
                     });
-                }).fail(function(jqXhr, textStatus, errorThrown) {
-                    alert(errorThrown);
-                });
-            }
-        });
-        
-        $('#UnidadeOrigem').on("change", function () {
+                }
+            });
 
-            // Preenche o combo de depósito de origem de acordo com a unidade escolhida
-            var depositoMaterialOrigem = $('#DepositoMaterialOrigem');
-            depositoMaterialOrigem.empty();
-            depositoMaterialOrigem.append($('<option />').text('-- Selecione --').val(''));
+            $('#UnidadeOrigem').on("change", function () {
 
-            var unidadeOrigemId = $(this).val();
-            if (unidadeOrigemId != '') {
-                var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeOrigemId;
+                // Preenche o combo de depósito de origem de acordo com a unidade escolhida
+                var depositoMaterialOrigem = $('#DepositoMaterialOrigem');
+                depositoMaterialOrigem.empty();
+                depositoMaterialOrigem.append($('<option />').text('-- Selecione --').val(''));
+
+                var unidadeOrigemId = $(this).val();
+                if (unidadeOrigemId != '') {
+                    var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeOrigemId;
+                    $.getJSON(url, function (result) {
+                        $.each(result, function (index, item) {
+                            var option = $('<option />').val(item.Id).text(item.Nome);
+                            depositoMaterialOrigem.append(option);
+                        });
+                    }).fail(function (jqXhr, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    });
+                }
+            });
+
+            $('#Material').on("change", function () {
+                var url = '/Almoxarifado/Material/UnidadeMedida/' + this.value;
                 $.getJSON(url, function (result) {
-                    $.each(result, function (index, item) {
-                        var option = $('<option />').val(item.Id).text(item.Nome);
-                        depositoMaterialOrigem.append(option);
-                    });
+                    if (result.Error) {
+                        alert(result.Error);
+                        return;
+                    }
+
+                    $('#sigla').val(result.Sigla);
+
                 }).fail(function (jqXhr, textStatus, errorThrown) {
                     alert(errorThrown);
                 });
-            }
-        });
-
-        $('#Material').on("change", function () {
-            var url = '/Almoxarifado/Material/UnidadeMedida/' + this.value;
-            $.getJSON(url, function (result) {
-                if (result.Error) {
-                    alert(result.Error);
-                    return;
-                }
-                
-                $('#sigla').val(result.Sigla);
-                
-            }).fail(function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
             });
-        });
 
-        $('#UnidadeMedida').on('change', function () {
-            var url = '/Almoxarifado/UnidadeMedida/ConsultaUnidadeMedida/' + this.value;
-            $.getJSON(url, function (result) {
-                if (result.Error) {
-                    alert(result.Error);
-                    return;
-                }
+            $('#UnidadeMedida').on('change', function () {
+                var url = '/Almoxarifado/UnidadeMedida/ConsultaUnidadeMedida/' + this.value;
+                $.getJSON(url, function (result) {
+                    if (result.Error) {
+                        alert(result.Error);
+                        return;
+                    }
 
-                var qtdCompra = $('#QuantidadeCompra').data("kendoNumericTextBox").value();
-                $('#QuantidadeEntrada').data("kendoNumericTextBox").value(qtdCompra * result.FatorMultiplicativo);
+                    var qtdCompra = $('#QuantidadeCompra').data("kendoNumericTextBox").value();
+                    $('#QuantidadeEntrada').data("kendoNumericTextBox").value(qtdCompra * result.FatorMultiplicativo);
 
-            }).fail(function (jqXhr, textStatus, errorThrown) {
-                alert(errorThrown);
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
             });
-        });
 
-        $('#btn-add').on('click', function () {
-            
-            var materialId = $('#Material').val();
-            var referencia = $('#referencia-material').val();
-            var descricao = $('#descricao-material').text();
-            var quantidadeCompra = $('#QuantidadeCompra').val();
-            var unidadeCompraId = $('#UnidadeMedida').val();
-            var unidadeCompra = $('#UnidadeMedida option:selected').text();
-            var quantidadeEntrada = $('#QuantidadeEntrada').val();
+            $('#btn-add').on('click', function () {
 
-            // Validar
-            if (materialId == '') {
-                $('#Material').addClass('input-validation-error');
-                alert('Selecione uma referência');
-                return;
-            }
+                var materialId = $('#Material').val();
+                var referencia = $('#referencia-material').val();
+                var descricao = $('#descricao-material').text();
+                var quantidadeCompra = $('#QuantidadeCompra').val();
+                var unidadeCompraId = $('#UnidadeMedida').val();
+                var unidadeCompra = $('#UnidadeMedida option:selected').text();
+                var quantidadeEntrada = $('#QuantidadeEntrada').val();
 
-            // Consultar a unidade de entrada pelo id do catálogo de material
-            $.get('/Almoxarifado/Material/UnidadeMedida/' + materialId, function (data) {
-                if (data.Error) {
-                    alert(data.Error);
+                // Validar
+                if (materialId == '') {
+                    $('#Material').addClass('input-validation-error');
+                    alert('Selecione uma referência');
                     return;
                 }
-                var unidadeEntrada = data.Sigla;
-                var fatorCompra = data.FatorMultiplicativo;
 
-                $('#table-sequencia tbody').append(
-                    '<tr>\
+                // Consultar a unidade de entrada pelo id do catálogo de material
+                $.get('/Almoxarifado/Material/UnidadeMedida/' + materialId, function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+                    var unidadeEntrada = data.Sigla;
+                    var fatorCompra = data.FatorMultiplicativo;
+
+                    $('#table-sequencia tbody').append(
+                        '<tr>\
                     <td>' + referencia + '<input type="hidden" name="Materiais" value="' + materialId + '"/><input type="hidden" name="EntradaItemMateriais" /></td>\
                     <td>' + descricao + '</td>\
                     <td>' + quantidadeCompra + '<input type="hidden" name="QuantidadeCompras" value="' + quantidadeCompra + '"/></td>\
@@ -312,23 +301,25 @@
                     <td>' + unidadeEntrada + '</td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                 </tr>'
-                );
+                    );
 
-                // limpar formulário
-                $('#referencia-material').val('');
-                $('#Material').val('');
-                $('#descricao-material').text('');
-                $('#QuantidadeCompra').data("kendoNumericTextBox").value(0);
-                $('#UnidadeMedida')[0].selectedIndex = 0;
-                $('#QuantidadeEntrada').data("kendoNumericTextBox").value(0);
+                    // limpar formulário
+                    $('#referencia-material').val('');
+                    $('#Material').val('');
+                    $('#descricao-material').text('');
+                    $('#QuantidadeCompra').data("kendoNumericTextBox").value(0);
+                    $('#UnidadeMedida')[0].selectedIndex = 0;
+                    $('#QuantidadeEntrada').data("kendoNumericTextBox").value(0);
+                });
             });
         });
-    });
-    
-    function Delete(a) {
-        var row = $(a).parents('tr:first');
-        row.fadeTo('fast', 0, function () {
-            row.remove();
-        });
-    }
-</script>
+
+        function Delete(a) {
+            var row = $(a).parents('tr:first');
+            row.fadeTo('fast', 0, function () {
+                row.remove();
+            });
+        }
+    </script>
+
+</div>

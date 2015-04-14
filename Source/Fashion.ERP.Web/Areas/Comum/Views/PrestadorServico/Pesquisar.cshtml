@@ -71,7 +71,7 @@
             return false;
         });
         $('#pesquisar-prestadorservico').on('click', function () {
-            $('#modal-prestadorservico').modal('show').one('hidden', function () {
+            $('#modal-prestadorservico').modal({ show: true }).one('hidden', function () {
                 $('#Coluna')[0].selectedIndex = 0;
                 $('input[name$="valor"]').val('');
                 $('#grid-pesquisa-prestadorservico').empty();

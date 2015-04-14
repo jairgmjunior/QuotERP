@@ -1,7 +1,84 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿<!--
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800"); -->
+<!-- @import url("http://fonts.googleapis.com/css?family=Raleway:300,200,100"); -->
+
+/* Open Sans */
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url(../fonts/open_sans/OpenSans-Light.woff) format('woff');
 }
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(../fonts/open_sans/OpenSans.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/open_sans/OpenSans-Semibold.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../fonts/open_sans/OpenSans-Bold.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 800;
+    src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(../fonts/open_sans/OpenSans-Extrabold.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Open Sans Italic'), local('OpenSans-Italic'), url(../fonts/open_sans/OpenSans-Italic.woff) format('woff');
+}
+
+/* Raleway */
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Raleway Thin'), local('Raleway-Thin'), url(../fonts/Raleway/Raleway-Thin.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Raleway ExtraLight'), local('Raleway-ExtraLight'), url(../fonts/Raleway/Raleway-ExtraLight.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Raleway Light'), local('Raleway-Light'), url(../fonts/Raleway/Raleway-Light.woff) format('woff');
+}
+
+
+body {
+    padding: 0;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 140px;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -9,11 +86,6 @@
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input[type="text"],
-input[type="password"] {
-    max-width: 280px;
-}
 
 /* styles for validation helpers */
 .field-validation-error {
@@ -39,3 +111,423 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/* Coloca um asterisco antes dos campos obrigatórios */
+.required-label:before {
+    content: "* ";
+    color: #f00;
+}
+
+#footer {
+    border-top: 1px solid #e7e7e7;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+    padding: 14px 15px 4px;
+    position: absolute;
+    width: 100%;
+}
+
+.cl-mcont {
+    position: relative;
+    min-height: 550px;
+    padding: 15px 30px 70px 30px !important;
+}
+
+.text-box, .input-medium, select, .k-picker-wrap, .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding: 6px 8px;
+}
+
+.text-box, select, input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding: 6px 8px;
+}
+
+.text-box:focus, .input-medium:focus {
+    background-color: #f4f5f7;
+    border-color: #ccc;
+    box-shadow: none;
+}
+
+.k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+    background: transparent;
+    background-image: none, none;
+    border-radius: 0;
+}
+
+.k-picker-wrap .k-input {
+    background: transparent;
+    background-image: none, none;
+    border-radius: 0;
+}
+
+.k-autocomplete.k-state-border-down .k-input, .k-dropdown-wrap.k-state-border-down .k-input, .k-picker-wrap.k-state-border-down .k-input, .k-picker-wrap.k-state-border-down .k-selected-color, .k-numeric-wrap.k-state-border-down .k-input {
+    border-radius: 0;
+}
+
+.k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+    border-color: #ccc;
+}
+
+.k-numeric-wrap .k-select {
+    background: transparent;
+    border-radius: 0;
+    height: 100%;
+}
+.k-numerictextbox .k-select .k-link span.k-i-arrow-n {
+    background-position: 0 -2px;
+}
+.k-numerictextbox .k-select .k-link span.k-i-arrow-n:hover {
+    background-position: 0 -2px;
+}
+.k-numerictextbox .k-select .k-link span.k-i-arrow-s {
+    background-position: 0 -35px;
+}
+
+.k-numerictextbox .k-select .k-link span.k-i-arrow-s:hover {
+    background-position: 0 -35px;
+}
+
+.k-numerictextbox .k-link {
+    padding: 3px;
+    height: 16px;
+}
+
+.k-numerictextbox .k-link:hover {
+    background: #eee;
+}
+
+.k-numeric-wrap .k-link, .k-numeric-wrap .k-link + .k-link {
+    border-radius: 0;
+}
+
+.padding-none .k-widget, .k-grid, .k-secondary {
+    padding: 0;
+}
+
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+    text-indent: 0;
+}
+
+.k-picker-wrap .k-select {
+    background-color: #7761a7;
+    color: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    line-height: 20px;
+    margin: 0 0 0 -1px !important;
+    padding: 6px;
+}
+
+.k-autocomplete.k-state-hover, .k-picker-wrap.k-state-hover, .k-numeric-wrap.k-state-hover, .k-dropdown-wrap.k-state-hover {
+    background-color: #f4f5f7;
+    background-image: none, none;
+    border-color: #ccc;
+}
+
+.k-autocomplete.k-state-focused, .k-picker-wrap.k-state-focused, .k-numeric-wrap.k-state-focused, .k-dropdown-wrap.k-state-focused {
+    background-color: #f4f5f7;
+    background-image: none, none;
+    border-color: #ccc;
+}
+
+.k-i-calendar {
+    background-position: -48px -176px;
+}
+
+.k-picker-wrap .k-select:hover {
+    background-color: #816bb1;
+    border-color: transparent;
+}
+
+.k-calendar {
+    width: 300px;
+    border-radius: 0;
+}
+
+.k-calendar-container.k-state-border-up, .k-list-container.k-state-border-up, .k-autocomplete.k-state-border-up, .k-multiselect.k-state-border-up, .k-dropdown-wrap.k-state-border-up, .k-picker-wrap.k-state-border-up, .k-numeric-wrap.k-state-border-up, .k-window-content, .k-filter-menu, .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker.k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+    border-radius: 0;
+}
+
+.k-widget.k-calendar:hover .k-nav-prev:hover, .k-widget.k-calendar .k-nav-next:hover {
+    background: #dadada;
+    color: #333333;
+}
+
+.k-widget.k-calendar .k-nav-fast:hover {
+    background: #dadada;
+    color: #333333;
+}
+
+.k-autocomplete,
+.k-combobox,
+.k-datepicker,
+.k-timepicker,
+.k-datetimepicker,
+.k-colorpicker,
+.k-numerictextbox,
+.k-dropdown,
+.k-selectbox,
+.k-textbox {
+  width: 100%;
+}
+.k-filter-menu .k-combobox,
+.k-filter-menu .k-datepicker,
+.k-filter-menu .k-timepicker,
+.k-filter-menu .k-datetimepicker,
+.k-filter-menu .k-numerictextbox,
+.k-filter-menu .k-dropdown,
+.k-filter-menu .k-textbox {
+  width: auto;
+}
+
+.line-separate {
+    border-bottom: 1px solid #dadada;
+    clear: both;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.form-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.save-area {
+    border-top: 1px solid #dadada;
+    padding-top: 10px;    
+}
+
+.topOffset-5 {
+    margin-top: 5px;
+}
+
+.topOffset-15 {
+    margin-top: 15px;
+}
+
+.topOffset-20 {
+    margin-top: 20px;
+}
+
+.topOffset-25 {
+    margin-top: 25px;
+}
+
+.topOffset-30 {
+    margin-top: 30px;
+}
+
+/* ******************************** Tabelas *********************************** */
+
+.k-grid, .k-listview {
+    position: relative;
+}
+
+    .k-grid table {
+        border-collapse: separate;
+        border-width: 0;
+        empty-cells: show;
+        outline: medium none;
+        width: 100%;
+    }
+
+.k-grid-header .k-header {
+    text-align: left;
+}
+
+.k-grid-header .k-header {
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 0.5em 0.6em 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .k-grid-header .k-header .k-link {
+        display: block;
+        line-height: 18px;
+        margin: -0.5em -0.6em -0.4em;
+        min-height: 18px;
+        padding: 0.5em 0.5em 0.4em;
+    }
+
+.k-grid-header .k-filterable .k-link {
+    padding-right: 2.4em;
+}
+
+.k-grid-header .k-header .k-icon {
+    position: static;
+}
+
+.k-grid-header .k-link > .k-icon {
+    vertical-align: text-top;
+}
+
+.k-grid .k-state-hover {
+    cursor: pointer;
+}
+
+.k-grid td {
+    border-style: solid;
+    border-width: 0 0 0 1px;
+    line-height: 1.6em;
+    overflow: hidden;
+    padding: 0.4em 0.6em;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.k-grid .k-grouping-row td, .k-grid .k-hierarchy-cell {
+    overflow: visible;
+}
+
+.k-grid-edit-row td {
+    text-overflow: clip;
+}
+
+.k-grid-edit-row .k-textbox {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.k-grid-header-wrap, .k-grid-footer-wrap {
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+div.k-grid-header, div.k-grid-footer {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-right: 17px;
+}
+
+    div.k-grid-header .k-header {
+        border-bottom-width: 0;
+    }
+
+.k-grid-content {
+    border-bottom: 1px solid #dadada;
+    overflow-x: auto;
+    overflow-y: scroll;
+    position: relative;
+    width: 100%;
+}
+
+.k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item {
+    background-color: #fff;
+    background-image: none, none;
+    background-position: 50% 50%;
+}
+
+.k-block, .k-widget, .k-input, .k-textbox, .k-group, .k-content, .k-header, .k-editable-area, .k-separator, .k-colorpicker .k-i-arrow-s, .k-textbox > input, .k-autocomplete, .k-dropdown-wrap, .k-toolbar, .k-group-footer td, .k-grid-footer, .k-footer-template td, .k-state-default, .k-state-default .k-select, .k-state-disabled, .k-grid-header-wrap, .k-grid-header, .k-grid td, .k-grid td.k-state-selected, .k-grid-footer-wrap, .k-pager-wrap, .k-pager-wrap .k-link, .k-pager-refresh, .k-grouping-header, .k-grouping-header .k-group-indicator, .k-panelbar > .k-item > .k-link, .k-panel > .k-item > .k-link, .k-panelbar .k-panel, .k-panelbar .k-content, .k-calendar th, .k-slider-track, .k-splitbar, .k-dropzone-active, .k-tiles, .k-toolbar, .k-tooltip, .k-button-group .k-tool-icon, .k-upload-files {
+   border-color: transparent;
+}
+
+.k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator {
+   border-color: transparent transparent #dadada;
+}
+
+.k-grid-header .k-header, .k-grid tbody td, .k-grid tfoot td {
+     border-width: 0 0 1px 0;
+      border-color: #dadada;
+}
+
+.k-grid tr:last-child td {
+    border-width: 0 0 1px 0;
+    border-color: transparent;
+}
+
+.k-widget, .k-grid, .k-secondary {
+    padding: 20px;
+}
+
+.k-calendar table thead th {
+    border-width: 0 0 1px 0;
+    border-color: #dcdcdc;
+}
+
+.k-calendar td {
+    border-width: 1px;
+    border-color: #dcdcdc;
+}
+
+.k-calendar td:last-child {
+    border-right: 1px solid transparent;
+}
+
+.k-calendar table tbody td {
+    border-width: 1px 0 1px 0;
+    border-color: #dcdcdc;
+}
+
+.k-calendar table tbody tr:last-child td {
+    border-width: 1px 0 0 0;
+    border-color: #dcdcdc;
+}
+
+.k-calendar .k-link.k-state-hover, .k-window-titlebar .k-link {
+    border-radius: 0;
+}
+
+.k-calendar td:hover {
+    border-color: transparent;
+    background-color: #7761a7;
+    background-image: none, none;
+}
+
+.k-calendar .k-link:hover {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: none, none;
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    min-height: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+}
+
+.add-on {
+    float: left;
+    padding: 6px;
+}
+
+.k-state-disabled {
+    border: 1px solid #ccc;
+    background-color: #eee;
+    opacity: 1;
+}
+
+.radio {
+    margin-left: 20px;
+}
+
+
+/* ******************************** Pagination *********************************** */
+
+.k-pager-wrap > .k-link {
+    border-radius: 0px;
+}
+
+.k-pager-wrap .k-link:hover {
+    border-color: transparent;
+}
+
+.k-grid-pager .k-state-selected {
+    background-color: #7761a7;
+    border-color: #7761a7;
+    border-radius: 0px;
+}
+
+

@@ -1,53 +1,53 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.SaidaMaterialModel
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DataSaida)
-            <div class="controls">
+
+<div class='header'>
+        <h2 class="color-primary">Saída de mercadoria</h2>
+    </div>
+
+<div class="content">
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DataSaida, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6 padding-none">
                 @Html.EditorFor(x => x.DataSaida)
                 @Html.ValidationMessageFor(x => x.DataSaida, null, new { @class = "help-block" })
             </div>
-        </div>
     </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.UnidadeOrigem)
-            <div class='controls @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
-                @Html.DropDownList("UnidadeOrigem", null, "-- Selecione --", new { @class = "input-large" })
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.UnidadeOrigem, new { @class="col-sm-3 control-label" })
+            <div class='col-sm-6 @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
+                @Html.DropDownList("UnidadeOrigem", null, "-- Selecione --")
                 @Html.ValidationMessageFor(x => x.UnidadeOrigem, null, new { @class = "help-block" })
             </div>
-        </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.DepositoMaterialOrigem)
-            <div class='controls @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DepositoMaterialOrigem, new { @class="col-sm-3 control-label" })
+            <div class='col-sm-6 @(ViewContext.RouteData.GetRequiredString("action") == "Editar" ? "naoeditavel" : "" )'>
                 @Html.DropDownList("DepositoMaterialOrigem", null, "-- Selecione --", new { @class = "input-large" })
                 @Html.ValidationMessageFor(x => x.DepositoMaterialOrigem, null, new { @class = "help-block" })
             </div>
-        </div>
     </div>
-</div>
 
-<fieldset>
-    <legend><small>Dados do destino</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
+<div class='header topOffset-30'>
+            <h3>Dados do destino</h3>
+        </div>
+<div class="form-group">
+    
+   
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.CentroCusto)
-                <div class="controls">
+                <div class="col-sm-6">
                     <div class="input-append">
                         @Html.HiddenFor(x => x.CentroCusto)
-                        <input id="codigo-centrocusto" class="input-small numeric-only" type="text" />
+                        <input id="codigo-centrocusto" class="numeric-only" type="text" />
                         <button id="pesquisar-centrocusto" class="btn" type="button"><i class="icon-search"></i></button>
                         <span id="nome-centrocusto" class="add-on"></span>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+   
     <div class="row">
         <div class="span6">
             <div class="control-group">
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
 <fieldset>
     <legend><small>Itens da saída</small></legend>
@@ -156,6 +156,7 @@
     </div>
 
 </fieldset>
+</div>
 <script>
     $(function () {
         $('#UnidadeDestino').on("change", function () {

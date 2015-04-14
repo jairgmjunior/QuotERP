@@ -1,19 +1,24 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.RecebimentoCompraModel
-@using (Html.BeginForm(MVC.Compras.RecebimentoCompra.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+
+<div class="block-flat">
+    @using (Html.BeginForm(MVC.Compras.RecebimentoCompra.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
 	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Compras.RecebimentoCompra.Excluir(Model.Id))
-	</div>
-}
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        @Html.ExcluirAuth(MVC.Compras.RecebimentoCompra.Excluir(Model.Id))
+    </div>
+    }
+
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
 }
 
 @{Html.RenderPartial("_ConfirmDelete");}
+
+</div>
 <script>
 
     function obtenhaUrlActionSubmit() {

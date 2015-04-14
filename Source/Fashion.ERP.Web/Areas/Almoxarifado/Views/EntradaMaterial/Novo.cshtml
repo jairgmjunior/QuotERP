@@ -1,14 +1,21 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.EntradaMaterialModel
 
-@using (Html.BeginForm(MVC.Almoxarifado.EntradaMaterial.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+<div class="block-flat">
+    @using (Html.BeginForm(MVC.Almoxarifado.EntradaMaterial.Novo(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
-    @Html.Partial("_NovoOuEditar", Model)
+    <div class="content">
+        @Html.Partial("_NovoOuEditar", Model)
 	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-	</div>
-}
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+    </div>
+    }
+
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+
 }
+
+</div>

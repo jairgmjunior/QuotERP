@@ -1,8 +1,15 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.MarcaModel
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Nome)
-	<div class="controls">
-		@Html.EditorFor(x => x.Nome)
+
+<div class='header'>
+    <h2 class="color-primary">Marca</h2>
+</div>
+
+<div class="content">
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Nome, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Nome)
 		@Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
-	</div>
+    </div>
+    </div>
 </div>

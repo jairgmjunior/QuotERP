@@ -18,7 +18,7 @@ namespace Fashion.ERP.Migrator
         public static void Main(string[] args)
         {
             //migrate -c "server=.\SQLEXPRESS;Database=FashionERP;User Id=sa;Password=123456;" -db sqlserver2012 -a "D:\Victor\Projetos\Fashion.ERP\Source\Fashion.ERP.Migrator\bin\Debug\Fashion.ERP.Migrator.dll" -t migrate -o -of migrated.sql
-            string connectionString = @"Server=.\SQLEXPRESS;Database=FashionERP;User Id=sa;Password=123456;";
+            string connectionString = @"Server=.\SQLEXPRESS;Database=QuodERPBootstrap;User Id=sa;Password=123456;";
             Announcer announcer = new TextWriterAnnouncer(s => System.Diagnostics.Debug.WriteLine(s));
             announcer.ShowSql = true;
 

@@ -10,5 +10,5 @@ else if (Model.IsClickable)
 }
 else
 { 
-    <a @Html.Raw(Model.IsRootNode ? "" : "data-toggle=\"dropdown\" class=\"dropdown-toggle\"") href="">@Model.Title</a>
+    <a href=""><span>@Model.Title</span></a>
 }

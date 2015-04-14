@@ -1,25 +1,31 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.UnidadeMedidaModel
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Sigla)
-    <div class="controls">
-        @Html.EditorFor(x => x.Sigla)
+<div class='header'>
+        <h2 class="color-primary">Dados da Unidade de Medida</h2>
+    </div>
+
+<div class="content">
+    <div class="form-group">
+    @Html.LabelForRequired(x => x.Sigla, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6">
+        @Html.EditorFor(x => x.Sigla, new { @class="form-control" })
         @Html.ValidationMessageFor(x => x.Sigla, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Descricao)
-    <div class="controls">
-        @Html.EditorFor(x => x.Descricao)
+<div class="form-group">
+    @Html.LabelForRequired(x => x.Descricao, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6">
+        @Html.EditorFor(x => x.Descricao, new { @class="form-control" })
         @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.FatorMultiplicativo)
-    <div class="controls">
+<div class="form-group">
+    @Html.LabelForRequired(x => x.FatorMultiplicativo, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6 padding-none">
         @(Html.Kendo().NumericTextBoxFor(x => x.FatorMultiplicativo)
-            .Format("n14").Decimals(14)
-            .Min(0)
-            .HtmlAttributes(new { @class = "percent input-medium" }))
+              .Format("n14").Decimals(14)
+              .Min(0)
+              .HtmlAttributes(new { @class = "percent input-medium" }))
         @Html.ValidationMessageFor(x => x.FatorMultiplicativo, null, new { @class = "help-block" })
     </div>
+</div>
 </div>

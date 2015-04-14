@@ -1,124 +1,128 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.NovoFuncionarioModel
 
-@using (Html.BeginForm(MVC.Comum.Funcionario.Novo(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
+<div class="block-flat">
+    @using (Html.BeginForm(MVC.Comum.Funcionario.Novo(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
-    <div class="row">
-        <div class="span6">
-            @Html.Partial("_NovoOuEditar", Model)
-        </div>
-        <div class="span6">
-            <fieldset>
-                <legend>Endereço</legend>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoTipoEndereco)
-                    <div class="controls">
+    <div class="content">
+        @Html.Partial("_NovoOuEditar", Model)
+        
+        
+            <div class='header topOffset-30'>
+                <h3>Endereço</h3>
+            </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoTipoEndereco, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.DropDownListFor(p => p.EnderecoTipoEndereco, Model.EnderecoTipoEndereco.ToSelectList(), new { disabled = "disabled" })
                         @Html.ValidationMessageFor(x => x.EnderecoTipoEndereco, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoLogradouro)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoLogradouro, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.EnderecoLogradouro)
                         @Html.ValidationMessageFor(x => x.EnderecoLogradouro, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoNumero)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoNumero, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.EnderecoNumero)
                         @Html.ValidationMessageFor(x => x.EnderecoNumero, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoComplemento)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoComplemento, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.EnderecoComplemento)
                         @Html.ValidationMessageFor(x => x.EnderecoComplemento, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoBairro)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoBairro, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.EnderecoBairro)
                         @Html.ValidationMessageFor(x => x.EnderecoBairro, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoCep)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoCep, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.EnderecoCep)
                         @Html.ValidationMessageFor(x => x.EnderecoCep, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.Label("Estado", new { @class = "control-label required-label" })
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.Label("Estado", new { @class = "col-sm-3 control-label required-label" })
+                    <div class="col-sm-6">
                         @Html.DropDownList("Uf", null, "-- Selecione --", new { id = "estado-option", @class = "input-large" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.EnderecoCidade)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.EnderecoCidade, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.DropDownList("EnderecoCidade", null, "-- Selecione --", new { id = "cidade-option", @class = "input-large" })
                         @Html.ValidationMessageFor(x => x.EnderecoCidade, null, new { @class = "help-block" })
                     </div>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Contato</legend>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.ContatoTipoContato)
-                    <div class="controls">
+        </div>
+
+        <div class='header topOffset-30'>
+            <h3>Contato</h3>
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.ContatoTipoContato, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.DropDownListFor(p => p.ContatoTipoContato, Model.ContatoTipoContato.ToSelectList())
                         @Html.ValidationMessageFor(x => x.ContatoTipoContato, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.ContatoNome)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.ContatoNome, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.ContatoNome)
                         @Html.ValidationMessageFor(x => x.ContatoNome, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.ContatoTelefone)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.ContatoTelefone, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.ContatoTelefone)
                         @Html.ValidationMessageFor(x => x.ContatoTelefone, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.ContatoOperadora)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.ContatoOperadora, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.ContatoOperadora)
                         @Html.ValidationMessageFor(x => x.ContatoOperadora, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.ContatoEmail)
-                    <div class="controls">
+        </div>
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.ContatoEmail, new { @class="col-sm-3 control-label" })
+                    <div class="col-sm-6">
                         @Html.EditorFor(x => x.ContatoEmail)
                         @Html.ValidationMessageFor(x => x.ContatoEmail, null, new { @class = "help-block" })
                     </div>
-                </div>
-            </fieldset>
+        </div>
+
+
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-10 topOffset-15">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
         </div>
     </div>
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-    </div>
     <script>
-        $(function() {
+        $(function () {
             // Sugerir o nome do contato
             $('#Nome').on('change', function () {
                 var $Nome = $(this);
                 var contatoNome = $('#ContatoNome').val();
                 var nomeAntigo = $Nome.data('NomeAntigo');
                 var nomeAtual = $Nome.val();
-                
+
                 if (contatoNome == '' || contatoNome == nomeAntigo) {
                     $('#ContatoNome').val(nomeAtual);
                 }
@@ -127,4 +131,5 @@
             });
         });
     </script>
-}
+    }
+</div>

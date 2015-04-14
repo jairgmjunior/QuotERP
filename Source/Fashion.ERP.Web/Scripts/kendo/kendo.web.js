@@ -18968,6 +18968,9 @@ kendo_module({
 
             that.wrapper = wrapper.addClass("k-widget k-datepicker k-header")
                                   .addClass(element[0].className);
+           
+            
+            
 
             that._inputWrapper = $(wrapper[0].firstChild);
         },

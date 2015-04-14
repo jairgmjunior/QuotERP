@@ -2136,7 +2136,7 @@ span.k-dropdown {
 .k-textbox {
   position: relative;
   display: inline-block;
-  width: 12.4em;
+  width: auto;
   overflow: visible;
   border-width: 0;
   vertical-align: middle;

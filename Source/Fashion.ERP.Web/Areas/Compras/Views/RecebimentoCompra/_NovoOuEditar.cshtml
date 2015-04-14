@@ -1,115 +1,115 @@
 ﻿@using Fashion.ERP.Web.Areas.Compras.Models 
 @model RecebimentoCompraModel
 
-<fieldset>
-    <legend><small>Dados do Recebimento</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Unidade)
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
-                    @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
-                    @{
-                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                        {
-                            @Html.HiddenFor(x => x.Unidade)
-                        }
-                    }
-                </div>
-            </div>
-        </div>    
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.SituacaoRecebimentoCompra)
-                <div class="controls">
-                    @Html.EditorFor(x => x.SituacaoRecebimentoCompra)
-                </div>
-            </div>
-        </div>  
+    <div class='header'>
+        <h2 class="color-primary">Dados do Recebimento</h2>
     </div>
 
-         @{
-            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-            {
-                <div class="row">
-                    <div class="span6">
-                        <div class="control-group">
-                            @Html.LabelForRequired(x => x.Numero)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.Numero)
-                                @Html.HiddenFor(x => x.Numero)
-                                @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span6">
-                        <div class="control-group">
-                            @Html.LabelForRequired(x => x.Data)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.Data)
-                                @Html.HiddenFor(x => x.Data)
-                            </div>
-                        </div>
-                    </div>  
-                 </div>
+<div class="content">
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Unidade, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
+            @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
+            @{
+                if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                {
+                    @Html.HiddenFor(x => x.Unidade)
                 }
-         }
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Fornecedor)
-                <div class="controls">
-                    @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                    <div class="input-append">
-                        <input id="codigo-fornecedor" class="input-small" type="text" />
-                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-fornecedor" class="add-on"></span>
-                    </div>
-                    @Html.ValidationMessageFor(x => x.Fornecedor, string.Empty, new { @class = "help-block" })
-                </div>
-            </div>  
-        </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Valor)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Valor)
-                    @Html.ValidationMessageFor(x => x.Valor, string.Empty, new { @class = "help-block" })
-                </div>
-            </div>
+            }
         </div>
     </div>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Observacao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Observacao)
-                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
-                </div>
-            </div>
-        </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.DepositoMaterial, string.Empty, new { @class = "help-block" })
-                    @{
-                        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                        {
-                            @Html.HiddenFor(x => x.DepositoMaterial)
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</fieldset>
 
-<fieldset>
-    <legend><small>Itens do Recebimento</small></legend>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.SituacaoRecebimentoCompra, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            <span class="label label-warning">@Html.EditorFor(x => x.SituacaoRecebimentoCompra)
+            </span>
+        </div>
+    </div>
+
+
+
+    @{
+        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+        {
+                
+            <div class="form-group">
+                @Html.LabelForRequired(x => x.Numero, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6">
+                    @Html.EditorFor(x => x.Numero)
+                    @Html.HiddenFor(x => x.Numero)
+                    @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                </div>
+            </div>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Data, new { @class="col-sm-3 control-label" })
+                <div class="col-sm-6 padding-none">
+                    @Html.EditorFor(x => x.Data)
+                    @Html.HiddenFor(x => x.Data)
+                </div>
+    </div>
+
+    }
+    }
+    
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Fornecedor, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-8">
+            @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
+            <div class="input-group">
+                <input id="codigo-fornecedor" class="form-control" type="text" />
+                <span class="input-group-btn">
+                    <button id="pesquisar-fornecedor" class="btn" type="button"><i class="fa fa-search"></i></button>
+                </span>    
+<span id="descricao-fornecedor" class="add-on"></span>
+            @Html.ValidationMessageFor(x => x.Fornecedor, string.Empty, new { @class = "help-block" })
+        </div>            
+            </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Valor, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6 padding-none">
+            @Html.EditorFor(x => x.Valor)
+            @Html.ValidationMessageFor(x => x.Valor, string.Empty, new { @class = "help-block" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Observacao, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            @Html.EditorFor(x => x.Observacao)
+            @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.DepositoMaterial, new { @class="col-sm-3 control-label" })
+        <div class="col-sm-6">
+            @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })
+            @Html.ValidationMessageFor(x => x.DepositoMaterial, string.Empty, new { @class = "help-block" })
+            @{
+                if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                {
+                    @Html.HiddenFor(x => x.DepositoMaterial)
+                }
+            }
+        </div>
+    </div>
+
+</div>
+
+
+<div class='header topOffset-30'>
+    <h3>Itens do Recebimento</h3>
+</div>
+
+
 <div class="table-responsive">
     @(Html.Kendo().Grid(@Model.GridItens)
         .Name("GridItens")
@@ -150,7 +150,7 @@
         .Resizable(resize => resize.Columns(true))
         )
 </div>
-</fieldset>
+
 
 <div id='dialogDiv' class='modal hide fade in' style="width: 800px; height: 560px">
     <div class="modal-header">

@@ -1,22 +1,29 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ClassificacaoDificuldadeModel
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Descricao)
-	<div class="controls">
-		@Html.EditorFor(x => x.Descricao)
+
+<div class='header'>
+    <h2 class="color-primary">Classificação Dificuldade</h2>
+</div>
+
+<div class="content">
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Descricao, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Descricao)
 		@Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Criacao)
-	<div class="controls">
-		@Html.EditorFor(x => x.Criacao)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Criacao, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Criacao)
 		@Html.ValidationMessageFor(x => x.Criacao, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Producao)
-	<div class="controls">
-		@Html.EditorFor(x => x.Producao)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Producao, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Producao)
 		@Html.ValidationMessageFor(x => x.Producao, null, new { @class="help-block" })
-	</div>
+    </div>
+    </div>
 </div>

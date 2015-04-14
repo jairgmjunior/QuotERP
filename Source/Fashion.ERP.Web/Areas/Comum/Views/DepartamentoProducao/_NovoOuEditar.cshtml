@@ -1,22 +1,29 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.DepartamentoProducaoModel
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Nome)
-    <div class="controls">
+
+<div class='header'>
+    <h2 class="color-primary">Departamento Produção</h2>
+</div>
+
+<div class="content">
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Nome, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6">
         @Html.EditorFor(x => x.Nome)
         @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
     </div>
-</div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Criacao)
-    <div class="controls">
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Criacao, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6">
         @Html.EditorFor(x => x.Criacao)
         @Html.ValidationMessageFor(x => x.Criacao, null, new { @class = "help-block" })
     </div>
-</div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.Producao)
-    <div class="controls">
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Producao, new { @class="col-sm-3 control-label" })
+    <div class="col-sm-6">
         @Html.EditorFor(x => x.Producao)
         @Html.ValidationMessageFor(x => x.Producao, null, new { @class = "help-block" })
+    </div>
     </div>
 </div>

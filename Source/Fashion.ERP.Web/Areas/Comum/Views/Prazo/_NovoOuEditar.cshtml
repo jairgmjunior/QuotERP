@@ -1,43 +1,50 @@
-﻿ @model Fashion.ERP.Web.Areas.Comum.Models.PrazoModel
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Descricao)
-	<div class="controls">
-		@Html.EditorFor(x => x.Descricao)
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.PrazoModel
+
+<div class='header'>
+    <h2 class="color-primary">Prazo</h2>
+</div>
+
+<div class="content">
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Descricao, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Descricao)
 		@Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.AVista)
-	<div class="controls">
-		@Html.EditorFor(x => x.AVista)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.AVista, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.AVista)
 		@Html.ValidationMessageFor(x => x.AVista, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.QuantidadeParcelas)
-	<div class="controls">
-		@Html.EditorFor(x => x.QuantidadeParcelas)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.QuantidadeParcelas, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.QuantidadeParcelas)
 		@Html.ValidationMessageFor(x => x.QuantidadeParcelas, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.PrazoPrimeiraParcela)
-	<div class="controls">
-		@Html.EditorFor(x => x.PrazoPrimeiraParcela)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.PrazoPrimeiraParcela, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.PrazoPrimeiraParcela)
 		@Html.ValidationMessageFor(x => x.PrazoPrimeiraParcela, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Intervalo)
-	<div class="controls">
-		@Html.EditorFor(x => x.Intervalo)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Intervalo, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Intervalo)
 		@Html.ValidationMessageFor(x => x.Intervalo, null, new { @class="help-block" })
-	</div>
-</div>
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Padrao)
-	<div class="controls">
-		@Html.EditorFor(x => x.Padrao)
+    </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Padrao, new { @class="col-sm-3 control-label" })
+	<div class="col-sm-6">
+        @Html.EditorFor(x => x.Padrao)
 		@Html.ValidationMessageFor(x => x.Padrao, null, new { @class="help-block" })
-	</div>
+    </div>
+    </div>
 </div>

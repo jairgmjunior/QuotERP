@@ -1,27 +1,37 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.SubcategoriaModel
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Nome)
-            <div class="controls">
-                @Html.EditorFor(x => x.Nome)
+
+<div class='header'>
+        <h2 class="color-primary">Dados da Subcategoria</h2>
+    </div>
+
+<div class="content">
+
+<div class="col-sm-6">
+    
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.Nome, new { @class="col-sm-4 control-label" })
+            <div class="col-sm-6">
+                @Html.EditorFor(x => x.Nome, new { @class="form-control" })
                 @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.Categoria)
-            <div class="controls">
+        <div class="form-group">
+            @Html.LabelForRequired(x => x.Categoria, new { @class="col-sm-4 control-label" })
+            <div class="col-sm-6">
                 @Html.DropDownList("Categoria")
                 @Html.ValidationMessageFor(x => x.Categoria, null, new { @class = "help-block" })
             </div>
         </div>
-    </div>
-    <div class="span6">
+
+</div>
+
+<div class="col-sm-6">
+    
         <div class="well">
             @(Html.TreeView(Model.TreeView)
                 .EmptyContent("Não há subcategorias cadastradas.")
                 .Children(m => m.Itens)
-                .HtmlAttributes(new { id = "treeview" })
+                .HtmlAttributes(new { id = "treeview"})
                 .ChildrenHtmlAttributes(new { @class = "subItem" })
                 .ItemText(m => m.Name)
                 .ItemTemplate(
@@ -36,8 +46,9 @@
                     }
                 </text>
                 ))
-        </div>
+        
     </div>
+</div>
 </div>
 <script>
     $(document).ready(function () {

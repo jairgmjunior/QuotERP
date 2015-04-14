@@ -1,29 +1,36 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.CategoriaModel
-<div class="control-group">
-	@Html.LabelForRequired(x => x.Nome)
-	<div class="controls">
-		@Html.EditorFor(x => x.Nome)
-		@Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
-	</div>
+
+<div class='header'>
+    <h2 class="color-primary">Dados da categoria</h2>
 </div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.CodigoNcm)
-    <div class="controls">
-        @Html.TextBoxFor(x => x.CodigoNcm, new { data_mask = "99999999" })
-        @Html.ValidationMessageFor(x => x.CodigoNcm, null, new { @class = "help-block" })
+
+<div class="content">
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.Nome, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.Nome, new { @class="form-control" })
+                @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+            </div>
     </div>
-</div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.TipoCategoria)
-    <div class="controls">
-        @Html.DropDownListFor(x => x.TipoCategoria, Model.TipoCategoria.ToSelectList())
-        @Html.ValidationMessageFor(x => x.TipoCategoria, null, new { @class = "help-block" })
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.CodigoNcm, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.CodigoNcm, new { data_mask = "99999999" , @class="form-control" })
+                @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+            </div>
     </div>
-</div>
-<div class="control-group">
-    @Html.LabelForRequired(x => x.GeneroCategoria)
-    <div class="controls">
-        @Html.DropDownListFor(x => x.GeneroCategoria, Model.GeneroCategoria.ToSelectList())
-        @Html.ValidationMessageFor(x => x.GeneroCategoria, null, new { @class = "help-block" })
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.TipoCategoria, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6">
+                @Html.DropDownListFor(x => x.TipoCategoria, Model.TipoCategoria.ToSelectList(), new { @class="form-control" })
+                @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelForRequired(x => x.GeneroCategoria, new { @class="col-sm-3 control-label" })
+            <div class="col-sm-6">
+                @Html.DropDownListFor(x => x.GeneroCategoria, Model.GeneroCategoria.ToSelectList(), new { @class="form-control" })
+                @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+            </div>
     </div>
 </div>
