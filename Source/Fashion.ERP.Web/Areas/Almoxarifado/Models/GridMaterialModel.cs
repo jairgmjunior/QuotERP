@@ -30,6 +30,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Foto")]
         public string Foto { get; set; }
 
+        [Display(Name = "Último Custo")]
+        public double UltimoCusto { get; set; }
+
         [Display(Name = "Ativo")]
         public bool Ativo { get; set; }
 

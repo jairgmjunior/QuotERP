@@ -197,7 +197,7 @@
             .Columns(columns =>
             {
                 columns.Bound(x => x.Id).Hidden();
-                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
+                columns.Bound(x => x.Referencia);
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(55);
                 columns.Bound(e => e.ReferenciaExterna).Width(60);
@@ -206,9 +206,8 @@
                 columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(110);
                 columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(100);
                 columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(110);
-                columns.Command(command => { command.Edit(); command.Destroy(); });
+                columns.Command(command =>  command.Destroy() );
             })
-            .ClientDetailTemplateId("template")
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
@@ -219,17 +218,14 @@
                     model.Field(product => product.ValorTotal).Editable(true);
                     model.Field(product => product.ValorUnitario).Editable(true);
                 })
-                .Create(update => update.Action("EditingInline_Create", "PedidoCompra"))
-                .Read(read => read.Action("EditingInline_Read", "PedidoCompra"))
-                .Update(update => update.Action("EditingInline_Update", "PedidoCompra"))
-                .Destroy(update => update.Action("EditingInline_Destroy", "PedidoCompra"))
             )
-            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class = "btn-primary" }))
-            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @href = "#", @id = "pesquisarvarios-material", @class = "btn-primary" }))
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
             )
-    
+        
+        @*text/x-kendo-template*@
         <script id="template" type="text/kendo-tmpl">
         @(Html.Kendo().TabStrip()
                 .Name("tabStrip_#=PedidoCompraId#")
@@ -401,6 +397,51 @@
 
 <script>
     $(document).ready(function () {
+   
+        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+            alert(itens.DataItemsSelecionados.length);
+
+
+    //        public long? Id { get; set; }
+    //        public long? PedidoCompraId { get; set; }
+    //        public long? MaterialId { get; set; }
+    //        public string Descricao { get; set; }
+    //    public string Referencia { get; set; }
+    //    public string UnidadeMedida { get; set; }
+    //public double? Quantidade { get; set; }
+    //public double? ValorUnitario { get; set; }
+    //public double? ValorDesconto { get; set; }
+    //public double? ValorTotal
+    //public DateTime? PrevisaoEntrega { get; set; }
+    //public String PrevisaoEntregaString { get; set; }
+    //public string ReferenciaExterna { get; set; }
+    //public double? Diferenca { get; set; }
+    //public String Situacao { get; set; }
+    //public double? QuantidadeEntregue { get; set; }
+    //public DateTime? DataEntrega { get; set; }
+            
+            //if (dados.Error) {
+            //    alert(dados.Error);
+            //    return;
+            //}
+
+            var grid = $('#GridItens').data("kendoGrid");
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data()
+            var novosDados = itens.DataItemsSelecionados;
+            var dados = $.merge(novosDados, dadosAtuais);
+
+            var dataSource = new kendo.data.DataSource({
+                data: dados,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+            
+        });
 
         $('#ValorMercadorias').attr('readonly', true);
         $('#ValorCompra').attr('readonly', true);

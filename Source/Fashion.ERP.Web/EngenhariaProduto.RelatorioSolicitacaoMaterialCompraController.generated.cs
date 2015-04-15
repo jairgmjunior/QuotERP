@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 {
-    public partial class RelatorioConsumoMaterialPorModeloController
+    public partial class RelatorioSolicitacaoMaterialCompraController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RelatorioConsumoMaterialPorModeloController(Dummy d) { }
+        protected RelatorioSolicitacaoMaterialCompraController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,13 +43,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public RelatorioConsumoMaterialPorModeloController Actions { get { return MVC.EngenhariaProduto.RelatorioConsumoMaterialPorModelo; } }
+        public RelatorioSolicitacaoMaterialCompraController Actions { get { return MVC.EngenhariaProduto.RelatorioSolicitacaoMaterialCompra; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "EngenhariaProduto";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "RelatorioConsumoMaterialPorModelo";
+        public readonly string Name = "RelatorioSolicitacaoMaterialCompra";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "RelatorioConsumoMaterialPorModelo";
+        public const string NameConst = "RelatorioSolicitacaoMaterialCompra";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -57,21 +57,21 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
+            public readonly string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
+            public const string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
         }
 
 
-        static readonly ActionParamsClass_ConsumoMaterialPorModelo s_params_ConsumoMaterialPorModelo = new ActionParamsClass_ConsumoMaterialPorModelo();
+        static readonly ActionParamsClass_SolicitacaoMaterialCompra s_params_SolicitacaoMaterialCompra = new ActionParamsClass_SolicitacaoMaterialCompra();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ConsumoMaterialPorModelo ConsumoMaterialPorModeloParams { get { return s_params_ConsumoMaterialPorModelo; } }
+        public ActionParamsClass_SolicitacaoMaterialCompra SolicitacaoMaterialCompraParams { get { return s_params_SolicitacaoMaterialCompra; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ConsumoMaterialPorModelo
+        public class ActionParamsClass_SolicitacaoMaterialCompra
         {
             public readonly string model = "model";
         }
@@ -85,33 +85,33 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
+                public readonly string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
             }
-            public readonly string ConsumoMaterialPorModelo = "~/Areas/EngenhariaProduto/Views/RelatorioConsumoMaterialPorModelo/ConsumoMaterialPorModelo.cshtml";
+            public readonly string SolicitacaoMaterialCompra = "~/Areas/EngenhariaProduto/Views/RelatorioSolicitacaoMaterialCompra/SolicitacaoMaterialCompra.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_RelatorioConsumoMaterialPorModeloController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioConsumoMaterialPorModeloController
+    public partial class T4MVC_RelatorioSolicitacaoMaterialCompraController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController
     {
-        public T4MVC_RelatorioConsumoMaterialPorModeloController() : base(Dummy.Instance) { }
+        public T4MVC_RelatorioSolicitacaoMaterialCompraController() : base(Dummy.Instance) { }
 
-        partial void ConsumoMaterialPorModeloOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void SolicitacaoMaterialCompraOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Web.Mvc.ActionResult ConsumoMaterialPorModelo()
+        public override System.Web.Mvc.ActionResult SolicitacaoMaterialCompra()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConsumoMaterialPorModelo);
-            ConsumoMaterialPorModeloOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SolicitacaoMaterialCompra);
+            SolicitacaoMaterialCompraOverride(callInfo);
             return callInfo;
         }
 
-        partial void ConsumoMaterialPorModeloOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ConsumoMaterialPorModeloModel model);
+        partial void SolicitacaoMaterialCompraOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SolicitacaoMaterialCompraModel model);
 
-        public override System.Web.Mvc.JsonResult ConsumoMaterialPorModelo(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ConsumoMaterialPorModeloModel model)
+        public override System.Web.Mvc.JsonResult SolicitacaoMaterialCompra(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SolicitacaoMaterialCompraModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ConsumoMaterialPorModelo);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SolicitacaoMaterialCompra);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ConsumoMaterialPorModeloOverride(callInfo, model);
+            SolicitacaoMaterialCompraOverride(callInfo, model);
             return callInfo;
         }
 

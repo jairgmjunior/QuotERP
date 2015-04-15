@@ -93,8 +93,13 @@ namespace Fashion.ERP.Reporting.Helpers
             var modeloFoto = fotos.FirstOrDefault(p => p.Padrao && p.Impressao);
 
             return modeloFoto != null
-                ? EnderecoFoto(modeloFoto.Foto.Nome)
+                ? EnderecoFoto(modeloFoto.Foto.Nome.GetFileUrlFotoModelo())
                 : FotoPadrao;
+        }
+
+        public static string GetFileUrlFotoModelo(this string filename)
+        {
+            return VirtualPathUtility.ToAbsolute("~/Uploads/Files/") + Path.GetFileName(filename);
         }
         #endregion
 

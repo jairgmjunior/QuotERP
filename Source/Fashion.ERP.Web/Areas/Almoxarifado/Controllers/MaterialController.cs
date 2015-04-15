@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -21,11 +19,9 @@ using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
-using NHibernate.Util;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 using Telerik.Reporting.Drawing;
-using Expression = NHibernate.Criterion.Expression;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -677,6 +673,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region PesquisarVarios
+        [ChildActionOnly]//OutputCache(Duration = 3600)
+        public virtual ActionResult PesquisarVarios()
+        {
+            PreencheColuna();
+            return PartialView();
+        }
+        #endregion
+
         #region PesquisarFiltro
         [HttpPost, AjaxOnly]
         public virtual ActionResult PesquisarFiltro(PesquisarMaterialModel model)
@@ -692,7 +697,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if(model.TipoItemMaterial.HasValue)
                 filters.Add(new FilterExpression("TipoItem.Id", ComparisonOperator.IsEqual, model.TipoItemMaterial, LogicOperator.And));
 
-            var materiais = _materialRepository.Find(filters.ToArray()).ToList();
+            var materiais = _materialRepository.Find(filters.ToArray()).ToList().OrderBy(o => o.Descricao);
 
             var list = materiais.Select(p => new GridMaterialModel
             {
@@ -704,13 +709,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Subcategoria = p.Subcategoria.Nome,
                 Familia = p.Familia == null ? null : p.Familia.Nome,
                 UnidadeMedida = p.UnidadeMedida.Sigla,
-                ReferenciaExterna =
-                    RetornarReferenciaExterna(p.Id.Value,
-                        model.FornecedorMaterial.HasValue ? model.FornecedorMaterial.Value : 0)
+                UltimoCusto = ObtenhaUltimoCustoMaterial(material)
+                
             }).ToList();
             return Json(list);
-            
         }
+
+        private double? ObtenhaUltimoCustoMaterial(Material material)
+        {
+            var custo = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
+            return custo != null ? custo.Custo : (double?)null;
+
+        }
+
         #endregion
 
         #region PesquisarReferencia

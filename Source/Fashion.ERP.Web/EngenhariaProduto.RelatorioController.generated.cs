@@ -106,13 +106,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public class _ViewNamesClass
             {
                 public readonly string ConsumoMaterialColecao = "ConsumoMaterialColecao";
-                public readonly string ConsumoMaterialPorModelo = "ConsumoMaterialPorModelo";
                 public readonly string ListagemModelos = "ListagemModelos";
                 public readonly string ListagemModelos2 = "ListagemModelos2";
                 public readonly string ListagemModelosAprovados = "ListagemModelosAprovados";
             }
             public readonly string ConsumoMaterialColecao = "~/Areas/EngenhariaProduto/Views/Relatorio/ConsumoMaterialColecao.cshtml";
-            public readonly string ConsumoMaterialPorModelo = "~/Areas/EngenhariaProduto/Views/Relatorio/ConsumoMaterialPorModelo.cshtml";
             public readonly string ListagemModelos = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelos.cshtml";
             public readonly string ListagemModelos2 = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelos2.cshtml";
             public readonly string ListagemModelosAprovados = "~/Areas/EngenhariaProduto/Views/Relatorio/ListagemModelosAprovados.cshtml";

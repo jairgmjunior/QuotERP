@@ -962,9 +962,6 @@
                             <Component Id="cmp3E637C70E128F9749091ECB44FF2CA66" Guid="*">
                                 <File Id="fil2ABF12F1EA52C6D01CC05AA722BFD28B" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialColecao.cshtml" />
                             </Component>
-                            <Component Id="cmpF2EF490CAE39027A75B35F70AF9954D3" Guid="*">
-                                <File Id="fil7AC872AE8738527ADEBD4FC8F95DB33D" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialPorModelo.cshtml" />
-                            </Component>
                             <Component Id="cmp0CF2E6D00F9B3CC812130B71273C5372" Guid="*">
                                 <File Id="filDF95BDD2A63E3B8A7C70C1E639BAA8ED" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\ListagemModelos.cshtml" />
                             </Component>
@@ -975,9 +972,19 @@
                                 <File Id="filADFEB797C2AED57246A58D19C47632A4" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\Relatorio\ListagemModelosAprovados.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dirF6F65E45CFBAF0311163757BD4723031" Name="RelatorioConsumoMaterialPorModelo">
+                            <Component Id="cmp5B3138BF377E1822F6CCAF633A8D645B" Guid="*">
+                                <File Id="fil58B019B5A3E63C4CE518C1825CEEF6E9" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\RelatorioConsumoMaterialPorModelo\ConsumoMaterialPorModelo.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir425745D8545B97783AF4BBDD6F3E6E18" Name="RelatorioMateriaisModelosAprovados">
                             <Component Id="cmpB0A98DF8296D9E9713C3835180EBDCE1" Guid="*">
                                 <File Id="filF203E9AC596AC14A2A3B1FBBE2A5E18B" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir4B6903BFA67B477CEB1838C9772E556E" Name="RelatorioSolicitacaoMaterialCompra">
+                            <Component Id="cmpE66D1A499A2C2E107C3B44504B09582A" Guid="*">
+                                <File Id="filE2B5AAE4372A1D7AE9E9179E682B21FB" KeyPath="yes" Source="SourceDir\Areas\EngenhariaProduto\Views\RelatorioSolicitacaoMaterialCompra\SolicitacaoMaterialCompra.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dir40136628E2F660D5AD98BA0C3D251CA3" Name="SequenciaProducao">
@@ -2300,11 +2307,12 @@
             <ComponentRef Id="cmp2E5647025DD0A89C19F966C2C6F11B4B" />
             <ComponentRef Id="cmp5BC368983CDDB322CB4B135EE915E506" />
             <ComponentRef Id="cmp3E637C70E128F9749091ECB44FF2CA66" />
-            <ComponentRef Id="cmpF2EF490CAE39027A75B35F70AF9954D3" />
             <ComponentRef Id="cmp0CF2E6D00F9B3CC812130B71273C5372" />
             <ComponentRef Id="cmp2DF19A357274DDEB5628FD85286D4DC6" />
             <ComponentRef Id="cmp17706FAD42E91F0F370D193507552C7A" />
+            <ComponentRef Id="cmp5B3138BF377E1822F6CCAF633A8D645B" />
             <ComponentRef Id="cmpB0A98DF8296D9E9713C3835180EBDCE1" />
+            <ComponentRef Id="cmpE66D1A499A2C2E107C3B44504B09582A" />
             <ComponentRef Id="cmp7FF08372C535431658EB4362C900E369" />
             <ComponentRef Id="cmp2EF7EBC3B7F9DC9B54B8735D1F007188" />
             <ComponentRef Id="cmpCEAC2051BBF681B0DC4AAA5B7647D5BE" />
