@@ -709,7 +709,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Subcategoria = p.Subcategoria.Nome,
                 Familia = p.Familia == null ? null : p.Familia.Nome,
                 UnidadeMedida = p.UnidadeMedida.Sigla,
-                UltimoCusto = ObtenhaUltimoCustoMaterial(material)
+                //UltimoCusto = ObtenhaUltimoCustoMaterial(material)
                 
             }).ToList();
             return Json(list);
