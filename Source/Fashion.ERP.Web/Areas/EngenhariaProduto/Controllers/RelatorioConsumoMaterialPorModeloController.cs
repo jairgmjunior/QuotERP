@@ -132,7 +132,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
                 IdMaterial = q.MaterialComposicao.Material.Id,
                 DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
-                QuantidadeAprovada = q.MaterialComposicao.Quantidade * q.Modelo.ModeloAprovado.Quantidade,
+                QuantidadeAprovada = q.Modelo.ModeloAprovado.Quantidade,
                 QuantidadeMaterial = q.MaterialComposicao.Quantidade * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
                 QuantidadeTotalMaterial = (q.MaterialComposicao.Quantidade * q.Modelo.ModeloAprovado.Quantidade) * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
                 NomeFoto = q.MaterialComposicao.Material.Foto.Nome.GetFileUrl(),

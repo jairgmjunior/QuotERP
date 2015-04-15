@@ -18,6 +18,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
             this.textBox40 = new Telerik.Reporting.TextBox();
             this.textBox44 = new Telerik.Reporting.TextBox();
+            this.textBox10 = new Telerik.Reporting.TextBox();
+            this.textBox8 = new Telerik.Reporting.TextBox();
             this.textBox38 = new Telerik.Reporting.TextBox();
             this.ConsumoMaterialPorModeloDataSource = new Telerik.Reporting.ObjectDataSource();
             this.pageHeader = new Telerik.Reporting.PageHeaderSection();
@@ -39,21 +41,21 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.table4 = new Telerik.Reporting.Table();
             this.textBox39 = new Telerik.Reporting.TextBox();
             this.textBox47 = new Telerik.Reporting.TextBox();
+            this.textBox12 = new Telerik.Reporting.TextBox();
+            this.textBox15 = new Telerik.Reporting.TextBox();
+            this.textBox9 = new Telerik.Reporting.TextBox();
             this.textBox46 = new Telerik.Reporting.TextBox();
             this.textBox2 = new Telerik.Reporting.TextBox();
             this.textBox3 = new Telerik.Reporting.TextBox();
             this.textBox5 = new Telerik.Reporting.TextBox();
             this.textBox6 = new Telerik.Reporting.TextBox();
             this.textBox7 = new Telerik.Reporting.TextBox();
-            this.textBox8 = new Telerik.Reporting.TextBox();
-            this.textBox10 = new Telerik.Reporting.TextBox();
-            this.textBox12 = new Telerik.Reporting.TextBox();
-            this.textBox15 = new Telerik.Reporting.TextBox();
-            this.textBox9 = new Telerik.Reporting.TextBox();
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.textBox18 = new Telerik.Reporting.TextBox();
             this.textBox19 = new Telerik.Reporting.TextBox();
             this.textBox20 = new Telerik.Reporting.TextBox();
+            this.textBox21 = new Telerik.Reporting.TextBox();
+            this.textBox22 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox40
@@ -69,6 +71,22 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox44.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(6.0889511108398438D), Telerik.Reporting.Drawing.Unit.Cm(0.84395897388458252D));
             this.textBox44.StyleName = "Caption";
             this.textBox44.Value = "Descrição";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D), Telerik.Reporting.Drawing.Unit.Cm(0.84395897388458252D));
+            this.textBox10.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox10.StyleName = "Caption";
+            this.textBox10.Value = "Qtde. Material";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D), Telerik.Reporting.Drawing.Unit.Cm(0.84395897388458252D));
+            this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox8.StyleName = "Caption";
+            this.textBox8.Value = "Qtde. Aprovada";
             // 
             // textBox38
             // 
@@ -152,9 +170,11 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // reportFooter
             // 
-            this.reportFooter.Height = Telerik.Reporting.Drawing.Unit.Cm(0.47354167699813843D);
+            this.reportFooter.Height = Telerik.Reporting.Drawing.Unit.Cm(0.75331789255142212D);
             this.reportFooter.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
-            this.Filtros});
+            this.Filtros,
+            this.textBox21,
+            this.textBox22});
             this.reportFooter.Name = "reportFooter";
             // 
             // Filtros
@@ -162,7 +182,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.Filtros.CanGrow = true;
             this.Filtros.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(-0.026458332315087318D));
             this.Filtros.Name = "Filtros";
-            this.Filtros.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.896982192993164D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.Filtros.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(16.64708137512207D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.Filtros.StyleName = "Caption";
             this.Filtros.Value = "= Parameters.Filtros.Value";
             // 
@@ -241,7 +261,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.Modelos"));
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Modelos)"));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6782726049423218D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6782727241516113D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.088951587677002D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D)));
@@ -299,6 +319,33 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox47.StyleName = "Data";
             this.textBox47.Value = "= Fields.Descricao";
             // 
+            // textBox12
+            // 
+            this.textBox12.Format = "{0:N4}";
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2820003032684326D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
+            this.textBox12.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox12.StyleName = "Data";
+            this.textBox12.Value = "= Fields.QuantidadeTotalMaterial";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Format = "{0:N4}";
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
+            this.textBox15.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox15.StyleName = "Data";
+            this.textBox15.Value = "= Fields.QuantidadeAprovada";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Format = "{0:N4}";
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
+            this.textBox9.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.textBox9.StyleName = "Data";
+            this.textBox9.Value = "= Fields.QuantidadeMaterial";
+            // 
             // textBox46
             // 
             this.textBox46.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.3000001907348633D), Telerik.Reporting.Drawing.Unit.Cm(1.7006007432937622D));
@@ -352,49 +399,6 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox7.StyleName = "Data";
             this.textBox7.Value = "=Fields.UnidadeMedida";
             // 
-            // textBox8
-            // 
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D), Telerik.Reporting.Drawing.Unit.Cm(0.84395897388458252D));
-            this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox8.StyleName = "Caption";
-            this.textBox8.Value = "Qtde. Aprovada";
-            // 
-            // textBox10
-            // 
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D), Telerik.Reporting.Drawing.Unit.Cm(0.84395897388458252D));
-            this.textBox10.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox10.StyleName = "Caption";
-            this.textBox10.Value = "Qtde. Material";
-            // 
-            // textBox12
-            // 
-            this.textBox12.Format = "{0:N4}";
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2820003032684326D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
-            this.textBox12.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox12.StyleName = "Data";
-            this.textBox12.Value = "= Fields.QuantidadeTotalMaterial";
-            // 
-            // textBox15
-            // 
-            this.textBox15.Format = "{0:N4}";
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
-            this.textBox15.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox15.StyleName = "Data";
-            this.textBox15.Value = "= Fields.QuantidadeAprovada";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Format = "{0:N4}";
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D), Telerik.Reporting.Drawing.Unit.Cm(0.50000035762786865D));
-            this.textBox9.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
-            this.textBox9.StyleName = "Data";
-            this.textBox9.Value = "= Fields.QuantidadeMaterial";
-            // 
             // textBox11
             // 
             this.textBox11.CanGrow = true;
@@ -437,6 +441,24 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox20.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox20.StyleName = "Data";
             this.textBox20.Value = "= Fields.TotalQuantidadeTotalMaterial";
+            // 
+            // textBox21
+            // 
+            this.textBox21.CanGrow = true;
+            this.textBox21.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(19.099895477294922D), Telerik.Reporting.Drawing.Unit.Cm(0D));
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.85000139474868774D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox21.StyleName = "Caption";
+            this.textBox21.Value = "= Count(Fields.Referencia)";
+            // 
+            // textBox22
+            // 
+            this.textBox22.CanGrow = true;
+            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(17.667898178100586D), Telerik.Reporting.Drawing.Unit.Cm(0D));
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.4317951202392578D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox22.StyleName = "Caption";
+            this.textBox22.Value = "Registros";
             // 
             // ConsumoMaterialPorModeloReport
             // 
@@ -499,6 +521,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         private Telerik.Reporting.TextBox textBox18;
         private Telerik.Reporting.TextBox textBox19;
         private Telerik.Reporting.TextBox textBox20;
+        private Telerik.Reporting.TextBox textBox21;
+        private Telerik.Reporting.TextBox textBox22;
 
     }
 }
