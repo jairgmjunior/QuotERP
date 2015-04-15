@@ -71,12 +71,29 @@ function filtroOperacoes() {
 
 function onEditGrid(e) {
 
-    $('#OperacaoProducao').change(function (e) {
+    $('#DepartamentoProducao').change(function (evt) {
+        var item = ObtenhaDataItemGridItensProcessos(evt.target);
+        item.set("SetorProducao", null);
+        item.set("OperacaoProducao", null);
+        item.set("Custo", 0);
+        item.set("Tempo", 0);
+        item.set("PesoProdutividade", 0);
+    });
+
+    $('#DepartamentoProducao').change(function (evt) {
+        var item = ObtenhaDataItemGridItensProcessos(evt.target);
+        item.set("OperacaoProducao", null);
+        item.set("Custo", 0);
+        item.set("Tempo", 0);
+        item.set("PesoProdutividade", 0);
+    });
+
+    $('#OperacaoProducao').change(function (evt) {
         var operacaoProducaoId = $("#OperacaoProducao").val();
         if (operacaoProducaoId != '') {
             var url = '/Comum/OperacaoProducao/ObtenhaOperacaoProducao?operacaoProducaoId=' + operacaoProducaoId;
             $.getJSON(url, function (result) {
-                var item = ObtenhaDataItemGridItensProcessos(e.target);
+                var item = ObtenhaDataItemGridItensProcessos(evt.target);
                 item.set("Custo", result.Custo);
                 item.set("Tempo", result.Tempo);
                 item.set("PesoProdutividade", result.PesoProdutividade);
@@ -103,7 +120,7 @@ function onContentLoadProcessos(e) {
             e.preventDefault();
             return false;
         }
-
+        
         return true;
     });
     

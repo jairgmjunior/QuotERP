@@ -1,9 +1,4 @@
-﻿@using Fashion.ERP.Web.Areas.Producao.Models
-@model FichaTecnicaModel
-
-@Html.HiddenFor(x => x.Id)
-
-@(Html.Kendo().TabStrip()
+﻿@(Html.Kendo().TabStrip()
     .Name("tabstrip")
     .Events(events => events
         .ContentLoad("onContentLoad")
@@ -12,15 +7,15 @@
     {
         tabstrip.Add().Text("Básicos")
             .Selected(true)
-            .LoadContentFrom("Basicos", "FichaTecnica", new { fichaTecnicaId = Model.Id });
+            .LoadContentFrom("Basicos", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
         tabstrip.Add().Text("Processos")
             .Selected(false)
             .Enabled(true)
-            .LoadContentFrom("Processos", "FichaTecnica", new { fichaTecnicaId = Model.Id });
+            .LoadContentFrom("Processos", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null )});
         tabstrip.Add().Text("Material")
             .Selected(false)
             .Enabled(true)
-            .LoadContentFrom("Material", "FichaTecnica", new { fichaTecnicaId = Model.Id });
+            .LoadContentFrom("Material", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
     }).SelectedIndex(0)
 )
 

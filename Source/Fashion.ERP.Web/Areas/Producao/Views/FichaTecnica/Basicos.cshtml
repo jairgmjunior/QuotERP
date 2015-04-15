@@ -217,7 +217,7 @@
     </fieldset>    
     <hr />
     <fieldset>
-        <legend>Dados Específicos Jeans</legend>
+        <legend>Dados Específicos de Jeans</legend>
         <div class="row">
             <div class="span4">
                 <div class="control-group">
@@ -304,5 +304,8 @@
     <hr />
     <div class="form-actions">
         @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Basicos(), "btnSubmitBasicos")
+        @Html.ExcluirAuth(MVC.Producao.FichaTecnica.Excluir(Model.Id))
     </div>
 }
+
+@{Html.RenderPartial("_ConfirmDelete");}

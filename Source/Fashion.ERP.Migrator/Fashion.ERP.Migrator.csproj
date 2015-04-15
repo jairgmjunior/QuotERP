@@ -56,6 +56,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Migrations\Migration201504060928.cs" />
     <Compile Include="Migrations\Migration201504021522.cs" />
     <Compile Include="Migrations\Migration201503241312.cs" />
     <Compile Include="Migrations\Migration201503231541.cs" />
@@ -336,9 +337,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\201501050947\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\201504081534\permissao.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201504021522\permissao.sql" />

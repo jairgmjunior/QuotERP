@@ -218,6 +218,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             domain.FichaTecnicaMatriz = ObtenhaFichaTecnicaMatriz(model);
 
             _fichaTecnicaJeansRepository.Save(domain);
+            model.Id = domain.Id;
         }
 
         public virtual FichaTecnicaMatriz ObtenhaFichaTecnicaMatriz(FichaTecnicaBasicosModel model)
@@ -314,7 +315,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         this.AddSuccessMessage("Dados de processo da ficha técnica atualizados com sucesso.");
                     }
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Editar", new { model.Id });
                 }
                 catch (Exception exception)
                 {
@@ -344,6 +345,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }));
 
             _fichaTecnicaJeansRepository.Update(domain);
+            model.Id = domain.Id;
         }
 
         #endregion
@@ -433,6 +435,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Dados de material da ficha técnica salvos/atualizados com sucesso.");
+                    
                     return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)

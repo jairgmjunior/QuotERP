@@ -7,15 +7,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
     {
         public long? Id { get; set; }
 
-        [Display(Name = "Setor Produção")]
+        [Display(Name = "Setor de Produção")]
         [Required(ErrorMessage = "Informe o setor de produção")]
         public string SetorProducao { get; set; }
 
-        [Display(Name = "Departamento Produção")]
+        [Display(Name = "Departamento de Produção")]
         [Required(ErrorMessage = "Informe o departamento de produção")]
         public string DepartamentoProducao { get; set; }
 
-        [Display(Name = "Operação Produção")]
+        [Display(Name = "Operação de Produção")]
         [Required(ErrorMessage = "Informe a operação de produção")]
         public string OperacaoProducao { get; set; }
 
@@ -27,8 +27,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe o tempo")]
         public double Tempo { get; set; }
 
-        [Display(Name = "Peso Produtividade")]
-        [Required(ErrorMessage = "Informe o peso produtividade")]
+        [Display(Name = "Peso de Produtividade")]
+        [Required(ErrorMessage = "Informe o peso de produtividade")]
         public double PesoProdutividade { get; set; }
     }
 }

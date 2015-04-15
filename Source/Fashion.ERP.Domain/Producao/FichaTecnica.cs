@@ -23,7 +23,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual DateTime DataCadastro { get; set; }
         public virtual string Descricao { get; set; }
         public virtual string Detalhamento { get; set; }
-        public virtual int QuantidadeProducaoAprovada { get; set; }
+        public virtual int? QuantidadeProducaoAprovada { get; set; }
 
         public virtual Artigo Artigo { get; set; }
         public virtual Classificacao Classificacao { get; set; }

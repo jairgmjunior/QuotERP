@@ -43,18 +43,7 @@ function indexGridMaterialConsumoMatriz(dataItem) {
 }
 
 function onContentLoadMaterial(e) {
-    //$('#formBasicos').submit(function (ev) {
-    //    var dataGridItens = $("#GridFichaTecnicaVariacao").data("kendoGrid").dataSource.data();
-
-    //    if (dataGridItens.length == 0) {
-    //        alert("Insira pelo menos uma variação.");
-    //        $('#btnSubmitBasicos').button('reset');
-    //        e.preventDefault();
-    //        return false;
-    //    }
-
-    //    return true;
-    //});
+    
     var tabStrip = $("#tabstrip").data("kendoTabStrip");
     var tab = $('li[aria-controls="tabstrip-3"]');
 
@@ -107,6 +96,10 @@ function onEditGridMaterialConsumoMatriz(e) {
            .addClass("expand-padding")
            .find(".k-select").hide();
 
+    //$('#Referencia').change(function (evt) {
+    //    limpeLinhaGridMaterialConsumoMatriz();
+    //});
+
     registreScriptsGridMaterialConsumoMatriz();
 }
 
@@ -132,20 +125,19 @@ function obtenhaDataItemGridMaterialConsumoMatriz(target) {
     return grid.dataItem(row);
 }
 
-function limpeLinhaGrid() {
-    //var gridItens = $('#formMaterial #GridMaterialConsumoMatriz').data("kendoGrid");
-    //var tr = $("#Referencia").closest("tr");
-    //var dataGridItens = gridItens.dataItem(tr);
-    //dataGridItens.set("Descricao", null);
-    //dataGridItens.set("Referencia", null);
-    //dataGridItens.set("UnidadeMedida", null);
-    //dataGridItens.set("ReferenciaExterna", null);
-    //dataGridItens.set("Quantidade", null);
-    //dataGridItens.set("PrevisaoEntregaString", null);
-    //dataGridItens.set("ValorTotal", null);
-    //setValorUnitario(null, dataGridItens);
-    //setValorDesconto(null, dataGridItens);
-}
+//function limpeLinhaGridMaterialConsumoMatriz() {
+//    var gridItens = $('#formMaterial #GridMaterialConsumoMatriz').data("kendoGrid");
+//    var tr = $("#Referencia").closest("tr");
+//    var dataGridItens = gridItens.dataItem(tr);
+
+//    dataGridItens.set("Descricao", null);
+//    dataGridItens.set("Referencia", null);
+//    dataGridItens.set("UnidadeMedida", null);
+//    dataGridItens.set("Custo", null);
+//    dataGridItens.set("CustoTotal", null);
+//    dataGridItens.set("Quantidade", null);
+//    dataGridItens.set("DepartamentoProducao", null);
+//}
 
 function indexGridMaterialConsumoItem(dataItem) {
     var data = $("#GridMaterialConsumoItem").data("kendoGrid").dataSource.data();
@@ -172,6 +164,19 @@ function onEditGridMaterialConsumoItem(e) {
 
     registreScriptsGridMaterialConsumoItem();
 }
+
+//function limpeGridMaterialConsumoItem() {
+
+//    var dataGridItem = obtenhaDataItemGridMaterialConsumoItem($("#Referencia"));
+
+//    dataGridItem.set("Descricao", null);
+//    dataGridItem.set("Referencia", null);
+//    dataGridItem.set("UnidadeMedida", null);
+//    dataGridItem.set("Custo", null);
+//    dataGridItem.set("CustoTotal", null);
+//    dataGridItem.set("Quantidade", null);
+//    dataGridItem.set("DepartamentoProducao", null);
+//}
 
 function registreScriptsGridMaterialConsumoItem() {
     $("#formMaterial #Quantidade.k-input").change(function (e) {

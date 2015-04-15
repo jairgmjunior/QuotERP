@@ -25,7 +25,7 @@ namespace Fashion.ERP.Mapping.Producao
             
             References(x => x.Artigo);
             References(x => x.Colecao);
-            References(x => x.Marca);
+            References(x => x.Marca).Nullable();
             References(x => x.Segmento);
             References(x => x.Natureza);
             References(x => x.Classificacao);

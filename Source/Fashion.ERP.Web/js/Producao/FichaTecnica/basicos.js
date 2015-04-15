@@ -39,7 +39,22 @@ function onContentLoadBasicos(e) {
             e.preventDefault();
             return false;
         }
+        
+        if (!$("#formBasicos").valid()) {
+            $('#btnSubmit').button('reset');
+            return false;
+        }
 
         return true;
     });
+
+    reparseFormBasicos();
+}
+
+function reparseFormBasicos() {
+    var form = $("#formBasicos")
+        .removeData("validator")
+        .removeData("unobtrusiveValidation");
+
+    $.validator.unobtrusive.parse(form);
 }
