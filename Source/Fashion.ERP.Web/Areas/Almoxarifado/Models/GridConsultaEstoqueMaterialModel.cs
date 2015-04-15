@@ -42,10 +42,19 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Qtde. Reservada")]
         public double QtdeReservada { get; set; }
 
+        [Display(Name = "Qtde. Compras")]
+        public double QuantidadeCompras { get; set; }
+        
+        [Display(Name = "Qtde. Disp. Compras")]
+        public double QtdeDisponivelCompras
+        {
+            get { return QtdeDisponivel + QuantidadeCompras; }
+        }
+
         [Display(Name = "Qtde. Disponível")]
         public double QtdeDisponivel
         {
-            get { return  Saldo - QtdeReservada; }
+            get { return Saldo - QtdeReservada; }
         }
 
         public long? MaterialId { get; set; }

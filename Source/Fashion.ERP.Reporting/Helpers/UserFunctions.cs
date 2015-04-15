@@ -8,6 +8,7 @@ using System.Reflection;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Domain.Extensions;
+using Fashion.ERP.Reporting.Almoxarifado;
 using Telerik.Reporting.Expressions;
 using System.Web;
 
@@ -52,6 +53,23 @@ namespace Fashion.ERP.Reporting.Helpers
         {
             return string.Join(", ", list);
         }
+        #endregion
+
+        #region EnumerableToString
+        [Function(Category = "List", Namespace = "FashionErp", Description = "Conta os elementos de uma lista")]
+        public static long CountList(IEnumerable list)
+        {
+            if (list == null)
+                return 0;
+
+            return list.Count();
+        }
+        
+        public static int Count(this IEnumerable source)
+        {
+            return Enumerable.Count(source.Cast<object>());
+        }
+
         #endregion
 
         #region CoresToString

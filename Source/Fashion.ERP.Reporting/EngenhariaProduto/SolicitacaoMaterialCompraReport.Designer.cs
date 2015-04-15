@@ -14,6 +14,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
             this.solicitacaoMaterialCompraSubReport1 = new Fashion.ERP.Reporting.EngenhariaProduto.SolicitacaoMaterialCompraSubReport();
             this.groupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.textBox1 = new Telerik.Reporting.TextBox();
+            this.Quantidade = new Telerik.Reporting.TextBox();
             this.groupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.textBox18 = new Telerik.Reporting.TextBox();
@@ -40,8 +42,30 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // groupFooterSection
             // 
-            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.13229164481163025D);
+            this.groupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.50019943714141846D);
+            this.groupFooterSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
+            this.textBox1,
+            this.Quantidade});
             this.groupFooterSection.Name = "groupFooterSection";
+            // 
+            // textBox1
+            // 
+            this.textBox1.CanGrow = true;
+            this.textBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(16.899999618530273D), Telerik.Reporting.Drawing.Unit.Cm(0.00019943872757721692D));
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.4002010822296143D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox1.StyleName = "Caption";
+            this.textBox1.Value = "Registros:";
+            // 
+            // Quantidade
+            // 
+            this.Quantidade.CanGrow = true;
+            this.Quantidade.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(18.30040168762207D), Telerik.Reporting.Drawing.Unit.Cm(0D));
+            this.Quantidade.Name = "Quantidade";
+            this.Quantidade.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.6494953632354736D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.Quantidade.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
+            this.Quantidade.StyleName = "Caption";
+            this.Quantidade.Value = "= FashionErp.CountList(Fields.Materiais)";
             // 
             // groupHeaderSection
             // 
@@ -167,7 +191,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // detail
             // 
-            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(2.6000001430511475D);
+            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(2.7998001575469971D);
             this.detail.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.subReport1});
             this.detail.Name = "detail";
@@ -180,7 +204,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.subReport1.Name = "subReport1";
             instanceReportSource1.ReportDocument = this.solicitacaoMaterialCompraSubReport1;
             this.subReport1.ReportSource = instanceReportSource1;
-            this.subReport1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.949899673461914D), Telerik.Reporting.Drawing.Unit.Cm(2.5999996662139893D));
+            this.subReport1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.949899673461914D), Telerik.Reporting.Drawing.Unit.Cm(2.7995998859405518D));
             // 
             // SolicitacaoMaterialCompraReport
             // 
@@ -230,9 +254,11 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         private Telerik.Reporting.GroupFooterSection groupFooterSection;
         private Telerik.Reporting.TextBox textBox11;
         private Telerik.Reporting.TextBox textBox18;
+        private Telerik.Reporting.TextBox textBox5;
         private Telerik.Reporting.SubReport subReport1;
         private SolicitacaoMaterialCompraSubReport solicitacaoMaterialCompraSubReport1;
-        private Telerik.Reporting.TextBox textBox5;
+        private Telerik.Reporting.TextBox textBox1;
+        private Telerik.Reporting.TextBox Quantidade;
 
     }
 }

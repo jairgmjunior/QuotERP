@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Reporting.EngenhariaProduto;
@@ -30,6 +31,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
+        private readonly IRepository<PedidoCompraItem> _pedidoCompraItemRepository;
 
         #region Valores agrupamento e ordenação
         private static readonly Dictionary<string, string> Colunas = new Dictionary<string, string>
@@ -43,7 +45,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public RelatorioSolicitacaoMaterialCompraController(ILogger logger, IRepository<Modelo> modeloRepository,
             IRepository<MarcaMaterial> marcaMaterialRepository, IRepository<Colecao> colecaoRepository, 
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
-            IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaMaterialRepository )
+            IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaMaterialRepository,
+            IRepository<PedidoCompraItem> pedidoCompraItemRepository )
         {
             _logger = logger;
             _modeloRepository = modeloRepository;
@@ -53,6 +56,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _marcaMaterialRepository = marcaMaterialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _reservaEstoqueMaterialRepository = reservaMaterialRepository;
+            _pedidoCompraItemRepository = pedidoCompraItemRepository;
         }
 
         #endregion
@@ -178,6 +182,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                 QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave2.IdMaterial.Value),
                                 QuantidadeReservada =  ObtenhaQuantidadeReservada(chave2.IdMaterial.Value),
                                 QuantidadeEstoque = ObtenhaQuantidadeEstoque(chave2.IdMaterial.Value),
+                                QuantidadeCompras = ObtenhaQuantidadeCompras(chave2.IdMaterial.Value),
                                 Programacoes = grupo2.GroupBy(y => new { y.DataProgramacao }, (chave3, grupo3) =>
                                     new ProgramacaoSolicitacaoMaterialCompraModel
                                     {
@@ -234,6 +239,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var custoMaterial = material.CustoMaterials.FirstOrDefault(c => c.Ativo);
 
             return custoMaterial == null ? (DateTime?)null : custoMaterial.Data;
+        }
+
+        private double ObtenhaQuantidadeCompras(long idMaterial)
+        {
+            var pedidosCompra = _pedidoCompraItemRepository.Find(x => x.Material.Id == idMaterial &&
+                (x.SituacaoCompra == SituacaoCompra.NaoAtendido || x.SituacaoCompra == SituacaoCompra.AtendidoParcial));
+
+            if (pedidosCompra.IsNullOrEmpty())
+                return 0;
+            
+            var quantidade = pedidosCompra.Sum(x => x.Quantidade);
+            var quantidadeEntregue = pedidosCompra.Sum(x => x.QuantidadeEntrega);
+            
+            return quantidade - quantidadeEntregue;
         }
 
         #endregion

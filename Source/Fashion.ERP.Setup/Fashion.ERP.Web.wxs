@@ -126,6 +126,9 @@
                             <Component Id="cmp7032705F02EB4A67F87043F97D8F7080" Guid="*">
                                 <File Id="filB916874C317AF22086D4A40815377D74" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Material\PesquisarReferenciaExterna.cshtml" />
                             </Component>
+                            <Component Id="cmpDFDE9A39AAC76ED663C26EAAEB659A19" Guid="*">
+                                <File Id="fil03E6EFC29FA0A56D1378E2B3E8B1F48A" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
+                            </Component>
                             <Component Id="cmp021B2C5186846AF216E614EB2DC7A3FC" Guid="*">
                                 <File Id="fil2F3A30F8F6C56AD4B4210EFAEA4A5CC7" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Material\_NovoOuEditar.cshtml" />
                             </Component>
@@ -2075,6 +2078,7 @@
             <ComponentRef Id="cmp5A675438F13DF8B66FA0BC58E1735E24" />
             <ComponentRef Id="cmpA770476A689ABE5D59EF5BCF1DBCAAC6" />
             <ComponentRef Id="cmp7032705F02EB4A67F87043F97D8F7080" />
+            <ComponentRef Id="cmpDFDE9A39AAC76ED663C26EAAEB659A19" />
             <ComponentRef Id="cmp021B2C5186846AF216E614EB2DC7A3FC" />
             <ComponentRef Id="cmpEFE71524F9382156AB1CAC710DAD7D0D" />
             <ComponentRef Id="cmpD5EC88D4294F272BBEC505333FA025CD" />

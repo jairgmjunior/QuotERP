@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Reporting.Almoxarifado;
 using Fashion.ERP.Reporting.Almoxarifado.Models;
@@ -31,6 +33,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
+        private readonly IRepository<PedidoCompraItem> _pedidoCompraItemRepository;
         private readonly ILogger _logger;
         #endregion
 
@@ -53,17 +56,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             {"Referência", "Referencia"},
             {"Descrição", "Descricao"},
-            {"Qtde. Estoque", "QuantidadeEstoque"},
-            {"Qtde. Disponivel", "QuantidadeDisponivel"}
+            {"Qtde. Estoque", "Saldo"},
+            {"Qtde. Disponivel", "QtdeDisponivel"}
         };
         #endregion
 
         #region Construtores
-        public ConsultaController(ILogger logger, IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
+        public ConsultaController(ILogger logger, IRepository<EstoqueMaterial> estoqueMaterialRepository, 
+            IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<DepositoMaterial> depositoMaterialRepository,
-            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository )
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository, IRepository<PedidoCompraItem> pedidoCompraItemRepository)
         {
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
@@ -74,6 +78,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _pessoaRepository = pessoaRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
             _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
+            _pedidoCompraItemRepository = pedidoCompraItemRepository;
             _logger = logger;
         }
         #endregion
@@ -210,11 +215,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 #endregion
 
-                if (model.OrdenarPor != null && model.OrdenarEm == "QuantidadeDisponivel")
-                    estoqueMateriais = model.OrdenarEm == "asc"
-                        ? estoqueMateriais.OrderBy(model.OrdenarPor)
-                        : estoqueMateriais.OrderByDescending(model.OrdenarPor);
-
                 var resultado = estoqueMateriais.Select(p => new GridConsultaEstoqueMaterialModel
                 {
                     Id = p.Id.GetValueOrDefault(),
@@ -241,6 +241,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         _reservaEstoqueMaterialRepository.Find(r => r.Unidade.Id == unidadeId.Value
                         && r.Material.Id == materialId).FirstOrDefault();
                     g.QtdeReservada = reservaEstoque != null ? reservaEstoque.Quantidade : 0;
+                    g.QuantidadeCompras = ObtenhaQuantidadeCompras(materialId.Value);
                 }
 
                 if (model.SomenteQtdeDisponivel)
@@ -249,6 +250,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     if (ehImpressao)
                         filtros.AppendFormat("Somente se houver qtde. disponível: Sim");
+                }
+
+                if (model.OrdenarPor != null)
+                {
+                    PropertyInfo prop = typeof(GridConsultaEstoqueMaterialModel).GetProperty(model.OrdenarPor);
+                    resultado = model.OrdenarEm == "asc"
+                        ? resultado.OrderBy(o => prop.GetValue(o, null)).ToList()
+                        : resultado.OrderByDescending(o => prop.GetValue(o, null)).ToList();
                 }
 
                 // Verifica se é uma listagem
@@ -305,9 +314,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 if (model.AgruparPor != null)
                     report.Sortings.Add("=Fields." + model.AgruparPor, SortDirection.Asc);
 
-
-                if (model.OrdenarPor != null)
-                    report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
                 #endregion
 
                 var filename = report.ToByteStream().SaveFile(".pdf");
@@ -327,7 +333,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
         }
         #endregion
+        
+        private double ObtenhaQuantidadeCompras(long idMaterial)
+        {
+            var pedidosCompra = _pedidoCompraItemRepository.Find(x => x.Material.Id == idMaterial &&
+                (x.SituacaoCompra == SituacaoCompra.NaoAtendido || x.SituacaoCompra == SituacaoCompra.AtendidoParcial));
 
+            if (pedidosCompra.IsNullOrEmpty())
+                return 0;
+
+            var quantidade = pedidosCompra.Sum(x => x.Quantidade);
+            var quantidadeEntregue = pedidosCompra.Sum(x => x.QuantidadeEntrega);
+
+            return quantidade - quantidadeEntregue;
+        }
         #region ExtratoItem
         [OutputCache(Duration = 0)]
         public virtual ActionResult ExtratoItem(long id)

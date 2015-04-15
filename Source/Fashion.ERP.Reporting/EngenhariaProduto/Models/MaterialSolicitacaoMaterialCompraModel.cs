@@ -13,6 +13,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto.Models
         public virtual double QuantidadeDisponivel { get; set; }
         public virtual double QuantidadeReservada { get; set; }
         public virtual double QuantidadeEstoque { get; set; }
+        public virtual double QuantidadeCompras { get; set; }
         public IEnumerable<ProgramacaoSolicitacaoMaterialCompraModel> Programacoes { get; set; }
     }
 }

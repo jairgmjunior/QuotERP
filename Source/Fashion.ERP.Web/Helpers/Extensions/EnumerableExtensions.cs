@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -108,6 +109,11 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             return new SelectList(collection, dataValueField, dataTextField, selectedValue);
         }
         #endregion
+
+        public static int Count(this IEnumerable source)
+        {
+            return Enumerable.Count(source.Cast<object>());
+        }
 
         public static string FromDictionaryToJson(this Dictionary<string, string> dictionary)
         {
