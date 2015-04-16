@@ -39,7 +39,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         [Required(ErrorMessage = "Informe o valor do desconto")]
         [UIHint("currency5casasdecimais")]
-        public double ValorDesconto { get; set; }
+        public double ValorDescontoTotal { get; set; }
 
         [Display(Name = "Valor dos encargos")]
         [Required(ErrorMessage = "Informe o valor dos encargos")]

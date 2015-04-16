@@ -11,6 +11,7 @@
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+    Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
     //Html.RenderAction("PesquisarReferenciaExterna", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
 }

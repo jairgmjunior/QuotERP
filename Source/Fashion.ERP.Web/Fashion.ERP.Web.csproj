@@ -1483,6 +1483,7 @@
     <Content Include="Views\Shared\EditorTemplates\numeric3casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TamanhoGradeList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\VariacaoFichaTecnicaList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\numeric2casasdecimais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

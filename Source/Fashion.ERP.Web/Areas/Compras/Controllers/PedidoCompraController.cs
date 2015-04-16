@@ -396,6 +396,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                     ExcluirPedidoCompraItens(model,domain);
                     IncluirNovosPedidoCompralItens(model,domain);
+                    AtualizarPedidoCompraItens(model, domain);
 
                     domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
                     
@@ -431,7 +432,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             reservaMaterialItensExcluir.ForEach(x => domain.RemovePedidoCompraItem(x));
         }
 
-        private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
+        private void AtualizarPedidoCompraItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {
@@ -444,10 +445,22 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     pedidoCompraItem.ValorDesconto = x.ValorDesconto.HasValue ? x.ValorDesconto.Value : 0;
                     pedidoCompraItem.ValorUnitario = x.ValorUnitario.HasValue ? x.ValorUnitario.Value : 0;
                     pedidoCompraItem.SituacaoCompra = SituacaoCompra.NaoAtendido;
-                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
+                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?)null;
                     pedidoCompraItem.UnidadeMedida =
                         _unidadeMedidaRepository.Find(u => u.Sigla == x.UnidadeMedida.ToString()).FirstOrDefault();
                     pedidoCompra.AddPedidoCompraItem(pedidoCompraItem);
+                }
+            });
+        }
+
+        private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
+        {
+            pedidoCompraModel.GridItens.ForEach(x =>
+            {
+                var pedidoCompraItem = pedidoCompra.PedidoCompraItens.FirstOrDefault(y => y.Id == x.Id && y.Id != null);
+                if (pedidoCompraItem != null)
+                {
+                    pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
                 }
             });
         }
