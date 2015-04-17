@@ -156,7 +156,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.pageInfoTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.8999996185302734D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.pageInfoTextBox.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.pageInfoTextBox.StyleName = "PageInfo";
-            this.pageInfoTextBox.Value = "= PageNumber";
+            this.pageInfoTextBox.Value = "= PageNumber + \'/\' + PageCount";
             // 
             // reportHeader
             // 

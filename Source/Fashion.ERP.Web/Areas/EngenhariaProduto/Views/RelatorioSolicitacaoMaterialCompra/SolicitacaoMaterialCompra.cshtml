@@ -71,6 +71,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.Label("referencia-material", "Referência", new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.Hidden("Material")
+                                <div class="input-append">
+                                    <input id="referencia-material" class="input-small" type="text" />
+                                    <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                                    <span id="descricao-material" class="add-on"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="span2">
@@ -129,3 +142,7 @@
         }
     });
 </script>
+
+@{
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}

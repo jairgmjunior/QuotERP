@@ -32,6 +32,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly IRepository<PedidoCompraItem> _pedidoCompraItemRepository;
+        private readonly IRepository<Material> _materialRepository; 
 
         #region Valores agrupamento e ordenação
         private static readonly Dictionary<string, string> Colunas = new Dictionary<string, string>
@@ -46,7 +47,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<MarcaMaterial> marcaMaterialRepository, IRepository<Colecao> colecaoRepository, 
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaMaterialRepository,
-            IRepository<PedidoCompraItem> pedidoCompraItemRepository )
+            IRepository<PedidoCompraItem> pedidoCompraItemRepository, IRepository<Material> materialRepository )
         {
             _logger = logger;
             _modeloRepository = modeloRepository;
@@ -57,6 +58,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _reservaEstoqueMaterialRepository = reservaMaterialRepository;
             _pedidoCompraItemRepository = pedidoCompraItemRepository;
+            _materialRepository = materialRepository;
         }
 
         #endregion
@@ -107,6 +109,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                 var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.Marcas.Contains(m.Id ?? 0));
                 filtros.AppendFormat("Marcas(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
+            }
+
+            if (model.Material.HasValue)
+            {
+                query = query.Where(p => model.Material == p.MaterialComposicao.Material.Id);
+
+                var materialDomain = _materialRepository.Find(m => model.Material == m.Id).FirstOrDefault();
+                filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);
             }
 
             if (!model.Categorias.IsNullOrEmpty())
@@ -188,7 +198,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                     {
                                             Data = chave3.DataProgramacao,
                                             QuantidadeAprovada = grupo3.Sum(z => z.QuantidadeAprovada)
-                                    })
+                                    }).OrderBy(o => o.Data)
                             }),
                     }).ToList();
             

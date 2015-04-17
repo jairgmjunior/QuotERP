@@ -32,6 +32,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.titleTextBox = new Telerik.Reporting.TextBox();
             this.reportFooter = new Telerik.Reporting.ReportFooterSection();
             this.Filtros = new Telerik.Reporting.TextBox();
+            this.textBox21 = new Telerik.Reporting.TextBox();
+            this.textBox22 = new Telerik.Reporting.TextBox();
             this.detail = new Telerik.Reporting.DetailSection();
             this.textBox4 = new Telerik.Reporting.TextBox();
             this.pictureBox1 = new Telerik.Reporting.PictureBox();
@@ -54,8 +56,6 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox18 = new Telerik.Reporting.TextBox();
             this.textBox19 = new Telerik.Reporting.TextBox();
             this.textBox20 = new Telerik.Reporting.TextBox();
-            this.textBox21 = new Telerik.Reporting.TextBox();
-            this.textBox22 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox40
@@ -151,7 +151,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.pageInfoTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.8999996185302734D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.pageInfoTextBox.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.pageInfoTextBox.StyleName = "PageInfo";
-            this.pageInfoTextBox.Value = "= PageNumber";
+            this.pageInfoTextBox.Value = "= PageNumber + \'/\' + PageCount";
             // 
             // reportHeader
             // 
@@ -185,6 +185,24 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.Filtros.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(16.64708137512207D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.Filtros.StyleName = "Caption";
             this.Filtros.Value = "= Parameters.Filtros.Value";
+            // 
+            // textBox21
+            // 
+            this.textBox21.CanGrow = true;
+            this.textBox21.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(19.099895477294922D), Telerik.Reporting.Drawing.Unit.Cm(0D));
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.85000139474868774D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox21.StyleName = "Caption";
+            this.textBox21.Value = "= Count(Fields.Referencia)";
+            // 
+            // textBox22
+            // 
+            this.textBox22.CanGrow = true;
+            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(17.667898178100586D), Telerik.Reporting.Drawing.Unit.Cm(0D));
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.4317951202392578D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox22.StyleName = "Caption";
+            this.textBox22.Value = "Registros";
             // 
             // detail
             // 
@@ -261,8 +279,8 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.Modelos"));
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Modelos)"));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6782727241516113D)));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.088951587677002D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.6782728433609009D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.08895206451416D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.3390524387359619D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.2616202831268311D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.2820003032684326D)));
@@ -441,24 +459,6 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox20.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.textBox20.StyleName = "Data";
             this.textBox20.Value = "= Fields.TotalQuantidadeTotalMaterial";
-            // 
-            // textBox21
-            // 
-            this.textBox21.CanGrow = true;
-            this.textBox21.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(19.099895477294922D), Telerik.Reporting.Drawing.Unit.Cm(0D));
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(0.85000139474868774D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.textBox21.StyleName = "Caption";
-            this.textBox21.Value = "= Count(Fields.Referencia)";
-            // 
-            // textBox22
-            // 
-            this.textBox22.CanGrow = true;
-            this.textBox22.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(17.667898178100586D), Telerik.Reporting.Drawing.Unit.Cm(0D));
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.4317951202392578D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
-            this.textBox22.StyleName = "Caption";
-            this.textBox22.Value = "Registros";
             // 
             // ConsumoMaterialPorModeloReport
             // 

@@ -32,6 +32,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Até")]
         public DateTime? DataFinal { get; set; }
 
+        [Display(Name = "Referência")]
+        public long? Material { get; set; }
+
         [Display(Name = "Ordenar por")]
         public string OrdenarPor { get; set; }
 
