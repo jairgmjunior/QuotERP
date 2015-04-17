@@ -316,7 +316,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     _pedidoCompraRepository.Save(domain);
                     
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
-                    //return RedirectToAction("Index");
+                    return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -325,20 +325,21 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         exception.Message;
                     _logger.Info(exception.GetMessage());
                     this.AddErrorMessage(errorMsg);
-                    return new JsonResult {Data = "error"};
+                    return View(model);
                 }
             }
+
             else
             {
                 var errors = ModelState.Select(x => x.Value.Errors)
                            .Where(y => y.Count > 0)
                            .ToList();
                 this.AddErrorMessage(errors[0][0].ErrorMessage);
-                return Json(new {Data = "error", Msg = errors[0][0].ErrorMessage});
+                return View(model);
 
             }
 
-            return new JsonResult { Data = "sucesso" };
+            return View(model);
         }
 
         #endregion
@@ -383,7 +384,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _pedidoCompraRepository.Evict(domain);
 
                         this.AddErrorMessage("Pedido de Compra cancelado. Exclusão/Alteração não permitida.");
-                        return new JsonResult { Data = "sucesso" };
+                        return View(model);
                     }
 
                     if (domain.Autorizado.Equals(true))
@@ -391,7 +392,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                         _pedidoCompraRepository.Evict(domain);
 
                         this.AddErrorMessage("Pedido de Compra já autorizado. Exclusão/Alteração não permitida.");
-                        return new JsonResult { Data = "sucesso" };
+                        return View(model);
                     } 
 
                     ExcluirPedidoCompraItens(model,domain);
@@ -403,18 +404,18 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                      _pedidoCompraRepository.Update(domain);
 
                     this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
-                    return new JsonResult { Data = "sucesso" };
+
+                    return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
                     var errorMsg = "Ocorreu um erro ao salvar o pedido de compra. Confira se os dados foram informados corretamente: " + exception.Message;
                     _logger.Info(exception.GetMessage());
                     this.AddErrorMessage(errorMsg);
-                    return new JsonResult { Data = "error" };
+                    return View(model);
                 }
             }
-
-            return new JsonResult { Data = "sucesso" };
+            return View(model);
         }
 
         public void ExcluirPedidoCompraItens(PedidoCompraModel model, PedidoCompra domain)
@@ -432,7 +433,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             reservaMaterialItensExcluir.ForEach(x => domain.RemovePedidoCompraItem(x));
         }
 
-        private void AtualizarPedidoCompraItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
+        private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {
@@ -453,7 +454,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             });
         }
 
-        private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
+        private void AtualizarPedidoCompraItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
         {
             pedidoCompraModel.GridItens.ForEach(x =>
             {

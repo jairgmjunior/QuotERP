@@ -93,6 +93,7 @@ namespace T4MVC
                 public readonly string @int = "int";
                 public readonly string @long = "long";
                 public readonly string numeric = "numeric";
+                public readonly string numeric2casasdecimais = "numeric2casasdecimais";
                 public readonly string numeric3casasdecimais = "numeric3casasdecimais";
                 public readonly string numeric4casasdecimais = "numeric4casasdecimais";
                 public readonly string numeric5casasdecimais = "numeric5casasdecimais";

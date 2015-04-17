@@ -15,9 +15,3 @@
     //Html.RenderAction("PesquisarReferenciaExterna", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
 }
-
-<script>
-    function obtenhaUrlActionSubmit() {
-        return '@Url.Action("Novo", "PedidoCompra")';
-    }
-</script> 

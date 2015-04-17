@@ -162,6 +162,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string AdicionarReferenciaExterna = "AdicionarReferenciaExterna";
             public readonly string RemoverReferenciaExterna = "RemoverReferenciaExterna";
             public readonly string Pesquisar = "Pesquisar";
+            public readonly string PesquisarVarios = "PesquisarVarios";
             public readonly string PesquisarFiltro = "PesquisarFiltro";
             public readonly string PesquisarReferencia = "PesquisarReferencia";
             public readonly string PesquisarId = "PesquisarId";
@@ -187,6 +188,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string AdicionarReferenciaExterna = "AdicionarReferenciaExterna";
             public const string RemoverReferenciaExterna = "RemoverReferenciaExterna";
             public const string Pesquisar = "Pesquisar";
+            public const string PesquisarVarios = "PesquisarVarios";
             public const string PesquisarFiltro = "PesquisarFiltro";
             public const string PesquisarReferencia = "PesquisarReferencia";
             public const string PesquisarId = "PesquisarId";
@@ -348,6 +350,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionParamsClass_ObtenhaCusto
         {
             public readonly string referencia = "referencia";
+            public readonly string idFornecedor = "idFornecedor";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -365,6 +368,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
                 public readonly string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
+                public readonly string PesquisarVarios = "PesquisarVarios";
             }
             public readonly string _NovoOuEditar = "~/Areas/Almoxarifado/Views/Material/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Almoxarifado/Views/Material/Editar.cshtml";
@@ -372,6 +376,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string Novo = "~/Areas/Almoxarifado/Views/Material/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Almoxarifado/Views/Material/Pesquisar.cshtml";
             public readonly string PesquisarReferenciaExterna = "~/Areas/Almoxarifado/Views/Material/PesquisarReferenciaExterna.cshtml";
+            public readonly string PesquisarVarios = "~/Areas/Almoxarifado/Views/Material/PesquisarVarios.cshtml";
         }
     }
 
@@ -497,6 +502,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
+        partial void PesquisarVariosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult PesquisarVarios()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarVarios);
+            PesquisarVariosOverride(callInfo);
+            return callInfo;
+        }
+
         partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisarMaterialModel model);
 
         public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisarMaterialModel model)
@@ -599,13 +613,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void ObtenhaCustoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string referencia);
+        partial void ObtenhaCustoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string referencia, long idFornecedor);
 
-        public override System.Web.Mvc.JsonResult ObtenhaCusto(string referencia)
+        public override System.Web.Mvc.JsonResult ObtenhaCusto(string referencia, long idFornecedor)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCusto);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
-            ObtenhaCustoOverride(callInfo, referencia);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idFornecedor", idFornecedor);
+            ObtenhaCustoOverride(callInfo, referencia, idFornecedor);
             return callInfo;
         }
 

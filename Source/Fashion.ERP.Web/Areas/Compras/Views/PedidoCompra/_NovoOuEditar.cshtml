@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
+﻿@using NUnit.Framework
+@model Fashion.ERP.Web.Areas.Compras.Models.PedidoCompraModel
 
 @Html.HiddenFor(x => x.Autorizado)
 
@@ -214,20 +215,9 @@
                     "<input type='hidden' name='GridItens[#= index(data)#].ValorTotal' value='#= formateDecimalGrid(ValorTotal) #' />");
                 columns.Bound(p => p.Situacao).ClientTemplate("#= Situacao #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].Situacao' value='#= Situacao #' />");
-
-                @*columns.Bound(x => x.Id).Hidden();
-                columns.Bound(x => x.Referencia).Width("12%");
-                columns.Bound(x => x.Descricao);
-                columns.Bound(x => x.UnidadeMedida).Width(55);
-                columns.Bound(e => e.ReferenciaExterna).Width(60);
-                columns.Bound(e => e.Quantidade).EditorTemplateName("numeric5casasdecimais").Width(80);
-                columns.Bound(e => e.PrevisaoEntregaString).EditorTemplateName("Date").Width(60);
-                columns.Bound(e => e.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(110);
-                columns.Bound(e => e.ValorDesconto).EditorTemplateName("numeric5casasdecimais").Format("{0:N5}").Width(100);
-                columns.Bound(e => e.ValorTotal).EditorTemplateName("numeric5casasdecimais").Format("{0:N2}").Width(110);
-                columns.Command(command => command.Destroy() );*@
+                columns.Command(command => command.Destroy() );
             })
-            .ClientDetailTemplateId("template")
+            .ClientDetailTemplateId("templateDetalheGrid")
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
@@ -235,8 +225,7 @@
                     model.Field(product => product.Referencia).Editable(false);
                     model.Field(product => product.Descricao).Editable(false);
                     model.Field(product => product.UnidadeMedida).Editable(false);
-                    model.Field(product => product.ValorTotal).Editable(true);                    
-                    @*model.Field(product => product.PrevisaoEntrega).Editable(true);*@
+                    model.Field(product => product.ValorTotal).Editable(true);
                 })
             )
             .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "#", @class = "btn-primary" }))
@@ -246,11 +235,11 @@
             .Navigatable()
             )
     
-        <script id="template" type="text/x-kendo-template">           
-           <div class="row">
+        <script id="templateDetalheGrid" type="text/html">@*text/x-kendo-template*@
+            <div class="row">
                 <div class="span4">
                     <div class="control-group">
-                        @Html.Label("Qtde Entregue", new { @class = "control-label" })
+                        @Html.Label("Qtde. Entregue", new { @class = "control-label" })
                         <div class="controls">
                             @(Html.Kendo().TextBox()
                                   .Name("teste")
@@ -263,7 +252,7 @@
                 </div>  
                 <div class="span4">
                     <div class="control-group">
-                        @Html.Label("Qtde N Entregue", new { @class = "control-label" })
+                        @Html.Label(" Qtde. Não Entregue", new { @class = "control-label" })
                         <div class="controls">
                             @(Html.Kendo().TextBox()
                                   .Name("teste2")
@@ -276,18 +265,13 @@
                 </div>    
                 <div class="span4">
                     <div class="control-group">
-                        @Html.Label("Prev de Entrega", new { @class = "control-label" })
+                        @Html.Label("Previsão de Entrega", new { @class = "control-label" })
                         <div class="controls">                            
-                            <input class="input-small" data-mask="99/99/9999" id="PrevisaoEntregaString" name="GridItens[#= index(data)#].PrevisaoEntregaString" type="text" value='#= limpeValor(PrevisaoEntregaString) #'>
+                            <input class="input-small" data-mask="99/99/9999" id="PrevisaoEntregaString" name="GridItens[#= index(data)#].PrevisaoEntregaString" type="text"  onkeyup="preventDefaultCustomizado" value='#= limpeValor(PrevisaoEntregaString) #'>
                         </div>
                     </div>            
+                </div>
             </div>
-
-
-                        
-       
-        
-        
         </script>
     </div>
 </div>
@@ -379,6 +363,11 @@
         else return valor;
     }
 
+    function preventDefaultCustomizado(e) {
+        e.preventDefault();
+        return false;
+    }
+
     $(document).ready(function() {
         
         $("#selecionar-material").on("pesquisar", function (ev, itens) {
@@ -389,12 +378,45 @@
             
             var grid = $('#GridItens').data("kendoGrid");
             var model = grid.dataSource.options.schema.model;
-            var dadosAtuais = grid.dataSource.data()
+            var dadosAtuais = grid.dataSource.data();
             var novosDados = itens.DataItemsSelecionados;
-            var dados = $.merge(novosDados, dadosAtuais);
+           
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+            
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia : dataItemNovo.Referencia,
+                        Descricao : dataItemNovo.Descricao,
+                        UnidadeMedida : dataItemNovo.UnidadeMedida,
+                        Id : 0,
+                        ValorDesconto : 0,
+                        Quantidade : 0,
+                        ValorTotal: 0,
+                        ValorUnitario: 0,
+                        PedidoCompraId : $("#Id").val(),
+                        MaterialId: dataItemNovo.Id,
+                        Situacao : "NaoAtendido"
+                    };
+
+                    atualizeUltimoCusto(dataItemNovo.Referencia, $("#Fornecedor").val(), dataItemNovoFinal);
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            
+
+            //var dados = $.merge(novosDados, dadosAtuais);
 
             var dataSource = new kendo.data.DataSource({
-                data: dados,
+                data: dadosAtuais,
                 schema: {
                     model: model
                 }
@@ -402,6 +424,7 @@
             dataSource.read();
             grid.setDataSource(dataSource);
             grid.refresh();
+
         });
 
         $('#ValorMercadorias').attr('readonly', true);
@@ -426,12 +449,21 @@
         $('#FlagValidacao').val(true);
     });
 
-    function registreScriptsGrid() {
-
+    function atualizeUltimoCusto(referencia, idFornecedor, dataItem) {
+        var url = '/Almoxarifado/Material/ObtenhaCusto?referencia=' + referencia+"&idFornecedor="+ idFornecedor;
+        $.getJSON(url, function (result) {
+            dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            alert(errorThrown);
+        });
     }
 
-    function AtualizeValorTotal(target) {
+    function atualizeValorTotal(target) {
         var item = ObtenhaDataItemGridItens(target);
+        atualizeValorTotalItem(item);
+    }
+
+    function atualizeValorTotalItem(item) {
         var valorCalculado = (item.Quantidade * item.ValorUnitario) - item.ValorDesconto;
         item.set("ValorTotal", valorCalculado);
         atualizeTotais();
@@ -495,7 +527,7 @@
         if ($("#Quantidade").get(0) != null) {
             $("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
             $("#Quantidade.k-input").change(function (e) {
-                AtualizeValorTotal(e.target);
+                atualizeValorTotal(e.target);
             });
         }
 
@@ -509,29 +541,27 @@
 
         if ($("#ValorUnitario").get(0) != null) {
             $("#ValorUnitario.k-input").change(function (e) {
-                AtualizeValorTotal(e.target);
+                atualizeValorTotal(e.target);
             });
         }
 
         if ($("#ValorDesconto").get(0) != null) {
             $("#ValorDesconto.k-input").change(function (e) {
-                AtualizeValorTotal(e.target);
+                atualizeValorTotal(e.target);
             });
         }
 
         if ($("#ValorUnitario").get(0) != null) {
             $("#ValorUnitario.k-input").change(function (e) {
-                AtualizeValorTotal(e.target);
+                atualizeValorTotal(e.target);
             });
         }
 
         if ($("#ValorUnitario").get(0) != null) {
             $("#ValorUnitario.k-input").change(function (e) {
-                AtualizeValorTotal(e.target);
+                atualizeValorTotal(e.target);
             });
         }
-
-        registreScriptsGrid();
     }
 
     function desabilitaColunaDetalhes() {
@@ -589,11 +619,13 @@
         //e.preventDefault();
 
         if (!$("#form").valid()) {
+            e.preventDefault();
             $('#btnSubmit').button('reset');
             return false;
         }
 
         if (!validaFormulario()) {
+            e.preventDefault();
             $('#btnSubmit').button('reset');
             return false;
         }
@@ -601,6 +633,7 @@
         var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
 
         if (dataGridItens.length == 0) {
+            e.preventDefault();
             alert("Insira pelo menos um item na grid.");
             $('#btnSubmit').button('reset');
             return false;
@@ -618,7 +651,10 @@
         }
 
         if (mensagem != "") {
+            e.preventDefault();
             alert(mensagem);
+            $('#btnSubmit').button('reset');
+            return false;
         }
 
         return true;
