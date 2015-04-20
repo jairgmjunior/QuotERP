@@ -869,6 +869,7 @@
     <Compile Include="Helpers\Attributes\PopulateViewDataAttribute.cs" />
     <Compile Include="Helpers\Caching\UserCacheProvider.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\ActionResults\JsonNetResult.cs" />
     <Compile Include="Helpers\Extensions\MessageExtensions.cs" />

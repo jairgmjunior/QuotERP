@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -513,14 +514,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     var domain = _materialRepository.Get(id);
                     _materialRepository.Delete(domain);
-
+                    Framework.UnitOfWork.Session.Current.Flush();
                     this.AddSuccessMessage("Material excluído com sucesso");
 
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao excluir o material: " + exception.Message);
+                    var nomeTabela = exception.GetMessage().ObtenhaNomeTabelaDependente();
+                    ModelState.AddModelError("", "O material não pode ser excluído pois o conceito " + nomeTabela + " depende deste material.");
+                     
                     _logger.Info(exception.GetMessage());
                 }
             }
