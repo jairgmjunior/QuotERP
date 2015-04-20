@@ -336,9 +336,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201503111115\permissao.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\201501050947\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201504021522\permissao.sql" />
   </ItemGroup>

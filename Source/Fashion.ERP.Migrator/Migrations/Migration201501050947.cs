@@ -61,7 +61,7 @@ namespace Fashion.ERP.Migrator
             Execute.Sql("update tipoitem set descricao = UPPER(descricao);");
 
             // Cria o menu da tela Requisição de  Material
-            Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201501050947.permissao.sql");
+            //Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201501050947.permissao.sql");
         }
 
         public override void Down()

@@ -1990,6 +1990,9 @@
                         <Component Id="cmp124A668736CBADA3F907FFAB4C4C1BDA" Guid="*">
                             <File Id="filD4930B9E949EC07AA82DFC005E72C37F" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric.cshtml" />
                         </Component>
+                        <Component Id="cmpFD9BB9502EFB57D9A53BF8B6F5AC4E54" Guid="*">
+                            <File Id="fil1F2954BDEDB9C8175F7FB46F79183EBC" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric2casasdecimais.cshtml" />
+                        </Component>
                         <Component Id="cmp100B125436AC1D7B50EE8EDE50967967" Guid="*">
                             <File Id="filEFF0965BE67C47725200010A95E2FB34" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\numeric3casasdecimais.cshtml" />
                         </Component>
@@ -2609,6 +2612,7 @@
             <ComponentRef Id="cmp7C7387402DD73A23CE0416D7EBA69CFA" />
             <ComponentRef Id="cmp9708FDC0D77343023B24310FD67AADDF" />
             <ComponentRef Id="cmp124A668736CBADA3F907FFAB4C4C1BDA" />
+            <ComponentRef Id="cmpFD9BB9502EFB57D9A53BF8B6F5AC4E54" />
             <ComponentRef Id="cmp100B125436AC1D7B50EE8EDE50967967" />
             <ComponentRef Id="cmp298122EF251B8255A4CEE4150EEB9283" />
             <ComponentRef Id="cmpC34F22665E842E3BF70988CD4F4BC31D" />
