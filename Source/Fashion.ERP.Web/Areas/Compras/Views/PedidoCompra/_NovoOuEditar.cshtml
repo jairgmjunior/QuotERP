@@ -228,7 +228,7 @@
                     model.Field(product => product.ValorTotal).Editable(true);
                 })
             )
-            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "#", @class = "btn-primary" }))
+            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
             .Editable(editable => editable.Mode(GridEditMode.InCell))
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
@@ -454,7 +454,7 @@
         $.getJSON(url, function (result) {
             dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
         }).fail(function (jqXhr, textStatus, errorThrown) {
-            alert(errorThrown);
+            exibaAlertaErro(errorThrown);
         });
     }
 
@@ -617,6 +617,7 @@
 
     $('#form').submit(function (e) {
         //e.preventDefault();
+        limpeMensagensAlerta();
 
         if (!$("#form").valid()) {
             e.preventDefault();
@@ -634,7 +635,7 @@
 
         if (dataGridItens.length == 0) {
             e.preventDefault();
-            alert("Insira pelo menos um item na grid.");
+            exibaAlertaErro("Insira pelo menos um item na grid.");
             $('#btnSubmit').button('reset');
             return false;
         }
@@ -643,16 +644,16 @@
         for (var i = 0; i < dataGridItens.length; i++) {
             var dataItem = dataGridItens[i];
             if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
-                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.\n";
+                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.<br/>";
             }
             if (dataItem.ValorUnitario == 0 || dataItem.ValorUnitario == null) {
-                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna preço.\n";
+                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna preço.<br/>";
             }
         }
 
         if (mensagem != "") {
             e.preventDefault();
-            alert(mensagem);
+            exibaAlertaErro(mensagem);
             $('#btnSubmit').button('reset');
             return false;
         }
@@ -664,7 +665,7 @@
 
         if ($("#UnidadeEstocadora").prop("selectedIndex") <= 0) {
             $('#UnidadeEstocadora').addClass('input-validation-error');
-            alert('Selecione uma unidade estocadora.');
+            exibaAlertaErro('Selecione uma unidade estocadora.');
             $('#UnidadeEstocadora').focus();
             return false;
         }
@@ -672,7 +673,7 @@
         // Fornecedor 
         if ($("#Fornecedor").prop("selectedIndex") <= 0) {
             $('#Fornecedor').addClass('input-validation-error');
-            alert('Selecione um fornecedor.');
+            exibaAlertaErro('Selecione um fornecedor.');
             $('#codigo-fornecedor').focus();
             return false;
         }
@@ -722,7 +723,7 @@
                     });
                 }
             });
-            alert(message);
+            exibaAlertaErro(message);
             $("#GridItens").data("kendoGrid").dataSource.read();
         }
     }

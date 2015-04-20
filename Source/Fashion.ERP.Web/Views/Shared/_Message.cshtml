@@ -28,3 +28,42 @@
         </div>
 	}
 }
+
+<div id="marcador-alert-success"></div>
+<div id="marcador-alert-info"></div>
+<div id="marcador-alert-warning"></div>
+<div id="marcador-alert-error"></div>
+
+<script>
+    function exibaAlertaSucesso(mensagem) {
+        $("#marcador-alert-success").append("<div class='alert alert-success'>\
+            <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
+            mensagem + "</div>");
+    }
+
+    function exibaAlertaInfo(mensagem) {
+        $("#marcador-alert-info").append("<div class='alert alert-info'>\
+            <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
+            mensagem + "</div>");
+    }
+
+    function exibaAlertaWarning(mensagem) {
+        $("#marcador-alert-warning").append("<div class='alert alert-warning'>\
+            <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
+            mensagem + "</div>");
+    }
+
+    function exibaAlertaErro(mensagem) {
+        $("#marcador-alert-error").append("<div class='alert alert-error'>\
+            <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
+            mensagem + "</div>");
+    }
+
+    function limpeMensagensAlerta() {
+        $("#marcador-alert-success").empty();
+        $("#marcador-alert-info").empty();
+        $("#marcador-alert-warning").empty();
+        $("#marcador-alert-error").empty();
+    }
+</script>
+
