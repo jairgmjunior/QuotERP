@@ -79,141 +79,141 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, AjaxOnly, PopulateViewData("PopulateSolicitacaoMaterialCompra")]
         public virtual JsonResult SolicitacaoMaterialCompra(SolicitacaoMaterialCompraModel model)
         {
-            var query = _modeloRepository.Find().Where(x => x.Aprovado == true && x.ModeloAprovado != null)
-                .SelectMany(x => x.SequenciaProducoes, (x, s) => new { x, s })
-                .SelectMany(t => t.s.MaterialComposicaoModelos, (t, m) => new { Modelo = @t.x, MaterialComposicao = m });
+            //var query = _modeloRepository.Find().Where(x => x.Aprovado == true && x.ModeloAprovado != null)
+            //    .SelectMany(x => x.SequenciaProducoes, (x, s) => new { x, s })
+            //    .SelectMany(t => t.s.MaterialComposicaoModelos, (t, m) => new { Modelo = @t.x, MaterialComposicao = m });
 
-            var filtros = new StringBuilder();
+            //var filtros = new StringBuilder();
 
-            if (model.DataInicial.HasValue)
-            {
-                query = query.Where(p => p.Modelo.ModeloAprovado.Data >= model.DataInicial.Value);
-                filtros.AppendFormat("Aprovados a partir de: {0:dd/MM/yyyy}, ", model.DataInicial.Value);
-            }
+            //if (model.DataInicial.HasValue)
+            //{
+            //    query = query.Where(p => p.Modelo.ModeloAprovado.Data >= model.DataInicial.Value);
+            //    filtros.AppendFormat("Aprovados a partir de: {0:dd/MM/yyyy}, ", model.DataInicial.Value);
+            //}
 
-            if (model.DataFinal.HasValue)
-            {
-                query = query.Where(p => p.Modelo.ModeloAprovado.Data <= model.DataFinal.Value);
-                filtros.AppendFormat("Aprovados até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
-            }
+            //if (model.DataFinal.HasValue)
+            //{
+            //    query = query.Where(p => p.Modelo.ModeloAprovado.Data <= model.DataFinal.Value);
+            //    filtros.AppendFormat("Aprovados até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
+            //}
 
-            if (model.ColecaoAprovada.HasValue)
-            {
-                query = query.Where(p => p.Modelo.ModeloAprovado.Colecao.Id == model.ColecaoAprovada);
-                filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
-            }
+            //if (model.ColecaoAprovada.HasValue)
+            //{
+            //    query = query.Where(p => p.Modelo.ModeloAprovado.Colecao.Id == model.ColecaoAprovada);
+            //    filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
+            //}
 
-            if (!model.Marcas.IsNullOrEmpty())
-            {
-                query = query.Where(p => model.Marcas.Contains(p.MaterialComposicao.Material.MarcaMaterial.Id ?? 0));
+            //if (!model.Marcas.IsNullOrEmpty())
+            //{
+            //    query = query.Where(p => model.Marcas.Contains(p.MaterialComposicao.Material.MarcaMaterial.Id ?? 0));
 
-                var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.Marcas.Contains(m.Id ?? 0));
-                filtros.AppendFormat("Marcas(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
-            }
+            //    var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.Marcas.Contains(m.Id ?? 0));
+            //    filtros.AppendFormat("Marcas(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
+            //}
 
-            if (model.Material.HasValue)
-            {
-                query = query.Where(p => model.Material == p.MaterialComposicao.Material.Id);
+            //if (model.Material.HasValue)
+            //{
+            //    query = query.Where(p => model.Material == p.MaterialComposicao.Material.Id);
 
-                var materialDomain = _materialRepository.Find(m => model.Material == m.Id).FirstOrDefault();
-                filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);
-            }
+            //    var materialDomain = _materialRepository.Find(m => model.Material == m.Id).FirstOrDefault();
+            //    filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);
+            //}
 
-            if (!model.Categorias.IsNullOrEmpty())
-            {
-                var categorias = new List<long?>(model.Categorias);
+            //if (!model.Categorias.IsNullOrEmpty())
+            //{
+            //    var categorias = new List<long?>(model.Categorias);
 
-                //var categoriasClosure = categorias; // Copiar para variável local
-                var categoriasDomain = _categoriaRepository.Find(c => model.Categorias.Contains(c.Id ?? 0));
-                filtros.AppendFormat("Categoria(s): {0}, ", categoriasDomain.Select(c => c.Nome).ToList().Join(","));
+            //    //var categoriasClosure = categorias; // Copiar para variável local
+            //    var categoriasDomain = _categoriaRepository.Find(c => model.Categorias.Contains(c.Id ?? 0));
+            //    filtros.AppendFormat("Categoria(s): {0}, ", categoriasDomain.Select(c => c.Nome).ToList().Join(","));
 
-                // Inserir a subcategoria antes da categoria com 'OR'
-                if (model.Subcategorias.IsNullOrEmpty() == false)
-                {
-                    //var subcategorias = model.Subcategorias.ConvertAll(long.Parse);
-                    var subcategoriasDomain = _subcategoriaRepository.Find(s => model.Subcategorias.Contains(s.Id ?? 0L)).ToList();
+            //    // Inserir a subcategoria antes da categoria com 'OR'
+            //    if (model.Subcategorias.IsNullOrEmpty() == false)
+            //    {
+            //        //var subcategorias = model.Subcategorias.ConvertAll(long.Parse);
+            //        var subcategoriasDomain = _subcategoriaRepository.Find(s => model.Subcategorias.Contains(s.Id ?? 0L)).ToList();
 
-                    // Remover o filtro de categoria que já possui subcategoria para não filtrar 2 vezes
-                    categorias = categorias.Except(subcategoriasDomain.Select(s => s.Categoria.Id)).ToList();
+            //        // Remover o filtro de categoria que já possui subcategoria para não filtrar 2 vezes
+            //        categorias = categorias.Except(subcategoriasDomain.Select(s => s.Categoria.Id)).ToList();
 
-                    // Selecionar as subcategorias ou as outras categorias
-                    query = query.Where(p => model.Subcategorias.Contains(p.MaterialComposicao.Material.Subcategoria.Id ?? 0L)
-                        || categorias.Contains(p.MaterialComposicao.Material.Subcategoria.Categoria.Id ?? 0L));
+            //        // Selecionar as subcategorias ou as outras categorias
+            //        query = query.Where(p => model.Subcategorias.Contains(p.MaterialComposicao.Material.Subcategoria.Id ?? 0L)
+            //            || categorias.Contains(p.MaterialComposicao.Material.Subcategoria.Categoria.Id ?? 0L));
 
-                    filtros.AppendFormat("Subcategoria: {0}, ", subcategoriasDomain.Select(s => s.Nome).ToList().Join(","));
-                }
-                else
-                {
-                    // Se não existe subcategoria, selecionar todas as categorias selecionadas na tela
-                    query = query.Where(p => categorias.Contains(p.MaterialComposicao.Material.Subcategoria.Categoria.Id ?? 0L));
-                }
-            }
+            //        filtros.AppendFormat("Subcategoria: {0}, ", subcategoriasDomain.Select(s => s.Nome).ToList().Join(","));
+            //    }
+            //    else
+            //    {
+            //        // Se não existe subcategoria, selecionar todas as categorias selecionadas na tela
+            //        query = query.Where(p => categorias.Contains(p.MaterialComposicao.Material.Subcategoria.Categoria.Id ?? 0L));
+            //    }
+            //}
 
-            if (model.OrdenarPor != null)
-                query = model.OrdenarEm == "asc"
-                    ? query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenBy(model.OrdenarPor)
-                    : query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenByDescending(model.OrdenarPor);
-            else
-                query = query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenBy("MaterialComposicao.Material.Descricao");
+            //if (model.OrdenarPor != null)
+            //    query = model.OrdenarEm == "asc"
+            //        ? query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenBy(model.OrdenarPor)
+            //        : query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenByDescending(model.OrdenarPor);
+            //else
+            //    query = query.OrderBy("MaterialComposicao.Material.MarcaMaterial.Nome").ThenBy("MaterialComposicao.Material.Descricao");
             
-            var result = query.Select(q => new
-            {
-                q.Modelo.Id,
-                q.Modelo.ModeloAprovado.Tag,
-                q.Modelo.Descricao,
-                ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
-                IdMaterial = q.MaterialComposicao.Material.Id,
-                DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
-                DataUltimoCusto = ObtenhaDataUltimoCusto(q.MaterialComposicao.Material),
-                UltimoCusto = ObtenhaUltimoCusto(q.MaterialComposicao.Material),
-                DataProgramacao = q.Modelo.ModeloAprovado.DataProgramacaoProducao.Date,
-                UnidadeMedida = q.MaterialComposicao.Material.UnidadeMedida.Sigla,
-                Marca = q.MaterialComposicao.Material.MarcaMaterial.Nome,
-                QuantidadeAprovada = (q.MaterialComposicao.Quantidade * q.Modelo.ModeloAprovado.Quantidade) * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo
-            });
+            //var result = query.Select(q => new
+            //{
+            //    q.Modelo.Id,
+            //    q.Modelo.ModeloAprovado.Tag,
+            //    q.Modelo.Descricao,
+            //    ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
+            //    IdMaterial = q.MaterialComposicao.Material.Id,
+            //    DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
+            //    DataUltimoCusto = ObtenhaDataUltimoCusto(q.MaterialComposicao.Material),
+            //    UltimoCusto = ObtenhaUltimoCusto(q.MaterialComposicao.Material),
+            //    DataProgramacao = q.Modelo.ModeloAprovado.DataProgramacaoProducao.Date,
+            //    UnidadeMedida = q.MaterialComposicao.Material.UnidadeMedida.Sigla,
+            //    Marca = q.MaterialComposicao.Material.MarcaMaterial.Nome,
+            //    QuantidadeAprovada = (q.MaterialComposicao.Quantidade * q.Modelo.ModeloAprovado.Quantidade) * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo
+            //});
 
-            //Possível problema de estouro de memória, o groupby subsequente é executado em memória
-            //e não no banco de dados.
-            var result2 = result.ToList();
+            ////Possível problema de estouro de memória, o groupby subsequente é executado em memória
+            ////e não no banco de dados.
+            //var result2 = result.ToList();
 
-            var resultadoFinal =
-                result2.GroupBy(x => new {x.Marca}, (chave1, grupo1) =>
-                    new MarcaSolicitacaoMaterialCompraModel
-                    {
-                        Marca = chave1.Marca,
-                        Materiais = grupo1.GroupBy(y => new { y.IdMaterial, y.ReferenciaMaterial, y.DescricaoMaterial, y.UnidadeMedida, y.UltimoCusto, y.DataUltimoCusto}, (chave2, grupo2) =>
-                            new MaterialSolicitacaoMaterialCompraModel
-                            {
-                                Referencia = chave2.ReferenciaMaterial,
-                                Descricao = chave2.DescricaoMaterial,
-                                UnidadeMedida = chave2.UnidadeMedida,
-                                DataUltimoCusto = chave2.DataUltimoCusto,
-                                UltimoCusto = chave2.UltimoCusto,
-                                QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave2.IdMaterial.Value),
-                                QuantidadeReservada =  ObtenhaQuantidadeReservada(chave2.IdMaterial.Value),
-                                QuantidadeEstoque = ObtenhaQuantidadeEstoque(chave2.IdMaterial.Value),
-                                QuantidadeCompras = ObtenhaQuantidadeCompras(chave2.IdMaterial.Value),
-                                Programacoes = grupo2.GroupBy(y => new { y.DataProgramacao }, (chave3, grupo3) =>
-                                    new ProgramacaoSolicitacaoMaterialCompraModel
-                                    {
-                                            Data = chave3.DataProgramacao,
-                                            QuantidadeAprovada = grupo3.Sum(z => z.QuantidadeAprovada)
-                                    }).OrderBy(o => o.Data)
-                            }),
-                    }).ToList();
+            //var resultadoFinal =
+            //    result2.GroupBy(x => new {x.Marca}, (chave1, grupo1) =>
+            //        new MarcaSolicitacaoMaterialCompraModel
+            //        {
+            //            Marca = chave1.Marca,
+            //            Materiais = grupo1.GroupBy(y => new { y.IdMaterial, y.ReferenciaMaterial, y.DescricaoMaterial, y.UnidadeMedida, y.UltimoCusto, y.DataUltimoCusto}, (chave2, grupo2) =>
+            //                new MaterialSolicitacaoMaterialCompraModel
+            //                {
+            //                    Referencia = chave2.ReferenciaMaterial,
+            //                    Descricao = chave2.DescricaoMaterial,
+            //                    UnidadeMedida = chave2.UnidadeMedida,
+            //                    DataUltimoCusto = chave2.DataUltimoCusto,
+            //                    UltimoCusto = chave2.UltimoCusto,
+            //                    QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave2.IdMaterial.Value),
+            //                    QuantidadeReservada =  ObtenhaQuantidadeReservada(chave2.IdMaterial.Value),
+            //                    QuantidadeEstoque = ObtenhaQuantidadeEstoque(chave2.IdMaterial.Value),
+            //                    QuantidadeCompras = ObtenhaQuantidadeCompras(chave2.IdMaterial.Value),
+            //                    Programacoes = grupo2.GroupBy(y => new { y.DataProgramacao }, (chave3, grupo3) =>
+            //                        new ProgramacaoSolicitacaoMaterialCompraModel
+            //                        {
+            //                                Data = chave3.DataProgramacao,
+            //                                QuantidadeAprovada = grupo3.Sum(z => z.QuantidadeAprovada)
+            //                        }).OrderBy(o => o.Data)
+            //                }),
+            //        }).ToList();
             
 
-            if (!query.Any())
-                return Json(new { Error = "Nenhum item foi encontrado." });
+            //if (!query.Any())
+            //    return Json(new { Error = "Nenhum item foi encontrado." });
 
-            var report = new SolicitacaoMaterialCompraReport { DataSource = resultadoFinal };
+            //var report = new SolicitacaoMaterialCompraReport { DataSource = resultadoFinal };
 
-            if (filtros.Length > 2)
-                report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+            //if (filtros.Length > 2)
+            //    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
             
-            var filename = report.ToByteStream().SaveFile(".pdf");
+            //var filename = report.ToByteStream().SaveFile(".pdf");
 
-            return Json(new { Url = filename });
+            return Json(new { });
         }
 
         public double ObtenhaQuantidadeDisponivel(long idMaterial)

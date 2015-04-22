@@ -64,149 +64,150 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, AjaxOnly, PopulateViewData("PopulateMateriaisModelosAprovados")]
         public virtual JsonResult MateriaisModelosAprovados(MateriaisModelosAprovadosModel model)
         {
-            var query =
-                _modeloRepository.Find()
-                    .Where(x => x.Aprovado == true && x.ModeloAprovado != null);
+            //var query =
+            //    _modeloRepository.Find()
+            //        .Where(x => x.Aprovado == true && x.ModeloAprovado != null);
 
-            var filtros = new StringBuilder();
+            //var filtros = new StringBuilder();
 
-            try
-            {
-                if (!model.Colecoes.IsNullOrEmpty())
-                {
-                    query = query.Where(p => model.Colecoes.Contains(p.Colecao.Id ?? 0));
+            //try
+            //{
+            //    if (!model.Colecoes.IsNullOrEmpty())
+            //    {
+            //        query = query.Where(p => model.Colecoes.Contains(p.Colecao.Id ?? 0));
 
-                    var colecoesDomain = _colecaoRepository.Find(m => model.Colecoes.Contains(m.Id ?? 0));
-                    filtros.AppendFormat("Coleção(s): {0}, ", colecoesDomain.Select(c => c.Descricao).ToList().Join(","));
-                }
+            //        var colecoesDomain = _colecaoRepository.Find(m => model.Colecoes.Contains(m.Id ?? 0));
+            //        filtros.AppendFormat("Coleção(s): {0}, ", colecoesDomain.Select(c => c.Descricao).ToList().Join(","));
+            //    }
 
-                if (!model.ColecoesAprovadas.IsNullOrEmpty())
-                {
-                    query = query.Where(p => model.ColecoesAprovadas.Contains(p.ModeloAprovado.Colecao.Id ?? 0));
+            //    if (!model.ColecoesAprovadas.IsNullOrEmpty())
+            //    {
+            //        query = query.Where(p => model.ColecoesAprovadas.Contains(p.ModeloAprovado.Colecao.Id ?? 0));
 
-                    var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.ColecoesAprovadas.Contains(m.Id ?? 0));
-                    filtros.AppendFormat("Coleção Aprovada(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
-                }
+            //        var colecoesAprovadasDomain = _colecaoRepository.Find(m => model.ColecoesAprovadas.Contains(m.Id ?? 0));
+            //        filtros.AppendFormat("Coleção Aprovada(s): {0}, ", colecoesAprovadasDomain.Select(c => c.Descricao).ToList().Join(","));
+            //    }
 
-                if (!model.Categorias.IsNullOrEmpty())
-                {
-                    var categorias = new List<long?>(model.Categorias);
+            //    if (!model.Categorias.IsNullOrEmpty())
+            //    {
+            //        var categorias = new List<long?>(model.Categorias);
 
-                    //var categoriasClosure = categorias; // Copiar para variável local
-                    var categoriasDomain = _categoriaRepository.Find(c => model.Categorias.Contains(c.Id ?? 0));
-                    filtros.AppendFormat("Categoria(s): {0}, ", categoriasDomain.Select(c => c.Nome).ToList().Join(","));
+            //        //var categoriasClosure = categorias; // Copiar para variável local
+            //        var categoriasDomain = _categoriaRepository.Find(c => model.Categorias.Contains(c.Id ?? 0));
+            //        filtros.AppendFormat("Categoria(s): {0}, ", categoriasDomain.Select(c => c.Nome).ToList().Join(","));
 
-                    // Inserir a subcategoria antes da categoria com 'OR'
-                    if (model.Subcategorias.IsNullOrEmpty() == false)
-                    {
-                        //var subcategorias = model.Subcategorias.ConvertAll(long.Parse);
-                        var subcategoriasDomain = _subcategoriaRepository.Find(s => model.Subcategorias.Contains(s.Id ?? 0L)).ToList();
+            //        // Inserir a subcategoria antes da categoria com 'OR'
+            //        if (model.Subcategorias.IsNullOrEmpty() == false)
+            //        {
+            //            //var subcategorias = model.Subcategorias.ConvertAll(long.Parse);
+            //            var subcategoriasDomain = _subcategoriaRepository.Find(s => model.Subcategorias.Contains(s.Id ?? 0L)).ToList();
 
-                        // Remover o filtro de categoria que já possui subcategoria para não filtrar 2 vezes
-                        categorias = categorias.Except(subcategoriasDomain.Select(s => s.Categoria.Id)).ToList();
+            //            // Remover o filtro de categoria que já possui subcategoria para não filtrar 2 vezes
+            //            categorias = categorias.Except(subcategoriasDomain.Select(s => s.Categoria.Id)).ToList();
 
-                        // Selecionar as subcategorias ou as outras categorias
-                        query = query.Where(p => p.SequenciaProducoes.Any(seq =>
-                            seq.MaterialComposicaoModelos.Any(materialComposicao => model.Subcategorias.Contains(materialComposicao.Material.Subcategoria.Id ?? 0L)
-                            || categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
+            //            // Selecionar as subcategorias ou as outras categorias
+            //            query = query.Where(p => p.SequenciaProducoes.Any(seq =>
+            //                seq.MaterialComposicaoModelos.Any(materialComposicao => model.Subcategorias.Contains(materialComposicao.Material.Subcategoria.Id ?? 0L)
+            //                || categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
 
-                        filtros.AppendFormat("Subcategoria: {0}, ", subcategoriasDomain.Select(s => s.Nome).ToList().Join(","));
-                    }
-                    else
-                    {
-                        // Se não existe subcategoria, selecionar todas as categorias selecionadas na tela
-                        query = query.Where(p => p.SequenciaProducoes.Any(seq =>
-                            seq.MaterialComposicaoModelos.Any(materialComposicao => categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
-                    }
-                }
+            //            filtros.AppendFormat("Subcategoria: {0}, ", subcategoriasDomain.Select(s => s.Nome).ToList().Join(","));
+            //        }
+            //        else
+            //        {
+            //            // Se não existe subcategoria, selecionar todas as categorias selecionadas na tela
+            //            query = query.Where(p => p.SequenciaProducoes.Any(seq =>
+            //                seq.MaterialComposicaoModelos.Any(materialComposicao => categorias.Contains(materialComposicao.Material.Subcategoria.Categoria.Id ?? 0L))));
+            //        }
+            //    }
 
-                if (model.DataProgramacaoProducao.HasValue)
-                {
-                    query = query.Where(p => p.ModeloAprovado.DataProgramacaoProducao.Date == model.DataProgramacaoProducao.Value.Date);
+            //    if (model.DataProgramacaoProducao.HasValue)
+            //    {
+            //        query = query.Where(p => p.ModeloAprovado.DataProgramacaoProducao.Date == model.DataProgramacaoProducao.Value.Date);
 
-                    filtros.AppendFormat("Data de Programação da Produção: {0:dd/MM/yyyy}, ", model.DataProgramacaoProducao.Value.Date);
-                }
+            //        filtros.AppendFormat("Data de Programação da Produção: {0:dd/MM/yyyy}, ", model.DataProgramacaoProducao.Value.Date);
+            //    }
 
-                if (!string.IsNullOrWhiteSpace(model.Tag))
-                {
-                    query = query.Where(p => p.ModeloAprovado.Tag.Contains(model.Tag));
+            //    if (!string.IsNullOrWhiteSpace(model.Tag))
+            //    {
+            //        query = query.Where(p => p.ModeloAprovado.Tag.Contains(model.Tag));
 
-                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
-                }
+            //        filtros.AppendFormat("Tag: {0}, ", model.Tag);
+            //    }
 
-                if (!model.DepartamentosProducao.IsNullOrEmpty())
-                {
-                    query = query.Where(p => p.SequenciaProducoes.Any(seq => model.DepartamentosProducao.Contains(seq.DepartamentoProducao.Id)));
+            //    if (!model.DepartamentosProducao.IsNullOrEmpty())
+            //    {
+            //        query = query.Where(p => p.SequenciaProducoes.Any(seq => model.DepartamentosProducao.Contains(seq.DepartamentoProducao.Id)));
 
-                    var departamentosDomain = _departamentoProducaoRepository.Find(m => model.DepartamentosProducao.Contains(m.Id ?? 0));
-                    filtros.AppendFormat("Departamento de produção(s): {0}, ", departamentosDomain.Select(c => c.Nome).ToList().Join(","));
-                }
+            //        var departamentosDomain = _departamentoProducaoRepository.Find(m => model.DepartamentosProducao.Contains(m.Id ?? 0));
+            //        filtros.AppendFormat("Departamento de produção(s): {0}, ", departamentosDomain.Select(c => c.Nome).ToList().Join(","));
+            //    }
 
-                // Se não é uma listagem, gerar o relatório
-                query
-                   .FetchMany(x => x.SequenciaProducoes).ThenFetchMany(x => x.MaterialComposicaoModelos)
-                   .ThenFetch(x => x.Material).ThenFetch(x => x.Subcategoria);
+            //    // Se não é uma listagem, gerar o relatório
+            //    query
+            //       .FetchMany(x => x.SequenciaProducoes).ThenFetchMany(x => x.MaterialComposicaoModelos)
+            //       .ThenFetch(x => x.Material).ThenFetch(x => x.Subcategoria);
 
-                var result = query.ToList();
+            //    var result = query.ToList();
 
-                if (!query.Any())
-                    return Json(new { Error = "Nenhum item encontrado." });
+            //    if (!query.Any())
+            //        return Json(new { Error = "Nenhum item encontrado." });
 
-                #region Montar Relatório
-                Report report = new MateriaisModelosAprovadosReport { DataSource = result };
+            //    #region Montar Relatório
+            //    Report report = new MateriaisModelosAprovadosReport { DataSource = result };
 
-                if (filtros.Length > 2)
-                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+            //    if (filtros.Length > 2)
+            //        report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
 
-                var detailSection = report.Items.First(item => item.Name == "detail") as DetailSection;
-                var tableMateriais = detailSection.Items.First(item => item.Name == "tableMateriais") as Table;
+            //    var detailSection = report.Items.First(item => item.Name == "detail") as DetailSection;
+            //    var tableMateriais = detailSection.Items.First(item => item.Name == "tableMateriais") as Table;
 
-                if (model.Categorias.IsEmpty())
-                {
-                    tableMateriais.Filters[0] = new Telerik.Reporting.Filter("1", FilterOperator.Equal, "1");
-                }
+            //    if (model.Categorias.IsEmpty())
+            //    {
+            //        tableMateriais.Filters[0] = new Telerik.Reporting.Filter("1", FilterOperator.Equal, "1");
+            //    }
 
-                if (model.Subcategorias.IsEmpty())
-                {
-                    tableMateriais.Filters[1] = new Telerik.Reporting.Filter("1", FilterOperator.Equal, "1");
-                }
+            //    if (model.Subcategorias.IsEmpty())
+            //    {
+            //        tableMateriais.Filters[1] = new Telerik.Reporting.Filter("1", FilterOperator.Equal, "1");
+            //    }
 
-                report.ReportParameters["Categorias"].Value = model.Categorias.Select(categoria => categoria.Value).ToList();
-                report.ReportParameters["Subcategorias"].Value = model.Subcategorias.Select(subcategoria => subcategoria.Value).ToList();
-                report.ReportParameters["DepartamentosProducao"].Value = model.DepartamentosProducao.Select(departamentoProducao => departamentoProducao.Value).ToList();
+            //    report.ReportParameters["Categorias"].Value = model.Categorias.Select(categoria => categoria.Value).ToList();
+            //    report.ReportParameters["Subcategorias"].Value = model.Subcategorias.Select(subcategoria => subcategoria.Value).ToList();
+            //    report.ReportParameters["DepartamentosProducao"].Value = model.DepartamentosProducao.Select(departamentoProducao => departamentoProducao.Value).ToList();
 
-                var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
+            //    var grupo = report.Groups.First(p => p.Name.Equals("Grupo"));
 
-                if (model.AgruparPor != null)
-                {
-                    grupo.Groupings.Add("= FashionErp.AjusteValores(Fields." + model.AgruparPor + ")");
+            //    if (model.AgruparPor != null)
+            //    {
+            //        grupo.Groupings.Add("= FashionErp.AjusteValores(Fields." + model.AgruparPor + ")");
 
-                    var key = ColunasMateriaisModelosAprovados.First(p => p.Value == model.AgruparPor).Key;
-                    var titulo = string.Format("= \"{0}: \" + FashionErp.AjusteValores(Fields.{1})", key, model.AgruparPor);
-                    grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
-                }
-                else
-                {
-                    report.Groups.Remove(grupo);
-                }
+            //        var key = ColunasMateriaisModelosAprovados.First(p => p.Value == model.AgruparPor).Key;
+            //        var titulo = string.Format("= \"{0}: \" + FashionErp.AjusteValores(Fields.{1})", key, model.AgruparPor);
+            //        grupo.GroupHeader.GetTextBox("Titulo").Value = titulo;
+            //    }
+            //    else
+            //    {
+            //        report.Groups.Remove(grupo);
+            //    }
                 
-                if (model.AgruparPor != null)
-                    report.Sortings.Add("=Fields." + model.AgruparPor,  SortDirection.Asc);
+            //    if (model.AgruparPor != null)
+            //        report.Sortings.Add("=Fields." + model.AgruparPor,  SortDirection.Asc);
 
-                report.Sortings.Add("=Fields.ModeloAprovado.Tag", SortDirection.Asc);
-                #endregion
+            //    report.Sortings.Add("=Fields.ModeloAprovado.Tag", SortDirection.Asc);
+            //    #endregion
 
-                var filename = report.ToByteStream().SaveFile(".pdf");
+            //    var filename = report.ToByteStream().SaveFile(".pdf");
 
-                return Json(new { Url = filename });
-            }
-            catch (Exception exception)
-            {
-                var message = exception.GetMessage();
-                _logger.Info(message);
+            //    return Json(new { Url = filename });
+            //}
+            //catch (Exception exception)
+            //{
+            //    var message = exception.GetMessage();
+            //    _logger.Info(message);
 
-                return Json(new { Error = message });
-            }
+            //    return Json(new { Error = message });
+            //}
+            return Json(new { });
         }
         #endregion
 

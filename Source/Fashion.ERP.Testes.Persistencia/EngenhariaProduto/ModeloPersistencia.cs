@@ -28,6 +28,13 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
         private MaterialComposicaoModelo _materialComposicaoModelo2;
         private Material _material;
         private UnidadeMedida _unidadeMedida;
+        private ModeloAprovacao _modeloAprovacao;
+        private ModeloAvaliacao _modeloAvaliacao;
+        private ModeloReprovacao _modeloReprovacao;
+        private Barra _barra;
+        private ProdutoBase _produtoBase;
+        private Comprimento _comprimento;
+        private ClassificacaoDificuldade _classificacaoDificuldade;
 
         public override Modelo GetPersistentObject()
         {
@@ -44,6 +51,7 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             modelo.AddSequenciaProducao(_sequenciaProducao2);
             modelo.AddProgramacaoBordado(_programacaoBordado);
             modelo.AddVariacaoModelo(_variacaoModelo);
+            modelo.ModeloAvaliacao = _modeloAvaliacao;
 
             return modelo;
         }
@@ -91,6 +99,24 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _variacaoModelo = FabricaObjetos.ObtenhaVariacaoModelo();
             _variacaoModelo.Variacao = _variacao;
             _variacaoModelo.AddCor(_cor);
+            
+            _barra = FabricaObjetosPersistidos.ObtenhaBarra();
+            _produtoBase = FabricaObjetosPersistidos.ObtenhaProdutoBase();
+            _comprimento = FabricaObjetosPersistidos.ObtenhaComprimento();
+            _classificacaoDificuldade = FabricaObjetosPersistidos.ObtenhaClassificacaoDificuldade();
+
+            _modeloAprovacao = FabricaObjetos.ObtenhaModeloAprovacao();
+            _modeloAprovacao.Barra = _barra;
+            _modeloAprovacao.Comprimento = _comprimento;
+            _modeloAprovacao.ProdutoBase = _produtoBase;
+
+            _modeloReprovacao = FabricaObjetos.ObtenhamModeloReprovacao();
+
+            _modeloAvaliacao = FabricaObjetos.ObtenhaModeloAvaliacao();
+            _modeloAvaliacao.ClassificacaoDificuldade = _classificacaoDificuldade;
+            _modeloAvaliacao.Colecao = _colecao;
+            _modeloAvaliacao.ModelosAprovados.Add(_modeloAprovacao);
+            _modeloAvaliacao.ModeloReprovacao = _modeloReprovacao ;
 
             Session.Current.Flush();
         }

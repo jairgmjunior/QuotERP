@@ -56,6 +56,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Migrations\Migration201504201721.cs" />
     <Compile Include="Migrations\Migration201504021522.cs" />
     <Compile Include="Migrations\Migration201503241312.cs" />
     <Compile Include="Migrations\Migration201503231541.cs" />
@@ -348,6 +349,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201504060928\permissao.sql" />
     <EmbeddedResource Include="Scripts\201504081534\permissao.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201504201721\modeloavaliacao.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -380,7 +380,7 @@ namespace Fashion.ERP.Testes.Persistencia
         #endregion
 
         #region Engenharia de Produto
-
+        
         public VariacaoModelo ObtenhaVariacaoModelo()
         {
             var variacaoModelo = _fabricaObjetos.ObtenhaVariacaoModelo();

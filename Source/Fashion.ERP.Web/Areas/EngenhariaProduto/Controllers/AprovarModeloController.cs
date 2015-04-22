@@ -183,19 +183,19 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var modelo = _modeloRepository.Get(model.Id);
                     modelo.Aprovado = true;
 
-                    modelo.ModeloAprovado = new ModeloAprovado
-                    {
-                        Ano = DateTime.Now.Year,
-                        Data = model.DataAprovacao.HasValue ? model.DataAprovacao.Value : DateTime.Now,
-                        DataProgramacaoProducao = model.ProgramacaoProducao.HasValue ? model.ProgramacaoProducao.Value : DateTime.Now,
-                        Tag = model.Tag,
-                        Quantidade = model.QuantidadeProducao.HasValue ? model.QuantidadeProducao.Value : 0,
-                        Observacao = model.ObservacaoAprovacao,
-                        ClassificacaoDificuldade =
-                            _classificacaoDificuldadeRepository.Load(model.ClassificacaoDificuldade),
-                        Colecao = _colecaoRepository.Load(model.Colecao),
-                        Funcionario = _pessoaRepository.Load(ObtenhaFuncionarioLogadoId())
-                    };
+                    //modelo.ModeloAprovado = new Modelo
+                    //{
+                    //    Ano = DateTime.Now.Year,
+                    //    Data = model.DataAprovacao.HasValue ? model.DataAprovacao.Value : DateTime.Now,
+                    //    DataProgramacaoProducao = model.ProgramacaoProducao.HasValue ? model.ProgramacaoProducao.Value : DateTime.Now,
+                    //    Tag = model.Tag,
+                    //    Quantidade = model.QuantidadeProducao.HasValue ? model.QuantidadeProducao.Value : 0,
+                    //    Observacao = model.ObservacaoAprovacao,
+                    //    ClassificacaoDificuldade =
+                    //        _classificacaoDificuldadeRepository.Load(model.ClassificacaoDificuldade),
+                    //    Colecao = _colecaoRepository.Load(model.Colecao),
+                    //    Funcionario = _pessoaRepository.Load(ObtenhaFuncionarioLogadoId())
+                    //};
                     
                     _modeloRepository.Update(modelo);
 
@@ -225,7 +225,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 				{
 					var domain = _modeloRepository.Get(id);
 				    domain.Aprovado = false;
-				    domain.ModeloAprovado = null;
+				    domain.ModeloAvaliacao = null;
 
 					this.AddSuccessMessage("Modelo desaprovado com sucesso");
 					return RedirectToAction("Index");

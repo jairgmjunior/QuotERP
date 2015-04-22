@@ -75,7 +75,8 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Pessoa Estilista { get; set; }
         public virtual Pessoa Modelista { get; set; }
         public virtual Tamanho Tamanho { get; set; }
-        public virtual ModeloAprovado ModeloAprovado { get; set; }
+        public virtual ModeloAvaliacao ModeloAvaliacao { get; set; }
+        //public virtual ModeloAprovado ModeloAprovado { get; set; }
         #endregion
 
         #region LinhasTravete
@@ -316,22 +317,12 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         }
 
         #endregion
-
-        public virtual IEnumerable<MaterialComposicaoModelo> MaterialComposicaoModelos
-        {
-            get { return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos); }
-        }
-
-        //public virtual IEnumerable<MaterialComposicaoModelo> ObtenhaMaterialComposicaoModelos(IEnumerable<long?> departamentosProducaoId )
-        //{
-        //     return SequenciaProducoes.Where(seq => departamentosProducaoId.Contains(seq.DepartamentoProducao.Id))
-        //         .SelectMany(x => x.MaterialComposicaoModelos); 
-        //}
-
+        
         public virtual IEnumerable<MaterialComposicaoModelo> ObtenhaMaterialComposicaoModelos()
         {
             return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos);
         }
+
         public virtual void GereChaveExterna()
         {
 

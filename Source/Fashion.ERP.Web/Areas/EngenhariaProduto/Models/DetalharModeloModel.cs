@@ -57,10 +57,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Lavada")]
         public string Lavada { get; set; }
-
-        [Display(Name = "Previsão de envio")]
-        public string DataPrevisaoEnvio { get; set; }
-
+        
         [Display(Name = "Linha casa")]
         public string LinhaCasa { get; set; }
 
@@ -129,10 +126,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Qtd. Produção")]
         public string QuantidadeMix { get; set; }
-
-        [Display(Name = "Semana envio")]
-        public string DataRemessaProducao { get; set; }
-
+        
         [Display(Name = "Observação")]
         public string ObservacaoAprovacao { get; set; }
 

@@ -330,6 +330,46 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Engenharia de Produto
 
+        public ModeloAprovacao ObtenhaModeloAprovacao()
+        {
+            return new ModeloAprovacao()
+            {
+                Descricao = "DESCRIÇÃO MODELO APROVACAO",
+                IdEmpresa = 1,
+                IdTenant = 1,
+                Quantidade = 1,
+                MedidaBarra = "MEDIDABARRA",
+                Observacao = "OBSERVAÇÃO",
+                Referencia = "REFERENCIA"
+            };
+        }
+
+        public ModeloAvaliacao ObtenhaModeloAvaliacao()
+        {
+            return new ModeloAvaliacao
+            {
+                Ano = 2000,
+                Aprovado = true,
+                Catalogo = true,
+                Complemento = "COMPLEMENTO",
+                Data = new DateTime(2010, 1, 1),
+                Observacao = "OBSERVAÇÃO",
+                Tag = "654",
+                IdEmpresa = 1,
+                IdTenant = 1
+            };
+        }
+
+        public ModeloReprovacao ObtenhamModeloReprovacao()
+        {
+            return new ModeloReprovacao
+            {
+                IdEmpresa = 1,
+                IdTenant = 1,
+                Motivo = "MOTIVO REPROVAÇÃO"
+            };
+        }
+
         public ProgramacaoBordado ObtenhaProgramacaoBordado()
         {
             return new ProgramacaoBordado

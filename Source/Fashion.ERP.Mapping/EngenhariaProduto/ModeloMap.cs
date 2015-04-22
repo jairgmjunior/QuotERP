@@ -51,7 +51,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Estilista).Not.Nullable();
             References(x => x.Modelista);
             References(x => x.Tamanho);
-            References(x => x.ModeloAprovado).Cascade.All();
+            References(x => x.ModeloAvaliacao).Cascade.All().Nullable();
 
             HasMany(x => x.LinhasTravete)
                 .Table("modelolinhatravete")
