@@ -157,6 +157,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     filtros.AppendFormat("Unidade de medida: {0}, ", _unidadeMedidaRepository.Get(model.UnidadeMedida.Value).Descricao);
                 }
 
+                if (model.TipoItem.HasValue)
+                {
+                    materiais = materiais.Where(p => p.TipoItem.Id == model.TipoItem);
+                    filtros.AppendFormat("Tipo item: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
+                }
+
+                if (model.GeneroFiscal.HasValue)
+                {
+                    materiais = materiais.Where(p => p.GeneroFiscal.Id == model.GeneroFiscal);
+                    filtros.AppendFormat("Gênero fiscal: {0}, ", _generoFiscalRepository.Get(model.GeneroFiscal.Value).Descricao);
+                }
+
                 if (model.Ativo.HasValue)
                 {
                     materiais = materiais.Where(p => p.Ativo == model.Ativo);

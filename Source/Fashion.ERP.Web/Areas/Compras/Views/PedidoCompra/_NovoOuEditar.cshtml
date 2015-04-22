@@ -327,7 +327,7 @@
             @Html.LabelForRequired(x => x.ValorDescontoTotal)
             <div class="controls">
                 <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDescontoTotal" class="k-input k-state-disabled"/>
-                <input type="hidden" id="ValorDesconto" name="ValorDesconto"  value=" @Model.ValorDescontoTotal" />
+                <input type="hidden" id="ValorDescontoTotal" name="ValorDescontoTotal"  value=" @Model.ValorDescontoTotal" />
                 @Html.ValidationMessageFor(x => x.ValorDescontoTotal, null, new { @class = "help-block" })
             </div>
         </div>
@@ -589,7 +589,7 @@
         var desconto = 0;
 
         for (var i = 0; i < gridData.length; i++) {
-            total = total + gridData[i].ValorTotal;
+            total = total + (gridData[i].ValorUnitario * gridData[i].Quantidade);
             desconto = desconto + gridData[i].ValorDesconto;
         }
 

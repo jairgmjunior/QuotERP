@@ -311,8 +311,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     }
 
                     var domain = Mapper.Unflat<PedidoCompra>(model);
+                    domain.ValorDesconto = model.ValorDescontoTotal;
+
                     IncluirNovosPedidoCompralItens(model, domain);
-                    
+                    RecalculeTotais(model, domain);
                     _pedidoCompraRepository.Save(domain);
                     
                     this.AddSuccessMessage("Pedido de compra cadastrado com sucesso.");
@@ -329,15 +331,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
             }
 
-            else
-            {
-                var errors = ModelState.Select(x => x.Value.Errors)
-                           .Where(y => y.Count > 0)
-                           .ToList();
-                this.AddErrorMessage(errors[0][0].ErrorMessage);
-                return View(model);
+            //else
+            //{
+            //    var errors = ModelState.Select(x => x.Value.Errors)
+            //               .Where(y => y.Count > 0)
+            //               .ToList();
+            //    this.AddErrorMessage(errors[0][0].ErrorMessage);
+            //    return View(model);
 
-            }
+            //}
 
             return View(model);
         }
@@ -356,6 +358,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 var model = Mapper.Flat<PedidoCompraModel>(domain);
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorCompra = domain.ValorCompra;
+                model.ValorDescontoTotal = domain.ValorDesconto;
+
                 model.FuncionarioAutorizador = domain.FuncionarioAutorizador != null ? domain.FuncionarioAutorizador.Nome : "";
                 model.GridItens = new List<GridPedidoCompraItem>();
                 foreach (var item in domain.PedidoCompraItens.OrderBy(x => x.Material.Referencia))
@@ -378,7 +382,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
-                    
+                    domain.ValorDesconto = model.ValorDescontoTotal;
                     if (domain.SituacaoCompra == SituacaoCompra.Cancelado)
                     {
                         _pedidoCompraRepository.Evict(domain);
@@ -398,9 +402,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     ExcluirPedidoCompraItens(model,domain);
                     IncluirNovosPedidoCompralItens(model,domain);
                     AtualizarPedidoCompraItens(model, domain);
+                    RecalculeTotais(model, domain);
 
-                    domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
-                    
                      _pedidoCompraRepository.Update(domain);
 
                     this.AddSuccessMessage("Pedido de compra atualizado com sucesso.");
@@ -433,6 +436,17 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             reservaMaterialItensExcluir.ForEach(x => domain.RemovePedidoCompraItem(x));
         }
 
+        private void RecalculeTotais(PedidoCompraModel model, PedidoCompra domain)
+        {
+            domain.ValorDesconto = domain.PedidoCompraItens.Sum(x => x.ValorDesconto);
+            domain.ValorEmbalagem = model.ValorEmbalagem;
+            domain.ValorEncargos = model.ValorEncargos;
+            domain.ValorFrete = model.ValorFrete;
+            model.ValorMercadorias = model.ValorMercadorias;
+            model.ValorCompra = model.ValorMercadorias + model.ValorEncargos + model.ValorFrete + model.ValorEmbalagem -
+                                model.ValorDescontoTotal;
+        }
+
         private void IncluirNovosPedidoCompralItens(PedidoCompraModel pedidoCompraModel, PedidoCompra pedidoCompra)
         {
             pedidoCompraModel.GridItens.ForEach(x =>
@@ -462,6 +476,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 if (pedidoCompraItem != null)
                 {
                     pedidoCompraItem.PrevisaoEntrega = !String.IsNullOrEmpty(x.PrevisaoEntregaString) ? Convert.ToDateTime(x.PrevisaoEntregaString) : (DateTime?) null;
+                    pedidoCompraItem.Quantidade = x.Quantidade.HasValue ? x.Quantidade.Value : 0;
+                    pedidoCompraItem.ValorDesconto = x.ValorDesconto.HasValue ? x.ValorDesconto.Value : 0;
+                    pedidoCompraItem.ValorUnitario = x.ValorUnitario.HasValue ? x.ValorUnitario.Value : 0;
                 }
             });
         }
