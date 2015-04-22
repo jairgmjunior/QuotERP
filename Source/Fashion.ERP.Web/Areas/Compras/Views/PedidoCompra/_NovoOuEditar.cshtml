@@ -450,11 +450,23 @@
     });
 
     function atualizeUltimoCusto(referencia, idFornecedor, dataItem) {
-        var url = '/Almoxarifado/Material/ObtenhaCusto?referencia=' + referencia+"&idFornecedor="+ idFornecedor;
-        $.getJSON(url, function (result) {
-            dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
-        }).fail(function (jqXhr, textStatus, errorThrown) {
-            exibaAlertaErro(errorThrown);
+        var url = '/Almoxarifado/Material/ObtenhaCusto';
+        //$.getJSON(url, { referencia: referencia, idFornecedor : idFornecedor }, function (result) {
+        //    dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
+        //}).fail(function (jqXhr, textStatus, errorThrown) {
+        //    exibaAlertaErro(errorThrown);
+        //});
+
+
+        $.ajax({
+            url: url,
+
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            data: { referencia: referencia, idFornecedor: idFornecedor },
+            success: function (result) {
+                dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
+            }
         });
     }
 
