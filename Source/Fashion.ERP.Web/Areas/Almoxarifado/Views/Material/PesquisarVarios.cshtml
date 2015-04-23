@@ -43,6 +43,9 @@
                         alert(data.Error);
                         return;
                     }
+                    var novoDataItem = obtenhaDataItensSelecionados();
+
+                    $.merge(novoDataItem, data);
 
                     $(this).children(':submit').button('reset');
                 
@@ -54,9 +57,9 @@
                             { field: "Referencia", title: "Referência" },
                             { field: "Descricao", title: "Descrição", width: 400 },
                             { field: "ReferenciaExterna", hidden: true },
-                            { template: '<input id="checked" type="checkbox"/>', width: 30 }
+                            { field: "checked", template: '<input id="checked" type="checkbox"/>', width: 30 }
                         ],
-                        dataSource: data
+                        dataSource: novoDataItem
                     });
                     if(grid.find("th:last input").get(0) == null) {
                         grid.find("th:last")
@@ -78,6 +81,15 @@
                             grid.select(linha);
                         });
                     }
+
+                    var dataItensTodos = obtenhaGrid().dataSource.data();
+                    for (var i in dataItensTodos) {
+                        var dataItem = dataItensTodos[i];
+                        if(dataItem.checked){
+                            var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
+                            $(row).trigger("click");
+                        }
+                    }
                 },
             });
 
@@ -95,25 +107,38 @@
         $('#selecionar-material').on('click', selecionarMaterial);
         
         function selecionarMaterial() {
-            var grid = $('#grid-pesquisa-material').data("kendoGrid");
-            var dataItemsAll = grid.dataItems();
-            var dataItemsSelecinados = [];
-            for (var i in dataItemsAll) {
-                var dataItem = dataItemsAll[i];
-                var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
-
-                if (row.find("#checked").prop("checked")) {
-                    dataItemsSelecinados.push(dataItem);
-                }
-            }
 
             $('#modal-material').modal('hide');
-
-            if (!grid) return;
             
-            $("#selecionar-material").trigger("pesquisar", { DataItemsSelecionados : dataItemsSelecinados});
+            if (!obtenhaGrid()) return;
+            
+            $("#selecionar-material").trigger("pesquisar", { DataItemsSelecionados: obtenhaDataItensSelecionados() });
         }        
     });
+
+    function obtenhaGrid() {
+        return $('#grid-pesquisa-material').data("kendoGrid");
+    }
+
+    function obtenhaDataItensSelecionados() {
+        var grid = obtenhaGrid();
+        if (!grid) {
+            return [];
+        }
+        var dataItensTodos = grid.dataItems();
+        var dataItensSelecionados = [];
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
+
+            if (row.find("#checked").prop("checked")) {
+                dataItem.checked = true;
+                dataItensSelecionados.push(dataItem);
+            }
+        }
+
+        return dataItensSelecionados;
+    }
 
     function configureParametroPesquisarVariosMateriaisPorTipoItem(idTipoItem) {
         $("#ParametroTipoItemMaterial").val(idTipoItem);

@@ -6,7 +6,7 @@
 @*Criada para contornar um BUG no kendo*@
 @Html.Hidden("FlagValidacao")
 <fieldset>
-    <legend></legend>
+    <legend><small>Dados do Pedido de Compra</small></legend>
     <div class="row">
         <div class="span6">
             <div class="control-group">
@@ -78,8 +78,8 @@
 </fieldset>
 
 <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#pedido" data-toggle="tab">Dados do pedido</a></li>
-    <li><a href="#itens" data-toggle="tab">Itens do pedido</a></li>
+    <li class="active"><a href="#pedido" data-toggle="tab">Dados da Compra</a></li>
+    <li><a href="#itens" data-toggle="tab">Itens do Pedido</a></li>
 </ul>
 
 <div class="tab-content">
@@ -277,73 +277,71 @@
 </div>
 
 <fieldset>
-    <legend>Totais</legend>
+    <legend><small>Totais do Pedido</small></legend>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorMercadorias)
+                <div class="controls">
+                    <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled"/>
+                    <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
+                    @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorFrete)
+                <div class="controls">
+                    @Html.EditorFor(x => x.ValorFrete)
+                    @Html.ValidationMessageFor(x => x.ValorFrete, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorEncargos)
+                <div class="controls">
+                    @Html.EditorFor(x => x.ValorEncargos)
+                    @Html.ValidationMessageFor(x => x.ValorEncargos, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorEmbalagem)
+                <div class="controls">
+                    @Html.EditorFor(x => x.ValorEmbalagem)
+                    @Html.ValidationMessageFor(x => x.ValorEmbalagem, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorDescontoTotal)
+                <div class="controls">
+                    <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDescontoTotal" class="k-input k-state-disabled"/>
+                    <input type="hidden" id="ValorDescontoTotal" name="ValorDescontoTotal"  value=" @Model.ValorDescontoTotal" />
+                    @Html.ValidationMessageFor(x => x.ValorDescontoTotal, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.ValorCompra)
+                <div class="controls">
+                    <input style=" width:130px;" readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="k-input k-state-disabled"/>
+                    <input type="hidden" id="ValorCompra" name="ValorCompra"  value=" @Model.ValorCompra" />                
+                    @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
 </fieldset>
-
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorMercadorias)
-            <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled"/>
-                <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
-                @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorFrete)
-            <div class="controls">
-                @Html.EditorFor(x => x.ValorFrete)
-                @Html.ValidationMessageFor(x => x.ValorFrete, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorEncargos)
-            <div class="controls">
-                @Html.EditorFor(x => x.ValorEncargos)
-                @Html.ValidationMessageFor(x => x.ValorEncargos, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorEmbalagem)
-            <div class="controls">
-                @Html.EditorFor(x => x.ValorEmbalagem)
-                @Html.ValidationMessageFor(x => x.ValorEmbalagem, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorDescontoTotal)
-            <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDescontoTotal" class="k-input k-state-disabled"/>
-                <input type="hidden" id="ValorDescontoTotal" name="ValorDescontoTotal"  value=" @Model.ValorDescontoTotal" />
-                @Html.ValidationMessageFor(x => x.ValorDescontoTotal, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelForRequired(x => x.ValorCompra)
-            <div class="controls">
-                <input style=" width:130px;" readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="k-input k-state-disabled"/>
-                <input type="hidden" id="ValorCompra" name="ValorCompra"  value=" @Model.ValorCompra" />                
-                @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     function formateDecimalGrid(valor) {
         if (valor == null) {
