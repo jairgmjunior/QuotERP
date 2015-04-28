@@ -1301,8 +1301,8 @@ Shadow=0</a:DisplayPreferences>
 <o:AssociationSymbol Id="o6">
 <a:CreationDate>1426860365</a:CreationDate>
 <a:ModificationDate>1429790673</a:ModificationDate>
-<a:Rect>((-30854,17149), (-19216,34276))</a:Rect>
-<a:ListOfPoints>((-19216,17149),(-30854,34276))</a:ListOfPoints>
+<a:Rect>((-30854,17149), (-19213,34276))</a:Rect>
+<a:ListOfPoints>((-19213,17149),(-30854,34276))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1323,7 +1323,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1429790684</a:ModificationDate>
 <a:SourceTextOffset>(937, 213)</a:SourceTextOffset>
 <a:DestinationTextOffset>(-1012, 187)</a:DestinationTextOffset>
-<a:Rect>((-20597,1639), (-16699,16123))</a:Rect>
+<a:Rect>((-20560,1639), (-16737,16123))</a:Rect>
 <a:ListOfPoints>((-18573,16123),(-18573,1639))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -1345,7 +1345,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1429789894</a:ModificationDate>
 <a:SourceTextOffset>(-1012, -213)</a:SourceTextOffset>
 <a:DestinationTextOffset>(937, -587)</a:DestinationTextOffset>
-<a:Rect>((-609,16123), (3289,34276))</a:Rect>
+<a:Rect>((-571,16123), (3252,34276))</a:Rect>
 <a:ListOfPoints>((1415,16123),(1415,34276))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -1388,7 +1388,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:CreationDate>1429295837</a:CreationDate>
 <a:ModificationDate>1429789884</a:ModificationDate>
 <a:SourceTextOffset>(-1012, -213)</a:SourceTextOffset>
-<a:Rect>((-20597,16123), (-16549,35737))</a:Rect>
+<a:Rect>((-20560,16123), (-16624,35737))</a:Rect>
 <a:ListOfPoints>((-18573,16123),(-18573,35737))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -1409,7 +1409,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:CreationDate>1429296294</a:CreationDate>
 <a:ModificationDate>1429789884</a:ModificationDate>
 <a:SourceTextOffset>(212, 587)</a:SourceTextOffset>
-<a:Rect>((-18573,14899), (1415,17297))</a:Rect>
+<a:Rect>((-18573,14850), (1415,17347))</a:Rect>
 <a:ListOfPoints>((-18573,16123),(1415,16123))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -1452,7 +1452,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1429790774</a:ModificationDate>
 <a:SourceTextOffset>(213, 587)</a:SourceTextOffset>
 <a:DestinationTextOffset>(-612, -587)</a:DestinationTextOffset>
-<a:Rect>((-41692,14949), (-18573,17297))</a:Rect>
+<a:Rect>((-41692,14900), (-18573,17347))</a:Rect>
 <a:ListOfPoints>((-41692,16123),(-18573,16123))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -1473,8 +1473,8 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:CreationDate>1429789571</a:CreationDate>
 <a:ModificationDate>1429789891</a:ModificationDate>
 <a:SourceTextOffset>(1012, 213)</a:SourceTextOffset>
-<a:Rect>((-572,-3229), (3439,16123))</a:Rect>
-<a:ListOfPoints>((1415,16123),(1415,-3229))</a:ListOfPoints>
+<a:Rect>((-609,-3227), (3439,16123))</a:Rect>
+<a:ListOfPoints>((1415,16123),(1415,-3227))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1672,7 +1672,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:ClassSymbol Id="o7">
 <a:CreationDate>1429534201</a:CreationDate>
 <a:ModificationDate>1429789884</a:ModificationDate>
-<a:Rect>((-26748,11141), (-10398,21105))</a:Rect>
+<a:Rect>((-26710,11141), (-10436,21105))</a:Rect>
 <a:LineColor>16744448</a:LineColor>
 <a:FillColor>16770222</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -9478,7 +9478,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1421781492</a:ModificationDate>
 <a:Modifier>ferna_000</a:Modifier>
-<a:TargetModelURL>file:///D|/Repositório/QuodERP/Docs/Documentacao/Almoxarifado/Almoxarifado.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Almoxarifado/Almoxarifado.oom</a:TargetModelURL>
 <a:TargetModelID>54AAA00F-7257-4E88-9427-F7E4CF58FA74</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 </o:TargetModel>
@@ -9490,7 +9490,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1429799434</a:ModificationDate>
 <a:Modifier>fernando</a:Modifier>
-<a:TargetModelURL>file:///D|/Repositório/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
 <a:TargetModelID>40838F6A-D772-4557-ABF1-E1A5E3743153</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>
@@ -9537,7 +9537,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1426858696</a:ModificationDate>
 <a:Modifier>ferna_000</a:Modifier>
-<a:TargetModelURL>file:///D|/Repositório/QuodERP/Docs/Documentacao/Produção/Producao.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Produção/Producao.oom</a:TargetModelURL>
 <a:TargetModelID>F9FFB9B0-F65E-42A0-AE46-E8B3DBFA2367</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>

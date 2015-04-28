@@ -2489,7 +2489,7 @@ Shadow=0</a:DisplayPreferences>
 <o:AssociationSymbol Id="o6">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421954840</a:ModificationDate>
-<a:Rect>((-10589,8566), (-6811,23296))</a:Rect>
+<a:Rect>((-10626,8566), (-6773,23296))</a:Rect>
 <a:ListOfPoints>((-8698,8566),(-8549,23296))</a:ListOfPoints>
 <a:ArrowStyle>2048</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -4912,7 +4912,7 @@ Shadow=0</a:DisplayPreferences>
 <o:AssociationSymbol Id="o117">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421777243</a:ModificationDate>
-<a:Rect>((-13326,18452), (8699,20999))</a:Rect>
+<a:Rect>((-13326,18501), (8699,20949))</a:Rect>
 <a:ListOfPoints>((8699,19725),(-13326,19725))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -4932,7 +4932,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <o:AssociationSymbol Id="o121">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421777243</a:ModificationDate>
-<a:Rect>((-28275,7650), (-11357,20625))</a:Rect>
+<a:Rect>((-28275,7650), (-11319,20625))</a:Rect>
 <a:ListOfPoints>((-13325,19425),(-13275,7650),(-28275,7650),(-28275,20625),(-12950,20550))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -4952,7 +4952,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <o:AssociationSymbol Id="o123">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421777243</a:ModificationDate>
-<a:Rect>((-15126,19725), (-11377,34125))</a:Rect>
+<a:Rect>((-15200,19725), (-11302,34125))</a:Rect>
 <a:ListOfPoints>((-13326,19725),(-13326,34125))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -15349,7 +15349,7 @@ Shadow=0</a:DisplayPreferences>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1421781784</a:ModificationDate>
 <a:Modifier>ferna_000</a:Modifier>
-<a:TargetModelURL>file:///C|/Users/nelio_000/Repositorio/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
 <a:TargetModelID>40838F6A-D772-4557-ABF1-E1A5E3743153</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>
