@@ -27,6 +27,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public double QuantidadeCancelada { get; set; }
 
         [Display(Name = "Situação")]
-        public SituacaoRequisicaoMaterial? SituacaoRequisicaoMaterial { get; set; } 
+        public string SituacaoRequisicaoMaterial { get; set; }
+        
+        [Display(Name = "Foto")]
+        public string Foto { get; set; }
     }
 }

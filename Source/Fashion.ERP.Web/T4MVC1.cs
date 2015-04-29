@@ -286,8 +286,10 @@ namespace Links
     
         public static readonly string jquery_Jcrop_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.Jcrop.min.js") ? Url("jquery.Jcrop.min.js") : Url("jquery.Jcrop.js");
         public static readonly string jquery_Jcrop_min_js = Url("jquery.Jcrop.min.js");
+        public static readonly string jquery_lazyload_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.lazyload.min.js") ? Url("jquery.lazyload.min.js") : Url("jquery.lazyload.js");
         public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
         public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
+        public static readonly string jquery_unveil_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.unveil.min.js") ? Url("jquery.unveil.min.js") : Url("jquery.unveil.js");
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");

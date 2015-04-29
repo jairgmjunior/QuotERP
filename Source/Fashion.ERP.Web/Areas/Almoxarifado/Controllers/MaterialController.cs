@@ -725,7 +725,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 Familia = p.Familia == null ? null : p.Familia.Nome,
                 UnidadeMedida = p.UnidadeMedida.Sigla,
                 //UltimoCusto = ObtenhaUltimoCustoMaterial(material)
-                
+                Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty)
             }).ToList();
             return Json(list);
         }

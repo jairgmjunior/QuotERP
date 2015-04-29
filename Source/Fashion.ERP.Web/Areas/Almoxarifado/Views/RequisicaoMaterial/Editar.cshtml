@@ -1,6 +1,6 @@
 ﻿@using Fashion.ERP.Domain.Almoxarifado
 @model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
-@using (Html.BeginForm(MVC.Almoxarifado.ReservaMaterial.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
+@using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterial.Editar(), FormMethod.Post, new { id="form", @class = "form-horizontal" })) {
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
@@ -23,14 +23,11 @@
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+    Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
     Html.RenderPartial("_ConfirmDelete");
 }
 
 <script>
-    function obtenhaUrlActionSubmit() {
-        return '@Url.Action("Editar", "RequisicaoMaterial")';
-    }
-
     $(document).ready(function () {
 
         $("#Data").data("kendoDatePicker").enable(false);

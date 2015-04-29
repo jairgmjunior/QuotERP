@@ -124,7 +124,9 @@ namespace Fashion.ERP.Web
 
             bundles.Add(new ScriptBundle(Links.Bundles.Scripts.FotoUpload)
                             .Include("~/Scripts/jquery.Jcrop.js",
-                                     "~/js/fotoupload.js"));
+                                     "~/js/fotoupload.js",
+                                     "~/Scripts/jquery.lazyload.js",
+                                     "~/Scripts/jquery.unveil.js"));
 
             bundles.Add(new ScriptBundle(Links.Bundles.Scripts.JqueryColor)
                             .Include("~/Scripts/jquery.color-{version}.js"));

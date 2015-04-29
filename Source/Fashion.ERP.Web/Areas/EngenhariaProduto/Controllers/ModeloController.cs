@@ -9,6 +9,7 @@ using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Reporting.EngenhariaProduto;
 using Fashion.ERP.Reporting.Helpers;
+using Fashion.ERP.Web.Areas.Almoxarifado.Models;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.EngenhariaProduto.Models;
 using Fashion.ERP.Web.Helpers;
@@ -51,6 +52,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<SetorProducao> _setorProducaoRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<ProgramacaoBordado> _programacaoBordadoRepository;
+        private readonly IRepository<TipoItem> _tipoItemRepository;
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
         #region ColunasPesquisaModelo
@@ -92,6 +94,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<Variacao> variacaoRepository, IRepository<SetorProducao> setorProducaoRepository,
             IRepository<Material> materialRepository, 
             IRepository<ProgramacaoBordado> programacaoBordadoRepository, //IRepository<FichaTecnica> fichaTecnicaRepository,
+            IRepository<ProgramacaoBordado> programacaoBordadoRepository, IRepository<TipoItem> tipoItemRepository,
             IRepository<SequenciaProducao> sequenciaRepository)
         {
             _modeloRepository = modeloRepository;
@@ -115,7 +118,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _setorProducaoRepository = setorProducaoRepository;
             _materialRepository = materialRepository;
             _programacaoBordadoRepository = programacaoBordadoRepository;
-            //_fichaTecnicaRepository = fichaTecnicaRepository;
+            _tipoItemRepository = tipoItemRepository;
             _sequenciaProducaoRepository = sequenciaRepository;
             _logger = logger;
         }
@@ -1207,6 +1210,42 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var filename = report.ToByteStream().SaveFile(".pdf");
 
             return File(filename);
+        }
+        #endregion
+
+        #region RequisitarMateriais
+        public virtual ActionResult RequisitarMateriais(long modeloId)
+        {
+            var modelo = _modeloRepository.Get(modeloId);
+            
+            var requisicaoMaterialModel = new RequisicaoMaterialModel
+            {
+                Origem = modelo.ModeloAprovado.Tag,
+                GridItens = new List<RequisicaoMaterialItemModel>()
+            };
+            requisicaoMaterialModel.TipoItem = _tipoItemRepository.Get(x => x.Codigo == "01").Id.Value;
+            
+            var materiaisComposicao = modelo.ObtenhaMaterialComposicaoModelos();
+
+            foreach (var materialComposicaoModelo in materiaisComposicao)
+            {
+                var itemModel = new RequisicaoMaterialItemModel
+                {
+                    Descricao = materialComposicaoModelo.Material.Descricao,
+                    Referencia = materialComposicaoModelo.Material.Referencia,
+                    UnidadeMedida = materialComposicaoModelo.Material.UnidadeMedida.Sigla,
+                    QuantidadeSolicitada =
+                        (materialComposicaoModelo.Quantidade*
+                         materialComposicaoModelo.Material.UnidadeMedida.FatorMultiplicativo)*
+                        modelo.ModeloAprovado.Quantidade,
+                    Foto = (materialComposicaoModelo.Material.Foto != null ? materialComposicaoModelo.Material.Foto.Nome.GetFileUrl() : string.Empty),
+                    IdRequisicaoMaterialItem = 0
+                };
+                requisicaoMaterialModel.GridItens.Add(itemModel);
+            }
+            TempData["RequisicaoMaterialModel"] = requisicaoMaterialModel;
+            return RedirectToAction("Novo", "RequisicaoMaterial", new { area = "Almoxarifado" });
+            //return RedirectToAction("NovoPreenchido", "RequisicaoMaterial", requisicaoMaterialModel);
         }
         #endregion
 

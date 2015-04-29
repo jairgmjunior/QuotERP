@@ -1759,11 +1759,17 @@
                 <Component Id="cmp11936FABAF8CD1D99113E2DC8E809C3E" Guid="*">
                     <File Id="fil4CBA61587F2D93EFB40B29D1E62B07D1" KeyPath="yes" Source="SourceDir\Scripts\jquery.Jcrop.min.js" />
                 </Component>
+                <Component Id="cmpAB3D44F61BD6FADAF43BF87704B04EEA" Guid="*">
+                    <File Id="filF0FC217D8C72C39C2E92FF1BA7D610F0" KeyPath="yes" Source="SourceDir\Scripts\jquery.lazyload.js" />
+                </Component>
                 <Component Id="cmp884990F239C1B4FCBECF589363918E86" Guid="*">
                     <File Id="filF2FCFD31AC40331BBC4271C4C620DCEC" KeyPath="yes" Source="SourceDir\Scripts\jquery.unobtrusive-ajax.js" />
                 </Component>
                 <Component Id="cmp62092DE047D3DFF4A4F45305A51E4FD7" Guid="*">
                     <File Id="fil769D2D897DF3A1B66E19382E97CF4382" KeyPath="yes" Source="SourceDir\Scripts\jquery.unobtrusive-ajax.min.js" />
+                </Component>
+                <Component Id="cmpF82C9E38336177A8915BA6534290DF92" Guid="*">
+                    <File Id="filB5A6A7ECAD6A299454BCC7F3F79872E0" KeyPath="yes" Source="SourceDir\Scripts\jquery.unveil.js" />
                 </Component>
                 <Component Id="cmp26738939EC1DF5CF1C498914AD2FF539" Guid="*">
                     <File Id="fil8183F0C42C7D452F304DAE8E8F280A6C" KeyPath="yes" Source="SourceDir\Scripts\jquery.validate.js" />
@@ -2559,8 +2565,10 @@
             <ComponentRef Id="cmp0BD24D526CB0CC21A57881AFED432584" />
             <ComponentRef Id="cmp4A052DFAD0EC230CB1D636A0A5FD6200" />
             <ComponentRef Id="cmp11936FABAF8CD1D99113E2DC8E809C3E" />
+            <ComponentRef Id="cmpAB3D44F61BD6FADAF43BF87704B04EEA" />
             <ComponentRef Id="cmp884990F239C1B4FCBECF589363918E86" />
             <ComponentRef Id="cmp62092DE047D3DFF4A4F45305A51E4FD7" />
+            <ComponentRef Id="cmpF82C9E38336177A8915BA6534290DF92" />
             <ComponentRef Id="cmp26738939EC1DF5CF1C498914AD2FF539" />
             <ComponentRef Id="cmp1251430FCCD760B36BD7609CC611037A" />
             <ComponentRef Id="cmpA529241A15D36933C4236F6E7BFACF3A" />

@@ -13,8 +13,8 @@
             <div class="width100 clearfix">
                 @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
                 <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input name="ParametroFornecedorMaterial" id="FornecedorMaterial" type="hidden" /> 
-                <input name="FiltroTipoItemMaterial" type="hidden"/>
+                <input id="FornecedorMaterial" name="FornecedorMaterial" type="hidden" /> 
+                <input id="TipoItemMaterial" name="TipoItemMaterial" type="hidden"/>
                 <input id="submit-pesquisar-material" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-material"></div>
@@ -48,18 +48,32 @@
                     $.merge(novoDataItem, data);
 
                     $(this).children(':submit').button('reset');
-                
+
+                    $("#grid-pesquisa-material").html("");
+
                     var grid = $("#grid-pesquisa-material").kendoGrid({
-                        height: "380px",
+                        height: "460",
                         selectable: "row",
+                        scrollable: {
+                            virtual: true
+                        },
+                        pageable: {
+                            info: true,
+                            numeric: false,
+                            previousNext: false
+                        },
                         columns: [
                             { field: "Id", hidden: true },
                             { field: "Referencia", title: "Referência" },
-                            { field: "Descricao", title: "Descrição", width: 400 },
+                            { field: "Descricao", title: "Descrição", width: 300 },
                             { field: "ReferenciaExterna", hidden: true },
+                            { field: "Foto", template: "<img src='#=Foto#' class='lazy img-rounded' style='width: 48px; height: 48px;'/>", width: 60 },
                             { field: "checked", template: '<input id="checked" type="checkbox"/>', width: 30 }
                         ],
-                        dataSource: novoDataItem
+                        dataSource: {
+                            data: novoDataItem,
+                            pageSize: 10
+                        }
                     });
                     if(grid.find("th:last input").get(0) == null) {
                         grid.find("th:last")
@@ -76,7 +90,7 @@
                             var linha = $(ev.target).closest('tr');
                             if (!$(event.target).is("input")){
                                 var checkbox = linha.find("td:last input");
-                                checkbox.prop("checked", !checkbox.prop("checked")).trigger("change");
+                                checkbox.prop("checked", !checkbox.prop("checked"));
                             }
                             grid.select(linha);
                         });
@@ -141,11 +155,11 @@
     }
 
     function configureParametroPesquisarVariosMateriaisPorTipoItem(idTipoItem) {
-        $("#ParametroTipoItemMaterial").val(idTipoItem);
+        $("#TipoItemMaterial").val(idTipoItem);
     }
 
     function configureParametroPesquisarVariosMateriaisPorFornecedor(idFornecedor) {
-        $("#ParametroFornecedorMaterial").val(idFornecedor);
+        $("#FornecedorMaterial").val(idFornecedor);
     }
     
 </script>

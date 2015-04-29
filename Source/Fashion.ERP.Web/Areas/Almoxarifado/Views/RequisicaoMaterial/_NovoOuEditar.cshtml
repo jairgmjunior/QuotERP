@@ -132,78 +132,151 @@
             .Name("GridItens")
             .Columns(columns =>
             {
-                columns.Bound(x => x.IdRequisicaoMaterialItem).Hidden();            
-                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
-                columns.Bound(x => x.Descricao);
-                columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
-                if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                {
-                    columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric4casasdecimais").Format("{0:N4}").Width(100);
-                }
-                columns.Bound(x => x.QuantidadeCancelada).Width(100);
-                columns.Bound(x => x.SituacaoRequisicaoMaterial).Template(s => s.SituacaoRequisicaoMaterial.HasValue ? s.SituacaoRequisicaoMaterial.Value.EnumToString() : "");   
-                columns.Command(command =>  { command.Edit(); command.Destroy(); } );
+                columns.Bound(p => p.IdRequisicaoMaterialItem).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItens[#= index(data)#].IdRequisicaoMaterialItem' value='#= IdRequisicaoMaterialItem #' />");
+                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                columns.Bound(p => p.QuantidadeSolicitada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeSolicitada, \"n4\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeSolicitada' value='#= formateDecimalGrid(QuantidadeSolicitada) #' />");
+                columns.Bound(p => p.QuantidadeAtendida).Width(80).ClientTemplate("#= kendo.toString(QuantidadeAtendida, \"n4\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeAtendida' value='#= formateDecimalGrid(QuantidadeAtendida) #' />");
+                columns.Bound(p => p.QuantidadeCancelada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeCancelada' value='#= formateDecimalGrid(QuantidadeCancelada) #' />");
+                columns.Bound(p => p.SituacaoRequisicaoMaterial).ClientTemplate("#= SituacaoRequisicaoMaterial #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].SituacaoRequisicaoMaterial' value='#= SituacaoRequisicaoMaterial #' />");
+                columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                    "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>"+ 
+                        "#}#" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                columns.Command(command => command.Destroy() );
             })
             .DataSource(s => s.Ajax()
                 .Model(model =>
                 {
-                    model.Id(item => item.IdRequisicaoMaterialItem); 
-                    model.Field(product => product.Descricao).Editable(true); 
-                    model.Field(product => product.QuantidadeAtendida).Editable(false); 
-                    model.Field(product => product.QuantidadeCancelada).Editable(false); 
-                    model.Field(product => product.QuantidadeSolicitada).Editable(true); 
-                    model.Field(product => product.UnidadeMedida).Editable(true); 
-                    model.Field(product => product.SituacaoRequisicaoMaterial).Editable(false).DefaultValue(SituacaoRequisicaoMaterial.NaoAtendido); 
+                      model.Id(item => item.IdRequisicaoMaterialItem); 
+                      model.Field(product => product.Descricao).Editable(true); 
+                      model.Field(product => product.QuantidadeAtendida).Editable(false); 
+                      model.Field(product => product.QuantidadeCancelada).Editable(false); 
+                      model.Field(product => product.QuantidadeSolicitada).Editable(true); 
+                      model.Field(product => product.UnidadeMedida).Editable(true); 
+                      model.Field(product => product.SituacaoRequisicaoMaterial).Editable(false).DefaultValue(SituacaoRequisicaoMaterial.NaoAtendido.EnumToString());  
                 })
-                .Create(update => update.Action("EditingInline_Create", "RequisicaoMaterial"))
-                .Read(read => read.Action("EditingInline_Read", "RequisicaoMaterial"))
-                .Update(update => update.Action("EditingInline_Update", "RequisicaoMaterial"))
-                .Destroy(update => update.Action("EditingInline_Destroy", "RequisicaoMaterial"))
             )
-            .ToolBar(toolbar => toolbar.Create().Text("Incluir").HtmlAttributes(new { @class="btn-primary" }))
-            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
-            )
+            .Navigatable()
+            )  
     </div>
 </fieldset>
 
 <script>
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return "";
+        }
+        return valor.toString().replace(".", ",");
+    }
 
-    $(document).ready(function() {
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    $(document).ready(function () {
+        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+
+            if (itens.DataItemsSelecionados.length == 0) {
+                return;
+            }
+
+            var grid = $('#GridItens').data("kendoGrid");
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data();
+            var novosDados = itens.DataItemsSelecionados;
+
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia: dataItemNovo.Referencia,
+                        Descricao: dataItemNovo.Descricao,
+                        UnidadeMedida: dataItemNovo.UnidadeMedida,
+                        IdRequisicaoMaterialItem: 0,
+                        QuantidadeSolicitada: 0,
+                        QuantidadeAtendida: 0,
+                        QuantidadeCancelada: 0,
+                        SituacaoRequisicaoMaterial: 'NÃO ATENDIDO',
+                        Foto: dataItemNovo.Foto
+                    };
+
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                data: dadosAtuais,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+
+        });
+
         if (ehTelaNovo()) {
             var grid = $("#GridItens").data("kendoGrid");
             grid.hideColumn("QuantidadeAtendida");
             grid.hideColumn("QuantidadeCancelada");
             grid.hideColumn("SituacaoRequisicaoMaterial");
 
-            $('.k-grid-add').addClass("k-state-disabled");
-            $('.k-grid-add').click(function (e) {
-                e.preventDefault();
-                return false;
-            });
+            if (grid.dataSource.data().length == 0) {
+                $('#pesquisarvarios-material').addClass("k-state-disabled");
+                $("#pesquisarvarios-material").css("pointer-events", "none");
+            }
         }
 
         $("#funcionario").change(function(e) {
             $("#funcionario").valid();
         });
-
     });
 
     $('select[name=TipoItem]').change(function (e) {
         if ($("#TipoItem option:selected").val() == '') {
-            $('.k-grid-add').bind("click");
-            $('.k-grid-add').addClass("k-state-disabled");
+            //$('#pesquisarvarios-material').bind("click");
+            $("#pesquisarvarios-material").css("pointer-events", "none");
+            $('#pesquisarvarios-material').addClass("k-state-disabled");
         } else {
-            $('.k-grid-add').unbind("click");
-            $('.k-grid-add').removeClass("k-state-disabled");
+            //$('#pesquisarvarios-material').unbind("click");
+            $("#pesquisarvarios-material").css("pointer-events", "auto");
+            $('#pesquisarvarios-material').removeClass("k-state-disabled");
         }
         $('input[name=TipoItem]').val($("#TipoItem option:selected").val());
+        configureParametroPesquisarVariosMateriaisPorTipoItem($("#TipoItem option:selected").val());
     });
 
     function onDataBound(e) {
-        var gridData = e.sender.dataSource.data();
+        toogleTipoItem();
+    }
+
+    function toogleTipoItem() {
+        var gridData = $("#GridItens").data("kendoGrid").dataSource.data();
 
         if (gridData.length != 0) {
             $("#TipoItem").prop("disabled", true);
@@ -237,54 +310,63 @@
     }
 
     $('#form').submit(function(e) {
-        e.preventDefault();
+        //e.preventDefault();
 
         // Validar
         var formValido = formularioEhValido();
 
         if (!$("#form").valid() || !formValido) {
+            e.preventDefault();
             $('#btnSubmit').button('reset');
-            return true;
+            return false;
         }
 
         var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
 
         if (dataGridItens.length == 0) {
-            alert("Insira pelo menos um item na grid.");
+            e.preventDefault();
+            exibaAlertaErro("Insira pelo menos um item na grid.");
             $('#btnSubmit').button('reset');
-            return true;
+            return false;
         }
 
-        
-        if(dataGridItens[0].Referencia == '' ||
-            dataGridItens[0].QuantidadeSolicitada == 0) {
-            alert("Preencha os campos do item inserido.");
-            $('#btnSubmit').button('reset');
-            return true;
-        }
-
-        var formData = $("#form").serializeObject();
-        formData.GridItens = obtenhaDadosGridItens();
-        var dados = { "model": formData };
-
-        $.ajax({
-            type: "POST",
-            url: obtenhaUrlActionSubmit(),
-            //headers: headers,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(dados),
-            //dataType: "json",
-            success: function(retorno) {
-                if (retorno == "error") {
-                    window.location.reload();
-                    return;
-                }
-                window.location.href = '@Url.Action("Index", "RequisicaoMaterial")';
-            },
-            error: function (error) {
-                console.log(error);
+        var mensagem = "";
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.QuantidadeSolicitada == 0 || dataItem.QuantidadeSolicitada == null) {
+                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade solicitada.<br/>";
             }
-        });
+        }
+
+        if (mensagem != "") {
+            e.preventDefault();
+            exibaAlertaErro(mensagem);
+            $('#btnSubmit').button('reset');
+            return false;
+        }
+
+        //var formData = $("#form").serializeObject();
+        //formData.GridItens = obtenhaDadosGridItens();
+        //var dados = { "model": formData };
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: obtenhaUrlActionSubmit(),
+        //    //headers: headers,
+        //    contentType: "application/json; charset=utf-8",
+        //    data: JSON.stringify(dados),
+        //    //dataType: "json",
+        //    success: function(retorno) {
+        //        if (retorno == "error") {
+        //            window.location.reload();
+        //            return;
+        //        }
+        //        window.location.href = '@Url.Action("Index", "RequisicaoMaterial")';
+        //    },
+        //    error: function (error) {
+        //        console.log(error);
+        //    }
+        //});
 
         return true;
     });

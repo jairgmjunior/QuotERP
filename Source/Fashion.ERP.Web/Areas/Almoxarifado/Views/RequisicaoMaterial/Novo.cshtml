@@ -12,10 +12,5 @@
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+    Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
 }
-
-<script>
-    function obtenhaUrlActionSubmit() {
-        return '@Url.Action("Novo", "RequisicaoMaterial")';
-    }
-</script> 

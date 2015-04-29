@@ -258,6 +258,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Novo()
         {
+            //chamada do modelo
+            if (TempData.ContainsKey("RequisicaoMaterialModel"))
+                return View(TempData["RequisicaoMaterialModel"]);
+
             var usuarioId = FashionSecurity.GetLoggedUserId();
             var usuario = _usuarioRepository.Get(usuarioId);
 
@@ -271,6 +275,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             {
                 Requerente = funcionarioId
             });
+        }
+
+        [PopulateViewData("PopulateViewDataNovoEditar")]
+        public virtual ActionResult NovoPreenchido()
+        {
+            return View("Novo", TempData["RequisicaoMaterialModel"]);
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
@@ -288,7 +298,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain.Requerente = _pessoaRepository.Get(model.Requerente);
                     domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);
                     domain.TipoItem = _tipoItemRepository.Get(model.TipoItem);
-
+                    
                     IncluaNovosRequisicaoMaterialItens(model, domain);
 
                     domain.AtualizeSituacao();
@@ -298,6 +308,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     _requisicaoMaterialRepository.Save(domain);
 
                     this.AddSuccessMessage("Requisição de material cadastrado com sucesso.");
+                    
+                    return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -306,11 +318,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
 
-                    return new JsonResult { Data = "error" };
+                    return View(model);
                 }
             }
 
-            return new JsonResult { Data = "sucesso" };
+            return View(model);
         }
 
         private long ProximoNumero()
@@ -354,12 +366,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     {
                         Descricao = x.Material.Descricao,
                         Referencia = x.Material.Referencia,
-                        SituacaoRequisicaoMaterial = x.SituacaoRequisicaoMaterial,
+                        SituacaoRequisicaoMaterial = x.SituacaoRequisicaoMaterial.EnumToString(),
                         QuantidadeAtendida = x.QuantidadeAtendida,
                         QuantidadeCancelada = x.RequisicaoMaterialItemCancelado != null ? x.RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0,
                         QuantidadeSolicitada = x.QuantidadeSolicitada,
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
-                        IdRequisicaoMaterialItem = x.Id
+                        IdRequisicaoMaterialItem = x.Id,
+                        Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
                     }).ToList();
                 
                 return View("Editar", model);
@@ -397,6 +410,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     _requisicaoMaterialRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Requisição de material atualizado com sucesso.");
+
+                    return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -405,11 +420,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
 
-                    return new JsonResult { Data = "error" };
+                    return View(model);
                 }
             }
 
-            return new JsonResult { Data = "sucesso" };
+            return View(model);
         }
 
         private void IncluaNovosRequisicaoMaterialItens(RequisicaoMaterialModel requisicaoMaterialModel, RequisicaoMaterial requisicaoMaterial)
@@ -567,32 +582,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
-        #endregion
-
-        #region Actions Grid
-        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
-        public virtual ActionResult EditingInline_Read([DataSourceRequest] DataSourceRequest request)
-        {
-            return Json(request);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInline_Create([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
-        {
-            return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInline_Update([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
-        {
-            return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInline_Destroy([DataSourceRequest] DataSourceRequest request, ReservaMaterialItemModel reservaMaterialItemModel)
-        {
-            return Json(new[] { reservaMaterialItemModel }.ToDataSourceResult(request, ModelState));
-        }
         #endregion
     }
 }
