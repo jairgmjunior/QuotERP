@@ -1,4 +1,17 @@
-(function (window, undefined) {
+/*
+* Kendo UI v2015.1.408 (http://www.telerik.com/kendo-ui)
+* Copyright 2015 Telerik AD. All rights reserved.
+*
+* Kendo UI commercial licenses may be obtained at
+* http://www.telerik.com/purchase/license-agreement/kendo-ui-complete
+* If you do not own a commercial license, this file shall be governed by the trial license terms.
+*/
+(function(f, define){
+    define([], f);
+})(function(){
+
+(function( window, undefined ) {
+    var kendo = window.kendo || (window.kendo = { cultures: {} });
     kendo.cultures["pt-BR"] = {
         name: "pt-BR",
         numberFormat: {
@@ -8,7 +21,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n%", "n%"],
+                pattern: ["-n%","n%"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -16,7 +29,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-$ n", "$ n"],
+                pattern: ["-$ n","$ n"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -27,13 +40,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"],
-                    namesAbbr: ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
-                    namesShort: ["D", "S", "T", "Q", "Q", "S", "S"]
+                    names: ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"],
+                    namesAbbr: ["dom","seg","ter","qua","qui","sex","sáb"],
+                    namesShort: ["D","S","T","Q","Q","S","S"]
                 },
                 months: {
-                    names: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro", ""],
-                    namesAbbr: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez", ""]
+                    names: ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],
+                    namesAbbr: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"]
                 },
                 AM: [""],
                 PM: [""],
@@ -59,3 +72,8 @@
         }
     }
 })(this);
+
+
+return window.kendo;
+
+}, typeof define == 'function' && define.amd ? define : function(_, f){ f(); });

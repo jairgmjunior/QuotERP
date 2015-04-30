@@ -92,7 +92,7 @@
                                 var checkbox = linha.find("td:last input");
                                 checkbox.prop("checked", !checkbox.prop("checked"));
                             }
-                            grid.select(linha);
+                            //grid.select(linha);
                         });
                     }
 
@@ -101,7 +101,9 @@
                         var dataItem = dataItensTodos[i];
                         if(dataItem.checked){
                             var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
-                            $(row).trigger("click");
+                            //$(row).trigger("click");
+                            var checkb = row.find("td:last input");
+                            checkb.prop("checked", true);
                         }
                     }
                 },

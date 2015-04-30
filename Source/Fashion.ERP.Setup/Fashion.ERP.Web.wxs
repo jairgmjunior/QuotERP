@@ -1371,91 +1371,6 @@
                 <Component Id="cmp1D6184B64F3F1969AF56912F31422062" Guid="*">
                     <File Id="fil4738D99EE8C94A9F1F6B77A9CEC21B43" KeyPath="yes" Source="SourceDir\bin\WebGrease.dll" />
                 </Component>
-                <Directory Id="dir5507F4EC6207D658731B4D4EC8305E1B" Name="bg-BG">
-                    <Component Id="cmp381FCE46C45136CBE939A1B869BE6E89" Guid="*">
-                        <File Id="filBD1ED34EFC04ED6865DDD894B98F19B8" KeyPath="yes" Source="SourceDir\bin\bg-BG\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirAB1208195F24788CAA80B1A5E2D6FAB8" Name="cs-CZ">
-                    <Component Id="cmp2221597C5FCCA21C0AEF4296BBD0FED2" Guid="*">
-                        <File Id="fil2003BBD463D55693AB8F2C976E8DF05B" KeyPath="yes" Source="SourceDir\bin\cs-CZ\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir4513DFB038F4349EE07043CC1AF32728" Name="da-DK">
-                    <Component Id="cmp9A2026E10A9208B3B512A9F492EE35A4" Guid="*">
-                        <File Id="fil2DD962DE5623BAA90B4A0BD8EA4CF0EC" KeyPath="yes" Source="SourceDir\bin\da-DK\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir8D68C19928F17889FD83A32940E4FB56" Name="de-DE">
-                    <Component Id="cmpE4B8565AAA6B9B523CFB1B43DCE5173C" Guid="*">
-                        <File Id="filEB0B3255C1A2AAEC7862A0163098D3E0" KeyPath="yes" Source="SourceDir\bin\de-DE\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirF36243417A7D9DE7B47D8CD1068A3B9B" Name="es-ES">
-                    <Component Id="cmp71E33C662532512C2BD676B131226083" Guid="*">
-                        <File Id="fil2445AB7E56A997028B355A6B3E04D0B0" KeyPath="yes" Source="SourceDir\bin\es-ES\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir6BB7C0EC645227CC4A857A540E4FC87A" Name="fr-FR">
-                    <Component Id="cmpCF44CBD3F77ABD97C4556142F1C3FEC6" Guid="*">
-                        <File Id="filB5CE6A3064D0A4EC8C6AD515BB03D446" KeyPath="yes" Source="SourceDir\bin\fr-FR\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirBEEB0858E4B3F878A1D1569E9018AF39" Name="it-IT">
-                    <Component Id="cmpC327FF8840A62607B647582300397016" Guid="*">
-                        <File Id="fil6A2600A11021AA825A9FC353D1E4A434" KeyPath="yes" Source="SourceDir\bin\it-IT\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir707E904606DB34811B804D749A9144AA" Name="nl-NL">
-                    <Component Id="cmp194D8B4D5A2B03187E191283E3C905CD" Guid="*">
-                        <File Id="filE4608C64C0733F3F695A48A89885DA89" KeyPath="yes" Source="SourceDir\bin\nl-NL\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir35A9EDFE601E1E40AB2F34AE12B0BD0C" Name="pl-PL">
-                    <Component Id="cmp1FB34AAF747428B58841C4D35867EE57" Guid="*">
-                        <File Id="fil6C4938A4ACEEA7EDD99E9A931A0AA697" KeyPath="yes" Source="SourceDir\bin\pl-PL\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirFDEC40E82B4DC3F39D885DDD93408678" Name="pt-BR">
-                    <Component Id="cmpD6505BE860DA9AA095882DE52723A990" Guid="*">
-                        <File Id="fil156A6AE6218D7926048462C9DB911B5C" KeyPath="yes" Source="SourceDir\bin\pt-BR\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir5071BEBCF1977802DC8E3D920D988D9E" Name="pt-PT">
-                    <Component Id="cmp99E1408B8F7D5165C4D8EF0DACA79637" Guid="*">
-                        <File Id="filD767B85B7A266CBD7F5EE456D0B59333" KeyPath="yes" Source="SourceDir\bin\pt-PT\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir9D7A352E411051D77DC3E7081545C789" Name="ro-RO">
-                    <Component Id="cmpF0ADA8D8DE070D7D29A46F0908B4B9C0" Guid="*">
-                        <File Id="fil12D9B2B2016619CAE10AE42A18E26D2A" KeyPath="yes" Source="SourceDir\bin\ro-RO\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir7F0C90F434EFF67854B5B59279ECAAD6" Name="ru-RU">
-                    <Component Id="cmp15B29C36C18A525DA5108F42B333505D" Guid="*">
-                        <File Id="filC9C10DCD9A391785EC7F2DD3F8D76835" KeyPath="yes" Source="SourceDir\bin\ru-RU\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirB9DAD09D33E4F74AAE97817FC4700419" Name="sv-SE">
-                    <Component Id="cmp6FA53BFDAB1770AF94881B0BA6C0D70B" Guid="*">
-                        <File Id="filCD6DECBAE61A0CBEF9474FF57328DBF6" KeyPath="yes" Source="SourceDir\bin\sv-SE\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir1FED4F4801DD9C0B0F0C91EC211C26AA" Name="tr-TR">
-                    <Component Id="cmp2F6520FE20FDA9B2AE5745120325F948" Guid="*">
-                        <File Id="filCF023C95EF7A6ADD682D3AC63CCC908F" KeyPath="yes" Source="SourceDir\bin\tr-TR\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dir18E6C79A78195A120E9E2D3D778F52E2" Name="uk-UA">
-                    <Component Id="cmp794E954CA13677CAC7441FDC92FA5BDF" Guid="*">
-                        <File Id="filC579EE5A57436ACD3EE86620A1BEDDB2" KeyPath="yes" Source="SourceDir\bin\uk-UA\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
-                <Directory Id="dirF6F971F600C79735B39D3D8D537B8C93" Name="zh-CN">
-                    <Component Id="cmpA89922886896DC736BC461D76C869305" Guid="*">
-                        <File Id="fil9F2000887A9657112F49D6B324D86F37" KeyPath="yes" Source="SourceDir\bin\zh-CN\Kendo.Mvc.resources.dll" />
-                    </Component>
-                </Directory>
             </Directory>
             <Directory Id="dir28841FB7DC7BE9EDA0CD43756827F009" Name="CodeTemplates">
                 <Directory Id="dirBF392A0ED9DCB07C4B5230799B0C669E" Name="MvcView">
@@ -1759,17 +1674,11 @@
                 <Component Id="cmp11936FABAF8CD1D99113E2DC8E809C3E" Guid="*">
                     <File Id="fil4CBA61587F2D93EFB40B29D1E62B07D1" KeyPath="yes" Source="SourceDir\Scripts\jquery.Jcrop.min.js" />
                 </Component>
-                <Component Id="cmpAB3D44F61BD6FADAF43BF87704B04EEA" Guid="*">
-                    <File Id="filF0FC217D8C72C39C2E92FF1BA7D610F0" KeyPath="yes" Source="SourceDir\Scripts\jquery.lazyload.js" />
-                </Component>
                 <Component Id="cmp884990F239C1B4FCBECF589363918E86" Guid="*">
                     <File Id="filF2FCFD31AC40331BBC4271C4C620DCEC" KeyPath="yes" Source="SourceDir\Scripts\jquery.unobtrusive-ajax.js" />
                 </Component>
                 <Component Id="cmp62092DE047D3DFF4A4F45305A51E4FD7" Guid="*">
                     <File Id="fil769D2D897DF3A1B66E19382E97CF4382" KeyPath="yes" Source="SourceDir\Scripts\jquery.unobtrusive-ajax.min.js" />
-                </Component>
-                <Component Id="cmpF82C9E38336177A8915BA6534290DF92" Guid="*">
-                    <File Id="filB5A6A7ECAD6A299454BCC7F3F79872E0" KeyPath="yes" Source="SourceDir\Scripts\jquery.unveil.js" />
                 </Component>
                 <Component Id="cmp26738939EC1DF5CF1C498914AD2FF539" Guid="*">
                     <File Id="fil8183F0C42C7D452F304DAE8E8F280A6C" KeyPath="yes" Source="SourceDir\Scripts\jquery.validate.js" />
@@ -1827,11 +1736,6 @@
                     <Component Id="cmpDC0CD5B5A89FB9E8063B100A3D1AE03B" Guid="*">
                         <File Id="filA654038AF45C271DAA64EF2124A5AE91" KeyPath="yes" Source="SourceDir\Scripts\kendo\kendo.web.js" />
                     </Component>
-                    <Directory Id="dirED23EC98DA2FC029ED4B196BD23EF704" Name="cultures">
-                        <Component Id="cmp091667FF52751AC6FD384B16F9C25F9E" Guid="*">
-                            <File Id="fil6006E5D89EDB31ED262BE86CE290B749" KeyPath="yes" Source="SourceDir\Scripts\kendo\cultures\kendo.culture.pt-BR.js" />
-                        </Component>
-                    </Directory>
                 </Directory>
                 <Directory Id="dir440AF08FF25E5A66BDFFB7CA40381512" Name="localization">
                     <Component Id="cmp8FF98C6306D19D95B3A48BBD61DD1A3E" Guid="*">
@@ -2457,23 +2361,6 @@
             <ComponentRef Id="cmp3C393FF0876FE731C3DE85685FA9411B" />
             <ComponentRef Id="cmp9683CD379CB057328743425C488DFE71" />
             <ComponentRef Id="cmp1D6184B64F3F1969AF56912F31422062" />
-            <ComponentRef Id="cmp381FCE46C45136CBE939A1B869BE6E89" />
-            <ComponentRef Id="cmp2221597C5FCCA21C0AEF4296BBD0FED2" />
-            <ComponentRef Id="cmp9A2026E10A9208B3B512A9F492EE35A4" />
-            <ComponentRef Id="cmpE4B8565AAA6B9B523CFB1B43DCE5173C" />
-            <ComponentRef Id="cmp71E33C662532512C2BD676B131226083" />
-            <ComponentRef Id="cmpCF44CBD3F77ABD97C4556142F1C3FEC6" />
-            <ComponentRef Id="cmpC327FF8840A62607B647582300397016" />
-            <ComponentRef Id="cmp194D8B4D5A2B03187E191283E3C905CD" />
-            <ComponentRef Id="cmp1FB34AAF747428B58841C4D35867EE57" />
-            <ComponentRef Id="cmpD6505BE860DA9AA095882DE52723A990" />
-            <ComponentRef Id="cmp99E1408B8F7D5165C4D8EF0DACA79637" />
-            <ComponentRef Id="cmpF0ADA8D8DE070D7D29A46F0908B4B9C0" />
-            <ComponentRef Id="cmp15B29C36C18A525DA5108F42B333505D" />
-            <ComponentRef Id="cmp6FA53BFDAB1770AF94881B0BA6C0D70B" />
-            <ComponentRef Id="cmp2F6520FE20FDA9B2AE5745120325F948" />
-            <ComponentRef Id="cmp794E954CA13677CAC7441FDC92FA5BDF" />
-            <ComponentRef Id="cmpA89922886896DC736BC461D76C869305" />
             <ComponentRef Id="cmp2EC0A4DBF3FF79F8D5B049141EDB215F" />
             <ComponentRef Id="cmp741CD9F9CCD0FE296004B07132F27A2B" />
             <ComponentRef Id="cmp7266B67162CC9CBD53D8FC3354DAB356" />
@@ -2565,10 +2452,8 @@
             <ComponentRef Id="cmp0BD24D526CB0CC21A57881AFED432584" />
             <ComponentRef Id="cmp4A052DFAD0EC230CB1D636A0A5FD6200" />
             <ComponentRef Id="cmp11936FABAF8CD1D99113E2DC8E809C3E" />
-            <ComponentRef Id="cmpAB3D44F61BD6FADAF43BF87704B04EEA" />
             <ComponentRef Id="cmp884990F239C1B4FCBECF589363918E86" />
             <ComponentRef Id="cmp62092DE047D3DFF4A4F45305A51E4FD7" />
-            <ComponentRef Id="cmpF82C9E38336177A8915BA6534290DF92" />
             <ComponentRef Id="cmp26738939EC1DF5CF1C498914AD2FF539" />
             <ComponentRef Id="cmp1251430FCCD760B36BD7609CC611037A" />
             <ComponentRef Id="cmpA529241A15D36933C4236F6E7BFACF3A" />
@@ -2586,7 +2471,6 @@
             <ComponentRef Id="cmpE95D7585298BC0BE1CF815EDE2396C43" />
             <ComponentRef Id="cmpAB03F8A2DF096DF18D2504193CFB2D41" />
             <ComponentRef Id="cmpDC0CD5B5A89FB9E8063B100A3D1AE03B" />
-            <ComponentRef Id="cmp091667FF52751AC6FD384B16F9C25F9E" />
             <ComponentRef Id="cmp8FF98C6306D19D95B3A48BBD61DD1A3E" />
             <ComponentRef Id="cmp758EE696200F94DEF3963990D4441BA9" />
             <ComponentRef Id="cmp598D8C46B41614CB1ACD3E0AED78A74C" />
