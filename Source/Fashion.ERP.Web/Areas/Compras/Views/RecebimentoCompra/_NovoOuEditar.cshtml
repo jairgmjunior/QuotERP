@@ -127,7 +127,7 @@
             columns.Bound(x => x.UnidadeMedida).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeMedida == '' ? '- Selecione -' : UnidadeMedida #").Width(40);
             columns.Bound(x => x.ValorUnitario).Format("{0:N4}").Width(60).EditorTemplateName("numeric4casasdecimais");
             columns.Bound(x => x.ValorTotal).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
-            columns.Command(command => command.Custom("Excluir").Click("valideExclusao")).Width(90);   
+            columns.Command(command => command.Custom("Excluir").Click("valideExclusao")).Width(90); 
         })
         .DataSource(s => s.Ajax()
             .Model(model =>
@@ -247,7 +247,7 @@
         return {
             dadosGridItens: obtenhaDadosGridItens(),
             dadosGridPedidosItens: obtenhaDadosGridPedidosItens(),
-            pedidoCompraId: $("#pedidosdropdown").data("kendoDropDownList")._selectedValue
+            pedidoCompraId: $("#pedidosdropdown").data("kendoDropDownList").value()
         };
     }
 
@@ -538,7 +538,7 @@
             }
 
             $("#pedidosdropdown").data("kendoDropDownList").select(0);
-            var pedidoCompraId = $("#pedidosdropdown").data("kendoDropDownList")._selectedValue;
+            var pedidoCompraId = $("#pedidosdropdown").data("kendoDropDownList").value();
             if (pedidoCompraId)
                 carreguePesquisarPedidoCompra(pedidoCompraId);
 

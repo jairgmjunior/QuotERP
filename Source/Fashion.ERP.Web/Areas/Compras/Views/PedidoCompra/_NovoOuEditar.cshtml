@@ -215,7 +215,7 @@
                     "<input type='hidden' name='GridItens[#= index(data)#].ValorTotal' value='#= formateDecimalGrid(ValorTotal) #' />");
                 columns.Bound(p => p.Situacao).ClientTemplate("#= Situacao #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].Situacao' value='#= Situacao #' />");
-                columns.Command(command => command.Destroy() );
+                columns.Command(command => command.Destroy().Text("Excluir") );
             })
             .ClientDetailTemplateId("templateDetalheGrid")
             .DataSource(s => s.Ajax()
@@ -229,7 +229,11 @@
                 })
             )
             .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
-            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Editable(editable =>
+                {
+                    editable.Mode(GridEditMode.InCell);
+                    editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
+                })
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
             .Navigatable()
@@ -366,6 +370,8 @@
         return false;
     }
 
+    
+
     $(document).ready(function() {
         
         $("#selecionar-material").on("pesquisar", function (ev, itens) {
@@ -445,16 +451,43 @@
         });
 
         $('#FlagValidacao').val(true);
+
+
+        $("#GridItens").keydown(function (e) {
+
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == 13) {
+                var grid = $("#GridItens").data("kendoGrid");
+                //var curCell = grid.find(".k-edit-cell");
+                var curCell = grid.current();
+                grid.editCell(curCell.next()); // To move the cursor to the next cell and put the cell in edit mode
+                grid.select(curCell.next()); // To select the next cell
+                grid.focus(curCell.next()); // To set focus on to next cell   
+                e.preventDefault(); // To prevent the default behavior of the enter key press
+            }
+        });
+
+        $(function() {
+            //create one empty row
+            $("#GridItens table tbody").append("<tr class='k-master-row'></tr>");
+            $("#GridItens table").bind("keydown", "tr.k-master-row", function(e) {
+                console.log(e.keyCode);
+                //if current key is Enter
+                if (e.keyCode == 13) {
+                    //prevent keypress
+                    e.stopImmediatePropagation();
+                    var grid = $("#GridItens").data("kendoGrid");
+                    
+                    var curCell = grid.current();
+                    grid.editCell(curCell.next());
+                }
+            });
+        });
+
     });
 
     function atualizeUltimoCusto(referencia, idFornecedor, dataItem) {
         var url = '/Almoxarifado/Material/ObtenhaCusto';
-        //$.getJSON(url, { referencia: referencia, idFornecedor : idFornecedor }, function (result) {
-        //    dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
-        //}).fail(function (jqXhr, textStatus, errorThrown) {
-        //    exibaAlertaErro(errorThrown);
-        //});
-
 
         $.ajax({
             url: url,
@@ -619,10 +652,8 @@
     }
 
     function onDataBound(e) {
-
         //desabilitaColunaDetalhes();
         atualizeTotais();
-
     }
 
     $('#form').submit(function (e) {

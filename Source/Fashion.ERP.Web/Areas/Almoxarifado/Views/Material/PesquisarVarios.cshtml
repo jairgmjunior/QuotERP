@@ -43,6 +43,7 @@
                         alert(data.Error);
                         return;
                     }
+
                     var novoDataItem = obtenhaDataItensSelecionados();
 
                     $.merge(novoDataItem, data);
@@ -51,7 +52,7 @@
 
                     $("#grid-pesquisa-material").html("");
 
-                    var grid = $("#grid-pesquisa-material").kendoGrid({
+                    grid = $("#grid-pesquisa-material").kendoGrid({
                         height: "460",
                         selectable: "row",
                         scrollable: {
@@ -68,11 +69,23 @@
                             { field: "Descricao", title: "Descrição", width: 300 },
                             { field: "ReferenciaExterna", hidden: true },
                             { field: "Foto", template: "<img src='#=Foto#' class='lazy img-rounded' style='width: 48px; height: 48px;'/>", width: 60 },
-                            { field: "checked", template: '<input id="checked" type="checkbox"/>', width: 30 }
+                            { field: "checked", template: "<input id='checked' type='checkbox' #=checked?'checked':''#/>", width: 30 }
                         ],
                         dataSource: {
                             data: novoDataItem,
-                            pageSize: 10
+                            pageSize: 50,
+                            schema: {
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        Referencia: { type: "string" },
+                                        Descricao: { type: "string" },
+                                        ReferenciaExterna: { type: "string" },
+                                        Foto: { type: "string" },
+                                        checked: { type: "boolean" }
+                                    }
+                                }
+                            }
                         }
                     });
                     if(grid.find("th:last input").get(0) == null) {
@@ -91,8 +104,8 @@
                             if (!$(event.target).is("input")){
                                 var checkbox = linha.find("td:last input");
                                 checkbox.prop("checked", !checkbox.prop("checked"));
+                                obtenhaGrid().dataItem(linha).set('checked', checkbox.prop("checked"));
                             }
-                            //grid.select(linha);
                         });
                     }
 
@@ -101,9 +114,9 @@
                         var dataItem = dataItensTodos[i];
                         if(dataItem.checked){
                             var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
-                            //$(row).trigger("click");
                             var checkb = row.find("td:last input");
                             checkb.prop("checked", true);
+                            obtenhaGrid().dataItem(row).set('checked', true);
                         }
                     }
                 },
@@ -127,8 +140,14 @@
             $('#modal-material').modal('hide');
             
             if (!obtenhaGrid()) return;
+
+            var itensSelecionados = obtenhaDataItensSelecionados();
             
-            $("#selecionar-material").trigger("pesquisar", { DataItemsSelecionados: obtenhaDataItensSelecionados() });
+            var grid = obtenhaGrid();
+            if (grid != null)
+                grid.dataSource.data([]);
+
+            $("#selecionar-material").trigger("pesquisar", { DataItemsSelecionados: itensSelecionados });
         }        
     });
 

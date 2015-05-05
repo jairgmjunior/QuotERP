@@ -536,7 +536,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return new JsonResult { Data = pedidoComprasModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        [AjaxOnly, OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [AjaxOnly]
         public virtual JsonResult ObtenhaRecebimentoItens(List<RecebimentoCompraItemModel> dadosGridItens, 
             List<PedidoCompraItemRecebimentoModel> dadosGridPedidosItens, long pedidoCompraId)
         {

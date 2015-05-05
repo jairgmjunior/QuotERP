@@ -152,7 +152,7 @@
                     "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>"+ 
                         "#}#" +
                     "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
-                columns.Command(command => command.Destroy() );
+                columns.Command(command => command.Destroy().Text("Excluir") );
             })
             .DataSource(s => s.Ajax()
                 .Model(model =>
@@ -167,7 +167,11 @@
                 })
             )
             .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
-            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Editable(editable =>
+                {
+                    editable.Mode(GridEditMode.InCell);
+                    editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
+                })
             .Resizable(resize => resize.Columns(true))
             .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
             .Navigatable()
