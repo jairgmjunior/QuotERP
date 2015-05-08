@@ -1736,6 +1736,14 @@
                     <Component Id="cmpDC0CD5B5A89FB9E8063B100A3D1AE03B" Guid="*">
                         <File Id="filA654038AF45C271DAA64EF2124A5AE91" KeyPath="yes" Source="SourceDir\Scripts\kendo\kendo.web.js" />
                     </Component>
+                    <Directory Id="dirED23EC98DA2FC029ED4B196BD23EF704" Name="cultures">
+                        <Component Id="cmp091667FF52751AC6FD384B16F9C25F9E" Guid="*">
+                            <File Id="fil6006E5D89EDB31ED262BE86CE290B749" KeyPath="yes" Source="SourceDir\Scripts\kendo\cultures\kendo.culture.pt-BR.js" />
+                        </Component>
+                        <Component Id="cmpD2C87F7138A2033B87DF17D28AB777B6" Guid="*">
+                            <File Id="fil9A825B3231F0223E741F5F8710150594" KeyPath="yes" Source="SourceDir\Scripts\kendo\cultures\kendo.culture.pt-BR.min.js" />
+                        </Component>
+                    </Directory>
                 </Directory>
                 <Directory Id="dir440AF08FF25E5A66BDFFB7CA40381512" Name="localization">
                     <Component Id="cmp8FF98C6306D19D95B3A48BBD61DD1A3E" Guid="*">
@@ -2471,6 +2479,8 @@
             <ComponentRef Id="cmpE95D7585298BC0BE1CF815EDE2396C43" />
             <ComponentRef Id="cmpAB03F8A2DF096DF18D2504193CFB2D41" />
             <ComponentRef Id="cmpDC0CD5B5A89FB9E8063B100A3D1AE03B" />
+            <ComponentRef Id="cmp091667FF52751AC6FD384B16F9C25F9E" />
+            <ComponentRef Id="cmpD2C87F7138A2033B87DF17D28AB777B6" />
             <ComponentRef Id="cmp8FF98C6306D19D95B3A48BBD61DD1A3E" />
             <ComponentRef Id="cmp758EE696200F94DEF3963990D4441BA9" />
             <ComponentRef Id="cmp598D8C46B41614CB1ACD3E0AED78A74C" />
