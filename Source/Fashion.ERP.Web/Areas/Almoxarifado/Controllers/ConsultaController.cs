@@ -254,10 +254,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 if (model.OrdenarPor != null)
                 {
-                    PropertyInfo prop = typeof(GridConsultaEstoqueMaterialModel).GetProperty(model.OrdenarPor);
+                    PropertyInfo prop = typeof (GridConsultaEstoqueMaterialModel).GetProperty(model.OrdenarPor);
                     resultado = model.OrdenarEm == "asc"
                         ? resultado.OrderBy(o => prop.GetValue(o, null)).ToList()
                         : resultado.OrderByDescending(o => prop.GetValue(o, null)).ToList();
+                }
+                else
+                {
+                    resultado = resultado.OrderBy(o => o.Descricao).ToList();
                 }
 
                 // Verifica se é uma listagem

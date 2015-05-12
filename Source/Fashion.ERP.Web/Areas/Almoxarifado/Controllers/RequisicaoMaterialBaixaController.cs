@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Xml;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
@@ -75,17 +76,22 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private IList<GridRequisicaoMaterialItemBaixaModel> ObtenhaRequisicaoItens(RequisicaoMaterial domain, long? depositoMaterial)
         {
-            return domain.RequisicaoMaterialItems.Select(x => new GridRequisicaoMaterialItemBaixaModel
+            return domain.RequisicaoMaterialItems.Select(x =>
             {
-                Id = x.Id,
-                Descricao = x.Material.Descricao,
-                UND = x.Material.UnidadeMedida.Sigla,
-                Referencia = x.Material.Referencia,
-                QtdeAtendida = x.QuantidadeAtendida,
-                QtdePendente = x.QuantidadePendente,
-                Check = false,
-                QtdeEstoque = QuantidadeEstoque(x.Material, depositoMaterial),
-                SituacaoRequisicaoMaterialDescricao = x.SituacaoRequisicaoMaterial.EnumToString()
+                var qtdeEstoque = QuantidadeEstoque(x.Material, depositoMaterial);
+                return new GridRequisicaoMaterialItemBaixaModel
+                {
+                    Id = x.Id,
+                    Descricao = x.Material.Descricao,
+                    UND = x.Material.UnidadeMedida.Sigla,
+                    Referencia = x.Material.Referencia,
+                    QtdeAtendida = x.QuantidadeAtendida,
+                    QtdePendente = x.QuantidadePendente,
+                    Check = false,
+                    QtdeEstoque = qtdeEstoque,
+                    SituacaoRequisicaoMaterialDescricao = x.SituacaoRequisicaoMaterial.EnumToString(),
+                    QtdeBaixa = qtdeEstoque < x.QuantidadePendente ? qtdeEstoque : x.QuantidadePendente
+                };
             }).ToList();
         }
 
