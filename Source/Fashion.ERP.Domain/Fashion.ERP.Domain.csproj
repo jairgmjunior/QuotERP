@@ -140,6 +140,7 @@
     <Compile Include="EngenhariaProduto\ModeloAprovacao.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacao.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacao.cs" />
+    <Compile Include="EngenhariaProduto\SituacaoModelo.cs" />
     <Compile Include="Producao\DefeitoProducao.cs" />
     <Compile Include="Producao\FichaTecnicaFoto.cs" />
     <Compile Include="Producao\FichaTecnicaJeans.cs" />

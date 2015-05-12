@@ -13,6 +13,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.Referencia).Not.Nullable();
             Map(x => x.Descricao).Not.Nullable();
             Map(x => x.MedidaBarra);
+            Map(x => x.MedidaComprimento);
 
             References(x => x.Comprimento);
             References(x => x.Barra);

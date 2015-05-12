@@ -8,6 +8,7 @@ namespace Fashion.ERP.Migrator
         public override void Up()
         {
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201504201721.modeloavaliacao.sql");
+            Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201504201721.permissao.sql");
         }
 
         public override void Down()

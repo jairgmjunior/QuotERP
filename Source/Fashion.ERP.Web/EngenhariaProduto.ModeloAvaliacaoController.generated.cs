@@ -20,12 +20,12 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.Comum.Controllers
+namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 {
-    public partial class BarraController
+    public partial class ModeloAvaliacaoController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected BarraController(Dummy d) { }
+        protected ModeloAvaliacaoController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,9 +43,15 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Editar()
+        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModeloAvaliacaoModel()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModeloAvaliacaoModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Avaliar()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Avaliar);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -61,13 +67,13 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public BarraController Actions { get { return MVC.Comum.Barra; } }
+        public ModeloAvaliacaoController Actions { get { return MVC.EngenhariaProduto.ModeloAvaliacao; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "Comum";
+        public readonly string Area = "EngenhariaProduto";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Barra";
+        public readonly string Name = "ModeloAvaliacao";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Barra";
+        public const string NameConst = "ModeloAvaliacao";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -76,38 +82,45 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string Novo = "Novo";
-            public readonly string Editar = "Editar";
+            public readonly string ObtenhaListaGridModeloAvaliacaoModel = "ObtenhaListaGridModeloAvaliacaoModel";
+            public readonly string Avaliar = "Avaliar";
             public readonly string Excluir = "Excluir";
             public readonly string EditarSituacao = "EditarSituacao";
-            public readonly string ObtenhaLista = "ObtenhaLista";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string Novo = "Novo";
-            public const string Editar = "Editar";
+            public const string ObtenhaListaGridModeloAvaliacaoModel = "ObtenhaListaGridModeloAvaliacaoModel";
+            public const string Avaliar = "Avaliar";
             public const string Excluir = "Excluir";
             public const string EditarSituacao = "EditarSituacao";
-            public const string ObtenhaLista = "ObtenhaLista";
         }
 
 
-        static readonly ActionParamsClass_Novo s_params_Novo = new ActionParamsClass_Novo();
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Novo NovoParams { get { return s_params_Novo; } }
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Novo
+        public class ActionParamsClass_Index
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
+        static readonly ActionParamsClass_ObtenhaListaGridModeloAvaliacaoModel s_params_ObtenhaListaGridModeloAvaliacaoModel = new ActionParamsClass_ObtenhaListaGridModeloAvaliacaoModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
+        public ActionParamsClass_ObtenhaListaGridModeloAvaliacaoModel ObtenhaListaGridModeloAvaliacaoModelParams { get { return s_params_ObtenhaListaGridModeloAvaliacaoModel; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Editar
+        public class ActionParamsClass_ObtenhaListaGridModeloAvaliacaoModel
+        {
+            public readonly string request = "request";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Avaliar s_params_Avaliar = new ActionParamsClass_Avaliar();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Avaliar AvaliarParams { get { return s_params_Avaliar; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Avaliar
         {
             public readonly string id = "id";
             public readonly string model = "model";
@@ -138,22 +151,18 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _NovoOuEditar = "_NovoOuEditar";
-                public readonly string Editar = "Editar";
+                public readonly string Avaliar = "Avaliar";
                 public readonly string Index = "Index";
-                public readonly string Novo = "Novo";
             }
-            public readonly string _NovoOuEditar = "~/Areas/Comum/Views/Barra/_NovoOuEditar.cshtml";
-            public readonly string Editar = "~/Areas/Comum/Views/Barra/Editar.cshtml";
-            public readonly string Index = "~/Areas/Comum/Views/Barra/Index.cshtml";
-            public readonly string Novo = "~/Areas/Comum/Views/Barra/Novo.cshtml";
+            public readonly string Avaliar = "~/Areas/EngenhariaProduto/Views/ModeloAvaliacao/Avaliar.cshtml";
+            public readonly string Index = "~/Areas/EngenhariaProduto/Views/ModeloAvaliacao/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_BarraController : Fashion.ERP.Web.Areas.Comum.Controllers.BarraController
+    public partial class T4MVC_ModeloAvaliacaoController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAvaliacaoController
     {
-        public T4MVC_BarraController() : base(Dummy.Instance) { }
+        public T4MVC_ModeloAvaliacaoController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
@@ -164,74 +173,46 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return callInfo;
         }
 
-        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAvaliacaoModel model);
 
-        public override System.Web.Mvc.ActionResult Novo()
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAvaliacaoModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Novo);
-            NovoOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void NovoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.BarraModel model);
-
-        public override System.Web.Mvc.ActionResult Novo(Fashion.ERP.Web.Areas.Comum.Models.BarraModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Novo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            NovoOverride(callInfo, model);
+            IndexOverride(callInfo, model);
             return callInfo;
         }
 
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+        partial void ObtenhaListaGridModeloAvaliacaoModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAvaliacaoModel model);
 
-        public override System.Web.Mvc.ActionResult Editar(long id)
+        public override System.Web.Mvc.ActionResult ObtenhaListaGridModeloAvaliacaoModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAvaliacaoModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EditarOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.BarraModel model);
-
-        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Comum.Models.BarraModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModeloAvaliacaoModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditarOverride(callInfo, model);
+            ObtenhaListaGridModeloAvaliacaoModelOverride(callInfo, request, model);
             return callInfo;
         }
 
-        partial void ExcluirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
+        partial void AvaliarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
 
-        public override System.Web.Mvc.ActionResult Excluir(long? id)
+        public override System.Web.Mvc.ActionResult Avaliar(long id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Avaliar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ExcluirOverride(callInfo, id);
+            AvaliarOverride(callInfo, id);
             return callInfo;
         }
 
-        partial void EditarSituacaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+        partial void AvaliarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAvaliacaoModel model);
 
-        public override System.Web.Mvc.ActionResult EditarSituacao(long id)
+        public override System.Web.Mvc.ActionResult Avaliar(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAvaliacaoModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EditarSituacaoOverride(callInfo, id);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Avaliar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AvaliarOverride(callInfo, model);
             return callInfo;
         }
-
-        partial void ObtenhaListaOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
-
-        public override System.Web.Mvc.JsonResult ObtenhaLista()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaLista);
-            ObtenhaListaOverride(callInfo);
-            return callInfo;
-        }
-
     }
 }
 

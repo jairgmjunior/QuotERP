@@ -332,13 +332,14 @@ namespace Fashion.ERP.Testes.Persistencia
 
         public ModeloAprovacao ObtenhaModeloAprovacao()
         {
-            return new ModeloAprovacao()
+            return new ModeloAprovacao
             {
                 Descricao = "DESCRIÇÃO MODELO APROVACAO",
                 IdEmpresa = 1,
                 IdTenant = 1,
                 Quantidade = 1,
-                MedidaBarra = "MEDIDABARRA",
+                MedidaBarra = 1,
+                MedidaComprimento = 1,
                 Observacao = "OBSERVAÇÃO",
                 Referencia = "REFERENCIA"
             };

@@ -529,57 +529,67 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region Detalhar
         public virtual ActionResult Detalhar(long modeloId)
         {
-            var domain = _modeloRepository.Get(modeloId);
-            var model = new DetalharModeloModel
+            try
             {
-                Id = domain.Id ?? 0,
-                Referencia = domain.Referencia,
-                Colecao = domain.Colecao.Descricao,
-                Estilista = domain.Estilista.Nome,
-                Descricao = domain.Descricao,
-                DataCriacao = domain.DataCriacao.ToString("dd/MM/yyyy"),
-                Detalhamento = domain.Detalhamento,
-                Grade = domain.Grade.Descricao,
-                TamanhoPadrao = domain.TamanhoPadrao,
-                Marca = domain.Marca.Nome,
-                Segmento = domain.Segmento != null ? domain.Segmento.Descricao : null,
-                Lavada = domain.Lavada,
-                LinhaCasa = domain.LinhaCasa,
-                Situacao = domain.Aprovado.HasValue == false
-                                ? "Aguardando aprovação"
-                                : domain.Aprovado.Value ? "Aprovado" : "Reprovado",
-                DataAprovacao = domain.Aprovado ?? false
-                                ? DateTime.Now.ToString("dd/MM/yyyy") : string.Empty,
-                Modelista = domain.Modelista != null ? domain.Modelista.Nome : null,
-                Cos = domain.Cos.HasValue ? domain.Cos.Value.ToString("N2") : string.Empty,
-                Passante = domain.Passante.HasValue ? domain.Passante.Value.ToString("N2") : string.Empty,
-                Entrepernas = domain.Entrepernas.HasValue ? domain.Entrepernas.Value.ToString("N2") : string.Empty,
-                Boca = domain.Boca.HasValue ? domain.Boca.Value.ToString("N2") : string.Empty,
-                Modelagem = domain.Modelagem,
-                EtiquetaMarca = domain.EtiquetaMarca,
-                EtiquetaComposicao = domain.EtiquetaComposicao,
-                Tag = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado? domain.ModeloAvaliacao.Tag : null,
-                Observacao = domain.Observacao,
-                Forro = domain.Forro,
-                TecidoComplementar = domain.TecidoComplementar,
-                Dificuldade = domain.Dificuldade,
-                QuantidadeSubmodelos = 0,
-                Fotos = domain.Fotos.Select(Mapper.Flat<ModeloFotoModel>).ToList(),
-                LinhaBordados = domain.LinhasBordado.ToArray(),
-                LinhaPespontos = domain.LinhasPesponto.ToArray(),
-                LinhaTravetes = domain.LinhasTravete.ToArray(),
-                Variacoes =
-                    domain.VariacaoModelos.ToDictionary(k => k.Variacao.Nome, e => e.Cores.Select(c => c.Nome).ToList()),
-                SequenciaProducao = domain.SequenciaProducoes
-                    .Select(p => new GridSequenciaProducaoModel
-                                        {
-                                            Nome = p.DepartamentoProducao.Nome,
-                                            Entrada = p.DataEntrada,
-                                            Saida = p.DataSaida
-                                        }).ToList(),
-            };
+                var domain = _modeloRepository.Get(modeloId);
+                var model = new DetalharModeloModel
+                {
+                    Id = domain.Id ?? 0,
+                    Referencia = domain.Referencia,
+                    Colecao = domain.Colecao.Descricao,
+                    Estilista = domain.Estilista.Nome,
+                    Descricao = domain.Descricao,
+                    DataCriacao = domain.DataCriacao.ToString("dd/MM/yyyy"),
+                    Detalhamento = domain.Detalhamento,
+                    Grade = domain.Grade.Descricao,
+                    TamanhoPadrao = domain.TamanhoPadrao,
+                    Marca = domain.Marca.Nome,
+                    Segmento = domain.Segmento != null ? domain.Segmento.Descricao : null,
+                    Lavada = domain.Lavada,
+                    LinhaCasa = domain.LinhaCasa,
+                    Situacao = domain.Aprovado.HasValue == false
+                                    ? "Aguardando aprovação"
+                                    : domain.Aprovado.Value ? "Aprovado" : "Reprovado",
+                    DataAprovacao = domain.Aprovado ?? false
+                                    ? DateTime.Now.ToString("dd/MM/yyyy") : string.Empty,
+                    Modelista = domain.Modelista != null ? domain.Modelista.Nome : null,
+                    Cos = domain.Cos.HasValue ? domain.Cos.Value.ToString("N2") : string.Empty,
+                    Passante = domain.Passante.HasValue ? domain.Passante.Value.ToString("N2") : string.Empty,
+                    Entrepernas = domain.Entrepernas.HasValue ? domain.Entrepernas.Value.ToString("N2") : string.Empty,
+                    Boca = domain.Boca.HasValue ? domain.Boca.Value.ToString("N2") : string.Empty,
+                    Modelagem = domain.Modelagem,
+                    EtiquetaMarca = domain.EtiquetaMarca,
+                    EtiquetaComposicao = domain.EtiquetaComposicao,
+                    Tag = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.Tag : null,
+                    Observacao = domain.Observacao,
+                    Forro = domain.Forro,
+                    TecidoComplementar = domain.TecidoComplementar,
+                    Dificuldade = domain.Dificuldade,
+                    QuantidadeSubmodelos = 0,
+                    Fotos = domain.Fotos.Select(Mapper.Flat<ModeloFotoModel>).ToList(),
+                    LinhaBordados = domain.LinhasBordado.ToArray(),
+                    LinhaPespontos = domain.LinhasPesponto.ToArray(),
+                    LinhaTravetes = domain.LinhasTravete.ToArray(),
+                    Variacoes =
+                        domain.VariacaoModelos.ToDictionary(k => k.Variacao.Nome, e => e.Cores.Select(c => c.Nome).ToList()),
+                    SequenciaProducao = domain.SequenciaProducoes
+                        .Select(p => new GridSequenciaProducaoModel
+                        {
+                            Nome = p.DepartamentoProducao.Nome,
+                            Entrada = p.DataEntrada,
+                            Saida = p.DataSaida
+                        }).ToList(),
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception exception)
+            {
+                ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a variação. Confira se os dados foram informados corretamente: " + exception.Message);
+                _logger.Info(exception.GetMessage());
+            }
+            
+            return View();
         }
         #endregion
 

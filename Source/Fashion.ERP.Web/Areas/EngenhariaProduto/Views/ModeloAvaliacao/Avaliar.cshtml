@@ -1,0 +1,610 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAvaliacaoModel
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.ModeloAvaliacao.Avaliar(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.IdModelo)
+    @Html.HiddenFor(x => x.SequenciaTag)
+
+    <fieldset>
+        <legend><small>Dados do Modelo</small></legend>
+        <div class="detail">
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Descricao, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Descricao)
+                            @Html.HiddenFor(x => x.Descricao)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Referencia, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Referencia)
+                            @Html.HiddenFor(x => x.Referencia)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Estilista, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Estilista)
+                            @Html.HiddenFor(x => x.Estilista)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Colecao)
+                            @Html.HiddenFor(x => x.Colecao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Tecido, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Tecido)
+                            @Html.HiddenFor(x => x.Tecido)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Forro, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Forro)
+                            @Html.HiddenFor(x => x.Forro)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend><small>Avaliação do Modelo</small></legend>
+        <div class="row">
+            <div class="span3">
+                @Html.HiddenFor(x => x.AprovadoReprovado)
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <button name="btn-AprovadoReprovado" class="btn btn-info aprovado active" type="button" value="true">Aprovado</button>
+                    <button name="btn-AprovadoReprovado" class="btn btn-info reprovado" type="button" value="false">Reprovado</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div id="dadosReprovacao">
+        <legend><small>Dados da Reprovação</small></legend>
+        <div class="row">
+            <div class="span9">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Motivo)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Motivo)
+                        @Html.ValidationMessageFor(x => x.Motivo, null, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id=dadosAprovacao>
+        <legend><small>Dados da Aprovacao</small></legend>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Tag)
+                    <div class="controls">
+                        @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })@*//,  data_val=false*@
+                        @Html.TextBoxFor(x => x.Ano, new { @class = "input-small" })
+                        @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
+                        @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Catalogo, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Catalogo)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.ColecaoAprovada)
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.ColecaoAprovada, null, "-- Selecione --", new {@class = "input-large"})
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.ClassificacaoDificuldade, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new {@class = "input-large"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Complemento)
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Complemento)
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.QuantidadeTotal)
+                    <div class="controls">
+                        @(Html.Kendo().NumericTextBoxFor(m => m.QuantidadeTotal)
+                              .Format("n0")
+                              .Min(0).Spinners(false)
+                              .Name("QuantidadeTotal"))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @(Html.Kendo().Grid(@Model.GridItens)
+              .Name("GridItens")
+              .Columns(columns =>
+              {
+                  columns.Bound(p => p.Id).Hidden().ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                  columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                                                                 "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(p => p.Quantidade).ClientTemplate("#= Quantidade #" +
+                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />").Width(80);
+                  columns.Command(command => command.Destroy());
+              })
+              .ClientDetailTemplateId("templateDetalheGrid")
+              .DataSource(s => s.Ajax().Batch(false)
+                  .Model(model =>
+                  {
+                      model.Id(item => item.Id);
+                      model.Field(item => item.Referencia).Editable(true).DefaultValue("#= obtenhaNovaReferencia()#");
+                      model.Field(item => item.Descricao).Editable(true).DefaultValue(@Model.Descricao);
+                      model.Field(item => item.Quantidade).Editable(true).DefaultValue(0);
+                      model.Field(item => item.MedidaComprimento).Editable(true).DefaultValue(0);
+                      model.Field(item => item.MedidaBarra).Editable(true).DefaultValue(0);
+                      model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
+                  })
+                    
+              )
+              .ToolBar(toolbar => toolbar.Create())
+              .Editable(editable => editable.Mode(GridEditMode.InCell))
+              .Resizable(resize => resize.Columns(true))
+              .Events(events => events.DataBound("onDataBound").DataBinding("onDataBinding").DetailExpand("onDetailExpand").Edit("onEdit"))
+              .Navigatable()
+              )
+
+        <script id="templateDetalheGrid" type="text/html">@*text/x-kendo-template*@
+            <div class="row">
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Produto Base", new {@class = "control-label"})
+                        <div class="controls">                        
+                            <input id="GridItens_#= index(data)#__ProdutoBase" name="GridItens[#= index(data)#].ProdutoBase" type="text" value="#= ProdutoBase #" /> @*style="width: 300px"*@
+                        </div>
+                    </div>
+                </div> 
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Comprimento", new {@class = "control-label"})                        
+                        <div class="controls">                        
+                            <input id="GridItens_#= index(data)#__Comprimento" name="GridItens[#= index(data)#].Comprimento" type="text" value="#= Comprimento #"/> @*style="width: 300px"*@
+                        </div>                        
+                    </div>
+                </div> 
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Barra", new {@class = "control-label"})                        
+                        <div class="controls">                        
+                            <input id="GridItens_#= index(data)#__Barra" name="GridItens[#= index(data)#].Barra" type="text"  value="#= Barra #"/> @*style="width: 300px"*@
+                        </div>                        
+                    </div>
+                </div>                  
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Observação", new {@class = "control-label"})
+                        <div class="controls">
+                            <input class="input-large" id="GridItens_#= index(data)#__Observacao" name="GridItens[#= index(data)#].Observacao" type="text"  value='#= Observacao #'>
+                        </div>
+                    </div>                    
+                </div> 
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Medida do Comprimento", new {@class = "control-label"})
+                        <div class="controls">
+                            <input name="GridItens[#= index(data)#].MedidaComprimento" id="GridItens_#= index(data)#__MedidaComprimento"  value='#= MedidaComprimento #'/>                                     
+                        </div>
+                    </div>
+                </div> 
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.Label("Medida da Barra", new {@class = "control-label"})
+                        <div class="controls">
+                            <input name="GridItens[#= index(data)#].MedidaBarra" id="GridItens_#= index(data)#__MedidaBarra"  value='#= MedidaBarra #'/> 
+                        </div>
+                    </div>
+                </div>                  
+            </div>
+        </script>
+    </div>
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+<script>
+    $(document).ready(function() {
+        calculePainelAprovadoReprovado();
+
+        $("#QuantidadeTotal").data("kendoNumericTextBox").enable(false);
+
+        if ($("#Tag").val() == '' || $("#Ano").val() == '') {
+            $('.k-grid-add').addClass("k-state-disabled");
+            $('.k-grid-add').click(function (e) {
+                e.preventDefault();
+                return false;
+            });
+        }
+
+        if ($('#Tag').val() != "") {
+            $('#Tag').prop("disabled", "disabled");
+            $('#Ano').prop("disabled", "disabled");
+        }
+
+        $('#Tag').change(function (e) {
+            verifiqueBotaoIncluir();
+        });
+
+        $('#Ano').change(function (e) {
+            verifiqueBotaoIncluir();
+        });
+
+        recalculeQuantidadeTotal();
+    });
+
+    $('#form').submit(function (e) {
+        //e.preventDefault();
+        limpeMensagensAlerta();
+
+        if (!validaFormulario()) {
+            e.preventDefault();
+            $('#btnSubmit').button('reset');
+            return false;
+        }
+        if ($('button[name=btn-AprovadoReprovado].active').val() == "true") {
+            var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+            if (dataGridItens.length == 0) {
+                e.preventDefault();
+                exibaAlertaErro("Insira pelo menos um item na grid.");
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            var mensagem = "";
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.<br/>";
+                }
+            }
+
+            if (mensagem != "") {
+                e.preventDefault();
+                exibaAlertaErro(mensagem);
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+        }
+        return true;
+    });
+
+    function validaFormulario() {
+        if ($('button[name=btn-AprovadoReprovado].active').val() == "true") {
+            var retorno = true;
+            if ($("#Tag").val() == '') {
+                $('#Tag').valid();
+                exibaAlertaErro('Informe a Tag.');
+                $('#Tag').focus();
+                retorno = false;
+            }
+
+            if ($("#Ano").val() == '') {
+                $('#Ano').valid();
+                exibaAlertaErro('Informe o Ano.');
+                retorno = false;
+            }
+            return retorno;
+        } else {
+            if ($("#Motivo").val() == '') {
+                $('#Motivo').valid();
+                exibaAlertaErro('Informe o Motivo.');
+                $('#Motivo').focus();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function verifiqueBotaoIncluir() {
+        if ($("#Tag").val() == '' || $("#Ano").val() == '') {
+            $('.k-grid-add').bind("click");
+            $('.k-grid-add').addClass("k-state-disabled");
+        } else {
+            $('.k-grid-add').unbind("click");
+            $('.k-grid-add').removeClass("k-state-disabled");
+        }
+    }
+
+    function obtenhaNovaReferencia() {
+        var tag = $('#Tag').val();
+        var ano = $('#Ano').val();
+        var sequencia = $('#SequenciaTag').val();
+        $('#SequenciaTag').val(parseInt(sequencia) + 1);
+
+        return tag+"/"+ano+"-"+sequencia;
+    }
+
+    function onEdit(e) {
+        if (e.container.index() == 2 || e.container.index() == 3) {
+            this.closeCell();
+        }
+
+        $("#Quantidade").on("change", function() {
+            recalculeQuantidadeTotal();
+        });
+    }
+
+    function obtenhaUrlDescricao(index) {
+        var idModelo = $("#IdModelo").val();
+        var descricaoProdutoBase = $("#GridItens_" + index + "__ProdutoBase").data("kendoDropDownList").text();
+        var descricaoComprimento = $("#GridItens_" + index + "__Comprimento").data("kendoDropDownList").text();
+        var descricaoBarra = $("#GridItens_" + index + "__Barra").data("kendoDropDownList").text();
+
+        var parametros = "?idModelo="+idModelo + '&descricaoProdutoBase=' + descricaoProdutoBase + '&descricaoComprimento=' + descricaoComprimento + '&descricaoBarra=' + descricaoBarra;
+        return '/EngenhariaProduto/ModeloAvaliacao/ObtenhaDescricaoModeloAprovacao' + parametros;
+    }
+
+    function recalculeDescricao(dataItem, index) {
+        $.ajaxSetup({
+            async: false
+        });
+        $.getJSON(obtenhaUrlDescricao(index), function (data) {
+            dataItem.set("Descricao", data);
+        });
+        $.ajaxSetup({
+            async: true
+        });
+    }
+
+    function recalculeQuantidadeTotal() {
+        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
+        var quantidadeTotal = 0;
+
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            quantidadeTotal = quantidadeTotal + dataItem.Quantidade;
+        }
+        $("#QuantidadeTotal").data("kendoNumericTextBox").value(quantidadeTotal);
+    }
+
+    //a grid 'perde' o valor dos detalhes. Para isso Toda vez que os detalhes são expandidos é necessário recriar os componentes
+    //e seus respectivos valores armazenados no dataitem da Grid.
+    function onDetailExpand(e) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        for (var i = 0; i < data.length; i++) {
+            attachDropDown(i);
+        }
+    }
+
+    //impede que o bind suma com os detalhes.
+    function onDataBinding(e) {
+        if (e.action == "remove") {
+            recalculeQuantidadeTotal();
+        } else if (e.action == "add") {
+            var referencia = obtenhaNovaReferencia();
+            e.items[0].Referencia = referencia;
+        }
+    }
+
+    function onDataBound(e) {
+        $('#GridItens script').appendTo(document.body);
+    }
+
+    function attachDropDown(index) {
+
+        $("#GridItens_" + index + "__ProdutoBase").kendoDropDownList(
+        {
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: '@Url.Action("ObtenhaLista", "ProdutoBase", new {Area = "Comum"})',
+                    }
+                }
+            },
+            dataTextField: "Descricao",
+            dataValueField: "Id",
+            optionLabel: "-- Selecione --",
+            change: function (e) {
+                var grid = $("#GridItens").data("kendoGrid");
+                var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
+                var item = grid.dataItem($(parentRow).closest('tr'));
+                recalculeDescricao(item, index);
+                item.set("ProdutoBase", this.value()); 
+                $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+            }
+        });
+
+        $("#GridItens_" + index + "__Comprimento").kendoDropDownList(
+        {
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: '@Url.Action("ObtenhaLista", "Comprimento", new { Area = "Comum" })',
+                    }
+                }
+            },
+            dataTextField: "Descricao",
+            dataValueField: "Id",
+            optionLabel: "-- Selecione --",
+            change: function (e) {
+                var grid = $("#GridItens").data("kendoGrid");
+                var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
+                var item = grid.dataItem($(parentRow).closest('tr'));
+                recalculeDescricao(item, index);
+                item.set("Comprimento", this.value()); 
+                $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+            }
+        });
+
+        $("#GridItens_" + index + "__Barra").kendoDropDownList(
+        {
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: '@Url.Action("ObtenhaLista", "Barra", new { Area = "Comum"})',
+                    }
+                }
+            },
+            dataTextField: "Descricao",
+            dataValueField: "Id",
+            optionLabel: "-- Selecione --",
+            change: function (e) {
+                var grid = $("#GridItens").data("kendoGrid");
+                var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
+                var item = grid.dataItem($(parentRow).closest('tr'));
+                recalculeDescricao(item, index);
+                item.set("Barra", this.value()); 
+                $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+            }
+        });
+
+        $("#GridItens_" + index + "__MedidaComprimento").kendoNumericTextBox({
+            change: function (e) {
+                var grid = $("#GridItens").data("kendoGrid");
+                var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
+                var item = grid.dataItem($(parentRow).closest('tr'));
+                item.set("MedidaComprimento", this.value());
+                $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+            }
+        });
+
+        $("#GridItens_" + index + "__MedidaBarra").kendoNumericTextBox({
+            change: function (e) {
+                var grid = $("#GridItens").data("kendoGrid");
+                var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
+                var item = grid.dataItem($(parentRow).closest('tr'));
+                item.set("MedidaBarra", this.value());
+                $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+            }
+        });
+
+        $("#GridItens_" + index + "__Observacao").on("change", function(e) {
+            var grid = $("#GridItens").data("kendoGrid");
+            var parentRow = $("#GridItens_" + index + "__Observacao").closest('.k-detail-row').prev('.k-master-row')[0];
+            var item = grid.dataItem($(parentRow).closest('tr'));
+            item.set("Observacao", $("#GridItens_" + index + "__Observacao").val());
+            $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
+        });
+    }
+
+    function calculePainelAprovadoReprovado() {
+
+        $('button[name=btn-AprovadoReprovado]').removeClass("active");
+        var $AprovadoReprovado = $('#AprovadoReprovado');
+
+        if ($AprovadoReprovado.val() == 'true' || $AprovadoReprovado.val() == 'True') {
+            $('#dadosAprovacao').show();
+            $('#dadosReprovacao').hide();
+            $('button[name=btn-AprovadoReprovado].aprovado').addClass("active");
+
+        } else {
+            $AprovadoReprovado.val(false);
+
+            $('#dadosAprovacao').hide();
+            $('#dadosReprovacao').show();
+            $('button[name=btn-AprovadoReprovado].reprovado').addClass("active");
+        }
+    }
+
+    $(function() {
+        // Seleciona o modo de consulta
+        $('button[name=btn-AprovadoReprovado]').on('click', function() {
+            var $AprovadoReprovado = $('#AprovadoReprovado');
+
+            if (this.value == 'true') {
+                $AprovadoReprovado.val(true);
+
+                $('#dadosAprovacao').show();
+                $('#dadosReprovacao').hide();
+
+            } else {
+                $AprovadoReprovado.val(false);
+
+                $('#dadosAprovacao').hide();
+                $('#dadosReprovacao').show();
+            }
+        });
+    });
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return "";
+        }
+        return valor.toString().replace(".", ",");
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    (function ($, kendo) {
+        $.extend(true, kendo.ui.validator, {
+            rules: {
+                quantidadevalidation: function (input, params) {
+                    if (input.is("[name='Quantidade']")) {
+                        return input.val() != '' && input.val() != 0;
+                    }
+                    return true;
+                }
+            },
+            messages: {
+                quantidadevalidation: function (input) {
+                    input.attr("data-quantidadevalidation-msg", "A Quantidade não pode ser 0.");
+                    return input.attr("data-quantidadevalidation-msg");
+                }
+            }
+        });
+    })(jQuery, kendo);
+</script>

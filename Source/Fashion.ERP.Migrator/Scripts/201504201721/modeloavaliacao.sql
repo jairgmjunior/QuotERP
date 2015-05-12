@@ -13,16 +13,17 @@ CREATE TABLE modeloavaliacao(
 	[id] [bigint] NOT NULL,
 	[idempresa] [bigint] NOT NULL,
 	[idtenant] [bigint] NOT NULL,
-	[ano] [bigint] NOT NULL,
-	[tag] [nvarchar](255)NOT NULL,
-	[data] [datetime] NOT NULL,
-	[aprovado] [bit] NOT NULL,
-	[catalogo] [bit] NOT NULL,
+	[ano] [bigint] NULL,
+	[sequenciatag] [bigint] NULL,
+	[tag] [nvarchar](255)NULL,
+	[data] [datetime] NULL,
+	[aprovado] [bit] NULL,
+	[catalogo] [bit] NULL,
 	[observacao] [nvarchar](255),
-	[quantidadetotaaprovacao] [float] NOT NULL,			
+	[quantidadetotaaprovacao] [float] NULL,			
 	[complemento] [nvarchar](255),
-	[colecao_id] [bigint] NOT NULL,
-	[classificacaodificuldade_id] [bigint] NOT NULL,
+	[colecao_id] [bigint]  NULL,
+	[classificacaodificuldade_id] [bigint] NULL,
 	[modeloreprovacao_id] [bigint],
 	CONSTRAINT [PK_modeloavaliacao] PRIMARY KEY (id)
  )
@@ -48,7 +49,8 @@ CREATE TABLE [dbo].modeloaprovacao(
 	[complemento] [nvarchar](255),
 	[referencia] [nvarchar](255)NOT NULL,
 	[descricao] [nvarchar](255)NOT NULL,
-	[medidabarra] [nvarchar](255),
+	[medidabarra] [bigint],
+	[medidacomprimento] [bigint],
 	[quantidade] [float] NOT NULL,			
 	[barra_id] [bigint] ,			
 	[comprimento_id] [bigint],			
@@ -80,6 +82,8 @@ REFERENCES [dbo].modeloavaliacao ([id])
 GO
 
 ALTER TABLE modelo ADD [modeloavaliacao_id] bigint;
+
+ALTER TABLE modelo ADD [situacao] [nvarchar](255)NOT NULL default('NaoAvaliado');
 
 ALTER TABLE [dbo].modelo  WITH CHECK ADD  CONSTRAINT [FK_modelo_modeloavaliacao] FOREIGN KEY([modeloavaliacao_id])
 REFERENCES [dbo].[modeloavaliacao] ([id])

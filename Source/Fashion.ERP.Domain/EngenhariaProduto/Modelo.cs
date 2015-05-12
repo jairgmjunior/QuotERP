@@ -76,6 +76,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Pessoa Modelista { get; set; }
         public virtual Tamanho Tamanho { get; set; }
         public virtual ModeloAvaliacao ModeloAvaliacao { get; set; }
+        public virtual SituacaoModelo Situacao { get; set; }            
         //public virtual ModeloAprovado ModeloAprovado { get; set; }
         #endregion
 

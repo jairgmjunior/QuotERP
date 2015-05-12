@@ -9,15 +9,15 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         private IList<ModeloAprovacao> _modelosAprovados = new List<ModeloAprovacao>();
 
         public virtual string Tag { get; set; }
+        public virtual long SequenciaTag { get; set; }
         public virtual int Ano { get; set; }
         public virtual DateTime Data { get; set; }
         public virtual String Observacao { get; set; }
         public virtual Colecao Colecao { get; set; }
-        public virtual Pessoa Funcionario { get; set; }
         public virtual ClassificacaoDificuldade ClassificacaoDificuldade { get; set; }
         public virtual String Complemento { get; set; }
         public virtual Boolean Aprovado { get; set; }
-        public virtual Boolean Catalogo { get; set; }
+        public virtual Boolean? Catalogo { get; set; }
         public virtual long QuantidadeTotaAprovacao { get; set; }
         public virtual ModeloReprovacao  ModeloReprovacao { get; set; }
         
@@ -25,6 +25,11 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         {
             get { return _modelosAprovados; }
             set { _modelosAprovados = value; }
+        }
+
+        public virtual string ObtenhaTagCompleta()
+        {
+            return Tag + "/" + Ano;
         }
     }
 }

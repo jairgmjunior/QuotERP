@@ -207,6 +207,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         #endregion
 
+        public virtual JsonResult ObtenhaLista()
+        {
+            var produtosBase = _produtoBaseRepository
+                .Find(x => x.Ativo)
+                .Select(s => new { s.Id, s.Descricao }).OrderBy(o => o.Descricao).ToList();
+
+            return Json(produtosBase, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

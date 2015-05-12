@@ -439,6 +439,11 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModeloAprovacaoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAvaliacaoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModeloAvaliacaoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\SolicitacaoMaterialCompraModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
@@ -799,6 +804,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.MaterialComposicaoModeloController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto.ModeloAvaliacaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.ModeloController.generated.cs">
@@ -1179,6 +1187,8 @@
     <Content Include="Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\RelatorioSolicitacaoMaterialCompra\SolicitacaoMaterialCompra.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Index.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Avaliar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

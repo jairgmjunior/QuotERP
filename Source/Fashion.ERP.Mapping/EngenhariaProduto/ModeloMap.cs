@@ -37,7 +37,8 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             Map(x => x.Dificuldade).Length(100);
             Map(x => x.DataRemessaProducao).Nullable();
             Map(x => x.ChaveExterna).Length(5);
-            
+            Map(x => x.Situacao).Not.Nullable();
+
             References(x => x.Grade).Not.Nullable();
             References(x => x.Colecao).Not.Nullable();
             References(x => x.Classificacao).Not.Nullable();
