@@ -229,6 +229,12 @@
     <Compile Include="EngenhariaProduto\ConsumoMaterialPorModeloReport.Designer.cs">
       <DependentUpon>ConsumoMaterialPorModeloReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="EngenhariaProduto\MateriaisModelosAprovadosReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngenhariaProduto\MateriaisModelosAprovadosReport.designer.cs">
+      <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="EngenhariaProduto\SolicitacaoMaterialCompraSubReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -241,11 +247,11 @@
     <Compile Include="EngenhariaProduto\SolicitacaoMaterialCompraReport.Designer.cs">
       <DependentUpon>SolicitacaoMaterialCompraReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto\MateriaisModelosAprovadosReport.cs">
+    <Compile Include="EngenhariaProduto\ModelosAprovadosReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="EngenhariaProduto\MateriaisModelosAprovadosReport.designer.cs">
-      <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
+    <Compile Include="EngenhariaProduto\ModelosAprovadosReport.designer.cs">
+      <DependentUpon>ModelosAprovadosReport.cs</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto\ListagemModelosReport.cs">
       <SubType>Component</SubType>
@@ -394,14 +400,17 @@
     <EmbeddedResource Include="EngenhariaProduto\ConsumoMaterialPorModeloReport.resx">
       <DependentUpon>ConsumoMaterialPorModeloReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EngenhariaProduto\MateriaisModelosAprovadosReport.resx">
+      <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\SolicitacaoMaterialCompraSubReport.resx">
       <DependentUpon>SolicitacaoMaterialCompraSubReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\SolicitacaoMaterialCompraReport.resx">
       <DependentUpon>SolicitacaoMaterialCompraReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EngenhariaProduto\MateriaisModelosAprovadosReport.resx">
-      <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
+    <EmbeddedResource Include="EngenhariaProduto\ModelosAprovadosReport.resx">
+      <DependentUpon>ModelosAprovadosReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\ListagemModelosReport.resx">
       <DependentUpon>ListagemModelosReport.cs</DependentUpon>

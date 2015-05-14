@@ -193,11 +193,10 @@
                     
               )
               .ToolBar(toolbar => toolbar.Create())
-              .Editable(editable => editable.Mode(GridEditMode.InCell))
+              .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))
               .Resizable(resize => resize.Columns(true))
               .Events(events => events.DataBound("onDataBound").DataBinding("onDataBinding").DetailExpand("onDetailExpand").Edit("onEdit"))
-              .Navigatable()
-              )
+              .Navigatable())
 
         <script id="templateDetalheGrid" type="text/html">@*text/x-kendo-template*@
             <div class="row">
@@ -272,9 +271,9 @@
             });
         }
 
-        if ($('#Tag').val() != "") {
-            $('#Tag').prop("disabled", "disabled");
-            $('#Ano').prop("disabled", "disabled");
+        if ($('#Id').val() != "") {
+            $('#Tag').prop("readonly", "readonly");
+            $('#Ano').prop("readonly", "readonly");
         }
 
         $('#Tag').change(function (e) {
@@ -436,6 +435,12 @@
 
     function onDataBound(e) {
         $('#GridItens script').appendTo(document.body);
+
+        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + dataItem.uid + '"]'));
+        }
     }
 
     function attachDropDown(index) {

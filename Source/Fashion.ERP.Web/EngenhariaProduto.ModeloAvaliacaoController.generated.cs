@@ -55,15 +55,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Excluir()
+        public virtual System.Web.Mvc.JsonResult ObtenhaDescricaoModeloAprovacao()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EditarSituacao()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditarSituacao);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaDescricaoModeloAprovacao);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,8 +78,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModeloAvaliacaoModel = "ObtenhaListaGridModeloAvaliacaoModel";
             public readonly string Avaliar = "Avaliar";
-            public readonly string Excluir = "Excluir";
-            public readonly string EditarSituacao = "EditarSituacao";
+            public readonly string ObtenhaDescricaoModeloAprovacao = "ObtenhaDescricaoModeloAprovacao";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,8 +87,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public const string Index = "Index";
             public const string ObtenhaListaGridModeloAvaliacaoModel = "ObtenhaListaGridModeloAvaliacaoModel";
             public const string Avaliar = "Avaliar";
-            public const string Excluir = "Excluir";
-            public const string EditarSituacao = "EditarSituacao";
+            public const string ObtenhaDescricaoModeloAprovacao = "ObtenhaDescricaoModeloAprovacao";
         }
 
 
@@ -125,21 +117,16 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string id = "id";
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
+        static readonly ActionParamsClass_ObtenhaDescricaoModeloAprovacao s_params_ObtenhaDescricaoModeloAprovacao = new ActionParamsClass_ObtenhaDescricaoModeloAprovacao();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Excluir ExcluirParams { get { return s_params_Excluir; } }
+        public ActionParamsClass_ObtenhaDescricaoModeloAprovacao ObtenhaDescricaoModeloAprovacaoParams { get { return s_params_ObtenhaDescricaoModeloAprovacao; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Excluir
+        public class ActionParamsClass_ObtenhaDescricaoModeloAprovacao
         {
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_EditarSituacao s_params_EditarSituacao = new ActionParamsClass_EditarSituacao();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditarSituacao EditarSituacaoParams { get { return s_params_EditarSituacao; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditarSituacao
-        {
-            public readonly string id = "id";
+            public readonly string idModelo = "idModelo";
+            public readonly string descricaoProdutoBase = "descricaoProdutoBase";
+            public readonly string descricaoBarra = "descricaoBarra";
+            public readonly string descricaoComprimento = "descricaoComprimento";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -213,6 +200,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             AvaliarOverride(callInfo, model);
             return callInfo;
         }
+
+        partial void ObtenhaDescricaoModeloAprovacaoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long idModelo, string descricaoProdutoBase, string descricaoBarra, string descricaoComprimento);
+
+        public override System.Web.Mvc.JsonResult ObtenhaDescricaoModeloAprovacao(long idModelo, string descricaoProdutoBase, string descricaoBarra, string descricaoComprimento)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaDescricaoModeloAprovacao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idModelo", idModelo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "descricaoProdutoBase", descricaoProdutoBase);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "descricaoBarra", descricaoBarra);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "descricaoComprimento", descricaoComprimento);
+            ObtenhaDescricaoModeloAprovacaoOverride(callInfo, idModelo, descricaoProdutoBase, descricaoBarra, descricaoComprimento);
+            return callInfo;
+        }
+
     }
 }
 

@@ -70,16 +70,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             {"Segmento", "Segmento.Descricao"},
         };
         #endregion
-        #region ColunasListagemModelosAprovados
-        private static readonly Dictionary<string, string> ColunasListagemModelosAprovados = new Dictionary<string, string>
-        {
-            {"Referência Modelo", "Modelo.Referencia"},
-            {"Tag Modelo", "Modelo.Tag"},
-            {"Tecido", "Modelo.Tecido"},
-            {"Forro", "Modelo.Forro"},                       
-            {"Quantidade produção", "QuantidadeProducao"}
-        };
-        #endregion
         #region ColunasConsumoMaterialColecao
         private static readonly Dictionary<string, string> ColunasConsumoMaterialColecao = new Dictionary<string, string>
         {
@@ -403,119 +393,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
 
         #endregion
-
-        #region ListagemModelosAprovados
-        [PopulateViewData("PopulateListagemModelosAprovados")]
-        public virtual ActionResult ListagemModelosAprovados()
-        {
-            var model = new ListagemModelosAprovadosModel();
-
-         /*   var hoje = DateTime.Now.Date;
-            var umMesAtras = hoje.AddMonths(-1);
-
-            model.DataInicial = umMesAtras;
-            model.DataFinal = hoje;*/
-
-            return View(model);
-        }
-
-        [HttpPost, AjaxOnly, PopulateViewData("PopulateListagemModelosAprovados")]
-        public virtual JsonResult ListagemModelosAprovados(ListagemModelosAprovadosModel model)
-        {
-            //var query = _modeloRepository.Find(x => x.Aprovado == true && x.ModeloAprovado != null);
-
-            //var filtros = new StringBuilder();
-
-            //if (model.IntervaloInicial.HasValue)
-            //{
-            //    query = query.Where(p => p.ModeloAprovado.Data >= model.IntervaloInicial.Value);
-            //    filtros.AppendFormat("Intervalos entre: {0:dd/MM/yyyy}, ", model.IntervaloInicial.Value);
-            //}
-
-            //if (model.IntervaloFinal.HasValue)
-            //{
-            //    query = query.Where(p => p.ModeloAprovado.Data <= model.IntervaloFinal.Value);
-            //    filtros.AppendFormat("à: {0:dd/MM/yyyy}, ", model.IntervaloFinal.Value);
-            //}
-
-            //if (model.Colecao.HasValue)
-            //{
-            //    query = query.Where(p => p.ModeloAprovado.Colecao.Id == model.Colecao);
-            //    filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
-            //}
-
-            //if (model.Estilista.HasValue)
-            //{
-            //    query = query.Where(p => p.Estilista.Id == model.Estilista);
-            //    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Estilista.Value).Nome);
-            //}
-
-            //if (model.Natureza.HasValue)
-            //{
-            //    query = query.Where(p => p.Natureza.Id == model.Natureza);
-            //    filtros.AppendFormat("Natureza: {0}, ", _naturezaRepository.Get(model.Natureza.Value).Descricao);
-            //}
-
-            //if (model.Classificacao.HasValue)
-            //{
-            //    query = query.Where(p => p.Classificacao.Id == model.Classificacao);
-            //    filtros.AppendFormat("Classificação: {0}, ",
-            //        _classificacaoRepository.Get(model.Classificacao.Value).Descricao);
-            //}
-
-            //if (model.ClassificacaoDificuldade.HasValue)
-            //{
-            //    query =
-            //        query.Where(p => p.ModeloAprovado.ClassificacaoDificuldade.Id == model.ClassificacaoDificuldade);
-            //    filtros.AppendFormat("Dificuldade: {0}, ",
-            //        _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade.Value).Descricao);
-            //}
-
-            //if (model.Modelista.HasValue)
-            //{
-            //    query = query.Where(p => p.Modelista.Id == model.Modelista);
-            //    filtros.AppendFormat("Modelista: {0}, ", _pessoaRepository.Get(model.Modelista.Value).Nome);
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(model.Tag))
-            //{
-            //    query = query.Where(p => p.ModeloAprovado.Tag.Contains(model.Tag));
-            //    filtros.AppendFormat("Tag: {0}, ", model.Tag);
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(model.ReferenciaMaterial))
-            //{
-
-            //    query = query.Where(p =>
-            //        p.SequenciaProducoes.Any(seq =>
-            //            seq.MaterialComposicaoModelos.Any(material =>
-            //                material.Material.Referencia == model.ReferenciaMaterial)));
-
-            //    filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
-            //}
-
-
-            //var result = query.ToList();
-
-            //if (!result.Any())
-            //    return Json(new {Error = "Nenhum modelo aprovado foi encontrado."});
-
-            //var report = new ListagemModelosAprovadosReport {DataSource = result};
-
-            //if (filtros.Length > 2)
-            //    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
-
-            //if (model.OrdenarPor != null)
-            //    report.Sortings.Add("=Fields." + model.OrdenarPor,
-            //        model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
-
-            //var filename = report.ToByteStream().SaveFile(".pdf");
-
-            //return Json(new {Url = filename});
-            return Json(new {});
-        }
-
-        #endregion
         
         #region ConsumoMaterialColecao
         [PopulateViewData("PopulateConsumoMaterialColecao")]
@@ -715,37 +592,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             }
         }
         #endregion
-
-        #region PopulateListagemModelosAprovados
-        protected void PopulateListagemModelosAprovados(ListagemModelosAprovadosModel model)
-        {
-            var colecoes = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Colecao"] = colecoes.ToSelectList("Descricao", model.Colecao);
-
-            var estilistas = _pessoaRepository.Find(p => p.Funcionario != null
-                && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Estilista)
-                .OrderBy(p => p.Nome).ToList();
-            ViewData["Estilista"] = estilistas.ToSelectList("Nome", model.Estilista);
-
-            var naturezas = _naturezaRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Natureza"] = naturezas.ToSelectList("Descricao", model.Natureza);
-
-            var classificacoes = _classificacaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Classificacao"] = classificacoes.ToSelectList("Descricao", model.Classificacao);
-
-            var classificacaoDificuldade = _classificacaoDificuldadeRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["classificacaoDificuldade"] = classificacaoDificuldade.ToSelectList("Descricao", model.ClassificacaoDificuldade);
-
-
-            var modelistas = _pessoaRepository.Find(p => p.Funcionario != null
-                    && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Modelista)
-                    .OrderBy(p => p.Nome).ToList();
-            ViewData["Modelista"] = modelistas.ToSelectList("Nome", model.Modelista);
-
-            ViewBag.OrdenarPor = new SelectList(ColunasListagemModelosAprovados, "value", "key");
-        }
-        #endregion
-
+        
         #region PopulateConsumoMaterialColecao
         protected void PopulateConsumoMaterialColecao(ConsumoMaterialColecaoModel model)
         {

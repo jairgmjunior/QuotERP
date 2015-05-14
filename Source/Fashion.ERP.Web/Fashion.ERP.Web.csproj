@@ -436,6 +436,7 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
@@ -488,7 +489,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\GridMaterialComposicaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridProgramacaoBordadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\IModeloDropdownModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\ListagemModelosAprovadosModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModelosAprovadosModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ListagemModelosModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MaterialComposicaoModeloModel.cs" />
     <Compile Include="Areas\Comum\Models\ComprimentoModel.cs" />
@@ -824,6 +825,9 @@
     <Compile Include="EngenhariaProduto.RelatorioMateriaisModelosAprovadosController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="EngenhariaProduto.RelatorioModelosAprovadosController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="EngenhariaProduto.RelatorioSolicitacaoMaterialCompraController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1087,7 +1091,7 @@
     <Content Include="Areas\Comum\Views\ClassificacaoDificuldade\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\ClassificacaoDificuldade\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\ClassificacaoDificuldade\Editar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ListagemModelosAprovados.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\RelatorioModelosAprovados\ModelosAprovados.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ConsumoMaterialColecao.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Modelo\Copiar.cshtml" />
     <Content Include="Areas\Compras\Views\_ViewStart.cshtml" />

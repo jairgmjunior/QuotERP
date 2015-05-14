@@ -268,13 +268,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Avaliar(ModeloAvaliacaoModel model)
         {
-            if (ModelState.ContainsKey("Tag"))
-                ModelState["Tag"].Errors.Clear();
-            if (ModelState.ContainsKey("Ano"))
-                ModelState["Ano"].Errors.Clear();
-            if (ModelState.ContainsKey("Motivo"))
-                ModelState["Motivo"].Errors.Clear();
-
             foreach (var modelValue in ModelState.Values)
             {
                 modelValue.Errors.Clear();
@@ -290,9 +283,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     AtualizeModeloAvaliacao(model, modelo.ModeloAvaliacao);
 
                 modelo.Situacao = model.AprovadoReprovado ? SituacaoModelo.Aprovado : SituacaoModelo.Reprovado;
-
+                
                 _modeloRepository.SaveOrUpdate(modelo);
-
+                
                 Framework.UnitOfWork.Session.Current.Flush();
                 this.AddSuccessMessage("O modelo foi avaliado com sucesso.");
                 return RedirectToAction("Index");
@@ -304,7 +297,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             }
             return View(model);
         }
-
+        
         private ModeloAvaliacao CrieModeloAvaliacao(ModeloAvaliacaoModel model)
         {
             ModeloAvaliacao modeloAvaliacao;
@@ -329,6 +322,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 };
 
                 model.GridItens.ForEach(x => modeloAvaliacao.ModelosAprovados.Add(CrieModeloAprovacao(x)));
+                modeloAvaliacao.QuantidadeTotaAprovacao = modeloAvaliacao.ModelosAprovados.Sum(x => x.Quantidade);
             }
             else
             {
@@ -355,7 +349,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 ? _colecaoRepository.Load(model.ColecaoAprovada)
                 : null;
             modeloAvaliacao.Complemento = model.Complemento;
-            modeloAvaliacao.Tag = model.Tag;
+            modeloAvaliacao.SequenciaTag = model.SequenciaTag;
 
             model.GridItens.ForEach(modelItem =>
             {
@@ -370,6 +364,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     AtualizeModeloAprovacao(modelItem, modeloAprovacao);
                 }
             });
+
+            var modelosAprovados = new List<ModeloAprovacao>(modeloAvaliacao.ModelosAprovados);
+
+            modelosAprovados.ForEach(modeloAprovacao =>
+            {
+                var modelItem = model.GridItens.SingleOrDefault(x => x.Id == modeloAprovacao.Id);
+                if (modelItem == null && modeloAprovacao.Id != null)
+                {
+                    modeloAvaliacao.ModelosAprovados.Remove(modeloAprovacao);
+                }
+            });
+
+
+            modeloAvaliacao.QuantidadeTotaAprovacao = modeloAvaliacao.ModelosAprovados.Sum(x => x.Quantidade);
         }
 
         private void AtualizeModeloAvaliacaoReprovado(ModeloAvaliacaoModel model, ModeloAvaliacao modeloAvaliacao)
@@ -426,7 +434,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             return new ModeloAprovacao
             {
-                Barra = _barraRepository.Load(modelItem.Barra),
+                Barra = modelItem.Barra.HasValue ? _barraRepository.Load(modelItem.Barra) : null,
                 Comprimento = modelItem.Comprimento.HasValue ? _comprimentoRepository.Load(modelItem.Comprimento) : null,
                 ProdutoBase = modelItem.ProdutoBase.HasValue ? _produtoBaseRepository.Load(modelItem.ProdutoBase) : null,
                 Descricao = modelItem.Descricao,
@@ -434,7 +442,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 Observacao = modelItem.Observacao,
                 Quantidade = modelItem.Quantidade.Value,
                 MedidaBarra = modelItem.MedidaBarra,
-                MedidaComprimento = modelItem.MedidaComprimento
+                MedidaComprimento = modelItem.MedidaComprimento,
             };
         }
 

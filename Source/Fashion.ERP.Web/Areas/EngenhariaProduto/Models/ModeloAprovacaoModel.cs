@@ -13,10 +13,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
-
-        [Display(Name = "UnidadeMedida")]
-        public string UnidadeMedida { get; set; }
-
+        
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Informe a quantidade")]
         public long? Quantidade { get; set; }

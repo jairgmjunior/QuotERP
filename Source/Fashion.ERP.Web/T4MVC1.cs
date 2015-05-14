@@ -148,6 +148,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioConsumoMaterialPorModeloController RelatorioConsumoMaterialPorModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioConsumoMaterialPorModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioMateriaisModelosAprovadosController RelatorioMateriaisModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioMateriaisModelosAprovadosController();
+        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioModelosAprovadosController RelatorioModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioModelosAprovadosController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController RelatorioSolicitacaoMaterialCompra = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioSolicitacaoMaterialCompraController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
     }
