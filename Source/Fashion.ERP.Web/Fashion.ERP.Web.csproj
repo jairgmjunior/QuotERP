@@ -436,11 +436,16 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\EsbocoMatrizCorteController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\GridEsbocoMatrizCorteModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\PesquisaEsbocoMatrizCorteModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModeloAprovacaoMatrizCorteItemModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModeloAprovacaoMatrizCorteModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAprovacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAvaliacaoModel.cs" />
@@ -464,7 +469,6 @@
     <Compile Include="Areas\Producao\Models\OrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaOrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Controllers\AprovarModeloController.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ClassificacaoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ComprimentoController.cs" />
@@ -494,7 +498,6 @@
     <Compile Include="Areas\EngenhariaProduto\Models\MaterialComposicaoModeloModel.cs" />
     <Compile Include="Areas\Comum\Models\ComprimentoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridSequenciaProducaoModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\PesquisaAprovarModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ProgramacaoBordadoModeloModel.cs" />
@@ -799,6 +802,9 @@
     <Compile Include="DI\Ninject\Modules\MvcSiteMapProviderModule.cs" />
     <Compile Include="DI\Ninject\NinjectDependencyInjectionContainer.cs" />
     <Compile Include="EngenhariaProduto.AprovarModeloController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto.EsbocoMatrizCorteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.GradeController.generated.cs">
@@ -1193,6 +1199,8 @@
     <Content Include="Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Index.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Avaliar.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\EsbocoMatrizCorte\EsbocarCorte.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\EsbocoMatrizCorte\Index.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

@@ -20,110 +20,11 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace T4MVC.EngenhariaProduto
 {
-    public partial class AprovarModeloController
+    public class AprovarModeloController
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected AprovarModeloController(Dummy d) { }
 
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result)
-        {
-            var callInfo = result.GetT4MVCResult();
-            return RedirectToRoute(callInfo.RouteValueDictionary);
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
-        {
-            var callInfo = result.GetT4MVCResult();
-            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
-        }
-
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Aprovar()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Aprovar);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Desaprovar()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Desaprovar);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Reprovar()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reprovar);
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public AprovarModeloController Actions { get { return MVC.EngenhariaProduto.AprovarModelo; } }
-        [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "EngenhariaProduto";
-        [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "AprovarModelo";
-        [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "AprovarModelo";
-
-        static readonly ActionNamesClass s_actions = new ActionNamesClass();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionNamesClass ActionNames { get { return s_actions; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass
-        {
-            public readonly string Index = "Index";
-            public readonly string Aprovar = "Aprovar";
-            public readonly string Desaprovar = "Desaprovar";
-            public readonly string Reprovar = "Reprovar";
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants
-        {
-            public const string Index = "Index";
-            public const string Aprovar = "Aprovar";
-            public const string Desaprovar = "Desaprovar";
-            public const string Reprovar = "Reprovar";
-        }
-
-
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
-        {
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_Aprovar s_params_Aprovar = new ActionParamsClass_Aprovar();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Aprovar AprovarParams { get { return s_params_Aprovar; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Aprovar
-        {
-            public readonly string id = "id";
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_Desaprovar s_params_Desaprovar = new ActionParamsClass_Desaprovar();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Desaprovar DesaprovarParams { get { return s_params_Desaprovar; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Desaprovar
-        {
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_Reprovar s_params_Reprovar = new ActionParamsClass_Reprovar();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Reprovar ReprovarParams { get { return s_params_Reprovar; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Reprovar
-        {
-            public readonly string id = "id";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -142,71 +43,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
     }
 
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_AprovarModeloController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.AprovarModeloController
-    {
-        public T4MVC_AprovarModeloController() : base(Dummy.Instance) { }
-
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaAprovarModeloModel model);
-
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaAprovarModeloModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            IndexOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void AprovarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
-
-        public override System.Web.Mvc.ActionResult Aprovar(long? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Aprovar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            AprovarOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void AprovarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.AprovarModeloModel model);
-
-        public override System.Web.Mvc.ActionResult Aprovar(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.AprovarModeloModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Aprovar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            AprovarOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void DesaprovarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
-
-        public override System.Web.Mvc.ActionResult Desaprovar(long? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Desaprovar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DesaprovarOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void ReprovarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
-
-        public override System.Web.Mvc.ActionResult Reprovar(long? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reprovar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ReprovarOverride(callInfo, id);
-            return callInfo;
-        }
-
-    }
 }
 
 #endregion T4MVC

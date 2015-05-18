@@ -87,6 +87,8 @@
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteItemMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacaoMap.cs" />
     <Compile Include="Producao\OrdemProducaoFluxoBasicoMap.cs" />

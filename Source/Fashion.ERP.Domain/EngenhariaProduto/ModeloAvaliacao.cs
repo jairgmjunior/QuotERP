@@ -31,5 +31,10 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         {
             return Tag + "/" + Ano;
         }
+
+        public virtual string ObtenhaCatalogo()
+        {
+            return Catalogo.HasValue ? (Catalogo.Value ? "Sim" : "Não") : "";
+        }
     }
 }

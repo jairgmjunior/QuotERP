@@ -330,6 +330,25 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Engenharia de Produto
 
+        public ModeloAprovacaoMatrizCorte ObtenhaModeloAprovacaoMatrizCorte()
+        {
+            return new ModeloAprovacaoMatrizCorte
+            {
+                TipoEnfestoTecido = TipoEnfestoTecido.Folha,
+                IdEmpresa = 1,
+                IdTenant = 1
+            };
+        }
+
+        public ModeloAprovacaoMatrizCorteItem ObtenhaModeloAprovacaoMatrizCorteItem()
+        {
+            return new ModeloAprovacaoMatrizCorteItem
+            {
+                Quantidade = 10,
+                QuantidadeVezes = 1
+            };
+        }
+
         public ModeloAprovacao ObtenhaModeloAprovacao()
         {
             return new ModeloAprovacao

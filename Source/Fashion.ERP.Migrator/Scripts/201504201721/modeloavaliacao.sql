@@ -41,6 +41,35 @@ ALTER TABLE modeloavaliacao  WITH CHECK ADD  CONSTRAINT [FK_modeloavaliacao_mode
 REFERENCES [dbo].[modeloreprovacao] ([id])
 GO
 
+CREATE TABLE [dbo].modeloaprovacaomatrizcorte(
+	[id] [bigint] NOT NULL,
+	[idempresa] [bigint] NOT NULL,
+	[idtenant] [bigint] NOT NULL,	
+	[tipoenfestotecido] [nvarchar](255) NOT NULL	
+ CONSTRAINT [PK_modeloaprovacaomatrizcorte] PRIMARY KEY (id)
+) 
+GO
+
+CREATE TABLE [dbo].modeloaprovacaomatrizcorteitem(
+	[id] [bigint] NOT NULL,
+	[idempresa] [bigint] NOT NULL,
+	[idtenant] [bigint] NOT NULL,	
+	[quantidade] [bigint] NOT NULL,			
+	[quantidadevezes] [bigint] NOT NULL,			
+	[tamanho_id] [bigint] ,			
+	[modeloaprovacaomatrizcorte_id] [bigint],				
+ CONSTRAINT [PK_modeloaprovacaomatrizcorteitem] PRIMARY KEY (id)
+) 
+GO
+
+ALTER TABLE [dbo].modeloaprovacaomatrizcorteitem  WITH CHECK ADD  CONSTRAINT [FK_modeloaprovacaomatrizcorteitem_tamanho] FOREIGN KEY([tamanho_id])
+REFERENCES [dbo].tamanho ([id])
+GO
+
+ALTER TABLE [dbo].modeloaprovacaomatrizcorteitem  WITH CHECK ADD  CONSTRAINT [FK_modeloaprovacaomatrizcorteitem_modeloaprovacaomatrizcorte] FOREIGN KEY([modeloaprovacaomatrizcorte_id])
+REFERENCES [dbo].modeloaprovacaomatrizcorte ([id])
+GO
+
 CREATE TABLE [dbo].modeloaprovacao(
 	[id] [bigint] NOT NULL,
 	[idempresa] [bigint] NOT NULL,
@@ -57,6 +86,7 @@ CREATE TABLE [dbo].modeloaprovacao(
 	[produtobase_id] [bigint],			
 	[fichatecnica_id] [bigint],		
 	[modeloavaliacao_id] [bigint],	
+	[modeloaprovacaomatrizcorte_id] [bigint],	
  CONSTRAINT [PK_modeloaprovacao] PRIMARY KEY (id)
 ) 
 GO
@@ -81,6 +111,10 @@ ALTER TABLE [dbo].modeloaprovacao  WITH CHECK ADD  CONSTRAINT [FK_modeloaprovaca
 REFERENCES [dbo].modeloavaliacao ([id])
 GO
 
+ALTER TABLE [dbo].modeloaprovacao  WITH CHECK ADD  CONSTRAINT [FK_modeloaprovacao_modeloaprovacaomatrizcorte] FOREIGN KEY([modeloaprovacaomatrizcorte_id])
+REFERENCES [dbo].modeloaprovacaomatrizcorte ([id])
+GO
+
 ALTER TABLE modelo ADD [modeloavaliacao_id] bigint;
 
 ALTER TABLE modelo ADD [situacao] [nvarchar](255)NOT NULL default('NaoAvaliado');
@@ -88,3 +122,6 @@ ALTER TABLE modelo ADD [situacao] [nvarchar](255)NOT NULL default('NaoAvaliado')
 ALTER TABLE [dbo].modelo  WITH CHECK ADD  CONSTRAINT [FK_modelo_modeloavaliacao] FOREIGN KEY([modeloavaliacao_id])
 REFERENCES [dbo].[modeloavaliacao] ([id])
 GO
+
+
+

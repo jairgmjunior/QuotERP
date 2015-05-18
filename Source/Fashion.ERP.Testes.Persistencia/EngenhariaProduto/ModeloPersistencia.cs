@@ -31,10 +31,13 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
         private ModeloAprovacao _modeloAprovacao;
         private ModeloAvaliacao _modeloAvaliacao;
         private ModeloReprovacao _modeloReprovacao;
+        private ModeloAprovacaoMatrizCorte _modeloAprovacaoMatrizCorte;
+        private ModeloAprovacaoMatrizCorteItem _modeloAprovacaoMatrizCorteItem;
         private Barra _barra;
         private ProdutoBase _produtoBase;
         private Comprimento _comprimento;
         private ClassificacaoDificuldade _classificacaoDificuldade;
+        private Tamanho _tamanho;
 
         public override Modelo GetPersistentObject()
         {
@@ -70,7 +73,12 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _cor = FabricaObjetosPersistidos.ObtenhaCor();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
             _unidadeMedida = FabricaObjetosPersistidos.ObtenhaUnidadeMedida();
-            
+            _tamanho = FabricaObjetosPersistidos.ObtenhaTamanho();
+            _barra = FabricaObjetosPersistidos.ObtenhaBarra();
+            _produtoBase = FabricaObjetosPersistidos.ObtenhaProdutoBase();
+            _comprimento = FabricaObjetosPersistidos.ObtenhaComprimento();
+            _classificacaoDificuldade = FabricaObjetosPersistidos.ObtenhaClassificacaoDificuldade();
+
             _materialComposicaoModelo = FabricaObjetos.ObtenhaMaterialComposicaoModelo();
             _materialComposicaoModelo.Cor = _cor;
             _materialComposicaoModelo.Material = _material;
@@ -100,11 +108,6 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _variacaoModelo.Variacao = _variacao;
             _variacaoModelo.AddCor(_cor);
             
-            _barra = FabricaObjetosPersistidos.ObtenhaBarra();
-            _produtoBase = FabricaObjetosPersistidos.ObtenhaProdutoBase();
-            _comprimento = FabricaObjetosPersistidos.ObtenhaComprimento();
-            _classificacaoDificuldade = FabricaObjetosPersistidos.ObtenhaClassificacaoDificuldade();
-
             _modeloAprovacao = FabricaObjetos.ObtenhaModeloAprovacao();
             _modeloAprovacao.Barra = _barra;
             _modeloAprovacao.Comprimento = _comprimento;
@@ -118,6 +121,11 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _modeloAvaliacao.ModelosAprovados.Add(_modeloAprovacao);
             _modeloAvaliacao.ModeloReprovacao = _modeloReprovacao ;
 
+            _modeloAprovacaoMatrizCorte = FabricaObjetos.ObtenhaModeloAprovacaoMatrizCorte();
+            _modeloAprovacaoMatrizCorteItem = FabricaObjetos.ObtenhaModeloAprovacaoMatrizCorteItem();
+            _modeloAprovacaoMatrizCorte.ModeloAprovacaoMatrizCorteItens.Add(_modeloAprovacaoMatrizCorteItem);
+            _modeloAprovacao.ModeloAprovacaoMatrizCorte = _modeloAprovacaoMatrizCorte;
+            
             Session.Current.Flush();
         }
 
@@ -135,6 +143,11 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             FabricaObjetosPersistidos.ExcluaMaterial(_material);
             FabricaObjetosPersistidos.ExcluaUnidadeMedida(_unidadeMedida);
             FabricaObjetosPersistidos.ExcluaVariacao(_variacao);
+            //FabricaObjetosPersistidos.ExcluaBarra(_barra);
+            //FabricaObjetosPersistidos.ExcluaComprimento(_comprimento);
+            //FabricaObjetosPersistidos.ExcluaProdutoBase(_produtoBase);
+            FabricaObjetosPersistidos.ExcluaTamanho(_tamanho);
+            FabricaObjetosPersistidos.ExcluaClassificacaoDificuldade(_classificacaoDificuldade);
 
             Session.Current.Flush();
         }

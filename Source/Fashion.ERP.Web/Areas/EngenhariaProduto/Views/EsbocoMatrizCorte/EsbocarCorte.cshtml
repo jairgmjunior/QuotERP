@@ -1,0 +1,344 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.EsbocoMatrizCorte.EsbocarCorte(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+	@Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.IdModeloAprovacao)
+    @Html.HiddenFor(x => x.IdModelo)
+    <fieldset>
+        <legend><small>Dados do Modelo</small></legend>
+        <div class="detail">
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.DescricaoModelo, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.DescricaoModelo)
+                            @Html.HiddenFor(x => x.DescricaoModelo)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.ReferenciaModelo, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.ReferenciaModelo)
+                            @Html.HiddenFor(x => x.ReferenciaModelo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.EstilistaModelo, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.EstilistaModelo)
+                            @Html.HiddenFor(x => x.EstilistaModelo)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Colecao)
+                            @Html.HiddenFor(x => x.Colecao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Tecido, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Tecido)
+                            @Html.HiddenFor(x => x.Tecido)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Forro, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Forro)
+                            @Html.HiddenFor(x => x.Forro)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend><small>Dados da Avaliação do Modelo</small></legend>
+        <div class="detail">
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Tag, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Tag)
+                            @Html.HiddenFor(x => x.Tag)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.ColecaoAprovada, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.ColecaoAprovada)
+                            @Html.HiddenFor(x => x.ColecaoAprovada)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Catalogo, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Catalogo)
+                            @Html.HiddenFor(x => x.Catalogo)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Complemento, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Complemento)
+                            @Html.HiddenFor(x => x.Complemento)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Dificuldade, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.Dificuldade)
+                            @Html.HiddenFor(x => x.Dificuldade)
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.QtdeTotalAprovada, new {@class = "title-label"})
+                        <div class="value-label">
+                            @Html.ValueFor(x => x.QtdeTotalAprovada)
+                            @Html.HiddenFor(x => x.QtdeTotalAprovada)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <fieldset>
+        <legend><small>Esboço da Matriz do Modelo Aprovado</small></legend>
+        
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Referencia, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Referencia, new {@readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Descricao, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Descricao, new {@readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.TipoEnfestoTecido, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.DropDownListFor(x => x.TipoEnfestoTecido, Model.TipoEnfestoTecido.ToSelectList(), "-- Selecione --")
+                        @Html.ValidationMessageFor(x => x.TipoEnfestoTecido, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.TotalEnfesto, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.TotalEnfesto, new  { @class = "input-small", @readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Quantidade, new {@class = "title-label"})
+                    <div class="controls">
+                        @(Html.Kendo().NumericTextBoxFor(m => m.Quantidade)
+                              .Format("n0")
+                              .Min(0).Spinners(false)
+                              .Name("Quantidade"))
+                        @Html.ValidationMessageFor(x => x.Quantidade, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+        @(Html.Kendo().Grid(@Model.GridItens)
+            .Name("GridItens").HtmlAttributes(new { style="width:260px"})
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.Tamanho).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItens[#= index(data)#].Tamanho' value='#= Tamanho #' />");
+                columns.Bound(p => p.DescricaoTamanho).Width(60).ClientTemplate("#= DescricaoTamanho #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
+                columns.Bound(p => p.QuantidadeVezes).Width(60).ClientTemplate("#= (QuantidadeVezes == null) ? ' ' : QuantidadeVezes #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
+                columns.Bound(p => p.Quantidade).Width(55).ClientTemplate("#= (Quantidade == null) ? ' ' : kendo.toString(Quantidade, \"n2\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
+            })
+            .DataSource(s => s.Ajax()
+                .Model(model =>
+                {
+                    model.Id(item => item.DescricaoTamanho);
+                    model.Field(product => product.DescricaoTamanho).Editable(false);
+                    model.Field(product => product.QuantidadeVezes).Editable(true);
+                    model.Field(product => product.Quantidade).Editable(true);
+                })
+                .Events(events => events.Change("onChange"))
+            )            
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Resizable(resize => resize.Columns(true))
+            .Events(events => events.Edit("onEdit"))
+            .Navigatable()
+              )
+
+        <br/>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.TotalNumeroVezes, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.TotalNumeroVezes, new { @class = "input-small", @readonly = "readonly"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+<script>
+    
+    $(document).ready(function() {
+        $("#Quantidade").on("change", function () {
+            recalculeTotalEnfestos();
+            recalculeQuantidade();
+        });
+    });
+
+    function onChange(e) {
+        $("#GridItens").data("kendoGrid").refresh();
+    }
+
+    function onEdit(e) {
+        if (e.container.index() == 3) {
+            this.closeCell();
+        }
+
+        $("#QuantidadeVezes").on("change", function () {
+            recalculeTotalNumeroVezes();
+            recalculeTotalEnfestos();
+            recalculeQuantidade();
+        });
+    }
+
+    function recalculeQuantidade() {
+
+        var totalEnfesto = $("#TotalEnfesto").val();
+
+        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            if (dataItem.QuantidadeVezes != null) {
+                var novaQuantidade = totalEnfesto * dataItem.QuantidadeVezes;
+                dataItem.set("Quantidade", parseFloat(novaQuantidade));
+            } else {
+                dataItem.set("Quantidade", "");
+            }
+        }
+    }
+
+    function recalculeTotalNumeroVezes() {
+        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
+        var quantidadeTotal = 0;
+
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            quantidadeTotal = quantidadeTotal + dataItem.QuantidadeVezes;
+        }
+        $("#TotalNumeroVezes").val(quantidadeTotal);
+    }
+
+    function recalculeTotalEnfestos() {
+        var quantidade = $("#Quantidade").val();
+        var totalNumeroVezes = $("#TotalNumeroVezes").val();
+        
+        $("#TotalEnfesto").val(quantidade/totalNumeroVezes);
+    }
+    
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    $('#form').submit(function (e) {
+        limpeMensagensAlerta();
+        
+        if (!$('#Quantidade').valid()) {
+            e.preventDefault();
+            $('#btnSubmit').button('reset');
+            return false;
+        }
+
+        var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+
+        var mensagem = "";
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.QuantidadeVezes != 0 && dataItem.QuantidadeVezes != null) {
+                if (!isInt(dataItem.Quantidade)) {
+                    mensagem += "O item de tamanho: " + dataItem.DescricaoTamanho + " possui um valor decimal.<br/>";
+                }
+            }
+        }
+
+        if (mensagem != "") {
+            e.preventDefault();
+            exibaAlertaErro(mensagem);
+            $('#btnSubmit').button('reset');
+            return false;
+        }
+        
+        return true;
+    });
+
+    function isInt(n) {
+        return n % 1 === 0;
+    }
+
+</script>

@@ -652,6 +652,11 @@ namespace Fashion.ERP.Testes.Persistencia
             return tamanho;
         }
 
+        public void ExcluaTamanho(Tamanho tamanho)
+        {
+            RepositoryFactory.Create<Tamanho>().Delete(tamanho);
+        }
+
         public Cor ObtenhaCor()
         {
             var cor = _fabricaObjetos.ObtenhaCor();

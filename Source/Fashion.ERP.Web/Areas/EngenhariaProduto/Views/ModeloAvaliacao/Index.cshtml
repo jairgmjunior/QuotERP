@@ -145,7 +145,7 @@
 		columns.Bound(x => x.Situacao).Template(s => s.Situacao.EnumToString());
         columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
                 "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>"+ 
-            "#}#").Width(60);
+            "#}#").Width(60).Sortable(false);
 	    columns.Bound(i => i.Id).ClientTemplate(@Html.ActionLinkAuth("Avaliar", "Avaliar", "ModeloAvaliacao", new {Id = "#= Id #"}, new {Area = "EngenhariaProducao", @class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");
 	})
     .Resizable(resize => resize.Columns(true))

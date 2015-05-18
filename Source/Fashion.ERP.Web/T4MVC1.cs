@@ -139,7 +139,7 @@ namespace T4MVC
     public class EngenhariaProdutoClass
     {
         public readonly string Name = "EngenhariaProduto";
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.AprovarModeloController AprovarModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_AprovarModeloController();
+        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.EsbocoMatrizCorteController EsbocoMatrizCorte = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_EsbocoMatrizCorteController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.GradeController Grade = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_GradeController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.MaterialComposicaoModeloController MaterialComposicaoModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_MaterialComposicaoModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAvaliacaoController ModeloAvaliacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloAvaliacaoController();
@@ -151,6 +151,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioModelosAprovadosController RelatorioModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioModelosAprovadosController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController RelatorioSolicitacaoMaterialCompra = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioSolicitacaoMaterialCompraController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
+        public T4MVC.EngenhariaProduto.AprovarModeloController AprovarModelo = new T4MVC.EngenhariaProduto.AprovarModeloController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class FinanceiroClass

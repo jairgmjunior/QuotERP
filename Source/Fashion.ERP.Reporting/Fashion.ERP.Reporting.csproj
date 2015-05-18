@@ -265,12 +265,6 @@
     <Compile Include="EngenhariaProduto\DetalheModeloReport.Designer.cs">
       <DependentUpon>DetalheModeloReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto\ListagemModelosAprovadosReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="EngenhariaProduto\ListagemModelosAprovadosReport.Designer.cs">
-      <DependentUpon>ListagemModelosAprovadosReport.cs</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto\ListaModeloReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -417,9 +411,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\DetalheModeloReport.resx">
       <DependentUpon>DetalheModeloReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EngenhariaProduto\ListagemModelosAprovadosReport.resx">
-      <DependentUpon>ListagemModelosAprovadosReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EngenhariaProduto\ListaModeloReport.resx">
       <DependentUpon>ListaModeloReport.cs</DependentUpon>

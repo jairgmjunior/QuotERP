@@ -22,8 +22,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly ILogger _logger;
         private readonly IRepository<Modelo> _modeloRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
-        private readonly IRepository<Pessoa> _pessoaRepository;
-        private readonly IRepository<Classificacao> _classificacaoRepository;
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
 

@@ -1,0 +1,191 @@
+﻿@using Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+@model PesquisaEsbocoMatrizCorteModel
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@Html.ValidationSummaryEx()
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.EsbocoMatrizCorte.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
+                                <div class="controls">
+                                   @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Situacao)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                           <div class="control-group">
+                                @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new { @class = "input-large" })                    
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Estilista)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.Estilista, null, "-- Selecione --", new { @class = "input-large" })                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                           <div class="control-group">
+                                @Html.LabelForRequired(x => x.ColecaoAprovada)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.ColecaoAprovada, null, "-- Selecione --", new { @class = "input-large" })                    
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="row">
+                            <div class="span3">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="span3">
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                    <div class="controls">
+                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <div class="control-group">
+                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                    <div class="controls">
+                                        <select name="OrdenarEm">
+                                            <option value="asc">Ascendente</option>
+                                            <option value="desc">Descendente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@(Html.Kendo().Grid<GridEsbocoMatrizCorteModel>()
+	.Name("Grid")
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(15)
+        .Read(read => read.Action("ObtenhaListaGridEsbocoMatrizCorteModel", "EsbocoMatrizCorte").Data("ObtenhaPesquisaEsbocoMatrizCorteModel"))
+        .Events(events => events.Error("onError"))
+    )
+	.Columns(columns =>
+	{
+        columns.Bound(x => x.TagAno);
+	    columns.Bound(x => x.ColecaoAprovada);
+        columns.Bound(x => x.Dificuldade);
+		columns.Bound(x => x.Referencia);
+		columns.Bound(x => x.Descricao);
+		columns.Bound(x => x.Quantidade);
+	    columns.Bound(i => i.Id).ClientTemplate(@Html.ActionLinkAuth("Esboçar Corte", "EsbocarCorte", "EsbocoMatrizCorte", new {Id = "#= Id #"}, new {Area = "EngenhariaProducao", @class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");
+	})
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+    )
+
+<script>
+    $(function () {
+        // Seleciona o modo de consulta
+        $('#pesquisar-grid').on('click', function () {
+
+            limpeMensagensAlerta();
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if ($ModoConsulta.val() == 'listagem') {
+
+                $('#Grid').data('kendoGrid').dataSource.read();
+                $('#Grid').data('kendoGrid').refresh();
+                return false;
+            }
+        });
+
+        // Seleciona o modo de consulta
+        $('button[name=btn-ModoConsulta]').on('click', function () {
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if (this.value == 'impressao') {
+                $ModoConsulta.val('Imprimir');
+
+                $('#row-imprimir').show();
+                $('#row-listagem').hide();
+                $('#pesquisar-relatorio').show();
+                $('#pesquisar-grid').hide();
+
+            } else {
+                $ModoConsulta.val('listagem');
+
+                $('#row-imprimir').hide();
+                $('#row-listagem').show();
+                $('#pesquisar-relatorio').hide();
+                $('#pesquisar-grid').show();
+            }
+        });
+    });
+
+    function ObtenhaPesquisaEsbocoMatrizCorteModel() {
+        var parametros = {
+            model:
+            {
+                Tag: $("#Tag").val(),
+                Estilista: $("#Estilista").val(),
+                ColecaoAprovada: $("#ColecaoAprovada").val(),
+                Situacao: $("#Situacao").val(),
+                ClassificacaoDificuldade: $("#ClassificacaoDificuldade").val(),
+                OrdenarPor: $("#OrdenarPor").val(),
+                OrdenarEm: $("#OrdenarEm").val()
+            }
+        };
+
+        return parametros;
+    }
+
+    function onError(e) {
+        alert(e.errors);
+    }
+
+</script>
