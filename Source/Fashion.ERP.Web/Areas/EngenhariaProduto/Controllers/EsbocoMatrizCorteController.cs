@@ -43,13 +43,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
         {
-            {"Descricao", "Descricao"},
-            {"Referencia", "Referencia"},
-            {"Tag", "ModeloAvaliacao.Tag"},
-            {"Colecao", "Colecao.Descricao"},
-            {"ColecaoAprovada", "ModeloAvaliacao.Colecao.Descricao"},
-            {"Estilista", "Estilista.Nome"},
-            {"Situacao", "Situacao"}
+            {"Descricao", "ModeloAprovacao.Descricao"},
+            {"Referencia", "ModeloAprovacao.Referencia"},
+            {"TagAno", "Modelo.ModeloAvaliacao.Tag"},
+            {"ColecaoAprovada", "Modelo.ModeloAvaliacao.Colecao.Descricao"},
+            {"Estilista", "Modelo.Estilista.Nome"},
+            {"Quantidade", "Modelo.ModeloAvaliacao.QuantidadeTotaAprovacao"},
+            {"Dificuldade", "Modelo.ModeloAvaliacao.ClassificacaoDificuldade.Descricao"}
         };
         #endregion
 
@@ -184,7 +184,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         #endregion
 
-        #region Avaliar
+        #region Esboçar Corte
 
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult EsbocarCorte(long id)
@@ -242,10 +242,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         {
                             DescricaoTamanho = tamanho.Descricao,
                             Tamanho = tamanho.Id,
-                            Quantidade = modeloAprovacaoMatrizCorteItem.Quantidade,
-                            QuantidadeVezes = modeloAprovacaoMatrizCorteItem.QuantidadeVezes
+                            Quantidade = modeloAprovacaoMatrizCorteItem != null ? modeloAprovacaoMatrizCorteItem.Quantidade : (long?)null,
+                            QuantidadeVezes = modeloAprovacaoMatrizCorteItem != null ? modeloAprovacaoMatrizCorteItem.QuantidadeVezes : (long?)null,
                         };
-                        totalNumeroVezes += modeloAprovacaoMatrizCorteItem.QuantidadeVezes;
+                        
+                        totalNumeroVezes += modeloAprovacaoMatrizCorteItem != null
+                            ? modeloAprovacaoMatrizCorteItem.QuantidadeVezes
+                            : 0;
+
                         model.GridItens.Add(modelItem);
                     });
                     model.TotalNumeroVezes = totalNumeroVezes;
@@ -261,6 +265,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult EsbocarCorte(ModeloAprovacaoMatrizCorteModel model)
         {
+            foreach (var modelValue in ModelState.Values)
+            {
+                modelValue.Errors.Clear();
+            }
+
             try
             {
                 var modeloAprovacao = _modeloAprovacaoRepository.Get(model.IdModeloAprovacao);
@@ -277,6 +286,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                 model.GridItens.ForEach(modelItem =>
                 {
+                    if (!modelItem.Quantidade.HasValue)
+                        return;
+
                     var modeloAprovacaoMatrizCorteItem = new ModeloAprovacaoMatrizCorteItem
                     {
                         Quantidade = modelItem.Quantidade.GetValueOrDefault(),
