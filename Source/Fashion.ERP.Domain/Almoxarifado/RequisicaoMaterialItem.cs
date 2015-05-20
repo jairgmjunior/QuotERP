@@ -22,6 +22,15 @@ namespace Fashion.ERP.Domain.Almoxarifado
             }
         }
 
+
+        public virtual Double QuantidadeCancelada
+        {
+            get
+            {
+                return RequisicaoMaterialItemCancelado == null ? 0 : RequisicaoMaterialItemCancelado.QuantidadeCancelada;
+            }
+        }
+
         public virtual void AtualizeSituacao()
         {
             var quantidadeCancelada = RequisicaoMaterialItemCancelado != null ? RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0;

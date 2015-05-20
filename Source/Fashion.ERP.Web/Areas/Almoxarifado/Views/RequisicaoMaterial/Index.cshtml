@@ -205,6 +205,7 @@
         columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.RequisicaoMaterial.Editar(item.Id))).Width(80);        
         columns.Template(item => Html.ActionLinkAuth("Baixar", MVC.Almoxarifado.RequisicaoMaterialBaixa.Baixar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
         columns.Template(item => Html.ActionLinkAuth("Cancelar", MVC.Almoxarifado.RequisicaoMaterialCancelamento.Cancelar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
+        columns.Template(item => Html.ActionLinkAuth("Imprimir", MVC.Almoxarifado.RequisicaoMaterial.Imprimir(item.Id), new { @class = "btn btn-small btn-primary" , target = "_blank"})).Width(80);        
     })
 )
 <script>

@@ -16,8 +16,6 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -584,6 +582,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #endregion
+
+        #region Imprimir
+        public virtual ActionResult Imprimir(long requisicaoMaterialId)
+        {
+            var requisicao = _requisicaoMaterialRepository.Get(requisicaoMaterialId);
+
+            var report = new RequisicaoMaterialReport() { DataSource = requisicao };
+            var filename = report.ToByteStream().SaveFile(".pdf");
+
+            return File(filename);
+        }
         #endregion
     }
 }

@@ -115,6 +115,12 @@
     <Compile Include="Almoxarifado\ReferenciaExternaSubreport.Designer.cs">
       <DependentUpon>ReferenciaExternaSubreport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Almoxarifado\RequisicaoMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Almoxarifado\RequisicaoMaterialReport.Designer.cs">
+      <DependentUpon>RequisicaoMaterialReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Almoxarifado\TotalMaterialReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\ReferenciaExternaSubreport.resx">
       <DependentUpon>ReferenciaExternaSubreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almoxarifado\RequisicaoMaterialReport.resx">
+      <DependentUpon>RequisicaoMaterialReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Almoxarifado\TotalMaterialReport.resx">
       <DependentUpon>TotalMaterialReport.cs</DependentUpon>

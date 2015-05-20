@@ -101,6 +101,16 @@ namespace Fashion.ERP.Reporting.Helpers
         }
         #endregion
 
+        #region EnderecoFoto
+        [Function(Category = "Text", Namespace = "FashionErp", Description = "Retorna o endereço completo para a imagem.")]
+        public static string EnderecoCompletoFoto(string nomeFoto)
+        {
+            var foto = HttpContext.Current.Server.MapPath(@"~\Uploads\Files\" + nomeFoto);
+
+            return File.Exists(foto) ? foto : FotoPadrao;
+        }
+        #endregion
+
         #region ModeloFotoPadrao
         [Function(Category = "Conversion", Namespace = "FashionErp", Description = "Retorna apenas a foto padrão para impressão.")]
         public static string ModeloFotoPadrao(IEnumerable<ModeloFoto> fotos)
