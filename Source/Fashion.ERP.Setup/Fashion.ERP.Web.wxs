@@ -47,6 +47,9 @@
                             </Component>
                         </Directory>
                         <Directory Id="dir46F2C5AE4AC0818A744B55614AF63D58" Name="Consulta">
+                            <Component Id="cmp8EDAF0EB9C45E562D6A103DB0CE10F54" Guid="*">
+                                <File Id="fil1EC5ABDCD132A498D9989A2706AC37EB" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Consulta\CustoMaterial.cshtml" />
+                            </Component>
                             <Component Id="cmpD9156DD3949D2A494A28805B0FAA43F0" Guid="*">
                                 <File Id="fil6CEAAA3328EA4E4C10648AAE2CDDF2B2" KeyPath="yes" Source="SourceDir\Areas\Almoxarifado\Views\Consulta\EstoqueMaterial.cshtml" />
                             </Component>
@@ -1994,6 +1997,7 @@
             <ComponentRef Id="cmpB248B0574E05FA25BACCCE35D0E8CF29" />
             <ComponentRef Id="cmpF1B587F4CE7CB28ACCF5C6BB6060EBAD" />
             <ComponentRef Id="cmpEECE22376CFE2D8BB2BDFC64CCD10592" />
+            <ComponentRef Id="cmp8EDAF0EB9C45E562D6A103DB0CE10F54" />
             <ComponentRef Id="cmpD9156DD3949D2A494A28805B0FAA43F0" />
             <ComponentRef Id="cmp84313792476AE3F87CC8D086F52AFDA9" />
             <ComponentRef Id="cmpC0293316CB570154B52B6C74C1BEE7F4" />

@@ -195,9 +195,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         Numero = p.Numero,
                         Data = p.Data,
                         Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
+                        TipoMaterial = p.TipoItem.Descricao,
+                        Requerente = p.Requerente.Nome,
                         UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
                     }).OrderBy(o => o.Numero).ToList();
-
+                    
                     return View(model);
                 }
 

@@ -299,6 +299,8 @@
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SimboloConservacaoController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\GridCustoMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\CustoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridSimboloConservacaoModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridRequisicaoMaterialItemCanceladoModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\RequisicaoMaterialCancelamentoModel.cs" />
@@ -1209,6 +1211,7 @@
     <Content Include="Areas\EngenhariaProduto\Views\CriacaoFichaTecnica\CriarFichaTecnica.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichasTecnicas.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloMaterialConsumo\ModeloMaterialConsumo.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\Consulta\CustoMaterial.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

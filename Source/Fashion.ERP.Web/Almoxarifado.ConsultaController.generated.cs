@@ -43,6 +43,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CustoMaterial()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustoMaterial);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ExtratoItem()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExtratoItem);
@@ -64,6 +70,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionNamesClass
         {
             public readonly string EstoqueMaterial = "EstoqueMaterial";
+            public readonly string CustoMaterial = "CustoMaterial";
             public readonly string ExtratoItem = "ExtratoItem";
         }
 
@@ -71,6 +78,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionNameConstants
         {
             public const string EstoqueMaterial = "EstoqueMaterial";
+            public const string CustoMaterial = "CustoMaterial";
             public const string ExtratoItem = "ExtratoItem";
         }
 
@@ -82,6 +90,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionParamsClass_EstoqueMaterial
         {
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_CustoMaterial s_params_CustoMaterial = new ActionParamsClass_CustoMaterial();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CustoMaterial CustoMaterialParams { get { return s_params_CustoMaterial; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CustoMaterial
+        {
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_ExtratoItem s_params_ExtratoItem = new ActionParamsClass_ExtratoItem();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -102,9 +118,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string CustoMaterial = "CustoMaterial";
                 public readonly string EstoqueMaterial = "EstoqueMaterial";
                 public readonly string ExtratoItem = "ExtratoItem";
             }
+            public readonly string CustoMaterial = "~/Areas/Almoxarifado/Views/Consulta/CustoMaterial.cshtml";
             public readonly string EstoqueMaterial = "~/Areas/Almoxarifado/Views/Consulta/EstoqueMaterial.cshtml";
             public readonly string ExtratoItem = "~/Areas/Almoxarifado/Views/Consulta/ExtratoItem.cshtml";
         }
@@ -131,6 +149,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EstoqueMaterial);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             EstoqueMaterialOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void CustoMaterialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult CustoMaterial(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustoMaterial);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            CustoMaterialOverride(callInfo, id);
             return callInfo;
         }
 

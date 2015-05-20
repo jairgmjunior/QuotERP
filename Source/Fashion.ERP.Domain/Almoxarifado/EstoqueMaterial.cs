@@ -16,25 +16,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual DepositoMaterial DepositoMaterial { get; set; }
         public virtual Material Material { get; set; }
         public virtual IList<EstoqueMaterial> EstoqueMateriais { get; set; }
-
-        //public virtual double QuantidadeReservada
-        //{
-        //    get
-        //    {
-        //        var reservaEstoqueMaterial =
-        //            _reservaEstoqueMaterial.Where(r => r.Material.Id == Material.Id && r.Unidade.Id == DepositoMaterial.Unidade.Id).FirstOrDefault();
-        //        if (reservaEstoqueMaterial == null)
-        //            return 0;
-
-        //        return reservaEstoqueMaterial.Quantidade;
-        //    }
-        //}
-
-        //public virtual double QuantidadeDisponivel
-        //{
-        //    get { return Quantidade - QuantidadeReservada; }
-        //}
-        
+       
         public EstoqueMaterial()
         {
             _movimentacaoEstoqueMateriais = new List<MovimentacaoEstoqueMaterial>();

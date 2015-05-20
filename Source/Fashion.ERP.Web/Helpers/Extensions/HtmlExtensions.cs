@@ -162,7 +162,8 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             var buttonBuilder = new TagBuilder("a");
             buttonBuilder.Attributes.Add("href", url);
             buttonBuilder.SetInnerText(text);
-            buttonBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            var attrs = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            buttonBuilder.MergeAttributes(attrs);
 
             return new MvcHtmlString(buttonBuilder.ToString());
         }

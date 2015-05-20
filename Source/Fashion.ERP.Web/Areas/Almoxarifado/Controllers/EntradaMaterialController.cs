@@ -259,7 +259,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                             MovimentacaoEstoqueMaterial = new MovimentacaoEstoqueMaterial
                             {
                                 Quantidade = model.Quantidades[idx],
-                                Data = DateTime.Now,
+                                Data = model.DataEntrada,
                                 TipoMovimentacaoEstoqueMaterial = TipoMovimentacaoEstoqueMaterial.Entrada
                             }
                         };

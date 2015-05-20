@@ -149,6 +149,7 @@
     <Compile Include="Migrations\Migration201504060928.cs" />
     <Compile Include="Migrations\Migration201504081534.cs" />
     <Compile Include="Migrations\Migration201504141028.cs" />
+    <Compile Include="Migrations\Migration201505191523.cs" />
     <Compile Include="Migrations\Run.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -360,6 +361,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\201505251307\modelomaterialconsumo.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\201505191523\permissao.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

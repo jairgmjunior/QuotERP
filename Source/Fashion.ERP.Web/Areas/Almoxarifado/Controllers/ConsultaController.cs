@@ -18,6 +18,7 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
+using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -351,6 +352,44 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             return quantidade - quantidadeEntregue;
         }
+
+        #region Custo do Material
+        
+        public virtual ActionResult CustoMaterial(long id)
+        {
+            var estoqueMaterial = _estoqueMaterialRepository.Get(id);
+            var model = new CustoMaterialModel
+            {
+                Id = id,
+                Material = estoqueMaterial.Material.Referencia,
+                Descricao = estoqueMaterial.Material.Descricao,
+                UnidadeMedida = estoqueMaterial.Material.UnidadeMedida.Sigla,
+                Foto = (estoqueMaterial.Material.Foto != null ? estoqueMaterial.Material.Foto.Nome.GetFileUrl() : string.Empty),
+                Grid = new List<GridCustoMaterialModel>()
+            };
+
+            if (estoqueMaterial.Material.ReferenciaExternas.Count() != 0)
+            {
+                model.CustoAtual = estoqueMaterial.Material.ReferenciaExternas.Max(x => x.Preco);    
+            }
+
+            estoqueMaterial.Material.CustoMaterials.OrderByDescending(x => x.Data).ForEach(custoMaterialItem =>
+            {
+                var custoMaterialItemModel = new GridCustoMaterialModel
+                {
+                    Custo = custoMaterialItem.Custo,
+                    Data = custoMaterialItem.Data,
+                    Fornecedor = custoMaterialItem.Fornecedor.Nome
+                };
+
+                model.Grid.Add(custoMaterialItemModel);
+            });
+            
+            return View(model);
+        }
+        
+        #endregion
+
         #region ExtratoItem
         [OutputCache(Duration = 0)]
         public virtual ActionResult ExtratoItem(long id)
@@ -400,20 +439,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     model.SaldoInicial = estoqueMaterial.ObtenhaSaldo(dataInicial);
                     model.SaldoFinal = estoqueMaterial.ObtenhaSaldo(dataFinal);
-
-                    //model.SaldoInicial =
-                    //    Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
-                    //        .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
-                    //        .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
-                    //        .SetParameter("Data", dataInicial)
-                    //        .UniqueResult<double>();
-
-                    //model.SaldoFinal =
-                    //    Framework.UnitOfWork.Session.Current.GetNamedQuery(StoredProcedure.SaldoEstoqueMaterial)
-                    //        .SetParameter("IdMaterial", estoqueMaterial.Material.Id.GetValueOrDefault())
-                    //        .SetParameter("IdDepositoMaterial", estoqueMaterial.DepositoMaterial.Id.GetValueOrDefault())
-                    //        .SetParameter("Data", dataFinal)
-                    //        .UniqueResult<double>();
 
                     model.UnidadeMedida = estoqueMaterial.Material.UnidadeMedida.Descricao;
                     var reservaEstoque =

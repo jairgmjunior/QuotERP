@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.ConsultaEstoqueMaterialModel
+﻿@using PostSharp.Aspects.Advices
+@model Fashion.ERP.Web.Areas.Almoxarifado.Models.ConsultaEstoqueMaterialModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
@@ -184,8 +185,9 @@
         columns.Bound(x => x.QuantidadeCompras).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Bound(x => x.QtdeDisponivelCompras).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<a href='" + item.Foto + "'' data-lightbox='foto' title='Material'><img src='" + item.Foto + "' class='img-rounded' style='width: 68px; height: 68px;'/></a>" : string.Empty)).Width(60);
-        columns.Template(item => Html.ActionLink("Extrato", MVC.Almoxarifado.Consulta.ExtratoItem(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-extratoitem" })).Width(80);
-    })
+        columns.Template(item => Html.ActionLinkAuth("Extrato", MVC.Almoxarifado.Consulta.ExtratoItem(item.Id), new { @class = "btn btn-primary btn-small", @data_toggle = "modal", @data_target = "#modal-extratoitem" })).Width(80);
+        columns.Template(item => Html.ActionLink("Custo", MVC.Almoxarifado.Consulta.CustoMaterial(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-customaterial" })).Width(80);
+    }).Events(events => events.DataBound("onDataBound"))
 )
 
 
@@ -194,8 +196,40 @@
 }
 
 <script>
+function onDataBound() {
 
-    $(function () {
+    // Mostra o extrato do item
+    $('#mostra-extratoitem').on('click', function () {
+        var $this = $(this);
+        var url = $this.attr('href');
+
+        $.get(url, function (data) {
+            $('#modal-body-extratoitem').html(data);
+            $('#modal-extratoitem').on('hidden', function () {
+                $('#modal-body-extratoitem').html('<img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />');
+            }).modal('show');
+        });
+
+        return false;
+    });
+
+    // Mostra o extrato do item
+    $('#mostra-customaterial').on('click', function () {
+        var $this = $(this);
+        var url = $this.attr('href');
+
+        $.get(url, function (data) {
+            $('#modal-body-customaterial').html(data);
+            $('#modal-customaterial').on('hidden', function () {
+                $('#modal-body-customaterial').html('<img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />');
+            }).modal('show');
+        });
+
+        return false;
+    });
+}
+
+    $(document).ready(function() {
         // Seleciona o modo de consulta
         $('button[name=btn-ModoConsulta]').on('click', function () {
 
@@ -221,13 +255,13 @@
         // Preenche o combo de subcategoria de acordo com a categoria escolhida
         $('#Categorias').on("change", function () {
             var subcategoria = $('#Subcategorias').data("kendoMultiSelect");
-            
+
             // Limpar as subcategorias
             subcategoria.setDataSource(new kendo.data.DataSource({ data: [] }));
             // Limpa selecionados
             //subcategoria.value([]);
 
-            var data = { };
+            var data = {};
 
             var categorias = $(this).data("kendoMultiSelect").value();
             if (categorias) {
@@ -265,21 +299,24 @@
             }
         });
 
-        // Mostra o extrato do item
-        $('#mostra-extratoitem').on('click', function () {
-            var $this = $(this);
-            var url = $this.attr('href');
 
-            $.get(url, function (data) {
-                $('#modal-body-extratoitem').html(data);
-                $('#modal-extratoitem').on('hidden', function () {
-                    $('#modal-body-extratoitem').html('<img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />');
-                }).modal('show');
+        // Destruir o modal para ir no servidor buscar conteúdo novo
+        $(document).on('hidden', '.modal', function () {
+            $(this).removeData('modal');
+        });
+
+        $(document).on('click', '#filtrar-extratoitem', function (e) {
+            var form = $(this).closest("form");
+            var url = "@Html.GetUrl(MVC.Almoxarifado.Consulta.ExtratoItem())";
+
+            $.post(url, form.serialize(), function (data) {
+                $("#modal-body-extratoitem").html(data);
+                $('#DataInicial').focus();
             });
 
-            return false;
         });
-    })
+    });
+
 </script>
 <!-- Modal do extrato do item -->
 <div id="modal-extratoitem" class="modal hide fade">
@@ -299,24 +336,22 @@
         <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Fechar</button>
     </div>
 </div>
-<script>
-    $(function () {
 
-        // Destruir o modal para ir no servidor buscar conteúdo novo
-        $(document).on('hidden', '.modal', function () {
-            $(this).removeData('modal');
-        });
+<!-- Modal do custo material -->
+<div id="modal-customaterial" class="modal hide fade">
 
-        $(document).on('click', '#filtrar-extratoitem', function (e) {
-            var form = $(this).closest("form");
-            var url = "@Html.GetUrl(MVC.Almoxarifado.Consulta.ExtratoItem())";
-
-            $.post(url, form.serialize(), function (data) {
-                $("#modal-body-extratoitem").html(data);
-                $('#DataInicial').focus();
-            });
-
-        });
-        
-    });
-</script>
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Custo do Material</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Almoxarifado.Consulta.CustoMaterial()))
+    {
+        <div id="modal-body-customaterial" class="modal-body">
+            <div class="text-center">
+                <img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" /></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    </div>
+</div>

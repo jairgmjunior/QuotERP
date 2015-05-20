@@ -163,6 +163,7 @@
                       model.Field(product => product.QuantidadeCancelada).Editable(false); 
                       model.Field(product => product.QuantidadeSolicitada).Editable(true); 
                       model.Field(product => product.UnidadeMedida).Editable(true); 
+                      model.Field(product => product.Foto).Editable(false); 
                       model.Field(product => product.SituacaoRequisicaoMaterial).Editable(false).DefaultValue(SituacaoRequisicaoMaterial.NaoAtendido.EnumToString());  
                 })
             )
