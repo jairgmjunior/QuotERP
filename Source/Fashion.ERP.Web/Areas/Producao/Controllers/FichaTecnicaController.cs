@@ -466,7 +466,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         private void NovoMaterialConsumoMatriz(FichaTecnicaJeans domain, GridMaterialConsumoMatrizModel gridMaterialConsumoMatrizModel)
         {
-            domain.FichaTecnicaMatriz.MaterialConsumoMatrizs.Add(new MaterialConsumoMatriz
+            domain.FichaTecnicaMatriz.MaterialConsumoMatrizs.Add(new FichaTecnicaMaterialConsumo
             {
                 Custo = gridMaterialConsumoMatrizModel.Custo.Value,
                 DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(gridMaterialConsumoMatrizModel.DepartamentoProducao)),
@@ -493,7 +493,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         private void NovoMaterialConsumoItem(FichaTecnicaJeans domain, GridMaterialConsumoItemModel gridMaterialConsumoItemModel)
         {
-            domain.FichaTecnicaMatriz.MaterialConsumoItems.Add(new MaterialConsumoItem
+            domain.FichaTecnicaMatriz.MaterialConsumoItems.Add(new FichaTecnicaMaterialConsumoVariacao
             {
                 Custo = gridMaterialConsumoItemModel.Custo.Value,
                 CompoeCusto = gridMaterialConsumoItemModel.CompoeCusto.Value,
@@ -529,7 +529,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         private void NovoMaterialComposicaoCustoMatriz(FichaTecnicaJeans domain, GridMaterialComposicaoCustoMatrizModel gridMaterialComposicaoCustoMatrizModel)
         {
-            domain.MaterialComposicaoCustoMatrizs.Add(new MaterialComposicaoCustoMatriz
+            domain.MaterialComposicaoCustoMatrizs.Add(new FichaTecnicaMaterialComposicaoCusto
             {
                 Custo = gridMaterialComposicaoCustoMatrizModel.Custo.Value,
                 Material = _materialRepository.Get(y => y.Referencia == gridMaterialComposicaoCustoMatrizModel.Referencia)

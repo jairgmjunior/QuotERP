@@ -11,10 +11,10 @@ namespace Fashion.ERP.Mapping.Producao
 
             Map(x => x.Lavada).Length(200).Nullable();
             Map(x => x.Pesponto).Length(200).Nullable();
-            Map(x => x.Cos).Length(100).Nullable();
-            Map(x => x.Passante).Length(100).Nullable();
-            Map(x => x.Entrepernas).Length(100).Nullable();
-            Map(x => x.Boca).Length(100).Nullable();
+            Map(x => x.MedidaCos).Length(100).Nullable();
+            Map(x => x.MedidaPassante).Length(100).Nullable();
+            Map(x => x.MedidaComprimento).Length(100).Nullable();
+            Map(x => x.MedidaBarra).Length(100).Nullable();
 
             References(x => x.ProdutoBase);
             References(x => x.Barra);

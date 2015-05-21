@@ -9,12 +9,12 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.Reporting.TableGroup tableGroup7 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup8 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup9 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup10 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup11 = new Telerik.Reporting.TableGroup();
-            Telerik.Reporting.TableGroup tableGroup12 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup1 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup2 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup3 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup4 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup5 = new Telerik.Reporting.TableGroup();
+            Telerik.Reporting.TableGroup tableGroup6 = new Telerik.Reporting.TableGroup();
             this.textBox40 = new Telerik.Reporting.TextBox();
             this.textBox44 = new Telerik.Reporting.TextBox();
             this.detail = new Telerik.Reporting.DetailSection();
@@ -144,12 +144,12 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.table4.Body.SetCellContent(0, 1, this.textBox19);
             this.table4.Body.SetCellContent(1, 0, this.textBox22);
             this.table4.Body.SetCellContent(1, 1, this.textBox23);
-            tableGroup7.Name = "Group2";
-            tableGroup7.ReportItem = this.textBox40;
-            tableGroup8.Name = "Group4";
-            tableGroup8.ReportItem = this.textBox44;
-            this.table4.ColumnGroups.Add(tableGroup7);
-            this.table4.ColumnGroups.Add(tableGroup8);
+            tableGroup1.Name = "Group2";
+            tableGroup1.ReportItem = this.textBox40;
+            tableGroup2.Name = "Group4";
+            tableGroup2.ReportItem = this.textBox44;
+            this.table4.ColumnGroups.Add(tableGroup1);
+            this.table4.ColumnGroups.Add(tableGroup2);
             this.table4.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox14,
             this.textBox19,
@@ -159,15 +159,15 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox44});
             this.table4.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(14.800000190734863D), Telerik.Reporting.Drawing.Unit.Cm(0.70020031929016113D));
             this.table4.Name = "table4";
-            tableGroup10.Name = "group";
-            tableGroup9.ChildGroups.Add(tableGroup10);
-            tableGroup9.Groupings.Add(new Telerik.Reporting.Grouping(null));
-            tableGroup9.Name = "DetailGroup";
-            tableGroup12.Name = "group2";
-            tableGroup11.ChildGroups.Add(tableGroup12);
-            tableGroup11.Name = "group1";
-            this.table4.RowGroups.Add(tableGroup9);
-            this.table4.RowGroups.Add(tableGroup11);
+            tableGroup4.Name = "group";
+            tableGroup3.ChildGroups.Add(tableGroup4);
+            tableGroup3.Groupings.Add(new Telerik.Reporting.Grouping(null));
+            tableGroup3.Name = "DetailGroup";
+            tableGroup6.Name = "group2";
+            tableGroup5.ChildGroups.Add(tableGroup6);
+            tableGroup5.Name = "group1";
+            this.table4.RowGroups.Add(tableGroup3);
+            this.table4.RowGroups.Add(tableGroup5);
             this.table4.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(5.1999983787536621D), Telerik.Reporting.Drawing.Unit.Cm(1.9999997615814209D));
             // 
             // textBox14
@@ -231,6 +231,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox5.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(0.0998000055551529D));
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(14.5D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
+            this.textBox5.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox5.StyleName = "GroupPanel";
             this.textBox5.Value = "Dados do Material";
             // 

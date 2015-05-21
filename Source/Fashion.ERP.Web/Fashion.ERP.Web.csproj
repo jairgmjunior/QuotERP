@@ -436,12 +436,14 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\CriacaoFichaTecnicaController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\EsbocoMatrizCorteController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\CriacaoFichaTecnicaModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridEsbocoMatrizCorteModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaEsbocoMatrizCorteModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAprovacaoMatrizCorteItemModel.cs" />
@@ -802,6 +804,9 @@
     <Compile Include="DI\Ninject\Modules\MvcSiteMapProviderModule.cs" />
     <Compile Include="DI\Ninject\NinjectDependencyInjectionContainer.cs" />
     <Compile Include="EngenhariaProduto.AprovarModeloController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto.CriacaoFichaTecnicaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.EsbocoMatrizCorteController.generated.cs">
@@ -1201,6 +1206,7 @@
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Avaliar.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\EsbocoMatrizCorte\EsbocarCorte.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\EsbocoMatrizCorte\Index.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\CriacaoFichaTecnica\CriarFichaTecnica.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

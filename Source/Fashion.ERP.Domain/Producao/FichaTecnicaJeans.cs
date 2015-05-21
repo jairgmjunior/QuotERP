@@ -7,10 +7,10 @@ namespace Fashion.ERP.Domain.Producao
     {
         public virtual String Lavada { get; set; }
         public virtual String Pesponto { get; set; }
-        public virtual String Cos { get; set; }
-        public virtual String Passante { get; set; }
-        public virtual String Entrepernas { get; set; }
-        public virtual String Boca { get; set; }
+        public virtual double MedidaCos { get; set; }
+        public virtual double MedidaPassante { get; set; }
+        public virtual double MedidaComprimento { get; set; }
+        public virtual double MedidaBarra { get; set; }
 
         public virtual ProdutoBase ProdutoBase { get; set; }
         public virtual Barra Barra { get; set; }

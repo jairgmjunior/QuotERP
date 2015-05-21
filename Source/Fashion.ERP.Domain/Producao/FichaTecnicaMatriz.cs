@@ -6,8 +6,8 @@ namespace Fashion.ERP.Domain.Producao
     public class FichaTecnicaMatriz : DomainEmpresaBase<FichaTecnicaMatriz>
     {
         private readonly IList<FichaTecnicaVariacaoMatriz> _fichaTecnicaVariacaoMatrizs = new List<FichaTecnicaVariacaoMatriz>();
-        private readonly IList<MaterialConsumoMatriz> _materialConsumoMatrizs = new List<MaterialConsumoMatriz>();
-        private readonly IList<MaterialConsumoItem> _materialConsumoItems = new List<MaterialConsumoItem>();
+        private readonly IList<FichaTecnicaMaterialConsumo> _materialConsumoMatrizs = new List<FichaTecnicaMaterialConsumo>();
+        private readonly IList<FichaTecnicaMaterialConsumoVariacao> _materialConsumoItems = new List<FichaTecnicaMaterialConsumoVariacao>();
 
         public virtual Grade Grade { get; set; }
 
@@ -16,12 +16,12 @@ namespace Fashion.ERP.Domain.Producao
             get { return _fichaTecnicaVariacaoMatrizs; }
         }
 
-        public virtual IList<MaterialConsumoMatriz> MaterialConsumoMatrizs
+        public virtual IList<FichaTecnicaMaterialConsumo> MaterialConsumoMatrizs
         {
             get { return _materialConsumoMatrizs; }
         }
 
-        public virtual IList<MaterialConsumoItem> MaterialConsumoItems
+        public virtual IList<FichaTecnicaMaterialConsumoVariacao> MaterialConsumoItems
         {
             get { return _materialConsumoItems; }
         }

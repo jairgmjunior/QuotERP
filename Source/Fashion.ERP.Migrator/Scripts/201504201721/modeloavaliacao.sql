@@ -124,4 +124,22 @@ REFERENCES [dbo].[modeloavaliacao] ([id])
 GO
 
 
+-----------------------------
+--ALTERAÇÕES NA FICHA TECNICA
+-----------------------------
 
+EXEC sp_rename 'fichatecnica.boca', 'medidabarra', 'COLUMN';
+EXEC sp_rename 'fichatecnica.cos', 'medidacos', 'COLUMN';
+EXEC sp_rename 'fichatecnica.passante', 'medidapassante', 'COLUMN';
+EXEC sp_rename 'fichatecnica.entrepernas', 'medidacomprimento', 'COLUMN';
+
+ALTER TABLE fichatecnica ALTER COLUMN medidabarra [float]; 
+ALTER TABLE fichatecnica ALTER COLUMN medidacos [float]; 
+ALTER TABLE fichatecnica ALTER COLUMN medidapassante [float]; 
+ALTER TABLE fichatecnica ALTER COLUMN medidacomprimento [float]; 
+
+EXEC sp_rename 'materialconsumomatriz', 'fichatecnicamaterialconsumo';
+EXEC sp_rename 'materialconsumoitem', 'fichatecnicamaterialconsumovariacao';
+EXEC sp_rename 'materialcomposicaocustomatriz', 'fichatecnicamaterialcomposicaocusto';
+
+ALTER TABLE fichatecnica ADD catalogo bit NULL, complemento [nvarchar](255) NULL;

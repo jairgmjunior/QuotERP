@@ -139,6 +139,7 @@ namespace T4MVC
     public class EngenhariaProdutoClass
     {
         public readonly string Name = "EngenhariaProduto";
+        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.CriacaoFichaTecnicaController CriacaoFichaTecnica = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_CriacaoFichaTecnicaController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.EsbocoMatrizCorteController EsbocoMatrizCorte = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_EsbocoMatrizCorteController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.GradeController Grade = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_GradeController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.MaterialComposicaoModeloController MaterialComposicaoModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_MaterialComposicaoModeloController();

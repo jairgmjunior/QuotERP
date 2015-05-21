@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Domain.EngenhariaProduto;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models

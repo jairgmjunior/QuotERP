@@ -82,26 +82,30 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Comprimento")]
         public long? Comprimento { get; set; }
 
-        [Display(Name = "Passante")]
-        public string Passante { get; set; }
+        [Display(Name = "Medida do Passante")]
+        [UIHint("numeric2casasdecimais")]
+        public double MedidaPassante { get; set; }
 
         [Display(Name = "Barra")]
         public long? Barra { get; set; }
 
-        [Display(Name = "Boca")]
-        public string Boca { get; set; }
+        [Display(Name = "Medida da Barra")]
+        [UIHint("numeric2casasdecimais")]
+        public double MedidaBarra { get; set; }
 
         [Display(Name = "Lavada")]
         public string Lavada { get; set; }
         
-        [Display(Name = "Cos")]
-        public string Cos { get; set; }
+        [Display(Name = "Medida do Cos")]
+        [UIHint("numeric2casasdecimais")]
+        public double MedidaCos { get; set; }
 
         [Display(Name = "Pesponto")]
         public string Pesponto { get; set; }
 
-        [Display(Name = "EntrePernas")]
-        public string Entrepernas { get; set; }
+        [Display(Name = "Medida do Comprimento")]
+        [UIHint("numeric2casasdecimais")]
+        public double MedidaComprimento { get; set; }
 
         #endregion
     }

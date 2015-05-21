@@ -1177,9 +1177,9 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Producao
 
-        public MaterialConsumoItem ObtenhaMaterialConsumoItem()
+        public FichaTecnicaMaterialConsumoVariacao ObtenhaMaterialConsumoItem()
         {
-            return new MaterialConsumoItem
+            return new FichaTecnicaMaterialConsumoVariacao
             {
                 Custo = 1,
                 Quantidade = 1,
@@ -1187,18 +1187,18 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
-        public MaterialConsumoMatriz ObtenhaMaterialConsumoMatriz()
+        public FichaTecnicaMaterialConsumo ObtenhaMaterialConsumoMatriz()
         {
-            return new MaterialConsumoMatriz()
+            return new FichaTecnicaMaterialConsumo()
             {
                 Custo = 1,
                 Quantidade = 1
             };
         }
 
-        public MaterialComposicaoCustoMatriz ObtenhaMaterialComposicaoCustoMatriz()
+        public FichaTecnicaMaterialComposicaoCusto ObtenhaMaterialComposicaoCustoMatriz()
         {
-            return new MaterialComposicaoCustoMatriz()
+            return new FichaTecnicaMaterialComposicaoCusto()
             {
                 Custo = 1
             };
@@ -1242,17 +1242,19 @@ namespace Fashion.ERP.Testes.Persistencia
                 Detalhamento = "DETALHAMENTO DO TECIDO",
                 DataAlteracao = new DateTime(2014, 1, 1),
                 Observacao = "OBSERVAÇÃO",
-                Cos = "10",
-                Passante = "10",
-                Entrepernas = "10",
+                MedidaCos = "10",
+                MedidaPassante = "10",
+                MedidaComprimento = "10",
                 Lavada = "LAVADA",
-                Boca = "10",
+                MedidaBarra = "10",
                 Tag = "TAG",
                 Ano = 2015,
                 DataCadastro = new DateTime(2015, 1, 1),
                 Pedraria = "PEDRARIA",
                 QuantidadeProducaoAprovada = 50,
-                Silk = "SILK"
+                Silk = "SILK",
+                Catalogo = true,
+                Complemento = "COMPLEMENTO"
                 //Variante = 1
             };
 

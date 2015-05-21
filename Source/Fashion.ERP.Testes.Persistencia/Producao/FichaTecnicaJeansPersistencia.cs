@@ -32,10 +32,10 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private DepartamentoProducao _departamentoProducao;
         private OperacaoProducao _operacaoProducao;
         private FichaTecnicaSequenciaOperacional _fichaTecnicaSequenciaOperacional;
-        private MaterialComposicaoCustoMatriz _materialComposicaoCustoMatriz;
+        private FichaTecnicaMaterialComposicaoCusto _materialComposicaoCustoMatriz;
         private Material _material;
         private Tamanho _tamanho;
-        private MaterialConsumoMatriz _materialConsumoMatriz;
+        private FichaTecnicaMaterialConsumo _materialConsumoMatriz;
         //private MaterialConsumoItem _materialConsumoItem;
 
         public override FichaTecnicaJeans GetPersistentObject()
