@@ -62,3 +62,65 @@ INSERT INTO [dbo].[permissao]
            ,@INDEXID
            ,0
 		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('3. Modelo Aprovado'
+           ,'Index'
+           ,'EngenhariaProduto'
+           ,'ModeloAprovacao'
+           ,1
+           ,1
+           ,@MODELOID
+           ,0
+		   )
+
+SET @INDEXID = SCOPE_IDENTITY()
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Esboçar Corte'
+           ,'EsbocarCorte'
+           ,'EngenhariaProduto'
+           ,'ModeloAprovacao'
+           ,0
+           ,1
+           ,@INDEXID
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Criar Fichas Técnicas'
+           ,'CriarFichaTecnica'
+           ,'EngenhariaProduto'
+           ,'ModeloAprovacao'
+           ,0
+           ,1
+           ,@INDEXID
+           ,0
+		   )

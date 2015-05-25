@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
+using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.EngenhariaProduto.Models;
 using Fashion.ERP.Web.Helpers.Attributes;
@@ -15,11 +16,12 @@ using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
+using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 {
-    public partial class EsbocoMatrizCorteController : BaseController
+    public partial class ModeloAprovacaoController : BaseController
     {
 		#region Variaveis
         
@@ -56,7 +58,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #endregion
 
         #region Construtores
-        public EsbocoMatrizCorteController(ILogger logger, IRepository<Modelo> modeloRepository,
+        public ModeloAprovacaoController(ILogger logger, IRepository<Modelo> modeloRepository,
             IRepository<Colecao> colecaoRepository, IRepository<Pessoa> pessoaRepository,
             IRepository<ModeloAprovacao> modeloAprovacaoRepository, IRepository<Tamanho> tamanhoRepository,
             IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
@@ -80,17 +82,17 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var model = new PesquisaEsbocoMatrizCorteModel {ModoConsulta = "listagem"};
+            var model = new PesquisaModeloAprovacaoModel {ModoConsulta = "listagem"};
             return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
-        public virtual ActionResult Index(PesquisaEsbocoMatrizCorteModel model)
+        public virtual ActionResult Index(PesquisaModeloAprovacaoModel model)
         {
             return View(model);
         }
 
-        public virtual ActionResult ObtenhaListaGridEsbocoMatrizCorteModel([DataSourceRequest] DataSourceRequest request, PesquisaEsbocoMatrizCorteModel model)
+        public virtual ActionResult ObtenhaListaGridModeloAprovacaoModel([DataSourceRequest] DataSourceRequest request, PesquisaModeloAprovacaoModel model)
         {
             try
             {
@@ -148,7 +150,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 
                 var resultado = modelos.Take(request.PageSize).ToList();
                 
-                var list = resultado.Select(p => new GridEsbocoMatrizCorteModel
+                var list = resultado.Select(p => new GridModeloAprovacaoModel
                 {
                     Id = p.ModeloAprovacao.Id.GetValueOrDefault(),
                     Descricao = p.ModeloAprovacao.Descricao,
@@ -180,6 +182,96 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Errors = ex.GetMessage()
                 });
             }
+        }
+
+        #endregion
+
+        #region Criar Fichas Tecnicas
+
+        //[PopulateViewData("PopulateViewDataCriarFichasTecnicas")]
+        public virtual ActionResult CriarFichasTecnicas(IEnumerable<long> ids)
+        {
+            var model = new CriacaoFichaTecnicaModel()
+            {
+                Ids = new List<long>(ids)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public virtual ActionResult CriarFichasTecnicas(CriacaoFichaTecnicaModel model)
+        {
+            var modelosAprovacao = new List<ModeloAprovacao>();
+            foreach (var idModeloAprovacao in model.Ids)
+            {
+                var modeloAprovacao = _modeloAprovacaoRepository.Find().FirstOrDefault(x => x.Id == idModeloAprovacao);
+                if (modeloAprovacao != null && modeloAprovacao.FichaTecnica == null)
+                {
+                    modelosAprovacao.Add(modeloAprovacao);
+                }
+            }
+
+            if (!modelosAprovacao.Any())
+            {
+                ModelState.AddModelError(string.Empty, "Todos os modelos aprovação já possuem fichas técnicas.");
+                return View(model);
+            }
+
+            foreach (var modeloAprovacao in modelosAprovacao)
+            {
+                var modelo = _modeloRepository.Find().FirstOrDefault(x => x.ModeloAvaliacao.ModelosAprovados.Any(y => y.Id == modeloAprovacao.Id));
+               
+                var fichaTecnica = new FichaTecnica()
+                {
+                    Tag = modelo.ModeloAvaliacao.Tag,
+                    Ano = modelo.ModeloAvaliacao.Ano,
+                    Artigo = modelo.Artigo,
+                    Descricao = modeloAprovacao.Descricao,
+                    DataCadastro = DateTime.Now,
+                    Catalogo = modelo.ModeloAvaliacao.Catalogo,
+                    Classificacao = modelo.Classificacao,
+                    ClassificacaoDificuldade = modelo.ModeloAvaliacao.ClassificacaoDificuldade,
+                    Colecao = modelo.ModeloAvaliacao.Colecao,
+                    Marca = modelo.Marca,
+                    Natureza = modelo.Natureza,
+                    Observacao = modelo.Observacao,
+                    Complemento = modelo.ModeloAvaliacao.Complemento,
+                    Detalhamento = modelo.Detalhamento,
+                    Segmento = modelo.Segmento,
+                    FichaTecnicaMatriz = new FichaTecnicaMatriz()
+                    {
+                        Grade = modelo.Grade
+                    }
+                };
+
+                modelo.VariacaoModelos.ForEach(variacaoModelo =>
+                {
+                    var fichaTecnicaVariacaoMatriz = new FichaTecnicaVariacaoMatriz()
+                    {
+                        Variacao = variacaoModelo.Variacao
+                    };
+
+                    variacaoModelo.Cores.ForEach(cor => fichaTecnicaVariacaoMatriz.AddCor(cor));
+                });
+
+                modelo.ObtenhaMaterialComposicaoModelos().ForEach(materialComposicaoModelo =>
+                {
+                    if (materialComposicaoModelo.VariacaoModelo != null)
+                    {
+                        fichaTecnica.FichaTecnicaMatriz.MaterialConsumoItems.Add(new FichaTecnicaMaterialConsumoVariacao()
+                        {
+                            CompoeCusto = true, 
+                            Quantidade = materialComposicaoModelo.Quantidade,
+                            Tamanho = materialComposicaoModelo.Tamanho
+                        });
+                    }
+                });
+                
+            }
+            
+            this.AddErrorMessage("xxxxxxxxx.");
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -326,7 +418,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region Métodos
 
         #region PopulateViewData
-        protected void PopulateViewDataPesquisa(PesquisaEsbocoMatrizCorteModel model)
+        protected void PopulateViewDataPesquisa(PesquisaModeloAprovacaoModel model)
         {
             var colecoes = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
             ViewData["ColecaoAprovada"] = colecoes.ToSelectList("Descricao", model.ColecaoAprovada);

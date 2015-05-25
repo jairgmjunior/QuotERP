@@ -3,7 +3,7 @@ using Fashion.ERP.Domain.EngenhariaProduto;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 {
-    public class PesquisaEsbocoMatrizCorteModel
+    public class PesquisaModeloAprovacaoModel
     {
         [Display(Name = "Tag")]
         public string Tag { get; set; }

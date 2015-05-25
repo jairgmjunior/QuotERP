@@ -139,10 +139,9 @@ namespace T4MVC
     public class EngenhariaProdutoClass
     {
         public readonly string Name = "EngenhariaProduto";
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.CriacaoFichaTecnicaController CriacaoFichaTecnica = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_CriacaoFichaTecnicaController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.EsbocoMatrizCorteController EsbocoMatrizCorte = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_EsbocoMatrizCorteController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.GradeController Grade = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_GradeController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.MaterialComposicaoModeloController MaterialComposicaoModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_MaterialComposicaoModeloController();
+        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAprovacaoController ModeloAprovacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloAprovacaoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAvaliacaoController ModeloAvaliacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloAvaliacaoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloController Modelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.NaturezaController Natureza = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_NaturezaController();
@@ -153,6 +152,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController RelatorioSolicitacaoMaterialCompra = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioSolicitacaoMaterialCompraController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
         public T4MVC.EngenhariaProduto.AprovarModeloController AprovarModelo = new T4MVC.EngenhariaProduto.AprovarModeloController();
+        public T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController CriacaoFichaTecnica = new T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class FinanceiroClass

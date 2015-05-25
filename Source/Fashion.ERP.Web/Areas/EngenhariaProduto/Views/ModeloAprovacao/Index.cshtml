@@ -1,10 +1,10 @@
 ﻿@using Fashion.ERP.Web.Areas.EngenhariaProduto.Models
-@model PesquisaEsbocoMatrizCorteModel
+@model PesquisaModeloAprovacaoModel
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
 @Html.ValidationSummaryEx()
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.EsbocoMatrizCorte.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+@using (Html.BeginForm(MVC.EngenhariaProduto.ModeloAprovacao.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     @Html.AntiForgeryToken()
     <div class="accordion" id="accordion2">
@@ -100,24 +100,28 @@
         </div>
     </div>
 }
-@(Html.Kendo().Grid<GridEsbocoMatrizCorteModel>()
-	.Name("Grid")
+@*.ToolBar(toolBar => toolBar.Template("<a class='k-button k-button-icontext' onclick='criarFichasTecnicas()' href='#'></span>Criar Fichas Técnicas</a>"))*@
+@(Html.Kendo().Grid<GridModeloAprovacaoModel>() 
+	.Name("Grid").Events(events => events.DataBound("onDataBound"))
+    .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Tecnicas", "CriarFichasTecnicas", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
-        .PageSize(15)
-        .Read(read => read.Action("ObtenhaListaGridEsbocoMatrizCorteModel", "EsbocoMatrizCorte").Data("ObtenhaPesquisaEsbocoMatrizCorteModel"))
+        .PageSize(50)
+        .Read(read => read.Action("ObtenhaListaGridModeloAprovacaoModel", "ModeloAprovacao").Data("ObtenhaPesquisaModeloAprovacaoModel"))
         .Events(events => events.Error("onError"))
     )
 	.Columns(columns =>
-	{
+	{ 
+        columns.Bound(x => x.Check).HeaderTemplate("<input id='checkAll' type='checkbox' onclick='clicouCheckBoxAll(this)' />")
+            .Title("").ClientTemplate("<input type='checkbox' class='check-box' onclick='clicouCheckBox(this)'/>").Width(27).Sortable(false);
         columns.Bound(x => x.TagAno);
 	    columns.Bound(x => x.ColecaoAprovada);
         columns.Bound(x => x.Dificuldade);
 		columns.Bound(x => x.Referencia);
 		columns.Bound(x => x.Descricao);
 		columns.Bound(x => x.Quantidade);
-	    columns.Bound(i => i.Id).ClientTemplate(@Html.ActionLinkAuth("Esboçar Corte", "EsbocarCorte", "EsbocoMatrizCorte", new {Id = "#= Id #"}, new {Area = "EngenhariaProducao", @class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");
+	    columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Esboçar Corte", "EsbocarCorte", "ModeloAprovacao", new {Id = "#= Id #", Area = "EngenhariaProduto"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");
 	})
     .Resizable(resize => resize.Columns(true))
     .Reorderable(reorder => reorder.Columns(true))
@@ -127,6 +131,54 @@
     )
 
 <script>
+    function onDataBound() {
+    };
+
+    function clicouCheckBoxAll(checkBoxAll) {
+        var grid = $("#Grid").data("kendoGrid");
+        var checkBoxes = $(grid.tbody).find("input:checkbox");
+        for (var i = 0; i < checkBoxes.length; i++) {
+            var checkBox = checkBoxes[i];
+            $(checkBox).attr("checked", $(checkBoxAll).is(":checked")).trigger("change");
+        }
+    }
+
+    $(document).ready(function() {
+        $('#criarFichasTecnicasButton').click(function () {
+            var parametros = obtenhaIdsSelecionados();
+
+            if (parametros == "") {
+                exibaAlertaErro("Selecione pelo menos um item da grid.");
+                return false;
+            }
+            window.location.href = this.href + parametros;
+            return false;
+        });
+    });
+
+    function obtenhaIdsSelecionados() {
+        var grid = $('#Grid').data("kendoGrid");
+        var dataItemsAll = grid.dataItems();
+        var idsSelecionados = [];
+        for (var i in dataItemsAll) {
+            var dataItem = dataItemsAll[i];
+            var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
+
+            if (row.find("input:checkbox").prop("checked")) {
+                idsSelecionados.push(dataItem.Id);
+            }
+        }
+        if (idsSelecionados.length == 0)
+            return "";
+
+        var parametros = "?";
+        for (var i in idsSelecionados) {
+            var idSelecionado = idsSelecionados[i];
+            parametros = parametros + "ids=" + idSelecionado + "&";
+        }
+        return parametros;
+    }
+        
     $(function () {
         // Seleciona o modo de consulta
         $('#pesquisar-grid').on('click', function () {
@@ -167,7 +219,7 @@
         });
     });
 
-    function ObtenhaPesquisaEsbocoMatrizCorteModel() {
+    function ObtenhaPesquisaModeloAprovacaoModel() {
         var parametros = {
             model:
             {

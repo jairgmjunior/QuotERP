@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 {
-    public partial class EsbocoMatrizCorteController
+    public partial class ModeloAprovacaoController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected EsbocoMatrizCorteController(Dummy d) { }
+        protected ModeloAprovacaoController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,9 +43,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridEsbocoMatrizCorteModel()
+        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModeloAprovacaoModel()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CriarFichasTecnicas()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -55,13 +61,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public EsbocoMatrizCorteController Actions { get { return MVC.EngenhariaProduto.EsbocoMatrizCorte; } }
+        public ModeloAprovacaoController Actions { get { return MVC.EngenhariaProduto.ModeloAprovacao; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "EngenhariaProduto";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "EsbocoMatrizCorte";
+        public readonly string Name = "ModeloAprovacao";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "EsbocoMatrizCorte";
+        public const string NameConst = "ModeloAprovacao";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -71,6 +77,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
+            public readonly string CriarFichasTecnicas = "CriarFichasTecnicas";
             public readonly string EsbocarCorte = "EsbocarCorte";
         }
 
@@ -79,6 +86,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public const string Index = "Index";
             public const string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
+            public const string CriarFichasTecnicas = "CriarFichasTecnicas";
             public const string EsbocarCorte = "EsbocarCorte";
         }
 
@@ -100,6 +108,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string request = "request";
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_CriarFichasTecnicas s_params_CriarFichasTecnicas = new ActionParamsClass_CriarFichasTecnicas();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CriarFichasTecnicas CriarFichasTecnicasParams { get { return s_params_CriarFichasTecnicas; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CriarFichasTecnicas
+        {
+            public readonly string ids = "ids";
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_EsbocarCorte s_params_EsbocarCorte = new ActionParamsClass_EsbocarCorte();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_EsbocarCorte EsbocarCorteParams { get { return s_params_EsbocarCorte; } }
@@ -119,18 +136,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string CriarFichasTecnicas = "CriarFichasTecnicas";
                 public readonly string EsbocarCorte = "EsbocarCorte";
                 public readonly string Index = "Index";
             }
-            public readonly string EsbocarCorte = "~/Areas/EngenhariaProduto/Views/EsbocoMatrizCorte/EsbocarCorte.cshtml";
-            public readonly string Index = "~/Areas/EngenhariaProduto/Views/EsbocoMatrizCorte/Index.cshtml";
+            public readonly string CriarFichasTecnicas = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/CriarFichasTecnicas.cshtml";
+            public readonly string EsbocarCorte = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/EsbocarCorte.cshtml";
+            public readonly string Index = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_EsbocoMatrizCorteController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.EsbocoMatrizCorteController
+    public partial class T4MVC_ModeloAprovacaoController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAprovacaoController
     {
-        public T4MVC_EsbocoMatrizCorteController() : base(Dummy.Instance) { }
+        public T4MVC_ModeloAprovacaoController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
@@ -141,9 +160,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model);
 
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model)
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -151,14 +170,34 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void ObtenhaListaGridEsbocoMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model);
+        partial void ObtenhaListaGridEsbocoMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model);
 
-        public override System.Web.Mvc.ActionResult ObtenhaListaGridEsbocoMatrizCorteModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model)
+        public override System.Web.Mvc.ActionResult ObtenhaListaGridModeloAprovacaoModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ObtenhaListaGridEsbocoMatrizCorteModelOverride(callInfo, request, model);
+            return callInfo;
+        }
+
+        partial void CriarFichasTecnicasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Collections.Generic.IEnumerable<long> ids);
+
+        public override System.Web.Mvc.ActionResult CriarFichasTecnicas(System.Collections.Generic.IEnumerable<long> ids)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ids", ids);
+            CriarFichasTecnicasOverride(callInfo, ids);
+            return callInfo;
+        }
+
+        partial void CriarFichasTecnicasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model);
+
+        public override System.Web.Mvc.ActionResult CriarFichasTecnicas(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CriarFichasTecnicasOverride(callInfo, model);
             return callInfo;
         }
 

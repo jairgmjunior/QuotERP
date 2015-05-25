@@ -20,95 +20,11 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace T4MVC.EngenhariaProduto
 {
-    public partial class CriacaoFichaTecnicaController
+    public class CriacaoFichaTecnicaController
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected CriacaoFichaTecnicaController(Dummy d) { }
 
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result)
-        {
-            var callInfo = result.GetT4MVCResult();
-            return RedirectToRoute(callInfo.RouteValueDictionary);
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
-        {
-            var callInfo = result.GetT4MVCResult();
-            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
-        }
-
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridEsbocoMatrizCorteModel()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CriarFichaTecnica()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public CriacaoFichaTecnicaController Actions { get { return MVC.EngenhariaProduto.CriacaoFichaTecnica; } }
-        [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "EngenhariaProduto";
-        [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "CriacaoFichaTecnica";
-        [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "CriacaoFichaTecnica";
-
-        static readonly ActionNamesClass s_actions = new ActionNamesClass();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionNamesClass ActionNames { get { return s_actions; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass
-        {
-            public readonly string Index = "Index";
-            public readonly string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
-            public readonly string CriarFichaTecnica = "CriarFichaTecnica";
-        }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants
-        {
-            public const string Index = "Index";
-            public const string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
-            public const string CriarFichaTecnica = "CriarFichaTecnica";
-        }
-
-
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
-        {
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel s_params_ObtenhaListaGridEsbocoMatrizCorteModel = new ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel ObtenhaListaGridEsbocoMatrizCorteModelParams { get { return s_params_ObtenhaListaGridEsbocoMatrizCorteModel; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel
-        {
-            public readonly string request = "request";
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_CriarFichaTecnica s_params_CriarFichaTecnica = new ActionParamsClass_CriarFichaTecnica();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CriarFichaTecnica CriarFichaTecnicaParams { get { return s_params_CriarFichaTecnica; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CriarFichaTecnica
-        {
-            public readonly string id = "id";
-            public readonly string model = "model";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -125,62 +41,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
     }
 
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_CriacaoFichaTecnicaController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.CriacaoFichaTecnicaController
-    {
-        public T4MVC_CriacaoFichaTecnicaController() : base(Dummy.Instance) { }
-
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model);
-
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            IndexOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void ObtenhaListaGridEsbocoMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model);
-
-        public override System.Web.Mvc.ActionResult ObtenhaListaGridEsbocoMatrizCorteModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaEsbocoMatrizCorteModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ObtenhaListaGridEsbocoMatrizCorteModelOverride(callInfo, request, model);
-            return callInfo;
-        }
-
-        partial void CriarFichaTecnicaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
-
-        public override System.Web.Mvc.ActionResult CriarFichaTecnica(long id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            CriarFichaTecnicaOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void CriarFichaTecnicaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel model);
-
-        public override System.Web.Mvc.ActionResult CriarFichaTecnica(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            CriarFichaTecnicaOverride(callInfo, model);
-            return callInfo;
-        }
-
-    }
 }
 
 #endregion T4MVC

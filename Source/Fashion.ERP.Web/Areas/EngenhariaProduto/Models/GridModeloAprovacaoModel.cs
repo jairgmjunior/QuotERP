@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 {
-    public class GridEsbocoMatrizCorteModel
+    public class GridModeloAprovacaoModel
     {
         public long Id { get; set; }
+        
+        public Boolean Check { get; set; }
 
         [Display(Name = "Referência")]
         public string Referencia { get; set; } 

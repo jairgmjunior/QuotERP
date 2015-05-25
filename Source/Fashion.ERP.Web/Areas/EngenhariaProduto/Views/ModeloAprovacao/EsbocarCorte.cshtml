@@ -1,6 +1,6 @@
 ﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.EsbocoMatrizCorte.EsbocarCorte(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+@using (Html.BeginForm(MVC.EngenhariaProduto.ModeloAprovacao.EsbocarCorte(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()

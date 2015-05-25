@@ -1,0 +1,146 @@
+﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel
+
+@using (Html.BeginForm(MVC.EngenhariaProduto.ModeloAprovacao.CriarFichasTecnicas(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+
+    for (int i = 0; i < Model.Ids.Count(); i++ )    
+    {
+       @Html.Hidden("Ids[" + i + "]", Model.Ids[i])
+    }
+
+    <fieldset>
+        <legend><small>Materiais de Composição do Custo da Ficha Técnica</small></legend>
+    </fieldset>
+
+
+
+        @(Html.Kendo().Grid(@Model.GridItens)
+            .Name("GridItens")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                    "<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                columns.Bound(p => p.Custo).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(Custo, \"n2\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                
+                columns.Command(command => command.Destroy() );
+            })
+            
+            .DataSource(s => s.Ajax()
+                .Model(model =>
+                {
+                    model.Id(item => item.Id);
+                    model.Field(item => item.Referencia).Editable(false);
+                    model.Field(item => item.Descricao).Editable(false);
+                    model.Field(item => item.UnidadeMedida).Editable(false);
+                    model.Field(item => item.Custo).Editable(true);
+                })
+            )
+            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Resizable(resize => resize.Columns(true))
+            .Events(events =>events.Edit("onEditGrid"))
+            .Navigatable()
+              )
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+@{
+    Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
+}
+
+
+<script>
+    
+    $(document).ready(function () {
+
+        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+
+            if (itens.DataItemsSelecionados.length == 0) {
+                return;
+            }
+
+            var grid = $('#GridItens').data("kendoGrid");
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data();
+            var novosDados = itens.DataItemsSelecionados;
+
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia: dataItemNovo.Referencia,
+                        Descricao: dataItemNovo.Descricao,
+                        UnidadeMedida: dataItemNovo.UnidadeMedida,
+                        Id: 0,
+                        Custo: 0
+                    };
+
+                    //atualizeUltimoCusto(dataItemNovo.Referencia, $("#Fornecedor").val(), dataItemNovoFinal);
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            //var dados = $.merge(novosDados, dadosAtuais);
+
+            var dataSource = new kendo.data.DataSource({
+                data: dadosAtuais,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+
+        });
+    });
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return "";
+        }
+        return valor.toString().replace(".", ",");
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function atualizeUltimoCusto(referencia, idFornecedor, dataItem) {
+        var url = '/Almoxarifado/Material/ObtenhaCusto?referencia=' + referencia + "&idFornecedor=" + idFornecedor;
+        $.getJSON(url, function (result) {
+            dataItem.ValorUnitario = result.Custo == null ? 0 : result.Custo;
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            exibaAlertaErro(errorThrown);
+        });
+    }
+
+    function onEditGrid(e) {
+        if (e.container.index() == 1 || e.container.index() == 2 || e.container.index() == 3) {
+            this.closeCell();
+        }
+
+    }
+
+
+</script>
