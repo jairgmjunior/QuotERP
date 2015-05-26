@@ -26,6 +26,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Qtde. Cancelada")]
         public double QuantidadeCancelada { get; set; }
 
+        [Display(Name = "Qtde. Disponível")]
+        public double QuantidadeDisponivel { get; set; }
+
         [Display(Name = "Situação")]
         public string SituacaoRequisicaoMaterial { get; set; }
         

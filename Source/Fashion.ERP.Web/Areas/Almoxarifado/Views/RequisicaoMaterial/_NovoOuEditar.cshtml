@@ -146,6 +146,8 @@
                     "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeAtendida' value='#= formateDecimalGrid(QuantidadeAtendida) #' />");
                 columns.Bound(p => p.QuantidadeCancelada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeCancelada' value='#= formateDecimalGrid(QuantidadeCancelada) #' />");
+                columns.Bound(p => p.QuantidadeDisponivel).Width(80).ClientTemplate("#= kendo.toString(QuantidadeDisponivel, \"n4\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeDisponivel' value='#= formateDecimalGrid(QuantidadeDisponivel) #' />");
                 columns.Bound(p => p.SituacaoRequisicaoMaterial).ClientTemplate("#= SituacaoRequisicaoMaterial #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].SituacaoRequisicaoMaterial' value='#= SituacaoRequisicaoMaterial #' />");
                 columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
@@ -162,6 +164,7 @@
                       model.Field(product => product.QuantidadeAtendida).Editable(false); 
                       model.Field(product => product.QuantidadeCancelada).Editable(false); 
                       model.Field(product => product.QuantidadeSolicitada).Editable(true); 
+                      model.Field(product => product.QuantidadeDisponivel).Editable(false); 
                       model.Field(product => product.UnidadeMedida).Editable(true); 
                       model.Field(product => product.Foto).Editable(false); 
                       model.Field(product => product.SituacaoRequisicaoMaterial).Editable(false).DefaultValue(SituacaoRequisicaoMaterial.NaoAtendido.EnumToString());  
@@ -193,6 +196,24 @@
         return data.indexOf(dataItem);
     }
 
+    function obtenhaQuantidadeDisponivel(materialId) {
+        $.ajaxSetup({
+            async: false
+        });
+
+        var quantidadeDisponivel = 0;
+        $.get('/Almoxarifado/RequisicaoMaterial/ObtenhaQuantidadeDisponivel/' + materialId, function (data) {
+            quantidadeDisponivel = data;
+        });
+
+        $.ajaxSetup({
+            async: true
+        });
+
+        return quantidadeDisponivel;
+    }
+
+
     $(document).ready(function () {
         $("#selecionar-material").on("pesquisar", function (ev, itens) {
 
@@ -215,7 +236,7 @@
                         dataItemNovo.Descartado = true;
                     }
                 }
-
+                
                 if (!dataItemNovo.Descartado) {
                     var dataItemNovoFinal = {
                         Referencia: dataItemNovo.Referencia,
@@ -225,6 +246,7 @@
                         QuantidadeSolicitada: 0,
                         QuantidadeAtendida: 0,
                         QuantidadeCancelada: 0,
+                        QuantidadeDisponivel: obtenhaQuantidadeDisponivel(dataItemNovo.Id),
                         SituacaoRequisicaoMaterial: 'NÃO ATENDIDO',
                         Foto: dataItemNovo.Foto
                     };
@@ -349,29 +371,6 @@
             $('#btnSubmit').button('reset');
             return false;
         }
-
-        //var formData = $("#form").serializeObject();
-        //formData.GridItens = obtenhaDadosGridItens();
-        //var dados = { "model": formData };
-
-        //$.ajax({
-        //    type: "POST",
-        //    url: obtenhaUrlActionSubmit(),
-        //    //headers: headers,
-        //    contentType: "application/json; charset=utf-8",
-        //    data: JSON.stringify(dados),
-        //    //dataType: "json",
-        //    success: function(retorno) {
-        //        if (retorno == "error") {
-        //            window.location.reload();
-        //            return;
-        //        }
-        //        window.location.href = '@Url.Action("Index", "RequisicaoMaterial")';
-        //    },
-        //    error: function (error) {
-        //        console.log(error);
-        //    }
-        //});
 
         return true;
     });

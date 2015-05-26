@@ -28,6 +28,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
         private readonly IRepository<ReservaMaterial> _reservaMaterialRepository;
+        private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Usuario> _usuarioRepository;
         private readonly IRepository<TipoItem> _tipoItemRepository;
@@ -44,7 +45,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<ReservaMaterial> reservaMaterialRepository, IRepository<Pessoa> pessoaRepository,
             IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<CentroCusto> centroCustoRepository,
-            IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<Usuario> usuarioRepository )
+            IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<Usuario> usuarioRepository,
+            IRepository<EstoqueMaterial> estoqueMaterialRepository)
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
@@ -55,6 +57,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _centroCustoRepository = centroCustoRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
             _usuarioRepository = usuarioRepository;
+            _estoqueMaterialRepository = estoqueMaterialRepository;
 
             _logger = logger;
 
@@ -370,6 +373,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         QuantidadeAtendida = x.QuantidadeAtendida,
                         QuantidadeCancelada = x.RequisicaoMaterialItemCancelado != null ? x.RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0,
                         QuantidadeSolicitada = x.QuantidadeSolicitada,
+                        QuantidadeDisponivel = ObtenhaQuantidadeDisponivel_(x.Material.Id),
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
                         IdRequisicaoMaterialItem = x.Id,
                         Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
@@ -380,6 +384,37 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             this.AddErrorMessage("Não foi possível encontrar a requisição de material.");
             return RedirectToAction("Index");
+        }
+
+        private double ObtenhaQuantidadeDisponivel_(long? materialId)
+        {
+            var estoqueMaterial = _estoqueMaterialRepository.Get(y => y.Material.Id == materialId);
+
+            if (estoqueMaterial == null)
+                return 0;
+
+            var reservaEstoque = _reservaEstoqueMaterialRepository.Get(y => y.Material.Id == materialId);
+
+            if (reservaEstoque == null)
+                return estoqueMaterial.Quantidade;
+
+            return estoqueMaterial.Quantidade - reservaEstoque.Quantidade;
+        }
+
+        [AjaxOnly]
+        public ActionResult ObtenhaQuantidadeDisponivel(long? id)
+        {
+            try
+            {
+                var quantidadeDisponivel = ObtenhaQuantidadeDisponivel_(id);
+                return Json(quantidadeDisponivel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(exception.GetMessage());
+            }
+
+            return Json(new { Error = "Ocorreu um erro ao buscar a quantidade disponível." }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
