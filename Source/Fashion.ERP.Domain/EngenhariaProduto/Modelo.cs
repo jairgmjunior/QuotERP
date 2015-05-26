@@ -17,6 +17,7 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         private readonly IList<string> _linhasBordado;
         private readonly IList<string> _linhasPesponto;
         private readonly IList<ProgramacaoBordado> _programacaoBordados;
+        private IList<ModeloMaterialConsumo> _materiaisConsumo = new List<ModeloMaterialConsumo>();
         #endregion
 
         #region Construtores
@@ -292,6 +293,15 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
 
         #endregion
 
+        #region Materiais de Consumo
+        
+        public virtual IList<ModeloMaterialConsumo> MateriaisConsumo
+        {
+            get { return _materiaisConsumo; }            
+        }
+
+        #endregion
+
         #region ProgramacaoBordados
 
         public virtual IReadOnlyCollection<ProgramacaoBordado> ProgramacaoBordados
@@ -319,11 +329,6 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
 
         #endregion
         
-        public virtual IEnumerable<MaterialComposicaoModelo> ObtenhaMaterialComposicaoModelos()
-        {
-            return SequenciaProducoes.SelectMany(x => x.MaterialComposicaoModelos);
-        }
-
         public virtual void GereChaveExterna()
         {
 

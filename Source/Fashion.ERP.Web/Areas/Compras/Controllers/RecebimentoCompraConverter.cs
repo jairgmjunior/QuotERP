@@ -299,7 +299,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 MaterialReferenciaExterna = pedidoCompraItemRecebimentoModel.MaterialReferenciaExternaPedido,
                 Quantidade = pedidoCompraItem.Quantidade,
                 UnidadeMedidaSigla = pedidoCompraItem.UnidadeMedida.Sigla,
-                UnidadeEntrada = pedidoCompraItem.UnidadeMedida.Sigla,
+                UnidadeMedida = pedidoCompraItem.UnidadeMedida.Sigla,
                 ValorUnitario = ObtenhaValorUnitario(pedidoCompraItem),
                 ValorUnitarioPedido = pedidoCompraItem.ValorUnitario,
                 QuantidadeEntrada = ObtenhaQuantidadeDeEntrada(pedidoCompraItem),

@@ -31,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto
             context.MapRoute(
                 name: "EngenhariaProduto_seq_materialcomposicao",
                 url: "EngenhariaProduto/{controller}/{action}/{modeloId}",
-                constraints: new { modeloId = @"\d+", controller = new RouteConstraintIsEqual(new []{ "MaterialComposicaoModelo", "SequenciaProducao"}) },
+                constraints: new { modeloId = @"\d+", controller = new RouteConstraintIsEqual(new []{ "MaterialComposicaoModelo", "SequenciaProducao", "ModeloMaterialConsumo"}) },
                 defaults: new {},
                 namespaces: new[] { "Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers" }
             );

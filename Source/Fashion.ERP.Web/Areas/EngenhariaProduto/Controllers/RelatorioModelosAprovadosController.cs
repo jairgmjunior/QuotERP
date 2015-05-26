@@ -121,10 +121,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             if (model.Material.HasValue)
             {
-                query = query.Where(p =>
-                    p.SequenciaProducoes.Any(seq =>
-                        seq.MaterialComposicaoModelos.Any(material =>
-                            material.Material.Id == model.Material)));
+                query = query.Where(p => p.MateriaisConsumo.Any(material =>
+                            material.Material.Id == model.Material));
 
                 var materialDomain = _materialRepository.Load(model.Material);
                 filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);

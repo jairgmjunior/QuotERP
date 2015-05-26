@@ -31,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public double QuantidadeEntrada { get; set; }
 
         [Display(Name = "Und.Ent.")]
-        public string UnidadeEntrada { get; set; }
+        public string UnidadeMedida { get; set; }
         
         [Display(Name = "V.Unit.(R$)")]
         [DisplayFormat(DataFormatString = "{0:N4}")]

@@ -140,10 +140,10 @@ namespace T4MVC
     {
         public readonly string Name = "EngenhariaProduto";
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.GradeController Grade = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_GradeController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.MaterialComposicaoModeloController MaterialComposicaoModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_MaterialComposicaoModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAprovacaoController ModeloAprovacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloAprovacaoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloAvaliacaoController ModeloAvaliacao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloAvaliacaoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloController Modelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloController();
+        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.ModeloMaterialConsumoController ModeloMaterialConsumo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_ModeloMaterialConsumoController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.NaturezaController Natureza = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_NaturezaController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioConsumoMaterialPorModeloController RelatorioConsumoMaterialPorModelo = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioConsumoMaterialPorModeloController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioController();

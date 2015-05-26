@@ -411,13 +411,13 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // tableMateriais
             // 
             this.tableMateriais.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=MateriaisModelosAprovadosReport.ObtenhaMaterialComposicaoModelos(ReportItem.Data" +
-            "Object.SequenciaProducoes, Parameters.DepartamentosProducao)"));
+            "Object.MateriaisConsumo, Parameters.DepartamentosProducao)"));
             this.tableMateriais.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(MateriaisModelosAprovadosReport.ObtenhaMaterialComposicaoModelos(" +
-            "ReportItem.DataObject.SequenciaProducoes, Parameters.DepartamentosProducao))"));
+            "ReportItem.DataObject.MateriaisConsumo, Parameters.DepartamentosProducao))"));
             this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.24025821685791D)));
             this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(9.08858871459961D)));
-            this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.7181295156478882D)));
-            this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.9209442138671875D)));
+            this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.7181293964385986D)));
+            this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.920944094657898D)));
             this.tableMateriais.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(4.0108375549316406D)));
             this.tableMateriais.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999991059303284D)));
             this.tableMateriais.Body.SetCellContent(0, 3, this.textBox36);
@@ -505,7 +505,6 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // objectDataSourceMateriais
             // 
-            this.objectDataSourceMateriais.DataSource = typeof(Fashion.ERP.Domain.EngenhariaProduto.MaterialComposicaoModelo);
             this.objectDataSourceMateriais.Name = "objectDataSourceMateriais";
             // 
             // textBox46

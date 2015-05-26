@@ -87,6 +87,7 @@
     <Compile Include="Almoxarifado\TecidoMap.cs" />
     <Compile Include="Almoxarifado\View\ExtratoItemEstoqueViewMap.cs" />
     <Compile Include="Compras\DetalhamentoRecebimentoCompraItemMap.cs" />
+    <Compile Include="EngenhariaProduto\ModeloMaterialConsumoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteItemMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacaoMap.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Producao\FichaTecnicaJeansMap.cs" />
     <Compile Include="Producao\FichaTecnicaMap.cs" />
     <Compile Include="EngenhariaProduto\GradeMap.cs" />
-    <Compile Include="EngenhariaProduto\MaterialComposicaoModeloMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloFotoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloMap.cs" />
     <Compile Include="EngenhariaProduto\NaturezaMap.cs" />

@@ -50,7 +50,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Variacao> _variacaoRepository;
         private readonly IRepository<SetorProducao> _setorProducaoRepository;
         private readonly IRepository<Material> _materialRepository;
-        private readonly IRepository<MaterialComposicaoModelo> _materialComposicaoModeloRepository;
         private readonly IRepository<ProgramacaoBordado> _programacaoBordadoRepository;
         private readonly ILogger _logger;
         private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
@@ -91,7 +90,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<Arquivo> arquivoRepository, IRepository<Cor> corRepository, IRepository<DepartamentoProducao> departamentoProducaoRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository, IRepository<UnidadeMedida> unidadeMedidaRepository,
             IRepository<Variacao> variacaoRepository, IRepository<SetorProducao> setorProducaoRepository,
-            IRepository<Material> materialRepository, IRepository<MaterialComposicaoModelo> materialComposicaoModeloRepository,
+            IRepository<Material> materialRepository, 
             IRepository<ProgramacaoBordado> programacaoBordadoRepository, //IRepository<FichaTecnica> fichaTecnicaRepository,
             IRepository<SequenciaProducao> sequenciaRepository)
         {
@@ -115,7 +114,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _variacaoRepository = variacaoRepository;
             _setorProducaoRepository = setorProducaoRepository;
             _materialRepository = materialRepository;
-            _materialComposicaoModeloRepository = materialComposicaoModeloRepository;
             _programacaoBordadoRepository = programacaoBordadoRepository;
             //_fichaTecnicaRepository = fichaTecnicaRepository;
             _sequenciaProducaoRepository = sequenciaRepository;
@@ -213,10 +211,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 if (!string.IsNullOrWhiteSpace(model.ReferenciaMaterial))
                 {
 
-                    modelos = modelos.Where(p =>
-                    p.SequenciaProducoes.Any(seq =>
-                    seq.MaterialComposicaoModelos.Any(material =>
-                    material.Material.Referencia == model.ReferenciaMaterial)));
+                    modelos = modelos.Where(p => 
+                    p.MateriaisConsumo.Any(material =>
+                    material.Material.Referencia == model.ReferenciaMaterial));
 
                     filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
                 }
@@ -505,10 +502,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 {
                     var domain = _modeloRepository.Get(id);
 
-                    // Excluir MaterialComposicao
-                    foreach (var sequencia in domain.SequenciaProducoes)
-                        foreach (var composicao in sequencia.MaterialComposicaoModelos)
-                            _materialComposicaoModeloRepository.Delete(composicao);
+                    //// Excluir MaterialComposicao
+                    //foreach (var sequencia in domain.SequenciaProducoes)
+                    //    foreach (var composicao in sequencia.MaterialComposicaoModelos)
+                    //        _materialComposicaoModeloRepository.Delete(composicao);
 
                     _modeloRepository.Delete(domain);
 
@@ -1354,22 +1351,23 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                 SetorProducao = sequencia.SetorProducao
                             };
 
-                            foreach (var composicao in sequencia.MaterialComposicaoModelos)
-                            {
-                                var novaComposicao = new MaterialComposicaoModelo
-                                {
-                                    Material = composicao.Material,
-                                    Cor = composicao.Cor,
-                                    Quantidade = composicao.Quantidade,
-                                    Tamanho = composicao.Tamanho,
-                                    UnidadeMedida = composicao.UnidadeMedida,
-                                    VariacaoModelo = composicao.VariacaoModelo
-                                };
-
-                                novaSequencia.MaterialComposicaoModelos.Add(novaComposicao);
-                            }
+                            
 
                             novo.AddSequenciaProducao(novaSequencia);
+                        }
+
+
+                        foreach (var materialConsumo in domain.MateriaisConsumo)
+                        {
+                            var novaComposicao = new ModeloMaterialConsumo()
+                            {
+                                Material = materialConsumo.Material,
+                                Quantidade = materialConsumo.Quantidade,
+                                UnidadeMedida = materialConsumo.UnidadeMedida,
+                                DepartamentoProducao = materialConsumo.DepartamentoProducao
+                            };
+
+                            novo.MateriaisConsumo.Add(novaComposicao);
                         }
 
                         foreach (var variacaoModelo in domain.VariacaoModelos)

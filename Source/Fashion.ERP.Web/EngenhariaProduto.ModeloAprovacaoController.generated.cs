@@ -45,7 +45,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModeloAprovacaoModel()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModeloAprovacaoModel);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -76,7 +76,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
+            public readonly string ObtenhaListaGridModeloAprovacaoModel = "ObtenhaListaGridModeloAprovacaoModel";
             public readonly string CriarFichasTecnicas = "CriarFichasTecnicas";
             public readonly string EsbocarCorte = "EsbocarCorte";
         }
@@ -85,7 +85,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string ObtenhaListaGridEsbocoMatrizCorteModel = "ObtenhaListaGridEsbocoMatrizCorteModel";
+            public const string ObtenhaListaGridModeloAprovacaoModel = "ObtenhaListaGridModeloAprovacaoModel";
             public const string CriarFichasTecnicas = "CriarFichasTecnicas";
             public const string EsbocarCorte = "EsbocarCorte";
         }
@@ -99,11 +99,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel s_params_ObtenhaListaGridEsbocoMatrizCorteModel = new ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel();
+        static readonly ActionParamsClass_ObtenhaListaGridModeloAprovacaoModel s_params_ObtenhaListaGridModeloAprovacaoModel = new ActionParamsClass_ObtenhaListaGridModeloAprovacaoModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel ObtenhaListaGridEsbocoMatrizCorteModelParams { get { return s_params_ObtenhaListaGridEsbocoMatrizCorteModel; } }
+        public ActionParamsClass_ObtenhaListaGridModeloAprovacaoModel ObtenhaListaGridModeloAprovacaoModelParams { get { return s_params_ObtenhaListaGridModeloAprovacaoModel; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ObtenhaListaGridEsbocoMatrizCorteModel
+        public class ActionParamsClass_ObtenhaListaGridModeloAprovacaoModel
         {
             public readonly string request = "request";
             public readonly string model = "model";
@@ -170,14 +170,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void ObtenhaListaGridEsbocoMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model);
+        partial void ObtenhaListaGridModeloAprovacaoModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model);
 
         public override System.Web.Mvc.ActionResult ObtenhaListaGridModeloAprovacaoModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.PesquisaModeloAprovacaoModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridEsbocoMatrizCorteModel);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModeloAprovacaoModel);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ObtenhaListaGridEsbocoMatrizCorteModelOverride(callInfo, request, model);
+            ObtenhaListaGridModeloAprovacaoModelOverride(callInfo, request, model);
             return callInfo;
         }
 

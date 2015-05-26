@@ -347,7 +347,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                             x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompraItem.Id).ToList();
                         retorno.ValorUnitarioPedido =
                             x.DetalhamentoRecebimentoCompraItens.Select(d => d.PedidoCompraItem.ValorUnitario).Average();
-                        retorno.UnidadeEntrada = x.Material.UnidadeMedida.Sigla;
+                        retorno.UnidadeMedida = x.Material.UnidadeMedida.Sigla;
                         
                         //rever futuramente esse requisito
                         var primeiroDetalhamento = x.DetalhamentoRecebimentoCompraItens.First();

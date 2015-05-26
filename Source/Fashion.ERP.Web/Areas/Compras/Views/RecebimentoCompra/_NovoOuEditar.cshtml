@@ -124,7 +124,7 @@
             columns.Bound(x => x.Quantidade).Width(50);
             columns.Bound(x => x.ValorUnitarioPedido).Format("{0:N4}").Width(60);
             columns.Bound(x => x.QuantidadeEntrada).Width(60);
-            columns.Bound(x => x.UnidadeEntrada).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeEntrada == '' ? '- Selecione -' : UnidadeEntrada #").Width(40);
+            columns.Bound(x => x.UnidadeMedida).EditorTemplateName("UnidadeMedidaList").ClientTemplate("#= UnidadeMedida == '' ? '- Selecione -' : UnidadeMedida #").Width(40);
             columns.Bound(x => x.ValorUnitario).Format("{0:N4}").Width(60).EditorTemplateName("numeric4casasdecimais");
             columns.Bound(x => x.ValorTotal).Format("{0:N4}").Width(70).EditorTemplateName("numeric4casasdecimais");
             columns.Command(command => command.Custom("Excluir").Click("valideExclusao")).Width(90);   
@@ -139,7 +139,7 @@
                 model.Field(product => product.MaterialDescricao).Editable(false); 
                 model.Field(product => product.UnidadeMedidaSigla).Editable(false); 
                 model.Field(product => product.Quantidade).Editable(false); 
-                model.Field(product => product.UnidadeEntrada).Editable(false); 
+                model.Field(product => product.UnidadeMedida).Editable(false); 
                 model.Field(product => product.ValorUnitarioPedido).Editable(false);
             })
         )

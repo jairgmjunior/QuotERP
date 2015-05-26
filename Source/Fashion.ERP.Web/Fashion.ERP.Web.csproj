@@ -436,12 +436,15 @@
     <Compile Include="Areas\Comum\Models\PrazoModel.cs" />
     <Compile Include="Areas\Comum\Models\SequenciaOperacionalModel.cs" />
     <Compile Include="Areas\Comum\Models\TamanhoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloMaterialConsumoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAprovacaoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\GridModeloMaterialConsumoModel.cs" />
+    <Compile Include="Areas\EngenhariaProduto\Models\ModeloMaterialConsumoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\CriacaoFichaTecnicaModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAprovacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MaterialComposicaoCustoCriacaoFichaTecnicaModel.cs" />
@@ -475,7 +478,6 @@
     <Compile Include="Areas\Comum\Controllers\ClassificacaoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ComprimentoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\GradeController.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Controllers\MaterialComposicaoModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\NaturezaController.cs" />
     <Compile Include="Areas\Comum\Controllers\BarraController.cs" />
@@ -492,12 +494,10 @@
     <Compile Include="Areas\EngenhariaProduto\Models\CopidarModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridAprovarModeloModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\GridMaterialComposicaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridProgramacaoBordadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\IModeloDropdownModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModelosAprovadosModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ListagemModelosModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\MaterialComposicaoModeloModel.cs" />
     <Compile Include="Areas\Comum\Models\ComprimentoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridSequenciaProducaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloModel.cs" />
@@ -812,9 +812,6 @@
     <Compile Include="EngenhariaProduto.GradeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto.MaterialComposicaoModeloController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto.ModeloAprovacaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -822,6 +819,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.ModeloController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EngenhariaProduto.ModeloMaterialConsumoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="EngenhariaProduto.NaturezaController.generated.cs">
@@ -1059,7 +1059,6 @@
     <Content Include="Areas\EngenhariaProduto\Views\Modelo\Variacao.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\SequenciaProducao\SequenciaProducao.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Modelo\Modelagem.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\MaterialComposicaoModelo\MaterialComposicaoModelo.cshtml" />
     <Content Include="Areas\Comum\Views\Cor\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Cor\Editar.cshtml" />
     <Content Include="Areas\Comum\Views\Cor\_NovoOuEditar.cshtml" />
@@ -1208,6 +1207,7 @@
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\Index.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\CriacaoFichaTecnica\CriarFichaTecnica.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichasTecnicas.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\ModeloMaterialConsumo\ModeloMaterialConsumo.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

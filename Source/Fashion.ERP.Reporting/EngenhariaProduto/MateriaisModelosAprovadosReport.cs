@@ -14,23 +14,22 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         }
 
         [Function(Namespace = "MateriaisModelosAprovadosReport")]
-        public static object ObtenhaMaterialComposicaoModelos(object sequenciasProducaoObject, object departamentosProducaoObject)
+        public static object ObtenhaMaterialComposicaoModelos(object materiaisConsumoObject, object departamentosProducaoObject)
         {
-            if (sequenciasProducaoObject == null || departamentosProducaoObject == null)
+            if (materiaisConsumoObject == null || departamentosProducaoObject == null)
                 return null;
 
-            var sequenciasProducao = sequenciasProducaoObject as IEnumerable<SequenciaProducao>;
-            
-            if (sequenciasProducao == null)
+            var materiaisConsumo = materiaisConsumoObject as IEnumerable<ModeloMaterialConsumo>;
+
+            if (materiaisConsumo == null)
                 return null;
 
             var departamentosProducaoId = (departamentosProducaoObject as Object[]).Cast<long>().ToList();
 
             if (departamentosProducaoId == null || !departamentosProducaoId.Any())
-                return sequenciasProducao.SelectMany(seq => seq.MaterialComposicaoModelos);
+                return materiaisConsumo;
 
-            return sequenciasProducao.Where(seq => departamentosProducaoId.Contains(seq.DepartamentoProducao.Id.Value))
-                .SelectMany(seq => seq.MaterialComposicaoModelos);
+            return materiaisConsumo.Where(materiais => departamentosProducaoId.Contains(materiais.DepartamentoProducao.Id.Value));
         }
     }
 }

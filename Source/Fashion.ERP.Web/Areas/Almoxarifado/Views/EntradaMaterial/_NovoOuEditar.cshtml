@@ -169,7 +169,7 @@
                             var quantidadeCompra = Model.QuantidadeCompras[i];
                             var unidadeCompra = Model.UnidadeMedidas[i];
                             var quantidadeEntrada = Model.Quantidades[i];
-                            var unidadeEntrada = Model.UnidadeMedidas[i];
+                            var unidademedida = Model.UnidadeMedidas[i];
 
                             <tr>
                                 <td>
@@ -196,7 +196,7 @@
                                     <input type="hidden" name="Quantidades" value="@quantidadeEntrada"/>
                                 </td>
                                 <td>
-                                    @ViewBag.UnidadeMedidasDicionario[unidadeEntrada]
+                                    @ViewBag.UnidadeMedidasDicionario[unidademedida]
                                 </td>
                                 <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
                             </tr>
@@ -333,7 +333,7 @@
                     alert(data.Error);
                     return;
                 }
-                var unidadeEntrada = data.Sigla;
+                var unidadeMedida = data.Sigla;
                 var fatorCompra = data.FatorMultiplicativo;
 
                 $('#table-sequencia tbody').append(
@@ -344,7 +344,7 @@
                     <td>' + unidadeCompra + '<input type="hidden" name="UnidadeMedidas" value="' + unidadeCompraId + '"/></td>\
                     <td>' + fatorCompra + '</td>\
                     <td>' + quantidadeEntrada.toText(4) + '<input type="hidden" name="Quantidades" value="' + quantidadeEntrada.toText(4) + '"/></td>\
-                    <td>' + unidadeEntrada + '</td>\
+                    <td>' + unidadeMedida + '</td>\
                     <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
                 </tr>'
                 );

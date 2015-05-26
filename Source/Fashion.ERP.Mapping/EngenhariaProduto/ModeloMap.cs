@@ -91,6 +91,10 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan()
                 .Access.CamelCaseField(Prefix.Underscore);
+
+            HasMany(x => x.MateriaisConsumo)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

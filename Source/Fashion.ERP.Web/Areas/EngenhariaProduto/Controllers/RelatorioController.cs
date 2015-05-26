@@ -253,7 +253,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     filtros.AppendFormat("Marca: {0}, ", _marcaRepository.Get(model.Marca.Value).Nome);
                 }
 
-
                 if (model.Segmento.HasValue)
                 {
                     modelos = modelos.Where(p => p.Segmento.Id == model.Segmento);
@@ -262,11 +261,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                 if (!string.IsNullOrWhiteSpace(model.ReferenciaMaterial))
                 {
-
-                    modelos = modelos.Where(p =>
-                    p.SequenciaProducoes.Any(seq =>
-                    seq.MaterialComposicaoModelos.Any(material =>
-                    material.Material.Referencia == model.ReferenciaMaterial)));
+                    modelos = modelos.Where(p => p.MateriaisConsumo.Any(material =>
+                        material.Material.Referencia == model.ReferenciaMaterial));
 
                     filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
                 }

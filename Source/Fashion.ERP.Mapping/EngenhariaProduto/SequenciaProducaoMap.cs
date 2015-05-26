@@ -14,10 +14,6 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
 
             References(x => x.DepartamentoProducao).Not.Nullable();
             References(x => x.SetorProducao);
-
-            HasMany(x => x.MaterialComposicaoModelos)
-                .Not.KeyNullable()
-                .Cascade.AllDeleteOrphan();
         }
     }
 }

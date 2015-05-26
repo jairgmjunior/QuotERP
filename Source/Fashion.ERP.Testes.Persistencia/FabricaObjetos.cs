@@ -494,10 +494,10 @@ namespace Fashion.ERP.Testes.Persistencia
                 DataSaida = new DateTime(2014, 1, 1)
             };
         }
-
-        public MaterialComposicaoModelo ObtenhaMaterialComposicaoModelo()
+        
+        public ModeloMaterialConsumo ObtenhaModeloMaterialConsumo()
         {
-            return new MaterialComposicaoModelo
+            return new ModeloMaterialConsumo
             {
                 Quantidade = 1,
             };

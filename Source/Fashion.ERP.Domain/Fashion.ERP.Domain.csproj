@@ -137,6 +137,7 @@
     <Compile Include="Comum\UltimoNumero.cs" />
     <Compile Include="Comum\Variacao.cs" />
     <Compile Include="Comum\VariacaoModelo.cs" />
+    <Compile Include="EngenhariaProduto\ModeloMaterialConsumo.cs" />
     <Compile Include="EngenhariaProduto\TipoEnfestoTecido.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacao.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorte.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="DomainEmpresaBase.cs" />
     <Compile Include="DomainTenantBase.cs" />
     <Compile Include="Producao\FichaTecnica.cs" />
-    <Compile Include="EngenhariaProduto\MaterialComposicaoModelo.cs" />
     <Compile Include="EngenhariaProduto\ModeloFoto.cs" />
     <Compile Include="EngenhariaProduto\ObjetosRelatorio\ConsumoMaterialPorModeloRelatorio.cs" />
     <Compile Include="EngenhariaProduto\ObjetosRelatorio\ModeloConsumoMaterialRelatorio.cs" />

@@ -91,13 +91,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         return Json(results.ToDataSourceResult(request, ModelState));
                     }
 
-                    if (ExisteMaterialComposicaoAssociado(sequenciaProducoes, modelo.SequenciaProducoes))
-                    {
-                        var msg = "Não é possível excluir uma sequência de produção com material de composição associado a ela.";
-                        ModelState.AddModelError(string.Empty, msg);
-                        //this.AddErrorMessage(msg);
-                        return Json(results.ToDataSourceResult(request, ModelState));
-                    }
+                    //if (ExisteMaterialComposicaoAssociado(sequenciaProducoes, modelo.SequenciaProducoes))
+                    //{
+                    //    var msg = "Não é possível excluir uma sequência de produção com material de composição associado a ela.";
+                    //    ModelState.AddModelError(string.Empty, msg);
+                    //    //this.AddErrorMessage(msg);
+                    //    return Json(results.ToDataSourceResult(request, ModelState));
+                    //}
 
                     modelo.ClearSequenciaProducao();
                     foreach (var sequenciaProducaoModel in sequenciaProducoes)
@@ -199,33 +199,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return Json(sequenciaProducoes.ToDataSourceResult(request, ModelState));
         }
 
-        private bool ExisteMaterialComposicaoAssociado(IEnumerable<SequenciaProducaoModel> sequenciasProducaoModel, IEnumerable<SequenciaProducao> sequenciasProducao)
-        {
-            foreach (var sequenciaDomain in sequenciasProducao)
-            {
-                SequenciaProducaoModel sequenciaModel = null;
-
-                if (sequenciaDomain.SetorProducao == null)
-                {
-                    sequenciaModel = sequenciasProducaoModel.SingleOrDefault(
-                        model =>
-                            model.NomeDepartamento == sequenciaDomain.DepartamentoProducao.Nome &&
-                            model.NomeSetor == null);
-                }
-                else
-                {
-                    sequenciaModel = sequenciasProducaoModel.SingleOrDefault(
-                        model =>
-                            model.NomeDepartamento == sequenciaDomain.DepartamentoProducao.Nome &&
-                            model.NomeSetor == sequenciaDomain.SetorProducao.Nome);
-                }
-
-                if (sequenciaModel == null)
-                    return !sequenciaDomain.MaterialComposicaoModelos.IsEmpty();
-            }
-
-            return false;
-        }
+        
 
         #region LerSequenciasProducao
         [AjaxOnly, OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]

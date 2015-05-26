@@ -3,18 +3,16 @@ using Fashion.Framework.Mapping;
 
 namespace Fashion.ERP.Mapping.EngenhariaProduto
 {
-    public class MaterialComposicaoModeloMap : FashionClassMap<MaterialComposicaoModelo>
+    public class ModeloMaterialConsumoMap : EmpresaClassMap<ModeloMaterialConsumo>
     {
-        public MaterialComposicaoModeloMap()
-            : base("materialcomposicaomodelo", 10)
+        public ModeloMaterialConsumoMap()
+            : base("modelomaterialconsumo", 10)
         {
             Map(x => x.Quantidade).Not.Nullable();
 
             References(x => x.UnidadeMedida).Not.Nullable();
             References(x => x.Material).Not.Nullable();
-            References(x => x.Tamanho);
-            References(x => x.Cor);
-            References(x => x.VariacaoModelo);
+            References(x => x.DepartamentoProducao).Not.Nullable();
         }
     }
 }

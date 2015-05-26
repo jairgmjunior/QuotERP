@@ -2,9 +2,10 @@
 
 @(Html.Kendo().DropDownListFor(m => m)
     .BindTo(ViewBag.DepartamentoProducaos)
+    .Name("DepartamentoProducao")
     .OptionLabel("- Selecione -")
     .DataTextField("Nome")
     .DataValueField("Id")
-    .Name("DepartamentoProducao")
+    
       )
 @Html.ValidationMessageFor(m => m)

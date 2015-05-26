@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 {
-    public class MaterialComposicaoModeloModel
+    public class ModeloMaterialConsumoModel
     {
         public long ModeloId { get; set; }
 
@@ -20,6 +20,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Criação")]
         public DateTime ModeloDataCriacao { get; set; }
 
-        public IList<GridMaterialComposicaoModel>  Grid { get; set; }
+        public IList<GridModeloMaterialConsumoModel>  GridItens { get; set; }
     }
 }

@@ -255,18 +255,18 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     variacaoModelo.Cores.ForEach(cor => fichaTecnicaVariacaoMatriz.AddCor(cor));
                 });
 
-                modelo.ObtenhaMaterialComposicaoModelos().ForEach(materialComposicaoModelo =>
-                {
-                    if (materialComposicaoModelo.VariacaoModelo != null)
-                    {
-                        fichaTecnica.FichaTecnicaMatriz.MaterialConsumoItems.Add(new FichaTecnicaMaterialConsumoVariacao()
-                        {
-                            CompoeCusto = true, 
-                            Quantidade = materialComposicaoModelo.Quantidade,
-                            Tamanho = materialComposicaoModelo.Tamanho
-                        });
-                    }
-                });
+                //modelo.ObtenhaMaterialComposicaoModelos().ForEach(materialComposicaoModelo =>
+                //{
+                //    if (materialComposicaoModelo.VariacaoModelo != null)
+                //    {
+                //        fichaTecnica.FichaTecnicaMatriz.MaterialConsumoItems.Add(new FichaTecnicaMaterialConsumoVariacao()
+                //        {
+                //            CompoeCusto = true, 
+                //            Quantidade = materialComposicaoModelo.Quantidade,
+                //            Tamanho = materialComposicaoModelo.Tamanho
+                //        });
+                //    }
+                //});
                 
             }
             

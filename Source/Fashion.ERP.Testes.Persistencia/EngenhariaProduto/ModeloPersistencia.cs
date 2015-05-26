@@ -24,8 +24,8 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
         private Variacao _variacao;
         private VariacaoModelo _variacaoModelo;
         private Cor _cor;
-        private MaterialComposicaoModelo _materialComposicaoModelo;
-        private MaterialComposicaoModelo _materialComposicaoModelo2;
+        private ModeloMaterialConsumo _materialConsumo;
+        private ModeloMaterialConsumo _materialConsumo2;
         private Material _material;
         private UnidadeMedida _unidadeMedida;
         private ModeloAprovacao _modeloAprovacao;
@@ -56,6 +56,9 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             modelo.AddVariacaoModelo(_variacaoModelo);
             modelo.ModeloAvaliacao = _modeloAvaliacao;
 
+            modelo.MateriaisConsumo.Add(_materialConsumo);
+            modelo.MateriaisConsumo.Add(_materialConsumo2);
+
             return modelo;
         }
 
@@ -79,21 +82,19 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _comprimento = FabricaObjetosPersistidos.ObtenhaComprimento();
             _classificacaoDificuldade = FabricaObjetosPersistidos.ObtenhaClassificacaoDificuldade();
 
-            _materialComposicaoModelo = FabricaObjetos.ObtenhaMaterialComposicaoModelo();
-            _materialComposicaoModelo.Cor = _cor;
-            _materialComposicaoModelo.Material = _material;
-            _materialComposicaoModelo.UnidadeMedida = _unidadeMedida;
+            _materialConsumo = FabricaObjetos.ObtenhaModeloMaterialConsumo();
+            _materialConsumo.Material = _material;
+            _materialConsumo.UnidadeMedida = _unidadeMedida;
+            _materialConsumo.DepartamentoProducao = _departamentoProducao;
 
-            _materialComposicaoModelo2 = FabricaObjetos.ObtenhaMaterialComposicaoModelo();
-            _materialComposicaoModelo2.Cor = _cor;
-            _materialComposicaoModelo2.Material = _material;
-            _materialComposicaoModelo2.UnidadeMedida = _unidadeMedida;
+            _materialConsumo2 = FabricaObjetos.ObtenhaModeloMaterialConsumo();
+            _materialConsumo2.Material = _material;
+            _materialConsumo2.UnidadeMedida = _unidadeMedida;
+            _materialConsumo2.DepartamentoProducao = _departamentoProducao;
 
             _sequenciaProducao = FabricaObjetos.ObtenhaSequenciaProducao();
             _sequenciaProducao.DepartamentoProducao = _departamentoProducao;
             _sequenciaProducao.SetorProducao = _setorProducao;
-            _sequenciaProducao.MaterialComposicaoModelos.Add(_materialComposicaoModelo);
-            _sequenciaProducao.MaterialComposicaoModelos.Add(_materialComposicaoModelo2);
 
             _sequenciaProducao2 = FabricaObjetos.ObtenhaSequenciaProducao();
             _sequenciaProducao2.DepartamentoProducao = _departamentoProducao;

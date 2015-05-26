@@ -2,7 +2,7 @@
 
 @(Html.Kendo().DropDownList()
     .OptionLabel("")
-    .Name("UnidadeEntrada")
+    .Name("UnidadeMedida")
     .DataTextField("Sigla")
     .DataValueField("Sigla")
     .DataSource(dataSource => dataSource.Read(read => read.Action("ObtenhaUnidadeMedidaDropDownList", "UnidadeMedida", new { area = "Almoxarifado" })))
