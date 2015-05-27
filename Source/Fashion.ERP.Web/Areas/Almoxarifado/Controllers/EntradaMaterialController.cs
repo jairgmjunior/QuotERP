@@ -15,6 +15,9 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Fashion.ERP.Domain.Almoxarifado;
@@ -57,24 +60,22 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"DataEntrada", "DataEntrada"},
+            {"UnidadeDestino", "DepositoMaterialDestino.Unidade.NomeFantasia"},
+            {"DepositoMaterialDestino", "DepositoMaterialDestino.Nome"}
+        };
+        #endregion
+
         #region Views
 
         #region Index
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var entradaMaterials = _entradaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
-
             var model = new PesquisaEntradaMaterialModel { ModoConsulta = "Listar" };
-
-            model.Grid = entradaMaterials.Select(p => new GridEntradaMaterialModel
-            {
-                Id = p.Id.GetValueOrDefault(),
-                DataEntrada = p.DataEntrada,
-                UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
-                DepositoMaterialDestino = p.DepositoMaterialDestino.Nome,
-                OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,
-            }).ToList();
 
             return View(model);
         }
@@ -82,67 +83,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index(PesquisaEntradaMaterialModel model)
         {
-            var entradaMateriais = _entradaMaterialRepository.Find();
-
             try
             {
                 #region Filtros
                 var filtros = new StringBuilder();
 
-                if (!string.IsNullOrWhiteSpace(model.Referencia))
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.EntradaItemMateriais.Any(i => i.Material.Referencia == model.Referencia));
-                    filtros.AppendFormat("Referência: {0}, ", model.Referencia);
-                }
-
-                if (model.UnidadeDestino.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Unidade.Id == model.UnidadeDestino);
-                    filtros.AppendFormat("Unidade destino: {0}, ", _pessoaRepository.Get(model.UnidadeDestino.Value).NomeFantasia);
-                }
-
-                if (model.DepositoMaterialDestino.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Id == model.DepositoMaterialDestino);
-                    filtros.AppendFormat("Depósito destino: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialDestino.Value).Nome);
-                }
-
-                if (model.Fornecedor.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.Fornecedor.Id == model.Fornecedor);
-                    filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
-                }
-
-                if (model.UnidadeOrigem.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Unidade.Id == model.UnidadeOrigem);
-                    filtros.AppendFormat("Unidade origem: {0}, ", _pessoaRepository.Get(model.UnidadeOrigem.Value).NomeFantasia);
-                }
-
-                if (model.DepositoMaterialOrigem.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Id == model.UnidadeOrigem);
-                    filtros.AppendFormat("Depósito origem: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialOrigem.Value).Nome);
-                }
-
-                if (model.DataEntradaDe.HasValue && model.DataEntradaAte.HasValue)
-                {
-                    entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date >= model.DataEntradaDe.Value
-                                                             && p.DataEntrada.Date <= model.DataEntradaAte.Value);
-                    filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
-                                         model.DataEntradaDe.Value.ToString("dd/MM/yyyy"),
-                                         model.DataEntradaAte.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
-                {
-                    entradaMateriais =
-                        entradaMateriais.Where(
-                            p =>
-                                p.EntradaItemMateriais.SelectMany(x => x.Material.ReferenciaExternas)
-                                    .Any(y => y.Referencia == model.ReferenciaExterna));
-                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
-                }
+                var entradaMateriais = ObtenhaQueryFiltrada(model, filtros);
 
                 #endregion
 
@@ -224,6 +170,128 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
         #endregion
+
+        private IQueryable<EntradaMaterial> ObtenhaQueryFiltrada(PesquisaEntradaMaterialModel model, StringBuilder filtros)
+        {
+            var entradaMateriais = _entradaMaterialRepository.Find();
+            if (!string.IsNullOrWhiteSpace(model.Referencia))
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.EntradaItemMateriais.Any(i => i.Material.Referencia == model.Referencia));
+                filtros.AppendFormat("Referência: {0}, ", model.Referencia);
+            }
+
+            if (model.UnidadeDestino.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Unidade.Id == model.UnidadeDestino);
+                filtros.AppendFormat("Unidade destino: {0}, ", _pessoaRepository.Get(model.UnidadeDestino.Value).NomeFantasia);
+            }
+
+            if (model.DepositoMaterialDestino.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialDestino.Id == model.DepositoMaterialDestino);
+                filtros.AppendFormat("Depósito destino: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialDestino.Value).Nome);
+            }
+
+            if (model.Fornecedor.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.Fornecedor.Id == model.Fornecedor);
+                filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
+            }
+
+            if (model.UnidadeOrigem.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Unidade.Id == model.UnidadeOrigem);
+                filtros.AppendFormat("Unidade origem: {0}, ", _pessoaRepository.Get(model.UnidadeOrigem.Value).NomeFantasia);
+            }
+
+            if (model.DepositoMaterialOrigem.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DepositoMaterialOrigem.Id == model.UnidadeOrigem);
+                filtros.AppendFormat("Depósito origem: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialOrigem.Value).Nome);
+            }
+
+            if (model.DataEntradaDe.HasValue && model.DataEntradaAte.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date >= model.DataEntradaDe.Value
+                                                         && p.DataEntrada.Date <= model.DataEntradaAte.Value);
+                filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                                     model.DataEntradaDe.Value.ToString("dd/MM/yyyy"),
+                                     model.DataEntradaAte.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+            {
+                entradaMateriais =
+                    entradaMateriais.Where(
+                        p =>
+                            p.EntradaItemMateriais.SelectMany(x => x.Material.ReferenciaExternas)
+                                .Any(y => y.Referencia == model.ReferenciaExterna));
+                filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+            }
+
+            return entradaMateriais;
+        }
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaEntradaMaterialModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var requisicaoMaterials = ObtenhaQueryFiltrada(model, filtros);
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        requisicaoMaterials = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? requisicaoMaterials.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : requisicaoMaterials.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                requisicaoMaterials = requisicaoMaterials.OrderByDescending(o => o.DataAlteracao);
+
+                var total = requisicaoMaterials.Count();
+
+                if (request.Page > 0)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = requisicaoMaterials.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridEntradaMaterialModel
+                {
+                    Id = p.Id.GetValueOrDefault(),
+                    DataEntrada = p.DataEntrada,
+                    UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
+                    DepositoMaterialDestino = p.DepositoMaterialDestino.Nome,
+                    OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(new DataSourceResult
+                {
+                    Errors = ex.GetMessage()
+                });
+            }
+        }
 
         #region Novo
         

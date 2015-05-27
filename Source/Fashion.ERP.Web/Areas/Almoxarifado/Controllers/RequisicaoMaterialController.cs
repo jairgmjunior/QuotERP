@@ -68,14 +68,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
-        #region ColunasPesquisaAprovarModelo
-        private static readonly Dictionary<string, string> ColunasPesquisaRequisicaoMaterial = new Dictionary<string, string>
-        {
-            {"Descrição", "Descricao"},
-            {"Referência", "Referencia"},
-            {"Tag", "ModeloAvaliacao.Tag"},
-        };
-
+        #region Colunas de Ordenação
         private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
         {
             {"Numero", "Numero"},

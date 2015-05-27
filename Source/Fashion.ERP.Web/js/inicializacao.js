@@ -189,8 +189,8 @@ $(document).ready(function () {
                     $pdf.html('Não foi possível mostrar o relatório na tela, <a href="' + data.Url + '">clique aqui</a> para baixá-lo.');
                 }
 
-                // Se existir um grid, destruí-lo
-                $("#Grid").remove();
+                // Se existir um grid, esconder
+                $("#Grid").hide();
                 
                 $(".accordion-body").on('hidden', function () {
                     var oldHeight = $pdf.height();
