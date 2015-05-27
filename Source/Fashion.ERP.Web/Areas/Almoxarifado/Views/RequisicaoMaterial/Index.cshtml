@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel
+﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
+@model PesquisaRequisicaoMaterialModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
@@ -28,7 +29,6 @@
                         </div>
                         <div class="span2">
                             <div class="control-group">
-                                
                                 @Html.LabelForRequired(x => x.DataInicio)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.DataInicio, new { @class = "input-small" })
@@ -152,30 +152,34 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="span3">
-                                <div id="row-imprimir" class="control-group" style="display: none">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                            <div class="span10">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="controls">
+                                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                            <div class="controls">
+                                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                            <div class="controls">
+                                                <select name="OrdenarEm">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -191,8 +195,16 @@
     </div>
 }
 <div id="pdf"></div>
-@(Html.Kendo().Grid(Model.Grid)
-    .Name("Grid")
+
+@(Html.Kendo().Grid<GridRequisicaoMaterialModel>()
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(15)
+        .Read(read => read.Action("ObtenhaListaGridRequisicaoMaterialModel", "RequisicaoMaterial").Data("ObtenhaPesquisaRequisicaoMaterialModel"))
+        .Events(events => events.Error("onError"))
+    )
     .Columns(columns =>
     {
         columns.Bound(x => x.Numero);
@@ -201,15 +213,36 @@
         columns.Bound(x => x.TipoMaterial);
         columns.Bound(x => x.Requerente);
         columns.Bound(x => x.Origem);
-        columns.Bound(x => x.Situacao);        
-        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.RequisicaoMaterial.Editar(item.Id))).Width(80);        
-        columns.Template(item => Html.ActionLinkAuth("Baixar", MVC.Almoxarifado.RequisicaoMaterialBaixa.Baixar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
-        columns.Template(item => Html.ActionLinkAuth("Cancelar", MVC.Almoxarifado.RequisicaoMaterialCancelamento.Cancelar(item.Id), new { @class = "btn btn-small btn-primary"})).Width(80);        
-        columns.Template(item => Html.ActionLinkAuth("Imprimir", MVC.Almoxarifado.RequisicaoMaterial.Imprimir(item.Id), new { @class = "btn btn-small btn-primary" , target = "_blank"})).Width(80);        
+        columns.Bound(x => x.Situacao); 
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "RequisicaoMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");       
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Baixar", "Baixar", "RequisicaoMaterialBaixa", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");       
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Cancelar", "Cancelar", "RequisicaoMaterialCancelamento", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");  
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Imprimir", "Imprimir", "RequisicaoMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary", target = "_blank"}).ToHtmlString()).Width(80).Title("");  
     })
-)
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+    )
+
 <script>
     $(function () {
+        
+        $('#pesquisar-grid').on('click', function () {
+
+            limpeMensagensAlerta();
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if ($ModoConsulta.val() == 'Listar') {
+
+                $('#Grid').data('kendoGrid').dataSource.read();
+                $('#Grid').data('kendoGrid').refresh();
+                return false;
+            }
+        });
+
         // Seleciona o modo de consulta
         $('button[name=btn-ModoConsulta]').on('click', function() {
 
@@ -231,7 +264,35 @@
 
             }
         });
-    })
+    });
+
+    function ObtenhaPesquisaRequisicaoMaterialModel() {
+        var parametros = {
+            model:
+            {
+                Origem: $("#Origem").val(),
+                ReferenciaExterna: $("#ReferenciaExterna").val(),
+                UnidadeRequerente: $("#UnidadeRequerente").val(),
+                CentroCusto: $("#CentroCusto").val(),
+                Requerente: $("#funcionario").val(),
+                UnidadeRequisitada: $("#UnidadeRequisitada").val(),
+                TipoItem: $("#TipoItem").val(),
+                Material: $("#Material").val(),
+                Numero: $("#Numero").val(),
+                DataInicio: $("#DataInicio").val(),
+                DataFim: $("#DataFim").val(),
+                SituacaoRequisicaoMaterial: $("#SituacaoRequisicaoMaterial").val(),
+                OrdenarPor: $("#OrdenarPor").val(),
+                OrdenarEm: $("#OrdenarEm").val()
+            }
+        };
+
+        return parametros;
+    }
+
+    function onError(e) {
+        alert(e.errors);
+    }
 </script>
 
 @{

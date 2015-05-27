@@ -43,9 +43,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridRequisicaoMaterialModel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridRequisicaoMaterialModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ObtenhaQuantidadeDisponivel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaQuantidadeDisponivel);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -76,9 +88,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string ObtenhaListaGridRequisicaoMaterialModel = "ObtenhaListaGridRequisicaoMaterialModel";
             public readonly string Novo = "Novo";
             public readonly string NovoPreenchido = "NovoPreenchido";
             public readonly string Editar = "Editar";
+            public readonly string ObtenhaQuantidadeDisponivel = "ObtenhaQuantidadeDisponivel";
             public readonly string Excluir = "Excluir";
             public readonly string Imprimir = "Imprimir";
         }
@@ -87,20 +101,23 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string ObtenhaListaGridRequisicaoMaterialModel = "ObtenhaListaGridRequisicaoMaterialModel";
             public const string Novo = "Novo";
             public const string NovoPreenchido = "NovoPreenchido";
             public const string Editar = "Editar";
+            public const string ObtenhaQuantidadeDisponivel = "ObtenhaQuantidadeDisponivel";
             public const string Excluir = "Excluir";
             public const string Imprimir = "Imprimir";
         }
 
 
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        static readonly ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel s_params_ObtenhaListaGridRequisicaoMaterialModel = new ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        public ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel ObtenhaListaGridRequisicaoMaterialModelParams { get { return s_params_ObtenhaListaGridRequisicaoMaterialModel; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
+        public class ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel
         {
+            public readonly string request = "request";
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Novo s_params_Novo = new ActionParamsClass_Novo();
@@ -119,6 +136,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             public readonly string id = "id";
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_ObtenhaQuantidadeDisponivel s_params_ObtenhaQuantidadeDisponivel = new ActionParamsClass_ObtenhaQuantidadeDisponivel();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaQuantidadeDisponivel ObtenhaQuantidadeDisponivelParams { get { return s_params_ObtenhaQuantidadeDisponivel; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaQuantidadeDisponivel
+        {
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -172,13 +197,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model);
+        partial void ObtenhaListaGridRequisicaoMaterialModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model);
 
-        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model)
+        public override System.Web.Mvc.ActionResult ObtenhaListaGridRequisicaoMaterialModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridRequisicaoMaterialModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            IndexOverride(callInfo, model);
+            ObtenhaListaGridRequisicaoMaterialModelOverride(callInfo, request, model);
             return callInfo;
         }
 
@@ -217,6 +243,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void ObtenhaQuantidadeDisponivelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
+
+        public override System.Web.Mvc.ActionResult ObtenhaQuantidadeDisponivel(long? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaQuantidadeDisponivel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ObtenhaQuantidadeDisponivelOverride(callInfo, id);
             return callInfo;
         }
 

@@ -16,6 +16,9 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -65,145 +68,42 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
-        #region Views
+        #region ColunasPesquisaAprovarModelo
+        private static readonly Dictionary<string, string> ColunasPesquisaRequisicaoMaterial = new Dictionary<string, string>
+        {
+            {"Descrição", "Descricao"},
+            {"Referência", "Referencia"},
+            {"Tag", "ModeloAvaliacao.Tag"},
+        };
 
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"Numero", "Numero"},
+            {"Data", "Data"},
+            {"Requerente", "Requerente.Nome"},
+            {"UnidadeRequerente", "UnidadeRequerente.NomeFantasia"},
+            {"TipoMaterial", "TipoItem.Descricao"},
+            {"Origem", "Origem"},
+            {"Situacao", "SituacaoRequisicaoMaterial"}
+        };
+        #endregion
+        
         #region Index
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var requisicaoMaterials = _requisicaoMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
-
-            var model = new PesquisaRequisicaoMaterialModel { ModoConsulta = "Listar" };
-
-            model.Grid = requisicaoMaterials.Select(p => new GridRequisicaoMaterialModel
-            {
-                Id = p.Id.Value,
-                Origem = p.Origem,
-                Numero = p.Numero,
-                Data = p.Data,
-                TipoMaterial = p.TipoItem.Descricao,
-                Requerente = p.Requerente.Nome,
-                Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
-                UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
-            }).OrderBy(o => o.Numero).ToList();
-
-            return View(model);
+            return View(new PesquisaRequisicaoMaterialModel { ModoConsulta = "Listar" });
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index(PesquisaRequisicaoMaterialModel model)
         {
-            var requisicaoMaterials = _requisicaoMaterialRepository.Find();
-
             try
             {
-                #region Filtros
                 var filtros = new StringBuilder();
-
-                if (!string.IsNullOrWhiteSpace(model.Origem))
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Origem == model.Origem);
-                    filtros.AppendFormat("Origem: {0}, ", model.Origem);
-                }
                 
-                if (model.Numero.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Numero == model.Numero);
-                    filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
-                }
-
-                if (model.UnidadeRequerente.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequerente.Id == model.UnidadeRequerente);
-                    filtros.AppendFormat("Unidade Requerente: {0}, ", _pessoaRepository.Get(model.UnidadeRequerente.Value).NomeFantasia);
-                }
-
-                if (model.UnidadeRequisitada.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequisitada.Id == model.UnidadeRequisitada);
-                    filtros.AppendFormat("Unidade Requisitada: {0}, ", _pessoaRepository.Get(model.UnidadeRequisitada.Value).NomeFantasia);
-                }
-
-                if (model.CentroCusto.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.CentroCusto.Id == model.CentroCusto);
-                    filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
-                }
-
-                if (model.Requerente.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Requerente.Id == model.Requerente);
-                    filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Requerente.Value).Nome);
-                }
-
-                if (model.DataInicio.HasValue && model.DataFim.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date >= model.DataInicio.Value
-                                                             && p.Data.Date <= model.DataFim.Value);
-                    filtros.AppendFormat("Data de '{0}' até '{1}', ",
-                                         model.DataInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (model.SituacaoRequisicaoMaterial.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.SituacaoRequisicaoMaterial == model.SituacaoRequisicaoMaterial);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoRequisicaoMaterial.Value.EnumToString());
-                }
-
-                if (model.Material.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.RequisicaoMaterialItems.Any(i => i.Material.Id == model.Material));
-                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
-                }
-
-                if (model.TipoItem.HasValue)
-                {
-                    requisicaoMaterials = requisicaoMaterials.Where(p => p.TipoItem.Id == model.TipoItem);
-                    filtros.AppendFormat("Tipo de Material: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
-                {
-                    requisicaoMaterials =
-                        requisicaoMaterials.Where(
-                            p =>
-                                p.RequisicaoMaterialItems.SelectMany(x => x.Material.ReferenciaExternas)
-                                    .Any(y => y.Referencia == model.ReferenciaExterna));
-                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
-                }
-
-                #endregion
-
-                // Verifica se é uma listagem
-                if (model.ModoConsulta == "Listar")
-                {
-                    if (model.OrdenarPor != null)
-                    {
-                        requisicaoMaterials = model.OrdenarEm == "asc"
-                            ? requisicaoMaterials.OrderBy(model.OrdenarPor)
-                            : requisicaoMaterials.OrderByDescending(model.OrdenarPor);
-                    }
-                    else
-                    {
-                        requisicaoMaterials = requisicaoMaterials.OrderByDescending(x => x.DataAlteracao);
-                    }
-
-                    model.Grid = requisicaoMaterials.Select(p => new GridRequisicaoMaterialModel()
-                    {
-                        Id = p.Id.Value,
-                        Origem = p.Origem,
-                        Numero = p.Numero,
-                        Data = p.Data,
-                        Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
-                        TipoMaterial = p.TipoItem.Descricao,
-                        Requerente = p.Requerente.Nome,
-                        UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
-                    }).OrderBy(o => o.Numero).ToList();
-                    
-                    return View(model);
-                }
-
+                var requisicaoMaterials = ObtenhaRequisicoesMateriaisFiltrado(model, filtros);
+                
                 // Se não é uma listagem, gerar o relatório
                 var result = requisicaoMaterials.ToList();
 
@@ -254,6 +154,155 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
         }
 
+        private IQueryable<RequisicaoMaterial> ObtenhaRequisicoesMateriaisFiltrado(PesquisaRequisicaoMaterialModel model, StringBuilder filtros)
+        {
+            var requisicaoMaterials = _requisicaoMaterialRepository.Find();
+
+            #region Filtros
+
+            if (!string.IsNullOrWhiteSpace(model.Origem))
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Origem == model.Origem);
+                filtros.AppendFormat("Origem: {0}, ", model.Origem);
+            }
+
+            if (model.Numero.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Numero == model.Numero);
+                filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
+            }
+
+            if (model.UnidadeRequerente.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequerente.Id == model.UnidadeRequerente);
+                filtros.AppendFormat("Unidade Requerente: {0}, ",
+                    _pessoaRepository.Get(model.UnidadeRequerente.Value).NomeFantasia);
+            }
+
+            if (model.UnidadeRequisitada.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.UnidadeRequisitada.Id == model.UnidadeRequisitada);
+                filtros.AppendFormat("Unidade Requisitada: {0}, ",
+                    _pessoaRepository.Get(model.UnidadeRequisitada.Value).NomeFantasia);
+            }
+
+            if (model.CentroCusto.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.CentroCusto.Id == model.CentroCusto);
+                filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
+            }
+
+            if (model.Requerente.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Requerente.Id == model.Requerente);
+                filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Requerente.Value).Nome);
+            }
+
+            if (model.DataInicio.HasValue && model.DataFim.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date >= model.DataInicio.Value
+                                                                     && p.Data.Date <= model.DataFim.Value);
+                filtros.AppendFormat("Data de '{0}' até '{1}', ",
+                    model.DataInicio.Value.ToString("dd/MM/yyyy"),
+                    model.DataFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.SituacaoRequisicaoMaterial.HasValue)
+            {
+                requisicaoMaterials =
+                    requisicaoMaterials.Where(p => p.SituacaoRequisicaoMaterial == model.SituacaoRequisicaoMaterial);
+                filtros.AppendFormat("Situação: {0}, ", model.SituacaoRequisicaoMaterial.Value.EnumToString());
+            }
+
+            if (model.Material.HasValue)
+            {
+                requisicaoMaterials =
+                    requisicaoMaterials.Where(p => p.RequisicaoMaterialItems.Any(i => i.Material.Id == model.Material));
+                filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+            }
+
+            if (model.TipoItem.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.TipoItem.Id == model.TipoItem);
+                filtros.AppendFormat("Tipo de Material: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+            {
+                requisicaoMaterials =
+                    requisicaoMaterials.Where(
+                        p =>
+                            p.RequisicaoMaterialItems.SelectMany(x => x.Material.ReferenciaExternas)
+                                .Any(y => y.Referencia == model.ReferenciaExterna));
+                filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+            }
+            return requisicaoMaterials;
+        }
+
+        public virtual ActionResult ObtenhaListaGridRequisicaoMaterialModel([DataSourceRequest] DataSourceRequest request, PesquisaRequisicaoMaterialModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var requisicaoMaterials = ObtenhaRequisicoesMateriaisFiltrado(model, filtros);
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        requisicaoMaterials = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? requisicaoMaterials.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : requisicaoMaterials.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                requisicaoMaterials = requisicaoMaterials.OrderByDescending(o => o.DataAlteracao);
+
+                var total = requisicaoMaterials.Count();
+
+                if (request.Page > 0)
+                {
+                    requisicaoMaterials = requisicaoMaterials.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = requisicaoMaterials.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridRequisicaoMaterialModel()
+                {
+                    Id = p.Id.Value,
+                    Origem = p.Origem,
+                    Numero = p.Numero,
+                    Data = p.Data,
+                    Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
+                    TipoMaterial = p.TipoItem.Descricao,
+                    Requerente = p.Requerente.Nome,
+                    UnidadeRequerente = p.UnidadeRequerente.NomeFantasia
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(new DataSourceResult
+                {
+                    Errors = ex.GetMessage()
+                });
+            }
+        }
+
         #endregion
 
         #region Novo
@@ -301,17 +350,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain.Requerente = _pessoaRepository.Get(model.Requerente);
                     domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);
                     domain.TipoItem = _tipoItemRepository.Get(model.TipoItem);
-                    
+
                     IncluaNovosRequisicaoMaterialItens(model, domain);
 
                     domain.AtualizeSituacao();
-                    
+
                     domain.CrieReservaMaterial(ProximoNumeroReservaMaterial(), _reservaEstoqueMaterialRepository);
 
                     _requisicaoMaterialRepository.Save(domain);
 
                     this.AddSuccessMessage("Requisição de material cadastrado com sucesso.");
-                    
+
                     return RedirectToAction("Editar", new { domain.Id });
                 }
                 catch (Exception exception)
@@ -363,7 +412,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<RequisicaoMaterialModel>(domain);
-                
+
                 model.GridItens = domain.RequisicaoMaterialItems.Select(x =>
                     new RequisicaoMaterialItemModel
                     {
@@ -378,7 +427,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         IdRequisicaoMaterialItem = x.Id,
                         Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
                     }).ToList();
-                
+
                 return View("Editar", model);
             }
 
@@ -402,7 +451,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
         [AjaxOnly]
-        public ActionResult ObtenhaQuantidadeDisponivel(long? id)
+        public virtual ActionResult ObtenhaQuantidadeDisponivel(long? id)
         {
             try
             {
@@ -425,7 +474,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 try
                 {
                     var domain = _requisicaoMaterialRepository.Get(model.Id);
-                    
+
                     Framework.UnitOfWork.Session.Current.Evict(domain.Requerente);
 
                     domain = Mapper.Unflat(model, domain);
@@ -564,7 +613,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             var centroCustos = _centroCustoRepository.Find().OrderBy(o => o.Nome).ToList();
             ViewData["CentroCusto"] = centroCustos.ToSelectList("Nome", model.CentroCusto);
-            
+
             ViewBag.AgruparPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
             ViewBag.OrdenarPor = new SelectList(_colunasPesquisaReservaMaterial, "value", "key");
         }
@@ -578,7 +627,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 .GroupBy(x => x.Id).Select(x => x.First()).OrderBy(o => o.NomeFantasia).ToList();
 
             ViewData["UnidadeRequisitada"] = unidadesRequisitadas.ToSelectList("NomeFantasia", model.UnidadeRequisitada);
-            
+
             var tipoItems = _tipoItemRepository.Find().OrderBy(o => o.Descricao).ToList();
             ViewData["TipoItem"] = tipoItems.ToSelectList("Descricao", model.TipoItem);
 
@@ -591,7 +640,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         protected override void ValidaNovoOuEditar(IModel model, string actionName)
         {
-            
+
         }
         #endregion
 
@@ -620,9 +669,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #endregion
 
         #region Imprimir
-        public virtual ActionResult Imprimir(long requisicaoMaterialId)
+        public virtual ActionResult Imprimir(long id)
         {
-            var requisicao = _requisicaoMaterialRepository.Get(requisicaoMaterialId);
+            var requisicao = _requisicaoMaterialRepository.Get(id);
 
             var report = new RequisicaoMaterialReport() { DataSource = requisicao };
             var filename = report.ToByteStream().SaveFile(".pdf");
