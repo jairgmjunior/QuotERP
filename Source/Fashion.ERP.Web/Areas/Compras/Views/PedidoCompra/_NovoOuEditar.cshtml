@@ -205,8 +205,8 @@
                     "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
                 columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-                columns.Bound(p => p.Quantidade).Width(80).ClientTemplate("#= Quantidade #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
+                columns.Bound(p => p.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(80).ClientTemplate("#= kendo.toString(Quantidade, \"n4\") #" +
+                    "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
                 columns.Bound(p => p.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorUnitario, \"n5\") #" +
                     "<input type='hidden' name='GridItens[#= index(data)#].ValorUnitario' value='#= formateDecimalGrid(ValorUnitario) #' />");
                 columns.Bound(p => p.ValorDesconto).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorDesconto, \"n2\") #" +
@@ -506,6 +506,11 @@
         atualizeValorTotalItem(item);
     }
 
+    function atualizeValorTotal(target) {
+        var item = ObtenhaDataItemGridItens(target);
+        atualizeValorTotalItem(item);
+    }
+
     function atualizeValorTotalItem(item) {
         var valorCalculado = (item.Quantidade * item.ValorUnitario) - item.ValorDesconto;
         item.set("ValorTotal", valorCalculado);
@@ -569,7 +574,7 @@
 
         if ($("#Quantidade").get(0) != null) {
             $("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
-            $("#Quantidade.k-input").change(function (e) {
+            $("#Quantidade.k-input").blur(function (e) {
                 atualizeValorTotal(e.target);
             });
         }
@@ -583,28 +588,28 @@
         }
 
         if ($("#ValorUnitario").get(0) != null) {
-            $("#ValorUnitario.k-input").change(function (e) {
+            $("#ValorUnitario.k-input").blur(function (e) {
                 atualizeValorTotal(e.target);
             });
         }
 
         if ($("#ValorDesconto").get(0) != null) {
-            $("#ValorDesconto.k-input").change(function (e) {
+            $("#ValorDesconto.k-input").blur(function (e) {
                 atualizeValorTotal(e.target);
             });
         }
 
-        if ($("#ValorUnitario").get(0) != null) {
-            $("#ValorUnitario.k-input").change(function (e) {
-                atualizeValorTotal(e.target);
-            });
-        }
+        //if ($("#ValorUnitario").get(0) != null) {
+        //    $("#ValorUnitario.k-input").change(function (e) {
+        //        atualizeValorTotal(e.target);
+        //    });
+        //}
 
-        if ($("#ValorUnitario").get(0) != null) {
-            $("#ValorUnitario.k-input").change(function (e) {
-                atualizeValorTotal(e.target);
-            });
-        }
+        //if ($("#ValorUnitario").get(0) != null) {
+        //    $("#ValorUnitario.k-input").change(function (e) {
+        //        atualizeValorTotal(e.target);
+        //    });
+        //}
     }
 
     function desabilitaColunaDetalhes() {
