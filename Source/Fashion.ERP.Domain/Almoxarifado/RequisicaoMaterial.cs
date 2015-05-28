@@ -111,7 +111,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
             }
 
             reservaMaterialItem.Material = material;
-            reservaMaterialItem.QuantidadeAtendida = quantidadeBaixa;
+            reservaMaterialItem.QuantidadeAtendida += quantidadeBaixa;
 
             ReservaMaterial.AtualizeReservaEstoqueMaterial(quantidadeBaixa * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
         }

@@ -266,7 +266,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     Id = p.Id.Value,
                     Origem = p.Origem,
                     Numero = p.Numero,
-                    Data = p.Data,
+                    Data = p.Data.Date,
                     Situacao = p.SituacaoRequisicaoMaterial.EnumToString(),
                     TipoMaterial = p.TipoItem.Descricao,
                     Requerente = p.Requerente.Nome,

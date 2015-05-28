@@ -264,7 +264,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 var list = resultado.Select(p => new GridEntradaMaterialModel
                 {
                     Id = p.Id.GetValueOrDefault(),
-                    DataEntrada = p.DataEntrada,
+                    DataEntrada = p.DataEntrada.Date,
                     UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
                     DepositoMaterialDestino = p.DepositoMaterialDestino.Nome,
                     OrigemFornecedor = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : p.Fornecedor.Nome,

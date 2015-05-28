@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaReservaMaterialModel
+﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
+@model PesquisaReservaMaterialModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
@@ -110,30 +111,34 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="span3">
-                                <div id="row-imprimir" class="control-group" style="display: none">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                            <div class="span10">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="controls">
+                                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                            <div class="controls">
+                                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                            <div class="controls">
+                                                <select name="OrdenarEm">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -149,8 +154,16 @@
     </div>
 }
 <div id="pdf"></div>
-@(Html.Kendo().Grid(Model.Grid)
-    .Name("Grid")
+
+@(Html.Kendo().Grid<GridReservaMaterialModel>()
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(50)
+        .Read(read => read.Action("ObtenhaListaGridModel", "ReservaMaterial").Data("ObtenhaPesquisaModel"))
+        .Events(events => events.Error("onError"))
+    )
     .Columns(columns =>
     {
         columns.Bound(x => x.Numero);
@@ -160,13 +173,35 @@
         columns.Bound(x => x.Data).Format("{0:d}");
         columns.Bound(x => x.DataProgramacao).Format("{0:d}");
         columns.Bound(x => x.Situacao);        
-        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.ReservaMaterial.Editar(item.Id))).Width(80);        
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "ReservaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
     })
-)
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+    )
+
 <script>
     $(function () {
+
+        $('#pesquisar-grid').on('click', function () {
+
+            limpeMensagensAlerta();
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if ($ModoConsulta.val() == 'Listar') {
+
+                $('#Grid').data('kendoGrid').dataSource.read();
+                $('#Grid').data('kendoGrid').refresh();
+                $('#Grid').data('kendoGrid').dataSource.page(1);
+                return false;
+            }
+        });
+
         // Seleciona o modo de consulta
-        $('button[name=btn-ModoConsulta]').on('click', function() {
+        $('button[name=btn-ModoConsulta]').on('click', function () {
 
             var $ModoConsulta = $('#ModoConsulta');
 
@@ -179,14 +214,41 @@
 
             } else {
                 $ModoConsulta.val('Listar');
-
+                $("#pdf").html("");
+                $("#pdf").attr("style", "");
+                $("#Grid").show();
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
                 $('#pesquisar-grid').show();
 
             }
         });
-    })
+    });
+
+    function ObtenhaPesquisaModel() {
+        var parametros = {
+            model:
+            {
+                ReferenciaOrigem: $("#ReferenciaOrigem").val(),
+                Unidade: $("#Unidade").val(),
+                ReferenciaExterna: $("#ReferenciaExterna").val(),
+                Material: $("#Material").val(),
+                Numero: $("#Numero").val(),
+                DataProgramacaoInicio: $("#DataProgramacaoInicio").val(),
+                DataProgramacaoFim: $("#DataProgramacaoFim").val(),
+                SituacaoReservaMaterial: $("#SituacaoReservaMaterial").val(),
+                OrdenarPor: $("#OrdenarPor").val(),
+                OrdenarEm: $("#OrdenarEm").val()
+            }
+        };
+
+        return parametros;
+    }
+
+    function onError(e) {
+        alert(e.errors);
+    }
+
 </script>
 
 @{

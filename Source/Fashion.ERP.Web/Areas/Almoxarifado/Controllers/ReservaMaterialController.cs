@@ -15,6 +15,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
@@ -55,117 +56,159 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"Referencia", "ReferenciaOrigem"},
+            {"Numero", "Numero"},
+            {"Data", "Data"},
+            {"DataProgramacao", "DataProgramacao"},
+            {"Situacao", "SituacaoReservaMaterial"},
+            {"Colecao", "Colecao.Descricao"},
+            {"Unidade", "Unidade.NomeFantasia"}
+        };
+        #endregion
+
         #region Views
 
         #region Index
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var reservaMaterials = _reservaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
-
             var model = new PesquisaReservaMaterialModel { ModoConsulta = "Listar" };
-
-            model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
-            {
-                Id = p.Id.Value,
-                Referencia = p.ReferenciaOrigem,
-                Numero = p.Numero,
-                Data = p.Data,
-                DataProgramacao = p.DataProgramacao.HasValue ? p.DataProgramacao.Value : default(DateTime?),
-                Situacao = p.SituacaoReservaMaterial.EnumToString(),
-                Colecao = p.Colecao.Descricao,
-                Unidade = p.Unidade.NomeFantasia,
-            }).OrderBy(o => o.Numero).ToList();
-
+            
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
-        public virtual ActionResult Index(PesquisaReservaMaterialModel model)
+        private IQueryable<ReservaMaterial> ObtenhaQueryFiltrada(PesquisaReservaMaterialModel model, StringBuilder filtros)
         {
             var reservaMaterials = _reservaMaterialRepository.Find();
+            
+            if (!string.IsNullOrWhiteSpace(model.ReferenciaOrigem))
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.ReferenciaOrigem == model.ReferenciaOrigem);
+                filtros.AppendFormat("Referência de origem: {0}, ", model.ReferenciaOrigem);
+            }
+                
+            if (model.Numero.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.Numero == model.Numero);
+                filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
+            }
 
+            if (model.Unidade.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.Unidade.Id == model.Unidade);
+                filtros.AppendFormat("Unidade: {0}, ", _pessoaRepository.Get(model.Unidade.Value).NomeFantasia);
+            }
+
+            if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value
+                                                            && p.DataProgramacao.Value.Date <= model.DataProgramacaoFim.Value);
+                filtros.AppendFormat("Data de Programação de '{0}' até '{1}', ",
+                                        model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"),
+                                        model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.SituacaoReservaMaterial.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.SituacaoReservaMaterial == model.SituacaoReservaMaterial);
+                filtros.AppendFormat("Situação: {0}, ", model.SituacaoReservaMaterial.Value.EnumToString());
+            }
+
+            if (model.Material.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.ReservaMaterialItems.Any(i => i.Material.Id == model.Material));
+                filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+            {
+                reservaMaterials =
+                    reservaMaterials.Where(
+                        p =>
+                            p.ReservaMaterialItems.SelectMany(x => x.Material.ReferenciaExternas)
+                                .Any(y => y.Referencia == model.ReferenciaExterna));
+                filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+            }
+
+            return reservaMaterials;
+        }
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaReservaMaterialModel model)
+        {
             try
             {
-                #region Filtros
                 var filtros = new StringBuilder();
 
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaOrigem))
-                {
-                    reservaMaterials = reservaMaterials.Where(p => p.ReferenciaOrigem == model.ReferenciaOrigem);
-                    filtros.AppendFormat("Referência de origem: {0}, ", model.ReferenciaOrigem);
-                }
-                
-                if (model.Numero.HasValue)
-                {
-                    reservaMaterials = reservaMaterials.Where(p => p.Numero == model.Numero);
-                    filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
-                }
+                var reservaMateriais = ObtenhaQueryFiltrada(model, filtros);
 
-                if (model.Unidade.HasValue)
+                if (!request.Sorts.IsNullOrEmpty())
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.Unidade.Id == model.Unidade);
-                    filtros.AppendFormat("Unidade: {0}, ", _pessoaRepository.Get(model.Unidade.Value).NomeFantasia);
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        reservaMateriais = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? reservaMateriais.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : reservaMateriais.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
                 }
 
-                if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
+                reservaMateriais = reservaMateriais.OrderByDescending(o => o.DataAlteracao);
+
+                var total = reservaMateriais.Count();
+
+                if (request.Page > 0)
                 {
-                    reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value
-                                                             && p.DataProgramacao.Value.Date <= model.DataProgramacaoFim.Value);
-                    filtros.AppendFormat("Data de Programação de '{0}' até '{1}', ",
-                                         model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
+                    reservaMateriais = reservaMateriais.Skip((request.Page - 1) * request.PageSize);
                 }
 
-                if (model.SituacaoReservaMaterial.HasValue)
-                {
-                    reservaMaterials = reservaMaterials.Where(p => p.SituacaoReservaMaterial == model.SituacaoReservaMaterial);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoReservaMaterial.Value.EnumToString());
-                }
+                var resultado = reservaMateriais.Take(request.PageSize).ToList();
 
-                if (model.Material.HasValue)
-                {
-                    reservaMaterials = reservaMaterials.Where(p => p.ReservaMaterialItems.Any(i => i.Material.Id == model.Material));
-                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
-                {
-                    reservaMaterials =
-                        reservaMaterials.Where(
-                            p =>
-                                p.ReservaMaterialItems.SelectMany(x => x.Material.ReferenciaExternas)
-                                    .Any(y => y.Referencia == model.ReferenciaExterna));
-                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
-                }
-
-                #endregion
-
-                // Verifica se é uma listagem
-                if (model.ModoConsulta == "Listar")
-                {
-                    if (model.OrdenarPor != null)
-                        reservaMaterials = model.OrdenarEm == "asc"
-                            ? reservaMaterials.OrderBy(model.OrdenarPor)
-                            : reservaMaterials.OrderByDescending(model.OrdenarPor);
-                    else 
-                        reservaMaterials = reservaMaterials.OrderByDescending(x => x.DataAlteracao);
-
-                    model.Grid = reservaMaterials.Select(p => new GridReservaMaterialModel
+                var list = resultado.Select(p => new GridReservaMaterialModel
                     {
                         Id = p.Id.Value,
                         Referencia = p.ReferenciaOrigem,
                         Numero = p.Numero,
-                        Data = p.Data,
-                        DataProgramacao = p.DataProgramacao,
+                        Data = p.Data.Date,
+                        DataProgramacao = p.DataProgramacao.HasValue ? p.DataProgramacao.Value.Date : default(DateTime?),
                         Situacao = p.SituacaoReservaMaterial.EnumToString(),
-                        Colecao = p.Colecao.Descricao,
-                        Unidade = p.Unidade.NomeFantasia
-                    }).OrderBy(o => o.Numero).ToList();
+                        Colecao = p.Colecao != null ? p.Colecao.Descricao: "",
+                        Unidade = p.Unidade.NomeFantasia,
+                    }).ToList();
 
-                    return View(model);
-                }
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
 
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(new DataSourceResult
+                {
+                    Errors = ex.GetMessage()
+                });
+            }
+        }
+
+
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        public virtual ActionResult Index(PesquisaReservaMaterialModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+                var reservaMaterials = ObtenhaQueryFiltrada(model, filtros);
+                
                 // Se não é uma listagem, gerar o relatório
                 var result = reservaMaterials.ToList();
 

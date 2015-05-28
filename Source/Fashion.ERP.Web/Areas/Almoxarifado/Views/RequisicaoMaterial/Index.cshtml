@@ -201,7 +201,7 @@
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
-        .PageSize(15)
+        .PageSize(50)
         .Read(read => read.Action("ObtenhaListaGridRequisicaoMaterialModel", "RequisicaoMaterial").Data("ObtenhaPesquisaRequisicaoMaterialModel"))
         .Events(events => events.Error("onError"))
     )
@@ -239,6 +239,7 @@
 
                 $('#Grid').data('kendoGrid').dataSource.read();
                 $('#Grid').data('kendoGrid').refresh();
+                $('#Grid').data('kendoGrid').dataSource.page(1);
                 return false;
             }
         });
@@ -258,6 +259,7 @@
             } else {
                 $ModoConsulta.val('Listar');
                 $("#pdf").html("");
+                $("#pdf").attr("style", "");
                 $("#Grid").show();
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
