@@ -186,7 +186,7 @@
         columns.Bound(x => x.QtdeDisponivelCompras).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
         columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<a href='" + item.Foto + "'' data-lightbox='foto' title='Material'><img src='" + item.Foto + "' class='img-rounded' style='width: 68px; height: 68px;'/></a>" : string.Empty)).Width(60);
         columns.Template(item => Html.ActionLinkAuth("Extrato", MVC.Almoxarifado.Consulta.ExtratoItem(item.Id), new { @class = "btn btn-primary btn-small", @data_toggle = "modal", @data_target = "#modal-extratoitem" })).Width(80);
-        columns.Template(item => Html.ActionLink("Custo", MVC.Almoxarifado.Consulta.CustoMaterial(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-customaterial" })).Width(80);
+        columns.Template(item => Html.ActionLinkAuth("Custo", MVC.Almoxarifado.Consulta.CustoMaterial(item.Id), new { @class = "btn btn-primary btn-small", data_toggle = "modal", data_target = "#modal-customaterial" })).Width(80);
     }).Events(events => events.DataBound("onDataBound"))
 )
 

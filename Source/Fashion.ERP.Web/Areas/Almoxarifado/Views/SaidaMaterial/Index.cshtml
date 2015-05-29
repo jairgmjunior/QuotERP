@@ -1,16 +1,101 @@
 ﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
-@model IEnumerable<GridSaidaMaterialModel>
+@model PesquisaSaidaMaterialModel
 <div class="well well-small">
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.SaidaMaterial.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
+@using (Html.BeginForm(MVC.Almoxarifado.SaidaMaterial.Index(), FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span5">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.UnidadeRetirada, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("UnidadeRetirada", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span5">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DepositoMaterialRetirada)
+                                <div class="controls">
+                                    @Html.DropDownList("DepositoMaterialRetirada", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.CentroCusto, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("CentroCusto", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataSaidaDe, new { @class = "control-label"})
+                                <div class="controls">
+                                    @(Html.Kendo().DatePickerFor(x => x.DataSaidaDe))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                @Html.Label("DataSaidaAte", "Até", new { @class = "control-label"})
+                                <div class="controls">
+                                    @(Html.Kendo().DatePickerFor(x => x.DataSaidaAte))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Material)
+                                <div class="controls">
+                                    @Html.Hidden("Material")
+                                    <div class="input-append">
+                                        <input id="referencia-material" class="input-small" type="text" />
+                                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                                        <span id="descricao-material" class="add-on"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        @Html.HiddenFor(x => x.ModoConsulta)
+                        <div class="row">
+                            <div class="span9">
+                            </div>
+                            <div class="span3">
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @(Html.Kendo().Grid<GridSaidaMaterialModel>()
     .Name("Grid")    
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
-        .PageSize(50)
+        .PageSize(15)
         .Read(read => read.Action("ObtenhaListaGridModel", "SaidaMaterial").Data("ObtenhaModelJsonObject"))
         .Events(events => events.Error("onKendoGridError"))
     )
@@ -20,7 +105,7 @@
         columns.Bound(x => x.UnidadeOrigem);
 		columns.Bound(x => x.DepositoMaterialOrigem);
         columns.Bound(x => x.CentroCusto);
-        columns.Bound(x => x.UnidadeDestino);
+        columns.Bound(x => x.UnidadeOrigem);
 		columns.Bound(x => x.DepositoMaterialDestino);
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "SaidaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
     })
@@ -49,4 +134,30 @@
         });
     });
 
+    $('#UnidadeRetirada').on("change", function () {
+
+        // Preenche o combo de depósito de destino de acordo com a unidade escolhida
+        var depositoMaterialRetirada = $('#DepositoMaterialRetirada');
+        depositoMaterialRetirada.empty();
+        depositoMaterialRetirada.append($('<option />').text('-- Selecione --').val(''));
+
+        var unidadeRetiradaId = $(this).val();
+        if (unidadeRetiradaId != '') {
+            var url = '/Almoxarifado/DepositoMaterial/DepositosPorUnidade/' + unidadeRetiradaId;
+            $.getJSON(url, function (result) {
+                $.each(result, function (index, item) {
+                    var option = $('<option />').val(item.Id).text(item.Nome);
+                    depositoMaterialRetirada.append(option);
+                });
+            }).fail(function (jqXhr, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+        }
+    });
+
+
 </script>
+
+@{
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}

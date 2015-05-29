@@ -160,7 +160,7 @@
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
-        .PageSize(50)
+        .PageSize(15)
         .Read(read => read.Action("ObtenhaListaGridModel", "ReservaMaterial").Data("ObtenhaModelJsonObject"))
         .Events(events => events.Error("onError"))
     )

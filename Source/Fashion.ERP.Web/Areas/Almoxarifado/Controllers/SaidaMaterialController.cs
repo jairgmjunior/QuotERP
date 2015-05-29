@@ -29,21 +29,26 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
         private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
-
+        private readonly IRepository<CentroCusto> _centroCustoRepository;
+        private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly ILogger _logger;
+
         #endregion
 
         #region Construtores
         public SaidaMaterialController(ILogger logger, IRepository<SaidaMaterial> saidaMaterialRepository,
             IRepository<DepositoMaterial> depositoMaterialRepository, 
             IRepository<Material> materialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository,
-            IRepository<RequisicaoMaterial> requisicaoMaterialRepository)
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<CentroCusto> centroCustoRepository,
+            IRepository<Pessoa> pessoaRepository)
         {
             _saidaMaterialRepository = saidaMaterialRepository;
             _depositoMaterialRepository = depositoMaterialRepository;
             _materialRepository = materialRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _requisicaoMaterialRepository = requisicaoMaterialRepository;
+            _centroCustoRepository = centroCustoRepository;
+            _pessoaRepository = pessoaRepository;
             _logger = logger;
         }
         #endregion
@@ -64,16 +69,58 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region Views
 
         #region Index
+        [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            return View();
+            return View(new PesquisaSaidaMaterialModel { ModoConsulta = "Listar" });
         }
 
-        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request)
+        private IQueryable<SaidaMaterial> ObtenhaQueryFiltrada(PesquisaSaidaMaterialModel model, StringBuilder filtros)
+        {
+            var saidaMateriais = _saidaMaterialRepository.Find();
+
+            if (model.Material.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.SaidaItemMateriais.Any(i => i.Material.Id == model.Material));
+                filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+            }
+
+            if (model.UnidadeRetirada.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialDestino.Unidade.Id == model.UnidadeRetirada);
+                filtros.AppendFormat("Unidade destino: {0}, ", _pessoaRepository.Get(model.UnidadeRetirada.Value).NomeFantasia);
+            }
+
+            if (model.DepositoMaterialRetirada.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialDestino.Id == model.DepositoMaterialRetirada);
+                filtros.AppendFormat("Depósito destino: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialRetirada.Value).Nome);
+            }
+
+            if (model.CentroCusto.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.CentroCusto.Id == model.CentroCusto);
+                filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
+            }
+            
+            if (model.DataSaidaDe.HasValue && model.DataSaidaAte.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.DataSaida.Date >= model.DataSaidaDe.Value
+                                                         && p.DataSaida.Date <= model.DataSaidaAte.Value);
+                
+                filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                                     model.DataSaidaDe.Value.ToString("dd/MM/yyyy"),
+                                     model.DataSaidaAte.Value.ToString("dd/MM/yyyy"));
+            }
+
+            return saidaMateriais;
+        }
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaSaidaMaterialModel model)
         {
             try
             {
-                var saidaMaterials = _saidaMaterialRepository.Find();
+                var saidaMaterials = ObtenhaQueryFiltrada(model, new StringBuilder());
 
                 if (!request.Sorts.IsNullOrEmpty())
                 {
@@ -364,6 +411,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             ViewBag.MaterialUnidadesMedidaDicionario = materiais.Select(c => new { Id = c.Id.GetValueOrDefault(), c.UnidadeMedida.Sigla })
                                                                .ToDictionary(k => k.Id, v => v.Sigla);
         }
+
+        #region PopulateViewDataPesquisa
+        protected void PopulateViewDataPesquisa(PesquisaSaidaMaterialModel model)
+        {
+            var unidadeDestinos = _depositoMaterialRepository.Find(p => p.Ativo)
+                .Select(d => d.Unidade).OrderBy(o => o.Nome).Where(u => u.Unidade.Ativo).Distinct().ToList();
+            ViewData["UnidadeRetirada"] = unidadeDestinos.ToSelectList("NomeFantasia", model.UnidadeRetirada);
+
+            ViewData["DepositoMaterialRetirada"] = new List<DepositoMaterial>().ToSelectList("Nome");
+
+            var centroCustos = _centroCustoRepository.Find().OrderBy(o => o.Nome).ToList();
+            ViewData["CentroCusto"] = centroCustos.ToSelectList("Nome", model.CentroCusto);
+        }
+        #endregion
+
         #endregion
 
         #region ValidaNovoOuEditar

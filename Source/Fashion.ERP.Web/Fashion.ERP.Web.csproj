@@ -299,6 +299,7 @@
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SimboloConservacaoController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\PesquisaSaidaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridCustoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\CustoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridSimboloConservacaoModel.cs" />
