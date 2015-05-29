@@ -1,4 +1,5 @@
 ﻿@using Fashion.ERP.Domain.Compras
+@using Fashion.ERP.Web.Areas.Compras.Models
 @model Fashion.ERP.Web.Areas.Compras.Models.PesquisaRecebimentoCompraModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
@@ -130,30 +131,34 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="span3">
-                                <div id="row-imprimir" class="control-group" style="display: none">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                            <div class="span10">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="controls">
+                                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                            <div class="controls">
+                                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                            <div class="controls">
+                                                <select name="OrdenarEm">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -169,22 +174,49 @@
     </div>
 }
 <div id="pdf"></div>
-@(Html.Kendo().Grid(Model.Grid)
-	.Name("Grid")
-	.Columns(columns =>
-	{
+
+@(Html.Kendo().Grid<GridRecebimentoCompraModel>()
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(50)
+        .Read(read => read.Action("ObtenhaListaGridModel", "RecebimentoCompra").Data("ObtenhaModelJsonObject"))
+        .Events(events => events.Error("onKendoGridError"))
+    )
+    .Columns(columns =>
+    {
 		columns.Bound(x => x.Numero);
 		columns.Bound(x => x.FornecedorNome);
 		columns.Bound(x => x.Data).Format("{0:d}");
         columns.Bound(x => x.Valor).Format("{0:C}");
 	    columns.Bound(x => x.SituacaoRecebimentoCompra).Template(s => s.SituacaoRecebimentoCompra.EnumToString());
-		columns.Template(item => Html.EditarAuth(MVC.Compras.RecebimentoCompra.Editar(item.Id))).Width(80);
-        @*columns.Template(item => Html.ActionLinkAuth("Títulos a pagar", MVC.Compras.ValidaPedidoCompra.Validar(item.Id), new { @class = "btn btn-small btn-primary" })).Width(80);        *@
-        @*columns.Template(item => Html.CancelaAuth(MVC.Compras.PedidoCompraCancelamento.CancelamentoPedido(item.Id))).Width(80);*@
-	})
-)
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "RecebimentoCompra", new {Id = "#= Id #", Area = "Compras"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                       
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+    )
+
 <script>
     $(function () {
+        $('#pesquisar-grid').on('click', function () {
+
+            limpeMensagensAlerta();
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if ($ModoConsulta.val() == 'Listar') {
+
+                $('#Grid').data('kendoGrid').dataSource.read();
+                $('#Grid').data('kendoGrid').refresh();
+                $('#Grid').data('kendoGrid').dataSource.page(1);
+                return false;
+            }
+        });
+
         // Seleciona o modo de consulta
         $('button[name=btn-ModoConsulta]').on('click', function () {
 
@@ -199,7 +231,9 @@
 
             } else {
                 $ModoConsulta.val('Listar');
-
+                $("#pdf").html("");
+                $("#pdf").attr("style", "");
+                $("#Grid").show();
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
                 $('#pesquisar-grid').show();

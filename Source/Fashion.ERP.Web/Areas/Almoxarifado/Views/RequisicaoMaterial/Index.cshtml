@@ -271,23 +271,7 @@
 
     function ObtenhaPesquisaRequisicaoMaterialModel() {
         var parametros = {
-            model:
-            {
-                Origem: $("#Origem").val(),
-                ReferenciaExterna: $("#ReferenciaExterna").val(),
-                UnidadeRequerente: $("#UnidadeRequerente").val(),
-                CentroCusto: $("#CentroCusto").val(),
-                Requerente: $("#funcionario").val(),
-                UnidadeRequisitada: $("#UnidadeRequisitada").val(),
-                TipoItem: $("#TipoItem").val(),
-                Material: $("#Material").val(),
-                Numero: $("#Numero").val(),
-                DataInicio: $("#DataInicio").val(),
-                DataFim: $("#DataFim").val(),
-                SituacaoRequisicaoMaterial: $("#SituacaoRequisicaoMaterial").val(),
-                OrdenarPor: $("#OrdenarPor").val(),
-                OrdenarEm: $("#OrdenarEm").val()
-            }
+            model: $("form").serializeObject()
         };
 
         return parametros;

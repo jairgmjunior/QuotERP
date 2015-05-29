@@ -161,7 +161,7 @@
         .Ajax()
         .ServerOperation(true)
         .PageSize(50)
-        .Read(read => read.Action("ObtenhaListaGridModel", "ReservaMaterial").Data("ObtenhaPesquisaModel"))
+        .Read(read => read.Action("ObtenhaListaGridModel", "ReservaMaterial").Data("ObtenhaModelJsonObject"))
         .Events(events => events.Error("onError"))
     )
     .Columns(columns =>
@@ -227,19 +227,19 @@
 
     function ObtenhaPesquisaModel() {
         var parametros = {
-            model:
-            {
-                ReferenciaOrigem: $("#ReferenciaOrigem").val(),
-                Unidade: $("#Unidade").val(),
-                ReferenciaExterna: $("#ReferenciaExterna").val(),
-                Material: $("#Material").val(),
-                Numero: $("#Numero").val(),
-                DataProgramacaoInicio: $("#DataProgramacaoInicio").val(),
-                DataProgramacaoFim: $("#DataProgramacaoFim").val(),
-                SituacaoReservaMaterial: $("#SituacaoReservaMaterial").val(),
-                OrdenarPor: $("#OrdenarPor").val(),
-                OrdenarEm: $("#OrdenarEm").val()
-            }
+            model: $("form").serializeObject()
+            //{
+            //    ReferenciaOrigem: $("#ReferenciaOrigem").val(),
+            //    Unidade: $("#Unidade").val(),
+            //    ReferenciaExterna: $("#ReferenciaExterna").val(),
+            //    Material: $("#Material").val(),
+            //    Numero: $("#Numero").val(),
+            //    DataProgramacaoInicio: $("#DataProgramacaoInicio").val(),
+            //    DataProgramacaoFim: $("#DataProgramacaoFim").val(),
+            //    SituacaoReservaMaterial: $("#SituacaoReservaMaterial").val(),
+            //    OrdenarPor: $("#OrdenarPor").val(),
+            //    OrdenarEm: $("#OrdenarEm").val()
+            //}
         };
 
         return parametros;

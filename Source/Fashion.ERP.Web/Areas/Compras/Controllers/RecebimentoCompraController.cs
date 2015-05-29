@@ -16,6 +16,9 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -80,115 +83,160 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
         #endregion
 
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"Data", "Data"},
+            {"FornecedorNome", "Fornecedor.Nome"},
+            {"Numero", "Numero"},
+            {"Valor", "Valor"},
+            {"SituacaoRecebimentoCompra", "SituacaoRecebimentoCompra"}
+        };
+        #endregion
+
         #region Index
 
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var recebimentoCompras = _recebimentoCompraRepository.Find().OrderByDescending(x => x.DataAlteracao);
-
             var model = new PesquisaRecebimentoCompraModel {ModoConsulta = "Listar"};
-            
-            model.Grid = recebimentoCompras.Select(p =>Mapper.Flat<GridRecebimentoCompraModel>(p)).ToList();
-
+         
             return View(model);
+        }
+
+        private IQueryable<RecebimentoCompra> ObtenhaQueryFiltrada(PesquisaRecebimentoCompraModel model, StringBuilder filtros)
+        {
+            var recebimentoCompras = _recebimentoCompraRepository.Find();
+            if (model.UnidadeEstocadora.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Unidade.Id == model.UnidadeEstocadora);
+                filtros.AppendFormat("Unidade: {0}, ",
+                                     _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
+            }
+
+            if (model.Numero.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Numero == model.Numero);
+                filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
+            }
+
+            if (model.Fornecedor.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
+                filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
+            }
+
+            if (model.SituacaoRecebimentoCompra.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.SituacaoRecebimentoCompra == model.SituacaoRecebimentoCompra);
+                filtros.AppendFormat("Situação: {0}, ", model.SituacaoRecebimentoCompra.Value.EnumToString());
+            }
+
+            if (model.DataInicio.HasValue && model.DataFim.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date >= model.DataInicio.Value
+                                                         && p.Data.Date <= model.DataFim.Value);
+                filtros.AppendFormat("Data de '{0}' até '{1}', ",
+                                     model.DataInicio.Value.ToString("dd/MM/yyyy"),
+                                     model.DataFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.ValorInicio.HasValue && model.ValorFim.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Valor >= model.ValorInicio.Value
+                                                         && p.Valor <= model.ValorFim.Value);
+                filtros.AppendFormat("Valor de '{0}' até '{1}', ",
+                                     model.ValorInicio.Value.ToString("C2"),
+                                     model.ValorFim.Value.ToString("C2"));
+            }
+
+            if (model.Material.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.RecebimentoCompraItens.Any(i => i.Material.Id == model.Material));
+                filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+            }
+
+            if (model.NumeroPedidoCompra.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.PedidoCompras.Any(i => i.Id == model.NumeroPedidoCompra));
+                filtros.AppendFormat("Pedido de compra: {0}, ", model.NumeroPedidoCompra.Value);
+            }
+
+            return recebimentoCompras;
+        }
+
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaRecebimentoCompraModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var reservaMateriais = ObtenhaQueryFiltrada(model, filtros);
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        reservaMateriais = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? reservaMateriais.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : reservaMateriais.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                reservaMateriais = reservaMateriais.OrderByDescending(o => o.DataAlteracao);
+
+                var total = reservaMateriais.Count();
+
+                if (request.Page > 0)
+                {
+                    reservaMateriais = reservaMateriais.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = reservaMateriais.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridRecebimentoCompraModel()
+                {
+                    Id = p.Id.GetValueOrDefault(),
+                    Data = p.Data.Date,
+                    FornecedorNome = p.Fornecedor.Nome,
+                    Numero = p.Numero,
+                    Valor = p.Valor,
+                    SituacaoRecebimentoCompra = p.SituacaoRecebimentoCompra
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.GetMessage();
+                _logger.Info(message);
+
+                return Json(new DataSourceResult { Errors = message });
+            }
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index(PesquisaRecebimentoCompraModel model)
         {
-            var recebimentoCompras = _recebimentoCompraRepository.Find();
-
             try
             {
-                #region Filtros
-
                 var filtros = new StringBuilder();
-
-                if (model.UnidadeEstocadora.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.Unidade.Id == model.UnidadeEstocadora);
-                    filtros.AppendFormat("Unidade: {0}, ",
-                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
-                }
-
-                if (model.Numero.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.Numero == model.Numero);
-                    filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
-                }
-
-                if (model.Fornecedor.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
-                    filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
-                }
-
-                if (model.SituacaoRecebimentoCompra.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.SituacaoRecebimentoCompra == model.SituacaoRecebimentoCompra);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoRecebimentoCompra.Value.EnumToString());
-                }
-
-                if (model.DataInicio.HasValue && model.DataFim.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date >= model.DataInicio.Value
-                                                             && p.Data.Date <= model.DataFim.Value);
-                    filtros.AppendFormat("Data de '{0}' até '{1}', ",
-                                         model.DataInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (model.ValorInicio.HasValue && model.ValorFim.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.Valor >= model.ValorInicio.Value
-                                                             && p.Valor <= model.ValorFim.Value);
-                    filtros.AppendFormat("Valor de '{0}' até '{1}', ",
-                                         model.ValorInicio.Value.ToString("C2"),
-                                         model.ValorFim.Value.ToString("C2"));
-                }
-
-                if (model.Material.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.RecebimentoCompraItens.Any(i => i.Material.Id == model.Material));
-                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
-                }
-
-                if (model.NumeroPedidoCompra.HasValue)
-                {
-                    recebimentoCompras = recebimentoCompras.Where(p => p.PedidoCompras.Any(i => i.Id == model.NumeroPedidoCompra));
-                    filtros.AppendFormat("Pedido de compra: {0}, ", model.NumeroPedidoCompra.Value);
-                }
-
-                #endregion
-
-                // Verifica se é uma listagem
-                if (model.ModoConsulta == "Listar")
-                {
-                    if (model.OrdenarPor != null)
-                    {
-                        recebimentoCompras = model.OrdenarEm == "asc"
-                            ? recebimentoCompras.OrderBy(model.OrdenarPor)
-                            : recebimentoCompras.OrderByDescending(model.OrdenarPor);
-                    }
-                    else
-                    {
-                        recebimentoCompras = recebimentoCompras.OrderByDescending(x => x.DataAlteracao);
-                    }
-
-                    model.Grid = recebimentoCompras.Select(p => new GridRecebimentoCompraModel()
-                        {
-                            Id = p.Id.GetValueOrDefault(),
-                            Data = p.Data,
-                            FornecedorNome = p.Fornecedor.Nome,
-                            Numero = p.Numero,
-                            Valor = p.Valor,
-                            SituacaoRecebimentoCompra = p.SituacaoRecebimentoCompra
-                        }).ToList();
-
-                    return View(model);
-                }
-
+                
+                var recebimentoCompras = ObtenhaQueryFiltrada(model, filtros);
+                
                 // Se não é uma listagem, gerar o relatório
                 var result = recebimentoCompras
                     .Fetch(p => p.Fornecedor)
@@ -475,7 +523,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public virtual PartialViewResult PesquisarPedidoCompra(long id, long idRecebimento)
         {
             var pedidoCompra = _pedidoCompraRepository.Get(id);
-            var recebimentoCompra = _recebimentoCompraRepository.Get(idRecebimento);
 
             if (pedidoCompra == null)
             {
@@ -484,27 +531,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             var model = _fabricaDeObjetos.CriePedidoCompraRecebimentoModel(pedidoCompra);
 
-            //if (recebimentoCompra != null)
-            //{
-            //    AtualizeQuantidadeReceber(model, recebimentoCompra);    
-            //}
-
             ModelState.Clear();
             return PartialView(model);
         }
-
-        //private void AtualizeQuantidadeReceber(PedidoCompraRecebimentoModel pedidoCompraModel, RecebimentoCompra recebimentoCompra)
-        //{
-        //    pedidoCompraModel.Grid.Each(pedidoCompraItemModel =>
-        //    {
-        //        var detalhamento = recebimentoCompra.RecebimentoCompraItens.SelectMany(x => x.DetalhamentoRecebimentoCompraItens)
-        //            .FirstOrDefault(y => y.PedidoCompraItem.Id == pedidoCompraItemModel.Id);
-        //        if (detalhamento != null)
-        //        {
-        //            pedidoCompraItemModel.QuantidadePedido -= detalhamento.Quantidade;
-        //        }
-        //    });
-        //}
 
         #endregion
 

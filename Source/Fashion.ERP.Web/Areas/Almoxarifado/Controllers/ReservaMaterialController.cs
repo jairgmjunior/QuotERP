@@ -193,10 +193,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
             catch (Exception ex)
             {
-                return this.Json(new DataSourceResult
-                {
-                    Errors = ex.GetMessage()
-                });
+                var message = ex.GetMessage();
+                _logger.Info(message);
+
+                return Json(new DataSourceResult { Errors = message });
             }
         }
 

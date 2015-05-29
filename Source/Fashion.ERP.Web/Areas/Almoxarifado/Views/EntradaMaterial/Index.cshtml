@@ -167,7 +167,7 @@
         .Ajax()
         .ServerOperation(true)
         .PageSize(50)
-        .Read(read => read.Action("ObtenhaListaGridModel", "EntradaMaterial").Data("ObtenhaPesquisaEntradaMaterialModel"))
+        .Read(read => read.Action("ObtenhaListaGridModel", "EntradaMaterial").Data("ObtenhaModelJsonObject"))
         .Events(events => events.Error("onError"))
     )
     .Columns(columns =>
@@ -267,25 +267,6 @@
             }
         });
     });
-
-    function ObtenhaPesquisaEntradaMaterialModel() {
-        var parametros = {
-            model:
-            {
-                UnidadeDestino: $("#UnidadeDestino").val(),
-                DepositoMaterialDestino: $("#DepositoMaterialDestino").val(),
-                Fornecedor: $("#Fornecedor").val(),
-                UnidadeOrigem: $("#UnidadeOrigem").val(),
-                DepositoMaterialOrigem: $("#DepositoMaterialOrigem").val(),
-                Referencia: $("#Referencia").val(),
-                ReferenciaExterna: $("#ReferenciaExterna").val(),
-                DataEntradaDe: $("#DataEntradaDe").val(),
-                DataEntradaAte: $("#DataEntradaAte").val()
-            }
-        };
-
-        return parametros;
-    }
 
     function onError(e) {
         alert(e.errors);

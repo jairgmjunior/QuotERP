@@ -16,6 +16,7 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
@@ -68,171 +69,204 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
         #endregion
 
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"Comprador", "Comprador.Nome"},
+            {"DataCompra", "DataCompra"},
+            {"Fornecedor", "Fornecedor.Nome"},
+            {"Numero", "Numero"},
+            {"ValorCompra", "ValorCompra"},
+            {"SituacaoCompra", "SituacaoCompra"}
+        };
+        #endregion
+
         #region Index
 
         [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var pedidoCompras = _pedidoCompraRepository.Find(p => !p.Autorizado).OrderByDescending(x => x.DataAlteracao);
-
-            var model = new PesquisaPedidoCompraModel {ModoConsulta = "Listar"};
-            model.Validados = "Não";
-            model.Grid = pedidoCompras.Select(p => new GridPedidoCompraModel
-            {
-                Id = p.Id.GetValueOrDefault(),
-                Comprador = p.Comprador.Nome,
-                DataCompra = p.DataCompra,
-                Fornecedor = p.Fornecedor.Nome,
-                Numero = p.Numero,
-                ValorCompra = p.ValorCompra,
-                Autorizado = p.Autorizado,
-                SituacaoCompra = p.SituacaoCompra
-            }).ToList();
+            var model = new PesquisaPedidoCompraModel {ModoConsulta = "Listar", Validados = "Não"};
 
             return View(model);
+        }
+
+        private IQueryable<PedidoCompra> ObtenhaQueryFiltrada(PesquisaPedidoCompraModel model, StringBuilder filtros)
+        {
+            var pedidoCompras = _pedidoCompraRepository.Find();
+            if (model.UnidadeEstocadora.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.UnidadeEstocadora.Id == model.UnidadeEstocadora);
+                filtros.AppendFormat("Unidade estocadora: {0}, ",
+                                     _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
+            }
+
+            if (model.Numero.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.Numero == model.Numero);
+                filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
+            }
+
+            if (model.Fornecedor.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
+                filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
+            }
+
+            if (model.SituacaoCompra.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.SituacaoCompra == model.SituacaoCompra);
+                filtros.AppendFormat("Situação: {0}, ", model.SituacaoCompra.Value.EnumToString());
+            }
+
+            if (model.DataCompraInicio.HasValue && model.DataCompraFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date >= model.DataCompraInicio.Value
+                                                         && p.DataCompra.Date <= model.DataCompraFim.Value);
+                filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                                     model.DataCompraInicio.Value.ToString("dd/MM/yyyy"),
+                                     model.DataCompraFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.ValorCompraInicio.HasValue && model.ValorCompraFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.ValorCompra >= model.ValorCompraInicio.Value
+                                                         && p.ValorCompra <= model.ValorCompraFim.Value);
+                filtros.AppendFormat("Valor compra de '{0}' até '{1}', ",
+                                     model.ValorCompraInicio.Value.ToString("C2"),
+                                     model.ValorCompraFim.Value.ToString("C2"));
+            }
+
+            if (model.PrevisaoFaturamentoInicio.HasValue && model.PrevisaoFaturamentoFim.HasValue)
+            {
+                pedidoCompras =
+                    pedidoCompras.Where(p => p.PrevisaoFaturamento.Date >= model.PrevisaoFaturamentoInicio.Value
+                                             && p.PrevisaoFaturamento.Date <= model.PrevisaoFaturamentoFim.Value);
+                filtros.AppendFormat("Previsão faturamento de '{0}' até '{1}', ",
+                                     model.PrevisaoFaturamentoInicio.Value.ToString("dd/MM/yyyy"),
+                                     model.PrevisaoFaturamentoFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.PrevisaoEntregaInicio.HasValue && model.PrevisaoEntregaFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date >= model.PrevisaoEntregaInicio.Value
+                                                         && p.PrevisaoEntrega.Date <= model.PrevisaoEntregaFim.Value);
+                filtros.AppendFormat("Data aprovação de '{0}' até '{1}', ",
+                                     model.PrevisaoEntregaInicio.Value.ToString("dd/MM/yyyy"),
+                                     model.PrevisaoEntregaFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.Material.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PedidoCompraItens.Any(i => i.Material.Id == model.Material));
+                filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
+            }
+
+            if (model.Comprador.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.Comprador.Id == model.Comprador);
+                filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
+            {
+                pedidoCompras =
+                    pedidoCompras.Where(
+                        p =>
+                            p.PedidoCompraItens.SelectMany(x => x.Material.ReferenciaExternas)
+                                .Any(y => y.Referencia == model.ReferenciaExterna));
+                filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Validados))
+            {
+                if (model.Validados == "Sim")
+                {
+                    pedidoCompras = pedidoCompras.Where(p => p.Autorizado);
+                    filtros.AppendFormat("Validado: Sim");
+                }
+                else if (model.Validados == "Não")
+                {
+                    pedidoCompras = pedidoCompras.Where(p => !p.Autorizado);
+                    filtros.AppendFormat("Validado: Não");
+                }
+            }
+
+            return pedidoCompras;
+        }
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaPedidoCompraModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var reservaMateriais = ObtenhaQueryFiltrada(model, filtros);
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        reservaMateriais = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? reservaMateriais.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : reservaMateriais.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                reservaMateriais = reservaMateriais.OrderByDescending(o => o.DataAlteracao);
+
+                var total = reservaMateriais.Count();
+
+                if (request.Page > 0)
+                {
+                    reservaMateriais = reservaMateriais.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = reservaMateriais.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridPedidoCompraModel
+                {
+                    Id = p.Id.GetValueOrDefault(),
+                    Comprador = p.Comprador.Nome,
+                    DataCompra = p.DataCompra,
+                    Fornecedor = p.Fornecedor.Nome,
+                    Numero = p.Numero,
+                    ValorCompra = p.ValorCompra,
+                    Autorizado = p.Autorizado,
+                    SituacaoCompra = p.SituacaoCompra
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.GetMessage();
+                _logger.Info(message);
+
+                return Json(new DataSourceResult { Errors = message });
+            }
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index(PesquisaPedidoCompraModel model)
         {
-            var pedidoCompras = _pedidoCompraRepository.Find();
-
             try
             {
-                #region Filtros
-
                 var filtros = new StringBuilder();
-
-                if (model.UnidadeEstocadora.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.UnidadeEstocadora.Id == model.UnidadeEstocadora);
-                    filtros.AppendFormat("Unidade estocadora: {0}, ",
-                                         _pessoaRepository.Get(model.UnidadeEstocadora.Value).NomeFantasia);
-                }
-
-                if (model.Numero.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.Numero == model.Numero);
-                    filtros.AppendFormat("Número: {0}, ", model.Numero.Value);
-                }
-
-                if (model.Fornecedor.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.Fornecedor.Id == model.Fornecedor);
-                    filtros.AppendFormat("Fornecedor: {0}, ", _pessoaRepository.Get(model.Fornecedor.Value).Nome);
-                }
-
-                if (model.SituacaoCompra.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.SituacaoCompra == model.SituacaoCompra);
-                    filtros.AppendFormat("Situação: {0}, ", model.SituacaoCompra.Value.EnumToString());
-                }
-
-                if (model.DataCompraInicio.HasValue && model.DataCompraFim.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date >= model.DataCompraInicio.Value
-                                                             && p.DataCompra.Date <= model.DataCompraFim.Value);
-                    filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
-                                         model.DataCompraInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.DataCompraFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (model.ValorCompraInicio.HasValue && model.ValorCompraFim.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.ValorCompra >= model.ValorCompraInicio.Value
-                                                             && p.ValorCompra <= model.ValorCompraFim.Value);
-                    filtros.AppendFormat("Valor compra de '{0}' até '{1}', ",
-                                         model.ValorCompraInicio.Value.ToString("C2"),
-                                         model.ValorCompraFim.Value.ToString("C2"));
-                }
-
-                if (model.PrevisaoFaturamentoInicio.HasValue && model.PrevisaoFaturamentoFim.HasValue)
-                {
-                    pedidoCompras =
-                        pedidoCompras.Where(p => p.PrevisaoFaturamento.Date >= model.PrevisaoFaturamentoInicio.Value
-                                                 && p.PrevisaoFaturamento.Date <= model.PrevisaoFaturamentoFim.Value);
-                    filtros.AppendFormat("Previsão faturamento de '{0}' até '{1}', ",
-                                         model.PrevisaoFaturamentoInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.PrevisaoFaturamentoFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (model.PrevisaoEntregaInicio.HasValue && model.PrevisaoEntregaFim.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date >= model.PrevisaoEntregaInicio.Value
-                                                             && p.PrevisaoEntrega.Date <= model.PrevisaoEntregaFim.Value);
-                    filtros.AppendFormat("Data aprovação de '{0}' até '{1}', ",
-                                         model.PrevisaoEntregaInicio.Value.ToString("dd/MM/yyyy"),
-                                         model.PrevisaoEntregaFim.Value.ToString("dd/MM/yyyy"));
-                }
-
-                if (model.Material.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.PedidoCompraItens.Any(i => i.Material.Id == model.Material));
-                    filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
-                }
-
-                if (model.Comprador.HasValue)
-                {
-                    pedidoCompras = pedidoCompras.Where(p => p.Comprador.Id == model.Comprador);
-                    filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
-                {
-                    pedidoCompras =
-                        pedidoCompras.Where(
-                            p =>
-                                p.PedidoCompraItens.SelectMany(x => x.Material.ReferenciaExternas)
-                                    .Any(y => y.Referencia == model.ReferenciaExterna));
-                    filtros.AppendFormat("Referência externa: {0}, ", model.ReferenciaExterna);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.Validados))
-                {
-                    if (model.Validados == "Sim")
-                    {
-                        pedidoCompras = pedidoCompras.Where(p => p.Autorizado);
-                        filtros.AppendFormat("Validado: Sim");
-                    }
-                    else if (model.Validados == "Não")
-                    {
-                        pedidoCompras = pedidoCompras.Where(p => !p.Autorizado);
-                        filtros.AppendFormat("Validado: Não");
-                    }
-                }
-
-                #endregion
-
-                // Verifica se é uma listagem
-                if (model.ModoConsulta == "Listar")
-                {
-                    if (model.OrdenarPor != null)
-                    {
-                        pedidoCompras = model.OrdenarEm == "asc"
-                            ? pedidoCompras.OrderBy(model.OrdenarPor)
-                            : pedidoCompras.OrderByDescending(model.OrdenarPor);
-                    }
-                    else
-                    {
-                        pedidoCompras = pedidoCompras.OrderByDescending(x => x.DataAlteracao);
-                    }
-
-                    model.Grid = pedidoCompras.Select(p => new GridPedidoCompraModel
-                        {
-                            Id = p.Id.GetValueOrDefault(),
-                            Comprador = p.Comprador.Nome,
-                            DataCompra = p.DataCompra,
-                            Fornecedor = p.Fornecedor.Nome,
-                            Numero = p.Numero,
-                            ValorCompra = p.ValorCompra,
-                            Autorizado = p.Autorizado,
-                            SituacaoCompra = p.SituacaoCompra
-                        }).ToList();
-
-                    return View(model);
-                }
-
-                // Se não é uma listagem, gerar o relatório
+                var pedidoCompras = ObtenhaQueryFiltrada(model, filtros);
+                
                 var result = pedidoCompras
                     .Fetch(p => p.Fornecedor).Fetch(p => p.Comprador)
                     .ToList();
@@ -663,9 +697,9 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         #endregion
 
         #region Imprimir
-        public virtual ActionResult Imprimir(long pedidoCompraId)
+        public virtual ActionResult Imprimir(long id)
         {
-            var pedidoCompra = _pedidoCompraRepository.Get(pedidoCompraId);
+            var pedidoCompra = _pedidoCompraRepository.Get(id);
 
             var report = new PedidoCompraReport { DataSource = pedidoCompra };
             var filename = report.ToByteStream().SaveFile(".pdf");
