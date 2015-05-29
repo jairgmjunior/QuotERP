@@ -1,18 +1,52 @@
-﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridSaidaMaterialModel>
+﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
+@model IEnumerable<GridSaidaMaterialModel>
 <div class="well well-small">
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.SaidaMaterial.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@(Html.Kendo().Grid(Model)
-	.Name("Grid")
-	.Columns(columns =>
-	{
+
+@(Html.Kendo().Grid<GridSaidaMaterialModel>()
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(50)
+        .Read(read => read.Action("ObtenhaListaGridModel", "SaidaMaterial").Data("ObtenhaModelJsonObject"))
+        .Events(events => events.Error("onKendoGridError"))
+    )
+    .Columns(columns =>
+    {
         columns.Bound(x => x.DataSaida).Format("{0:dd/MM/yyyy}");
         columns.Bound(x => x.UnidadeOrigem);
 		columns.Bound(x => x.DepositoMaterialOrigem);
         columns.Bound(x => x.CentroCusto);
         columns.Bound(x => x.UnidadeDestino);
 		columns.Bound(x => x.DepositoMaterialDestino);
-        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.SaidaMaterial.Editar(item.Id))).Width(80);
-	})
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "SaidaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
 )
+
+<script>
+    $(function() {
+        $('#pesquisar-grid').on('click', function() {
+
+            limpeMensagensAlerta();
+
+            var $ModoConsulta = $('#ModoConsulta');
+
+            if ($ModoConsulta.val() == 'Listar') {
+
+                $('#Grid').data('kendoGrid').dataSource.read();
+                $('#Grid').data('kendoGrid').refresh();
+                $('#Grid').data('kendoGrid').dataSource.page(1);
+                return false;
+            };
+        });
+    });
+
+</script>

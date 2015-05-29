@@ -168,7 +168,7 @@
         .ServerOperation(true)
         .PageSize(50)
         .Read(read => read.Action("ObtenhaListaGridModel", "EntradaMaterial").Data("ObtenhaModelJsonObject"))
-        .Events(events => events.Error("onError"))
+        .Events(events => events.Error("onKendoGridError"))
     )
     .Columns(columns =>
     {

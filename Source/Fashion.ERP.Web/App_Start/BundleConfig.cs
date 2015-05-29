@@ -111,7 +111,8 @@ namespace Fashion.ERP.Web
             bundles.Add(new ScriptBundle(Links.Bundles.Scripts.Kendo)
                             .Include("~/Scripts/kendo/kendo.web.js",
                                      "~/Scripts/kendo/kendo.aspnetmvc.js",
-                                     "~/Scripts/kendo/cultures/kendo.culture.pt-BR.js"));
+                                     "~/Scripts/kendo/cultures/kendo.culture.pt-BR.js",
+                                     "~/Scripts/kendo/cultures/kendo.messages.pt-BR.min.js"));
 
             bundles.Add(new ScriptBundle(Links.Bundles.Scripts.JasnyBootstrap)
                             .Include("~/Scripts/jasny-bootstrap.js"));

@@ -1417,6 +1417,7 @@
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.pt-BR.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.pt-BR.min.js" />
+    <Content Include="Scripts\kendo\cultures\kendo.messages.pt-BR.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.js" />
     <Content Include="Scripts\kendo\kendo.web.js" />
     <Content Include="Scripts\lightbox-2.6.js" />

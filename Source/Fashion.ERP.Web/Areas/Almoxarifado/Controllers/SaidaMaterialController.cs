@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Areas.Almoxarifado.Models;
 using Fashion.ERP.Web.Helpers;
@@ -11,7 +13,11 @@ using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Kendo.Mvc;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 using Ninject.Extensions.Logging;
+using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -42,28 +48,89 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region Colunas Ordenação
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"DataSaida", "DataSaida"},
+            {"CentroCusto", "CentroCusto.Nome"},
+            {"UnidadeOrigem", "DepositoMaterialOrigem.Unidade.NomeFantasia"},
+            {"DepositoMaterialOrigem", "DepositoMaterialOrigem.Nome"},
+            {"UnidadeDestino", "DepositoMaterialDestino.Unidade.NomeFantasia"},
+            {"DepositoMaterialDestino", "DepositoMaterialDestino.Nome"}
+        };
+
+        #endregion
+
         #region Views
 
         #region Index
         public virtual ActionResult Index()
         {
-            var saidaMaterials = _saidaMaterialRepository.Find().OrderByDescending(x => x.DataAlteracao);
-
-            var list = saidaMaterials.Select(p => new GridSaidaMaterialModel
-            {
-                Id = p.Id.GetValueOrDefault(),
-                DataSaida = p.DataSaida,
-                CentroCusto = p.CentroCusto.Nome,
-                UnidadeOrigem = p.DepositoMaterialOrigem.Unidade.NomeFantasia,
-                DepositoMaterialOrigem = p.DepositoMaterialOrigem.Nome,
-                UnidadeDestino = p.DepositoMaterialDestino.Unidade.NomeFantasia,
-                DepositoMaterialDestino = p.DepositoMaterialDestino.Nome
-            }).ToList();
-
-            return View(list);
+            return View();
         }
-        #endregion
 
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request)
+        {
+            try
+            {
+                var saidaMaterials = _saidaMaterialRepository.Find();
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        saidaMaterials = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? saidaMaterials.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : saidaMaterials.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                saidaMaterials = saidaMaterials.OrderByDescending(o => o.DataAlteracao);
+
+                var total = saidaMaterials.Count();
+
+                if (request.Page > 0)
+                {
+                    saidaMaterials = saidaMaterials.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = saidaMaterials.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridSaidaMaterialModel
+                {
+                    DataSaida = p.DataSaida,
+                    CentroCusto = p.CentroCusto != null ? p.CentroCusto.Nome : "",
+                    UnidadeOrigem = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Unidade.NomeFantasia : "",
+                    DepositoMaterialOrigem = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Nome : "",
+                    UnidadeDestino = p.DepositoMaterialDestino != null ? p.DepositoMaterialDestino.Unidade.NomeFantasia : "",
+                    DepositoMaterialDestino = p.DepositoMaterialDestino!= null? p.DepositoMaterialDestino.Nome : ""
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.GetMessage();
+                _logger.Info(message);
+
+                return Json(new DataSourceResult { Errors = message });
+            }
+        }
+
+        #endregion
+        
         #region Novo
 
 		[PopulateViewData("PopulateViewData")]
@@ -212,7 +279,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             IList<SaidaItemMaterial> itensRemover = new List<SaidaItemMaterial>();
 
-            saida.SaidaItemMateriais.Each(saidaItemMaterial =>
+            saida.SaidaItemMateriais.ForEach(saidaItemMaterial =>
             {
                 if (model.SaidaItemMateriais.Contains(saidaItemMaterial.Id) == false)
                 {
@@ -222,7 +289,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
             });
 
-            itensRemover.Each(saidaItemMaterial => saida.RemoveSaidaItemMaterial(saidaItemMaterial));
+            itensRemover.ForEach(saidaItemMaterial => saida.RemoveSaidaItemMaterial(saidaItemMaterial));
         }
 
         #endregion
