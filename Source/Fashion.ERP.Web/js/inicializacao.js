@@ -259,6 +259,26 @@ $(document).ready(function () {
         $this.after("<input type='hidden' name='" + $this.attr('name') + "' value='" + $this.val() + "' />");
         $this.prop("disabled", true);
     });
+
+    //recarrega os dados da grid ajax na Index
+    $('#pesquisar-grid-ajax').on('click', function () {
+
+        limpeMensagensAlerta();
+
+        var $ModoConsulta = $('#ModoConsulta');
+
+        if ($ModoConsulta.val() == 'Listar') {
+
+            var grid = $('#Grid').data('kendoGrid');
+
+            grid.dataSource.read();
+            grid.refresh();
+            grid.dataSource.page(1);
+
+            return false;
+        };
+    });
+
 });
 
 // Permite apenas número

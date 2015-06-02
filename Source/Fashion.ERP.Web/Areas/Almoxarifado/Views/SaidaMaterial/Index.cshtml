@@ -80,7 +80,7 @@
                             <div class="span9">
                             </div>
                             <div class="span3">
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                                <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
         columns.Bound(x => x.UnidadeOrigem);
 		columns.Bound(x => x.DepositoMaterialOrigem);
         columns.Bound(x => x.CentroCusto);
-        columns.Bound(x => x.UnidadeOrigem);
+        columns.Bound(x => x.UnidadeDestino);
 		columns.Bound(x => x.DepositoMaterialDestino);
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "SaidaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
     })
@@ -117,22 +117,6 @@
 )
 
 <script>
-    $(function() {
-        $('#pesquisar-grid').on('click', function() {
-
-            limpeMensagensAlerta();
-
-            var $ModoConsulta = $('#ModoConsulta');
-
-            if ($ModoConsulta.val() == 'Listar') {
-
-                $('#Grid').data('kendoGrid').dataSource.read();
-                $('#Grid').data('kendoGrid').refresh();
-                $('#Grid').data('kendoGrid').dataSource.page(1);
-                return false;
-            };
-        });
-    });
 
     $('#UnidadeRetirada').on("change", function () {
 

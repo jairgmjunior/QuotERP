@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaMaterialModel
+﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
+@model Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaMaterialModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
@@ -149,47 +150,50 @@
                             </div>
                         </div>
                         <br />
-                        <div id="row-imprimir" class="row" style="display: none">
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.TipoRelatorio, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("TipoRelatorio")
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", null, "", new { disabled = "disabled" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="row">
-                            <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "")
+                            <div class="span10">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="span6">
+                                        <div class="span3">
+                                            <div class="control-group">
+                                                @Html.LabelForRequired(x => x.TipoRelatorio, new { @class = "control-label " })
+                                                <div class="controls">
+                                                    @Html.DropDownList("TipoRelatorio")
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="controls">
+                                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                            <div class="controls">
+                                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                            <div class="controls">
+                                                <select name="OrdenarEm">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="span3">
-                                <div class="control-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span6">
                                 <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                                <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -199,8 +203,15 @@
     </div>
 }
 <div id="pdf"></div>
-@(Html.Kendo().Grid(Model.Grid)
-    .Name("Grid")
+@(Html.Kendo().Grid<GridMaterialModel>()
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(15)
+        .Read(read => read.Action("ObtenhaListaGridModel", "Material").Data("ObtenhaModelJsonObject"))
+        .Events(events => events.Error("onKendoGridError"))
+    )
     .Columns(columns =>
     {
         columns.Bound(x => x.Referencia);
@@ -210,18 +221,31 @@
         columns.Bound(x => x.Subcategoria);
         columns.Bound(x => x.Familia);
         columns.Bound(x => x.UnidadeMedida);
-        columns.Template(item => (!string.IsNullOrWhiteSpace(item.Foto) ? "<img src=\"" + item.Foto + "\" class=\"img-rounded\" style=\"width: 48px; height: 48px;\"/>" : string.Empty)).Width(60);
-        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.Material.Editar(item.Id))).Width(80);
-        columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.Material.EditarSituacao(item.Id), item.Ativo)).Width(80);
+        columns.Bound(x => x.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+            "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>" + 
+                "#}#").Width(60).Sortable(false);
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate( "#if(Ativo) {#" + 
+            @Html.ActionLinkAuth("Inativar", "EditarSituacao", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-small btn-danger btn-editar-situacao"}).ToHtmlString() +
+        "#} else {#" +
+            @Html.ActionLinkAuth("Ativar", "EditarSituacao", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-small btn-success btn-editar-situacao"}).ToHtmlString() +
+        "#}#").Width(60);
     })
-)
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+    )
+
 <script>
     $(function () {
+
         // Seleciona o modo de consulta
         $('button[name=btn-ModoConsulta]').on('click', function () {
 
             var $ModoConsulta = $('#ModoConsulta');
-            
+
             if (this.value == 'impressao') {
                 $ModoConsulta.val('Imprimir');
 
@@ -231,11 +255,12 @@
 
             } else {
                 $ModoConsulta.val('Listar');
-
+                $("#pdf").html("");
+                $("#pdf").attr("style", "");
+                $("#Grid").show();
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
                 $('#pesquisar-grid').show();
-                
             }
         });
         

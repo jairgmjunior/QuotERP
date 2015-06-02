@@ -17,6 +17,7 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
+using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
@@ -78,158 +79,206 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         #endregion
 
+        #region Colunas Ordenação
+
+        private static readonly Dictionary<string, string> ColunasOrdenacaoGrid = new Dictionary<string, string>
+        {
+            {"Referencia", "Referencia"},
+            {"Descricao", "Descricao"},
+            {"MarcaMaterial", "MarcaMaterial.Nome"},
+            {"Categoria", "Subcategoria.Categoria.Nome"},
+            {"Subcategoria", "Subcategoria.Nome"},
+            {"Familia", "Familia.Nome"},
+            {"UnidadeMedida", "UnidadeMedida.Descricao"},
+        };
+        #endregion
+
         #region Views
 
         #region Index
         [PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index()
         {
-            var materiais = _materialRepository.Find(p => p.Ativo).OrderByDescending(x => x.DataAlteracao);
-
             var model = new PesquisaMaterialModel { ModoConsulta = "Listar" };
-
-            model.Grid = materiais.Select(p => new GridMaterialModel
-            {
-                Id = (long)p.Id,
-                Referencia = p.Referencia,
-                Descricao = p.Descricao,
-                MarcaMaterial = p.MarcaMaterial.Nome,
-                Categoria = p.Subcategoria.Categoria.Nome,
-                Subcategoria = p.Subcategoria.Nome,
-                Familia = p.Familia.Nome,
-                UnidadeMedida = p.UnidadeMedida.Descricao,
-                Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty),
-                Ativo = p.Ativo
-            }).OrderByDescending(o => o.Id).Take(10).ToList();
 
             return View(model);
         }
+        
+        private IQueryable<Material> ObtenhaQueryFiltrada(PesquisaMaterialModel model, StringBuilder filtros)
+        {
+            var materiais = _materialRepository.Find();
+            if (!string.IsNullOrWhiteSpace(model.Referencia))
+            {
+                materiais = materiais.Where(p => p.Referencia == model.Referencia);
+                filtros.AppendFormat("Referência: {0}, ", model.Referencia);
+            }
 
+            if (!string.IsNullOrWhiteSpace(model.Descricao))
+            {
+                materiais = materiais.Where(p => p.Descricao.Contains(model.Descricao));
+                filtros.AppendFormat("Descrição: {0}, ", model.Descricao);
+            }
+
+            if (model.MarcaMaterial.HasValue)
+            {
+                materiais = materiais.Where(p => p.MarcaMaterial.Id == model.MarcaMaterial);
+                filtros.AppendFormat("Marca do material: {0}, ", _marcaMaterialRepository.Get(model.MarcaMaterial.Value).Nome);
+            }
+
+            if (model.Categoria.HasValue)
+            {
+                materiais = materiais.Where(p => p.Subcategoria.Categoria.Id == model.Categoria);
+                filtros.AppendFormat("Categoria: {0}, ", _categoriaRepository.Get(model.Categoria.Value).Nome);
+            }
+
+            if (model.Subcategoria.HasValue)
+            {
+                materiais = materiais.Where(p => p.Subcategoria.Id == model.Subcategoria);
+                filtros.AppendFormat("Subcategoria: {0}, ", _subcategoriaRepository.Get(model.Subcategoria.Value).Nome);
+            }
+
+            if (model.Familia.HasValue)
+            {
+                materiais = materiais.Where(p => p.Familia.Id == model.Familia);
+                filtros.AppendFormat("Família: {0}, ", _familiaRepository.Get(model.Familia.Value).Nome);
+            }
+
+            if (model.UnidadeMedida.HasValue)
+            {
+                materiais = materiais.Where(p => p.UnidadeMedida.Id == model.UnidadeMedida);
+                filtros.AppendFormat("Unidade de medida: {0}, ", _unidadeMedidaRepository.Get(model.UnidadeMedida.Value).Descricao);
+            }
+
+            if (model.TipoItem.HasValue)
+            {
+                materiais = materiais.Where(p => p.TipoItem.Id == model.TipoItem);
+                filtros.AppendFormat("Tipo item: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
+            }
+
+            if (model.GeneroFiscal.HasValue)
+            {
+                materiais = materiais.Where(p => p.GeneroFiscal.Id == model.GeneroFiscal);
+                filtros.AppendFormat("Gênero fiscal: {0}, ", _generoFiscalRepository.Get(model.GeneroFiscal.Value).Descricao);
+            }
+
+            if (model.Ativo.HasValue)
+            {
+                materiais = materiais.Where(p => p.Ativo == model.Ativo);
+                filtros.AppendFormat("Ativo: {0}, ", model.Ativo.Value.ToSimNao());
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.CodigoBarra))
+            {
+                materiais = materiais.Where(p => p.CodigoBarra == model.CodigoBarra);
+                filtros.AppendFormat("Código de barras: {0}, ", model.CodigoBarra);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Ncm))
+            {
+                materiais = materiais.Where(p => p.Ncm == model.Ncm);
+                filtros.AppendFormat("NCM: {0}, ", model.Ncm);
+            }
+
+            if (model.OrigemSituacaoTributaria.HasValue)
+            {
+                materiais = materiais.Where(p => p.OrigemSituacaoTributaria.Id == model.OrigemSituacaoTributaria);
+                filtros.AppendFormat("Origem: {0}, ", _origemSituacaoTributariaRepository.Get(model.OrigemSituacaoTributaria.Value).Codigo);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Localizacao))
+            {
+                materiais = materiais.Where(p => p.Localizacao.Contains(model.Localizacao));
+                filtros.AppendFormat("Localização: {0}, ", model.Localizacao);
+            }
+
+            return materiais;
+        }
+        
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaMaterialModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var materiais = ObtenhaQueryFiltrada(model, filtros);
+
+                if (!request.Sorts.IsNullOrEmpty())
+                {
+                    foreach (SortDescriptor sortDescriptor in request.Sorts)
+                    {
+                        materiais = sortDescriptor.SortDirection.ToString() == "Descending"
+                            ? materiais.OrderByDescending(ColunasOrdenacaoGrid[sortDescriptor.Member])
+                            : materiais.OrderBy(ColunasOrdenacaoGrid[sortDescriptor.Member]);
+                    }
+                }
+
+                materiais = materiais.OrderByDescending(o => o.DataAlteracao);
+
+                var total = materiais.Count();
+
+                if (request.Page > 0)
+                {
+                    materiais = materiais.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = materiais.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridMaterialModel
+                {
+                    Id = (long)p.Id,
+                    Referencia = p.Referencia,
+                    Descricao = p.Descricao,
+                    MarcaMaterial = p.MarcaMaterial.Nome,
+                    Categoria = p.Subcategoria.Categoria.Nome,
+                    Subcategoria = p.Subcategoria.Nome,
+                    Familia = p.Familia.Nome,
+                    UnidadeMedida = p.UnidadeMedida.Descricao,
+                    Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty),
+                    Ativo = p.Ativo
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.GetMessage();
+                _logger.Info(message);
+
+                return Json(new DataSourceResult { Errors = message });
+            }
+        }
+        
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Index(PesquisaMaterialModel model)
         {
-            var materiais = _materialRepository.Find();
-
             try
             {
-                #region Filtros
                 var filtros = new StringBuilder();
-
-                if (!string.IsNullOrWhiteSpace(model.Referencia))
-                {
-                    materiais = materiais.Where(p => p.Referencia == model.Referencia);
-                    filtros.AppendFormat("Referência: {0}, ", model.Referencia);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.Descricao))
-                {
-                    materiais = materiais.Where(p => p.Descricao.Contains(model.Descricao));
-                    filtros.AppendFormat("Descrição: {0}, ", model.Descricao);
-                }
-
-                if (model.MarcaMaterial.HasValue)
-                {
-                    materiais = materiais.Where(p => p.MarcaMaterial.Id == model.MarcaMaterial);
-                    filtros.AppendFormat("Marca do material: {0}, ", _marcaMaterialRepository.Get(model.MarcaMaterial.Value).Nome);
-                }
-
-                if (model.Categoria.HasValue)
-                {
-                    materiais = materiais.Where(p => p.Subcategoria.Categoria.Id == model.Categoria);
-                    filtros.AppendFormat("Categoria: {0}, ", _categoriaRepository.Get(model.Categoria.Value).Nome);
-                }
-
-                if (model.Subcategoria.HasValue)
-                {
-                    materiais = materiais.Where(p => p.Subcategoria.Id == model.Subcategoria);
-                    filtros.AppendFormat("Subcategoria: {0}, ", _subcategoriaRepository.Get(model.Subcategoria.Value).Nome);
-                }
-
-                if (model.Familia.HasValue)
-                {
-                    materiais = materiais.Where(p => p.Familia.Id == model.Familia);
-                    filtros.AppendFormat("Família: {0}, ", _familiaRepository.Get(model.Familia.Value).Nome);
-                }
-
-                if (model.UnidadeMedida.HasValue)
-                {
-                    materiais = materiais.Where(p => p.UnidadeMedida.Id == model.UnidadeMedida);
-                    filtros.AppendFormat("Unidade de medida: {0}, ", _unidadeMedidaRepository.Get(model.UnidadeMedida.Value).Descricao);
-                }
-
-                if (model.TipoItem.HasValue)
-                {
-                    materiais = materiais.Where(p => p.TipoItem.Id == model.TipoItem);
-                    filtros.AppendFormat("Tipo item: {0}, ", _tipoItemRepository.Get(model.TipoItem.Value).Descricao);
-                }
-
-                if (model.GeneroFiscal.HasValue)
-                {
-                    materiais = materiais.Where(p => p.GeneroFiscal.Id == model.GeneroFiscal);
-                    filtros.AppendFormat("Gênero fiscal: {0}, ", _generoFiscalRepository.Get(model.GeneroFiscal.Value).Descricao);
-                }
-
-                if (model.Ativo.HasValue)
-                {
-                    materiais = materiais.Where(p => p.Ativo == model.Ativo);
-                    filtros.AppendFormat("Ativo: {0}, ", model.Ativo.Value.ToSimNao());
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.CodigoBarra))
-                {
-                    materiais = materiais.Where(p => p.CodigoBarra == model.CodigoBarra);
-                    filtros.AppendFormat("Código de barras: {0}, ", model.CodigoBarra);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.Ncm))
-                {
-                    materiais = materiais.Where(p => p.Ncm == model.Ncm);
-                    filtros.AppendFormat("NCM: {0}, ", model.Ncm);
-                }
-
-                if (model.OrigemSituacaoTributaria.HasValue)
-                {
-                    materiais = materiais.Where(p => p.OrigemSituacaoTributaria.Id == model.OrigemSituacaoTributaria);
-                    filtros.AppendFormat("Origem: {0}, ", _origemSituacaoTributariaRepository.Get(model.OrigemSituacaoTributaria.Value).Codigo);
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.Localizacao))
-                {
-                    materiais = materiais.Where(p => p.Localizacao.Contains(model.Localizacao));
-                    filtros.AppendFormat("Localização: {0}, ", model.Localizacao);
-                }
-                #endregion
-
-                // Verifica se é uma listagem
-                if (model.ModoConsulta == "Listar")
-                {
-                    if (model.OrdenarPor != null)
-                        materiais = model.OrdenarEm == "asc"
-                            ? materiais.OrderBy(model.OrdenarPor)
-                            : materiais.OrderByDescending(model.OrdenarPor);
-                    else
-                        materiais = materiais.OrderByDescending(x => x.DataAlteracao);
-
-                    model.Grid = materiais.Select(p => new GridMaterialModel
-                    {
-                        Id = p.Id.GetValueOrDefault(),
-                        Referencia = p.Referencia,
-                        Descricao = p.Descricao,
-                        MarcaMaterial = p.MarcaMaterial.Nome,
-                        Categoria = p.Subcategoria.Categoria.Nome,
-                        Subcategoria = p.Subcategoria.Nome,
-                        Familia = p.Familia.Nome,
-                        UnidadeMedida = p.UnidadeMedida.Descricao,
-                        Foto = p.Foto.Nome.GetFileUrl(),
-                        Ativo = p.Ativo
-                    }).ToList();
-
-                    return View(model);
-                }
-
+                var materiais = ObtenhaQueryFiltrada(model, filtros);
+              
                 // Se não é uma listagem, gerar o relatório
                 var result = materiais
-                    .Fetch(p => p.Foto).Fetch(p => p.Familia).Fetch(p => p.GeneroFiscal).Fetch(p => p.MarcaMaterial).Fetch(p => p.OrigemSituacaoTributaria).Fetch(p => p.Subcategoria).Fetch(p => p.TipoItem).Fetch(p => p.UnidadeMedida).FetchMany(p => p.ReferenciaExternas)
+                    .Fetch(p => p.Foto)
+                    .Fetch(p => p.Familia)
+                    .Fetch(p => p.GeneroFiscal)
+                    .Fetch(p => p.MarcaMaterial)
+                    .Fetch(p => p.OrigemSituacaoTributaria)
+                    .Fetch(p => p.Subcategoria)
+                    .Fetch(p => p.TipoItem)
+                    .Fetch(p => p.UnidadeMedida)
+                    .FetchMany(p => p.ReferenciaExternas)
                     .ToList();
 
                 if (!result.Any())

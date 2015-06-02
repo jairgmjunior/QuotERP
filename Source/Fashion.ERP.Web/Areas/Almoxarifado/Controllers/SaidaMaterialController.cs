@@ -87,13 +87,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             if (model.UnidadeRetirada.HasValue)
             {
-                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialDestino.Unidade.Id == model.UnidadeRetirada);
+                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialOrigem.Unidade.Id == model.UnidadeRetirada);
                 filtros.AppendFormat("Unidade destino: {0}, ", _pessoaRepository.Get(model.UnidadeRetirada.Value).NomeFantasia);
             }
 
             if (model.DepositoMaterialRetirada.HasValue)
             {
-                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialDestino.Id == model.DepositoMaterialRetirada);
+                saidaMateriais = saidaMateriais.Where(p => p.DepositoMaterialOrigem.Id == model.DepositoMaterialRetirada);
                 filtros.AppendFormat("Depósito destino: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialRetirada.Value).Nome);
             }
 
@@ -145,6 +145,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                 var list = resultado.Select(p => new GridSaidaMaterialModel
                 {
+                    Id = p.Id.GetValueOrDefault(),
                     DataSaida = p.DataSaida,
                     CentroCusto = p.CentroCusto != null ? p.CentroCusto.Nome : "",
                     UnidadeOrigem = p.DepositoMaterialOrigem != null ? p.DepositoMaterialOrigem.Unidade.NomeFantasia : "",

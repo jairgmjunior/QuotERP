@@ -97,6 +97,16 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                     ? ActionLinkAuth(helper, "Inativar", action, new { @class = "btn btn-small btn-danger btn-editar-situacao" })
                     : ActionLinkAuth(helper, "Ativar", action, new { @class = "btn btn-small btn-success btn-editar-situacao" });
         }
+
+        public static MvcHtmlString EditarSituacaoAuth(this HtmlHelper helper, string text, string actionName,
+            string controllerName, object routeValues, string ativo)
+        {
+            // Gerar o botão de acordo com a situação
+            return ativo == "false"
+                    ? ActionLinkAuth(helper, "Inativar", actionName, controllerName, routeValues , new { @class = "btn btn-small btn-danger btn-editar-situacao" })
+                    : ActionLinkAuth(helper, "Ativar", actionName, controllerName, routeValues, new { @class = "btn btn-small btn-success btn-editar-situacao" });
+        }
+
         #endregion
 
         #region GetAreaName

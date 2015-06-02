@@ -185,7 +185,7 @@
                             </div>
                             <div class="span3">
                                 <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                                <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -229,21 +229,6 @@
 <script>
     $(function () {
         
-        $('#pesquisar-grid').on('click', function () {
-
-            limpeMensagensAlerta();
-
-            var $ModoConsulta = $('#ModoConsulta');
-
-            if ($ModoConsulta.val() == 'Listar') {
-
-                $('#Grid').data('kendoGrid').dataSource.read();
-                $('#Grid').data('kendoGrid').refresh();
-                $('#Grid').data('kendoGrid').dataSource.page(1);
-                return false;
-            }
-        });
-
         // Seleciona o modo de consulta
         $('button[name=btn-ModoConsulta]').on('click', function() {
 
@@ -254,7 +239,7 @@
 
                 $('#row-imprimir').show();
                 $('#pesquisar-relatorio').show();
-                $('#pesquisar-grid').hide();
+                $('#pesquisar-grid-ajax').hide();
 
             } else {
                 $ModoConsulta.val('Listar');
@@ -263,7 +248,7 @@
                 $("#Grid").show();
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
-                $('#pesquisar-grid').show();
+                $('#pesquisar-grid-ajax').show();
 
             }
         });
