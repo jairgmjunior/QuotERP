@@ -10,7 +10,9 @@ namespace Fashion.ERP.Domain.Producao
     {
         private readonly IList<FichaTecnicaFoto> _fichaTecnicaFotos = new List<FichaTecnicaFoto>();
         private readonly IList<FichaTecnicaSequenciaOperacional> _fichaTecnicaSequenciaOperacionals = new List<FichaTecnicaSequenciaOperacional>();
-        private readonly IList<FichaTecnicaMaterialComposicaoCusto> _materialComposicaoCustoMatrizs = new List<FichaTecnicaMaterialComposicaoCusto>();
+        private readonly IList<FichaTecnicaMaterialComposicaoCusto> _materiaisComposicaoCusto = new List<FichaTecnicaMaterialComposicaoCusto>();
+        private readonly IList<FichaTecnicaMaterialConsumo> _materiaisConsumo = new List<FichaTecnicaMaterialConsumo>();
+        private readonly IList<FichaTecnicaMaterialConsumoVariacao> _materiaisConsumoVariacao = new List<FichaTecnicaMaterialConsumoVariacao>();
 
         public virtual string Tag { get; set; }
         public virtual long Ano { get; set; }
@@ -18,7 +20,6 @@ namespace Fashion.ERP.Domain.Producao
         public virtual string Silk { get; set; }
         public virtual string Bordado { get; set; }
         public virtual string Pedraria { get; set; }
-        public virtual long? TempoMaximoProducao { get; set; }
         public virtual DateTime DataAlteracao { get; set; }
         public virtual DateTime DataCadastro { get; set; }
         public virtual string Descricao { get; set; }
@@ -34,9 +35,11 @@ namespace Fashion.ERP.Domain.Producao
         public virtual Segmento Segmento { get; set; }
         public virtual Natureza Natureza { get; set; }
         public virtual ClassificacaoDificuldade ClassificacaoDificuldade { get; set; }
-
         public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
         
+        public virtual Pessoa Estilista { get; set; }
+
+
         //public virtual int? Variante { get; set; }
 
         public virtual IList<FichaTecnicaFoto> FichaTecnicaFotos
@@ -49,10 +52,21 @@ namespace Fashion.ERP.Domain.Producao
             get { return _fichaTecnicaSequenciaOperacionals; }
         }
 
-        public virtual IList<FichaTecnicaMaterialComposicaoCusto> MaterialComposicaoCustoMatrizs
+        public virtual IList<FichaTecnicaMaterialConsumo> MateriaisConsumo
         {
-            get { return _materialComposicaoCustoMatrizs; }
+            get { return _materiaisConsumo; }
         }
+
+        public virtual IList<FichaTecnicaMaterialConsumoVariacao> MateriaisConsumoVariacao
+        {
+            get { return _materiaisConsumoVariacao; }
+        }
+
+        public virtual IList<FichaTecnicaMaterialComposicaoCusto> MateriaisComposicaoCusto
+        {
+            get { return _materiaisComposicaoCusto; }
+        }
+
 
         //public virtual Modelagem Modelagem { get; set; }
     }

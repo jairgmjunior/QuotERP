@@ -63,9 +63,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a grade")]
         public long? Grade { get; set; }
 
-        [Display(Name = "Prazo Máximo")]
-        public long? PrazoMaximo { get; set; }
-
         [Display(Name = "Quantidade Aprovada")]
         public int? QuantidadeAprovada { get; set; }
         

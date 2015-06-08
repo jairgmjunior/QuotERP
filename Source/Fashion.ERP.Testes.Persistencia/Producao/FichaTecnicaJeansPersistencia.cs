@@ -32,12 +32,12 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private DepartamentoProducao _departamentoProducao;
         private OperacaoProducao _operacaoProducao;
         private FichaTecnicaSequenciaOperacional _fichaTecnicaSequenciaOperacional;
-        private FichaTecnicaMaterialComposicaoCusto _materialComposicaoCustoMatriz;
+        private FichaTecnicaMaterialComposicaoCusto _materialComposicaoCusto;
         private Material _material;
         private Tamanho _tamanho;
-        private FichaTecnicaMaterialConsumo _materialConsumoMatriz;
-        //private MaterialConsumoItem _materialConsumoItem;
-
+        private FichaTecnicaMaterialConsumo _materialConsumo;
+        private FichaTecnicaMaterialConsumoVariacao _materialConsumoVariacao;
+        private Pessoa _estilista;
         public override FichaTecnicaJeans GetPersistentObject()
         {
             var fichaTecnicaJeans = FabricaObjetos.ObtenhaFichaTecnicaJeans();
@@ -53,8 +53,11 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             fichaTecnicaJeans.ClassificacaoDificuldade = _classificacaoDificuldade;
             fichaTecnicaJeans.ProdutoBase = _produtoBase;
             fichaTecnicaJeans.Comprimento = _comprimento;
+            fichaTecnicaJeans.Estilista = _estilista;
             fichaTecnicaJeans.FichaTecnicaSequenciaOperacionals.Add(_fichaTecnicaSequenciaOperacional);
-            fichaTecnicaJeans.MaterialComposicaoCustoMatrizs.Add(_materialComposicaoCustoMatriz);
+            fichaTecnicaJeans.MateriaisComposicaoCusto.Add(_materialComposicaoCusto);
+            fichaTecnicaJeans.MateriaisConsumo.Add(_materialConsumo);
+            
             return fichaTecnicaJeans;
         }
 
@@ -79,25 +82,16 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _operacaoProducao = FabricaObjetosPersistidos.ObtenhaOperacaoProducao();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
             _tamanho = FabricaObjetosPersistidos.ObtenhaTamanho();
+            _estilista = FabricaObjetosPersistidos.ObtenhaFuncionario();
 
-            _materialConsumoMatriz = FabricaObjetos.ObtenhaMaterialConsumoMatriz();
-            _materialConsumoMatriz.DepartamentoProducao = _departamentoProducao;
-            _materialConsumoMatriz.Material = _material;
-            
             _fichaTecnicaVariacaoMatriz = FabricaObjetos.ObtenhaFichaTecnicaVariacaoMatriz();
             _fichaTecnicaVariacaoMatriz.Variacao = _variacao;
             _fichaTecnicaVariacaoMatriz.AddCor(_cor);
-
-            //_materialConsumoItem = FabricaObjetos.ObtenhaMaterialConsumoItem();
-            //_materialConsumoItem.DepartamentoProducao = _departamentoProducao;
-            //_materialConsumoItem.Material = _material;
-            //_materialConsumoItem.Tamanho = _tamanho;
-            //_materialConsumoItem.FichaTecnicaVariacaoMatriz = _fichaTecnicaVariacaoMatriz;
-
+            
             _fichaTecnicaMatriz = FabricaObjetos.ObtenhaFichaTecnicaMatriz();
             _fichaTecnicaMatriz.Grade = _grade;
             _fichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(_fichaTecnicaVariacaoMatriz);
-            _fichaTecnicaMatriz.MaterialConsumoMatrizs.Add(_materialConsumoMatriz);
+            
             //_fichaTecnicaMatriz.MaterialConsumoItems.Add(_materialConsumoItem);
             _fichaTecnicaFoto = FabricaObjetos.ObtenhaFichaTecnicaFoto();
             _fichaTecnicaFoto.Arquivo = _arquivo;
@@ -107,9 +101,19 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _fichaTecnicaSequenciaOperacional.DepartamentoProducao = _departamentoProducao;
             _fichaTecnicaSequenciaOperacional.OperacaoProducao = _operacaoProducao;
 
-            _materialComposicaoCustoMatriz = FabricaObjetos.ObtenhaMaterialComposicaoCustoMatriz();
-            _materialComposicaoCustoMatriz.Material = _material;
+            _materialComposicaoCusto = FabricaObjetos.ObtenhaMaterialComposicaoCusto();
+            _materialComposicaoCusto.Material = _material;
 
+            _materialConsumo = FabricaObjetos.ObtenhaMaterialConsumo();
+            _materialConsumo.DepartamentoProducao = _departamentoProducao;
+            _materialConsumo.Material = _material;
+            
+            _materialConsumoVariacao = FabricaObjetos.ObtenhaMaterialConsumoItem();
+            _materialConsumoVariacao.DepartamentoProducao = _departamentoProducao;
+            _materialConsumoVariacao.Material = _material;
+            _materialConsumoVariacao.Tamanho = _tamanho;
+            _materialConsumoVariacao.FichaTecnicaVariacaoMatriz = _fichaTecnicaVariacaoMatriz;
+            
             Session.Current.Flush();
         }
 
@@ -130,7 +134,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             FabricaObjetosPersistidos.ExcluaSetorProducao(_setorProducao);
             FabricaObjetosPersistidos.ExcluaDepartamentoProducao(_departamentoProducao);
             FabricaObjetosPersistidos.ExcluaOperacaoProducao(_operacaoProducao);
-            
+            FabricaObjetosPersistidos.ExcluaPessoa(_estilista);
             Session.Current.Flush();
         }
     }

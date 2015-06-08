@@ -9,7 +9,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Departamento de Consumo")]
         public string DepartamentoProducao { get; set; }
 
-        [Display(Name = "Unid. Medida")]
+        [Display(Name = "Und.")]
         public string UnidadeMedida { get; set; }
 
         [Display(Name = "Referência")]

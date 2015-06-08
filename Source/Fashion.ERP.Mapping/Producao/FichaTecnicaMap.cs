@@ -18,7 +18,6 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.Silk).Length(200).Nullable();
             Map(x => x.Bordado).Length(200).Nullable();
             Map(x => x.Pedraria).Length(200).Nullable();
-            Map(x => x.TempoMaximoProducao).Nullable();
             Map(x => x.QuantidadeProducaoAprovada).Nullable();
             Map(x => x.DataCadastro);
             Map(x => x.DataAlteracao);
@@ -31,19 +30,23 @@ namespace Fashion.ERP.Mapping.Producao
             References(x => x.Classificacao);
             References(x => x.ClassificacaoDificuldade);
             References(x => x.FichaTecnicaMatriz).Cascade.All();
+            References(x => x.Estilista).Nullable();
 
             HasMany(x => x.FichaTecnicaSequenciaOperacionals)
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
 
-            HasMany(x => x.MaterialComposicaoCustoMatrizs)
+            HasMany(x => x.MateriaisComposicaoCusto)
                 .Not.KeyNullable()
                 .Cascade.AllDeleteOrphan();
 
-            //HasMany(x => x.RecebimentoCompraItens)
-            //    .Not.KeyNullable()
-            //    .Cascade.AllDeleteOrphan();
+            HasMany(x => x.MateriaisConsumo)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
 
+            HasMany(x => x.MateriaisConsumoVariacao)
+                .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

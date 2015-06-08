@@ -1187,7 +1187,7 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
-        public FichaTecnicaMaterialConsumo ObtenhaMaterialConsumoMatriz()
+        public FichaTecnicaMaterialConsumo ObtenhaMaterialConsumo()
         {
             return new FichaTecnicaMaterialConsumo()
             {
@@ -1196,7 +1196,7 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
-        public FichaTecnicaMaterialComposicaoCusto ObtenhaMaterialComposicaoCustoMatriz()
+        public FichaTecnicaMaterialComposicaoCusto ObtenhaMaterialComposicaoCusto()
         {
             return new FichaTecnicaMaterialComposicaoCusto()
             {
