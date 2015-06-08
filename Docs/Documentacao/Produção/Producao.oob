@@ -10818,11 +10818,11 @@ LABL 0 Arial,8,N</a:FontList>
 </o:ClassDiagram>
 <o:ClassDiagram Id="o405">
 <a:ObjectID>0416054E-6643-44F3-8A27-4E1E12A14A8A</a:ObjectID>
-<a:Name>EstimativaProducao</a:Name>
-<a:Code>EstimativaProducao</a:Code>
+<a:Name>ProgramacaoProducao</a:Name>
+<a:Code>ProgramacaoProducao</a:Code>
 <a:CreationDate>1430137810</a:CreationDate>
 <a:Creator>fernando</a:Creator>
-<a:ModificationDate>1433356217</a:ModificationDate>
+<a:ModificationDate>1433363851</a:ModificationDate>
 <a:Modifier>fernando</a:Modifier>
 <a:DisplayPreferences>[DisplayPreferences]
 
@@ -11262,9 +11262,9 @@ Multiplicity 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o416">
 <a:CreationDate>1433356181</a:CreationDate>
-<a:ModificationDate>1433356457</a:ModificationDate>
-<a:Rect>((-21667,19310), (-3069,32756))</a:Rect>
-<a:ListOfPoints>((-3069,32756),(-21667,19310))</a:ListOfPoints>
+<a:ModificationDate>1433359966</a:ModificationDate>
+<a:Rect>((-22800,19645), (-3069,32756))</a:Rect>
+<a:ListOfPoints>((-3069,32756),(-22800,19645))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -11283,7 +11283,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <o:AssociationSymbol Id="o419">
 <a:CreationDate>1433356190</a:CreationDate>
 <a:ModificationDate>1433356495</a:ModificationDate>
-<a:Rect>((-23700,5231), (-19802,19031))</a:Rect>
+<a:Rect>((-23701,5231), (-19803,19031))</a:Rect>
 <a:ListOfPoints>((-21826,19031),(-21827,5231))</a:ListOfPoints>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -11323,7 +11323,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <o:TitleSymbol Id="o425">
 <a:Text>Version: </a:Text>
 <a:CreationDate>1430137826</a:CreationDate>
-<a:ModificationDate>1433333532</a:ModificationDate>
+<a:ModificationDate>1433363851</a:ModificationDate>
 <a:Rect>((11962,30113), (24486,36856))</a:Rect>
 <a:TextStyle>4130</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
