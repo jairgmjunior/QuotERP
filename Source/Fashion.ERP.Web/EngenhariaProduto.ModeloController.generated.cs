@@ -848,16 +848,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void RequisitarMateriaisOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long modeloId);
-
-        public override System.Web.Mvc.ActionResult RequisitarMateriais(long modeloId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RequisitarMateriais);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modeloId", modeloId);
-            RequisitarMateriaisOverride(callInfo, modeloId);
-            return callInfo;
-        }
-
         partial void CopiarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long modeloId);
 
         public override System.Web.Mvc.ActionResult Copiar(long modeloId)

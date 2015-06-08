@@ -93,8 +93,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository, IRepository<UnidadeMedida> unidadeMedidaRepository,
             IRepository<Variacao> variacaoRepository, IRepository<SetorProducao> setorProducaoRepository,
             IRepository<Material> materialRepository, 
-            IRepository<ProgramacaoBordado> programacaoBordadoRepository, //IRepository<FichaTecnica> fichaTecnicaRepository,
-            IRepository<ProgramacaoBordado> programacaoBordadoRepository, IRepository<TipoItem> tipoItemRepository,
+            IRepository<ProgramacaoBordado> programacaoBordadoRepository, 
+            IRepository<TipoItem> tipoItemRepository,
             IRepository<SequenciaProducao> sequenciaRepository)
         {
             _modeloRepository = modeloRepository;
@@ -1213,41 +1213,41 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         #endregion
 
-        #region RequisitarMateriais
-        public virtual ActionResult RequisitarMateriais(long modeloId)
-        {
-            var modelo = _modeloRepository.Get(modeloId);
+        //#region RequisitarMateriais
+        //public virtual ActionResult RequisitarMateriais(long modeloId)
+        //{
+        //    var modelo = _modeloRepository.Get(modeloId);
             
-            var requisicaoMaterialModel = new RequisicaoMaterialModel
-            {
-                Origem = modelo.ModeloAprovado.Tag,
-                GridItens = new List<RequisicaoMaterialItemModel>()
-            };
-            requisicaoMaterialModel.TipoItem = _tipoItemRepository.Get(x => x.Codigo == "01").Id.Value;
+        //    var requisicaoMaterialModel = new RequisicaoMaterialModel
+        //    {
+        //        Origem = modelo.ModeloAprovado.Tag,
+        //        GridItens = new List<RequisicaoMaterialItemModel>()
+        //    };
+        //    requisicaoMaterialModel.TipoItem = _tipoItemRepository.Get(x => x.Codigo == "01").Id.Value;
             
-            var materiaisComposicao = modelo.ObtenhaMaterialComposicaoModelos();
+        //    var materiaisComposicao = modelo.ObtenhaMaterialComposicaoModelos();
 
-            foreach (var materialComposicaoModelo in materiaisComposicao)
-            {
-                var itemModel = new RequisicaoMaterialItemModel
-                {
-                    Descricao = materialComposicaoModelo.Material.Descricao,
-                    Referencia = materialComposicaoModelo.Material.Referencia,
-                    UnidadeMedida = materialComposicaoModelo.Material.UnidadeMedida.Sigla,
-                    QuantidadeSolicitada =
-                        (materialComposicaoModelo.Quantidade*
-                         materialComposicaoModelo.Material.UnidadeMedida.FatorMultiplicativo)*
-                        modelo.ModeloAprovado.Quantidade,
-                    Foto = (materialComposicaoModelo.Material.Foto != null ? materialComposicaoModelo.Material.Foto.Nome.GetFileUrl() : string.Empty),
-                    IdRequisicaoMaterialItem = 0
-                };
-                requisicaoMaterialModel.GridItens.Add(itemModel);
-            }
-            TempData["RequisicaoMaterialModel"] = requisicaoMaterialModel;
-            return RedirectToAction("Novo", "RequisicaoMaterial", new { area = "Almoxarifado" });
-            //return RedirectToAction("NovoPreenchido", "RequisicaoMaterial", requisicaoMaterialModel);
-        }
-        #endregion
+        //    foreach (var materialComposicaoModelo in materiaisComposicao)
+        //    {
+        //        var itemModel = new RequisicaoMaterialItemModel
+        //        {
+        //            Descricao = materialComposicaoModelo.Material.Descricao,
+        //            Referencia = materialComposicaoModelo.Material.Referencia,
+        //            UnidadeMedida = materialComposicaoModelo.Material.UnidadeMedida.Sigla,
+        //            QuantidadeSolicitada =
+        //                (materialComposicaoModelo.Quantidade*
+        //                 materialComposicaoModelo.Material.UnidadeMedida.FatorMultiplicativo)*
+        //                modelo.ModeloAprovado.Quantidade,
+        //            Foto = (materialComposicaoModelo.Material.Foto != null ? materialComposicaoModelo.Material.Foto.Nome.GetFileUrl() : string.Empty),
+        //            IdRequisicaoMaterialItem = 0
+        //        };
+        //        requisicaoMaterialModel.GridItens.Add(itemModel);
+        //    }
+        //    TempData["RequisicaoMaterialModel"] = requisicaoMaterialModel;
+        //    return RedirectToAction("Novo", "RequisicaoMaterial", new { area = "Almoxarifado" });
+        //    //return RedirectToAction("NovoPreenchido", "RequisicaoMaterial", requisicaoMaterialModel);
+        //}
+        //#endregion
 
         #region Copiar
         [ImportModelStateFromTempData]
