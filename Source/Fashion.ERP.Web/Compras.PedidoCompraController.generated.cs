@@ -43,6 +43,12 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -106,6 +112,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public readonly string Novo = "Novo";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
@@ -121,6 +128,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public const string Novo = "Novo";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
@@ -133,6 +141,15 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         }
 
 
+        static readonly ActionParamsClass_ObtenhaListaGridModel s_params_ObtenhaListaGridModel = new ActionParamsClass_ObtenhaListaGridModel();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaListaGridModel ObtenhaListaGridModelParams { get { return s_params_ObtenhaListaGridModel; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaListaGridModel
+        {
+            public readonly string request = "request";
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
@@ -180,7 +197,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Imprimir
         {
-            public readonly string pedidoCompraId = "pedidoCompraId";
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_EditingInline_Read s_params_EditingInline_Read = new ActionParamsClass_EditingInline_Read();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -253,6 +270,17 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
+        partial void ObtenhaListaGridModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model);
+
+        public override System.Web.Mvc.ActionResult ObtenhaListaGridModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ObtenhaListaGridModelOverride(callInfo, request, model);
+            return callInfo;
+        }
+
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model);
 
         public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Compras.Models.PesquisaPedidoCompraModel model)
@@ -322,13 +350,13 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             return callInfo;
         }
 
-        partial void ImprimirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long pedidoCompraId);
+        partial void ImprimirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
 
-        public override System.Web.Mvc.ActionResult Imprimir(long pedidoCompraId)
+        public override System.Web.Mvc.ActionResult Imprimir(long id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pedidoCompraId", pedidoCompraId);
-            ImprimirOverride(callInfo, pedidoCompraId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ImprimirOverride(callInfo, id);
             return callInfo;
         }
 

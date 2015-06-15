@@ -111,6 +111,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel s_params_ObtenhaListaGridRequisicaoMaterialModel = new ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ObtenhaListaGridRequisicaoMaterialModel ObtenhaListaGridRequisicaoMaterialModelParams { get { return s_params_ObtenhaListaGridRequisicaoMaterialModel; } }
@@ -159,7 +167,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Imprimir
         {
-            public readonly string requisicaoMaterialId = "requisicaoMaterialId";
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -194,6 +202,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model);
+
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Almoxarifado.Models.PesquisaRequisicaoMaterialModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IndexOverride(callInfo, model);
             return callInfo;
         }
 
@@ -276,13 +294,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void ImprimirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long requisicaoMaterialId);
+        partial void ImprimirOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
 
-        public override System.Web.Mvc.ActionResult Imprimir(long requisicaoMaterialId)
+        public override System.Web.Mvc.ActionResult Imprimir(long id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Imprimir);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "requisicaoMaterialId", requisicaoMaterialId);
-            ImprimirOverride(callInfo, requisicaoMaterialId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ImprimirOverride(callInfo, id);
             return callInfo;
         }
 

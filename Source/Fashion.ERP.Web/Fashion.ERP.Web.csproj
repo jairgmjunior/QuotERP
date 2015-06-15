@@ -75,6 +75,10 @@
       <HintPath>..\lib\KENDOUIMVC\2015.1.408.545\Kendo.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Kendo.Mvc.resources, Version=2015.1.408.545, Culture=pt-PT, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libraries\Kendo.Mvc\pt-BR\Kendo.Mvc.resources.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.Modeling.SDK.Integration.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -265,9 +269,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Almoxarifado.SaidaMaterialController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Almoxarifado.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Almoxarifado.SimboloConservacaoController.generated.cs">
@@ -462,6 +463,10 @@
     <Compile Include="Areas\EngenhariaProduto\Models\SolicitacaoMaterialCompraModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
+    <Compile Include="Areas\Producao\Controllers\ProgramacaoProducaoController.cs" />
+    <Compile Include="Areas\Producao\Models\GridProgramacaoProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProgramacaoProducaoMatrizCorteItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaProgramacaoProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaMaterialModel.cs" />
     <Compile Include="Areas\Producao\Models\GridMaterialConsumoMatrizModel.cs" />
     <Compile Include="Areas\Producao\Models\GridMaterialConsumoItemModel.cs" />
@@ -477,6 +482,7 @@
     <Compile Include="Areas\Producao\Models\GridOrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\OrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaOrdemProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProgramacaoProducaoModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ClassificacaoController.cs" />
@@ -949,6 +955,9 @@
     <Compile Include="Producao.OrdemProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Producao.ProgramacaoProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1213,6 +1222,11 @@
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichasTecnicas.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloMaterialConsumo\ModeloMaterialConsumo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Consulta\CustoMaterial.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Pesquisar.cshtml" />
+    <Content Include="Areas\Producao\Views\ProgramacaoProducao\Index.cshtml" />
+    <Content Include="Areas\Producao\Views\ProgramacaoProducao\Editar.cshtml" />
+    <Content Include="Areas\Producao\Views\ProgramacaoProducao\Novo.cshtml" />
+    <Content Include="Areas\Producao\Views\ProgramacaoProducao\_NovoOuEditar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1524,7 +1538,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Almoxarifado\Views\Shared\" />
     <Folder Include="Areas\Compras\Views\Shared\" />
     <Folder Include="Areas\Comum\Views\Shared\" />
     <Folder Include="Areas\Dev\Shared\" />

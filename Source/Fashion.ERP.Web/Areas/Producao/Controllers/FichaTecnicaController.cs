@@ -11,8 +11,10 @@ using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
+using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
@@ -592,7 +594,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         #endregion
 
-        #region PopulateViewDataBasicos
+        #region PopulateViewData
 
         protected void PopulateViewDataBasicos(FichaTecnicaBasicosModel model)
         {
@@ -639,10 +641,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var barras = _barraRepository.Find(p => p.Ativo).ToList();
             ViewBag.Barra = barras.ToSelectList("Descricao", model.Barra);
         }
-        #endregion
         
-        #region PopulateViewDataProcessos
-
         protected void PopulateViewDataProcessos(FichaTecnicaProcessosModel model)
         {
             var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
@@ -655,10 +654,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var operacaoProducaos = _operacaoProducaoRepository.Find(p => p.Ativo).ToList();
             ViewBag.OperacaoProducaosDicionarioJson = operacaoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
-        #endregion
-
-        #region PopulateViewDataMaterial
-
+        
         protected void PopulateViewDataMaterial(FichaTecnicaMaterialModel model)
         {
             var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
@@ -839,6 +835,103 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
         }
+        #endregion
+
+        #region Componente Pesquisar
+        
+        [ChildActionOnly, OutputCache(Duration = 3600)]
+        public virtual ActionResult Pesquisar()
+        {
+            PreencheColuna();
+            return PartialView();
+        }
+        
+        private void PreencheColuna()
+        {
+            var coluna = new[]
+                              {
+                                  new { value = "Descricao", text = "Descrição"},
+                                  new { value = "Referencia", text = "Referência"},
+                                  new { value = "Tag", text = "Tag"}
+                              };
+            ViewData["ColunaPesquisa"] = new SelectList(coluna, "value", "text");
+        }
+        
+        [HttpPost, AjaxOnly]
+        public virtual ActionResult PesquisarFiltro(PesquisarModel model)
+        {
+            var filters = new List<FilterExpression>
+            {
+                // Ativo
+                //new FilterExpression("Ativo", ComparisonOperator.IsEqual, true, LogicOperator.And),
+                // Filtro da tela
+                model.Filtrar<FichaTecnica>()
+            };
+
+            var fichasTecnicas = _fichaTecnicaRepository.Find(filters.ToArray()).ToList().OrderBy(o => o.Descricao);
+
+            var list = fichasTecnicas.Select(p => new GridFichaTecnicaModel()
+            {
+                Id = p.Id.GetValueOrDefault(),
+                Referencia = p.Referencia,
+                Tag = p.Tag,
+                Ano = p.Ano,
+                Descricao = p.Descricao,
+                Classificacao = p.ClassificacaoDificuldade.Descricao,
+                Catalogo = p.Catalogo.HasValue && p.Catalogo.Value ? "Sim" : "Não"
+            }).ToList();
+            return Json(list);
+        }
+        
+        [HttpGet, AjaxOnly]
+        public virtual ActionResult PesquisarReferencia(string referencia)
+        {
+            if (!string.IsNullOrWhiteSpace(referencia))
+            {
+                var filters = new List<FilterExpression>
+                {
+                    //new FilterExpression("Ativo", ComparisonOperator.IsEqual, true, LogicOperator.And),
+                    new FilterExpression("Referencia", ComparisonOperator.IsEqual, referencia, LogicOperator.And),
+                };
+
+                var fichaTecnica = _fichaTecnicaRepository.Find(filters.ToArray()).FirstOrDefault();
+
+                if (fichaTecnica != null)
+                    return Json(new
+                    {
+                        fichaTecnica.Id,
+                        fichaTecnica.Referencia,
+                        fichaTecnica.Ano,
+                        fichaTecnica.Tag,
+                        fichaTecnica.Descricao,
+                        Classificacao = fichaTecnica.ClassificacaoDificuldade.Descricao,
+                        Catalogo = fichaTecnica.Catalogo.HasValue && fichaTecnica.Catalogo.Value ? "Sim" : "Não"
+                    }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { erro = "Nenhuma ficha técnica encontrada." }, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet, AjaxOnly]
+        public virtual ActionResult PesquisarId(long id)
+        {
+            var fichaTecnica = _fichaTecnicaRepository.Get(id);
+
+            if (fichaTecnica != null)
+                return Json(new
+                {
+                    fichaTecnica.Id,
+                    fichaTecnica.Referencia,
+                    fichaTecnica.Ano,
+                    fichaTecnica.Tag,
+                    fichaTecnica.Descricao,
+                    Classificacao = fichaTecnica.ClassificacaoDificuldade.Descricao,
+                    Catalogo = fichaTecnica.Catalogo.HasValue && fichaTecnica.Catalogo.Value ? "Sim" : "Não"
+                }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { erro = "Nenhuma ficha técnica encontrada." }, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
     }
 }

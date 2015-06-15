@@ -27,6 +27,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual int? QuantidadeProducaoAprovada { get; set; }
         public virtual String Complemento { get; set; }
         public virtual Boolean? Catalogo { get; set; }
+        public virtual string Referencia { get; set; }
 
         public virtual Artigo Artigo { get; set; }
         public virtual Classificacao Classificacao { get; set; }

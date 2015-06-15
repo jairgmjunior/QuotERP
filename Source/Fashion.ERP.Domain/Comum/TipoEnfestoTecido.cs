@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Fashion.Framework.Common.Utils;
 
-namespace Fashion.ERP.Domain.EngenhariaProduto
+namespace Fashion.ERP.Domain.Comum
 {
     [TypeConverter(typeof(EnumDisplayTypeConverter<TipoEnfestoTecido>))]
     public enum TipoEnfestoTecido

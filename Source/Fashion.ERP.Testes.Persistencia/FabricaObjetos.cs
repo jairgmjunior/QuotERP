@@ -1238,6 +1238,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             var fichaTecnicajeans = new FichaTecnicaJeans()
             {
+                Referencia = "12364",
                 Descricao = "DESCRIÇÃO DO MODELO",
                 Detalhamento = "DETALHAMENTO DO TECIDO",
                 DataAlteracao = new DateTime(2014, 1, 1),
@@ -1260,6 +1261,36 @@ namespace Fashion.ERP.Testes.Persistencia
 
             return fichaTecnicajeans;
         }
+
+        public ProgramacaoProducao ObtenhaProgramacaoProducao()
+        {
+            return new ProgramacaoProducao()
+            {
+                Data = new DateTime(2015, 1, 1),
+                DataProgramada = new DateTime(2015, 1, 1),
+                Numero = 1,
+                Quantidade = 1,
+                Observacao = "OBSERVAÇÃO"
+            };
+        }
+        
+        public ProgramacaoProducaoMatrizCorte ObtenhaProgramacaoProducaoMatrizCorte()
+        {
+            return new ProgramacaoProducaoMatrizCorte()
+            {
+                TipoEnfestoTecido = TipoEnfestoTecido.Folha
+            };
+        }
+
+        public ProgramacaoProducaoMatrizCorteItem ObtenhaProgramacaoProducaoMatrizCorteItem()
+        {
+            return new ProgramacaoProducaoMatrizCorteItem()
+            {
+                Quantidade = 1,
+                QuantidadeVezes = 1
+            };
+        }
+
         #endregion
     }
 }

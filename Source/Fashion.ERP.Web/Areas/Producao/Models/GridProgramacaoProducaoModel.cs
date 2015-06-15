@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
-    public class GridFichaTecnicaModel
+    public class GridProgramacaoProducaoModel
     {
         public long Id { get; set; }
+        
+        [Display(Name = "Nùmero")]
+        public long Numero { get; set; }
 
         [Display(Name = "Tag")]
         public string Tag { get; set; }
@@ -21,19 +25,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Coleção")]
         public string Colecao { get; set; }
 
-        [Display(Name = "Marca")]
-        public string Marca { get; set; }
+        [Display(Name = "Data Programada")]
+        public DateTime DataProgramada { get; set; }
 
-        [Display(Name = "Natureza")]
-        public string Natureza { get; set; }
-
-        [Display(Name = "Foto")]
-        public string Foto { get; set; }
-
-        [Display(Name = "Classificação")]
-        public string Classificacao { get; set; }
-
-        [Display(Name = "Catalogo")]
-        public string Catalogo { get; set; }
+        [Display(Name = "Qtde. Programada")]
+        public long QtdeProgramada { get; set; }
     }
 }

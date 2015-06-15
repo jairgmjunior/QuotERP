@@ -63,8 +63,7 @@ namespace Fashion.ERP.Migrator
                 .AsInt64()
                 .Nullable()
                 .ForeignKey("FK_fichatecnicamaterialconsumovariacao_fichatecnica", "fichatecnica", "id");
-
-
+            
             Delete.Column("tempomaximoproducao").FromTable("fichatecnica");
 
             Alter.Table("fichatecnica")
@@ -72,6 +71,11 @@ namespace Fashion.ERP.Migrator
                 .AsInt64()
                 .Nullable()
                 .ForeignKey("FK_fichatecnica_estilista", "pessoa", "id");
+
+            Alter.Table("fichatecnica")
+                .AddColumn("referencia")
+                .AsString()
+                .NotNullable();
         }
 
         public override void Down()

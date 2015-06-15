@@ -18,12 +18,12 @@
         <div class="btn-group">
             @Html.ActionLink("Imprimir", MVC.EngenhariaProduto.Modelo.ImprimirDetalhe(Model.Id), new { @class = "btn", target = "_blank" })
         </div>
-        <div class="btn-group">
+@*        <div class="btn-group">
             @if (!string.IsNullOrEmpty(@Model.Tag))
             {
                 @Html.ActionLink("Requisitar", MVC.EngenhariaProduto.Modelo.RequisitarMateriais(Model.Id), new { @class = "btn", target = "_blank" })
             }
-        </div>
+        </div>*@
     </div>
 </div>
 

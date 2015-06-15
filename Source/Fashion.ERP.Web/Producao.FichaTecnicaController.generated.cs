@@ -191,6 +191,24 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInlineMaterialComposicaoCustoMatriz_Destroy);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarFiltro()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarReferencia()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferencia);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarId()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public FichaTecnicaController Actions { get { return MVC.Producao.FichaTecnica; } }
@@ -234,6 +252,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string EditingInlineMaterialComposicaoCustoMatriz_Create = "EditingInlineMaterialComposicaoCustoMatriz_Create";
             public readonly string EditingInlineMaterialComposicaoCustoMatriz_Update = "EditingInlineMaterialComposicaoCustoMatriz_Update";
             public readonly string EditingInlineMaterialComposicaoCustoMatriz_Destroy = "EditingInlineMaterialComposicaoCustoMatriz_Destroy";
+            public readonly string Pesquisar = "Pesquisar";
+            public readonly string PesquisarFiltro = "PesquisarFiltro";
+            public readonly string PesquisarReferencia = "PesquisarReferencia";
+            public readonly string PesquisarId = "PesquisarId";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -266,6 +288,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string EditingInlineMaterialComposicaoCustoMatriz_Create = "EditingInlineMaterialComposicaoCustoMatriz_Create";
             public const string EditingInlineMaterialComposicaoCustoMatriz_Update = "EditingInlineMaterialComposicaoCustoMatriz_Update";
             public const string EditingInlineMaterialComposicaoCustoMatriz_Destroy = "EditingInlineMaterialComposicaoCustoMatriz_Destroy";
+            public const string Pesquisar = "Pesquisar";
+            public const string PesquisarFiltro = "PesquisarFiltro";
+            public const string PesquisarReferencia = "PesquisarReferencia";
+            public const string PesquisarId = "PesquisarId";
         }
 
 
@@ -487,6 +513,30 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string request = "request";
             public readonly string fichaTecnicaMaterialModel = "fichaTecnicaMaterialModel";
         }
+        static readonly ActionParamsClass_PesquisarFiltro s_params_PesquisarFiltro = new ActionParamsClass_PesquisarFiltro();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarFiltro PesquisarFiltroParams { get { return s_params_PesquisarFiltro; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarFiltro
+        {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_PesquisarReferencia s_params_PesquisarReferencia = new ActionParamsClass_PesquisarReferencia();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarReferencia PesquisarReferenciaParams { get { return s_params_PesquisarReferencia; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarReferencia
+        {
+            public readonly string referencia = "referencia";
+        }
+        static readonly ActionParamsClass_PesquisarId s_params_PesquisarId = new ActionParamsClass_PesquisarId();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarId PesquisarIdParams { get { return s_params_PesquisarId; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarId
+        {
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -503,6 +553,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string Index = "Index";
                 public readonly string Material = "Material";
                 public readonly string Novo = "Novo";
+                public readonly string Pesquisar = "Pesquisar";
                 public readonly string Processos = "Processos";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/FichaTecnica/_NovoOuEditar.cshtml";
@@ -511,6 +562,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
             public readonly string Material = "~/Areas/Producao/Views/FichaTecnica/Material.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/FichaTecnica/Novo.cshtml";
+            public readonly string Pesquisar = "~/Areas/Producao/Views/FichaTecnica/Pesquisar.cshtml";
             public readonly string Processos = "~/Areas/Producao/Views/FichaTecnica/Processos.cshtml";
         }
     }
@@ -830,6 +882,45 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaMaterialModel", fichaTecnicaMaterialModel);
             EditingInlineMaterialComposicaoCustoMatriz_DestroyOverride(callInfo, request, fichaTecnicaMaterialModel);
+            return callInfo;
+        }
+
+        partial void PesquisarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Pesquisar()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pesquisar);
+            PesquisarOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Models.PesquisarModel model);
+
+        public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Models.PesquisarModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PesquisarFiltroOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void PesquisarReferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string referencia);
+
+        public override System.Web.Mvc.ActionResult PesquisarReferencia(string referencia)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarReferencia);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
+            PesquisarReferenciaOverride(callInfo, referencia);
+            return callInfo;
+        }
+
+        partial void PesquisarIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult PesquisarId(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            PesquisarIdOverride(callInfo, id);
             return callInfo;
         }
 

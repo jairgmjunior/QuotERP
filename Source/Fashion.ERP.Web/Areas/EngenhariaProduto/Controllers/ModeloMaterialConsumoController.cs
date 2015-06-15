@@ -96,18 +96,43 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
                     model.GridItens.ForEach(materialModel =>
                     {
-                        var modeloMaterialConsumo = new ModeloMaterialConsumo
+                        if (materialModel.Id != null && materialModel.Id != 0)
                         {
-                            DepartamentoProducao =
-                                _departamentoProducaoRepository.Get(x => x.Nome == materialModel.DepartamentoProducao),
-                            Material = _materialRepository.Get(x => x.Referencia == materialModel.Referencia),
-                            Quantidade = materialModel.Quantidade,
-                            UnidadeMedida = _unidadeMedidaRepository.Get(x => x.Sigla == materialModel.UnidadeMedida)
-                        };
-                        modelo.MateriaisConsumo.Add(modeloMaterialConsumo);
+                            var materialConsumo = modelo.MateriaisConsumo.First(x => x.Id == materialModel.Id);
+
+                            materialConsumo.DepartamentoProducao =
+                                _departamentoProducaoRepository.Get(x => x.Nome == materialModel.DepartamentoProducao);
+                            materialConsumo.Quantidade = materialModel.Quantidade;
+                        }
+                        else
+                        {
+                            var modeloMaterialConsumo = new ModeloMaterialConsumo
+                            {
+                                DepartamentoProducao =
+                                    _departamentoProducaoRepository.Get(x => x.Nome == materialModel.DepartamentoProducao),
+                                Material = _materialRepository.Get(x => x.Referencia == materialModel.Referencia),
+                                Quantidade = materialModel.Quantidade,
+                                UnidadeMedida = _unidadeMedidaRepository.Get(x => x.Sigla == materialModel.UnidadeMedida)
+                            };
+                            modelo.MateriaisConsumo.Add(modeloMaterialConsumo);    
+                        }
                     });
 
-                    
+                    var listaExcluir = new List<ModeloMaterialConsumo>();
+
+                    modelo.MateriaisConsumo.ForEach(materialConsumo =>
+                    {
+                        if (model.GridItens.All(x => x.Referencia != materialConsumo.Material.Referencia))
+                        {
+                            listaExcluir.Add(materialConsumo);
+                        }
+                    });
+
+                    foreach (var materialConsumo in listaExcluir)
+                    {
+                        modelo.MateriaisConsumo.Remove(materialConsumo);
+                    }
+
                     _modeloRepository.SaveOrUpdate(modelo);
 
                     this.AddSuccessMessage("Materiais de consumo do modelo atualizados com sucesso.");

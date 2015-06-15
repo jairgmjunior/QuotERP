@@ -80,6 +80,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public class ActionParamsClass_ModeloMaterialConsumo
         {
             public readonly string modeloId = "modeloId";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,9 +92,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string MaterialComposicaoModelo = "MaterialComposicaoModelo";
+                public readonly string ModeloMaterialConsumo = "ModeloMaterialConsumo";
             }
-            public readonly string MaterialComposicaoModelo = "~/Areas/EngenhariaProduto/Views/ModeloMaterialConsumo/MaterialComposicaoModelo.cshtml";
+            public readonly string ModeloMaterialConsumo = "~/Areas/EngenhariaProduto/Views/ModeloMaterialConsumo/ModeloMaterialConsumo.cshtml";
         }
     }
 
@@ -109,6 +110,16 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ModeloMaterialConsumo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modeloId", modeloId);
             ModeloMaterialConsumoOverride(callInfo, modeloId);
+            return callInfo;
+        }
+
+        partial void ModeloMaterialConsumoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloMaterialConsumoModel model);
+
+        public override System.Web.Mvc.ActionResult ModeloMaterialConsumo(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloMaterialConsumoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ModeloMaterialConsumo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModeloMaterialConsumoOverride(callInfo, model);
             return callInfo;
         }
 

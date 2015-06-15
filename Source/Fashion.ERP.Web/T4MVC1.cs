@@ -68,7 +68,6 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SimboloConservacaoController SimboloConservacao = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SimboloConservacaoController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.SubcategoriaController Subcategoria = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_SubcategoriaController();
         public Fashion.ERP.Web.Areas.Almoxarifado.Controllers.UnidadeMedidaController UnidadeMedida = new Fashion.ERP.Web.Areas.Almoxarifado.Controllers.T4MVC_UnidadeMedidaController();
-        public T4MVC.Almoxarifado.SharedController Shared = new T4MVC.Almoxarifado.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class ComprasClass
@@ -174,6 +173,7 @@ namespace T4MVC
         public readonly string Name = "Producao";
         public Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController FichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_FichaTecnicaController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.OrdemProducaoController OrdemProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_OrdemProducaoController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.ProgramacaoProducaoController ProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ProgramacaoProducaoController();
     }
 }
 
@@ -307,6 +307,7 @@ namespace Links
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string kendo_culture_pt_BR_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/kendo.culture.pt-BR.min.js") ? Url("kendo.culture.pt-BR.min.js") : Url("kendo.culture.pt-BR.js");
                 public static readonly string kendo_culture_pt_BR_min_js = Url("kendo.culture.pt-BR.min.js");
+                public static readonly string kendo_messages_pt_BR_min_js = Url("kendo.messages.pt-BR.min.js");
             }
         
             public static readonly string kendo_aspnetmvc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/kendo.aspnetmvc.min.js") ? Url("kendo.aspnetmvc.min.js") : Url("kendo.aspnetmvc.js");

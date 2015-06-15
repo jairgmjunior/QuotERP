@@ -11,7 +11,15 @@
         <input type="hidden" id="VariacaosDicionario" data-value = "@ViewBag.VariacaosDicionarioJson" />
         <legend>Dados Básicos</legend>
         <div class="row">
-            <div class="span9">
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Referencia, new {@class = "title-label"})
+                    <div class="controls">
+                        @Html.EditorFor(x => x.Referencia) 
+                    </div>
+                </div>
+            </div>  
+            <div class="span6">
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Tag)
                     <div class="controls">

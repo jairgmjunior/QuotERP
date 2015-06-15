@@ -4,6 +4,7 @@ using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
+using Fashion.ERP.Domain.Producao;
 using Fashion.Framework.Repository;
 
 namespace Fashion.ERP.Testes.Persistencia
@@ -508,15 +509,6 @@ namespace Fashion.ERP.Testes.Persistencia
         public void ExcluaModelo(Modelo modelo)
         {
             RepositoryFactory.Create<Modelo>().Delete(modelo);
-
-            ExcluaGrade(modelo.Grade);
-            ExcluaArtigo(modelo.Artigo);
-            ExcluaClassificacao(modelo.Classificacao);
-            ExcluaBarra(modelo.Barra);
-            ExcluaColecao(modelo.Colecao);
-            ExcluaPessoa(modelo.Estilista);
-            ExcluaMarca(modelo.Marca);
-            ExcluaNatureza(modelo.Natureza);
         }
 
         public void ExcluaNatureza(Natureza natureza)
@@ -907,6 +899,62 @@ namespace Fashion.ERP.Testes.Persistencia
         public void ExcluaPessoa(Pessoa pessoa)
         {
             RepositoryFactory.Create<Pessoa>().Delete(pessoa);
+        }
+        #endregion
+
+        #region Produção
+        public FichaTecnicaJeans ObtenhaFichaTecnica()
+        {
+            var fichaTecnicaJeans = _fabricaObjetos.ObtenhaFichaTecnicaJeans();
+
+            fichaTecnicaJeans.Classificacao = ObtenhaClassificacao();
+            fichaTecnicaJeans.Colecao = ObtenhaColecao();
+            fichaTecnicaJeans.Natureza = ObtenhaNatureza();
+            fichaTecnicaJeans.Artigo = ObtenhaArtigo();
+            fichaTecnicaJeans.Marca = ObtenhaMarca();
+            fichaTecnicaJeans.Barra = ObtenhaBarra();
+            fichaTecnicaJeans.Segmento = ObtenhaSegmento();
+            fichaTecnicaJeans.ClassificacaoDificuldade = ObtenhaClassificacaoDificuldade();
+            fichaTecnicaJeans.ProdutoBase = ObtenhaProdutoBase();
+            fichaTecnicaJeans.Comprimento = ObtenhaComprimento();
+            fichaTecnicaJeans.Estilista = ObtenhaFuncionario();
+            
+            var fichaTecnicaVariacaoMatriz = _fabricaObjetos.ObtenhaFichaTecnicaVariacaoMatriz();
+            fichaTecnicaVariacaoMatriz.Variacao = ObtenhaVariacao();
+            fichaTecnicaVariacaoMatriz.AddCor(ObtenhaCor());
+
+            fichaTecnicaJeans.FichaTecnicaMatriz =  _fabricaObjetos.ObtenhaFichaTecnicaMatriz();
+            fichaTecnicaJeans.FichaTecnicaMatriz.Grade = ObtenhaGrade();
+            fichaTecnicaJeans.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(fichaTecnicaVariacaoMatriz);
+
+            //fichaTecnicaJeans.FichaTecnicaSequenciaOperacionals.Add(_fichaTecnicaSequenciaOperacional);
+            //fichaTecnicaJeans.MateriaisComposicaoCusto.Add(_materialComposicaoCusto);
+            //fichaTecnicaJeans.MateriaisConsumo.Add(_materialConsumo);
+            
+            RepositoryFactory.Create<FichaTecnicaJeans>().Save(fichaTecnicaJeans);
+
+            return fichaTecnicaJeans;
+        }
+
+        public void ExcluaFichaTecnicaJeans(FichaTecnicaJeans fichaTecnicaJeans)
+        {
+            RepositoryFactory.Create<FichaTecnicaJeans>().Delete(fichaTecnicaJeans);
+            
+            ExcluaArtigo(fichaTecnicaJeans.Artigo);
+            ExcluaClassificacao(fichaTecnicaJeans.Classificacao);
+            ExcluaClassificacaoDificuldade(fichaTecnicaJeans.ClassificacaoDificuldade);
+            ExcluaBarra(fichaTecnicaJeans.Barra);
+            ExcluaColecao(fichaTecnicaJeans.Colecao);
+            ExcluaPessoa(fichaTecnicaJeans.Estilista);
+            ExcluaMarca(fichaTecnicaJeans.Marca);
+            ExcluaNatureza(fichaTecnicaJeans.Natureza);
+            ExcluaBarra(fichaTecnicaJeans.Barra);
+            ExcluaProdutoBase(fichaTecnicaJeans.ProdutoBase);
+            ExcluaComprimento(fichaTecnicaJeans.Comprimento);
+            ExcluaSegmento(fichaTecnicaJeans.Segmento);
+            ExcluaGrade(fichaTecnicaJeans.FichaTecnicaMatriz.Grade);
+            ExcluaCor(fichaTecnicaJeans.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs[0].Cores.First());
+            ExcluaVariacao(fichaTecnicaJeans.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs[0].Variacao);
         }
         #endregion
     }

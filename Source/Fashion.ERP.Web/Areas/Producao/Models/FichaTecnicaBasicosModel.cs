@@ -20,6 +20,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a descrição")]
         public string Descricao { get; set; }
 
+        [Display(Name = "Referencia")]
+        [Required(ErrorMessage = "Informe a referência")]
+        public string Referencia { get; set; }
+
         [Display(Name = "Natureza")]
         [Required(ErrorMessage = "Informe a natureza")]
         public long? Natureza { get; set; }

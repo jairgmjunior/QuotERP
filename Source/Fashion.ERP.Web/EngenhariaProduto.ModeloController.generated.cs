@@ -175,12 +175,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult RequisitarMateriais()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RequisitarMateriais);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Copiar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Copiar);
@@ -231,7 +225,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string AdicionarLinhaTravete = "AdicionarLinhaTravete";
             public readonly string RemoverLinhaTravete = "RemoverLinhaTravete";
             public readonly string ImprimirDetalhe = "ImprimirDetalhe";
-            public readonly string RequisitarMateriais = "RequisitarMateriais";
             public readonly string Copiar = "Copiar";
             public readonly string VerificarReferencia = "VerificarReferencia";
         }
@@ -263,7 +256,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public const string AdicionarLinhaTravete = "AdicionarLinhaTravete";
             public const string RemoverLinhaTravete = "RemoverLinhaTravete";
             public const string ImprimirDetalhe = "ImprimirDetalhe";
-            public const string RequisitarMateriais = "RequisitarMateriais";
             public const string Copiar = "Copiar";
             public const string VerificarReferencia = "VerificarReferencia";
         }
@@ -465,14 +457,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public ActionParamsClass_ImprimirDetalhe ImprimirDetalheParams { get { return s_params_ImprimirDetalhe; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ImprimirDetalhe
-        {
-            public readonly string modeloId = "modeloId";
-        }
-        static readonly ActionParamsClass_RequisitarMateriais s_params_RequisitarMateriais = new ActionParamsClass_RequisitarMateriais();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_RequisitarMateriais RequisitarMateriaisParams { get { return s_params_RequisitarMateriais; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RequisitarMateriais
         {
             public readonly string modeloId = "modeloId";
         }

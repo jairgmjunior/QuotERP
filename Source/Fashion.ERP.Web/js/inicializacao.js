@@ -267,16 +267,39 @@ $(document).ready(function () {
 
         var $ModoConsulta = $('#ModoConsulta');
 
-        if ($ModoConsulta.val() == 'Listar') {
+        if ($ModoConsulta.val() == null || $ModoConsulta.val() == 'Listar') {
 
             var grid = $('#Grid').data('kendoGrid');
 
             grid.dataSource.read();
-            grid.refresh();
             grid.dataSource.page(1);
+            grid.refresh();
+            
 
             return false;
         };
+    });
+
+    $('button[name=btn-ModoConsulta]').on('click', function () {
+
+        var $ModoConsulta = $('#ModoConsulta');
+
+        if (this.value == 'impressao') {
+            $ModoConsulta.val('Imprimir');
+
+            $('#row-imprimir').show();
+            $('#pesquisar-relatorio').show();
+            $('#pesquisar-grid').hide();
+
+        } else {
+            $ModoConsulta.val('Listar');
+            $("#pdf").html("");
+            $("#pdf").attr("style", "");
+            $("#Grid").show();
+            $('#row-imprimir').hide();
+            $('#pesquisar-relatorio').hide();
+            $('#pesquisar-grid').show();
+        }
     });
 
 });

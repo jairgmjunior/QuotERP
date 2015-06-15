@@ -92,6 +92,8 @@
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacaoMap.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMatrizCorteItemMap.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMap.cs" />
     <Compile Include="Producao\OrdemProducaoFluxoBasicoMap.cs" />
     <Compile Include="Producao\OrdemProducaoMap.cs" />
     <Compile Include="Compras\TransportadoraMap.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Producao\OrdemProducaoItemFechamentoSinistroMap.cs" />
     <Compile Include="Producao\OrdemProducaoItemMap.cs" />
     <Compile Include="Producao\OrdemProducaoMaterialMap.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMatrizCorteMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioMap.cs" />
     <Compile Include="RelatorioParametroMap.cs" />

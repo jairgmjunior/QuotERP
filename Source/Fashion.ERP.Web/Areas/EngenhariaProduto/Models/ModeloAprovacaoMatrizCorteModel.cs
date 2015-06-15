@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Fashion.ERP.Domain.EngenhariaProduto;
+using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Web.Models;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
@@ -73,7 +73,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         
         [Display(Name = "Tipo de Enfesto de Tecido")]
         public TipoEnfestoTecido TipoEnfestoTecido { get; set; }
-
 
         [Display(Name = "Total da Quantidade")]
         public long TotalQuantidade { get; set; }

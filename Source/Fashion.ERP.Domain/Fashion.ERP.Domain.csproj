@@ -138,7 +138,7 @@
     <Compile Include="Comum\Variacao.cs" />
     <Compile Include="Comum\VariacaoModelo.cs" />
     <Compile Include="EngenhariaProduto\ModeloMaterialConsumo.cs" />
-    <Compile Include="EngenhariaProduto\TipoEnfestoTecido.cs" />
+    <Compile Include="Comum\TipoEnfestoTecido.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacao.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorte.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteItem.cs" />
@@ -231,12 +231,15 @@
     <Compile Include="Producao\FichaTecnicaMaterialComposicaoCusto.cs" />
     <Compile Include="Producao\FichaTecnicaMaterialConsumoVariacao.cs" />
     <Compile Include="Producao\FichaTecnicaMaterialConsumo.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMatrizCorte.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMatrizCorteItem.cs" />
     <Compile Include="Producao\OrdemProducao.cs" />
     <Compile Include="Producao\OrdemProducaoFluxoBasico.cs" />
     <Compile Include="Producao\OrdemProducaoItem.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamento.cs" />
     <Compile Include="Producao\OrdemProducaoItemFechamentoSinistro.cs" />
     <Compile Include="Producao\OrdemProducaoMaterial.cs" />
+    <Compile Include="Producao\ProgramacaoProducao.cs" />
     <Compile Include="Producao\SituacaoOrdemProducao.cs" />
     <Compile Include="Producao\TipoAndamento.cs" />
     <Compile Include="Producao\TipoOrdemProducao.cs" />

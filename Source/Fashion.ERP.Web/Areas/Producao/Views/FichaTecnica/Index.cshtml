@@ -71,6 +71,9 @@
                             </div>
                         </div>
                     </div>
+
+                    
+
                     <div class="row">
                         <div class="span12">
                             <button class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
@@ -81,6 +84,7 @@
         </div>
     </div>*@
 }
+
 @Html.ValidationSummaryEx()
 @(Html.Kendo().Grid(Model.Grid)
     .Name("Grid")
@@ -97,4 +101,4 @@
         @*columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.Material.EditarSituacao(item.Id), item.Ativo)).Width(80);
         columns.Template(item => Html.EditarAuth(MVC.Financeiro.ChequeRecebido.Editar(item.Id))).Width(80);*@
     })
-)
+      )

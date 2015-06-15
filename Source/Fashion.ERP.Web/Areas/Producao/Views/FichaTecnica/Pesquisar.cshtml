@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaModel>
+
+<div id="modal-fichatecnica" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar ficha técnica</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Producao.FichaTecnica.Pesquisar()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-fichatecnica" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-fichatecnica" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-fichatecnica"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-fichatecnica" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        // Se o id da fichatecnica vier preenchido, preencher o código e descrição
+        var fichatecnicaId = $('#FichaTecnica').val();
+
+        if (fichatecnicaId) {
+            $.getJSON('/Producao/FichaTecnica/PesquisarId/' + fichatecnicaId, function (data) {
+                if (data.Id) {
+                    $('#referencia-fichatecnica').val(data.Referencia).trigger("change");
+                    $('#descricao-fichatecnica').text(data.Descricao).trigger("change");
+                    $('#tag-fichatecnica').val(data.Tag).trigger("change");
+                    $('#ano-fichatecnica').val(data.Ano).trigger("change");
+                    $('#classificacao-fichatecnica').val(data.Classificacao).trigger("change");
+                    $('#catalogo-fichatecnica').val(data.Catalogo).trigger("change");
+                }
+            });
+        }
+
+        $('#submit-pesquisar-fichatecnica').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "@Html.GetUrl(MVC.Producao.FichaTecnica.PesquisarFiltro())",
+                beforeSubmit: function() {
+                    e.preventDefault();
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                
+                    var grid = $("#grid-pesquisa-fichatecnica").kendoGrid({
+                        height: "380px",
+                        selectable: "row",
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Referencia", title: "Referência", width: 80 },
+                            { field: "Tag", title: "Tag", template: "#= Tag + ' / ' + Ano #", width: 80 },
+                            { field: "Descricao", title: "Descrição" }
+                        ],
+                        dataSource: data
+                    });
+                    
+                    grid.delegate("tbody>tr", "dblclick", selecionarFichaTecnica);
+                },
+            });
+
+            return false;
+        });
+            
+        $('#pesquisar-fichatecnica').on('click', function () {
+            $('#modal-fichatecnica').modal('show').one('hidden', function () {
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
+                $('#grid-pesquisa-fichatecnica').empty();
+            });
+        });
+        var pesquisaFichaTecnica = function (referencia) {
+            if (referencia) {
+                var url = '@Html.GetUrl(MVC.Producao.FichaTecnica.PesquisarReferencia())?referencia=' + referencia;
+                $.getJSON(url, function(data) {
+                    if (data.erro) {
+                        alert(data.erro);
+                        $('#FichaTecnica').val('').trigger('change');
+                        $('#referencia-fichatecnica').val('').trigger("change");
+                        $('#descricao-fichatecnica').text('').trigger("change");
+                        $('#tag-fichatecnica').val('').trigger("change");
+                        $('#ano-fichatecnica').val('').trigger("change");
+                        $('#classificacao-fichatecnica').val('').trigger("change");
+                        $('#catalogo-fichatecnica').val('').trigger("change");
+                    } else {
+                        $('#FichaTecnica').val(data.Id).trigger('change');
+                        $('#referencia-fichatecnica').val(data.Referencia).trigger('change');
+                        $('#descricao-fichatecnica').text(data.Descricao).trigger('change');
+                        $('#tag-fichatecnica').val(data.Tag).trigger("change");
+                        $('#ano-fichatecnica').val(data.Ano).trigger("change");
+                        $('#classificacao-fichatecnica').val(data.Classificacao).trigger("change");
+                        $('#catalogo-fichatecnica').val(data.Catalogo).trigger("change");
+                    }
+                });
+            } else {
+                $('#FichaTecnica').val('').trigger('change');
+                $('#referencia-fichatecnica').val('').trigger("change");
+                $('#descricao-fichatecnica').text('').trigger("change");
+                $('#tag-fichatecnica').val('').trigger("change");
+                $('#ano-fichatecnica').val('').trigger("change");
+                $('#classificacao-fichatecnica').val('').trigger("change");
+                $('#catalogo-fichatecnica').val('').trigger("change");
+            }
+        };
+
+        var entrouKeyDown = false;
+
+        $('#referencia-fichatecnica').on({
+            keydown: function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    pesquisaFichaTecnica($(this).val());
+                    entrouKeyDown = true;
+                }
+            },
+            focusout: function () {
+                if (entrouKeyDown) {
+                    entrouKeyDown = false;
+                    return;
+                }
+
+                if (!$('#referencia-fichatecnica').val()) {
+                    $('#FichaTecnica').val('').trigger("change");
+                    $('#descricao-fichatecnica').text('').trigger("change");
+                    $('#descricao-fichatecnica').val('').trigger("change");
+                    $('#tag-fichatecnica').val('').trigger("change");
+                    $('#ano-fichatecnica').val('').trigger("change");
+                    $('#classificacao-fichatecnica').val('').trigger("change");
+                    $('#catalogo-fichatecnica').val('').trigger("change");
+                } else {
+                    pesquisaFichaTecnica($(this).val());
+                }
+        }
+        });
+        $('#selecionar-fichatecnica').on('click', selecionarFichaTecnica);
+        
+        function selecionarFichaTecnica() {
+            var grid = $('#grid-pesquisa-fichatecnica').data("kendoGrid");
+
+            if (!grid) return;
+
+            var data = grid.dataItem(grid.select());
+            
+            if (data) {
+                $('#FichaTecnica').val(data.Id).trigger('change');
+                $('#referencia-fichatecnica').val(data.Referencia).trigger('change');
+                $('#descricao-fichatecnica').text(data.Descricao).trigger('change');
+                $('#tag-fichatecnica').val(data.Tag).trigger("change");
+                $('#ano-fichatecnica').val(data.Ano).trigger("change");
+                $('#classificacao-fichatecnica').val(data.Classificacao).trigger("change");
+                $('#catalogo-fichatecnica').val(data.Catalogo).trigger("change");
+                $('#modal-fichatecnica').modal('hide');
+            }
+        }
+    });
+</script>
