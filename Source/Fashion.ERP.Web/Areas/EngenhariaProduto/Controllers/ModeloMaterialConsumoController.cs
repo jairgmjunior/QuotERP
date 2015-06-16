@@ -64,7 +64,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 ModeloReferencia = modelo.Referencia,
                 ModeloDescricao = modelo.Descricao,
                 ModeloEstilistaNome = modelo.Estilista.Nome,
-                ModeloDataCriacao = modelo.DataCriacao,
+                ModeloDataCriacao = modelo.DataCriacao.Date,
                 GridItens = new List<GridModeloMaterialConsumoModel>()
             };
 
@@ -78,7 +78,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Referencia = materialComsumo.Material.Referencia,
                     Descricao = materialComsumo.Material.Descricao,
                     UnidadeMedida = materialComsumo.UnidadeMedida.Sigla,
-                    Quantidade = materialComsumo.Quantidade
+                    Quantidade = materialComsumo.Quantidade,
+                    Foto = (materialComsumo.Material.Foto != null ? materialComsumo.Material.Foto.Nome.GetFileUrl() : string.Empty),
                 });
             }
 

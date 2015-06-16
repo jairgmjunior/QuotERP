@@ -183,52 +183,6 @@
     )
 
 <script>
-    $(function () {
-
-        // Seleciona o modo de consulta
-        $('button[name=btn-ModoConsulta]').on('click', function () {
-
-            var $ModoConsulta = $('#ModoConsulta');
-
-            if (this.value == 'impressao') {
-                $ModoConsulta.val('Imprimir');
-
-                $('#row-imprimir').show();
-                $('#pesquisar-relatorio').show();
-                $('#pesquisar-grid').hide();
-
-            } else {
-                $ModoConsulta.val('Listar');
-                $("#pdf").html("");
-                $("#pdf").attr("style", "");
-                $("#Grid").show();
-                $('#row-imprimir').hide();
-                $('#pesquisar-relatorio').hide();
-                $('#pesquisar-grid').show();
-
-            }
-        });
-    });
-
-    function ObtenhaPesquisaModel() {
-        var parametros = {
-            model: $("form").serializeObject()
-            //{
-            //    ReferenciaOrigem: $("#ReferenciaOrigem").val(),
-            //    Unidade: $("#Unidade").val(),
-            //    ReferenciaExterna: $("#ReferenciaExterna").val(),
-            //    Material: $("#Material").val(),
-            //    Numero: $("#Numero").val(),
-            //    DataProgramacaoInicio: $("#DataProgramacaoInicio").val(),
-            //    DataProgramacaoFim: $("#DataProgramacaoFim").val(),
-            //    SituacaoReservaMaterial: $("#SituacaoReservaMaterial").val(),
-            //    OrdenarPor: $("#OrdenarPor").val(),
-            //    OrdenarEm: $("#OrdenarEm").val()
-            //}
-        };
-
-        return parametros;
-    }
 
     function onError(e) {
         alert(e.errors);

@@ -43,8 +43,15 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("programacaoproducaomatrizcorte_id").AsInt64()
                 .ForeignKey("FK_programacaoproducao_programacaoproducaomatrizcorte", "programacaoproducaomatrizcorte", "id");
 
-
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201506091446.permissao.sql");
+            
+            Alter.Table("modeloaprovacao")
+                .AlterColumn("medidacomprimento")
+                .AsDouble();
+
+            Alter.Table("modeloaprovacao")
+                .AlterColumn("medidabarra")
+                .AsDouble();
         }
 
         public override void Down()

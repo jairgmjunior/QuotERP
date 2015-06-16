@@ -836,7 +836,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var material = _materialRepository.Get(id);
 
             if (material != null)
-                return Json(new { material.Id, material.Referencia, material.Descricao, material.UnidadeMedida.Sigla }, JsonRequestBehavior.AllowGet);
+                return Json(new { material.Id, material.Referencia, material.Descricao, material.UnidadeMedida.Sigla, Foto = (material.Foto != null ? material.Foto.Nome.GetFileUrl() : string.Empty) }, JsonRequestBehavior.AllowGet);
 
             return Json(new { erro = "Nenhum material encontrado." }, JsonRequestBehavior.AllowGet);
         }

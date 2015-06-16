@@ -132,7 +132,7 @@ namespace Fashion.ERP.Web.Controllers
         {
             var arquivo = _arquivoRepository.Get(id);
 
-            if (arquivo != null)
+            if (arquivo != null && System.IO.File.Exists(arquivo.Nome.GetFilePath()))
                 return File(arquivo.Nome.GetFilePath());
 
             return new HttpStatusCodeResult(404);

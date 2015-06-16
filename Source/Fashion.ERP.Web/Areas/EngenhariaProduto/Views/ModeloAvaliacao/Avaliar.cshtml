@@ -5,6 +5,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.IdAvaliacao)
     @Html.HiddenFor(x => x.IdModelo)
     @Html.HiddenFor(x => x.SequenciaTag)
 
@@ -174,7 +175,7 @@
                                                                   "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
                   columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
-                  columns.Bound(p => p.Quantidade).ClientTemplate("#= Quantidade #" +
+                  columns.Bound(p => p.Quantidade).EditorTemplateName("long").ClientTemplate("#= Quantidade #" +
                                                                   "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />").Width(80);
                   columns.Command(command => command.Destroy());
               })
@@ -238,7 +239,7 @@
                     <div class="control-group">
                         @Html.Label("Medida do Comprimento", new {@class = "control-label"})
                         <div class="controls">
-                            <input name="GridItens[#= index(data)#].MedidaComprimento" id="GridItens_#= index(data)#__MedidaComprimento"  value='#= MedidaComprimento #'/>                                     
+                            <input name="GridItens[#= index(data)#].MedidaComprimento" id="GridItens_#= index(data)#__MedidaComprimento"  value='#= formateDecimal(MedidaComprimento) #'/>                                     
                         </div>
                     </div>
                 </div> 
@@ -246,7 +247,7 @@
                     <div class="control-group">
                         @Html.Label("Medida da Barra", new {@class = "control-label"})
                         <div class="controls">
-                            <input name="GridItens[#= index(data)#].MedidaBarra" id="GridItens_#= index(data)#__MedidaBarra"  value='#= MedidaBarra #'/> 
+                            <input name="GridItens[#= index(data)#].MedidaBarra" id="GridItens_#= index(data)#__MedidaBarra"  value='#= formateDecimal(MedidaBarra) #'/> 
                         </div>
                     </div>
                 </div>                  
@@ -271,7 +272,7 @@
             });
         }
 
-        if ($('#Tag').val() != "") {
+        if ($('#IdAvaliacao').val() != "") {
             $('#Tag').prop("readonly", "readonly");
             $('#Ano').prop("readonly", "readonly");
         }
@@ -463,7 +464,7 @@
                 var parentRow = $(this.element).closest('.k-detail-row').prev('.k-master-row')[0];
                 var item = grid.dataItem($(parentRow).closest('tr'));
                 recalculeDescricao(item, index);
-                item.set("ProdutoBase", this.value()); 
+                item.set("ProdutoBase", this.value());
                 $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
             }
         });
@@ -541,6 +542,12 @@
             item.set("Observacao", $("#GridItens_" + index + "__Observacao").val());
             $("#GridItens").data("kendoGrid").expandRow($('tr[data-uid="' + item.uid + '"]'));
         });
+    }
+
+    function formateDecimal(valor) {
+        if (valor == null)
+            return "";
+        return valor.toString().replace(".", ",");
     }
 
     function calculePainelAprovadoReprovado() {

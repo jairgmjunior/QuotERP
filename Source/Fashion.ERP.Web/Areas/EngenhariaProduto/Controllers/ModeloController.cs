@@ -366,10 +366,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<Modelo>(model);
-                    var dataAgora = DateTime.Now;
-                    domain.DataCriacao = dataAgora;
-                    domain.DataAlteracao = dataAgora;
-
+                    domain.DataCriacao = DateTime.Now;
+                    
                     // Fotos
                     foreach (var foto in Fotos)
                         domain.AddFoto(new ModeloFoto

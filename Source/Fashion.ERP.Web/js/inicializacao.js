@@ -290,6 +290,7 @@ $(document).ready(function () {
             $('#row-imprimir').show();
             $('#pesquisar-relatorio').show();
             $('#pesquisar-grid').hide();
+            $('#pesquisar-grid-ajax').hide();
 
         } else {
             $ModoConsulta.val('Listar');
@@ -299,6 +300,7 @@ $(document).ready(function () {
             $('#row-imprimir').hide();
             $('#pesquisar-relatorio').hide();
             $('#pesquisar-grid').show();
+            $('#pesquisar-grid-ajax').show();
         }
     });
 

@@ -17,6 +17,8 @@ namespace Fashion.ERP.Domain.Almoxarifado
         Estampa,
         [Display(Name = "Lavada")]
         Lavada,
+        [Display(Name = "Linha")]
+        Linha,
         [Display(Name = "Outros")]
         Outros
     }

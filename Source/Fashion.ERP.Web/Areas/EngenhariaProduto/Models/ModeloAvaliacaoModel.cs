@@ -9,6 +9,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
     {
         public long? Id { get; set; }
 
+        public long? IdAvaliacao { get; set; }
+
         public long? IdModelo { get; set; }
 
         public long SequenciaTag { get; set; }

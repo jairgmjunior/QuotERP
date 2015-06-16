@@ -28,12 +28,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public long? Comprimento { get; set; }
 
         [Display(Name = "Medida Comprimento")]
-        public long? MedidaComprimento { get; set; }
+        public double? MedidaComprimento { get; set; }
 
         [Display(Name = "Barra")]
         public long? Barra { get; set; }
 
         [Display(Name = "Produto Base")]
-        public long? MedidaBarra { get; set; }
+        public double? MedidaBarra { get; set; }
     }
 }

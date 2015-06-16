@@ -21,7 +21,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Ano")]
         public string Ano { get; set; }
 
-        [Display(Name = "Referência")]
+        [Display(Name = "Referência de Material")]
         public long? Material { get; set; }
 
         [Display(Name = "Período Aprovação")]

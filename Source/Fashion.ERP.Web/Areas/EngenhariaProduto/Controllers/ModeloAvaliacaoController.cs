@@ -221,7 +221,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     if (domain.ModeloAvaliacao.Aprovado)
                     {
 
-                        model.Id = domain.ModeloAvaliacao.Id;
+                        model.IdAvaliacao = domain.ModeloAvaliacao.Id;
                         model.Tag = domain.ModeloAvaliacao.Tag;
                         model.Ano = domain.ModeloAvaliacao.Ano;
                         model.SequenciaTag = domain.ModeloAvaliacao.SequenciaTag;
@@ -271,6 +271,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             foreach (var modelValue in ModelState.Values)
             {
                 modelValue.Errors.Clear();
+            }
+
+            var modeloMesmoTagAno = _modeloRepository.Get(x => x.ModeloAvaliacao.Tag == model.Tag 
+                && x.ModeloAvaliacao.Ano == model.Ano && x.ModeloAvaliacao.Id != model.IdAvaliacao);
+
+            if (modeloMesmoTagAno != null)
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um modelo avaliado com a mesma tag e ano.");
+                return View(model);
             }
 
             try

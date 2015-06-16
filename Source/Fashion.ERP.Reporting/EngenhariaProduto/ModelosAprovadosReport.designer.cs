@@ -612,7 +612,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // textBox26
             // 
-            this.textBox26.Format = "{0:N0}";
+            this.textBox26.Format = "{0:N2}";
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.5595850944519043D), Telerik.Reporting.Drawing.Unit.Cm(0.55812764167785645D));
             this.textBox26.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
@@ -621,7 +621,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             // 
             // textBox27
             // 
-            this.textBox27.Format = "{0:N0}";
+            this.textBox27.Format = "{0:N2}";
             this.textBox27.Name = "textBox27";
             this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.410210132598877D), Telerik.Reporting.Drawing.Unit.Cm(0.55812764167785645D));
             this.textBox27.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;

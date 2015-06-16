@@ -19,6 +19,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public string Descricao { get; set; }
 
         [Display(Name = "Quantidade")]
-        public double Quantidade { get; set; } 
+        public double Quantidade { get; set; }
+        
+        [Display(Name = "Foto")]
+        public string Foto { get; set; }
     }
 }
