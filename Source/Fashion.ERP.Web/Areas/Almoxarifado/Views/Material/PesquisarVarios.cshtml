@@ -11,10 +11,11 @@
         @Html.AntiForgeryToken()
         <div id="modal-body-material" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium", @style="box-sizing: border-box; -webkit-box-sizing: border-box;"})
                 <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
                 <input id="FornecedorMaterial" name="FornecedorMaterial" type="hidden" /> 
                 <input id="TipoItemMaterial" name="TipoItemMaterial" type="hidden"/>
+                <input id="IdRequisicao" name="IdRequisicao" type="hidden"/>
                 <input id="submit-pesquisar-material" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
             <div id="grid-pesquisa-material"></div>
@@ -26,8 +27,7 @@
     </div>
 </div>
 <script>
-    $(function () {
-
+    $(document).ready(function () {
         $('#submit-pesquisar-material').off('click').on('click', function (e) {
             var form = $(this).closest("form");
             
@@ -125,7 +125,7 @@
             return false;
         });
             
-        $('#pesquisarvarios-material').on('click', function () {
+        $('[id ="pesquisarvarios-material"').on('click', function () {
             $('#modal-material').modal('show').one('hidden', function () {
                 $('#ColunaPesquisa')[0].selectedIndex = 0;
                 $('input[name$="ValorPesquisa"]').val('');
@@ -181,6 +181,10 @@
 
     function configureParametroPesquisarVariosMateriaisPorFornecedor(idFornecedor) {
         $("#FornecedorMaterial").val(idFornecedor);
+    }
+
+    function configureIdRequisicao(idRequisicao) {
+        $("#IdRequisicao").val(idRequisicao);
     }
     
 </script>

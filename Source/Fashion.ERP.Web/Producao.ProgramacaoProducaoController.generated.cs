@@ -43,6 +43,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -58,12 +64,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModel()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,22 +82,22 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public class ActionNamesClass
         {
             public readonly string Novo = "Novo";
+            public readonly string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
-            public readonly string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Novo = "Novo";
+            public const string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
-            public const string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
         }
 
 
@@ -109,6 +109,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_ObtenhaListaGridMatrizCorteModel s_params_ObtenhaListaGridMatrizCorteModel = new ActionParamsClass_ObtenhaListaGridMatrizCorteModel();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaListaGridMatrizCorteModel ObtenhaListaGridMatrizCorteModelParams { get { return s_params_ObtenhaListaGridMatrizCorteModel; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaListaGridMatrizCorteModel
+        {
+            public readonly string request = "request";
+            public readonly string id = "id";
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+        }
         static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
@@ -116,6 +126,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public class ActionParamsClass_Editar
         {
             public readonly string id = "id";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -133,16 +144,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string request = "request";
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_ObtenhaListaGridMatrizCorteModel s_params_ObtenhaListaGridMatrizCorteModel = new ActionParamsClass_ObtenhaListaGridMatrizCorteModel();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ObtenhaListaGridMatrizCorteModel ObtenhaListaGridMatrizCorteModelParams { get { return s_params_ObtenhaListaGridMatrizCorteModel; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ObtenhaListaGridMatrizCorteModel
-        {
-            public readonly string request = "request";
-            public readonly string id = "id";
-            public readonly string fichaTecnicaId = "fichaTecnicaId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -190,6 +191,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return callInfo;
         }
 
+        partial void ObtenhaListaGridMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel(Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            ObtenhaListaGridMatrizCorteModelOverride(callInfo, request, id, fichaTecnicaId);
+            return callInfo;
+        }
+
         partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
 
         public override System.Web.Mvc.ActionResult Editar(long id)
@@ -197,6 +210,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditarOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoModel model);
+
+        public override System.Web.Mvc.ActionResult Editar(Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditarOverride(callInfo, model);
             return callInfo;
         }
 
@@ -227,18 +250,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ObtenhaListaGridModelOverride(callInfo, request, model);
-            return callInfo;
-        }
-
-        partial void ObtenhaListaGridMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId);
-
-        public override System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel(Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
-            ObtenhaListaGridMatrizCorteModelOverride(callInfo, request, id, fichaTecnicaId);
             return callInfo;
         }
 

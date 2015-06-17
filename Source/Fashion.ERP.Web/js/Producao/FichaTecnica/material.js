@@ -54,6 +54,262 @@ function onContentLoadMaterial(e) {
     }
 
     reparseForm();
+
+    $("[name='pesquisarvarios-material-gridmaterialconsumomatriz']").on("click", function () {
+        configureParametroPesquisarVariosMateriaisPorTipoItem("2");
+        configureIdRequisicao("gridmaterialconsumomatriz");
+    });
+
+    $("[name='pesquisarvarios-material-gridmaterialconsumoitem']").on("click", function () {
+        configureParametroPesquisarVariosMateriaisPorTipoItem("2");
+        configureIdRequisicao("gridmaterialconsumoitem");
+    });
+
+    $("[name='pesquisarvarios-material-gridmaterialcomposicaocustoMatriz']").on("click", function () {
+        configureIdRequisicao("gridmaterialcomposicaocustoMatriz");
+    });
+
+    $("#selecionar-material").on("pesquisar", function (ev, itens) {
+        
+        if ($("#IdRequisicao").val() == "gridmaterialconsumomatriz") {
+            carregueGridMaterialConsumoMatriz(itens);
+        } else if ($("#IdRequisicao").val() == "gridmaterialconsumoitem") {
+            carregueGridMaterialConsumoItem(itens);
+        } else if ($("#IdRequisicao").val() == "gridmaterialcomposicaocustoMatriz") {
+            carregueGridMaterialComposicaoCustoMatriz(itens);
+        }
+    });
+
+    $('#formMaterial').submit(function (e) {
+        //e.preventDefault();
+        limpeMensagensAlerta();
+
+        var dataGridItens = $("#GridMaterialConsumoMatriz").data("kendoGrid").dataSource.data();
+
+        var mensagem = "";
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                mensagem += "Na grid de materiais de consumo geral o item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Custo == 0 || dataItem.Custo == null) {
+                mensagem += "Na grid de materiais de consumo geral o item de referência: " + dataItem.Referencia + " não tem valor na coluna custo unitário.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.DepartamentoProducao == '' || dataItem.DepartamentoProducao == null) {
+                mensagem += "Na grid de materiais de consumo geral o item de referência: " + dataItem.Referencia + " não tem valor na coluna departamento.<br/>";
+            }
+        }
+
+        dataGridItens = $("#GridMaterialConsumoItem").data("kendoGrid").dataSource.data();
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                mensagem += "Na grid de materiais de consumo por variação o item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Custo == 0 || dataItem.Custo == null) {
+                mensagem += "Na grid de materiais de consumo por variação o item de referência: " + dataItem.Referencia + " não tem valor na coluna custo unitário.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Tamanho == '' || dataItem.Tamanho == null) {
+                mensagem += "Na grid de materiais de consumo por variação o item de referência: " + dataItem.Referencia + " não tem valor na coluna tamanho.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Variacao == '' || dataItem.Variacao == null) {
+                mensagem += "Na grid de materiais de consumo por variação o item de referência: " + dataItem.Referencia + " não tem valor na coluna variação.<br/>";
+            }
+        }
+        
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.DepartamentoProducao == '' || dataItem.DepartamentoProducao == null) {
+                mensagem += "Na grid de materiais de consumo por variação o item de referência: " + dataItem.Referencia + " não tem valor na coluna departamento.<br/>";
+            }
+        }
+
+        dataGridItens = $("#GridMaterialComposicaoCustoMatriz").data("kendoGrid").dataSource.data();
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Custo == 0 || dataItem.Custo == null) {
+                mensagem += "Na grid de materiais de composição de custo o item de referência: " + dataItem.Referencia + " não tem valor na coluna custo.<br/>";
+            }
+        }
+
+        if (mensagem != "") {
+            e.preventDefault();
+            exibaAlertaErro(mensagem);
+            $('#btnSubmit').button('reset');
+            return false;
+        }
+
+        return true;
+    });
+}
+
+function carregueGridMaterialConsumoMatriz(itens) {
+    if (itens.DataItemsSelecionados.length == 0) {
+        return;
+    }
+
+    var grid = $('#GridMaterialConsumoMatriz').data("kendoGrid");
+    var model = grid.dataSource.options.schema.model;
+    var dadosAtuais = grid.dataSource.data();
+    var novosDados = itens.DataItemsSelecionados;
+
+
+    for (var i = 0; i < novosDados.length; i++) {
+        var dataItemNovo = novosDados[i];
+
+        for (var j = 0; j < dadosAtuais.length; j++) {
+            var dataItemAtual = dadosAtuais[j];
+            if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                dataItemNovo.Descartado = true;
+            }
+        }
+        if (!dataItemNovo.Descartado) {
+            var dataItemNovoFinal = {
+                Referencia: dataItemNovo.Referencia,
+                Descricao: dataItemNovo.Descricao,
+                UnidadeMedida: dataItemNovo.UnidadeMedida,
+                Id: 0,
+                Quantidade: 0,
+                Custo: 0,
+                CustoTotal: 0,
+                DepartamentoProducao: ''
+            };
+
+            dadosAtuais.unshift(dataItemNovoFinal);
+        }
+    }
+
+    var dataSource = new kendo.data.DataSource({
+        data: dadosAtuais,
+        schema: {
+            model: model
+        }
+    });
+    dataSource.read();
+    grid.setDataSource(dataSource);
+    grid.refresh();
+}
+
+function carregueGridMaterialConsumoItem(itens) {
+    if (itens.DataItemsSelecionados.length == 0) {
+        return;
+    }
+
+    var grid = $('#GridMaterialConsumoItem').data("kendoGrid");
+    var model = grid.dataSource.options.schema.model;
+    var dadosAtuais = grid.dataSource.data();
+    var novosDados = itens.DataItemsSelecionados;
+
+
+    for (var i = 0; i < novosDados.length; i++) {
+        var dataItemNovo = novosDados[i];
+
+        for (var j = 0; j < dadosAtuais.length; j++) {
+            var dataItemAtual = dadosAtuais[j];
+            if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                dataItemNovo.Descartado = true;
+            }
+        }
+        if (!dataItemNovo.Descartado) {
+            var dataItemNovoFinal = {
+                Referencia: dataItemNovo.Referencia,
+                Descricao: dataItemNovo.Descricao,
+                UnidadeMedida: dataItemNovo.UnidadeMedida,
+                Id: 0,
+                Quantidade: 0,
+                Custo: 0,
+                CustoTotal: 0,
+                DepartamentoProducao: '',
+                Tamanho: '',
+                Variacao: '',
+                CompoeCusto: ''
+            };
+
+            dadosAtuais.unshift(dataItemNovoFinal);
+        }
+    }
+
+    var dataSource = new kendo.data.DataSource({
+        data: dadosAtuais,
+        schema: {
+            model: model
+        }
+    });
+    dataSource.read();
+    grid.setDataSource(dataSource);
+    grid.refresh();
+}
+
+function carregueGridMaterialComposicaoCustoMatriz(itens) {
+    if (itens.DataItemsSelecionados.length == 0) {
+        return;
+    }
+
+    var grid = $('#GridMaterialComposicaoCustoMatriz').data("kendoGrid");
+    var model = grid.dataSource.options.schema.model;
+    var dadosAtuais = grid.dataSource.data();
+    var novosDados = itens.DataItemsSelecionados;
+
+
+    for (var i = 0; i < novosDados.length; i++) {
+        var dataItemNovo = novosDados[i];
+
+        for (var j = 0; j < dadosAtuais.length; j++) {
+            var dataItemAtual = dadosAtuais[j];
+            if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                dataItemNovo.Descartado = true;
+            }
+        }
+        if (!dataItemNovo.Descartado) {
+            var dataItemNovoFinal = {
+                Referencia: dataItemNovo.Referencia,
+                Descricao: dataItemNovo.Descricao,
+                UnidadeMedida: dataItemNovo.UnidadeMedida,
+                Id: 0,
+                Quantidade: 0,
+                Custo: 0,
+                CustoTotal: 0,
+                DepartamentoProducao: '',
+                Tamanho: '',
+                Variacao: '',
+                CompoeCusto: ''
+            };
+
+            dadosAtuais.unshift(dataItemNovoFinal);
+        }
+    }
+
+    var dataSource = new kendo.data.DataSource({
+        data: dadosAtuais,
+        schema: {
+            model: model
+        }
+    });
+    dataSource.read();
+    grid.setDataSource(dataSource);
+    grid.refresh();
 }
 
 function reparseForm() {
@@ -79,36 +335,20 @@ function error_handler(e) {
 }
 
 function onEditGridMaterialConsumoMatriz(e) {
-    $("#formMaterial #Descricao").attr("readonly", true);
-    //$("#Descricao").width('86%');
-    $("#formMaterial #UnidadeMedida").attr("readonly", true);
-    $("#formMaterial #UnidadeMedida").addClass("input-small");
-    
-    //$("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
-    if (!e.model.isNew()) {
-        $("#formMaterial #Referencia").attr("readonly", true);
-        $("#formMaterial #pesquisar-material").attr("disabled", true);
+
+    if (e.container.index() == 1 || e.container.index() == 2 || e.container.index() == 3 || e.container.index() == 6) {
+        this.closeCell();
     }
-
-    $("#formMaterial #CustoTotal").data("kendoNumericTextBox").enable(false);
-    $("#formMaterial #CustoTotal").data("kendoNumericTextBox").wrapper
-           .find(".k-numeric-wrap")
-           .addClass("expand-padding")
-           .find(".k-select").hide();
-
-    //$('#Referencia').change(function (evt) {
-    //    limpeLinhaGridMaterialConsumoMatriz();
-    //});
 
     registreScriptsGridMaterialConsumoMatriz();
 }
 
 function registreScriptsGridMaterialConsumoMatriz() {
-    $("#formMaterial #Quantidade.k-input").change(function (e) {
+    $("#formMaterial #Quantidade").blur(function (e) {
         atualizeCustoTotalGridMaterialConsumoMatriz(e.target);
     });
 
-    $("#formMaterial #Custo.k-input").change(function (e) {
+    $("#formMaterial #Custo").blur(function (e) {
         atualizeCustoTotalGridMaterialConsumoMatriz(e.target);
     });
 }
@@ -125,65 +365,26 @@ function obtenhaDataItemGridMaterialConsumoMatriz(target) {
     return grid.dataItem(row);
 }
 
-//function limpeLinhaGridMaterialConsumoMatriz() {
-//    var gridItens = $('#formMaterial #GridMaterialConsumoMatriz').data("kendoGrid");
-//    var tr = $("#Referencia").closest("tr");
-//    var dataGridItens = gridItens.dataItem(tr);
-
-//    dataGridItens.set("Descricao", null);
-//    dataGridItens.set("Referencia", null);
-//    dataGridItens.set("UnidadeMedida", null);
-//    dataGridItens.set("Custo", null);
-//    dataGridItens.set("CustoTotal", null);
-//    dataGridItens.set("Quantidade", null);
-//    dataGridItens.set("DepartamentoProducao", null);
-//}
-
 function indexGridMaterialConsumoItem(dataItem) {
     var data = $("#GridMaterialConsumoItem").data("kendoGrid").dataSource.data();
     return data.indexOf(dataItem);
 }
 
 function onEditGridMaterialConsumoItem(e) {
-    $("#formMaterial #Descricao").attr("readonly", true);
-    //$("#Descricao").width('86%');
-    $("#formMaterial #UnidadeMedida").attr("readonly", true);
-    $("#formMaterial #UnidadeMedida").addClass("input-small");
 
-    //$("#Quantidade").data("kendoNumericTextBox").wrapper.width("100px");
-    if (!e.model.isNew()) {
-        $("#formMaterial #Referencia").attr("readonly", true);
-        $("#formMaterial #pesquisar-material").attr("disabled", true);
+    if (e.container.index() == 3 || e.container.index() == 4 || e.container.index() == 5 || e.container.index() == 8) {
+        this.closeCell();
     }
-
-    $("#formMaterial #CustoTotal").data("kendoNumericTextBox").enable(false);
-    $("#formMaterial #CustoTotal").data("kendoNumericTextBox").wrapper
-           .find(".k-numeric-wrap")
-           .addClass("expand-padding")
-           .find(".k-select").hide();
-
+    
     registreScriptsGridMaterialConsumoItem();
 }
 
-//function limpeGridMaterialConsumoItem() {
-
-//    var dataGridItem = obtenhaDataItemGridMaterialConsumoItem($("#Referencia"));
-
-//    dataGridItem.set("Descricao", null);
-//    dataGridItem.set("Referencia", null);
-//    dataGridItem.set("UnidadeMedida", null);
-//    dataGridItem.set("Custo", null);
-//    dataGridItem.set("CustoTotal", null);
-//    dataGridItem.set("Quantidade", null);
-//    dataGridItem.set("DepartamentoProducao", null);
-//}
-
 function registreScriptsGridMaterialConsumoItem() {
-    $("#formMaterial #Quantidade.k-input").change(function (e) {
+    $("#formMaterial #Quantidade.k-input").blur(function (e) {
         atualizeCustoTotalGridMaterialConsumoMatriz(e.target);
     });
 
-    $("#formMaterial #Custo.k-input").change(function (e) {
+    $("#formMaterial #Custo.k-input").blur(function (e) {
         atualizeCustoTotalGridMaterialConsumoItem(e.target);
     });
 }
@@ -200,24 +401,43 @@ function obtenhaDataItemGridMaterialConsumoItem(target) {
     return grid.dataItem(row);
 }
 
+
+function onEditGridMaterialComposicaoCustoMatriz(e) {
+
+    if (e.container.index() == 1 || e.container.index() == 2 || e.container.index() == 3) {
+        this.closeCell();
+    }
+}
+
 (function ($, kendo) {
     $.extend(true, kendo.ui.validator, {
         rules: {
-            referenciamaterialvalidation: function (input, params) {
-                if (input.is("[name='Referencia']")) {
-                    return input.val() != '';
+            quantidadevalidation: function (input, params) {
+                if (input.is("[name='Quantidade']") && input.val()) {
+                    return input.val() != 0 && input.val() != '';
+                }
+                return true;
+            },
+            custovalidation: function (input, params) {
+                if (input.is("[name='Custo']")) {
+                    return input.val() != 0 && input.val() != '';
                 }
                 return true;
             }
         },
         messages: {
-            referenciamaterialvalidation: function (input) {
-                input.attr("data-referenciamaterialvalidation-msg", "O material deve ser selecionado");
-                return input.attr("data-referenciamaterialvalidation-msg");
+            quantidadevalidation: function (input) {
+                input.attr("data-quantidadevalidation-msg", "A Qtd. não pode ser 0.");
+                return input.attr("data-quantidadevalidation-msg");
+            },
+            custovalidation: function (input) {
+                input.attr("data-custovalidation-msg", "O custo não pode ser 0.");
+                return input.attr("data-custovalidation-msg");
             }
         }
     });
 })(jQuery, kendo);
+
 
 function indexGridMaterialComposicaoCustoMatriz(dataItem) {
     var data = $("#GridMaterialComposicaoCustoMatriz").data("kendoGrid").dataSource.data();

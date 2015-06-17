@@ -461,6 +461,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 {
                     NovoMaterialConsumoMatriz(domain, x);
                 }
+                else
+                {
+                    var materialConsumo = domain.MateriaisConsumo.First(y => y.Id == x.Id);
+
+                    materialConsumo.Custo = x.Custo.Value;
+                    materialConsumo.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
+                    materialConsumo.Quantidade = x.Quantidade.Value;
+                }
             });
         }
 
@@ -487,6 +495,19 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 if (!x.Id.HasValue || x.Id == 0)
                 {
                     NovoMaterialConsumoItem(domain, x);
+                }
+                else
+                {
+                    var materialConsumoVariacao = domain.MateriaisConsumoVariacao.First(y => y.Id == x.Id);
+
+                    materialConsumoVariacao.Custo = x.Custo.Value;
+                    materialConsumoVariacao.CompoeCusto = x.CompoeCusto.Value;
+                    materialConsumoVariacao.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
+                    materialConsumoVariacao.Quantidade = x.Quantidade.Value;
+                    materialConsumoVariacao.Tamanho = _tamanhoRepository.Load(long.Parse(x.Tamanho));
+                    materialConsumoVariacao.FichaTecnicaVariacaoMatriz =
+                        ObtenhaFichaTecnicaVariacaoMatriz(domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs,
+                            x.Variacao);
                 }
             });
         }
@@ -524,6 +545,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 {
                     NovoMaterialComposicaoCustoMatriz(domain, x);
                 }
+                else
+                {
+                    var materialComposicaoCusto = domain.MateriaisComposicaoCusto.First(y => y.Id == x.Id);
+
+                    materialComposicaoCusto.Custo = x.Custo.Value;
+                }
             });
         }
 
@@ -535,26 +562,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 Material = _materialRepository.Get(y => y.Referencia == gridMaterialComposicaoCustoMatrizModel.Referencia)
             });
         }
-
-        //protected virtual void EditarProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
-        //{
-        //    //_fichaTecnicaJeansRepository.SaveOrUpdate(domain);
-        //}
-
-        //protected virtual void NovoProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
-        //{
-        //    model.GridFichaTecnicaProcessos.ForEach(x => domain.FichaTecnicaSequenciaOperacionals.Add(new FichaTecnicaSequenciaOperacional()
-        //    {
-        //        Custo = x.Custo,
-        //        Tempo = x.Tempo,
-        //        PesoProdutividade = x.PesoProdutividade,
-        //        DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao)),
-        //        SetorProducao = _setorProducaoRepository.Load(long.Parse(x.SetorProducao)),
-        //        OperacaoProducao = _operacaoProducaoRepository.Load(long.Parse(x.OperacaoProducao)),
-        //    }));
-
-        //    _fichaTecnicaJeansRepository.Update(domain);
-        //}
         
         #endregion
         
@@ -741,99 +748,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public virtual ActionResult EditingInlineFichaTecnicaProcessos_Destroy([DataSourceRequest] DataSourceRequest request, FichaTecnicaProcessosModel fichaTecnicaProcessosModel)
         {
             return Json(new[] { fichaTecnicaProcessosModel }.ToDataSourceResult(request, ModelState));
-        }
-        #endregion
-
-        #region Actions GridMaterialConsumoMatriz
-        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
-        public virtual ActionResult EditingInlineMaterialConsumoMatriz_Read([DataSourceRequest] DataSourceRequest request)
-        {
-            return Json(request);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoMatriz_Create([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoMatriz_Update([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
-        {
-            //simula a persistência do item
-            var random = new Random();
-            int randomNumber = random.Next(0, 10000);
-            fichaTecnicaMaterialModel.Id = randomNumber * -1;
-
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoMatriz_Destroy([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoMatrizModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-        #endregion
-
-        #region Actions GridMaterialConsumoItem
-        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
-        public virtual ActionResult EditingInlineMaterialConsumoItem_Read([DataSourceRequest] DataSourceRequest request)
-        {
-            return Json(request);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoItem_Create([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoItem_Update([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
-        {
-            //simula a persistência do item
-            var random = new Random();
-            int randomNumber = random.Next(0, 10000);
-            fichaTecnicaMaterialModel.Id = randomNumber * -1;
-
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialConsumoItem_Destroy([DataSourceRequest] DataSourceRequest request, GridMaterialConsumoItemModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-        #endregion
-
-        #region Actions GridMaterialComposicaoCustoMatriz
-        //Não são utilizadas pois as alterações são realizadas no submit e não durante a edição
-        public virtual ActionResult EditingInlineMaterialComposicaoCustoMatriz_Read([DataSourceRequest] DataSourceRequest request)
-        {
-            return Json(request);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialComposicaoCustoMatriz_Create([DataSourceRequest] DataSourceRequest request, GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialComposicaoCustoMatriz_Update([DataSourceRequest] DataSourceRequest request, GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
-        {
-            //simula a persistência do item
-            var random = new Random();
-            int randomNumber = random.Next(0, 10000);
-            fichaTecnicaMaterialModel.Id = randomNumber * -1;
-
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public virtual ActionResult EditingInlineMaterialComposicaoCustoMatriz_Destroy([DataSourceRequest] DataSourceRequest request, GridMaterialComposicaoCustoMatrizModel fichaTecnicaMaterialModel)
-        {
-            return Json(new[] { fichaTecnicaMaterialModel }.ToDataSourceResult(request, ModelState));
         }
         #endregion
 
