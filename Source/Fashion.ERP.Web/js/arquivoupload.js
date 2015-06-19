@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-$(function () {
+function inicializeArquivoUpload() {
     var jcrop;
     var progress = $('.progress');
     var bar = $('.bar');
 
-    var sendFile = function () {
+    function sendFile() {
 
         var $inputFile = $(this);
         var $fileupload = $inputFile.closest('.fileupload');
@@ -58,8 +58,12 @@ $(function () {
                 }
             }); // ajaxSubmit
         }, 50); // setTimeout
-    }; // sendFile
+    }; // sendFile    
 
     // Ao mudar a imagem, submeter o formulário
     $('.fileupload input').on('change', sendFile);
+};
+
+$(function () {
+    inicializeArquivoUpload();
 })

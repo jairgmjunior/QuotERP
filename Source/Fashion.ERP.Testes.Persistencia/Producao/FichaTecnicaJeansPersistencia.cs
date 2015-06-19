@@ -38,6 +38,8 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private FichaTecnicaMaterialConsumo _materialConsumo;
         private FichaTecnicaMaterialConsumoVariacao _materialConsumoVariacao;
         private Pessoa _estilista;
+        private FichaTecnicaModelagem _fichaTecnicaModelagem;
+
         public override FichaTecnicaJeans GetPersistentObject()
         {
             var fichaTecnicaJeans = FabricaObjetos.ObtenhaFichaTecnicaJeans();
@@ -57,7 +59,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             fichaTecnicaJeans.FichaTecnicaSequenciaOperacionals.Add(_fichaTecnicaSequenciaOperacional);
             fichaTecnicaJeans.MateriaisComposicaoCusto.Add(_materialComposicaoCusto);
             fichaTecnicaJeans.MateriaisConsumo.Add(_materialConsumo);
-            
+            fichaTecnicaJeans.FichaTecnicaModelagem = _fichaTecnicaModelagem;
             return fichaTecnicaJeans;
         }
 
@@ -92,7 +94,6 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _fichaTecnicaMatriz.Grade = _grade;
             _fichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(_fichaTecnicaVariacaoMatriz);
             
-            //_fichaTecnicaMatriz.MaterialConsumoItems.Add(_materialConsumoItem);
             _fichaTecnicaFoto = FabricaObjetos.ObtenhaFichaTecnicaFoto();
             _fichaTecnicaFoto.Arquivo = _arquivo;
 
@@ -114,6 +115,17 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _materialConsumoVariacao.Tamanho = _tamanho;
             _materialConsumoVariacao.FichaTecnicaVariacaoMatriz = _fichaTecnicaVariacaoMatriz;
             
+            var fichaTecnicaModelagemMedida = FabricaObjetos.ObtenhaFichaTecnicaModelagemMedida();
+
+            var fichaTecnicaModelagemMedidaItem = FabricaObjetos.ObtenhaFichaTecnicaModelagemMedidaItem();
+            fichaTecnicaModelagemMedidaItem.Tamanho = _tamanho;
+            fichaTecnicaModelagemMedida.Itens.Add(fichaTecnicaModelagemMedidaItem);
+
+            _fichaTecnicaModelagem = FabricaObjetos.ObtenhaFichaTecnicaModelagem();
+            _fichaTecnicaModelagem.Modelista = _estilista;
+            _fichaTecnicaModelagem.Arquivo = FabricaObjetos.ObtenhaArquivo();
+            _fichaTecnicaModelagem.Medidas.Add(fichaTecnicaModelagemMedida);
+
             Session.Current.Flush();
         }
 

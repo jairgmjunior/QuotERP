@@ -32,6 +32,7 @@ namespace Fashion.ERP.Mapping.Producao
             References(x => x.ClassificacaoDificuldade);
             References(x => x.FichaTecnicaMatriz).Cascade.All();
             References(x => x.Estilista).Nullable();
+            References(x => x.FichaTecnicaModelagem).Nullable().Cascade.All();
 
             HasMany(x => x.FichaTecnicaSequenciaOperacionals)
                 .Not.KeyNullable()

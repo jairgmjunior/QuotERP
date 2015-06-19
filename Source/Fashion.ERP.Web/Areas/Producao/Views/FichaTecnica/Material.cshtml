@@ -11,7 +11,7 @@
     <input type="hidden" id="TamanhosDicionario_Material" data-value = "@ViewBag.TamanhosDicionarioJson_Material" />
     <hr />
     <fieldset>
-        <legend>Materiais de Consumo Geral</legend>
+        <legend><small>Materiais de Consumo Geral</small></legend>
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridMaterialConsumoMatriz)
                         .Name("GridMaterialConsumoMatriz")
@@ -54,7 +54,7 @@
     </fieldset>
     <hr />
     <fieldset>
-        <legend>Materiais de Consumo Por Variação</legend>
+        <legend><small>Materiais de Consumo Por Variação</small></legend>
             <div class="control-group">
                     @(Html.Kendo().Grid(Model.GridMaterialConsumoItem)
                           .Name("GridMaterialConsumoItem")
@@ -103,7 +103,7 @@
     </fieldset>
     <hr />
     <fieldset>
-        <legend>Materiais de Composição de Custo</legend>
+        <legend><small>Materiais de Composição de Custo</small></legend>
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridMaterialComposicaoCustoMatriz)
                     .Name("GridMaterialComposicaoCustoMatriz")

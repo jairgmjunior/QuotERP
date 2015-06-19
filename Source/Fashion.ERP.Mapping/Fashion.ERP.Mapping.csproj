@@ -92,6 +92,9 @@
     <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacaoMap.cs" />
+    <Compile Include="Producao\FichaTecnicaModelagemMedidaItemMap.cs" />
+    <Compile Include="Producao\FichaTecnicaModelagemMedidaMap.cs" />
+    <Compile Include="Producao\FichaTecnicaModelagemMap.cs" />
     <Compile Include="Producao\ProgramacaoProducaoMatrizCorteItemMap.cs" />
     <Compile Include="Producao\ProgramacaoProducaoMap.cs" />
     <Compile Include="Producao\OrdemProducaoFluxoBasicoMap.cs" />

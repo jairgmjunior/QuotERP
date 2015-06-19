@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
@@ -45,6 +46,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<OperacaoProducao> _operacaoProducaoRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
         private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<Arquivo> _arquivoRepository;
+        private readonly IRepository<Pessoa> _pessoaRepository;
 
         private readonly ILogger _logger;
         #endregion
@@ -70,7 +73,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             IRepository<DepartamentoProducao> departamentoProducaoRepository,
             IRepository<OperacaoProducao> operacaoProducaoRepository,
             IRepository<Tamanho> tamanhoRepository,
-            IRepository<Material> materialRepository)
+            IRepository<Material> materialRepository,
+            IRepository<Arquivo> arquivoRepository,
+            IRepository<Pessoa> pessoaRepository)
         {
             _fichaTecnicaRepository = fichaTecnicaRepository;
             _fichaTecnicaJeansRepository = fichaTecnicaJeansRepository;
@@ -93,6 +98,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _operacaoProducaoRepository = operacaoProducaoRepository;
             _tamanhoRepository = tamanhoRepository;
             _materialRepository = materialRepository;
+            _arquivoRepository = arquivoRepository;
+            _pessoaRepository = pessoaRepository;
         }
         #endregion
 
@@ -564,7 +571,158 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         
         #endregion
-        
+
+        #region Modelagem
+
+        [PopulateViewData("PopulateViewDataModelagem")]
+        public virtual ActionResult Modelagem(long? fichaTecnicaId)
+        {
+            if (!fichaTecnicaId.HasValue)
+            {
+                return PartialView("Modelagem", new FichaTecnicaModelagemModel());
+            }
+            
+            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+
+            if (domain != null)
+            {
+                if (domain.FichaTecnicaModelagem == null)
+                {
+                    var model = new FichaTecnicaModelagemModel
+                    {
+                        Id = domain.Id,
+                        GridMedidas = new List<GridFichaTecnicaModelagemMedidaModel>(),
+                    };
+                    return PartialView("Modelagem", model);
+                }
+                else
+                {
+                    var model = new FichaTecnicaModelagemModel
+                    {
+                        Id = domain.Id,
+                        DataModelagem = domain.FichaTecnicaModelagem.DataModelagem,
+                        Observacao = domain.FichaTecnicaModelagem.Observacao,
+                        Modelista = domain.FichaTecnicaModelagem.Modelista.Id,
+                        NomeArquivoUpload =
+                            domain.FichaTecnicaModelagem.Arquivo != null
+                                ? domain.FichaTecnicaModelagem.Arquivo.Nome
+                                : null,
+                        Arquivo = domain.FichaTecnicaModelagem.Arquivo != null
+                                ? domain.FichaTecnicaModelagem.Arquivo.Id
+                                : null,
+                        GridMedidas = new List<GridFichaTecnicaModelagemMedidaModel>()
+                    };
+
+                    domain.FichaTecnicaModelagem.Medidas.ForEach(
+                        x => x.Itens.ForEach(y => model.GridMedidas.Add(new GridFichaTecnicaModelagemMedidaModel()
+                        {
+                            Id = 0,
+                            DescricaoMedida = x.DescricaoMedida,
+                            Medida = y.Medida,
+                            Tamanho = y.Tamanho.Id.ToString()
+                        })));
+
+                    return PartialView("Modelagem", model);
+                }
+            }
+
+            this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
+
+            return PartialView("Modelagem", new FichaTecnicaModelagemModel());
+        }
+
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataModelagem")]
+        public virtual ActionResult Modelagem(FichaTecnicaModelagemModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var domain = _fichaTecnicaJeansRepository.Get(model.Id);
+
+                    if (domain.FichaTecnicaModelagem == null)
+                    {
+                        Arquivo arquivo = null;
+                        if (!string.IsNullOrEmpty(model.NomeArquivoUpload))
+                        {
+                            arquivo = _arquivoRepository.Save(ArquivoController.SalvarArquivo(model.NomeArquivoUpload));
+                        }
+
+                        var fichaTecnicaModelagem = new FichaTecnicaModelagem();
+                        fichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
+                        fichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
+                        fichaTecnicaModelagem.Observacao = model.Observacao;
+                        fichaTecnicaModelagem.Arquivo = arquivo;
+                        domain.FichaTecnicaModelagem = fichaTecnicaModelagem;
+
+                        AtualizeFichaTecnicaModelageMedida(model, domain);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(model.NomeArquivoUpload))
+                        {
+                            domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
+                            domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
+                            domain.FichaTecnicaModelagem.Observacao = model.Observacao;
+                            
+                            var nomeArquivo = domain.FichaTecnicaModelagem.Arquivo != null ? domain.FichaTecnicaModelagem.Arquivo.Nome : "";
+                            if (nomeArquivo != model.NomeArquivoUpload)
+                            {
+                                domain.FichaTecnicaModelagem.Arquivo = _arquivoRepository.Save(ArquivoController.SalvarArquivo(model.NomeArquivoUpload));
+                            }
+
+                            domain.FichaTecnicaModelagem.Medidas.Clear();
+                            AtualizeFichaTecnicaModelageMedida(model, domain);
+                        }
+                    }
+                    
+                    _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
+
+                    this.AddSuccessMessage("Dados da modelagem da ficha técnica salvos/atualizados com sucesso.");
+
+                    return RedirectToAction("Editar", new { domain.Id });
+                }
+                catch (Exception exception)
+                {
+                    this.AddErrorMessage("Não é possível salvar/atualizar os dados da modelagem da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return RedirectToAction("Editar", new { model.Id });
+        }
+
+        private void AtualizeFichaTecnicaModelageMedida(FichaTecnicaModelagemModel model, FichaTecnicaJeans domain)
+        {
+            if (model.GridMedidas == null)
+                return;
+
+            var grupoMedidas = model.GridMedidas.GroupBy(x => new {x.DescricaoMedida},
+                (chave, grupo) => new {chave, grupo});
+
+            grupoMedidas.ForEach(x =>
+            {
+                var fichaTecnicaModelgemMedida = new FichaTecnicaModelagemMedida()
+                {
+                    DescricaoMedida = x.chave.DescricaoMedida
+                };
+
+                x.grupo.ForEach(y =>
+                {
+                    var fichaTecnicaModelagemItem = new FichaTecnicaModelagemMedidaItem()
+                    {
+                        Medida = y.Medida,
+                        Tamanho = _tamanhoRepository.Load(long.Parse(y.Tamanho))
+                    };
+                    fichaTecnicaModelgemMedida.Itens.Add(fichaTecnicaModelagemItem);
+                });
+
+                domain.FichaTecnicaModelagem.Medidas.Add(fichaTecnicaModelgemMedida);
+            });
+        }
+
+        #endregion
+
         #region Editar
 
         public virtual ActionResult Editar(long id)
@@ -661,7 +819,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var operacaoProducaos = _operacaoProducaoRepository.Find(p => p.Ativo).ToList();
             ViewBag.OperacaoProducaosDicionarioJson = operacaoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
-        
+
         protected void PopulateViewDataMaterial(FichaTecnicaMaterialModel model)
         {
             var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
@@ -679,13 +837,29 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ViewBag.VariacaoFichaTecnicas = variacaos.Select(s => new { Id = s.Id.ToString(), s.Nome }).OrderBy(x => x.Nome);
             //ViewBag.VariacaosDicionario_Material = variacaos.ToDictionary(k => k.Id, e => e.Nome);
             ViewBag.VariacaosDicionarioJson_Material = variacaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
-            
+
             var dicionarioTamanhos = fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos;
             var tamanhoLista = dicionarioTamanhos.Keys;
 
             ViewBag.TamanhoGrades = tamanhoLista.Select(s => new { Id = s.Id.ToString(), s.Descricao }).OrderBy(x => x.Descricao);
             //ViewBag.TamanhosDicionario_Material = tamanhoLista.ToDictionary(k => k.Id, e => e.Descricao);
             ViewBag.TamanhosDicionarioJson_Material = tamanhoLista.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
+        }
+        
+        protected void PopulateViewDataModelagem(FichaTecnicaModelagemModel model)
+        {
+            if (!model.Id.HasValue)
+            {
+                return;
+            }
+
+            var fichaTecnica = _fichaTecnicaJeansRepository.Get(model.Id);
+         
+            var dicionarioTamanhos = fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos;
+            var tamanhoLista = dicionarioTamanhos.Keys;
+
+            ViewBag.TamanhoGrades = tamanhoLista.Select(s => new { Id = s.Id.ToString(), s.Descricao }).OrderBy(x => x.Descricao);
+            ViewBag.TamanhosDicionarioJson_Modelagem = tamanhoLista.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
         #endregion
         

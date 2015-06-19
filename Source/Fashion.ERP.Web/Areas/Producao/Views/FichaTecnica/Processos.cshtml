@@ -11,7 +11,7 @@
         <input type="hidden" id="DepartamentoProducaosDicionario" data-value = "@ViewBag.DepartamentoProducaosDicionarioJson" />
         <input type="hidden" id="SetorProducaosDicionario" data-value = "@ViewBag.SetorProducaosDicionarioJson" />
         <input type="hidden" id="OperacaoProducaosDicionario" data-value = "@ViewBag.OperacaoProducaosDicionarioJson" />
-        <legend>Processos Operacionais</legend>
+        <legend><small>Processos Operacionais</small></legend>
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridFichaTecnicaProcessos)
                     .Name("GridFichaTecnicaProcessos")

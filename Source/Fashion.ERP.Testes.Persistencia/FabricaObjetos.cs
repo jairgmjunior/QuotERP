@@ -1177,6 +1177,31 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Producao
 
+        public FichaTecnicaModelagem ObtenhaFichaTecnicaModelagem()
+        {
+            return new FichaTecnicaModelagem()
+            {
+                DataModelagem = new DateTime(2015, 1, 1),
+                Observacao = "OBSERVAÇÃO"
+            };
+        }
+
+        public FichaTecnicaModelagemMedida ObtenhaFichaTecnicaModelagemMedida()
+        {
+            return new FichaTecnicaModelagemMedida()
+            {
+                DescricaoMedida = "DESCRIÇÃO MEDIDA"
+            };
+        }
+
+        public FichaTecnicaModelagemMedidaItem ObtenhaFichaTecnicaModelagemMedidaItem()
+        {
+            return new FichaTecnicaModelagemMedidaItem()
+            {
+                Medida = 1.1
+            };
+        }
+
         public FichaTecnicaMaterialConsumoVariacao ObtenhaMaterialConsumoItem()
         {
             return new FichaTecnicaMaterialConsumoVariacao

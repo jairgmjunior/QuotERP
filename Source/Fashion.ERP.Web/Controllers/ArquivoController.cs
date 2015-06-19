@@ -63,7 +63,7 @@ namespace Fashion.ERP.Web.Controllers
             var arquivo = _arquivoRepository.Get(id);
 
             if (arquivo != null)
-                return File(arquivo.Nome.GetFilePath());
+                return File(arquivo.Nome.GetFilePath(), "application/octet-stream", arquivo.Nome);
 
             return new HttpStatusCodeResult(404);
         }

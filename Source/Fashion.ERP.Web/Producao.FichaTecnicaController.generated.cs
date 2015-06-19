@@ -61,6 +61,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Modelagem()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Modelagem);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -158,6 +164,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Basicos = "Basicos";
             public readonly string Processos = "Processos";
             public readonly string Material = "Material";
+            public readonly string Modelagem = "Modelagem";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditingInline_Read = "EditingInline_Read";
@@ -182,6 +189,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Basicos = "Basicos";
             public const string Processos = "Processos";
             public const string Material = "Material";
+            public const string Modelagem = "Modelagem";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditingInline_Read = "EditingInline_Read";
@@ -222,6 +230,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public ActionParamsClass_Material MaterialParams { get { return s_params_Material; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Material
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Modelagem s_params_Modelagem = new ActionParamsClass_Modelagem();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Modelagem ModelagemParams { get { return s_params_Modelagem; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Modelagem
         {
             public readonly string fichaTecnicaId = "fichaTecnicaId";
             public readonly string model = "model";
@@ -351,6 +368,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string Material = "Material";
+                public readonly string Modelagem = "Modelagem";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
                 public readonly string Processos = "Processos";
@@ -360,6 +378,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Editar = "~/Areas/Producao/Views/FichaTecnica/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
             public readonly string Material = "~/Areas/Producao/Views/FichaTecnica/Material.cshtml";
+            public readonly string Modelagem = "~/Areas/Producao/Views/FichaTecnica/Modelagem.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/FichaTecnica/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Producao/Views/FichaTecnica/Pesquisar.cshtml";
             public readonly string Processos = "~/Areas/Producao/Views/FichaTecnica/Processos.cshtml";
@@ -446,6 +465,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Material);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             MaterialOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void ModelagemOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.ActionResult Modelagem(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Modelagem);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            ModelagemOverride(callInfo, fichaTecnicaId);
+            return callInfo;
+        }
+
+        partial void ModelagemOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaModelagemModel model);
+
+        public override System.Web.Mvc.ActionResult Modelagem(Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaModelagemModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Modelagem);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelagemOverride(callInfo, model);
             return callInfo;
         }
 

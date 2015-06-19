@@ -37,9 +37,8 @@ namespace Fashion.ERP.Domain.Producao
         public virtual Natureza Natureza { get; set; }
         public virtual ClassificacaoDificuldade ClassificacaoDificuldade { get; set; }
         public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
-        
         public virtual Pessoa Estilista { get; set; }
-
+        public virtual FichaTecnicaModelagem FichaTecnicaModelagem { get; set; }
 
         //public virtual int? Variante { get; set; }
 

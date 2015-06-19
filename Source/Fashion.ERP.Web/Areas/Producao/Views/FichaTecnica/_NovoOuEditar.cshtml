@@ -16,6 +16,10 @@
             .Selected(false)
             .Enabled(true)
             .LoadContentFrom("Material", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
+        tabstrip.Add().Text("Modelagem")
+            .Selected(false)
+            .Enabled(true)
+            .LoadContentFrom("Modelagem", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
     }).SelectedIndex(0)
 )
 
@@ -23,24 +27,29 @@
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
 }
 
+@Scripts.Render("~/js/arquivoupload.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/basicos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/processos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/material.js")
+@Scripts.Render("~/js/Producao/FichaTecnica/modelagem.js")
 
 <script>
     $(document).ready(function(e) {
         var tabStrip = $("#tabstrip").data("kendoTabStrip");
         var tabProcessos = $('li[aria-controls="tabstrip-2"]');
         var tabMateriais = $('li[aria-controls="tabstrip-3"]');
+        var tabModelagem = $('li[aria-controls="tabstrip-4"]');
 
         tabStrip.enable(tabProcessos, false);
         tabStrip.enable(tabMateriais, false);
+        tabStrip.enable(tabModelagem, false);
     });
 
     function onContentLoad(e) {
         onContentLoadBasicos(e);
         onContentLoadProcessos(e);
         onContentLoadMaterial(e);
+        onContentLoadModelagem(e);
     }
 
     function formateDecimalGrid(valor) {
