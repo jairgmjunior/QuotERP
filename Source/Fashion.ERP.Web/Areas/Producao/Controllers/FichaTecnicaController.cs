@@ -581,7 +581,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {
                 return PartialView("Modelagem", new FichaTecnicaModelagemModel());
             }
-            
+
             var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
 
             if (domain != null)
@@ -664,7 +664,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
                             domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
                             domain.FichaTecnicaModelagem.Observacao = model.Observacao;
-                            
+
                             var nomeArquivo = domain.FichaTecnicaModelagem.Arquivo != null ? domain.FichaTecnicaModelagem.Arquivo.Nome : "";
                             if (nomeArquivo != model.NomeArquivoUpload)
                             {
@@ -675,7 +675,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             AtualizeFichaTecnicaModelageMedida(model, domain);
                         }
                     }
-                    
+
                     _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Dados da modelagem da ficha técnica salvos/atualizados com sucesso.");
@@ -697,8 +697,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             if (model.GridMedidas == null)
                 return;
 
-            var grupoMedidas = model.GridMedidas.GroupBy(x => new {x.DescricaoMedida},
-                (chave, grupo) => new {chave, grupo});
+            var grupoMedidas = model.GridMedidas.GroupBy(x => new { x.DescricaoMedida },
+                (chave, grupo) => new { chave, grupo });
 
             grupoMedidas.ForEach(x =>
             {
@@ -721,6 +721,104 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             });
         }
 
+        #endregion
+        
+        #region Fotos
+        
+        public virtual ActionResult Fotos(long? fichaTecnicaId)
+        {
+            if (!fichaTecnicaId.HasValue)
+            {
+                return PartialView("Fotos", new FichaTecnicaFotosModel());
+            }
+
+            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+
+            var model = new FichaTecnicaFotosModel()
+            {
+                Id = fichaTecnicaId,
+                GridFotos = new List<GridFichaTecnicaFotosModel>()
+            };
+
+            if (domain != null)
+            {
+                domain.FichaTecnicaFotos.ForEach(domainFoto =>
+                {
+                    var modelFoto = new GridFichaTecnicaFotosModel()
+                    {
+                        Id = domainFoto.Id,
+                        FotoNome = domainFoto.Arquivo.Nome,
+                        FotoTitulo = domainFoto.Descricao,
+                        Padrao = domainFoto.Padrao,
+                        Impressao = domainFoto.Impressao,
+                    };
+                    model.GridFotos.Add(modelFoto);
+                });
+            }
+
+            return PartialView("Fotos", model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public virtual ActionResult Fotos(FichaTecnicaFotosModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var domain = _fichaTecnicaJeansRepository.Get(model.Id);
+
+                    if (model.GridFotos == null)
+                    {
+                        model.GridFotos = new List<GridFichaTecnicaFotosModel>();
+                    }
+
+                    model.GridFotos.ForEach(modelFoto =>
+                    {
+                        if (!modelFoto.Id.HasValue || modelFoto.Id.Value == 0)
+                        {
+                            var arquivo = _arquivoRepository.Save(ArquivoController.SalvarArquivo(modelFoto.FotoNome));
+                            
+                            var fichaTecnicaFoto = new FichaTecnicaFoto
+                            {
+                                Descricao = modelFoto.FotoTitulo,
+                                Arquivo = arquivo,
+                                Padrao = modelFoto.Padrao,
+                                Impressao = modelFoto.Impressao
+                            };
+                            domain.FichaTecnicaFotos.Add(fichaTecnicaFoto);    
+                        }
+                    });
+                    
+                    var fichaTecnicaFotosExcluir = new List<FichaTecnicaFoto>();
+
+                    domain.FichaTecnicaFotos.ForEach(domainFoto =>
+                    {
+                        var modelFoto = model.GridFotos.FirstOrDefault(x => x.FotoTitulo == domainFoto.Descricao);
+                        if (modelFoto == null)
+                        {
+                            fichaTecnicaFotosExcluir.Add(domainFoto);
+                        }
+                    });
+
+                    fichaTecnicaFotosExcluir.ForEach(domainFoto => domain.FichaTecnicaFotos.Remove(domainFoto));
+
+                    _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
+
+                    this.AddSuccessMessage("Dados das fotos da ficha técnica salvos/atualizados com sucesso.");
+
+                    return RedirectToAction("Editar", new { domain.Id });
+                }
+                catch (Exception exception)
+                {
+                    this.AddErrorMessage("Não é possível salvar/atualizar os dados das fotos da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return RedirectToAction("Editar", new { model.Id });
+        }
+        
         #endregion
 
         #region Editar

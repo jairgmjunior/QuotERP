@@ -13,10 +13,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe o modelista")]
         public DateTime? DataModelagem { get; set; }
         
-        [Display(Name = "Nome do arquivo")]
-        [StringLength(100, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
-        public string NomeArquivo { get; set; }
-        
         [Display(Name = "Observação")]
         [DataType(DataType.MultilineText)]
         [StringLength(250, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]

@@ -464,6 +464,8 @@
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Controllers\ProgramacaoProducaoController.cs" />
+    <Compile Include="Areas\Producao\Models\GridFichaTecnicaFotosModel.cs" />
+    <Compile Include="Areas\Producao\Models\FichaTecnicaFotosModel.cs" />
     <Compile Include="Areas\Producao\Models\FichaTecnicaModelagemModel.cs" />
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaModelagemMedidaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridProgramacaoProducaoModel.cs" />
@@ -1230,6 +1232,7 @@
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Modelagem.cshtml" />
+    <Content Include="Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1260,6 +1263,7 @@
     <Content Include="js\formatacao.js" />
     <Content Include="js\fotoupload.js" />
     <Content Include="js\Producao\FichaTecnica\basicos.js" />
+    <Content Include="js\Producao\FichaTecnica\fotos.js" />
     <Content Include="js\Producao\FichaTecnica\modelagem.js" />
     <Content Include="js\Producao\FichaTecnica\material.js" />
     <Content Include="js\Producao\FichaTecnica\processos.js" />

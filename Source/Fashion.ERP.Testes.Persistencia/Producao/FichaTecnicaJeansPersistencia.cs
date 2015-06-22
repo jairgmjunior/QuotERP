@@ -39,7 +39,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private FichaTecnicaMaterialConsumoVariacao _materialConsumoVariacao;
         private Pessoa _estilista;
         private FichaTecnicaModelagem _fichaTecnicaModelagem;
-
+        
         public override FichaTecnicaJeans GetPersistentObject()
         {
             var fichaTecnicaJeans = FabricaObjetos.ObtenhaFichaTecnicaJeans();
@@ -60,6 +60,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             fichaTecnicaJeans.MateriaisComposicaoCusto.Add(_materialComposicaoCusto);
             fichaTecnicaJeans.MateriaisConsumo.Add(_materialConsumo);
             fichaTecnicaJeans.FichaTecnicaModelagem = _fichaTecnicaModelagem;
+            fichaTecnicaJeans.FichaTecnicaFotos.Add(_fichaTecnicaFoto);
             return fichaTecnicaJeans;
         }
 

@@ -20,6 +20,10 @@
             .Selected(false)
             .Enabled(true)
             .LoadContentFrom("Modelagem", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
+        tabstrip.Add().Text("Fotos")
+            .Selected(false)
+            .Enabled(true)
+            .LoadContentFrom("Fotos", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
     }).SelectedIndex(0)
 )
 
@@ -28,10 +32,14 @@
 }
 
 @Scripts.Render("~/js/arquivoupload.js")
+@Scripts.Render("~/Scripts/jquery.Jcrop.js")
+@Scripts.Render("~/js/fotoupload.js")
+@*@Scripts.Render("~/Scripts/lightbox-2.6.min.js")*@
 @Scripts.Render("~/js/Producao/FichaTecnica/basicos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/processos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/material.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/modelagem.js")
+@Scripts.Render("~/js/Producao/FichaTecnica/fotos.js")
 
 <script>
     $(document).ready(function(e) {
@@ -39,10 +47,12 @@
         var tabProcessos = $('li[aria-controls="tabstrip-2"]');
         var tabMateriais = $('li[aria-controls="tabstrip-3"]');
         var tabModelagem = $('li[aria-controls="tabstrip-4"]');
+        var tabFotos = $('li[aria-controls="tabstrip-5"]');
 
         tabStrip.enable(tabProcessos, false);
         tabStrip.enable(tabMateriais, false);
         tabStrip.enable(tabModelagem, false);
+        tabStrip.enable(tabFotos, false);
     });
 
     function onContentLoad(e) {
@@ -50,6 +60,7 @@
         onContentLoadProcessos(e);
         onContentLoadMaterial(e);
         onContentLoadModelagem(e);
+        onContentLoadFotos(e);
     }
 
     function formateDecimalGrid(valor) {

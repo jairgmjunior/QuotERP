@@ -1,0 +1,120 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model FichaTecnicaFotosModel
+
+@using (Html.BeginForm(MVC.Producao.FichaTecnica.Fotos(), FormMethod.Post, new {id = "formFotos", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+    
+    <fieldset>
+        <legend><small>Fotos da Ficha Técnica</small></legend>
+            @(Html.Kendo().Grid(Model.GridFotos)
+                .Name("GridFotos").HtmlAttributes(new { style="width:600px"})
+                .Editable(e => e.Mode(GridEditMode.InCell))
+                .Navigatable()
+                .Columns(columns =>
+                {
+                    columns.Bound(x => x.Id).Hidden()
+                        .ClientTemplate("<input type='hidden' name='GridFotos[#= index(data)#].Id' value='#= Id #' />");
+                    columns.Bound(p => p.FotoTitulo).ClientTemplate("#= FotoTitulo #" +
+                        "<input type='hidden' name='GridFotos[#= index(data)#].FotoTitulo' value='#= FotoTitulo #' />");
+                    columns.Bound(p => p.Padrao).ClientTemplate("#= Padrao ? 'Sim' : 'Não' #" +
+                        "<input type='hidden' name='GridFotos[#= index(data)#].Padrao' value='#= Padrao #' />").Width(80);
+                    columns.Bound(p => p.Impressao).ClientTemplate("#= Impressao ? 'Sim' : 'Não' #" +
+                        "<input type='hidden' name='GridFotos[#= index(data)#].Impressao' value='#= Impressao #' />").Width(80);
+                    columns.Bound(x => x.FotoNome)
+                        .ClientTemplate("<input type='hidden' name='GridFotos[#= index(data)#].FotoNome' value='#= FotoNome #' />"
+                            +"<a href='/Arquivo/Foto?nomeFoto=#= FotoNome #' data-lightbox='fichatecnicafoto' title='#= FotoTitulo #' target = '_blank'>"
+                                +"<img src='/Arquivo/Thumbnail?nomeFoto=#= FotoNome #&width=68&height=68' class='img-rounded' style='width: 68px; height: 68px;'/></a>").Width(80);
+                    columns.Command(command => command.Destroy()).Width(100);
+                }
+                )
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("onKendoGridError"))
+                    .Model(model =>
+                    {
+                        model.Id(item => item.Id);        
+                        model.Field(item => item.Id).Editable(false).DefaultValue(0);                                    
+                    })
+                )
+                .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "incluirfoto", @href = "javascript:void(0)", @class = "btn-primary" }))
+                .Events(events => events.Edit("onEditGridFotos"))
+            )
+    </fieldset>    
+    <hr />
+    
+    <div class="form-actions">
+        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Fotos(), "btnSubmitFotos")        
+    </div>
+}
+
+<div id="modal-fichatecnicafoto" class="modal hide fade">
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Fotos</h3>
+    </div>
+    <div class="modal-body small-labels">
+        <form class="form-horizontal" role="form">
+            <div class="control-group">
+                <label class="control-label">Foto</label>
+                <div class="controls">
+                    <div class="clearfix">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="thumbnail">
+                                <img id="imagem-avatar" src="/Content/images/no_image.jpg" style="width: 150px; height: 150px;" />
+                            </div>
+                            <div>
+                                <span class="btn btn-file">
+                                    <span class="fileupload-new">Novo</span>
+                                    <span class="fileupload-exists">Alterar</span>
+                                    <input type="file" name="foto" />
+                                    <input type="hidden" id="FotoNome" name="FotoNome" />
+                                </span>
+                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress" style="display: none">
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Título</label>
+                <div class="controls">
+                    <input type="text" name="fototitulomodal" id="fototitulomodal" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Padrão</label>
+                <div class="controls">
+                    <select name="padraomodal">
+                        <option value="false">Não</option>
+                        <option value="true">Sim</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Impressão</label>
+                <div class="controls">
+                    <select name="impressaomodal">
+                        <option value="false">Não</option>
+                        <option value="true">Sim</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="btn-salvar-fichatecnicafoto" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+</div>
+
+<script>
+
+
+</script>

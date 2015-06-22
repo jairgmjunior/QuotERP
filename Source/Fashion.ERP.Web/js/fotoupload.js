@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-$(function () {
+function inicializeFotoUpload() {
     var jcrop;
     var progress = $('.progress');
     var bar = $('.bar');
@@ -9,16 +9,21 @@ $(function () {
 
         var $inputFile = $(this);
         var $fileupload = $inputFile.closest('.fileupload');
+        var inputFilename = $inputFile.siblings('input[name=FotoNome]');
 
         // Espera o componente completar a ação
         setTimeout(function () {
-            
+
             // Verifica se o input está apontando para algum arquivo
             if ($inputFile.val() == '') {
                 $('#imagem-avatar').attr("src", '/Content/images/no_image.jpg');
                 $('#FotoNome').val('');
                 return;
             }
+
+
+            // Buscar o input que será guardado o nome do arquivo salvo no disco
+            //inputFilename = $inputFile.siblings('input[name=FotoNome]');
 
             // Cria um formulário em memória para enviar o arquivo
             var form = $('<form action="/Arquivo/UploadFotoTemp" enctype="multipart/form-data" method="post"></form>');
@@ -32,19 +37,17 @@ $(function () {
             // Verificar se é para usar o Crop
             var useCrop = $fileupload.attr('data-crop') == 'crop';
 
-            // Buscar o input que será guardado o nome do arquivo salvo no disco
-            var inputFilename = inputFileClone.siblings('input[name=FotoNome]');
 
             // Envia a imagem via ajax
             form.ajaxSubmit({
                 dataType: 'json',
-                uploadProgress: function(event, position, total, percentComplete) {
+                uploadProgress: function (event, position, total, percentComplete) {
                     progress.show();
                     var percentVal = percentComplete + '%';
                     bar.width(percentVal);
                     console.log("upload: " + percentVal);
                 },
-                success: function(data) {
+                success: function (data) {
                     progress.hide();
                     bar.width("0%");
 
@@ -72,7 +75,7 @@ $(function () {
                                     $('#FotoNome').val('');
                                     return;
                                 }
-                                
+
                                 $('#urlTemp').val(data.url);
                                 $('#imagem-crop').attr('src', data.url);
                                 $("#modal-foto").modal('show');
@@ -85,7 +88,7 @@ $(function () {
                         $('#imagem-avatar').attr("src", data.url);
                     }
                 },
-                error: function(response, status, err) {
+                error: function (response, status, err) {
                     alert(err);
                 }
             }); // ajaxSubmit
@@ -153,4 +156,8 @@ $(function () {
         $("#h").val(parseInt(c.h));
         //console.log("x: " + c.x + "\r\ny: " + c.y + "\r\nw: " + c.w + "\r\nh: " + c.h);
     }
+}
+
+$(function () {
+    inicializeFotoUpload();
 })

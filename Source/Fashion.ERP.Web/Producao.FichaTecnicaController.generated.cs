@@ -67,6 +67,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Fotos()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fotos);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -165,6 +171,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Processos = "Processos";
             public readonly string Material = "Material";
             public readonly string Modelagem = "Modelagem";
+            public readonly string Fotos = "Fotos";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string EditingInline_Read = "EditingInline_Read";
@@ -190,6 +197,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Processos = "Processos";
             public const string Material = "Material";
             public const string Modelagem = "Modelagem";
+            public const string Fotos = "Fotos";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string EditingInline_Read = "EditingInline_Read";
@@ -239,6 +247,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public ActionParamsClass_Modelagem ModelagemParams { get { return s_params_Modelagem; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Modelagem
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Fotos s_params_Fotos = new ActionParamsClass_Fotos();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Fotos FotosParams { get { return s_params_Fotos; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Fotos
         {
             public readonly string fichaTecnicaId = "fichaTecnicaId";
             public readonly string model = "model";
@@ -366,6 +383,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Basicos = "Basicos";
                 public readonly string Editar = "Editar";
+                public readonly string Fotos = "Fotos";
                 public readonly string Index = "Index";
                 public readonly string Material = "Material";
                 public readonly string Modelagem = "Modelagem";
@@ -376,6 +394,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/FichaTecnica/_NovoOuEditar.cshtml";
             public readonly string Basicos = "~/Areas/Producao/Views/FichaTecnica/Basicos.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/FichaTecnica/Editar.cshtml";
+            public readonly string Fotos = "~/Areas/Producao/Views/FichaTecnica/Fotos.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
             public readonly string Material = "~/Areas/Producao/Views/FichaTecnica/Material.cshtml";
             public readonly string Modelagem = "~/Areas/Producao/Views/FichaTecnica/Modelagem.cshtml";
@@ -485,6 +504,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Modelagem);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ModelagemOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void FotosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.ActionResult Fotos(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fotos);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            FotosOverride(callInfo, fichaTecnicaId);
+            return callInfo;
+        }
+
+        partial void FotosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaFotosModel model);
+
+        public override System.Web.Mvc.ActionResult Fotos(Fashion.ERP.Web.Areas.Producao.Models.FichaTecnicaFotosModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fotos);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            FotosOverride(callInfo, model);
             return callInfo;
         }
 

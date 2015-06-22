@@ -42,6 +42,12 @@ namespace Fashion.ERP.Migrator
                 .Nullable()
                 .ForeignKey("FK_fichatecnica_fichatecnicamodelagem", "fichatecnicamodelagem", "id");
 
+            Alter.Table("fichatecnicafoto")
+                .AddColumn("fichatecnica_id")
+                .AsInt64()
+                .Nullable()
+                .ForeignKey("FK_fichatecnicafoto_fichatecnica", "fichatecnica", "id");
+
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201506171508.permissao.sql");
         }
 
