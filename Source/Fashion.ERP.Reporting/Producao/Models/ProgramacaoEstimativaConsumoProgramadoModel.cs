@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Fashion.ERP.Reporting.EngenhariaProduto.Models
+namespace Fashion.ERP.Reporting.Producao.Models
 {
-    public class ProgramacaoSolicitacaoMaterialCompraModel
+    public class ProgramacaoEstimativaConsumoProgramadoModel
     {
         public virtual DateTime Data { get; set; }
         public virtual double QuantidadeAprovada { get; set; }

@@ -148,7 +148,6 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioController Relatorio = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioMateriaisModelosAprovadosController RelatorioMateriaisModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioMateriaisModelosAprovadosController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioModelosAprovadosController RelatorioModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioModelosAprovadosController();
-        public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController RelatorioSolicitacaoMaterialCompra = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioSolicitacaoMaterialCompraController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
         public T4MVC.EngenhariaProduto.AprovarModeloController AprovarModelo = new T4MVC.EngenhariaProduto.AprovarModeloController();
         public T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController CriacaoFichaTecnica = new T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController();
@@ -174,6 +173,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController FichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_FichaTecnicaController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.OrdemProducaoController OrdemProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_OrdemProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.ProgramacaoProducaoController ProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ProgramacaoProducaoController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioEstimativaConsumoProgramadoController RelatorioEstimativaConsumoProgramado = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioEstimativaConsumoProgramadoController();
     }
 }
 

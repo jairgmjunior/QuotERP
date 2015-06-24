@@ -20,12 +20,12 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
+namespace Fashion.ERP.Web.Areas.Producao.Controllers
 {
-    public partial class RelatorioSolicitacaoMaterialCompraController
+    public partial class RelatorioEstimativaConsumoProgramadoController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RelatorioSolicitacaoMaterialCompraController(Dummy d) { }
+        protected RelatorioEstimativaConsumoProgramadoController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,13 +43,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public RelatorioSolicitacaoMaterialCompraController Actions { get { return MVC.EngenhariaProduto.RelatorioSolicitacaoMaterialCompra; } }
+        public RelatorioEstimativaConsumoProgramadoController Actions { get { return MVC.Producao.RelatorioEstimativaConsumoProgramado; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "EngenhariaProduto";
+        public readonly string Area = "Producao";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "RelatorioSolicitacaoMaterialCompra";
+        public readonly string Name = "RelatorioEstimativaConsumoProgramado";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "RelatorioSolicitacaoMaterialCompra";
+        public const string NameConst = "RelatorioEstimativaConsumoProgramado";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -57,21 +57,21 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
+            public readonly string EstimativaConsumoProgramado = "EstimativaConsumoProgramado";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
+            public const string EstimativaConsumoProgramado = "EstimativaConsumoProgramado";
         }
 
 
-        static readonly ActionParamsClass_SolicitacaoMaterialCompra s_params_SolicitacaoMaterialCompra = new ActionParamsClass_SolicitacaoMaterialCompra();
+        static readonly ActionParamsClass_EstimativaConsumoProgramado s_params_EstimativaConsumoProgramado = new ActionParamsClass_EstimativaConsumoProgramado();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SolicitacaoMaterialCompra SolicitacaoMaterialCompraParams { get { return s_params_SolicitacaoMaterialCompra; } }
+        public ActionParamsClass_EstimativaConsumoProgramado EstimativaConsumoProgramadoParams { get { return s_params_EstimativaConsumoProgramado; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SolicitacaoMaterialCompra
+        public class ActionParamsClass_EstimativaConsumoProgramado
         {
             public readonly string model = "model";
         }
@@ -85,33 +85,33 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string SolicitacaoMaterialCompra = "SolicitacaoMaterialCompra";
+                public readonly string EstimativaConsumoProgramado = "EstimativaConsumoProgramado";
             }
-            public readonly string SolicitacaoMaterialCompra = "~/Areas/EngenhariaProduto/Views/RelatorioSolicitacaoMaterialCompra/SolicitacaoMaterialCompra.cshtml";
+            public readonly string EstimativaConsumoProgramado = "~/Areas/Producao/Views/RelatorioEstimativaConsumoProgramado/EstimativaConsumoProgramado.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_RelatorioSolicitacaoMaterialCompraController : Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioSolicitacaoMaterialCompraController
+    public partial class T4MVC_RelatorioEstimativaConsumoProgramadoController : Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioEstimativaConsumoProgramadoController
     {
-        public T4MVC_RelatorioSolicitacaoMaterialCompraController() : base(Dummy.Instance) { }
+        public T4MVC_RelatorioEstimativaConsumoProgramadoController() : base(Dummy.Instance) { }
 
-        partial void SolicitacaoMaterialCompraOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void EstimativaConsumoProgramadoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Web.Mvc.ActionResult SolicitacaoMaterialCompra()
+        public override System.Web.Mvc.ActionResult EstimativaConsumoProgramado()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SolicitacaoMaterialCompra);
-            SolicitacaoMaterialCompraOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EstimativaConsumoProgramado);
+            EstimativaConsumoProgramadoOverride(callInfo);
             return callInfo;
         }
 
-        partial void SolicitacaoMaterialCompraOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SolicitacaoMaterialCompraModel model);
+        partial void EstimativaConsumoProgramadoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.EstimativaConsumoProgramadoModel model);
 
-        public override System.Web.Mvc.JsonResult SolicitacaoMaterialCompra(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SolicitacaoMaterialCompraModel model)
+        public override System.Web.Mvc.JsonResult EstimativaConsumoProgramado(Fashion.ERP.Web.Areas.Producao.Models.EstimativaConsumoProgramadoModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SolicitacaoMaterialCompra);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.EstimativaConsumoProgramado);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            SolicitacaoMaterialCompraOverride(callInfo, model);
+            EstimativaConsumoProgramadoOverride(callInfo, model);
             return callInfo;
         }
 

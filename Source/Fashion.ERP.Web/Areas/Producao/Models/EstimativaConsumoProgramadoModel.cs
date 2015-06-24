@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
+namespace Fashion.ERP.Web.Areas.Producao.Models
 {
-    public class SolicitacaoMaterialCompraModel
+    public class EstimativaConsumoProgramadoModel
     {
-        public SolicitacaoMaterialCompraModel()
+        public EstimativaConsumoProgramadoModel()
         {
             //preencher as listas para não bugar o componente de multiselect
             Marcas = new List<long?>();
@@ -26,7 +26,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Subcategoria")]
         public IList<long?> Subcategorias { get; set; }
         
-        [Display(Name = "Período de Aprovação")]
+        [Display(Name = "Data de Programação")]
         public DateTime? DataInicial { get; set; }
 
         [Display(Name = "Até")]
@@ -34,6 +34,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Referência")]
         public long? Material { get; set; }
+
+        [Display(Name = "Tag/Ano")]
+        public string Tag { get; set; }
+        
+        public long? Ano { get; set; }
+
+        [Display(Name = "Agrupar por")]
+        public string AgruparPor { get; set; }
 
         [Display(Name = "Ordenar por")]
         public string OrdenarPor { get; set; }

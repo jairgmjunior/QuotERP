@@ -1,6 +1,8 @@
-namespace Fashion.ERP.Reporting.EngenhariaProduto
+using Fashion.ERP.Reporting.Producao;
+
+namespace Fashion.ERP.Reporting.Producao
 {
-    partial class SolicitacaoMaterialCompraReport
+    partial class EstimativaConsumoProgramadoReport
     {
         #region Component Designer generated code
         /// <summary>
@@ -12,7 +14,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             Telerik.Reporting.InstanceReportSource instanceReportSource1 = new Telerik.Reporting.InstanceReportSource();
             Telerik.Reporting.Group group1 = new Telerik.Reporting.Group();
             Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
-            this.solicitacaoMaterialCompraSubReport1 = new Fashion.ERP.Reporting.EngenhariaProduto.SolicitacaoMaterialCompraSubReport();
+            this.solicitacaoMaterialCompraSubReport1 = new Fashion.ERP.Reporting.Producao.EstimativaConsumoProgramadoSubReport();
             this.groupFooterSection = new Telerik.Reporting.GroupFooterSection();
             this.textBox1 = new Telerik.Reporting.TextBox();
             this.Quantidade = new Telerik.Reporting.TextBox();
@@ -20,7 +22,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox11 = new Telerik.Reporting.TextBox();
             this.textBox18 = new Telerik.Reporting.TextBox();
             this.textBox5 = new Telerik.Reporting.TextBox();
-            this.MarcaSolicitacaoMaterialCompraDataSource = new Telerik.Reporting.ObjectDataSource();
+            this.AgrupamentoEstimativaConsumoProgramadoDataSource = new Telerik.Reporting.ObjectDataSource();
             this.pageHeader = new Telerik.Reporting.PageHeaderSection();
             this.textBox13 = new Telerik.Reporting.TextBox();
             this.textBox14 = new Telerik.Reporting.TextBox();
@@ -74,25 +76,26 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox11,
             this.textBox18,
             this.textBox5});
+            this.groupHeaderSection.KeepTogether = false;
             this.groupHeaderSection.Name = "groupHeaderSection";
             // 
             // textBox11
             // 
             this.textBox11.CanGrow = true;
-            this.textBox11.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(1.1000000238418579D), Telerik.Reporting.Drawing.Unit.Cm(0.600200355052948D));
+            this.textBox11.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2D), Telerik.Reporting.Drawing.Unit.Cm(0.600200355052948D));
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(7.4997987747192383D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox11.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(6.5997986793518066D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox11.StyleName = "Data";
-            this.textBox11.Value = "=Fields.Marca";
+            this.textBox11.Value = "=Fields.Valor";
             // 
             // textBox18
             // 
             this.textBox18.CanGrow = true;
             this.textBox18.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.049800131469964981D), Telerik.Reporting.Drawing.Unit.Cm(0.60010063648223877D));
             this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.0500000715255737D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox18.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9500000476837158D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
             this.textBox18.StyleName = "Caption";
-            this.textBox18.Value = "Marca";
+            this.textBox18.Value = "=Fields.NomeAgrupamento";
             // 
             // textBox5
             // 
@@ -101,12 +104,12 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.950000762939453D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox5.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.Solid;
             this.textBox5.StyleName = "GroupPanel";
-            this.textBox5.Value = "Dados da Marca";
+            this.textBox5.Value = "=\"Dados da \" + Fields.NomeAgrupamento";
             // 
-            // MarcaSolicitacaoMaterialCompraDataSource
+            // AgrupamentoEstimativaConsumoProgramadoDataSource
             // 
-            this.MarcaSolicitacaoMaterialCompraDataSource.DataSource = typeof(Fashion.ERP.Reporting.EngenhariaProduto.Models.MarcaSolicitacaoMaterialCompraModel);
-            this.MarcaSolicitacaoMaterialCompraDataSource.Name = "MarcaSolicitacaoMaterialCompraDataSource";
+            this.AgrupamentoEstimativaConsumoProgramadoDataSource.DataSource = typeof(Fashion.ERP.Reporting.Producao.Models.AgrupamentoEstimativaConsumoProgramadoModel);
+            this.AgrupamentoEstimativaConsumoProgramadoDataSource.Name = "AgrupamentoEstimativaConsumoProgramadoDataSource";
             // 
             // pageHeader
             // 
@@ -171,7 +174,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.94999885559082D), Telerik.Reporting.Drawing.Unit.Cm(0.99989998340606689D));
             this.titleTextBox.StyleName = "Title";
-            this.titleTextBox.Value = "Solicitação de Material Para Compra";
+            this.titleTextBox.Value = "Estimativa de Consumo Programado";
             // 
             // reportFooter
             // 
@@ -194,25 +197,27 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(2.7998001575469971D);
             this.detail.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.subReport1});
+            this.detail.KeepTogether = false;
             this.detail.Name = "detail";
             this.detail.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.None;
             this.detail.Style.BorderStyle.Top = Telerik.Reporting.Drawing.BorderType.None;
             // 
             // subReport1
             // 
+            this.subReport1.KeepTogether = false;
             this.subReport1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(-5.6458848707308107E-10D), Telerik.Reporting.Drawing.Unit.Cm(0D));
             this.subReport1.Name = "subReport1";
             instanceReportSource1.ReportDocument = this.solicitacaoMaterialCompraSubReport1;
             this.subReport1.ReportSource = instanceReportSource1;
             this.subReport1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.949899673461914D), Telerik.Reporting.Drawing.Unit.Cm(2.7995998859405518D));
             // 
-            // SolicitacaoMaterialCompraReport
+            // EstimativaConsumoProgramadoReport
             // 
-            this.DataSource = this.MarcaSolicitacaoMaterialCompraDataSource;
+            this.DataSource = this.AgrupamentoEstimativaConsumoProgramadoDataSource;
             this.ExternalStyleSheets.Add(new Telerik.Reporting.Drawing.ExternalStyleSheet("Fashion.ERP.Reporting.Resources.StyleSheet.xml"));
             group1.GroupFooter = this.groupFooterSection;
             group1.GroupHeader = this.groupHeaderSection;
-            group1.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.Marca"));
+            group1.Groupings.Add(new Telerik.Reporting.Grouping("=Fields.Valor"));
             group1.Name = "group2";
             this.Groups.AddRange(new Telerik.Reporting.Group[] {
             group1});
@@ -238,7 +243,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         }
         #endregion
 
-        private Telerik.Reporting.ObjectDataSource MarcaSolicitacaoMaterialCompraDataSource;
+        private Telerik.Reporting.ObjectDataSource AgrupamentoEstimativaConsumoProgramadoDataSource;
         private Telerik.Reporting.PageHeaderSection pageHeader;
         private Telerik.Reporting.PageFooterSection pageFooter;
         private Telerik.Reporting.ReportHeaderSection reportHeader;
@@ -256,7 +261,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
         private Telerik.Reporting.TextBox textBox18;
         private Telerik.Reporting.TextBox textBox5;
         private Telerik.Reporting.SubReport subReport1;
-        private SolicitacaoMaterialCompraSubReport solicitacaoMaterialCompraSubReport1;
+        private EstimativaConsumoProgramadoSubReport solicitacaoMaterialCompraSubReport1;
         private Telerik.Reporting.TextBox textBox1;
         private Telerik.Reporting.TextBox Quantidade;
 

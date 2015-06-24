@@ -1,7 +1,7 @@
-﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SolicitacaoMaterialCompraModel
+﻿@model Fashion.ERP.Web.Areas.Producao.Models.EstimativaConsumoProgramadoModel
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
-@using (Html.BeginForm(MVC.EngenhariaProduto.RelatorioSolicitacaoMaterialCompra.SolicitacaoMaterialCompra(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+@using (Html.BeginForm(MVC.Producao.RelatorioEstimativaConsumoProgramado.EstimativaConsumoProgramado(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     <div class="accordion" id="accordion">
     <div class="accordion-group">
@@ -86,6 +86,25 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="span5">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })/
+                                @Html.TextBoxFor(x => x.Ano, new { @class = "input-small" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                              <div class="control-group">
+                                  @Html.LabelForRequired(x => x.AgruparPor)
+                                  <div class="controls">
+                                      @Html.DropDownList("AgruparPor", "--Selecione--")
+                                  </div>
+                              </div>
+                          </div>
                     <div class="span2">
                         <div class="control-group">
                             @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })

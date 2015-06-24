@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fashion.ERP.Reporting.EngenhariaProduto.Models
+namespace Fashion.ERP.Reporting.Producao.Models
 {
-    public class MaterialSolicitacaoMaterialCompraModel
+    public class MaterialEstimativaConsumoProgramadoModel
     {
         public virtual string Referencia { get; set; }
         public virtual string Descricao { get; set; }
@@ -14,6 +14,6 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto.Models
         public virtual double QuantidadeReservada { get; set; }
         public virtual double QuantidadeEstoque { get; set; }
         public virtual double QuantidadeCompras { get; set; }
-        public IEnumerable<ProgramacaoSolicitacaoMaterialCompraModel> Programacoes { get; set; }
+        public IEnumerable<ProgramacaoEstimativaConsumoProgramadoModel> Programacoes { get; set; }
     }
 }

@@ -446,7 +446,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioSolicitacaoMaterialCompraController.cs" />
+    <Compile Include="Areas\Producao\Controllers\RelatorioEstimativaConsumoProgramadoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloMaterialConsumoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloMaterialConsumoModel.cs" />
@@ -460,7 +460,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloAvaliacaoModel.cs" />
-    <Compile Include="Areas\EngenhariaProduto\Models\SolicitacaoMaterialCompraModel.cs" />
+    <Compile Include="Areas\Producao\Models\EstimativaConsumoProgramadoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\MateriaisModelosAprovadosModel.cs" />
     <Compile Include="Areas\Producao\Controllers\FichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Controllers\ProgramacaoProducaoController.cs" />
@@ -853,9 +853,6 @@
     <Compile Include="EngenhariaProduto.RelatorioModelosAprovadosController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto.RelatorioSolicitacaoMaterialCompraController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto.SequenciaProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -960,6 +957,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Producao.ProgramacaoProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Producao.RelatorioEstimativaConsumoProgramadoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1216,7 +1216,7 @@
     <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\OrdemProducao\Editar.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\RelatorioSolicitacaoMaterialCompra\SolicitacaoMaterialCompra.cshtml" />
+    <Content Include="Areas\Producao\Views\RelatorioEstimativaConsumoProgramado\EstimativaConsumoProgramado.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Index.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Avaliar.cshtml" />
