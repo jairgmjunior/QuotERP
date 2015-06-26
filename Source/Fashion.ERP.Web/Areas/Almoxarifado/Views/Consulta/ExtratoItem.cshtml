@@ -61,6 +61,7 @@
           .Columns(columns =>
                        {
                            columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy hh:mm}");
+                           columns.Bound(x => x.OrigemDestino);
                            columns.Bound(x => x.Entrada).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
                            columns.Bound(x => x.Saida).Format("{0:N4}").HtmlAttributes(new { style = "text-align: right;" });
                        })

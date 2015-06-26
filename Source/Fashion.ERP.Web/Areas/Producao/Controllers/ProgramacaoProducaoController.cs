@@ -85,6 +85,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         TipoEnfestoTecido = model.TipoEnfestoTecido
                     };
 
+                    if (model.GridItens == null)
+                    {
+                        model.GridItens = new List<ProgramacaoProducaoMatrizCorteItemModel>();
+                    }
+
                     model.GridItens.ForEach(modelItem =>
                     {
                         if (!modelItem.Quantidade.HasValue)
@@ -210,6 +215,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     {
                         TipoEnfestoTecido = model.TipoEnfestoTecido
                     };
+
+                    if (model.GridItens == null)
+                    {
+                        model.GridItens = new List<ProgramacaoProducaoMatrizCorteItemModel>();
+                    }
 
                     model.GridItens.ForEach(modelItem =>
                     {

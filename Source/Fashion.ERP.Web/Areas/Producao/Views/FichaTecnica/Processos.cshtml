@@ -19,6 +19,8 @@
                     .Navigatable()
                     .Columns(columns =>
                     {
+                        columns.Bound(x => x.Id).Hidden()
+                            .ClientTemplate("<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Id' value='#= Id #' />");
                         columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                             .ClientTemplate("#= displayDepartamentoProducao(DepartamentoProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
                         columns.Bound(x => x.SetorProducao).EditorTemplateName("SetorProducaoList2")
@@ -45,6 +47,7 @@
                             model.Field(product => product.Custo).DefaultValue(null);
                             model.Field(product => product.Tempo).DefaultValue(null);
                             model.Field(product => product.PesoProdutividade).DefaultValue(null);
+                            model.Field(product => product.Id).DefaultValue(0);
                         })
                     )
                     .ToolBar(toolbar => toolbar.Create())

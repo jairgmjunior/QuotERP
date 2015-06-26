@@ -90,5 +90,13 @@ namespace Fashion.ERP.Domain.Almoxarifado
             var quantidadeMovimentacaoAtual = entradaItemMaterial.MovimentacaoEstoqueMaterial.Quantidade;
             return quantidade - quantidadeMovimentacaoAtual;
         }
+
+        public virtual string ObtenhaOrigem()
+        {
+            if (Fornecedor != null)
+                return Fornecedor.Nome;
+
+            return DepositoMaterialDestino.Nome;
+        }
     }
 }

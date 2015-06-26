@@ -188,7 +188,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 IdMaterial = q.MaterialFichaTecnica.Material.Id,
                 DescricaoMaterial = q.MaterialFichaTecnica.Material.Descricao,
                 DataUltimoCusto = ObtenhaDataUltimoCusto(q.MaterialFichaTecnica.Material),
-                UltimoCusto = ObtenhaUltimoCusto(q.MaterialFichaTecnica.Material),
+                UltimoCusto = q.MaterialFichaTecnica.Material.ObtenhaUltimoCusto(),
                 DataProgramacao = q.ProgramacaoProducao.DataProgramada.Date,
                 UnidadeMedida = q.MaterialFichaTecnica.Material.UnidadeMedida.Sigla,
                 Marca = q.MaterialFichaTecnica.Material.MarcaMaterial.Nome,
@@ -204,7 +204,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 IdMaterial = q.MaterialFichaTecnica.Material.Id,
                 DescricaoMaterial = q.MaterialFichaTecnica.Material.Descricao,
                 DataUltimoCusto = ObtenhaDataUltimoCusto(q.MaterialFichaTecnica.Material),
-                UltimoCusto = ObtenhaUltimoCusto(q.MaterialFichaTecnica.Material),
+                UltimoCusto = q.MaterialFichaTecnica.Material.ObtenhaUltimoCusto(),
                 DataProgramacao = q.ProgramacaoProducao.DataProgramada.Date,
                 UnidadeMedida = q.MaterialFichaTecnica.Material.UnidadeMedida.Sigla,
                 Marca = q.MaterialFichaTecnica.Material.MarcaMaterial.Nome,
@@ -308,12 +308,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return estoquesMaterial.ToList().Sum(e => e.Quantidade);
         }
 
-        public double ObtenhaUltimoCusto(Material material)
-        {
-            var custoMaterial = material.CustoMaterials.FirstOrDefault(c => c.Ativo);
+        //public double ObtenhaUltimoCusto(Material material)
+        //{
+        //    var custoMaterial = material.CustoMaterials.FirstOrDefault(c => c.Ativo);
 
-            return custoMaterial == null ? 0 : custoMaterial.Custo;
-        }
+        //    return custoMaterial == null ? 0 : custoMaterial.Custo;
+        //}
 
         public DateTime? ObtenhaDataUltimoCusto(Material material)
         {

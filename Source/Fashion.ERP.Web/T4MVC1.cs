@@ -150,7 +150,6 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.RelatorioModelosAprovadosController RelatorioModelosAprovados = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_RelatorioModelosAprovadosController();
         public Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.SequenciaProducaoController SequenciaProducao = new Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers.T4MVC_SequenciaProducaoController();
         public T4MVC.EngenhariaProduto.AprovarModeloController AprovarModelo = new T4MVC.EngenhariaProduto.AprovarModeloController();
-        public T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController CriacaoFichaTecnica = new T4MVC.EngenhariaProduto.CriacaoFichaTecnicaController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class FinanceiroClass

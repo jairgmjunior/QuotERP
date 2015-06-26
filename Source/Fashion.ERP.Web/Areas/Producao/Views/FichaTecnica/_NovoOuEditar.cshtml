@@ -6,7 +6,7 @@
     .Items(tabstrip =>
     {
         tabstrip.Add().Text("Básicos")
-            .Selected(true)
+            .Selected(false)
             .LoadContentFrom("Basicos", "FichaTecnica", new { fichaTecnicaId = ( ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.GetRequiredString("id") : null ) });
         tabstrip.Add().Text("Processos")
             .Selected(false)
@@ -28,13 +28,12 @@
 )
 
 @{
-    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });    
 }
 
 @Scripts.Render("~/js/arquivoupload.js")
 @Scripts.Render("~/Scripts/jquery.Jcrop.js")
 @Scripts.Render("~/js/fotoupload.js")
-@*@Scripts.Render("~/Scripts/lightbox-2.6.min.js")*@
 @Scripts.Render("~/js/Producao/FichaTecnica/basicos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/processos.js")
 @Scripts.Render("~/js/Producao/FichaTecnica/material.js")
@@ -53,6 +52,15 @@
         tabStrip.enable(tabMateriais, false);
         tabStrip.enable(tabModelagem, false);
         tabStrip.enable(tabFotos, false);
+
+        tabStrip.tabGroup.on('click', 'li', function (ev) {
+            $("#tabstrip-1").html("");
+            $("#tabstrip-2").html("");
+            $("#tabstrip-3").html("");
+            $("#tabstrip-4").html("");
+            $("#tabstrip-5").html("");
+            tabStrip.reload($(this));
+        });
     });
 
     function onContentLoad(e) {

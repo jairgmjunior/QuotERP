@@ -779,13 +779,6 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return Json(list);
         }
 
-        private double? ObtenhaUltimoCustoMaterial(Material material)
-        {
-            var custo = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
-            return custo != null ? custo.Custo : (double?)null;
-
-        }
-
         #endregion
 
         #region PesquisarReferencia
@@ -1152,7 +1145,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             double? valorcusto = null;
             if (material != null)
             {
-                var custoMaterial = 
+                var custoMaterial =
                     material.CustoMaterials.Where(x => x.Fornecedor.Id == idFornecedor).OrderByDescending(x => x.Data).FirstOrDefault();
                 if (custoMaterial != null)
                 {
@@ -1163,6 +1156,25 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var result = new { Custo = valorcusto.HasValue ? valorcusto.Value : 0 };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaCustoAtual(string referencia)
+        {
+            var material = _materialRepository.Get(p => p.Referencia == referencia);
+            double? valorcusto = null;
+            if (material != null)
+            {
+                var custoMaterial = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
+                if (custoMaterial != null)
+                {
+                    valorcusto = custoMaterial.Custo;
+                }
+            }
+
+            var result = new { Custo = valorcusto.HasValue ? valorcusto.Value : 0 };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #endregion

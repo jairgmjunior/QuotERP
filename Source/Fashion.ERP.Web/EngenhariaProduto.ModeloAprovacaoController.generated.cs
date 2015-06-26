@@ -49,15 +49,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CriarFichasTecnicas()
+        public virtual System.Web.Mvc.ActionResult CriarFichaTecnica()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EsbocarCorte()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EsbocarCorte);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -77,8 +71,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModeloAprovacaoModel = "ObtenhaListaGridModeloAprovacaoModel";
-            public readonly string CriarFichasTecnicas = "CriarFichasTecnicas";
-            public readonly string EsbocarCorte = "EsbocarCorte";
+            public readonly string CriarFichaTecnica = "CriarFichaTecnica";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -86,8 +79,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         {
             public const string Index = "Index";
             public const string ObtenhaListaGridModeloAprovacaoModel = "ObtenhaListaGridModeloAprovacaoModel";
-            public const string CriarFichasTecnicas = "CriarFichasTecnicas";
-            public const string EsbocarCorte = "EsbocarCorte";
+            public const string CriarFichaTecnica = "CriarFichaTecnica";
         }
 
 
@@ -108,22 +100,13 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public readonly string request = "request";
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_CriarFichasTecnicas s_params_CriarFichasTecnicas = new ActionParamsClass_CriarFichasTecnicas();
+        static readonly ActionParamsClass_CriarFichaTecnica s_params_CriarFichaTecnica = new ActionParamsClass_CriarFichaTecnica();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CriarFichasTecnicas CriarFichasTecnicasParams { get { return s_params_CriarFichasTecnicas; } }
+        public ActionParamsClass_CriarFichaTecnica CriarFichaTecnicaParams { get { return s_params_CriarFichaTecnica; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CriarFichasTecnicas
+        public class ActionParamsClass_CriarFichaTecnica
         {
             public readonly string ids = "ids";
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_EsbocarCorte s_params_EsbocarCorte = new ActionParamsClass_EsbocarCorte();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EsbocarCorte EsbocarCorteParams { get { return s_params_EsbocarCorte; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EsbocarCorte
-        {
-            public readonly string id = "id";
             public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -136,12 +119,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string CriarFichasTecnicas = "CriarFichasTecnicas";
-                public readonly string EsbocarCorte = "EsbocarCorte";
+                public readonly string CriarFichaTecnica = "CriarFichaTecnica";
                 public readonly string Index = "Index";
             }
-            public readonly string CriarFichasTecnicas = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/CriarFichasTecnicas.cshtml";
-            public readonly string EsbocarCorte = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/EsbocarCorte.cshtml";
+            public readonly string CriarFichaTecnica = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/CriarFichaTecnica.cshtml";
             public readonly string Index = "~/Areas/EngenhariaProduto/Views/ModeloAprovacao/Index.cshtml";
         }
     }
@@ -181,43 +162,23 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             return callInfo;
         }
 
-        partial void CriarFichasTecnicasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Collections.Generic.IEnumerable<long> ids);
+        partial void CriarFichaTecnicaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Collections.Generic.IEnumerable<long> ids);
 
-        public override System.Web.Mvc.ActionResult CriarFichasTecnicas(System.Collections.Generic.IEnumerable<long> ids)
+        public override System.Web.Mvc.ActionResult CriarFichaTecnica(System.Collections.Generic.IEnumerable<long> ids)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ids", ids);
-            CriarFichasTecnicasOverride(callInfo, ids);
+            CriarFichaTecnicaOverride(callInfo, ids);
             return callInfo;
         }
 
-        partial void CriarFichasTecnicasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model);
+        partial void CriarFichaTecnicaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model);
 
-        public override System.Web.Mvc.ActionResult CriarFichasTecnicas(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model)
+        public override System.Web.Mvc.ActionResult CriarFichaTecnica(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.CriacaoFichaTecnicaModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichasTecnicas);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CriarFichaTecnica);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            CriarFichasTecnicasOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void EsbocarCorteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
-
-        public override System.Web.Mvc.ActionResult EsbocarCorte(long id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EsbocarCorte);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EsbocarCorteOverride(callInfo, id);
-            return callInfo;
-        }
-
-        partial void EsbocarCorteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel model);
-
-        public override System.Web.Mvc.ActionResult EsbocarCorte(Fashion.ERP.Web.Areas.EngenhariaProduto.Models.ModeloAprovacaoMatrizCorteModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EsbocarCorte);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EsbocarCorteOverride(callInfo, model);
+            CriarFichaTecnicaOverride(callInfo, model);
             return callInfo;
         }
 

@@ -15,6 +15,5 @@ namespace Fashion.ERP.Domain.EngenhariaProduto
         public virtual Barra Barra { get; set; }
         public virtual ProdutoBase ProdutoBase { get; set; }
         public virtual FichaTecnica FichaTecnica { get; set; }
-        public virtual ModeloAprovacaoMatrizCorte ModeloAprovacaoMatrizCorte { get; set; }
     }
 }

@@ -24,7 +24,6 @@ namespace Fashion.ERP.Domain.Producao
         public virtual DateTime DataCadastro { get; set; }
         public virtual string Descricao { get; set; }
         public virtual string Detalhamento { get; set; }
-        public virtual int? QuantidadeProducaoAprovada { get; set; }
         public virtual String Complemento { get; set; }
         public virtual Boolean? Catalogo { get; set; }
         public virtual string Referencia { get; set; }
@@ -39,9 +38,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual FichaTecnicaMatriz FichaTecnicaMatriz { get; set; }
         public virtual Pessoa Estilista { get; set; }
         public virtual FichaTecnicaModelagem FichaTecnicaModelagem { get; set; }
-
-        //public virtual int? Variante { get; set; }
-
+        
         public virtual IList<FichaTecnicaFoto> FichaTecnicaFotos
         {
             get { return _fichaTecnicaFotos; }
@@ -66,8 +63,5 @@ namespace Fashion.ERP.Domain.Producao
         {
             get { return _materiaisComposicaoCusto; }
         }
-
-
-        //public virtual Modelagem Modelagem { get; set; }
     }
 }

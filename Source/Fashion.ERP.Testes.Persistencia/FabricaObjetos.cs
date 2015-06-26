@@ -330,25 +330,6 @@ namespace Fashion.ERP.Testes.Persistencia
 
         #region Engenharia de Produto
 
-        public ModeloAprovacaoMatrizCorte ObtenhaModeloAprovacaoMatrizCorte()
-        {
-            return new ModeloAprovacaoMatrizCorte
-            {
-                TipoEnfestoTecido = TipoEnfestoTecido.Folha,
-                IdEmpresa = 1,
-                IdTenant = 1
-            };
-        }
-
-        public ModeloAprovacaoMatrizCorteItem ObtenhaModeloAprovacaoMatrizCorteItem()
-        {
-            return new ModeloAprovacaoMatrizCorteItem
-            {
-                Quantidade = 10,
-                QuantidadeVezes = 1
-            };
-        }
-
         public ModeloAprovacao ObtenhaModeloAprovacao()
         {
             return new ModeloAprovacao
@@ -1277,7 +1258,6 @@ namespace Fashion.ERP.Testes.Persistencia
                 Ano = 2015,
                 DataCadastro = new DateTime(2015, 1, 1),
                 Pedraria = "PEDRARIA",
-                QuantidadeProducaoAprovada = 50,
                 Silk = "SILK",
                 Catalogo = true,
                 Complemento = "COMPLEMENTO"

@@ -13,5 +13,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Saída")]
         public double? Saida { get; set; }
+        
+        [Display(Name = "Origem/Destino")]
+        public String OrigemDestino { get; set; }
     }
 }

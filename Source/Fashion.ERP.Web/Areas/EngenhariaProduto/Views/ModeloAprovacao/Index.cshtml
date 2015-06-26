@@ -103,7 +103,7 @@
 @*.ToolBar(toolBar => toolBar.Template("<a class='k-button k-button-icontext' onclick='criarFichasTecnicas()' href='#'></span>Criar Fichas Técnicas</a>"))*@
 @(Html.Kendo().Grid<GridModeloAprovacaoModel>() 
 	.Name("Grid").Events(events => events.DataBound("onDataBound"))
-    .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Tecnicas", "CriarFichasTecnicas", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
+    .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Técnicas", "CriarFichaTecnica", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
@@ -121,7 +121,6 @@
 		columns.Bound(x => x.Referencia);
 		columns.Bound(x => x.Descricao);
 		columns.Bound(x => x.Quantidade);
-	    columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Esboçar Corte", "EsbocarCorte", "ModeloAprovacao", new {Id = "#= Id #", Area = "EngenhariaProduto"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");
 	})
     .Resizable(resize => resize.Columns(true))
     .Reorderable(reorder => reorder.Columns(true))

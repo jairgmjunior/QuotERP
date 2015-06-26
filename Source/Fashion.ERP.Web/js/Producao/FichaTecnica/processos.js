@@ -120,6 +120,57 @@ function onContentLoadProcessos(e) {
             e.preventDefault();
             return false;
         }
+
+        var mensagem = "";
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.DepartamentoProducao == '' || dataItem.DepartamentoProducao == null) {
+                mensagem += "Um item não tem valor para departamento.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.SetorProducao == '' || dataItem.SetorProducao == null) {
+                mensagem += "Um item não tem valor para setor.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.OperacaoProducao == '' || dataItem.OperacaoProducao == null) {
+                mensagem += "Um item não tem valor para operação.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Custo == 0 || dataItem.Custo == null) {
+                mensagem += "Um item não tem valor na coluna custo.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.Tempo == 0 || dataItem.Tempo == null) {
+                mensagem += "Um item não tem valor na coluna tempo.<br/>";
+            }
+        }
+
+        for (var i = 0; i < dataGridItens.length; i++) {
+            var dataItem = dataGridItens[i];
+            if (dataItem.PesoProdutividade == 0 || dataItem.PesoProdutividade == null) {
+                mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna peso produtividade.<br/>";
+            }
+        }
+
+        if (mensagem != "") {
+            e.preventDefault();
+            exibaAlertaErro(mensagem);
+            $('#btnSubmit').button('reset');
+            return false;
+        }
         
         return true;
     });

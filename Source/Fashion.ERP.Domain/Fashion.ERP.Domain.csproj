@@ -140,8 +140,6 @@
     <Compile Include="EngenhariaProduto\ModeloMaterialConsumo.cs" />
     <Compile Include="Comum\TipoEnfestoTecido.cs" />
     <Compile Include="EngenhariaProduto\ModeloAprovacao.cs" />
-    <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorte.cs" />
-    <Compile Include="EngenhariaProduto\ModeloAprovacaoMatrizCorteItem.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacao.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacao.cs" />
     <Compile Include="EngenhariaProduto\SituacaoModelo.cs" />

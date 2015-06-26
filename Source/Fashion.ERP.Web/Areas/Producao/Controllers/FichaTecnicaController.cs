@@ -151,12 +151,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             if (domain != null)
             {
                 var model  = Mapper.Flat<FichaTecnicaBasicosModel>(domain);
-
-                model.QuantidadeAprovada = domain.QuantidadeProducaoAprovada;
                 
                 model.Grade = domain.FichaTecnicaMatriz.Grade.Id;
                 model.GridFichaTecnicaVariacao = new List<GridFichaTecnicaVariacaoModel>();
-
+                
                 domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(x => x.Cores.ForEach(y => model.GridFichaTecnicaVariacao.Add(new GridFichaTecnicaVariacaoModel()
                 {
                     Cor = y.Id.ToString(),
@@ -192,12 +190,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar a ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    this.AddErrorMessage("Não é possível salvar a ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
 
-            return View(model);
+            return RedirectToAction("Editar", new { model.Id });
         }
 
         protected virtual void EditarBasicos(FichaTecnicaBasicosModel model)
@@ -205,23 +203,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var domain = _fichaTecnicaJeansRepository.Get(model.Id);
 
             domain = Mapper.Unflat(model, domain);
-            domain.QuantidadeProducaoAprovada = model.QuantidadeAprovada.HasValue ? model.QuantidadeAprovada.Value : 0;
-            
-            //EditarFichaTecnicaMatriz(domain.FichaTecnicaMatriz, model);
+            domain.FichaTecnicaMatriz = ObtenhaFichaTecnicaMatriz(model);
 
             _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
-        }
-
-        protected virtual void EditarFichaTecnicaMatriz(FichaTecnicaMatriz fichaTecnicaMatriz, FichaTecnicaBasicosModel model)
-        {
-            throw new NotImplementedException();
         }
 
         protected virtual void NovoBasicos(FichaTecnicaBasicosModel model)
         {
             var domain = Mapper.Unflat<FichaTecnicaJeans>(model);
             domain.DataCadastro = DateTime.Now;
-            domain.QuantidadeProducaoAprovada = model.QuantidadeAprovada.HasValue ? model.QuantidadeAprovada.Value : 0;
             domain.FichaTecnicaMatriz = ObtenhaFichaTecnicaMatriz(model);
 
             _fichaTecnicaJeansRepository.Save(domain);
@@ -286,6 +276,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                 domain.FichaTecnicaSequenciaOperacionals.ForEach(y => modelList.Add(new GridFichaTecnicaProcessosModel
                 {
+                    Id = y.Id,
                     Custo = y.Custo,
                     Tempo = y.Tempo,
                     PesoProdutividade = y.PesoProdutividade,
@@ -326,17 +317,60 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar/atualizar os dados de processo da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    this.AddErrorMessage("Não é possível salvar/atualizar os dados de processo da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
 
-            return View(model);
+            return RedirectToAction("Editar", new { model.Id });
         }
 
         protected virtual void EditarProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
         {
-            //_fichaTecnicaJeansRepository.SaveOrUpdate(domain);
+            model.GridFichaTecnicaProcessos.ForEach(x =>
+            {
+                if (x.Id == 0 || !x.Id.HasValue)
+                {
+                    domain.FichaTecnicaSequenciaOperacionals.Add(new FichaTecnicaSequenciaOperacional()
+                    {
+                        Custo = x.Custo,
+                        Tempo = x.Tempo,
+                        PesoProdutividade = x.PesoProdutividade,
+                        DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao)),
+                        SetorProducao = _setorProducaoRepository.Load(long.Parse(x.SetorProducao)),
+                        OperacaoProducao = _operacaoProducaoRepository.Load(long.Parse(x.OperacaoProducao)),
+                    });
+                }
+                else
+                {
+                    var fichaTecnicaSequenciaOperacional = domain.FichaTecnicaSequenciaOperacionals.FirstOrDefault(y => y.Id == x.Id);
+
+                    fichaTecnicaSequenciaOperacional.Custo = x.Custo;
+                    fichaTecnicaSequenciaOperacional.Tempo = x.Tempo;
+                    fichaTecnicaSequenciaOperacional.PesoProdutividade = x.PesoProdutividade;
+                    fichaTecnicaSequenciaOperacional.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
+                    fichaTecnicaSequenciaOperacional.SetorProducao = _setorProducaoRepository.Load(long.Parse(x.SetorProducao));
+                    fichaTecnicaSequenciaOperacional.OperacaoProducao = _operacaoProducaoRepository.Load(long.Parse(x.OperacaoProducao));
+                }
+            });
+
+
+            var listaExcluir = new List<FichaTecnicaSequenciaOperacional>();
+
+            domain.FichaTecnicaSequenciaOperacionals.ForEach(tecnicaSequenciaOperacional =>
+            {
+                if (model.GridFichaTecnicaProcessos.All(x => x.Id != tecnicaSequenciaOperacional.Id && tecnicaSequenciaOperacional.Id != null))
+                {
+                    listaExcluir.Add(tecnicaSequenciaOperacional);
+                }
+            });
+
+            foreach (var tecnicaSequenciaOperacional in listaExcluir)
+            {
+                domain.FichaTecnicaSequenciaOperacionals.Remove(tecnicaSequenciaOperacional);
+            }
+
+            _fichaTecnicaJeansRepository.Update(domain);
         }
 
         protected virtual void NovoProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
@@ -447,36 +481,49 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Não é possível salvar/atualizar os dados de processo da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
+                    this.AddErrorMessage("Não é possível salvar/atualizar os dados de processo da ficha técnica. Confira se os dados foram informados corretamente: " + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
             }
 
-            return View(model);
+            return RedirectToAction("Editar", new { model.Id });
         }
 
         private void TrateMaterialConsumoMatriz(FichaTecnicaJeans domain, IEnumerable<GridMaterialConsumoMatrizModel> gridMaterialConsumoMatriz)
         {
-            if (gridMaterialConsumoMatriz == null)
+            if (gridMaterialConsumoMatriz != null)
             {
-                return;
+                gridMaterialConsumoMatriz.ForEach(x =>
+                {
+                    if (!x.Id.HasValue || x.Id == 0)
+                    {
+                        NovoMaterialConsumoMatriz(domain, x);
+                    }
+                    else
+                    {
+                        var materialConsumo = domain.MateriaisConsumo.First(y => y.Id == x.Id);
+
+                        materialConsumo.Custo = x.Custo.Value;
+                        materialConsumo.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
+                        materialConsumo.Quantidade = x.Quantidade.Value;
+                    }
+                });
             }
 
-            gridMaterialConsumoMatriz.ForEach(x =>
-            {
-                if (!x.Id.HasValue || x.Id == 0)
-                {
-                    NovoMaterialConsumoMatriz(domain, x);
-                }
-                else
-                {
-                    var materialConsumo = domain.MateriaisConsumo.First(y => y.Id == x.Id);
+            var listaExcluir = new List<FichaTecnicaMaterialConsumo>();
 
-                    materialConsumo.Custo = x.Custo.Value;
-                    materialConsumo.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
-                    materialConsumo.Quantidade = x.Quantidade.Value;
+            domain.MateriaisConsumo.ForEach(fichaTecnicaMaterialConsumo =>
+            {
+                if (gridMaterialConsumoMatriz == null || gridMaterialConsumoMatriz.All(x => x.Id != fichaTecnicaMaterialConsumo.Id && fichaTecnicaMaterialConsumo.Id != null))
+                {
+                    listaExcluir.Add(fichaTecnicaMaterialConsumo);
                 }
             });
+
+            foreach (var fichaTecnicaMaterialConsumo in listaExcluir)
+            {
+                domain.MateriaisConsumo.Remove(fichaTecnicaMaterialConsumo);
+            }
         }
 
         private void NovoMaterialConsumoMatriz(FichaTecnicaJeans domain, GridMaterialConsumoMatrizModel gridMaterialConsumoMatrizModel)
@@ -492,31 +539,44 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         private void TrateMaterialConsumoItem(FichaTecnicaJeans domain, IEnumerable<GridMaterialConsumoItemModel> gridMaterialConsumoItem)
         {
-            if (gridMaterialConsumoItem == null)
+            if (gridMaterialConsumoItem != null)
             {
-                return;
+                gridMaterialConsumoItem.ForEach(x =>
+                {
+                    if (!x.Id.HasValue || x.Id == 0)
+                    {
+                        NovoMaterialConsumoItem(domain, x);
+                    }
+                    else
+                    {
+                        var materialConsumoVariacao = domain.MateriaisConsumoVariacao.First(y => y.Id == x.Id);
+
+                        materialConsumoVariacao.Custo = x.Custo.Value;
+                        materialConsumoVariacao.CompoeCusto = x.CompoeCusto.Value;
+                        materialConsumoVariacao.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
+                        materialConsumoVariacao.Quantidade = x.Quantidade.Value;
+                        materialConsumoVariacao.Tamanho = _tamanhoRepository.Load(long.Parse(x.Tamanho));
+                        materialConsumoVariacao.FichaTecnicaVariacaoMatriz =
+                            ObtenhaFichaTecnicaVariacaoMatriz(domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs,
+                                x.Variacao);
+                    }
+                });
             }
 
-            gridMaterialConsumoItem.ForEach(x =>
-            {
-                if (!x.Id.HasValue || x.Id == 0)
-                {
-                    NovoMaterialConsumoItem(domain, x);
-                }
-                else
-                {
-                    var materialConsumoVariacao = domain.MateriaisConsumoVariacao.First(y => y.Id == x.Id);
+            var listaExcluir = new List<FichaTecnicaMaterialConsumoVariacao>();
 
-                    materialConsumoVariacao.Custo = x.Custo.Value;
-                    materialConsumoVariacao.CompoeCusto = x.CompoeCusto.Value;
-                    materialConsumoVariacao.DepartamentoProducao = _departamentoProducaoRepository.Load(long.Parse(x.DepartamentoProducao));
-                    materialConsumoVariacao.Quantidade = x.Quantidade.Value;
-                    materialConsumoVariacao.Tamanho = _tamanhoRepository.Load(long.Parse(x.Tamanho));
-                    materialConsumoVariacao.FichaTecnicaVariacaoMatriz =
-                        ObtenhaFichaTecnicaVariacaoMatriz(domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs,
-                            x.Variacao);
+            domain.MateriaisConsumoVariacao.ForEach(fichaTecnicaMaterialConsumoVariacao =>
+            {
+                if (gridMaterialConsumoItem == null || gridMaterialConsumoItem.All(x => x.Id != fichaTecnicaMaterialConsumoVariacao.Id && fichaTecnicaMaterialConsumoVariacao.Id != null))
+                {
+                    listaExcluir.Add(fichaTecnicaMaterialConsumoVariacao);
                 }
             });
+
+            foreach (var fichaTecnicaMaterialConsumoVariacao in listaExcluir)
+            {
+                domain.MateriaisConsumoVariacao.Remove(fichaTecnicaMaterialConsumoVariacao);
+            }
         }
 
         private void NovoMaterialConsumoItem(FichaTecnicaJeans domain, GridMaterialConsumoItemModel gridMaterialConsumoItemModel)
@@ -541,24 +601,37 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         private void TrateMaterialComposicaoCustoMatriz(FichaTecnicaJeans domain, IEnumerable<GridMaterialComposicaoCustoMatrizModel> gridMaterialComposicaoCustoMatriz)
         {
-            if (gridMaterialComposicaoCustoMatriz == null)
+            if (gridMaterialComposicaoCustoMatriz != null)
             {
-                return;
+                gridMaterialComposicaoCustoMatriz.ForEach(x =>
+                {
+                    if (!x.Id.HasValue || x.Id == 0)
+                    {
+                        NovoMaterialComposicaoCustoMatriz(domain, x);
+                    }
+                    else
+                    {
+                        var materialComposicaoCusto = domain.MateriaisComposicaoCusto.First(y => y.Id == x.Id);
+
+                        materialComposicaoCusto.Custo = x.Custo.Value;
+                    }
+                });
             }
+            
+            var listaExcluir = new List<FichaTecnicaMaterialComposicaoCusto>();
 
-            gridMaterialComposicaoCustoMatriz.ForEach(x =>
+            domain.MateriaisComposicaoCusto.ForEach(fichaTecnicaMaterialComposicaoCusto =>
             {
-                if (!x.Id.HasValue || x.Id == 0)
+                if (gridMaterialComposicaoCustoMatriz == null || gridMaterialComposicaoCustoMatriz.All(x => x.Id != fichaTecnicaMaterialComposicaoCusto.Id && fichaTecnicaMaterialComposicaoCusto.Id != null))
                 {
-                    NovoMaterialComposicaoCustoMatriz(domain, x);
-                }
-                else
-                {
-                    var materialComposicaoCusto = domain.MateriaisComposicaoCusto.First(y => y.Id == x.Id);
-
-                    materialComposicaoCusto.Custo = x.Custo.Value;
+                    listaExcluir.Add(fichaTecnicaMaterialComposicaoCusto);
                 }
             });
+
+            foreach (var fichaTecnicaMaterialComposicaoCusto in listaExcluir)
+            {
+                domain.MateriaisComposicaoCusto.Remove(fichaTecnicaMaterialComposicaoCusto);
+            }
         }
 
         private void NovoMaterialComposicaoCustoMatriz(FichaTecnicaJeans domain, GridMaterialComposicaoCustoMatrizModel gridMaterialComposicaoCustoMatrizModel)

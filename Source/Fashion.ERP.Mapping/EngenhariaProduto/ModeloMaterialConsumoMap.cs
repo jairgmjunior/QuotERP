@@ -6,7 +6,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
     public class ModeloMaterialConsumoMap : EmpresaClassMap<ModeloMaterialConsumo>
     {
         public ModeloMaterialConsumoMap()
-            : base("modelomaterialconsumo", 10)
+            : base("modelomaterialconsumo", 0)
         {
             Map(x => x.Quantidade).Not.Nullable();
 

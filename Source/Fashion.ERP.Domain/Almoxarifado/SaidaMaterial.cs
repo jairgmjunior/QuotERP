@@ -68,5 +68,15 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
             AddSaidaItemMaterial(saidaItemMaterial);
         }
+
+        public virtual string ObtenhaDestino()
+        {
+            if (CentroCusto != null)
+            {
+                return CentroCusto.Nome;
+            }
+
+            return DepositoMaterialDestino.Nome;
+        }
     }
 }

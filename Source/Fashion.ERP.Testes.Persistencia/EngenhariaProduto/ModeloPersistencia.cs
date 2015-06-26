@@ -31,8 +31,6 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
         private ModeloAprovacao _modeloAprovacao;
         private ModeloAvaliacao _modeloAvaliacao;
         private ModeloReprovacao _modeloReprovacao;
-        private ModeloAprovacaoMatrizCorte _modeloAprovacaoMatrizCorte;
-        private ModeloAprovacaoMatrizCorteItem _modeloAprovacaoMatrizCorteItem;
         private Barra _barra;
         private ProdutoBase _produtoBase;
         private Comprimento _comprimento;
@@ -121,11 +119,6 @@ namespace Fashion.ERP.Testes.Persistencia.EngenhariaProduto
             _modeloAvaliacao.Colecao = _colecao;
             _modeloAvaliacao.ModelosAprovados.Add(_modeloAprovacao);
             _modeloAvaliacao.ModeloReprovacao = _modeloReprovacao ;
-
-            _modeloAprovacaoMatrizCorte = FabricaObjetos.ObtenhaModeloAprovacaoMatrizCorte();
-            _modeloAprovacaoMatrizCorteItem = FabricaObjetos.ObtenhaModeloAprovacaoMatrizCorteItem();
-            _modeloAprovacaoMatrizCorte.ModeloAprovacaoMatrizCorteItens.Add(_modeloAprovacaoMatrizCorteItem);
-            _modeloAprovacao.ModeloAprovacaoMatrizCorte = _modeloAprovacaoMatrizCorte;
             
             Session.Current.Flush();
         }

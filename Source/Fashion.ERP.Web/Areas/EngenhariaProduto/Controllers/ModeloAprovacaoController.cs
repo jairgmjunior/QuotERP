@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Fashion.ERP.Domain;
+using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.EngenhariaProduto;
 using Fashion.ERP.Domain.Producao;
@@ -16,7 +19,6 @@ using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
-using NHibernate.Util;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
@@ -29,9 +31,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<ModeloAprovacao> _modeloAprovacaoRepository;
-        private readonly IRepository<ModeloAprovacaoMatrizCorte> _modeloAprovacaoMatrizCorteRepository;
-        private readonly IRepository<Tamanho> _tamanhoRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
+        private readonly IRepository<Material> _materialRepository;
          
         private readonly ILogger _logger;
 
@@ -60,18 +61,19 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #region Construtores
         public ModeloAprovacaoController(ILogger logger, IRepository<Modelo> modeloRepository,
             IRepository<Colecao> colecaoRepository, IRepository<Pessoa> pessoaRepository,
-            IRepository<ModeloAprovacao> modeloAprovacaoRepository, IRepository<Tamanho> tamanhoRepository,
+            IRepository<ModeloAprovacao> modeloAprovacaoRepository, 
             IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
-            IRepository<ModeloAprovacaoMatrizCorte> modeloAprovacaoMatrizCorteRepository 
+            IRepository<Material> materialRepository
         )
         {
             _modeloRepository = modeloRepository;
             _colecaoRepository = colecaoRepository;
             _pessoaRepository = pessoaRepository;
             _modeloAprovacaoRepository = modeloAprovacaoRepository;
-            _tamanhoRepository = tamanhoRepository;
+            _materialRepository = materialRepository;
+            
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
-            _modeloAprovacaoMatrizCorteRepository = modeloAprovacaoMatrizCorteRepository;
+            
             _logger = logger;
         }
         #endregion
@@ -188,10 +190,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
         #region Criar Fichas Tecnicas
 
-        //[PopulateViewData("PopulateViewDataCriarFichasTecnicas")]
-        public virtual ActionResult CriarFichasTecnicas(IEnumerable<long> ids)
+        public virtual ActionResult CriarFichaTecnica(IEnumerable<long> ids)
         {
-            var model = new CriacaoFichaTecnicaModel()
+            var model = new CriacaoFichaTecnicaModel
             {
                 Ids = new List<long>(ids)
             };
@@ -200,7 +201,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public virtual ActionResult CriarFichasTecnicas(CriacaoFichaTecnicaModel model)
+        public virtual ActionResult CriarFichaTecnica(CriacaoFichaTecnicaModel model)
         {
             var modelosAprovacao = new List<ModeloAprovacao>();
             foreach (var idModeloAprovacao in model.Ids)
@@ -220,197 +221,117 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
 
             foreach (var modeloAprovacao in modelosAprovacao)
             {
-                var modelo = _modeloRepository.Find().FirstOrDefault(x => x.ModeloAvaliacao.ModelosAprovados.Any(y => y.Id == modeloAprovacao.Id));
-               
-                var fichaTecnica = new FichaTecnica()
+                if (modeloAprovacao.FichaTecnica != null)
+                    continue;
+                try
                 {
-                    Tag = modelo.ModeloAvaliacao.Tag,
-                    Ano = modelo.ModeloAvaliacao.Ano,
-                    Artigo = modelo.Artigo,
-                    Descricao = modeloAprovacao.Descricao,
-                    DataCadastro = DateTime.Now,
-                    Catalogo = modelo.ModeloAvaliacao.Catalogo,
-                    Classificacao = modelo.Classificacao,
-                    ClassificacaoDificuldade = modelo.ModeloAvaliacao.ClassificacaoDificuldade,
-                    Colecao = modelo.ModeloAvaliacao.Colecao,
-                    Marca = modelo.Marca,
-                    Natureza = modelo.Natureza,
-                    Observacao = modelo.Observacao,
-                    Complemento = modelo.ModeloAvaliacao.Complemento,
-                    Detalhamento = modelo.Detalhamento,
-                    Segmento = modelo.Segmento,
-                    FichaTecnicaMatriz = new FichaTecnicaMatriz()
+                    var modelo =
+                        _modeloRepository.Find()
+                            .FirstOrDefault(x => x.ModeloAvaliacao.ModelosAprovados.Any(y => y.Id == modeloAprovacao.Id));
+
+                    var fichaTecnica = new FichaTecnicaJeans
                     {
-                        Grade = modelo.Grade
+                        Tag = modelo.ModeloAvaliacao.Tag,
+                        Ano = modelo.ModeloAvaliacao.Ano,
+                        Referencia = modeloAprovacao.Referencia,
+                        Artigo = modelo.Artigo,
+                        Descricao = modeloAprovacao.Descricao,
+                        DataCadastro = DateTime.Now,
+                        Catalogo = modelo.ModeloAvaliacao.Catalogo,
+                        Classificacao = modelo.Classificacao,
+                        ClassificacaoDificuldade = modelo.ModeloAvaliacao.ClassificacaoDificuldade,
+                        Colecao = modelo.ModeloAvaliacao.Colecao,
+                        Marca = modelo.Marca,
+                        Natureza = modelo.Natureza,
+                        Observacao = modeloAprovacao.Observacao,
+                        Complemento = modelo.ModeloAvaliacao.Complemento,
+                        Detalhamento = modelo.Detalhamento,
+                        Segmento = modelo.Segmento,
+                        Estilista = modelo.Estilista,
+
+                        Comprimento = modeloAprovacao.Comprimento,
+                        MedidaComprimento =
+                            modeloAprovacao.MedidaComprimento.HasValue ? modeloAprovacao.MedidaComprimento.Value : 0,
+                        Barra = modeloAprovacao.Barra,
+                        MedidaBarra = modeloAprovacao.MedidaBarra.HasValue ? modeloAprovacao.MedidaBarra.Value : 0,
+                        ProdutoBase = modeloAprovacao.ProdutoBase,
+                        MedidaCos = modelo.Cos.HasValue ? modelo.Cos.Value : 0,
+                        Lavada = modelo.Lavada,
+                        FichaTecnicaMatriz = new FichaTecnicaMatriz()
+                        {
+                            Grade = modelo.Grade
+                        }
+                    };
+
+                    modelo.VariacaoModelos.ForEach(variacaoModelo =>
+                    {
+                        var fichaTecnicaVariacaoMatriz = new FichaTecnicaVariacaoMatriz()
+                        {
+                            Variacao = variacaoModelo.Variacao
+                        };
+
+                        variacaoModelo.Cores.ForEach(cor => fichaTecnicaVariacaoMatriz.AddCor(cor));
+
+                        fichaTecnica.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(fichaTecnicaVariacaoMatriz);
+                    });
+
+                    modelo.MateriaisConsumo.ForEach(
+                        materialConsumo => fichaTecnica.MateriaisConsumo.Add(new FichaTecnicaMaterialConsumo()
+                        {
+                            Quantidade = materialConsumo.Quantidade*materialConsumo.UnidadeMedida.FatorMultiplicativo,
+                            DepartamentoProducao = materialConsumo.DepartamentoProducao,
+                            Material = materialConsumo.Material,
+                            Custo = materialConsumo.Material.ObtenhaUltimoCusto()
+                        }));
+
+                    model.GridItens.ForEach(modelMaterialComposicaoCusto => fichaTecnica.MateriaisComposicaoCusto.Add(new FichaTecnicaMaterialComposicaoCusto()
+                    {
+                        Material = _materialRepository.Find().First(x => x.Referencia == modelMaterialComposicaoCusto.Referencia),
+                        Custo = modelMaterialComposicaoCusto.Custo.GetValueOrDefault()
+                    }));
+
+                    if (modelo.Modelista != null && modelo.DataModelagem.HasValue)
+                    {
+                        fichaTecnica.FichaTecnicaModelagem = new FichaTecnicaModelagem()
+                        {
+                            DataModelagem = modelo.DataModelagem.Value,
+                            Modelista = modelo.Modelista,
+                            Observacao = modelo.Modelagem,
+                        };
                     }
-                };
 
-                modelo.VariacaoModelos.ForEach(variacaoModelo =>
-                {
-                    var fichaTecnicaVariacaoMatriz = new FichaTecnicaVariacaoMatriz()
+                    modelo.Fotos.ForEach(modeloFoto => fichaTecnica.FichaTecnicaFotos.Add(new FichaTecnicaFoto()
                     {
-                        Variacao = variacaoModelo.Variacao
-                    };
-
-                    variacaoModelo.Cores.ForEach(cor => fichaTecnicaVariacaoMatriz.AddCor(cor));
-                });
-
-                //modelo.ObtenhaMaterialComposicaoModelos().ForEach(materialComposicaoModelo =>
-                //{
-                //    if (materialComposicaoModelo.VariacaoModelo != null)
-                //    {
-                //        fichaTecnica.FichaTecnicaMatriz.MaterialConsumoItems.Add(new FichaTecnicaMaterialConsumoVariacao()
-                //        {
-                //            CompoeCusto = true, 
-                //            Quantidade = materialComposicaoModelo.Quantidade,
-                //            Tamanho = materialComposicaoModelo.Tamanho
-                //        });
-                //    }
-                //});
+                        Arquivo = CopieArquivo(modeloFoto.Foto),
+                        Descricao = modeloFoto.Foto.Titulo,
+                        Impressao = modeloFoto.Impressao,
+                        Padrao = modeloFoto.Padrao
+                    }));
                 
-            }
-            
-            this.AddErrorMessage("xxxxxxxxx.");
-            return RedirectToAction("Index");
-        }
-
-        #endregion
-
-        #region Esboçar Corte
-
-        [PopulateViewData("PopulateViewData")]
-        public virtual ActionResult EsbocarCorte(long id)
-        {
-            var modeloDomain = _modeloRepository.Find(x => x.ModeloAvaliacao.ModelosAprovados.Any(y => y.Id == id)).First();
-
-            var modeloAprovacaoDomain = modeloDomain.ModeloAvaliacao.ModelosAprovados.First(x => x.Id == id);
-
-            if (modeloAprovacaoDomain != null)
-            {
-                var model = new ModeloAprovacaoMatrizCorteModel
-                {
-                    IdModelo = modeloDomain.Id,
-                    IdModeloAprovacao = modeloAprovacaoDomain.Id,
-                    Colecao = modeloDomain.Colecao.Descricao,
-                    ColecaoAprovada = modeloDomain.ModeloAvaliacao.Colecao.Descricao,
-                    Descricao = modeloAprovacaoDomain.Descricao,
-                    Complemento = modeloDomain.ModeloAvaliacao.Complemento,
-                    DescricaoModelo = modeloDomain.Descricao,
-                    Dificuldade = modeloDomain.ModeloAvaliacao.ClassificacaoDificuldade.Descricao,
-                    EstilistaModelo = modeloDomain.Estilista.Nome,
-                    Forro = modeloDomain.Forro,
-                    Tag = modeloDomain.ModeloAvaliacao.ObtenhaTagCompleta(),
-                    Tecido = modeloDomain.Tecido,
-                    ReferenciaModelo = modeloDomain.Referencia,
-                    Catalogo = modeloDomain.ModeloAvaliacao.ObtenhaCatalogo(),
-                    QtdeTotalAprovada = modeloDomain.ModeloAvaliacao.QuantidadeTotaAprovacao,
-                    Quantidade = modeloAprovacaoDomain.Quantidade,
-                    Referencia = modeloAprovacaoDomain.Referencia,
-                    GridItens = new List<ModeloAprovacaoMatrizCorteItemModel>()
-                };
-
-                if (modeloAprovacaoDomain.ModeloAprovacaoMatrizCorte == null)
-                {
-                    modeloDomain.Grade.Tamanhos.Keys.ForEach(tamanho =>
-                    {
-                        var modelItem = new ModeloAprovacaoMatrizCorteItemModel
-                        {
-                            DescricaoTamanho = tamanho.Descricao,
-                            Tamanho = tamanho.Id
-                        };
-                        model.GridItens.Add(modelItem);
-                    });
+                    modeloAprovacao.FichaTecnica = fichaTecnica;
+                    _modeloAprovacaoRepository.SaveOrUpdate(modeloAprovacao);
+                    Framework.UnitOfWork.Session.Current.Flush();
                 }
-                else
+                catch (FileNotFoundException exception)
                 {
-                    model.TipoEnfestoTecido = modeloAprovacaoDomain.ModeloAprovacaoMatrizCorte.TipoEnfestoTecido;
-                    long totalNumeroVezes = 0;
-                    modeloDomain.Grade.Tamanhos.Keys.ForEach(tamanho =>
-                    {
-                        var modeloAprovacaoMatrizCorteItem = modeloAprovacaoDomain.ModeloAprovacaoMatrizCorte.
-                            ModeloAprovacaoMatrizCorteItens.FirstOrDefault(x => x.Tamanho.Id == tamanho.Id);
-
-                        var modelItem = new ModeloAprovacaoMatrizCorteItemModel
-                        {
-                            DescricaoTamanho = tamanho.Descricao,
-                            Tamanho = tamanho.Id,
-                            Quantidade = modeloAprovacaoMatrizCorteItem != null ? modeloAprovacaoMatrizCorteItem.Quantidade : (long?)null,
-                            QuantidadeVezes = modeloAprovacaoMatrizCorteItem != null ? modeloAprovacaoMatrizCorteItem.QuantidadeVezes : (long?)null,
-                        };
-                        
-                        totalNumeroVezes += modeloAprovacaoMatrizCorteItem != null
-                            ? modeloAprovacaoMatrizCorteItem.QuantidadeVezes
-                            : 0;
-
-                        model.GridItens.Add(modelItem);
-                    });
-                    model.TotalNumeroVezes = totalNumeroVezes;
+                    ModelState.AddModelError(string.Empty,
+                        "Ocorreu um erro ao tentar criar a ficha técnica: Uma foto do modelo não foi encontrado no disco.");
+                    _logger.Info(exception.GetMessage());
                 }
-
-                return View(model);
-            }
-
-            this.AddErrorMessage("Não foi possível encontrar o modelo.");
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
-        public virtual ActionResult EsbocarCorte(ModeloAprovacaoMatrizCorteModel model)
-        {
-            foreach (var modelValue in ModelState.Values)
-            {
-                modelValue.Errors.Clear();
-            }
-
-            try
-            {
-                var modeloAprovacao = _modeloAprovacaoRepository.Get(model.IdModeloAprovacao);
-
-                if (modeloAprovacao.ModeloAprovacaoMatrizCorte != null)
+                catch (Exception exception)
                 {
-                    _modeloAprovacaoMatrizCorteRepository.Delete(modeloAprovacao.ModeloAprovacaoMatrizCorte);
+                    ModelState.AddModelError(string.Empty,
+                        "Ocorreu um erro ao tentar criar a ficha técnica " + exception.Message);
+                    _logger.Info(exception.GetMessage());
                 }
-
-                var modeloAprovacaoMatrizCorte = new ModeloAprovacaoMatrizCorte
-                {
-                    TipoEnfestoTecido = model.TipoEnfestoTecido
-                };
-
-                model.GridItens.ForEach(modelItem =>
-                {
-                    if (!modelItem.Quantidade.HasValue)
-                        return;
-
-                    var modeloAprovacaoMatrizCorteItem = new ModeloAprovacaoMatrizCorteItem
-                    {
-                        Quantidade = modelItem.Quantidade.GetValueOrDefault(),
-                        QuantidadeVezes = modelItem.QuantidadeVezes.GetValueOrDefault(),
-                        Tamanho = _tamanhoRepository.Load(modelItem.Tamanho)
-                    };
-                    modeloAprovacaoMatrizCorte.ModeloAprovacaoMatrizCorteItens.Add(modeloAprovacaoMatrizCorteItem);
-                });
-                    
-                modeloAprovacao.ModeloAprovacaoMatrizCorte = modeloAprovacaoMatrizCorte;
-                modeloAprovacao.Quantidade = model.Quantidade;
-
-                _modeloAprovacaoRepository.SaveOrUpdate(modeloAprovacao);
-
-                Framework.UnitOfWork.Session.Current.Flush();
-                this.AddSuccessMessage("O esboço de corte foi criado com sucesso.");
-                return RedirectToAction("Index");
             }
-            catch (Exception exception)
-            {
-                ModelState.AddModelError(string.Empty,
-                    "Ocorreu um erro esboçar o corte. Confira se os dados foram informados corretamente: " +
-                    exception.Message);
-                _logger.Info(exception.GetMessage());
-            }
-            
+
+            this.AddSuccessMessage("Fichas técnicas criadas com sucesso.");
             return View(model);
         }
+        
         #endregion
-
+        
         #endregion
 
         #region Métodos
@@ -434,12 +355,45 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         #endregion        
 
         #region PopulateViewData
-        protected void PopulateViewData(ModeloAprovacaoMatrizCorteModel model)
+        protected void PopulateViewCriarFichasTecnicas()
         {
+            var colecoes = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
+            ViewData["ColecaoAprovada"] = colecoes.ToSelectList("Descricao");
 
+            var estilistas = _pessoaRepository.Find(p => p.Funcionario != null
+                && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Estilista)
+                .OrderBy(p => p.Nome).ToList();
+            ViewData["Estilista"] = estilistas.ToSelectList("Nome");
+
+            var classificacaoDificuldades = _classificacaoDificuldadeRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
+            ViewData["ClassificacaoDificuldade"] = classificacaoDificuldades.ToSelectList("Descricao");
+
+            ViewBag.OrdenarPor = new SelectList(ColunasPesquisaModeloAvaliacao, "value", "key");
         }
         #endregion
 
         #endregion
+
+        public Arquivo CopieArquivo(Arquivo arquivoAtual)
+        {
+            var filePathAtual = arquivoAtual.Nome.GetFilePath();
+            
+            var filename = Helpers.Upload.GenerateTempFilename(arquivoAtual.Extensao).GetTempFilePath();
+            var filePathNovo = filename.GetFilePath();
+
+            System.IO.File.Copy(filePathAtual, filePathNovo, true);
+
+            var fileInfo = new FileInfo(filePathNovo);
+            var arquivo = new Arquivo
+            {
+                Nome = filename,
+                Titulo = arquivoAtual.Titulo,
+                Data = fileInfo.CreationTime,
+                Extensao = fileInfo.Extension,
+                Tamanho = fileInfo.Length
+            };
+
+            return arquivo;
+        }
     }
 }

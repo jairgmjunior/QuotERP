@@ -820,9 +820,6 @@
     <Compile Include="EngenhariaProduto.AprovarModeloController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="EngenhariaProduto.CriacaoFichaTecnicaController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="EngenhariaProduto.GradeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1220,10 +1217,7 @@
     <Content Include="Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Index.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAvaliacao\Avaliar.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\EsbocarCorte.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\Index.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\CriacaoFichaTecnica\CriarFichaTecnica.cshtml" />
-    <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichasTecnicas.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloMaterialConsumo\ModeloMaterialConsumo.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Consulta\CustoMaterial.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Pesquisar.cshtml" />
@@ -1233,6 +1227,7 @@
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Modelagem.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
+    <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichaTecnica.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

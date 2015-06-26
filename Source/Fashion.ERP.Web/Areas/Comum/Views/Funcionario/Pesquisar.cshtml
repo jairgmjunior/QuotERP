@@ -17,7 +17,7 @@
         }
         <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
             <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium", @style="box-sizing: border-box; -webkit-box-sizing: border-box;"})
                 @Html.TextBoxFor(x => x.ValorPesquisa, new { @class = "pull-left input-xlarge"})
                 <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn input-mini pull-right" />
             </div>
@@ -30,7 +30,8 @@
     </div>
 </div>
 <script>
-    $(function () {
+    function inicializeComponentePesquisaFuncionario()
+    {
         // Se o id do funcionario vier preenchido, preencher o código e descrição
         var funcionarioId = $('#funcionario').val();
 
@@ -149,5 +150,9 @@
                 $('#modal-funcionario').modal('hide');
             }
         }
+    }
+
+    $(function () {
+        inicializeComponentePesquisaFuncionario();
     });
 </script>

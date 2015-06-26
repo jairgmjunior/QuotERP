@@ -20,7 +20,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a descrição")]
         public string Descricao { get; set; }
 
-        [Display(Name = "Referencia")]
+        [Display(Name = "Referência")]
         [Required(ErrorMessage = "Informe a referência")]
         public string Referencia { get; set; }
 
@@ -67,8 +67,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a grade")]
         public long? Grade { get; set; }
 
-        [Display(Name = "Quantidade Aprovada")]
-        public int? QuantidadeAprovada { get; set; }
+        [Display(Name = "Estilista")]
+        [Required(ErrorMessage = "Informe o estilista")]
+        public long Estilista { get; set; }
         
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

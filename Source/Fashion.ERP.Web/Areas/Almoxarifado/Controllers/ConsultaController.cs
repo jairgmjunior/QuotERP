@@ -35,6 +35,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMaterialRepository;
         private readonly IRepository<PedidoCompraItem> _pedidoCompraItemRepository;
+        private readonly IRepository<EntradaMaterial> _entradaMaterialRepository;
+        private readonly IRepository<SaidaMaterial> _saidaMaterialRepository;
         private readonly ILogger _logger;
         #endregion
 
@@ -68,7 +70,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<DepositoMaterial> depositoMaterialRepository,
-            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository, IRepository<PedidoCompraItem> pedidoCompraItemRepository)
+            IRepository<MovimentacaoEstoqueMaterial> movimentacaoEstoqueMaterialRepository, IRepository<PedidoCompraItem> pedidoCompraItemRepository,
+            IRepository<EntradaMaterial> entradaMaterialRepository, IRepository<SaidaMaterial> saidaMaterialRepository)
         {
             _estoqueMaterialRepository = estoqueMaterialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
@@ -80,6 +83,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _depositoMaterialRepository = depositoMaterialRepository;
             _movimentacaoEstoqueMaterialRepository = movimentacaoEstoqueMaterialRepository;
             _pedidoCompraItemRepository = pedidoCompraItemRepository;
+            _entradaMaterialRepository = entradaMaterialRepository;
+            _saidaMaterialRepository = saidaMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -434,6 +439,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                                         Data = e.Data, 
                                         Entrada = e.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Entrada? e.Quantidade : 0,
                                         Saida = e.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Saida? e.Quantidade : 0,
+                                        OrigemDestino = ObtenhaOrigemDestino(e)
                                     })
                                 .ToList();
 
@@ -458,6 +464,18 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
             }
             return View(model);
+        }
+
+        public string ObtenhaOrigemDestino(MovimentacaoEstoqueMaterial movimentacao)
+        {
+            if (movimentacao.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Entrada)
+            {
+                var entradaMaterial = _entradaMaterialRepository.Find().FirstOrDefault(x => x.EntradaItemMateriais.Any(y => y.MovimentacaoEstoqueMaterial.Id == movimentacao.Id));
+                return entradaMaterial.ObtenhaOrigem();
+            }
+
+            var saidaMaterial = _saidaMaterialRepository.Find().FirstOrDefault(x => x.SaidaItemMateriais.Any(y => y.MovimentacaoEstoqueMaterial.Id == movimentacao.Id));
+            return saidaMaterial.ObtenhaDestino();
         }
 
         #endregion

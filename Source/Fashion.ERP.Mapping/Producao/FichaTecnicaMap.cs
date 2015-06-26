@@ -18,7 +18,6 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.Silk).Length(200).Nullable();
             Map(x => x.Bordado).Length(200).Nullable();
             Map(x => x.Pedraria).Length(200).Nullable();
-            Map(x => x.QuantidadeProducaoAprovada).Nullable();
             Map(x => x.DataCadastro);
             Map(x => x.DataAlteracao);
             Map(x => x.Referencia);
@@ -26,7 +25,7 @@ namespace Fashion.ERP.Mapping.Producao
             References(x => x.Artigo);
             References(x => x.Colecao);
             References(x => x.Marca).Nullable();
-            References(x => x.Segmento);
+            References(x => x.Segmento).Nullable();
             References(x => x.Natureza);
             References(x => x.Classificacao);
             References(x => x.ClassificacaoDificuldade);

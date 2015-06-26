@@ -97,5 +97,12 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
             materialRepository.SaveOrUpdate(this);
         }
+
+        public virtual double ObtenhaUltimoCusto()
+        {
+            var custoMaterial = CustoMaterials.FirstOrDefault(c => c.Ativo);
+
+            return custoMaterial == null ? 0 : custoMaterial.Custo;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.Padrao);
             Map(x => x.Impressao);
 
-            References(x => x.Arquivo);
+            References(x => x.Arquivo).Cascade.All();
         }
     }
 }
