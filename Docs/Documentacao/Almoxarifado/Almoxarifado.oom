@@ -2489,7 +2489,7 @@ Shadow=0</a:DisplayPreferences>
 <o:AssociationSymbol Id="o6">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421954840</a:ModificationDate>
-<a:Rect>((-10570,8566), (-6811,23296))</a:Rect>
+<a:Rect>((-10607,8566), (-6773,23296))</a:Rect>
 <a:ListOfPoints>((-8698,8566),(-8549,23296))</a:ListOfPoints>
 <a:ArrowStyle>2048</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -15358,7 +15358,7 @@ Shadow=0</a:DisplayPreferences>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1421781784</a:ModificationDate>
 <a:Modifier>ferna_000</a:Modifier>
-<a:TargetModelURL>file:///D|/Repositório/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
 <a:TargetModelID>40838F6A-D772-4557-ABF1-E1A5E3743153</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>
