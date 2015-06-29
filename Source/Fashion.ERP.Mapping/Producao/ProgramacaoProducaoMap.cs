@@ -14,7 +14,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.DataAlteracao);
             Map(x => x.Observacao).Length(4000).Nullable();
             Map(x => x.Quantidade);
-            
+
             References(x => x.Funcionario);
             References(x => x.Colecao);
             References(x => x.FichaTecnica);

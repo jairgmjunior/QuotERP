@@ -18,6 +18,18 @@ namespace Fashion.ERP.Migrator
                 .Nullable();
 
             Delete.Column("quantidadeproducaoaprovada").FromTable("fichatecnica");
+            
+            Create.Table("programacaoproducaomaterial")
+                .WithColumn("id").AsInt64().PrimaryKey()
+                .WithColumn("idtenant").AsInt64()
+                .WithColumn("idempresa").AsInt64()
+                .WithColumn("quantidade").AsDouble()
+                .WithColumn("reservamaterial_id").AsInt64()
+                .ForeignKey("FK_programacaoproducaomaterial_reservamaterial", "reservamaterial", "id")
+                .WithColumn("material_id").AsInt64()
+                .ForeignKey("FK_programacaoproducaomaterial_material", "material", "id")
+                .WithColumn("programacaoproducao_id").AsInt64()
+                .ForeignKey("FK_programacaoproducaomaterial_programacaoproducao", "programacaoproducao", "id");
 
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201506250931.permissao.sql");
         }

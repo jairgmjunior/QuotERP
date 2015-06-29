@@ -232,6 +232,7 @@
     <Compile Include="Producao\FichaTecnicaMaterialComposicaoCusto.cs" />
     <Compile Include="Producao\FichaTecnicaMaterialConsumoVariacao.cs" />
     <Compile Include="Producao\FichaTecnicaMaterialConsumo.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoMaterial.cs" />
     <Compile Include="Producao\ProgramacaoProducaoMatrizCorte.cs" />
     <Compile Include="Producao\ProgramacaoProducaoMatrizCorteItem.cs" />
     <Compile Include="Producao\OrdemProducao.cs" />

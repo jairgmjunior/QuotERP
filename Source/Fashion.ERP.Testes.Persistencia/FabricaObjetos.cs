@@ -1278,6 +1278,14 @@ namespace Fashion.ERP.Testes.Persistencia
                 Observacao = "OBSERVAÇÃO"
             };
         }
+
+        public ProgramacaoProducaoMaterial ObtenhaProducaoProducaoMaterial()
+        {
+            return new ProgramacaoProducaoMaterial()
+            {
+                Quantidade = 1
+            };            
+        }
         
         public ProgramacaoProducaoMatrizCorte ObtenhaProgramacaoProducaoMatrizCorte()
         {

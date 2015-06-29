@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.Common.Base;
 
@@ -6,6 +7,8 @@ namespace Fashion.ERP.Domain.Producao
 {
     public class ProgramacaoProducao : DomainEmpresaBase<ProgramacaoProducao>, IPesquisavelPorData
     {
+        private readonly IList<ProgramacaoProducaoMaterial> _programacaoProducaoMateriais = new List<ProgramacaoProducaoMaterial>();
+
         public virtual long Numero { get; set; }
         public virtual DateTime Data { get; set; }
         public virtual DateTime DataProgramada { get; set; }
@@ -18,5 +21,10 @@ namespace Fashion.ERP.Domain.Producao
         public virtual FichaTecnica FichaTecnica { get; set; }
 
         public virtual ProgramacaoProducaoMatrizCorte ProgramacaoProducaoMatrizCorte { get; set; }
+
+        public virtual IList<ProgramacaoProducaoMaterial> ProgramacaoProducaoMateriais
+        {
+            get { return _programacaoProducaoMateriais; }
+        }
     }
 }
