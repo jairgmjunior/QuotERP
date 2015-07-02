@@ -161,7 +161,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Id = p.Id.GetValueOrDefault(),
                     Descricao = p.Descricao,
                     Referencia = p.Referencia,
-                    Foto = !p.Fotos.IsNullOrEmpty() ? p.Fotos.First(x => x.Padrao).Foto.Nome.GetFileUrl() : string.Empty,
+                    Foto = !p.Fotos.IsNullOrEmpty() ? ObtenhaModeloFoto(p).Foto.Nome.GetFileUrl() : string.Empty,
                     Estilista = p.Estilista.Nome,
                     Colecao = p.Colecao.Descricao,
                     ColecaoAprovada = p.Situacao == SituacaoModelo.Aprovado ? p.ModeloAvaliacao.Colecao.Descricao : string.Empty,
@@ -190,6 +190,11 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Errors = ex.GetMessage()
                 });
             }
+        }
+
+        public ModeloFoto ObtenhaModeloFoto(Modelo modelo)
+        {
+            return !modelo.Fotos.IsNullOrEmpty() ? modelo.Fotos.First(x => x.Padrao) : modelo.Fotos.First();
         }
 
         #endregion

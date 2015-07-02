@@ -6,7 +6,7 @@ namespace Fashion.ERP.Mapping.Producao
     public class ProgramacaoProducaoMap : EmpresaClassMap<ProgramacaoProducao>
     {
         public ProgramacaoProducaoMap()
-            : base("programacaoproducao", 10)
+            : base("programacaoproducao", 0)
         {
             Map(x => x.Numero);
             Map(x => x.Data);

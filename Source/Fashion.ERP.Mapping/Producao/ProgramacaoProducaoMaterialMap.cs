@@ -12,6 +12,7 @@ namespace Fashion.ERP.Mapping.Producao
 
             References(x => x.ReservaMaterial).Cascade.All();
             References(x => x.Material);
+            References(x => x.DepartamentoProducao);
         }
     }
 }

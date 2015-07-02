@@ -192,7 +192,7 @@
             model.Id(item => item.DescricaoTamanho);
             model.Field(product => product.DescricaoTamanho).Editable(false);
             model.Field(product => product.QuantidadeVezes).Editable(true);
-            model.Field(product => product.Quantidade).Editable(true);
+            model.Field(product => product.Quantidade).Editable(true).DefaultValue(0);
         })
         .Read(read => read.Action("ObtenhaListaGridMatrizCorteModel", "ProgramacaoProducao").Data("ObtenhaParametrosGridMatrizCorte"))
         .Events(events => events.Error("onKendoGridError").Change("onChange"))

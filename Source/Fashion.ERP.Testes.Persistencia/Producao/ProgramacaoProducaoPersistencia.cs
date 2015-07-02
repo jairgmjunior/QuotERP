@@ -14,6 +14,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private FichaTecnicaJeans _fichaTecnica;
         private Tamanho _tamanho;
         private Material _material;
+        private DepartamentoProducao _departamentoProducao;
         private ProgramacaoProducaoMatrizCorte _programacaoProducaoMatrizCorte;
         private ProgramacaoProducaoMatrizCorteItem _programacaoProducaoMatrizCorteItem;
         private ProgramacaoProducaoMaterial _programacaoProducaoMaterial;
@@ -38,6 +39,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _tamanho = FabricaObjetosPersistidos.ObtenhaTamanho();
             _fichaTecnica = FabricaObjetosPersistidos.ObtenhaFichaTecnica();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
+            _departamentoProducao = FabricaObjetosPersistidos.ObtenhaDepartamentoProducao();
 
             _programacaoProducaoMatrizCorte = FabricaObjetos.ObtenhaProgramacaoProducaoMatrizCorte();
             _programacaoProducaoMatrizCorteItem = FabricaObjetos.ObtenhaProgramacaoProducaoMatrizCorteItem();
@@ -47,7 +49,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _programacaoProducaoMaterial = FabricaObjetos.ObtenhaProducaoProducaoMaterial();
             _programacaoProducaoMaterial.Material = _material;
             _programacaoProducaoMaterial.ReservaMaterial = FabricaObjetosPersistidos.ObtenhaReservaMaterial();
-            
+            _programacaoProducaoMaterial.DepartamentoProducao = _departamentoProducao;
             Session.Current.Flush();
         }
 
@@ -58,7 +60,8 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             FabricaObjetosPersistidos.ExcluaTamanho(_tamanho);
             FabricaObjetosPersistidos.ExcluaPessoa(_funcionario);
             FabricaObjetosPersistidos.ExcluaMaterial(_material);
-            
+            FabricaObjetosPersistidos.ExcluaDepartamentoProducao(_departamentoProducao);
+
             Session.Current.Flush();
         }
     }

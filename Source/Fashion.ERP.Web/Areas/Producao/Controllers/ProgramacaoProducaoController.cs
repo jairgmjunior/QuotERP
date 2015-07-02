@@ -202,53 +202,50 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public virtual ActionResult Editar(ProgramacaoProducaoModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    var domain = Mapper.Unflat(model, _programacaoProducaoRepository.Get(model.Id));
-                    domain.Colecao = _colecaoRepository.Load(model.Colecao);
-                    domain.FichaTecnica = _fichaTecnicaRepository.Load(model.FichaTecnica);
-                    domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
+                var domain = Mapper.Unflat(model, _programacaoProducaoRepository.Get(model.Id));
+                domain.Colecao = _colecaoRepository.Load(model.Colecao);
+                domain.FichaTecnica = _fichaTecnicaRepository.Load(model.FichaTecnica);
+                domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
 
-                    var programacaoProducaoMatrizCorte = new ProgramacaoProducaoMatrizCorte()
+                var programacaoProducaoMatrizCorte = new ProgramacaoProducaoMatrizCorte()
+                {
+                    TipoEnfestoTecido = model.TipoEnfestoTecido
+                };
+
+                if (model.GridItens == null)
+                {
+                    model.GridItens = new List<ProgramacaoProducaoMatrizCorteItemModel>();
+                }
+
+                model.GridItens.ForEach(modelItem =>
+                {
+                    if (!modelItem.Quantidade.HasValue)
+                        return;
+
+                    var programacaoProducaoMatrizCorteItem = new ProgramacaoProducaoMatrizCorteItem()
                     {
-                        TipoEnfestoTecido = model.TipoEnfestoTecido
+                        Quantidade = modelItem.Quantidade.GetValueOrDefault(),
+                        QuantidadeVezes = modelItem.QuantidadeVezes.GetValueOrDefault(),
+                        Tamanho = _tamanhoRepository.Load(modelItem.Tamanho)
                     };
+                    programacaoProducaoMatrizCorte.ProgramacaoProducaoMatrizCorteItens.Add(programacaoProducaoMatrizCorteItem);
+                });
 
-                    if (model.GridItens == null)
-                    {
-                        model.GridItens = new List<ProgramacaoProducaoMatrizCorteItemModel>();
-                    }
-
-                    model.GridItens.ForEach(modelItem =>
-                    {
-                        if (!modelItem.Quantidade.HasValue)
-                            return;
-
-                        var programacaoProducaoMatrizCorteItem = new ProgramacaoProducaoMatrizCorteItem()
-                        {
-                            Quantidade = modelItem.Quantidade.GetValueOrDefault(),
-                            QuantidadeVezes = modelItem.QuantidadeVezes.GetValueOrDefault(),
-                            Tamanho = _tamanhoRepository.Load(modelItem.Tamanho)
-                        };
-                        programacaoProducaoMatrizCorte.ProgramacaoProducaoMatrizCorteItens.Add(programacaoProducaoMatrizCorteItem);
-                    });
-
-                    domain.ProgramacaoProducaoMatrizCorte = programacaoProducaoMatrizCorte;
+                domain.ProgramacaoProducaoMatrizCorte = programacaoProducaoMatrizCorte;
                     
-                    _programacaoProducaoRepository.SaveOrUpdate(domain);
+                _programacaoProducaoRepository.SaveOrUpdate(domain);
 
-                    this.AddSuccessMessage("Programação da produção atualizada com sucesso.");
-                    return RedirectToAction("Index");
-                }
-                catch (Exception exception)
-                {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a programação da produção. Confira se os dados foram informados corretamente: " + exception.Message);
-                    _logger.Info(exception.GetMessage());
-                }
+                this.AddSuccessMessage("Programação da produção atualizada com sucesso.");
+                return RedirectToAction("Index");
             }
-
+            catch (Exception exception)
+            {
+                ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar a programação da produção. Confira se os dados foram informados corretamente: " + exception.Message);
+                _logger.Info(exception.GetMessage());
+            }
+            
             return View(model);
         }
 

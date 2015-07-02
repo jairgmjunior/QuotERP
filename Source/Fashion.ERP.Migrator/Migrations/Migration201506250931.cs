@@ -24,14 +24,17 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("idtenant").AsInt64()
                 .WithColumn("idempresa").AsInt64()
                 .WithColumn("quantidade").AsDouble()
-                .WithColumn("reservamaterial_id").AsInt64()
+                .WithColumn("reservamaterial_id").AsInt64().Nullable()
                 .ForeignKey("FK_programacaoproducaomaterial_reservamaterial", "reservamaterial", "id")
                 .WithColumn("material_id").AsInt64()
                 .ForeignKey("FK_programacaoproducaomaterial_material", "material", "id")
+                .WithColumn("departamentoproducao_id").AsInt64()
+                .ForeignKey("FK_programacaoproducaomaterial_departamentoproducao", "departamentoproducao", "id")
                 .WithColumn("programacaoproducao_id").AsInt64()
                 .ForeignKey("FK_programacaoproducaomaterial_programacaoproducao", "programacaoproducao", "id");
 
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201506250931.permissao.sql");
+            Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201506250931.migracaodadosfichatecnica.sql");
         }
 
         public override void Down()
