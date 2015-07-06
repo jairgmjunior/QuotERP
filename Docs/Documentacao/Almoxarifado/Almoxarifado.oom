@@ -3285,7 +3285,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:Text>Version: </a:Text>
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421782348</a:ModificationDate>
-<a:Rect>((21005,51768), (34654,58511))</a:Rect>
+<a:Rect>((21230,51768), (34429,58511))</a:Rect>
 <a:TextStyle>4130</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -4240,7 +4240,7 @@ Multiplicity 0 Arial,8,N</a:FontList>
 <a:Text>Version: </a:Text>
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421782348</a:ModificationDate>
-<a:Rect>((11675,30879), (25324,37622))</a:Rect>
+<a:Rect>((11900,30879), (25099,37622))</a:Rect>
 <a:TextStyle>4130</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -15358,7 +15358,7 @@ Shadow=0</a:DisplayPreferences>
 <a:Creator>ferna_000</a:Creator>
 <a:ModificationDate>1421781784</a:ModificationDate>
 <a:Modifier>ferna_000</a:Modifier>
-<a:TargetModelURL>file:///C|/Repositorio/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
+<a:TargetModelURL>file:///D|/Repositório/QuodERP/Docs/Documentacao/Comum/Comum.oom</a:TargetModelURL>
 <a:TargetModelID>40838F6A-D772-4557-ABF1-E1A5E3743153</a:TargetModelID>
 <a:TargetModelClassID>18112060-1A4B-11D1-83D9-444553540000</a:TargetModelClassID>
 <c:SessionShortcuts>
