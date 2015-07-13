@@ -11,7 +11,7 @@
     return nome;
 }
 
-function index(dataItem) {
+function indexModelagem(dataItem) {
     var data = $("#GridMedidas").data("kendoGrid").dataSource.data();
     return data.indexOf(dataItem);
 }

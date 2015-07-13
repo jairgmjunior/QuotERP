@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Areas.Producao.Models;
@@ -11,6 +12,7 @@ using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Common.Utils;
 using Fashion.Framework.Repository;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
@@ -28,19 +30,28 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
+        private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<ReservaMaterial> _reservaMaterialRepository;
+        private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
         private readonly ILogger _logger;
+        private long? _proximoNumeroReservaMaterial;
         #endregion
 
         #region Construtores
         public ProgramacaoProducaoController(ILogger logger, IRepository<ProgramacaoProducao> programacaoProducaoRepository,
             IRepository<Colecao> colecaoRepository, IRepository<FichaTecnica> fichaTecnicaRepository,
-            IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository)
+            IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository,
+            IRepository<Material> materialRepository, IRepository<ReservaMaterial> reservaMaterialRepository,
+            IRepository<DepartamentoProducao> departamentoProducaoRepository)
         {
             _programacaoProducaoRepository = programacaoProducaoRepository;
             _colecaoRepository = colecaoRepository;
             _fichaTecnicaRepository = fichaTecnicaRepository;
             _pessoaRepository = pessoaRepository;
             _tamanhoRepository = tamanhoRepository;
+            _materialRepository = materialRepository;
+            _reservaMaterialRepository = reservaMaterialRepository;
+            _departamentoProducaoRepository = departamentoProducaoRepository;
             _logger = logger;
         }
         #endregion
@@ -106,6 +117,28 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     domain.ProgramacaoProducaoMatrizCorte = programacaoProducaoMatrizCorte;
 
+                    domain.FichaTecnica.MateriaisConsumo.ForEach(materialConsumoFichaTecnica =>
+                    {
+                        var programacaoProducaoMaterial = new ProgramacaoProducaoMaterial()
+                        {
+                            DepartamentoProducao = materialConsumoFichaTecnica.DepartamentoProducao,
+                            Material = materialConsumoFichaTecnica.Material,
+                            Quantidade = materialConsumoFichaTecnica.Quantidade * domain.Quantidade
+                        };
+                        domain.ProgramacaoProducaoMateriais.Add(programacaoProducaoMaterial);
+                    });
+
+                    domain.FichaTecnica.MateriaisConsumoVariacao.ForEach(materialConsumoVariacaoFichaTecnica =>
+                    {
+                        var programacaoProducaoMaterial = new ProgramacaoProducaoMaterial()
+                        {
+                            DepartamentoProducao = materialConsumoVariacaoFichaTecnica.DepartamentoProducao,
+                            Material = materialConsumoVariacaoFichaTecnica.Material,
+                            Quantidade = materialConsumoVariacaoFichaTecnica.Quantidade * domain.Quantidade
+                        };
+                        domain.ProgramacaoProducaoMateriais.Add(programacaoProducaoMaterial);
+                    });
+
                     _programacaoProducaoRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Programação de produção cadastrada com sucesso.");
@@ -148,11 +181,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                                     Quantidade =
                                         programacaoProducaoMatrizCorteItem != null
                                             ? programacaoProducaoMatrizCorteItem.Quantidade
-                                            : (long?)null,
+                                            : (long?)0,
                                     QuantidadeVezes =
                                         programacaoProducaoMatrizCorteItem != null
                                             ? programacaoProducaoMatrizCorteItem.QuantidadeVezes
-                                            : (long?)null,
+                                            : (long?)0,
                                 };
 
                                 retorno.Add(modelItem);
@@ -167,7 +200,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         var modelItem = new ProgramacaoProducaoMatrizCorteItemModel
                         {
                             DescricaoTamanho = tamanho.Descricao,
-                            Tamanho = tamanho.Id
+                            Tamanho = tamanho.Id,
+                            Quantidade = 0,
+                            QuantidadeVezes = 0
                         };
                         retorno.Add(modelItem);
                     });
@@ -400,7 +435,193 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
 
         #endregion
+
+        #region MateriaisProgramacaoProducao
+        [PopulateViewData("PopulateViewDataMateriais")]
+        public virtual ActionResult MateriaisProgramacaoProducao(long id)
+        {
+            var domain = _programacaoProducaoRepository.Get(id);
+            var fichatecnica = domain.FichaTecnica;
+            var model = new ProgramacaoProducaoMateriaisModel
+            {
+                Ano = fichatecnica.Ano,
+                Tag = fichatecnica.Tag,
+                Referencia = fichatecnica.Referencia,
+                Colecao = fichatecnica.Colecao.Descricao,
+                Descricao = fichatecnica.Descricao,
+                Estilista = fichatecnica.Estilista.Nome,
+                DataProgramada = domain.DataProgramada,
+                Quantidade = domain.Quantidade,
+                GridItens = new List<GridProgramacaoProducaoMaterialModel>(),
+                Fotos = fichatecnica.FichaTecnicaFotos.Select(p => p.Arquivo.Nome.GetFileUrl())
+            };
+
+            domain.ProgramacaoProducaoMateriais.ForEach(programacaoProducaoMaterial =>
+            {
+                var qtdeReserva = programacaoProducaoMaterial.ReservaMaterial != null ? programacaoProducaoMaterial.ReservaMaterial.ReservaMaterialItems.First(x => x.Material.Referencia == programacaoProducaoMaterial.Material.Referencia).QuantidadeReserva : 0;
+                var unidade = programacaoProducaoMaterial.ReservaMaterial != null ? programacaoProducaoMaterial.ReservaMaterial.Unidade.Id : 0;
+
+                var modelMaterial = new GridProgramacaoProducaoMaterialModel()
+                {
+                    Id = programacaoProducaoMaterial.Id.GetValueOrDefault(),
+                    DepartamentoProducao = programacaoProducaoMaterial.DepartamentoProducao.Id.ToString(),
+                    Descricao = programacaoProducaoMaterial.Material.Descricao,
+                    Referencia = programacaoProducaoMaterial.Material.Referencia,
+                    UnidadeMedida = programacaoProducaoMaterial.Material.UnidadeMedida.Sigla,
+                    Foto = (programacaoProducaoMaterial.Material.Foto != null ? programacaoProducaoMaterial.Material.Foto.Nome.GetFileUrl() : string.Empty),
+                    GeneroCategoria = programacaoProducaoMaterial.Material.Subcategoria.Categoria.GeneroCategoria,
+                    Reservado = programacaoProducaoMaterial.ReservaMaterial != null,
+                    Quantidade = programacaoProducaoMaterial.Quantidade,
+                    Unidade = unidade,
+                    QtdeReservada = qtdeReserva
+                };
+
+                model.GridItens.Add(modelMaterial);
+            });
+
+            return View(model);
+        }
         
+        [HttpPost, ValidateAntiForgeryToken]
+        public virtual ActionResult MateriaisProgramacaoProducao(ProgramacaoProducaoMateriaisModel model)
+        {
+            foreach (var modelValue in ModelState.Values)
+            {
+                modelValue.Errors.Clear();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    var domain = _programacaoProducaoRepository.Get(model.Id);
+
+                    model.GridItens.ForEach(modelItem =>
+                    {
+                        if (modelItem.Id == 0)
+                        {
+                            CrieNovoProgramacaoProducaoMaterial(modelItem, domain);
+                        }
+                        else
+                        {
+                            EditarProgramacaoProducaoMaterial(modelItem, domain);
+                        }
+                    });
+
+                    var listaExcluir = new List<ProgramacaoProducaoMaterial>();
+
+                    domain.ProgramacaoProducaoMateriais.ForEach(programacaoProducaoMaterial =>
+                    {
+                        if (model.GridItens == null ||
+                            model.GridItens.All(
+                                x => x.Id != programacaoProducaoMaterial.Id && programacaoProducaoMaterial.Id != null))
+                        {
+                            listaExcluir.Add(programacaoProducaoMaterial);
+                        }
+                    });
+
+                    foreach (var programacaoProducaoMaterial in listaExcluir)
+                    {
+                        domain.ProgramacaoProducaoMateriais.Remove(programacaoProducaoMaterial);
+                    }
+
+                    _programacaoProducaoRepository.SaveOrUpdate(domain);
+                    Framework.UnitOfWork.Session.Current.Flush();
+
+                    this.AddSuccessMessage("Materiais da programação da produção atualizados com sucesso.");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty,
+                        "Ocorreu um erro ao atualizar os materiais da programação de produção. Confira se os dados foram informados corretamente: " +
+                        exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+            return View(model);
+        }
+
+        private void CrieNovoProgramacaoProducaoMaterial(GridProgramacaoProducaoMaterialModel modelItem, ProgramacaoProducao domain)
+        {
+            var programacaoProducaoMaterial = new ProgramacaoProducaoMaterial()
+            {
+                Material = _materialRepository.Get(x => x.Referencia == modelItem.Referencia),
+                Quantidade = modelItem.Quantidade,
+                ReservaMaterial = modelItem.Reservado ? ObtenhaNovaReservaMaterial(modelItem, domain) : null,
+                DepartamentoProducao = _departamentoProducaoRepository.Load(Convert.ToInt64(modelItem.DepartamentoProducao))
+            };
+
+            domain.ProgramacaoProducaoMateriais.Add(programacaoProducaoMaterial);
+        }
+
+        private void EditarProgramacaoProducaoMaterial(GridProgramacaoProducaoMaterialModel modelItem, ProgramacaoProducao domain)
+        {
+            var programacaoProducaoMaterial = domain.ProgramacaoProducaoMateriais.First(x => x.Id == modelItem.Id);
+            programacaoProducaoMaterial.Material = _materialRepository.Get(x => x.Referencia == modelItem.Referencia);
+            programacaoProducaoMaterial.Quantidade = modelItem.Quantidade;
+            programacaoProducaoMaterial.DepartamentoProducao = _departamentoProducaoRepository.Load(Convert.ToInt64(modelItem.DepartamentoProducao));
+
+            if (modelItem.Reservado)
+            {
+                if (programacaoProducaoMaterial.ReservaMaterial != null)
+                {
+                    EditarReservaMaterial(programacaoProducaoMaterial, modelItem, domain);
+                }
+                else
+                {
+                    programacaoProducaoMaterial.ReservaMaterial = ObtenhaNovaReservaMaterial(modelItem, domain);
+                }
+            }
+            else
+            {
+                if (programacaoProducaoMaterial.ReservaMaterial != null)
+                {
+                    _reservaMaterialRepository.Delete(programacaoProducaoMaterial.ReservaMaterial);
+                    programacaoProducaoMaterial.ReservaMaterial = null;
+                }
+            }
+        }
+
+        private ReservaMaterial ObtenhaNovaReservaMaterial(GridProgramacaoProducaoMaterialModel modelItem, ProgramacaoProducao domain)
+        {
+            var material = _materialRepository.Get(x => x.Referencia == modelItem.Referencia);
+
+            var reservaMaterial = new ReservaMaterial()
+            {
+                Colecao = domain.Colecao,
+                Numero = ProximoNumeroReservaMaterial(),
+                Data = DateTime.Now,
+                DataProgramacao = domain.DataProgramada,
+                ReferenciaOrigem = domain.FichaTecnica.Referencia,
+                Requerente = domain.Funcionario,
+                Unidade = _pessoaRepository.Load(Convert.ToInt64(modelItem.Unidade)),
+                SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
+            };
+
+            var reservaMaterialItem = new ReservaMaterialItem()
+            {
+                Material = material,
+                QuantidadeReserva = modelItem.QtdeReservada,
+                SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
+            };
+
+            reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
+            
+            return reservaMaterial;
+        }
+
+        private void EditarReservaMaterial(ProgramacaoProducaoMaterial programacaoProducaoMaterial, GridProgramacaoProducaoMaterialModel modelItem, ProgramacaoProducao domain)
+        {
+            var reservaMaterial = programacaoProducaoMaterial.ReservaMaterial;
+            reservaMaterial.Unidade = _pessoaRepository.Load(Convert.ToInt64(modelItem.Unidade));
+            var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.First(x => x.Material.Referencia == modelItem.Referencia);
+            reservaMaterialItem.QuantidadeReserva = modelItem.QtdeReservada;
+        }
+
+        #endregion
+
         #region PopulateViewDataPesquisa
 
         protected void PopulateViewDataPesquisa(PesquisaProgramacaoProducaoModel model)
@@ -419,11 +640,47 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         #endregion
 
+        protected void PopulateViewDataMateriais(ProgramacaoProducaoMateriaisModel model)
+        {
+            var generoCategorias = (from Enum e in Enum.GetValues(typeof(GeneroCategoria))
+                                         let d = e.GetDisplay()
+                                         select new { Id = Convert.ToInt32(e), Name = d != null ? d.Name : e.ToString() }).ToList();
+
+            ViewBag.GeneroCategoriaDicionarioJson = generoCategorias.ToDictionary(k => k.Id.ToString(), e => e.Name).FromDictionaryToJson();
+
+            var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
+            ViewBag.DepartamentoProducaos = departamentoProducaos.Select(s => new { Id = s.Id.ToString(), s.Nome }).OrderBy(x => x.Nome);
+            ViewBag.DepartamentoProducaoDicionarioJson = departamentoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
+            
+            var unidades = _pessoaRepository.Find(p => p.Unidade != null || p.Unidade.Ativo).ToList();
+            ViewBag.Unidades = unidades.Select(s => new { Id = s.Id.ToString(), s.NomeFantasia }).OrderBy(x => x.NomeFantasia);
+            ViewBag.UnidadeDicionarioJson = unidades.ToDictionary(k => k.Id.ToString(), e => e.NomeFantasia).FromDictionaryToJson();
+        }
+
         private long ProximoNumero()
         {
             try
             {
                 return _programacaoProducaoRepository.Find().Max(p => p.Numero) + 1;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
+
+        private long ProximoNumeroReservaMaterial()
+        {
+            try
+            {
+                if (_proximoNumeroReservaMaterial != null)
+                {
+                    _proximoNumeroReservaMaterial++;
+                    return _proximoNumeroReservaMaterial.GetValueOrDefault();
+                }
+                
+                _proximoNumeroReservaMaterial = _reservaMaterialRepository.Find().Max(p => p.Numero) + 1;
+                return _proximoNumeroReservaMaterial.GetValueOrDefault();
             }
             catch (Exception)
             {

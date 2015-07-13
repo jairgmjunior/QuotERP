@@ -16,7 +16,7 @@ DECLARE @maxfichatecnicavariacaomatrizcorid bigint
 DECLARE @maxprogramacaoproducaoid bigint
 DECLARE @maxprogramacaoproducaomatrizcorteid bigint
 
-BEGIN TRY
+
 	SET @getid = CURSOR FOR SELECT id FROM  modelo WHERE modeloaprovado_id IS NOT NULL
 
 	OPEN @getid
@@ -425,10 +425,10 @@ BEGIN TRY
 						
 			SET @quantidadeprogramacaoproducao = (SELECT quantidade from programacaoproducao where id = @maxprogramacaoproducaoid)
 			
-			INSERT INTO programacaoproducaomaterial(id, idtenant, idempresa, quantidade, reservamaterial_id, material_id, programacaoproducao_id)
+			INSERT INTO programacaoproducaomaterial(id, idtenant, idempresa, quantidade, reservamaterial_id, material_id, programacaoproducao_id, departamentoproducao_id)
 				SELECT @maxfichatecnicamaterialid, 0, 0, 
 				((quantidade * (Select fatormultiplicativo from material, unidademedida where material.id=material_id and unidademedida.id = unidademedida_id)) * @quantidadeprogramacaoproducao), 
-				null, material_id, @maxprogramacaoproducaoid 
+				null, material_id, @maxprogramacaoproducaoid, departamentoproducao_id 
 				FROM modelomaterialconsumo where id = @idmaterial
 
 			FETCH NEXT
@@ -468,7 +468,3 @@ BEGIN TRY
 	insert into uniquekeys(tablename, nexthi) values('programacaoproducaomaterial', (SELECT ISNULL(MAX(id) + 1, 1) FROM programacaoproducaomaterial))
 
 
-END TRY
-BEGIN CATCH
-    SELECT ERROR_NUMBER() AS ErrorNumber, ERROR_MESSAGE() AS ErrorMessage;
-END CATCH

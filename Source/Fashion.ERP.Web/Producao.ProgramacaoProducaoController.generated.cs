@@ -65,6 +65,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MateriaisProgramacaoProducao()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MateriaisProgramacaoProducao);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProgramacaoProducaoController Actions { get { return MVC.Producao.ProgramacaoProducao; } }
@@ -87,6 +93,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public readonly string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +105,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Excluir = "Excluir";
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public const string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
         }
 
 
@@ -145,6 +153,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string request = "request";
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_MateriaisProgramacaoProducao s_params_MateriaisProgramacaoProducao = new ActionParamsClass_MateriaisProgramacaoProducao();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_MateriaisProgramacaoProducao MateriaisProgramacaoProducaoParams { get { return s_params_MateriaisProgramacaoProducao; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_MateriaisProgramacaoProducao
+        {
+            public readonly string id = "id";
+            public readonly string model = "model";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -158,11 +175,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
+                public readonly string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
                 public readonly string Novo = "Novo";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/ProgramacaoProducao/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/ProgramacaoProducao/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/ProgramacaoProducao/Index.cshtml";
+            public readonly string MateriaisProgramacaoProducao = "~/Areas/Producao/Views/ProgramacaoProducao/MateriaisProgramacaoProducao.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/ProgramacaoProducao/Novo.cshtml";
         }
     }
@@ -250,6 +269,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ObtenhaListaGridModelOverride(callInfo, request, model);
+            return callInfo;
+        }
+
+        partial void MateriaisProgramacaoProducaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult MateriaisProgramacaoProducao(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MateriaisProgramacaoProducao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            MateriaisProgramacaoProducaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void MateriaisProgramacaoProducaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoMateriaisModel model);
+
+        public override System.Web.Mvc.ActionResult MateriaisProgramacaoProducao(Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoMateriaisModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MateriaisProgramacaoProducao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MateriaisProgramacaoProducaoOverride(callInfo, model);
             return callInfo;
         }
 

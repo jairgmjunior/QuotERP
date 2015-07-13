@@ -1192,6 +1192,9 @@
                             <Component Id="cmpAF3F8161EAA56803B1E25759CB9235AA" Guid="*">
                                 <File Id="fil10A5B7844C351F6B35F7DE8866D6D43D" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\ProgramacaoProducao\Index.cshtml" />
                             </Component>
+                            <Component Id="cmp4FE0D94BCE98CBDB6C16F8C2AB6918EC" Guid="*">
+                                <File Id="fil7A2482FACFBEC4B56363C95B3E7D6B70" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\ProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
+                            </Component>
                             <Component Id="cmp3698855EBA4481BFC90FB489A1F7AD14" Guid="*">
                                 <File Id="filF7A0B9C180F7A74892BF9C8DC84C547B" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\ProgramacaoProducao\Novo.cshtml" />
                             </Component>
@@ -1952,6 +1955,9 @@
                         <Component Id="cmpC24ACF5DE215658C78E6ACFFE6CA1888" Guid="*">
                             <File Id="filACD36B156033A29F6A1026260200C2CB" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\EnumList.cshtml" />
                         </Component>
+                        <Component Id="cmp3BB7FEDEC74AFD7C11248B8AD7A8BC64" Guid="*">
+                            <File Id="fil600B040BD4FD83652C494EBABBDE31EC" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\GeneroCategoriaList.cshtml" />
+                        </Component>
                         <Component Id="cmpA53E2B2BCCBDB3717B5F2E724E8595E6" Guid="*">
                             <File Id="fil135B727E25DFCD82BB4E957089E597D2" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
                         </Component>
@@ -2349,6 +2355,7 @@
             <ComponentRef Id="cmpDEBF9166FCEC2FC27B9F0E6A358CA982" />
             <ComponentRef Id="cmp27C6785671331940921282BFBB9C02C3" />
             <ComponentRef Id="cmpAF3F8161EAA56803B1E25759CB9235AA" />
+            <ComponentRef Id="cmp4FE0D94BCE98CBDB6C16F8C2AB6918EC" />
             <ComponentRef Id="cmp3698855EBA4481BFC90FB489A1F7AD14" />
             <ComponentRef Id="cmpAF9C31380755D307FF578EB14B4045BE" />
             <ComponentRef Id="cmp203969E3CB56B6C0D8AD85D03718336D" />
@@ -2582,6 +2589,7 @@
             <ComponentRef Id="cmpED5EC35C4F16B0FE2A3768985BB37972" />
             <ComponentRef Id="cmp18BF24416CBF7D4E215C8F10B6CCEC67" />
             <ComponentRef Id="cmpC24ACF5DE215658C78E6ACFFE6CA1888" />
+            <ComponentRef Id="cmp3BB7FEDEC74AFD7C11248B8AD7A8BC64" />
             <ComponentRef Id="cmpA53E2B2BCCBDB3717B5F2E724E8595E6" />
             <ComponentRef Id="cmp7C7387402DD73A23CE0416D7EBA69CFA" />
             <ComponentRef Id="cmp9708FDC0D77343023B24310FD67AADDF" />

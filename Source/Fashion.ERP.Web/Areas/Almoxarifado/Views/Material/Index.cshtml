@@ -222,7 +222,7 @@
         columns.Bound(x => x.Familia);
         columns.Bound(x => x.UnidadeMedida);
         columns.Bound(x => x.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
-            "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>" + 
+            "<a href='" + "#= Foto #" + "'' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
                 "#}#").Width(60).Sortable(false);
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
         columns.Template(@<text></text>).ClientTemplate( "#if(Ativo) {#" + 

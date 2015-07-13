@@ -10,7 +10,7 @@ namespace Fashion.ERP.Mapping.Producao
         {
             Map(x => x.Quantidade);
 
-            References(x => x.ReservaMaterial).Cascade.All();
+            References(x => x.ReservaMaterial).Cascade.All().Nullable();
             References(x => x.Material);
             References(x => x.DepartamentoProducao);
         }

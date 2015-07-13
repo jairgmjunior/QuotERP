@@ -86,13 +86,13 @@
                 .Columns(columns =>
                 {
                     columns.Bound(x => x.Id).Hidden()
-                        .ClientTemplate("<input type='hidden' name='GridMedidas[#= index(data)#].Id' value='#= Id #' />");
+                        .ClientTemplate("<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Id' value='#= Id #' />");
                     columns.Bound(p => p.DescricaoMedida).ClientTemplate("#= DescricaoMedida #" +
-                        "<input type='hidden' name='GridMedidas[#= index(data)#].DescricaoMedida' value='#= DescricaoMedida #' />");
+                        "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].DescricaoMedida' value='#= DescricaoMedida #' />");
                     columns.Bound(x => x.Tamanho).EditorTemplateName("TamanhoGradeList")
-                        .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= index(data)#].Tamanho' value='#= Tamanho #' />");
+                        .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Tamanho' value='#= Tamanho #' />");
                     columns.Bound(x => x.Medida).EditorTemplateName("numeric2casasdecimais")
-                        .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= index(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
+                        .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
                     columns.Command(command => command.Destroy()).Width(100);
                 }
                 )

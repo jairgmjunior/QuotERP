@@ -365,16 +365,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 }
             }
 
-            //else
-            //{
-            //    var errors = ModelState.Select(x => x.Value.Errors)
-            //               .Where(y => y.Count > 0)
-            //               .ToList();
-            //    this.AddErrorMessage(errors[0][0].ErrorMessage);
-            //    return View(model);
-
-            //}
-
             return View(model);
         }
 

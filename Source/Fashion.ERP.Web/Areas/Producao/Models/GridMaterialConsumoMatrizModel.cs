@@ -28,7 +28,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Informe a quantidade")]
         public double? Quantidade { get; set; }
-        
+
         [Display(Name = "Departamento")]
         [Required(ErrorMessage = "Informe o departamento")]
         public string DepartamentoProducao { get; set; }

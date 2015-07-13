@@ -1176,7 +1176,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
 
         #endregion
-
+        
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaGeneroCategoria(string referencia)
+        {
+            var material = _materialRepository.Get(p => p.Referencia == referencia);
+            
+            var generoCategoria = material.Subcategoria.Categoria.GeneroCategoria;
+            
+            var result = new { GeneroCategoria = generoCategoria };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

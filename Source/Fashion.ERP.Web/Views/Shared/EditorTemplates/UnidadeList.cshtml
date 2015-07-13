@@ -1,11 +1,15 @@
 ﻿@model long?
 
-@(Html.Kendo().ComboBox()
+@*@model String*@
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .BindTo(ViewBag.Unidades)
     .Name("Unidade")
+    .OptionLabel("- Selecione -")
     .DataTextField("NomeFantasia")
     .DataValueField("Id")
-    .HtmlAttributes(new { style = "width:210px"})
-    .DataSource(dataSource => dataSource.Read(read => read.Action("ObtenhaUnidadesDropDownList", "Unidade", new { Area = "Comum"})))
-.Value(@Model.HasValue ? @Model.Value.ToString() : ""))
+    
+      )
+@Html.ValidationMessageFor(m => m)
 
 

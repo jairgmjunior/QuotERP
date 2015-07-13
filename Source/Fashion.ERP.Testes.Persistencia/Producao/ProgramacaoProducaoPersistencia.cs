@@ -48,7 +48,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
 
             _programacaoProducaoMaterial = FabricaObjetos.ObtenhaProducaoProducaoMaterial();
             _programacaoProducaoMaterial.Material = _material;
-            _programacaoProducaoMaterial.ReservaMaterial = FabricaObjetosPersistidos.ObtenhaReservaMaterial();
+            //_programacaoProducaoMaterial.ReservaMaterial = FabricaObjetosPersistidos.ObtenhaReservaMaterial();
             _programacaoProducaoMaterial.DepartamentoProducao = _departamentoProducao;
             Session.Current.Flush();
         }

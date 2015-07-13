@@ -867,8 +867,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     domain.FichaTecnicaFotos.ForEach(domainFoto =>
                     {
-                        var modelFoto = model.GridFotos.FirstOrDefault(x => x.FotoTitulo == domainFoto.Descricao);
-                        if (modelFoto == null)
+                        if (model.GridFotos.All(x => x.Id != domainFoto.Id && domainFoto.Id != null))
                         {
                             fichaTecnicaFotosExcluir.Add(domainFoto);
                         }

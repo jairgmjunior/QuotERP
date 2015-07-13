@@ -1,0 +1,396 @@
+﻿@using Fashion.ERP.Domain.Almoxarifado
+@model Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoMateriaisModel
+
+@using (Html.BeginForm(MVC.Producao.ProgramacaoProducao.MateriaisProgramacaoProducao(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummaryEx()
+    @Html.HiddenFor(x => x.Id)
+
+    <fieldset>
+        <legend><small>Dados da Ficha Técnica</small></legend>
+    </fieldset>
+    
+    <input type="hidden" id="GeneroCategoriaDicionario" data-value = "@ViewBag.GeneroCategoriaDicionarioJson" />
+    <input type="hidden" id="DepartamentoProducaoDicionario" data-value = "@ViewBag.DepartamentoProducaoDicionarioJson" />
+    <input type="hidden" id="UnidadeDicionario" data-value = "@ViewBag.UnidadeDicionarioJson" />
+
+    <div class="detail">
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Tag, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Tag)/
+                        @Html.ValueFor(x => x.Ano)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Colecao)
+                        @Html.HiddenFor(x => x.Colecao)
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Referencia, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Referencia)
+                        @Html.HiddenFor(x => x.Referencia)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Descricao, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Descricao)
+                        @Html.HiddenFor(x => x.Descricao)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Estilista, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Estilista)
+                        @Html.HiddenFor(x => x.Estilista)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        @foreach (var foto in Model.Fotos) {
+            <div class="span2" style="width:110px">
+                <a href="@foto" class="thumbnail" data-lightbox='foto'><img src="@foto" style="width:100px; height:100px"></a>
+            </div>
+        }
+    </div>
+    
+    <fieldset>
+        <legend><small>Dados da Programação de Produção</small></legend>
+    </fieldset>
+    <div class="detail">
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.DataProgramada, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.DisplayFor(x => x.DataProgramada)
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelFor(x => x.Quantidade, new {@class = "title-label"})
+                    <div class="value-label">
+                        @Html.ValueFor(x => x.Quantidade)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend><small>Dados dos Materiais</small></legend>
+            <div class="control-group">
+                @(Html.Kendo().Grid(Model.GridItens)
+                    .Name("GridItens")
+                    .Editable(e => e.Mode(GridEditMode.InCell))
+                    .Navigatable()
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Id).Hidden()
+                            .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                        columns.Bound(x => x.Referencia).Filterable(false)
+                            .ClientTemplate("#= Referencia #<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                        columns.Bound(x => x.Descricao).Filterable(false)
+                            .ClientTemplate("#= Descricao #<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                        columns.Bound(x => x.UnidadeMedida).Filterable(false)
+                            .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                        columns.Bound(x => x.Quantidade).EditorTemplateName("numeric3casasdecimais").Filterable(false)
+                            .ClientTemplate("#= kendo.toString(Quantidade, \"n3\") #<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                        columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList").Filterable(false)
+                                .ClientTemplate("#= displayDepartamentoProducao(DepartamentoProducao) #<input type='hidden' name='GridItens[#= index(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                        columns.Bound(x => x.GeneroCategoria).Width(100)
+                            .ClientTemplate("#= displayGeneroCategoria(GeneroCategoria) #<input type='hidden' name='GridItens[#= index(data)#].GeneroCategoria' value='#= GeneroCategoria #' />");
+                        columns.Bound(p => p.Foto).Filterable(false).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                            "<a href='" + "#= Foto #" + "' data-lightbox='fotogrid'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                "#}#" +
+                            "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                        columns.Bound(x => x.Reservado).Filterable(false).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                            .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' #= Reservado ? checked='checked' : '' # onclick='clicouCheckBox(this)'/>"+
+                            "<input id='Check' type='hidden' name='GridItens[#= index(data)#].Reservado' value='#= Reservado #' /></div>").Width(27);
+                        columns.Bound(x => x.QtdeReservada).Filterable(false).EditorTemplateName("numeric3casasdecimais")
+                            .ClientTemplate("#= kendo.toString(QtdeReservada, \"n3\") #<input type='hidden' name='GridItens[#= index(data)#].QtdeReservada' value='#= formateDecimalGrid(QtdeReservada) #' />");
+                        columns.Bound(x => x.Unidade).EditorTemplateName("UnidadeList").Filterable(false)
+                                .ClientTemplate("#= displayUnidade(Unidade) #<input type='hidden' name='GridItens[#= index(data)#].Unidade' value='#= Unidade #' />");                        
+                        columns.Command(command => command.Destroy()).Width(100);
+                    }
+                    )
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(item => item.Id);
+                            model.Field(item => item.Id).DefaultValue(0);
+                            model.Field(item => item.Foto).Editable(false);
+                            model.Field(item => item.Reservado).Editable(true);
+                        })
+                        .Events(events => events.Error("onKendoGridError"))
+                    )
+                    .Filterable()
+                    .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary"}))
+                    .Events(events => events.Edit("onEditGrid"))
+                )
+            </div>
+    </fieldset>
+
+
+
+    <div class="form-actions">
+        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    </div>
+}
+@{
+    Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+
+            if (itens.DataItemsSelecionados.length == 0) {
+                return;
+            }
+
+            var grid = $('#GridItens').data("kendoGrid");
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data();
+            var novosDados = itens.DataItemsSelecionados;
+
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia: dataItemNovo.Referencia,
+                        Descricao: dataItemNovo.Descricao,
+                        UnidadeMedida: dataItemNovo.UnidadeMedida,
+                        Id: 0,
+                        Quantidade: 0,
+                        Foto: dataItemNovo.Foto,
+                        QtdeReservada: 0,
+                        Reservado: 'false',
+                        GeneroCategoria: obtenhaGeneroCategoria(dataItemNovo.Referencia),
+                        DepartamentoProducao: '0',
+                        Unidade: '0'
+                    };
+                    
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                data: dadosAtuais,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+
+        });
+
+        $('#form').submit(function (e) {
+            //e.preventDefault();
+            limpeMensagensAlerta();
+
+            var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+            var mensagem = "";
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna qtde programada.<br/>";
+                }
+            }
+
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if ((dataItem.QtdeReservada == 0 || dataItem.QtdeReservada == null) && dataItem.Reservado == true) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna qtde reservada.<br/>";
+                }
+            }
+
+            if (mensagem != "") {
+                e.preventDefault();
+                exibaAlertaErro(mensagem);
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            return true;
+        });
+
+        $('#checkAll').click(function () {
+            if ($(this).attr('checked')) {
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    marqueCheckBox($('.chkbx')[i]);
+                }
+            } else {
+                desmarqueCheckBox($('.chkbx'));
+            }
+        });
+
+    });
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return "";
+        }
+        return valor.toString().replace(".", ",");
+    }
+
+    function index(dataItem) {
+        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function onEditGrid(e) {
+        if (e.container.index() == 1 || e.container.index() == 2 || e.container.index() == 3 || e.container.index() == 6 || e.container.index() == 8) {
+            this.closeCell();
+        }
+
+        var row = $(e.container).closest("tr");
+        var grid = $('#GridItens').data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+
+        if ((e.container.index() == 9 || e.container.index() == 10) && dataItem.Reservado == false) {
+            this.closeCell();
+        }
+    }
+
+    function clicouCheckBox(a) {
+        var checked = $(a).is(':checked');
+
+        if (!checked)
+            desmarqueCheckBox($(a));
+        else marqueCheckBox($(a));
+
+        var numChkBoxes = $('.chkbx').length;
+        var numChkBoxesChecked = $('.chkbx:checked').length;
+        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
+            $('#checkAll').attr('checked', 'checked');
+        }
+        else {
+            $('#checkAll').removeAttr('checked');
+        }
+    }
+
+    function marqueCheckBox(checkBoxElement) {
+        if (checkBoxElement.disabled) return;
+        $(checkBoxElement).parent().find('input[type=hidden]').val(true);
+        $(checkBoxElement).attr('checked', 'checked');
+
+        var row = $(checkBoxElement).closest("tr");
+        var grid = $('#GridItens').data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        dataItem.set("Reservado", true);
+
+        if (dataItem.QtdeReservada == null || dataItem.QtdeReservada == 0) {
+            dataItem.set("QtdeReservada", dataItem.Quantidade);
+        }
+    }
+
+    function desmarqueCheckBox(checkBoxElement) {
+        $(checkBoxElement).parent().find('input[type=hidden]').val(false);
+        $(checkBoxElement).removeAttr('checked');
+
+        var row = $(checkBoxElement).closest("tr");
+        var grid = $('#GridItens').data("kendoGrid");
+        var dataItem = grid.dataItem(row);
+        dataItem.Reservado = false;
+    }
+
+    function displayGeneroCategoria(id) {
+        if (id == null) {
+            return '';
+        }
+        var generoCategoriaDicionario = $("#GeneroCategoriaDicionario").data("value");
+        var nome = "";
+        $.each(generoCategoriaDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function displayDepartamentoProducao(id) {
+        var departamentoProducaosDicionario = $("#DepartamentoProducaoDicionario").data("value");
+        var nome = "";
+        $.each(departamentoProducaosDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function displayUnidade(id) {
+        var unidadeDicionario = $("#UnidadeDicionario").data("value");
+        var nome = "";
+        $.each(unidadeDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function obtenhaGeneroCategoria(referencia) {
+        $.ajaxSetup({
+            async: false
+        });
+        var url = '/Almoxarifado/Material/ObtenhaGeneroCategoria?referencia=' + referencia;
+        var retorno;
+        $.getJSON(url, function (result) {
+            retorno = result.GeneroCategoria;
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            exibaAlertaErro(errorThrown);
+        });
+        $.ajaxSetup({
+            async: true
+        });
+
+        return retorno;
+    }
+
+
+</script>

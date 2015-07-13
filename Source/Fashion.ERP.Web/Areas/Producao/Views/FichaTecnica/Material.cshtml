@@ -35,7 +35,7 @@
                                 .ClientTemplate("#= kendo.toString(CustoTotal, \"n2\") #");
                             columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                                 .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
-                            columns.Command(command => command.Destroy());
+                            columns.Command(command => command.Destroy().Text("Excluir"));
                         }
                         )
                         .DataSource(dataSource => dataSource
@@ -84,7 +84,7 @@
                                   .ClientTemplate("#= CompoeCusto == false ? 'Não' : 'Sim' #<input id='CompoeCusto' type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].CompoeCusto' value='#= CompoeCusto #' />");                            
                               columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                                   .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
-                              columns.Command(command => command.Destroy());
+                              columns.Command(command => command.Destroy().Text("Excluir"));
                           }
                           )
                           .DataSource(dataSource => dataSource
@@ -121,7 +121,7 @@
                             .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
                         columns.Bound(x => x.Custo).EditorTemplateName("numeric5casasdecimais")
                             .ClientTemplate("#= kendo.toString(Custo, \"n5\") #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
-                        columns.Command(command => command.Destroy() );
+                        columns.Command(command => command.Destroy().Text("Excluir") );
                     }
                     )
                     .DataSource(dataSource => dataSource
