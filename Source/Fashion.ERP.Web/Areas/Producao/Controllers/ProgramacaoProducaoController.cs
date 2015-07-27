@@ -239,7 +239,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             try
             {
-                var domain = Mapper.Unflat(model, _programacaoProducaoRepository.Get(model.Id));
+                var domain = _programacaoProducaoRepository.Get(model.Id);
+
+                if (model.Quantidade != domain.Quantidade)
+                {
+                    this.AddInfoMessage("Ao alterar a quantidade de peças programadas é necessário recalcular manualmente a quantidade de todos o materiais.");
+                }
+
+                domain = Mapper.Unflat(model, domain);
+
                 domain.Colecao = _colecaoRepository.Load(model.Colecao);
                 domain.FichaTecnica = _fichaTecnicaRepository.Load(model.FichaTecnica);
                 domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
@@ -269,7 +277,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 });
 
                 domain.ProgramacaoProducaoMatrizCorte = programacaoProducaoMatrizCorte;
-                    
+    
                 _programacaoProducaoRepository.SaveOrUpdate(domain);
 
                 this.AddSuccessMessage("Programação da produção atualizada com sucesso.");

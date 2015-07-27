@@ -63,6 +63,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         
         public Boolean AprovadoReprovado { get; set; }
         
+        [Display(Name = "Produto Base")]
+        public long? ProdutoBase { get; set; }
+        
+        [Display(Name = "Comprimento")]
+        public long? Comprimento { get; set; }
+
+        [Display(Name = "Barra")]
+        public long? Barra { get; set; }
+        
         public IList<ModeloAprovacaoModel> GridItens { get; set; }
     }
 }

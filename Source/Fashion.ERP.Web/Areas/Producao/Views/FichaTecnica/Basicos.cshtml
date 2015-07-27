@@ -194,7 +194,7 @@
             <div class="controls">
                 @(Html.Kendo().Grid(Model.GridFichaTecnicaVariacao)
                         .Name("GridFichaTecnicaVariacao")
-                        .Editable(e => e.Mode(GridEditMode.InCell))
+                        .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                         .Navigatable()
                         .Columns(columns =>
                         {
@@ -202,7 +202,7 @@
                                 .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
                             columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
                                 .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
-                            columns.Command(command => command.Destroy()).Width(100);
+                            columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
                         }
                         )
                         .DataSource(dataSource => dataSource
@@ -213,7 +213,7 @@
                             .Update(update => update.Action("EditingInline_Update", "FichaTecnica"))
                             .Destroy(update => update.Action("EditingInline_Destroy", "FichaTecnica"))
                         )
-                        .ToolBar(toolbar => toolbar.Create())
+                        .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
                         )
             </div>
         </div>

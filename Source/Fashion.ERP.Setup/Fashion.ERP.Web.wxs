@@ -1139,6 +1139,11 @@
                         <Component Id="cmp3B3898A3CDDA999DC7591066C78400FC" Guid="*">
                             <File Id="fil7FF6B9EA6AA4277A6C53C22454D50BD9" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\_ViewStart.cshtml" />
                         </Component>
+                        <Directory Id="dirD241C4C10BD6F3219ACD971B4F806382" Name="ColecoesProgramadas">
+                            <Component Id="cmp6D036C50513DC410CD767F40E14AB64D" Guid="*">
+                                <File Id="fil13E47C9677851C97751B29407EFD048C" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\ColecoesProgramadas\ColecoesProgramadas.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir717C84859A7171B0421B2C4652E001BF" Name="FichaTecnica">
                             <Component Id="cmpF8B11053552E29A1F9EAED18C6E6330D" Guid="*">
                                 <File Id="fil7D0D23FFD23B89785A5C7A39D3A92AF0" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
@@ -2339,6 +2344,7 @@
             <ComponentRef Id="cmp310F9CA760248A1911EB1D10F31067D5" />
             <ComponentRef Id="cmpE6F200BBB851050C40ABC9D31DBE28C2" />
             <ComponentRef Id="cmp3B3898A3CDDA999DC7591066C78400FC" />
+            <ComponentRef Id="cmp6D036C50513DC410CD767F40E14AB64D" />
             <ComponentRef Id="cmpF8B11053552E29A1F9EAED18C6E6330D" />
             <ComponentRef Id="cmp5A76138E085374B6A537CF8001EC860B" />
             <ComponentRef Id="cmp73960FE3A9F1F6821608D64F28381D27" />

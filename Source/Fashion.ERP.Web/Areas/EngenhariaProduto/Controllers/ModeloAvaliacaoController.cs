@@ -219,7 +219,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Descricao = domain.Descricao,
                     Referencia = domain.Referencia,
                     SequenciaTag = 1,
-                    AprovadoReprovado = true
+                    AprovadoReprovado = true,
+                    Barra = domain.Barra != null ? domain.Barra.Id : null,
+                    Comprimento = domain.Comprimento != null ? domain.Comprimento.Id : null,
+                    ProdutoBase = domain.ProdutoBase != null ? domain.ProdutoBase.Id : null,
                 };
 
                 if (domain.ModeloAvaliacao != null)

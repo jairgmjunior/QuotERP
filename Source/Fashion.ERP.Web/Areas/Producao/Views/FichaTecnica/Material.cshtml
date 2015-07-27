@@ -15,7 +15,7 @@
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridMaterialConsumoMatriz)
                         .Name("GridMaterialConsumoMatriz")
-                        .Editable(e => e.Mode(GridEditMode.InCell))
+                        .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                         .Navigatable()
                         .Columns(columns =>
                         {
@@ -58,7 +58,7 @@
             <div class="control-group">
                     @(Html.Kendo().Grid(Model.GridMaterialConsumoItem)
                           .Name("GridMaterialConsumoItem")
-                          .Editable(e => e.Mode(GridEditMode.InCell))
+                          .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                           .Navigatable()
                           .Columns(columns =>
                           {
@@ -107,7 +107,7 @@
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridMaterialComposicaoCustoMatriz)
                     .Name("GridMaterialComposicaoCustoMatriz")
-                    .Editable(e => e.Mode(GridEditMode.InCell))
+                    .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                     .Navigatable()
                     .Columns(columns =>
                     {

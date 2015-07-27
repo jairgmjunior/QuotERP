@@ -81,7 +81,7 @@
         <legend><small>Medidas da Modelagem</small></legend>
             @(Html.Kendo().Grid(Model.GridMedidas)
                 .Name("GridMedidas").HtmlAttributes(new { style="width:400px"})
-                .Editable(e => e.Mode(GridEditMode.InCell))
+                .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                 .Navigatable()
                 .Columns(columns =>
                 {
@@ -93,7 +93,7 @@
                         .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Tamanho' value='#= Tamanho #' />");
                     columns.Bound(x => x.Medida).EditorTemplateName("numeric2casasdecimais")
                         .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
-                    columns.Command(command => command.Destroy()).Width(100);
+                    columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
                 }
                 )
                 .DataSource(dataSource => dataSource
@@ -106,7 +106,7 @@
                         model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
                     })
                 )
-                .ToolBar(toolbar => toolbar.Create())
+                .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
                 .Events(events => events.Edit("onEditGridMedidas"))
             )
     </fieldset>    

@@ -284,11 +284,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                             Custo = materialConsumo.Material.ObtenhaUltimoCusto()
                         }));
 
-                    model.GridItens.ForEach(modelMaterialComposicaoCusto => fichaTecnica.MateriaisComposicaoCusto.Add(new FichaTecnicaMaterialComposicaoCusto()
+                    if (model.GridItens != null)
                     {
-                        Material = _materialRepository.Find().First(x => x.Referencia == modelMaterialComposicaoCusto.Referencia),
-                        Custo = modelMaterialComposicaoCusto.Custo.GetValueOrDefault()
-                    }));
+                        model.GridItens.ForEach(modelMaterialComposicaoCusto => fichaTecnica.MateriaisComposicaoCusto.Add(new FichaTecnicaMaterialComposicaoCusto()
+                        {
+                            Material = _materialRepository.Find().First(x => x.Referencia == modelMaterialComposicaoCusto.Referencia),
+                            Custo = modelMaterialComposicaoCusto.Custo.GetValueOrDefault()
+                        }));                        
+                    }
 
                     if (modelo.Modelista != null && modelo.DataModelagem.HasValue)
                     {
@@ -300,13 +303,20 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         };
                     }
 
-                    modelo.Fotos.ForEach(modeloFoto => fichaTecnica.FichaTecnicaFotos.Add(new FichaTecnicaFoto()
+                    modelo.Fotos.ForEach(modeloFoto =>
                     {
-                        Arquivo = CopieArquivo(modeloFoto.Foto),
-                        Descricao = modeloFoto.Foto.Titulo,
-                        Impressao = modeloFoto.Impressao,
-                        Padrao = modeloFoto.Padrao
-                    }));
+                        var filePathAtual = modeloFoto.Foto.Nome.GetFilePath();
+                        if (System.IO.File.Exists(filePathAtual))
+                        {
+                            fichaTecnica.FichaTecnicaFotos.Add(new FichaTecnicaFoto()
+                            {
+                                Arquivo = CopieArquivo(modeloFoto.Foto),
+                                Descricao = modeloFoto.Foto.Titulo,
+                                Impressao = modeloFoto.Impressao,
+                                Padrao = modeloFoto.Padrao
+                            });
+                        }
+                    });
                 
                     modeloAprovacao.FichaTecnica = fichaTecnica;
                     _modeloAprovacaoRepository.SaveOrUpdate(modeloAprovacao);

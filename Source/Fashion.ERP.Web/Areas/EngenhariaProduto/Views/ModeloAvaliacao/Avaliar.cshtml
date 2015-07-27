@@ -189,12 +189,15 @@
                       model.Field(item => item.Quantidade).Editable(true).DefaultValue(0);
                       model.Field(item => item.MedidaComprimento).Editable(true).DefaultValue(0);
                       model.Field(item => item.MedidaBarra).Editable(true).DefaultValue(0);
+                      model.Field(item => item.Comprimento).Editable(true).DefaultValue(@Model.Comprimento);
+                      model.Field(item => item.Barra).Editable(true).DefaultValue(@Model.Barra);
+                      model.Field(item => item.ProdutoBase).Editable(true).DefaultValue(@Model.ProdutoBase);
                       model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
                   })
                     
               )
               .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
-              .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))
+              .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
               .Resizable(resize => resize.Columns(true))
               .Events(events => events.DataBound("onDataBound").DataBinding("onDataBinding").DetailExpand("onDetailExpand").Edit("onEdit"))
               .Navigatable())

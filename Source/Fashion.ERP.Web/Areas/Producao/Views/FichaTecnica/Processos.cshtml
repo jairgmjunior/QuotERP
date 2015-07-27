@@ -15,7 +15,7 @@
             <div class="control-group">
                 @(Html.Kendo().Grid(Model.GridFichaTecnicaProcessos)
                     .Name("GridFichaTecnicaProcessos")
-                    .Editable(e => e.Mode(GridEditMode.InCell))
+                    .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
                     .Navigatable()
                     .Columns(columns =>
                     {
@@ -33,7 +33,7 @@
                             .ClientTemplate("#= kendo.toString(Tempo, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Tempo' value='#= formateDecimalGrid(Tempo) #' />");
                         columns.Bound(x => x.PesoProdutividade).EditorTemplateName("numeric3casasdecimais")
                             .ClientTemplate("#= kendo.toString(PesoProdutividade, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].PesoProdutividade' value='#= formateDecimalGrid(PesoProdutividade) #' />");
-                        columns.Command(command => command.Destroy());
+                        columns.Command(command => command.Destroy().Text("Excluir"));
                     }
                     )
                     .DataSource(dataSource => dataSource
@@ -50,7 +50,7 @@
                             model.Field(product => product.Id).DefaultValue(0);
                         })
                     )
-                    .ToolBar(toolbar => toolbar.Create())
+                    .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
                     .Events(events => events.Edit("onEditGrid"))
                     )
             </div>

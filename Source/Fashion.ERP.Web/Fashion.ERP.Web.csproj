@@ -446,6 +446,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
+    <Compile Include="Areas\Producao\Controllers\ColecaoProgramadaController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioEstimativaConsumoProgramadoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\ModeloAvaliacaoController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloMaterialConsumoModel.cs" />
@@ -460,6 +461,7 @@
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloAvaliacaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ColecaoProgramadaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridProgramacaoProducaoMaterialModel.cs" />
     <Compile Include="Areas\Producao\Models\ProgramacaoProducaoMateriaisModel.cs" />
     <Compile Include="Areas\Producao\Models\EstimativaConsumoProgramadoModel.cs" />
@@ -1231,6 +1233,7 @@
     <Content Include="Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichaTecnica.cshtml" />
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
+    <Content Include="Areas\Producao\Views\ColecoesProgramadas\ColecoesProgramadas.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

@@ -237,6 +237,13 @@
 
             for (var i = 0; i < dataGridItens.length; i++) {
                 var dataItem = dataGridItens[i];
+                if (dataItem.DepartamentoProducao == 0 || dataItem.DepartamentoProducao == null) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna departamento produção.<br/>";
+                }
+            }
+
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
                 if ((dataItem.QtdeReservada == 0 || dataItem.QtdeReservada == null) && dataItem.Reservado == true) {
                     mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna qtde reservada.<br/>";
                 }

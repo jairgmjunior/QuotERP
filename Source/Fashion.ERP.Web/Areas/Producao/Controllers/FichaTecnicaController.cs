@@ -732,21 +732,22 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     }
                     else
                     {
+                        domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
+                        domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
+                        domain.FichaTecnicaModelagem.Observacao = model.Observacao;
+                        
                         if (!string.IsNullOrEmpty(model.NomeArquivoUpload))
                         {
-                            domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
-                            domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
-                            domain.FichaTecnicaModelagem.Observacao = model.Observacao;
-
                             var nomeArquivo = domain.FichaTecnicaModelagem.Arquivo != null ? domain.FichaTecnicaModelagem.Arquivo.Nome : "";
                             if (nomeArquivo != model.NomeArquivoUpload)
                             {
-                                domain.FichaTecnicaModelagem.Arquivo = _arquivoRepository.Save(ArquivoController.SalvarArquivo(model.NomeArquivoUpload));
+                                domain.FichaTecnicaModelagem.Arquivo =
+                                    _arquivoRepository.Save(ArquivoController.SalvarArquivo(model.NomeArquivoUpload));
                             }
-
-                            domain.FichaTecnicaModelagem.Medidas.Clear();
-                            AtualizeFichaTecnicaModelageMedida(model, domain);
                         }
+
+                        domain.FichaTecnicaModelagem.Medidas.Clear();
+                        AtualizeFichaTecnicaModelageMedida(model, domain);
                     }
 
                     _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
