@@ -430,17 +430,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private double ObtenhaQuantidadeDisponivel_(long? materialId)
         {
-            var estoqueMaterial = _estoqueMaterialRepository.Get(y => y.Material.Id == materialId);
+            var quantidadesEstoqueMaterial = _estoqueMaterialRepository.Find(y => y.Material.Id == materialId).Sum(x => x.Quantidade);
 
-            if (estoqueMaterial == null)
+            if (quantidadesEstoqueMaterial == 0)
                 return 0;
 
             var reservaEstoque = _reservaEstoqueMaterialRepository.Get(y => y.Material.Id == materialId);
 
             if (reservaEstoque == null)
-                return estoqueMaterial.Quantidade;
+                return quantidadesEstoqueMaterial;
 
-            return estoqueMaterial.Quantidade - reservaEstoque.Quantidade;
+            return quantidadesEstoqueMaterial - reservaEstoque.Quantidade;
         }
 
         [AjaxOnly]
