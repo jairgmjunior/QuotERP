@@ -89,6 +89,7 @@ namespace T4MVC
                 public readonly string @double = "double";
                 public readonly string Enum = "Enum";
                 public readonly string EnumList = "EnumList";
+                public readonly string GeneroCategoriaList = "GeneroCategoriaList";
                 public readonly string GridForeignKey = "GridForeignKey";
                 public readonly string @int = "int";
                 public readonly string @long = "long";

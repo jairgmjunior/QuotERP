@@ -249,7 +249,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(18.897083282470703D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.titleTextBox.StyleName = "Title";
-            this.titleTextBox.Value = "Materiais de Modelos Aprovados";
+            this.titleTextBox.Value = "Modelos";
             // 
             // reportFooter
             // 

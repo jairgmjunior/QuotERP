@@ -18,7 +18,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
             References(x => x.TipoItem).Not.Nullable();
             References(x => x.Requerente).Not.Nullable();
             References(x => x.UnidadeRequerente).Not.Nullable();
-            References(x => x.ReservaMaterial).Nullable().Cascade.All();
+            //References(x => x.ReservaMaterial).Nullable().Cascade.All();
             References(x => x.UnidadeRequisitada).Not.Nullable();
             References(x => x.CentroCusto).Not.Nullable();
 
@@ -28,6 +28,10 @@ namespace Fashion.ERP.Mapping.Almoxarifado
 
             HasMany(x => x.RequisicaoMaterialItems)
                 .Not.KeyNullable()
+                .Cascade.AllDeleteOrphan();
+
+            HasMany(x => x.ReservaMateriais)
+                .KeyNullable()
                 .Cascade.AllDeleteOrphan();
         }
     }

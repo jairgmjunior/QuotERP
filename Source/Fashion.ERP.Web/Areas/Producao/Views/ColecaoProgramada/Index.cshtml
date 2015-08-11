@@ -1,0 +1,85 @@
+﻿@model Fashion.ERP.Web.Areas.Producao.Models.PesquisaColecaoProgramadaModel
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.Producao.ColecaoProgramada.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    <div class="accordion" id="accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                    Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.ColecoesProgramadas)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("ColecoesProgramadas")
+                                          .Value(Model.ColecoesProgramadas)
+                                          .BindTo(ViewBag.ColecoesProgramadas)
+                                          )
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span2" style="-ms-opacity: 0.99; opacity: 0.99;">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataInicial)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataInicial, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.DataFinal)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataFinal, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>              
+                    <div class="row">
+                        <div class="span12">
+                            <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@(Html.Kendo().Grid(Model.Grid)
+    .Name("Grid")    
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(15)
+        .Read(read => read.Action("ObtenhaListaGridModel", "ColecaoProgramada").Data("ObtenhaModelJsonObjectColecaoProgramada"))
+        .Events(events => events.Error("onKendoGridError"))
+    )
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Colecao);
+        columns.Bound(x => x.QtdeFichasTecnicasProgramadas).Sortable(false);        
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Book", "Book", "ColecaoProgramada", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary" , target = "_blank"}).ToHtmlString()).Width(80).Title("");               
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Reorderable(reorder => reorder.Columns(true))
+    .Pageable()
+    .Sortable()
+    .Groupable()   
+)}
+
+<script>
+    function ObtenhaModelJsonObjectColecaoProgramada() {
+        var parametros = {
+            model: $("form").serializeObject()
+        };
+
+        return parametros;
+    }
+</script>

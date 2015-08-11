@@ -162,6 +162,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 report.Sortings.Add("=Fields." + model.OrdenarPor,
                     model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
 
+            report.Sortings.Add("=Fields.ModeloAvaliacao.Tag", SortDirection.Asc);
+
             var filename = report.ToByteStream().SaveFile(".pdf");
 
             return Json(new {Url = filename});

@@ -137,10 +137,10 @@
                     "<input type='hidden' name='GridItemCancelado[#= index(data)#].UND' value='#= UND #' />").Width(100);
                 columns.Bound(p => p.SituacaoRequisicaoMaterialDescricao).ClientTemplate("#= SituacaoRequisicaoMaterialDescricao #" +
                     "<input type='hidden' name='GridItemCancelado[#= index(data)#].SituacaoRequisicaoMaterialDescricao' value='#= SituacaoRequisicaoMaterialDescricao #' />").Width(120);;
-                columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= QtdeAtendida #" +
-                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdeAtendida' value='#= QtdeAtendida #' />").Width(100);
-                columns.Bound(p => p.QtdePendente).ClientTemplate("#= QtdePendente #" +
-                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdePendente' value='#= QtdePendente #' />").Width(100);
+                columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= kendo.toString(QtdeAtendida, \"n4\") #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdeAtendida' value='#= formateDecimalGrid(QtdeAtendida) #' />").Width(100);
+                columns.Bound(p => p.QtdePendente).ClientTemplate("#= kendo.toString(QtdePendente, \"n4\") #" +
+                    "<input type='hidden' name='GridItemCancelado[#= index(data)#].QtdePendente' value='#= formateDecimalGrid(QtdePendente) #' />").Width(100);
                 columns.Bound(x => x.Check).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
                     .Title("Select").ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/>"+
                     "<input id='Check' type='hidden' name='GridItemCancelado[#= index(data)#].Check' value='#= Check #' /></div>").Width(27);
@@ -225,5 +225,12 @@
     
     function possuiSelecionados() {
         return $('.chkbx:checked').length != 0;
+    }
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return null;
+        }
+        return valor.toString().replace(".", ",");
     }
 </script>

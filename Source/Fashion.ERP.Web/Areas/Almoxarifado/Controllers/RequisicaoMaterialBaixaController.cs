@@ -15,6 +15,7 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using Ninject.Extensions.Logging;
+using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -171,11 +172,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
 
             requisicaoMaterial.SaidaMaterials.Add(saidaMaterial);
-
-            if (requisicaoMaterial.ReservaMaterial != null)
-            {
-                requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
-            }
+            
+            requisicaoMaterial.ReservaMateriais.ForEach(x => x.AtualizeSituacao());
 
             return true;
         }

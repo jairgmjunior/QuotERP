@@ -10,6 +10,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
 {
     public class RequisicaoMaterial : DomainEmpresaBase<RequisicaoMaterial>, IPesquisavelPorData
     {
+        private IList<ReservaMaterial> _reservaMateriais = new List<ReservaMaterial>();
         private IList<SaidaMaterial> _saidaMaterials = new List<SaidaMaterial>();
         private IList<RequisicaoMaterialItem> _requisicaoMaterialItems = new List<RequisicaoMaterialItem>();
 
@@ -23,8 +24,14 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual Pessoa UnidadeRequerente { get; set; }
         public virtual Pessoa UnidadeRequisitada { get; set; }
         public virtual CentroCusto CentroCusto { get; set; }
-        public virtual ReservaMaterial ReservaMaterial { get; set; }
+        //public virtual ReservaMaterial ReservaMaterial { get; set; }
         public virtual DateTime DataAlteracao { get; set; }
+        
+        public virtual IList<ReservaMaterial> ReservaMateriais
+        {
+            get { return _reservaMateriais; }
+            set { _reservaMateriais = value; }
+        }
 
         public virtual IList<SaidaMaterial> SaidaMaterials
         {
@@ -60,7 +67,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
             RequisicaoMaterialItems.ForEach(x => x.AtualizeSituacao());
         }
-
+        
         public virtual void CrieReservaMaterial(long numero, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
         {
             if (TipoItem.Descricao != "MATÉRIA-PRIMA")
@@ -68,10 +75,10 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 return;
             }
 
-            if (ReservaMaterial != null)
+            if (ReservaMateriais.Any())
                 return;
 
-            ReservaMaterial = new ReservaMaterial()
+            var reservaMaterial = new ReservaMaterial()
             {
                 Data = DateTime.Now,
                 ReferenciaOrigem = Origem,
@@ -90,20 +97,22 @@ namespace Fashion.ERP.Domain.Almoxarifado
                     SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
                 };
 
-                ReservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
-                ReservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeSolicitada, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+                reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
+                ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeSolicitada, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
             });
+
+            ReservaMateriais.Add(reservaMaterial);
         }
 
         public virtual void BaixeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             Material material, double quantidadeBaixa)
         {
-            if (ReservaMaterial == null)
+            if (!ReservaMateriais.Any())
             {
                 return;
             }
-            
-            var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
+
+            var reservaMaterialItem = ReservaMateriais.SelectMany(x => x.ReservaMaterialItems).FirstOrDefault(y => y.Material.Id == material.Id);
 
             if (reservaMaterialItem == null)
             {
@@ -113,18 +122,18 @@ namespace Fashion.ERP.Domain.Almoxarifado
             reservaMaterialItem.Material = material;
             reservaMaterialItem.QuantidadeAtendida += quantidadeBaixa;
 
-            ReservaMaterial.AtualizeReservaEstoqueMaterial(quantidadeBaixa * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+            ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(quantidadeBaixa * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
         }
 
         public virtual void CanceleReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             Material material, double quantidadeCancelada, string observacaoCancelamento)
         {
-            if (ReservaMaterial == null)
+            if (!ReservaMateriais.Any())
             {
                 return;
             }
             
-            var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == material.Id);
+            var reservaMaterialItem = ReservaMateriais.SelectMany(x => x.ReservaMaterialItems).FirstOrDefault(y => y.Material.Id == material.Id);
 
             if (reservaMaterialItem == null)
             {
@@ -138,7 +147,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 Observacao = observacaoCancelamento
             };
 
-            ReservaMaterial.AtualizeReservaEstoqueMaterial(quantidadeCancelada * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+            ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(quantidadeCancelada * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
         }
 
         public virtual void AtualizeReservaMaterial(IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
@@ -148,15 +157,18 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 return;
             }
 
-            ReservaMaterial.ReferenciaOrigem = Origem;
-            ReservaMaterial.Observacao = Observacao;
-            ReservaMaterial.Unidade = UnidadeRequisitada;
-            ReservaMaterial.Requerente = Requerente;
+            ReservaMateriais.ForEach(reservaMaterial =>
+            {
+                reservaMaterial.ReferenciaOrigem = Origem;
+                reservaMaterial.Observacao = Observacao;
+                reservaMaterial.Unidade = UnidadeRequisitada;
+                reservaMaterial.Requerente = Requerente;                
+            });
             
             RequisicaoMaterialItems.ForEach(x =>
             {
-                var reservaMaterialItem = ReservaMaterial.ReservaMaterialItems.FirstOrDefault(y => y.Material.Id == x.Material.Id);
-
+                var reservaMaterialItem = ReservaMateriais.SelectMany(z => z.ReservaMaterialItems).FirstOrDefault(y => y.Material.Id == x.Material.Id);
+                
                 if (reservaMaterialItem == null)
                 {
                     reservaMaterialItem = new ReservaMaterialItem
@@ -166,8 +178,8 @@ namespace Fashion.ERP.Domain.Almoxarifado
                         SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
                     };
 
-                    ReservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
-                    ReservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeSolicitada, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+                    ReservaMateriais.First().ReservaMaterialItems.Add(reservaMaterialItem);
+                    ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeSolicitada, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
                 }
                 else
                 {
@@ -175,14 +187,14 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
                     reservaMaterialItem.Material = x.Material;
                     reservaMaterialItem.QuantidadeReserva = x.QuantidadeSolicitada;
-                    
-                    ReservaMaterial.AtualizeReservaEstoqueMaterial(diferenca, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+
+                    ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(diferenca, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
                 }
             });
 
             var reservaMaterialItemsAExcluir = new List<ReservaMaterialItem>();
 
-            ReservaMaterial.ReservaMaterialItems.ForEach(x =>
+            ReservaMateriais.SelectMany(z => z.ReservaMaterialItems).ForEach(x =>
             {
                 var requisicaoMaterialItem = RequisicaoMaterialItems.FirstOrDefault(y => y.Material.Id == x.Material.Id);
                 if (requisicaoMaterialItem == null)
@@ -193,8 +205,11 @@ namespace Fashion.ERP.Domain.Almoxarifado
 
             reservaMaterialItemsAExcluir.ForEach(x =>
             {
-                ReservaMaterial.ReservaMaterialItems.Remove(x);
-                ReservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
+                var reservaMaterial =
+                    ReservaMateriais.FirstOrDefault(z => z.ReservaMaterialItems.Any(y => y.Material.Id == x.Material.Id));
+
+                reservaMaterial.ReservaMaterialItems.Remove(x);
+                ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
             });
         }
     }

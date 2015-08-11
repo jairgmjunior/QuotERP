@@ -169,6 +169,7 @@ namespace T4MVC
     public class ProducaoClass
     {
         public readonly string Name = "Producao";
+        public Fashion.ERP.Web.Areas.Producao.Controllers.ColecaoProgramadaController ColecaoProgramada = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ColecaoProgramadaController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController FichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_FichaTecnicaController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.OrdemProducaoController OrdemProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_OrdemProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.ProgramacaoProducaoController ProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ProgramacaoProducaoController();

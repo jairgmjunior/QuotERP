@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
-    public class ColecaoProgramadaModel
+    public class PesquisaColecaoProgramadaModel
     {
         [Display(Name = "Coleção Programada")]
-        public IList<long?> ColecoesProgramadas { get; set; }
+        public List<string> ColecoesProgramadas { get; set; }
         
         [Display(Name = "Período de Programação")]
         public DateTime? DataInicial { get; set; }
@@ -15,10 +15,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Até")]
         public DateTime? DataFinal { get; set; }
         
-        [Display(Name = "Ordenar por")]
-        public string OrdenarPor { get; set; }
-
-        [Display(Name = "em")]
-        public string OrdenarEm { get; set; }
+        public IList<GridColecaoProgramadaModel> Grid { get; set; }
     }
 }

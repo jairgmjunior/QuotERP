@@ -277,6 +277,12 @@
     <Compile Include="EngenhariaProduto\ListaModeloReport.designer.cs">
       <DependentUpon>ListaModeloReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Producao\BookColecaoProgramadaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\BookColecaoProgramadaReport.Designer.cs">
+      <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Producao\Models\AgrupamentoEstimativaConsumoProgramadoModel.cs" />
     <Compile Include="Producao\Models\MaterialEstimativaConsumoProgramadoModel.cs" />
     <Compile Include="Producao\Models\ProgramacaoEstimativaConsumoProgramadoModel.cs" />
@@ -438,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\ListaOrdemProducaoReport.resx">
       <DependentUpon>ListaOrdemProducaoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\BookColecaoProgramadaReport.resx">
+      <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\StyleSheet.xml" />
   </ItemGroup>

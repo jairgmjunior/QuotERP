@@ -234,12 +234,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     filtros.AppendFormat("Classificação: {0}, ", _classificacaoRepository.Get(model.Classificacao.Value).Descricao);
                 }
 
-                //todo agora
-                //if (!string.IsNullOrWhiteSpace(model.Tag))
-                //{
-                //    modelos = modelos.Where(p => p.ModeloAprovado!= null && p.ModeloAprovado.Tag.Contains(model.Tag));
-                //    filtros.AppendFormat("Tag: {0}, ", model.Tag);
-                //}
+                
+                if (!string.IsNullOrWhiteSpace(model.Tag))
+                {
+                    modelos = modelos.Where(p => p.ModeloAvaliacao != null && p.ModeloAvaliacao.Tag.Contains(model.Tag));
+                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                }
 
                 if (model.Artigo.HasValue)
                 {

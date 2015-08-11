@@ -415,7 +415,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         QuantidadeAtendida = x.QuantidadeAtendida,
                         QuantidadeCancelada = x.RequisicaoMaterialItemCancelado != null ? x.RequisicaoMaterialItemCancelado.QuantidadeCancelada : 0,
                         QuantidadeSolicitada = x.QuantidadeSolicitada,
-                        QuantidadeDisponivel = ObtenhaQuantidadeDisponivel_(x.Material.Id),
+                        QuantidadeDisponivel = ObtenhaQuantidadeDisponivel_(x.Material.Id, domain.UnidadeRequisitada.Id.Value),
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
                         IdRequisicaoMaterialItem = x.Id,
                         Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
@@ -428,14 +428,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return RedirectToAction("Index");
         }
 
-        private double ObtenhaQuantidadeDisponivel_(long? materialId)
+        private double ObtenhaQuantidadeDisponivel_(long? materialId, long unidadeRequisitada)
         {
-            var quantidadesEstoqueMaterial = _estoqueMaterialRepository.Find(y => y.Material.Id == materialId).Sum(x => x.Quantidade);
+            var quantidadesEstoqueMaterial = _estoqueMaterialRepository.Find(y => y.Material.Id == materialId && y.DepositoMaterial.Unidade.Id == unidadeRequisitada).Sum(x => x.Quantidade);
 
             if (quantidadesEstoqueMaterial == 0)
                 return 0;
 
-            var reservaEstoque = _reservaEstoqueMaterialRepository.Get(y => y.Material.Id == materialId);
+            var reservaEstoque = _reservaEstoqueMaterialRepository.Get(y => y.Material.Id == materialId && y.Unidade.Id == unidadeRequisitada);
 
             if (reservaEstoque == null)
                 return quantidadesEstoqueMaterial;
@@ -443,12 +443,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return quantidadesEstoqueMaterial - reservaEstoque.Quantidade;
         }
 
-        [AjaxOnly]
-        public virtual ActionResult ObtenhaQuantidadeDisponivel(long? id)
+        [HttpGet, AjaxOnly]
+        public virtual ActionResult ObtenhaQuantidadeDisponivel(long? materialId, long unidadeRequisitada)
         {
             try
             {
-                var quantidadeDisponivel = ObtenhaQuantidadeDisponivel_(id);
+                var quantidadeDisponivel = ObtenhaQuantidadeDisponivel_(materialId, unidadeRequisitada);
                 return Json(quantidadeDisponivel, JsonRequestBehavior.AllowGet);
             }
             catch (Exception exception)
@@ -563,11 +563,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 try
                 {
                     var domain = _requisicaoMaterialRepository.Get(id);
-
-                    if (domain.ReservaMaterial != null)
-                    {
-                        domain.ReservaMaterial.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
-                    }
+                    
+                    domain.ReservaMateriais.ForEach( x => x.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository));
 
                     _requisicaoMaterialRepository.Delete(domain);
 

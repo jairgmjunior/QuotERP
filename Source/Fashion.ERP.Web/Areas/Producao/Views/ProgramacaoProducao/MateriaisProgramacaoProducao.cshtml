@@ -249,6 +249,13 @@
                 }
             }
 
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if ((dataItem.Unidade == 0 || dataItem.Unidade == null) && dataItem.Reservado == true) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna unidade.<br/>";
+                }
+            }
+
             if (mensagem != "") {
                 e.preventDefault();
                 exibaAlertaErro(mensagem);

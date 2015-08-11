@@ -468,12 +468,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         public string ObtenhaOrigemDestino(MovimentacaoEstoqueMaterial movimentacao)
         {
+            
             if (movimentacao.TipoMovimentacaoEstoqueMaterial == TipoMovimentacaoEstoqueMaterial.Entrada)
             {
                 var entradaMaterial = _entradaMaterialRepository.Find().FirstOrDefault(x => x.EntradaItemMateriais.Any(y => y.MovimentacaoEstoqueMaterial.Id == movimentacao.Id));
                 return entradaMaterial.ObtenhaOrigem();
             }
-
+            
             var saidaMaterial = _saidaMaterialRepository.Find().FirstOrDefault(x => x.SaidaItemMateriais.Any(y => y.MovimentacaoEstoqueMaterial.Id == movimentacao.Id));
             return saidaMaterial.ObtenhaDestino();
         }

@@ -125,9 +125,9 @@
                 columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
-                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric").Width(100);
-                columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric").Width(100);
-                columns.Bound(x => x.QuantidadeCancelada).Width(100);
+                columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric").ClientTemplate("#= kendo.toString(QuantidadeSolicitada, \"n4\") #").Width(100);
+                columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric").ClientTemplate("#= kendo.toString(QuantidadeAtendida, \"n4\") #").Width(100);
+                columns.Bound(x => x.QuantidadeCancelada).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #").Width(100);
                 columns.Bound(x => x.SituacaoReservaMaterial).Template(s => s.SituacaoReservaMaterial.EnumToString());   
                 columns.Command(command =>  { command.Edit(); command.Destroy(); } );
             })

@@ -33,6 +33,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<ReservaMaterial> _reservaMaterialRepository;
         private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
+        private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
+
         private readonly ILogger _logger;
         private long? _proximoNumeroReservaMaterial;
         #endregion
@@ -42,7 +44,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             IRepository<Colecao> colecaoRepository, IRepository<FichaTecnica> fichaTecnicaRepository,
             IRepository<Pessoa> pessoaRepository, IRepository<Tamanho> tamanhoRepository,
             IRepository<Material> materialRepository, IRepository<ReservaMaterial> reservaMaterialRepository,
-            IRepository<DepartamentoProducao> departamentoProducaoRepository)
+            IRepository<DepartamentoProducao> departamentoProducaoRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository )
         {
             _programacaoProducaoRepository = programacaoProducaoRepository;
             _colecaoRepository = colecaoRepository;
@@ -52,6 +54,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _materialRepository = materialRepository;
             _reservaMaterialRepository = reservaMaterialRepository;
             _departamentoProducaoRepository = departamentoProducaoRepository;
+            _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
             _logger = logger;
         }
         #endregion
@@ -587,6 +590,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 if (programacaoProducaoMaterial.ReservaMaterial != null)
                 {
                     _reservaMaterialRepository.Delete(programacaoProducaoMaterial.ReservaMaterial);
+
+                    var reservaMaterialItem = programacaoProducaoMaterial.ReservaMaterial.ReservaMaterialItems.First(x => x.Material.Referencia == modelItem.Referencia);
+                    ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva * -1, reservaMaterialItem.Material, programacaoProducaoMaterial.ReservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+
                     programacaoProducaoMaterial.ReservaMaterial = null;
                 }
             }
@@ -595,6 +602,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private ReservaMaterial ObtenhaNovaReservaMaterial(GridProgramacaoProducaoMaterialModel modelItem, ProgramacaoProducao domain)
         {
             var material = _materialRepository.Get(x => x.Referencia == modelItem.Referencia);
+            var unidade = _pessoaRepository.Load(Convert.ToInt64(modelItem.Unidade));
 
             var reservaMaterial = new ReservaMaterial()
             {
@@ -604,7 +612,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 DataProgramacao = domain.DataProgramada,
                 ReferenciaOrigem = domain.FichaTecnica.Referencia,
                 Requerente = domain.Funcionario,
-                Unidade = _pessoaRepository.Load(Convert.ToInt64(modelItem.Unidade)),
+                Unidade = unidade,
                 SituacaoReservaMaterial = SituacaoReservaMaterial.NaoAtendida
             };
 
@@ -616,7 +624,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             };
 
             reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
-            
+            ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(modelItem.QtdeReservada, material, unidade, _reservaEstoqueMaterialRepository);
+
             return reservaMaterial;
         }
 
@@ -625,7 +634,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var reservaMaterial = programacaoProducaoMaterial.ReservaMaterial;
             reservaMaterial.Unidade = _pessoaRepository.Load(Convert.ToInt64(modelItem.Unidade));
             var reservaMaterialItem = reservaMaterial.ReservaMaterialItems.First(x => x.Material.Referencia == modelItem.Referencia);
+
+            var valorAtual = reservaMaterialItem.QuantidadeReserva;
+            var valorNovo = modelItem.QtdeReservada;
+
             reservaMaterialItem.QuantidadeReserva = modelItem.QtdeReservada;
+            
+            ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(valorNovo - valorAtual, reservaMaterialItem.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
         }
 
         #endregion

@@ -75,8 +75,10 @@ namespace Fashion.ERP.Domain.Almoxarifado
             {
                 return CentroCusto.Nome;
             }
+            if (DepositoMaterialDestino != null)
+                return DepositoMaterialDestino.Nome;
 
-            return DepositoMaterialDestino.Nome;
+            return "";
         }
     }
 }

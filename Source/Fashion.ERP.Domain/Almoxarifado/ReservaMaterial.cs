@@ -52,25 +52,6 @@ namespace Fashion.ERP.Domain.Almoxarifado
             ReservaMaterialItems.ForEach(x => x.AtualizeSituacao());
         }
 
-        public virtual void AtualizeReservaEstoqueMaterial(double valorAdicional, Material material, Pessoa unidade, 
-            IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository)
-        {
-            var reservaEstoqueMaterial = reservaEstoqueMaterialRepository.Find(x => x.Material.Id == material.Id && x.Unidade.Id == unidade.Id).FirstOrDefault();
-
-            if (reservaEstoqueMaterial == null)
-            {
-                reservaEstoqueMaterial = new ReservaEstoqueMaterial
-                {
-                    Material = material,
-                    Unidade = unidade
-                };
-            }
-
-            reservaEstoqueMaterial.AtualizeQuantidade(valorAdicional);
-
-            reservaEstoqueMaterialRepository.SaveOrUpdate(reservaEstoqueMaterial);
-        }
-
         public virtual void AtualizeReservaEstoqueMaterialAoExcluir(IRepository<ReservaEstoqueMaterial> reservaEstoquematerialRepository)
         {
             ReservaMaterialItems.ForEach(x =>

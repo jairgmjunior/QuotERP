@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -33,6 +34,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
         private readonly IRepository<RequisicaoMaterial> _requisicaoMaterialRepository;
+        private readonly IRepository<ProgramacaoProducaoMaterial> _programacaoProducaoMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
@@ -41,7 +43,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public ReservaMaterialController(ILogger logger, IRepository<Colecao> colecaoRepository,
             IRepository<ReservaMaterial> reservaMaterialRepository,  IRepository<Pessoa> pessoaRepository,
             IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
-            IRepository<RequisicaoMaterial> requisicaoMaterialRepository)
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<ProgramacaoProducaoMaterial> programacaoProducaoRepository )
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
@@ -49,6 +51,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _materialRepository = materialRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
             _requisicaoMaterialRepository = requisicaoMaterialRepository;
+            _programacaoProducaoMaterialRepository = programacaoProducaoRepository;
 
             _logger = logger;
 
@@ -348,14 +351,11 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private bool PermiteAlterar(long? id)
         {
-            var requisicaoMaterial =
-            _requisicaoMaterialRepository.Get(y => y.ReservaMaterial.Id == id);
-            if (requisicaoMaterial != null)
-            {
-                return false;
-            }
+            var temRequisicao = _requisicaoMaterialRepository.Find().Any(x => x.ReservaMateriais.Any(y => y.Id == id ));
 
-            return true;
+            var temProgramacaoProducaoMaterial = _programacaoProducaoMaterialRepository.Find().Any(x => x.ReservaMaterial.Id == id);
+            
+            return !temRequisicao && !temProgramacaoProducaoMaterial;
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
@@ -414,7 +414,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     };
                     reservaMaterial.ReservaMaterialItems.Add(reservaMaterialItem);
 
-                    reservaMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                    ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva, material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
                 }
             });
         }
@@ -431,7 +431,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         var diferenca = x.QuantidadeSolicitada - reservaMaterialItem.QuantidadeReserva;
                         reservaMaterialItem.QuantidadeReserva = x.QuantidadeSolicitada;
 
-                        reservaMaterial.AtualizeReservaEstoqueMaterial(diferenca, reservaMaterialItem.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                        ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(diferenca, reservaMaterialItem.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
                     }
                 }
             });
@@ -451,7 +451,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             reservaMaterialItensExcluir.ForEach(x =>
             {
                 reservaMaterial.ReservaMaterialItems.Remove(x);
-                reservaMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, reservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
             });
         }
 

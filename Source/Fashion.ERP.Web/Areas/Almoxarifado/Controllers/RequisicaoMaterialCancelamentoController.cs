@@ -11,6 +11,7 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using NHibernate.Util;
 using Ninject.Extensions.Logging;
+using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 {
@@ -95,12 +96,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     }
 
                     requisicaoMaterial.AtualizeSituacao();
-
-                    if (requisicaoMaterial.ReservaMaterial != null)
-                    {
-                        requisicaoMaterial.ReservaMaterial.AtualizeSituacao();
-                    }
-
+                    
+                    requisicaoMaterial.ReservaMateriais.ForEach(x => x.AtualizeSituacao());
+                    
                     _requisicaoMaterialRepository.SaveOrUpdate(requisicaoMaterial);
                     
                     this.AddSuccessMessage("Item(s) cancelados com sucesso.");

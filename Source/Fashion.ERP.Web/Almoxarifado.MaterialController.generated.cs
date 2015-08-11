@@ -149,6 +149,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCustoAtual);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaGeneroCategoria()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGeneroCategoria);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public MaterialController Actions { get { return MVC.Almoxarifado.Material; } }
@@ -188,6 +194,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string VerificarReferencia = "VerificarReferencia";
             public readonly string ObtenhaCusto = "ObtenhaCusto";
             public readonly string ObtenhaCustoAtual = "ObtenhaCustoAtual";
+            public readonly string ObtenhaGeneroCategoria = "ObtenhaGeneroCategoria";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -216,6 +223,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string VerificarReferencia = "VerificarReferencia";
             public const string ObtenhaCusto = "ObtenhaCusto";
             public const string ObtenhaCustoAtual = "ObtenhaCustoAtual";
+            public const string ObtenhaGeneroCategoria = "ObtenhaGeneroCategoria";
         }
 
 
@@ -382,6 +390,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public ActionParamsClass_ObtenhaCustoAtual ObtenhaCustoAtualParams { get { return s_params_ObtenhaCustoAtual; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ObtenhaCustoAtual
+        {
+            public readonly string referencia = "referencia";
+        }
+        static readonly ActionParamsClass_ObtenhaGeneroCategoria s_params_ObtenhaGeneroCategoria = new ActionParamsClass_ObtenhaGeneroCategoria();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaGeneroCategoria ObtenhaGeneroCategoriaParams { get { return s_params_ObtenhaGeneroCategoria; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaGeneroCategoria
         {
             public readonly string referencia = "referencia";
         }
@@ -675,6 +691,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCustoAtual);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
             ObtenhaCustoAtualOverride(callInfo, referencia);
+            return callInfo;
+        }
+
+        partial void ObtenhaGeneroCategoriaOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string referencia);
+
+        public override System.Web.Mvc.JsonResult ObtenhaGeneroCategoria(string referencia)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGeneroCategoria);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referencia", referencia);
+            ObtenhaGeneroCategoriaOverride(callInfo, referencia);
             return callInfo;
         }
 

@@ -151,7 +151,8 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ObtenhaQuantidadeDisponivel
         {
-            public readonly string id = "id";
+            public readonly string materialId = "materialId";
+            public readonly string unidadeRequisitada = "unidadeRequisitada";
         }
         static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -264,13 +265,14 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             return callInfo;
         }
 
-        partial void ObtenhaQuantidadeDisponivelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? id);
+        partial void ObtenhaQuantidadeDisponivelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long? materialId, long unidadeRequisitada);
 
-        public override System.Web.Mvc.ActionResult ObtenhaQuantidadeDisponivel(long? id)
+        public override System.Web.Mvc.ActionResult ObtenhaQuantidadeDisponivel(long? materialId, long unidadeRequisitada)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaQuantidadeDisponivel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ObtenhaQuantidadeDisponivelOverride(callInfo, id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "materialId", materialId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "unidadeRequisitada", unidadeRequisitada);
+            ObtenhaQuantidadeDisponivelOverride(callInfo, materialId, unidadeRequisitada);
             return callInfo;
         }
 

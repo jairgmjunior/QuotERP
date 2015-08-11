@@ -461,7 +461,8 @@
     <Compile Include="Areas\EngenhariaProduto\Models\GridModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\ModeloAvaliacaoModel.cs" />
     <Compile Include="Areas\EngenhariaProduto\Models\PesquisaModeloAvaliacaoModel.cs" />
-    <Compile Include="Areas\Producao\Models\ColecaoProgramadaModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridColecaoProgramadaModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaColecaoProgramadaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridProgramacaoProducaoMaterialModel.cs" />
     <Compile Include="Areas\Producao\Models\ProgramacaoProducaoMateriaisModel.cs" />
     <Compile Include="Areas\Producao\Models\EstimativaConsumoProgramadoModel.cs" />
@@ -951,6 +952,9 @@
     <Compile Include="Models\PesquisarModel.cs" />
     <Compile Include="Models\RelatorioModel.cs" />
     <Compile Include="Models\VisualizarRelatorioModel.cs" />
+    <Compile Include="Producao.ColecaoProgramadaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Producao.FichaTecnicaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1233,7 +1237,7 @@
     <Content Include="Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichaTecnica.cshtml" />
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
-    <Content Include="Areas\Producao\Views\ColecoesProgramadas\ColecoesProgramadas.cshtml" />
+    <Content Include="Areas\Producao\Views\ColecaoProgramada\Index.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

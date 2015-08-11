@@ -200,9 +200,9 @@
         $.ajaxSetup({
             async: false
         });
-
+        
         var quantidadeDisponivel = 0;
-        $.get('/Almoxarifado/RequisicaoMaterial/ObtenhaQuantidadeDisponivel/' + materialId, function (data) {
+        $.getJSON('/Almoxarifado/RequisicaoMaterial/ObtenhaQuantidadeDisponivel?materialId=' + materialId + "&unidadeRequisitada=" + $("#UnidadeRequisitada option:selected").val(), function (data) {
             quantidadeDisponivel = data;
         });
 
@@ -212,7 +212,6 @@
 
         return quantidadeDisponivel;
     }
-
 
     $(document).ready(function () {
         $("#selecionar-material").on("pesquisar", function (ev, itens) {
@@ -282,21 +281,27 @@
         $("#funcionario").change(function(e) {
             $("#funcionario").valid();
         });
+
+        $('select[name=TipoItem]').change(function (e) {
+            habiliteDesabiliteBotaoIncluir();
+            $('input[name=TipoItem]').val($("#TipoItem option:selected").val());
+            configureParametroPesquisarVariosMateriaisPorTipoItem($("#TipoItem option:selected").val());
+        });
+
+        $('select[name=UnidadeRequisitada]').change(function (e) {
+            habiliteDesabiliteBotaoIncluir();
+        });
     });
 
-    $('select[name=TipoItem]').change(function (e) {
-        if ($("#TipoItem option:selected").val() == '') {
-            //$('#pesquisarvarios-material').bind("click");
+    function habiliteDesabiliteBotaoIncluir() {
+        if ($("#TipoItem option:selected").val() == '' || $("#UnidadeRequisitada option:selected").val() == '') {
             $("#pesquisarvarios-material").css("pointer-events", "none");
             $('#pesquisarvarios-material').addClass("k-state-disabled");
         } else {
-            //$('#pesquisarvarios-material').unbind("click");
             $("#pesquisarvarios-material").css("pointer-events", "auto");
             $('#pesquisarvarios-material').removeClass("k-state-disabled");
         }
-        $('input[name=TipoItem]').val($("#TipoItem option:selected").val());
-        configureParametroPesquisarVariosMateriaisPorTipoItem($("#TipoItem option:selected").val());
-    });
+    }
 
     function onDataBound(e) {
         toogleTipoItem();
