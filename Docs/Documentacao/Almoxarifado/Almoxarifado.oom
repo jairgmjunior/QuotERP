@@ -2489,8 +2489,8 @@ Shadow=0</a:DisplayPreferences>
 <o:AssociationSymbol Id="o6">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1421954840</a:ModificationDate>
-<a:Rect>((-10607,8566), (-6773,23296))</a:Rect>
-<a:ListOfPoints>((-8698,8566),(-8549,23296))</a:ListOfPoints>
+<a:Rect>((-10643,8566), (-6736,23296))</a:Rect>
+<a:ListOfPoints>((-8697,8566),(-8549,23296))</a:ListOfPoints>
 <a:ArrowStyle>2048</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2530,7 +2530,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:ClassSymbol Id="o7">
 <a:CreationDate>1421777243</a:CreationDate>
 <a:ModificationDate>1430176465</a:ModificationDate>
-<a:Rect>((-13512,4071), (-3884,13061))</a:Rect>
+<a:Rect>((-13511,4071), (-3883,13061))</a:Rect>
 <a:LineColor>16744448</a:LineColor>
 <a:FillColor>16770222</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2997,10 +2997,12 @@ Multiplicity 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o23">
 <a:CreationDate>1421777243</a:CreationDate>
-<a:ModificationDate>1421777243</a:ModificationDate>
-<a:Rect>((-30029,36302), (6448,38750))</a:Rect>
+<a:ModificationDate>1438264853</a:ModificationDate>
+<a:SourceTextOffset>(-99, -637)</a:SourceTextOffset>
+<a:DestinationTextOffset>(176, 1437)</a:DestinationTextOffset>
+<a:Rect>((-30029,36302), (6448,39550))</a:Rect>
 <a:ListOfPoints>((6448,37531),(-30029,37526))</a:ListOfPoints>
-<a:ArrowStyle>0</a:ArrowStyle>
+<a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
 <a:FontList>DISPNAME 0 Arial,8,N
@@ -11742,8 +11744,8 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>RequisicaoMaterial</a:Code>
 <a:CreationDate>1421777243</a:CreationDate>
 <a:Creator>ferna_000</a:Creator>
-<a:ModificationDate>1421777243</a:ModificationDate>
-<a:Modifier>ferna_000</a:Modifier>
+<a:ModificationDate>1438264962</a:ModificationDate>
+<a:Modifier>fernando</a:Modifier>
 <a:UseParentNamespace>0</a:UseParentNamespace>
 <c:Attributes>
 <o:Attribute Id="o360">
@@ -12031,8 +12033,8 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>ReservaMaterial</a:Code>
 <a:CreationDate>1421777243</a:CreationDate>
 <a:Creator>ferna_000</a:Creator>
-<a:ModificationDate>1421777243</a:ModificationDate>
-<a:Modifier>ferna_000</a:Modifier>
+<a:ModificationDate>1438264962</a:ModificationDate>
+<a:Modifier>fernando</a:Modifier>
 <a:UseParentNamespace>0</a:UseParentNamespace>
 <c:Attributes>
 <o:Attribute Id="o379">
@@ -14325,11 +14327,10 @@ Shadow=0</a:DisplayPreferences>
 <a:Code>ReservaDaRequisicaoMaterial</a:Code>
 <a:CreationDate>1421777243</a:CreationDate>
 <a:Creator>ferna_000</a:Creator>
-<a:ModificationDate>1421777243</a:ModificationDate>
-<a:Modifier>ferna_000</a:Modifier>
-<a:RoleAMultiplicity>0..*</a:RoleAMultiplicity>
-<a:RoleBMultiplicity>0..1</a:RoleBMultiplicity>
-<a:RoleANavigability>1</a:RoleANavigability>
+<a:ModificationDate>1438264962</a:ModificationDate>
+<a:Modifier>fernando</a:Modifier>
+<a:RoleAMultiplicity>0..1</a:RoleAMultiplicity>
+<a:RoleBMultiplicity>1..*</a:RoleBMultiplicity>
 <a:ExtendedAttributesText>{48DE8DAA-F163-416B-ACAA-3F3ABD6F9EE9},C# 2,128={B30A1960-E74E-41E5-88BC-74AF259F1A68},roleAContainer,6=&lt;None&gt;
 {CB967141-7AEA-46EE-A911-277E1F053A1B},roleBContainer,6=&lt;None&gt;
 
