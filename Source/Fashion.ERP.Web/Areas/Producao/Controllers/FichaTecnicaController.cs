@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
@@ -104,28 +105,131 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #endregion
 
         #region Index
+        [PopulateViewData("PopulateViewDataPesquisa")]
         public virtual ActionResult Index()
         {
-            var fichaTecnicas = _fichaTecnicaRepository.Find();
-
-            var pesquisaFichaTecnicaModel = new PesquisaFichaTecnicaModel();
-
-            var list = fichaTecnicas.Select(p => new GridFichaTecnicaModel
-            {
-                Id = p.Id.GetValueOrDefault(),
-                Descricao = p.Descricao,
-                Tag = p.Tag,
-                Ano = p.Ano,
-                Colecao = p.Colecao.Descricao,
-                Marca = p.Marca.Nome,
-                Natureza = p.Natureza.Descricao
-                
-            }).OrderBy(o => o.Tag).ToList();
-            
-            pesquisaFichaTecnicaModel.Grid = list;
-
-            return View(pesquisaFichaTecnicaModel);
+            return View( new PesquisaFichaTecnicaModel());
         }
+
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
+        public virtual ActionResult Index(PesquisaFichaTecnicaModel model)
+        {
+            return View(model);
+        }
+
+        public virtual ActionResult ObtenhaListaGridModel([DataSourceRequest] DataSourceRequest request, PesquisaFichaTecnicaModel model)
+        {
+            try
+            {
+                var fichaTecnicas = _fichaTecnicaRepository.Find();
+
+                #region Filtros
+                var filtros = new StringBuilder();
+
+                if (!string.IsNullOrWhiteSpace(model.Referencia))
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.Referencia == model.Referencia);
+                    filtros.AppendFormat("Referência: {0}, ", model.Referencia);
+                }
+
+                if (!string.IsNullOrWhiteSpace(model.Descricao))
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.Descricao.Contains(model.Descricao));
+                    filtros.AppendFormat("Descrição: {0}, ", model.Descricao);
+                }
+
+                if (!string.IsNullOrWhiteSpace(model.Tag))
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.Tag.Contains(model.Tag));
+                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                }
+
+                if (model.Ano.HasValue)
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.Ano == model.Ano);
+                    filtros.AppendFormat("Ano: {0}, ", model.Ano);
+                }
+
+                if (model.ClassificacaoDificuldade.HasValue)
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.ClassificacaoDificuldade.Id == model.ClassificacaoDificuldade);
+                    filtros.AppendFormat("Dificuldade: {0}, ", _classificacaoDificuldadeRepository.Get(model.ClassificacaoDificuldade.Value).Descricao);
+                }
+
+                if (model.Estilista.HasValue)
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.Estilista.Id == model.Estilista);
+                    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Estilista.Value).Nome);
+                }
+                
+                if (model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
+                {
+                    fichaTecnicas = fichaTecnicas.Where(p => p.DataCadastro.Date >= model.DataCadastro.Value
+                                                             && p.DataCadastro.Date <= model.DataCadastroAte.Value);
+                    filtros.AppendFormat("Data de cadastro de '{0}' até '{1}', ",
+                                         model.DataCadastro.Value.ToString("dd/MM/yyyy"),
+                                         model.DataCadastroAte.Value.ToString("dd/MM/yyyy"));
+                }
+                
+                #endregion
+
+                fichaTecnicas = fichaTecnicas.OrderByDescending(o => o.DataAlteracao);
+
+                var total = fichaTecnicas.Count();
+
+                if (request.Page > 0)
+                {
+                    fichaTecnicas = fichaTecnicas.Skip((request.Page - 1) * request.PageSize);
+                }
+
+                var resultado = fichaTecnicas.Take(request.PageSize).ToList();
+
+                var list = resultado.Select(p => new GridFichaTecnicaModel
+                {
+                    Id = p.Id.GetValueOrDefault(),
+                    Referencia = p.Referencia,
+                    Descricao = p.Descricao,
+                    Tag = p.Tag,
+                    Ano = p.Ano,
+                    Colecao = p.Colecao.Descricao,
+                    Marca = p.Marca.Nome,
+                    Natureza = p.Natureza.Descricao,
+                    Foto = ObtenhaUrlFoto(p)
+                }).ToList();
+
+                var valorPage = request.Page;
+                request.Page = 1;
+                var data = list.ToDataSourceResult(request);
+                request.Page = valorPage;
+
+                var result = new DataSourceResult()
+                {
+                    AggregateResults = data.AggregateResults,
+                    Data = data.Data,
+                    Total = total
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(new DataSourceResult
+                {
+                    Errors = ex.GetMessage()
+                });
+            }
+        }
+
+        public string ObtenhaUrlFoto(FichaTecnica fichaTecnica)
+        {
+            if (fichaTecnica.FichaTecnicaFotos.Any(x => x.Padrao))
+            {
+                return fichaTecnica.FichaTecnicaFotos.Where(x => x.Padrao).ElementAt(0).Arquivo.Nome.GetFileUrl();
+            }
+            
+            return fichaTecnica.FichaTecnicaFotos.Any() ? fichaTecnica.FichaTecnicaFotos.ElementAt(0).Arquivo.Nome.GetFileUrl() : null;
+        }
+
         #endregion
 
         #region Novo
@@ -420,7 +524,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     Custo = x.Custo,
                     Descricao = x.Material.Descricao,
                     Referencia = x.Material.Referencia,
-                    UnidadeMedida = x.Material.UnidadeMedida.Sigla
+                    UnidadeMedida = x.Material.UnidadeMedida.Sigla,
+                    Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
                 }));
 
                 domain.MateriaisConsumo.ForEach(x =>
@@ -433,7 +538,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         UnidadeMedida = x.Material.UnidadeMedida.Sigla,
                         DepartamentoProducao = x.DepartamentoProducao.Id.ToString(),
                         Quantidade = x.Quantidade,
-                        CustoTotal = x.Quantidade * x.Custo
+                        CustoTotal = x.Quantidade * x.Custo,
+                        Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
                     }));
 
                 domain.MateriaisConsumoVariacao.ForEach(x =>
@@ -449,7 +555,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         CompoeCusto = x.CompoeCusto,
                         Tamanho = x.Tamanho.Id.ToString(),
                         Variacao = x.FichaTecnicaVariacaoMatriz.Variacao.Id.ToString(),
-                        CustoTotal = x.Quantidade * x.Custo
+                        CustoTotal = x.Quantidade * x.Custo,
+                        Foto = (x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty),
                     }));
 
                 return PartialView("Material", model);
@@ -1016,7 +1123,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             //ViewBag.TamanhosDicionario_Material = tamanhoLista.ToDictionary(k => k.Id, e => e.Descricao);
             ViewBag.TamanhosDicionarioJson_Material = tamanhoLista.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
-        
+
         protected void PopulateViewDataModelagem(FichaTecnicaModelagemModel model)
         {
             if (!model.Id.HasValue)
@@ -1025,12 +1132,23 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }
 
             var fichaTecnica = _fichaTecnicaJeansRepository.Get(model.Id);
-         
+
             var dicionarioTamanhos = fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos;
             var tamanhoLista = dicionarioTamanhos.Keys;
 
             ViewBag.TamanhoGrades = tamanhoLista.Select(s => new { Id = s.Id.ToString(), s.Descricao }).OrderBy(x => x.Descricao);
             ViewBag.TamanhosDicionarioJson_Modelagem = tamanhoLista.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
+        }
+
+        protected void PopulateViewDataPesquisa(PesquisaFichaTecnicaModel model)
+        {
+            var estilistas = _pessoaRepository.Find(p => p.Funcionario != null
+                && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Estilista)
+                .OrderBy(p => p.Nome).ToList();
+            ViewData["Estilista"] = estilistas.ToSelectList("Nome", model.Estilista);
+            
+            var classificacaoDificuldades = _classificacaoDificuldadeRepository.Find(p => p.Ativo).ToList();
+            ViewBag.ClassificacaoDificuldade = classificacaoDificuldades.ToSelectList("Descricao", model.ClassificacaoDificuldade);
         }
         #endregion
         

@@ -241,6 +241,18 @@
     <Compile Include="EngenhariaProduto\MateriaisModelosAprovadosReport.designer.cs">
       <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Producao\ConsumoMaterialProgramadoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\ConsumoMaterialProgramadoReport.Designer.cs">
+      <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSubReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSubReport.Designer.cs">
+      <DependentUpon>MateriaisProgramacaoProducaoSubReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Producao\EstimativaConsumoProgramadoSubReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -282,6 +294,12 @@
     </Compile>
     <Compile Include="Producao\BookColecaoProgramadaReport.Designer.cs">
       <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoReport.designer.cs">
+      <DependentUpon>MateriaisProgramacaoProducaoReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Producao\Models\AgrupamentoEstimativaConsumoProgramadoModel.cs" />
     <Compile Include="Producao\Models\MaterialEstimativaConsumoProgramadoModel.cs" />
@@ -412,6 +430,12 @@
     <EmbeddedResource Include="EngenhariaProduto\MateriaisModelosAprovadosReport.resx">
       <DependentUpon>MateriaisModelosAprovadosReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Producao\ConsumoMaterialProgramadoReport.resx">
+      <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\MateriaisProgramacaoProducaoSubReport.resx">
+      <DependentUpon>MateriaisProgramacaoProducaoSubReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Producao\EstimativaConsumoProgramadoSubReport.resx">
       <DependentUpon>EstimativaConsumoProgramadoSubReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -447,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\BookColecaoProgramadaReport.resx">
       <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\MateriaisProgramacaoProducaoReport.resx">
+      <DependentUpon>MateriaisProgramacaoProducaoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\StyleSheet.xml" />
   </ItemGroup>

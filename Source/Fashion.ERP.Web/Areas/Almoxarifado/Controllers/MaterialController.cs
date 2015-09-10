@@ -231,7 +231,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     MarcaMaterial = p.MarcaMaterial.Nome,
                     Categoria = p.Subcategoria.Categoria.Nome,
                     Subcategoria = p.Subcategoria.Nome,
-                    Familia = p.Familia.Nome,
+                    Familia = p.Familia != null ? p.Familia.Nome : null,
                     UnidadeMedida = p.UnidadeMedida.Descricao,
                     Foto = (p.Foto != null ? p.Foto.Nome.GetFileUrl() : string.Empty),
                     Ativo = p.Ativo

@@ -9,8 +9,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using System.Web.Security.AntiXss;
-using System.Web.Util;
 using Fashion.Framework.Common.Validators;
 using Newtonsoft.Json;
 
@@ -18,6 +16,16 @@ namespace Fashion.ERP.Web.Helpers.Extensions
 {
     public static class HtmlExtensions
     {
+        public static bool PossuiPermissao(this HtmlHelper helper, ActionResult action)
+        {
+            var result = action.GetT4MVCResult();
+            var actionName = result.Action;
+            var controllerName = result.Controller;
+            var areaName = GetAreaName(action.GetRouteValueDictionary());
+
+            return PermissaoHelper.PossuiPermissao(actionName, controllerName, areaName);
+        }
+
         #region SubmitButtonAuth
         public static MvcHtmlString SubmitButtonAuth(this HtmlHelper helper, ActionResult action, string id = "btnSubmit", string text = "Salvar", object htmlAttributes = null, bool? enabled = null)
         {

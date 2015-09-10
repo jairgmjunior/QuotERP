@@ -1207,9 +1207,19 @@
                                 <File Id="fil7C1903584EFB7DBFD70BDE893F4178CA" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\ProgramacaoProducao\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir2823A71F988E3D6CA6BEBBDA143FB0D7" Name="RelatorioConsumoMaterialProgramado">
+                            <Component Id="cmp5C4F9E0ADCCC3EC650A41908003A3C57" Guid="*">
+                                <File Id="fil7EE6914DE5163061D9503B43D9A2C745" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\RelatorioConsumoMaterialProgramado\ConsumoMaterialProgramado.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir6996C648BD12F850896E6AB168A89625" Name="RelatorioEstimativaConsumoProgramado">
                             <Component Id="cmp203969E3CB56B6C0D8AD85D03718336D" Guid="*">
                                 <File Id="fil721C53A86AFFB87A15609DF28E2E792D" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\RelatorioEstimativaConsumoProgramado\EstimativaConsumoProgramado.cshtml" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dirD24C3ED9D7642F3266D7C9539DC46A5E" Name="RelatorioMateriaisProgramacaoProducao">
+                            <Component Id="cmpE8775709831A038D2B83030732867290" Guid="*">
+                                <File Id="filE055A32619532C903EB7693DA74CC23E" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\RelatorioMateriaisProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
                             </Component>
                         </Directory>
                     </Directory>
@@ -2364,7 +2374,9 @@
             <ComponentRef Id="cmp4FE0D94BCE98CBDB6C16F8C2AB6918EC" />
             <ComponentRef Id="cmp3698855EBA4481BFC90FB489A1F7AD14" />
             <ComponentRef Id="cmpAF9C31380755D307FF578EB14B4045BE" />
+            <ComponentRef Id="cmp5C4F9E0ADCCC3EC650A41908003A3C57" />
             <ComponentRef Id="cmp203969E3CB56B6C0D8AD85D03718336D" />
+            <ComponentRef Id="cmpE8775709831A038D2B83030732867290" />
             <ComponentRef Id="cmpA426106E50E83F038FBE746C1E09504B" />
             <ComponentRef Id="cmpA8340102E696FA4B812CDB729F523BB4" />
             <ComponentRef Id="cmp8820A70137284727EEF32857BDC8D091" />

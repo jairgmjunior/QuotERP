@@ -20,7 +20,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Família")]
         public long? Familia { get; set; }
 
-        [Display(Name = "Período Aprovação")]
+        [Display(Name = "Período de Avaliação")]
         public DateTime? DataInicial { get; set; }
 
         [Display(Name = "Até")]

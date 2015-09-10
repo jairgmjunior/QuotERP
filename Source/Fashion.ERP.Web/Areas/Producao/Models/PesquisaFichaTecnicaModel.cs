@@ -1,20 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Fashion.ERP.Domain;
-using Fashion.ERP.Web.Areas.Financeiro.Models;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
-    public class PesquisaFichaTecnicaModel 
+    public class PesquisaFichaTecnicaModel
     {
+        [Display(Name = "Dificuldade")]
+        public long? ClassificacaoDificuldade { get; set; }
+        
+        [Display(Name = "Data de Cadastro")]
+        public DateTime? DataCadastro { get; set; }
+
+        [Display(Name = "Até")]
+        public DateTime? DataCadastroAte { get; set; }
+        
+        [Display(Name = "Estilista")]
+        public long? Estilista { get; set; }
+
+        [Display(Name = "Referência")]
+        public String Referencia { get; set; }
+
         [Display(Name = "Tag")]
         public string Tag { get; set; }
 
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
         
-        [Display(Name = "Descricao")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
         [Display(Name = "Natureza")]
@@ -38,25 +51,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Comprimento")]
         public long? Comprimento { get; set; }
 
-        [Display(Name = "Período de cadastro")]
-        public DateTime? PeriodoCadastro { get; set; }
+        //[Display(Name = "Período de cadastro")]
+        //public DateTime? PeriodoCadastro { get; set; }
 
-        [Display(Name = "Até")]
-        public DateTime? PeriodoCadastroAte { get; set; }
+        //[Display(Name = "Até")]
+        //public DateTime? PeriodoCadastroAte { get; set; }
+        
+        //[Display(Name = "Ordenar por")]
+        //public string OrdenarPor { get; set; }
 
-        public string ModoConsulta { get; set; }
-
-        [Display(Name = "Tipo")]
-        public string TipoRelatorio { get; set; }
-
-        [Display(Name = "Agrupar por")]
-        public string AgruparPor { get; set; }
-
-        [Display(Name = "Ordenar por")]
-        public string OrdenarPor { get; set; }
-
-        [Display(Name = "em")]
-        public string OrdenarEm { get; set; }
+        //[Display(Name = "em")]
+        //public string OrdenarEm { get; set; }
 
         public IList<GridFichaTecnicaModel> Grid { get; set; }
     }

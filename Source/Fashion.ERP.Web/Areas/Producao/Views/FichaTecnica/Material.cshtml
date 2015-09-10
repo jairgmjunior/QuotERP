@@ -35,6 +35,10 @@
                                 .ClientTemplate("#= kendo.toString(CustoTotal, \"n2\") #");
                             columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                                 .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                            columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                                "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                    "#}#" +
+                                "<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Foto' value='#= Foto #' />").Width(60);
                             columns.Command(command => command.Destroy().Text("Excluir"));
                         }
                         )
@@ -45,6 +49,7 @@
                             {
                                 model.Id(item => item.Id);
                                 model.Field(item => item.Id).DefaultValue(0);
+                                model.Field(product => product.Foto).Editable(false); 
                             })
                         )
                         .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-material",@name = "pesquisarvarios-material-gridmaterialconsumomatriz", @href = "javascript:void(0)", @class = "btn-primary"}))
@@ -84,6 +89,10 @@
                                   .ClientTemplate("#= CompoeCusto == false ? 'Não' : 'Sim' #<input id='CompoeCusto' type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].CompoeCusto' value='#= CompoeCusto #' />");                            
                               columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                                   .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                              columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                                  "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                      "#}#" +
+                                  "<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Foto' value='#= Foto #' />").Width(60);
                               columns.Command(command => command.Destroy().Text("Excluir"));
                           }
                           )
@@ -94,6 +103,7 @@
                               {
                                   model.Id(item => item.Id);
                                   model.Field(item => item.Id).DefaultValue(0);
+                                  model.Field(product => product.Foto).Editable(false); 
                               })
                           )
                           .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-material",@name = "pesquisarvarios-material-gridmaterialconsumoitem", @href = "javascript:void(0)", @class = "btn-primary"}))
@@ -121,6 +131,10 @@
                             .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
                         columns.Bound(x => x.Custo).EditorTemplateName("numeric5casasdecimais")
                             .ClientTemplate("#= kendo.toString(Custo, \"n5\") #<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                        columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                            "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                "#}#" +
+                            "<input type='hidden' name='GridMaterialComposicaoCustoMatriz[#= indexGridMaterialComposicaoCustoMatriz(data)#].Foto' value='#= Foto #' />").Width(60);
                         columns.Command(command => command.Destroy().Text("Excluir") );
                     }
                     )
@@ -131,6 +145,7 @@
                         {
                             model.Id(item => item.Id);
                             model.Field(item => item.Id).DefaultValue(0);
+                            model.Field(product => product.Foto).Editable(false); 
                         })
                     )
                     .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-material",@name = "pesquisarvarios-material-gridmaterialcomposicaocustoMatriz", @href = "javascript:void(0)", @class = "btn-primary"}))

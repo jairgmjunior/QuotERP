@@ -221,6 +221,10 @@
         columns.Bound(x => x.Subcategoria);
         columns.Bound(x => x.Familia);
         columns.Bound(x => x.UnidadeMedida);
+        if (!Html.PossuiPermissao( MVC.Almoxarifado.Material.EditarSituacao()))
+        {
+            columns.Template(@<text></text>).ClientTemplate( "#if(Ativo) {# SIM #} else {# NÃO #}#").Title("Ativo");
+        }
         columns.Bound(x => x.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
             "<a href='" + "#= Foto #" + "'' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
                 "#}#").Width(60).Sortable(false);

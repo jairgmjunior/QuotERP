@@ -20,5 +20,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Custo(R$)")]
         [Required(ErrorMessage = "Informe o custo")]
         public double? Custo { get; set; }
+        
+        [Display(Name = "Foto")]
+        public string Foto { get; set; }
     }
 }

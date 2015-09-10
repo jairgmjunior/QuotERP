@@ -76,109 +76,107 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         [HttpPost, AjaxOnly, PopulateViewData("PopulateConsumoMaterialPorModelo")]
         public virtual JsonResult ConsumoMaterialPorModelo(ConsumoMaterialPorModeloModel model)
         {
-            //var query = _modeloRepository.Find().Where(x => x.Aprovado == true && x.ModeloAprovado != null)
-            //    .SelectMany(x => x.SequenciaProducoes, (x, s) => new { x, s })
-            //    .SelectMany(t => t.s.MaterialComposicaoModelos, (t, m) => new { Modelo = @t.x, MaterialComposicao = m });
+            var query = _modeloRepository.Find().Where(x => x.Aprovado == true && x.ModeloAvaliacao != null)
+                .SelectMany(x => x.MateriaisConsumo, (x, s) => new { Modelo = x, MaterialComposicao = s });
 
-            //var filtros = new StringBuilder();
+            var filtros = new StringBuilder();
 
-            //if (model.DataInicial.HasValue)
-            //{
-            //    query = query.Where(p => p.Modelo.ModeloAprovado.Data >= model.DataInicial.Value);
-            //    filtros.AppendFormat("Aprovados a partir de: {0:dd/MM/yyyy}, ", model.DataInicial.Value);
-            //}
+            if (model.DataInicial.HasValue)
+            {
+                query = query.Where(p => p.Modelo.ModeloAvaliacao.Data >= model.DataInicial.Value);
+                filtros.AppendFormat("Avaliados a partir de: {0:dd/MM/yyyy}, ", model.DataInicial.Value);
+            }
 
-            //if (model.DataFinal.HasValue)
-            //{
-            //    query = query.Where(p => p.Modelo.ModeloAprovado.Data <= model.DataFinal.Value);
-            //    filtros.AppendFormat("Aprovados até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
-            //}
+            if (model.DataFinal.HasValue)
+            {
+                query = query.Where(p => p.Modelo.ModeloAvaliacao.Data <= model.DataFinal.Value);
+                filtros.AppendFormat("Avaliados até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
+            }
 
-            //if (model.Colecao.HasValue)
-            //{
-            //    query = query.Where(p => p.Modelo.Colecao.Id == model.Colecao);
-            //    filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
-            //}
+            if (model.Colecao.HasValue)
+            {
+                query = query.Where(p => p.Modelo.Colecao.Id == model.Colecao);
+                filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
+            }
 
-            //if (model.Categoria.HasValue)
-            //{
-            //    query = query.Where(q => q.MaterialComposicao.Material.Subcategoria.Categoria.Id == model.Categoria);
-            //    filtros.AppendFormat("Categoria: {0}, ", _categoriaRepository.Get(model.Categoria.Value).Nome);
-            //}
+            if (model.Categoria.HasValue)
+            {
+                query = query.Where(q => q.MaterialComposicao.Material.Subcategoria.Categoria.Id == model.Categoria);
+                filtros.AppendFormat("Categoria: {0}, ", _categoriaRepository.Get(model.Categoria.Value).Nome);
+            }
 
-            //if (model.Subcategoria.HasValue)
-            //{
-            //    query = query.Where(q => q.MaterialComposicao.Material.Subcategoria.Id == model.Subcategoria);
-            //    filtros.AppendFormat("Subcategoria: {0}, ", _subcategoriaRepository.Get(model.Subcategoria.Value).Nome);
-            //}
+            if (model.Subcategoria.HasValue)
+            {
+                query = query.Where(q => q.MaterialComposicao.Material.Subcategoria.Id == model.Subcategoria);
+                filtros.AppendFormat("Subcategoria: {0}, ", _subcategoriaRepository.Get(model.Subcategoria.Value).Nome);
+            }
 
-            //if (model.Familia.HasValue)
-            //{
-            //    query = query.Where(q => q.MaterialComposicao.Material.Familia.Id == model.Familia);
-            //    filtros.AppendFormat("Família: {0}, ", _classificacaoRepository.Get(model.Familia.Value).Descricao);
-            //}
+            if (model.Familia.HasValue)
+            {
+                query = query.Where(q => q.MaterialComposicao.Material.Familia.Id == model.Familia);
+                filtros.AppendFormat("Família: {0}, ", _classificacaoRepository.Get(model.Familia.Value).Descricao);
+            }
 
-            //if (model.ColecaoAprovada.HasValue)
-            //{
-            //    query = query.Where(p => p.Modelo.ModeloAprovado.Colecao.Id == model.ColecaoAprovada);
-            //    filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
-            //}
+            if (model.ColecaoAprovada.HasValue)
+            {
+                query = query.Where(p => p.Modelo.ModeloAvaliacao.Colecao.Id == model.ColecaoAprovada);
+                filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
+            }
 
-            //var result = query.Select(q => new
-            //{
-            //    q.Modelo.Id,
-            //    q.Modelo.ModeloAprovado.Tag,
-            //    q.Modelo.Descricao,
-            //    ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
-            //    IdMaterial = q.MaterialComposicao.Material.Id,
-            //    DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
-            //    QuantidadeAprovada = q.Modelo.ModeloAprovado.Quantidade,
-            //    QuantidadeMaterial = q.MaterialComposicao.Quantidade * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
-            //    QuantidadeTotalMaterial = (q.MaterialComposicao.Quantidade * q.Modelo.ModeloAprovado.Quantidade) * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
-            //    NomeFoto = q.MaterialComposicao.Material.Foto.Nome.GetFileUrl(),
-            //    UnidadeMedida = q.MaterialComposicao.Material.UnidadeMedida.Sigla
-            //});
+            var result = query.Select(q => new
+            {
+                q.Modelo.Id,
+                q.Modelo.ModeloAvaliacao.Tag,
+                q.Modelo.Descricao,
+                ReferenciaMaterial = q.MaterialComposicao.Material.Referencia,
+                IdMaterial = q.MaterialComposicao.Material.Id,
+                DescricaoMaterial = q.MaterialComposicao.Material.Descricao,
+                QuantidadeAprovada = q.Modelo.ModeloAvaliacao.ModelosAprovados.Sum(x => x.Quantidade),
+                QuantidadeMaterial = q.MaterialComposicao.Quantidade * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
+                QuantidadeTotalMaterial = (q.MaterialComposicao.Quantidade * q.Modelo.ModeloAvaliacao.ModelosAprovados.Sum(x => x.Quantidade)) * q.MaterialComposicao.Material.UnidadeMedida.FatorMultiplicativo,
+                NomeFoto = q.MaterialComposicao.Material.Foto.Nome.GetFileUrl(),
+                UnidadeMedida = q.MaterialComposicao.Material.UnidadeMedida.Sigla
+            });
 
-            ////Possível problema de estouro de memória, o groupby subsequente é executado em memória
-            ////e não no banco de dados.
-            //var result2 = result.ToList();
+            //Possível problema de estouro de memória, o groupby subsequente é executado em memória
+            //e não no banco de dados.
+            var result2 = result.ToList();
 
-            //var resultadoFinal = result2.GroupBy(x => new { x.IdMaterial, x.ReferenciaMaterial, x.DescricaoMaterial, x.NomeFoto, x.UnidadeMedida }, (chave, grupo) =>
-            //    new ConsumoMaterialPorModeloRelatorio
-            //    {
-            //        Referencia = chave.ReferenciaMaterial,
-            //        Descricao = chave.DescricaoMaterial,
-            //        NomeFoto = chave.NomeFoto,
-            //        UnidadeMedida = chave.UnidadeMedida,
-            //        TotalQuantidadeMaterial = grupo.Sum(q => q.QuantidadeMaterial),
-            //        TotalQuantidadeAprovada = grupo.Sum(q => q.QuantidadeAprovada),
-            //        TotalQuantidadeTotalMaterial = grupo.Sum(q => q.QuantidadeTotalMaterial),
-            //        QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave.IdMaterial.Value),
-            //        Modelos = grupo.Select(w => new ModeloConsumoMaterialRelatorio
-            //        {
-            //            Descricao = w.Descricao,
-            //            Tag = w.Tag,
-            //            QuantidadeAprovada = w.QuantidadeAprovada,
-            //            QuantidadeMaterial = w.QuantidadeMaterial,
-            //            QuantidadeTotalMaterial = w.QuantidadeTotalMaterial
-            //        })
-            //    }).ToList();
+            var resultadoFinal = result2.GroupBy(x => new { x.IdMaterial, x.ReferenciaMaterial, x.DescricaoMaterial, x.NomeFoto, x.UnidadeMedida }, (chave, grupo) =>
+                new ConsumoMaterialPorModeloRelatorio
+                {
+                    Referencia = chave.ReferenciaMaterial,
+                    Descricao = chave.DescricaoMaterial,
+                    NomeFoto = chave.NomeFoto,
+                    UnidadeMedida = chave.UnidadeMedida,
+                    TotalQuantidadeMaterial = grupo.Sum(q => q.QuantidadeMaterial),
+                    TotalQuantidadeAprovada = grupo.Sum(q => q.QuantidadeAprovada),
+                    TotalQuantidadeTotalMaterial = grupo.Sum(q => q.QuantidadeTotalMaterial),
+                    QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave.IdMaterial.Value),
+                    Modelos = grupo.Select(w => new ModeloConsumoMaterialRelatorio
+                    {
+                        Descricao = w.Descricao,
+                        Tag = w.Tag,
+                        QuantidadeAprovada = w.QuantidadeAprovada,
+                        QuantidadeMaterial = w.QuantidadeMaterial,
+                        QuantidadeTotalMaterial = w.QuantidadeTotalMaterial
+                    })
+                }).ToList();
 
-            //if (!query.Any())
-            //    return Json(new { Error = "Nenhum item foi encontrado." });
+            if (!query.Any())
+                return Json(new { Error = "Nenhum item foi encontrado." });
 
-            //var report = new ConsumoMaterialPorModeloReport { DataSource = resultadoFinal };
+            var report = new ConsumoMaterialPorModeloReport { DataSource = resultadoFinal };
 
-            //if (filtros.Length > 2)
-            //    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+            if (filtros.Length > 2)
+                report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
 
-            //if (model.OrdenarPor != null)
-            //    report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+            if (model.OrdenarPor != null)
+                report.Sortings.Add("=Fields." + model.OrdenarPor, model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
 
-            //var filename = report.ToByteStream().SaveFile(".pdf");
+            var filename = report.ToByteStream().SaveFile(".pdf");
 
-            //return Json(new { Url = filename });
-            return Json(new {  });
+            return Json(new { Url = filename });
         }
 
         public double ObtenhaQuantidadeDisponivel(long idMaterial)

@@ -67,7 +67,7 @@
                     columns.Bound(p => p.DepartamentoProducao).Width(55).ClientTemplate("#= DepartamentoProducao #" +
                         "<input type='hidden' name='GridItens[#= index(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />").EditorTemplateName("DepartamentoProducaoList");
                     columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
-                        "<img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/>"+ 
+                        "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
                             "#}#" +
                         "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
                     columns.Command(command => command.Destroy());

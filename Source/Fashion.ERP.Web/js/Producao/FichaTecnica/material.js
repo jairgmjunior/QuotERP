@@ -194,7 +194,8 @@ function carregueGridMaterialConsumoMatriz(itens) {
                 Quantidade: 0,
                 Custo: 0,
                 CustoTotal: 0,
-                DepartamentoProducao: ''
+                DepartamentoProducao: '',
+                Foto: dataItemNovo.Foto
             };
 
             dadosAtuais.unshift(dataItemNovoFinal);
@@ -244,7 +245,8 @@ function carregueGridMaterialConsumoItem(itens) {
                 DepartamentoProducao: '',
                 Tamanho: '',
                 Variacao: '',
-                CompoeCusto: ''
+                CompoeCusto: '',
+                Foto: dataItemNovo.Foto
             };
 
             dadosAtuais.unshift(dataItemNovoFinal);
@@ -294,7 +296,8 @@ function carregueGridMaterialComposicaoCustoMatriz(itens) {
                 DepartamentoProducao: '',
                 Tamanho: '',
                 Variacao: '',
-                CompoeCusto: ''
+                CompoeCusto: '',
+                Foto: dataItemNovo.Foto
             };
 
             dadosAtuais.unshift(dataItemNovoFinal);

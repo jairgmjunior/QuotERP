@@ -155,7 +155,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Origem))
             {
-                requisicaoMaterials = requisicaoMaterials.Where(p => p.Origem == model.Origem);
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Origem.Contains(model.Origem));
                 filtros.AppendFormat("Origem: {0}, ", model.Origem);
             }
 
@@ -430,7 +430,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         private double ObtenhaQuantidadeDisponivel_(long? materialId, long unidadeRequisitada)
         {
-            var quantidadesEstoqueMaterial = _estoqueMaterialRepository.Find(y => y.Material.Id == materialId && y.DepositoMaterial.Unidade.Id == unidadeRequisitada).Sum(x => x.Quantidade);
+            double quantidadesEstoqueMaterial = 0;
+
+            var estoques =
+                _estoqueMaterialRepository.Find(y => y.Material.Id == materialId && y.DepositoMaterial.Unidade.Id == unidadeRequisitada);
+
+            if (estoques.Any())
+            {
+                quantidadesEstoqueMaterial = estoques.Sum(x => x.Quantidade);    
+            }
 
             if (quantidadesEstoqueMaterial == 0)
                 return 0;
