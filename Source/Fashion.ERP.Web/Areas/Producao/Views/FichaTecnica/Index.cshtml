@@ -112,10 +112,40 @@
                 "<a href='" + "#= Foto #" + "'' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
             "#}#").Width(60).Sortable(false).Groupable(false);
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Copiar", "Copiar", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate( "<div class='myMenu'><li>Imprimir<ul><li>" + 
+                @Html.ActionLinkAuth("Estimativa de Custo", "FichaTecnicaEstimativaCusto", "RelatorioFichaTecnicaEstimativaCusto", new {Id = "#= Id #", Area = "Producao"}, new {target = "_blank"}).ToHtmlString()
+            + "</li><li>"+
+                ""
+            +"</li></ul></li></div>");               
+
+
+
+
     })    
+    .Events(events => events.DataBound("dataBound"))
     .Resizable(resize => resize.Columns(true))
     .Reorderable(reorder => reorder.Columns(true))
     .Pageable()
     .Sortable()
     .Groupable()   
-)
+      )
+
+<style>
+    #Grid td
+    {
+        overflow: visible;
+    }
+    
+    #Grid .k-menu
+    {
+        display: inline-block;
+        border-right-width: 0;
+    }
+</style>
+
+<script>
+    function dataBound(e) {
+        e.sender.tbody.find(".myMenu").kendoMenu(); 
+    }
+</script>

@@ -27,12 +27,12 @@
                                 .ClientTemplate("#= Descricao #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Descricao' value='#= Descricao #' />");
                             columns.Bound(x => x.UnidadeMedida)
                                 .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-                            columns.Bound(x => x.Quantidade).EditorTemplateName("numeric3casasdecimais")
-                                .ClientTemplate("#= kendo.toString(Quantidade, \"n3\") #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                            columns.Bound(x => x.Quantidade).EditorTemplateName("numeric5casasdecimais")
+                                .ClientTemplate("#= kendo.toString(Quantidade, \"n5\") #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
                             columns.Bound(x => x.Custo).EditorTemplateName("numeric5casasdecimais")
                                 .ClientTemplate("#= kendo.toString(Custo, \"n5\") #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
-                            columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric2casasdecimais")
-                                .ClientTemplate("#= kendo.toString(CustoTotal, \"n2\") #");
+                            columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric5casasdecimais")
+                                .ClientTemplate("#= kendo.toString(CustoTotal, \"n5\") #");
                             columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
                                 .ClientTemplate("#= displayDepartamentoProducao_Material(DepartamentoProducao) #<input type='hidden' name='GridMaterialConsumoMatriz[#= indexGridMaterialConsumoMatriz(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
                             columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
@@ -79,12 +79,12 @@
                                   .ClientTemplate("#= Descricao #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Descricao' value='#= Descricao #' />");
                               columns.Bound(x => x.UnidadeMedida)
                                   .ClientTemplate("#= UnidadeMedida #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-                              columns.Bound(x => x.Quantidade).EditorTemplateName("numeric3casasdecimais")
-                                  .ClientTemplate("#= kendo.toString(Quantidade, \"n3\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                              columns.Bound(x => x.Quantidade).EditorTemplateName("numeric5casasdecimais")
+                                  .ClientTemplate("#= kendo.toString(Quantidade, \"n5\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
                               columns.Bound(x => x.Custo).EditorTemplateName("numeric5casasdecimais")
                                   .ClientTemplate("#= kendo.toString(Custo, \"n5\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
                               columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric2casasdecimais")
-                                  .ClientTemplate("#= kendo.toString(CustoTotal, \"n2\") #");
+                                  .ClientTemplate("#= kendo.toString(numeric5casasdecimais, \"n5\") #");
                               columns.Bound(x => x.CompoeCusto)
                                   .ClientTemplate("#= CompoeCusto == false ? 'Não' : 'Sim' #<input id='CompoeCusto' type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].CompoeCusto' value='#= CompoeCusto #' />");                            
                               columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")

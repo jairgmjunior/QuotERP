@@ -339,7 +339,7 @@
             </div><div class="control-group">
                 @Html.LabelFor(x => x.Dificuldade, new { @class = "title-label" })
                 <div class="value-label">
-                    @Html.ValueFor(x => x.Dificuldade)
+                    @Html.ValueFor(x => x.DificuldadeAprovacao)
                 </div>
             </div>
         </div>
@@ -347,7 +347,7 @@
             <div class="control-group">
                 @Html.LabelFor(x => x.DataAprovacao, new { @class = "title-label" })
                 <div class="value-label">
-                    @Html.ValueFor(x => x.DataAprovacao)
+                    @Html.DisplayFor(x => x.DataAprovacao)
                 </div>
             </div>
             <div class="control-group">
@@ -363,9 +363,9 @@
                 </div>
             </div>
             <div class="control-group">
-                @Html.LabelFor(x => x.ObservacaoAprovacao, new { @class = "title-label" })
+                @Html.LabelFor(x => x.ComplementoAprovacao, new { @class = "title-label" })
                 <div class="value-label">
-                    @Html.ValueFor(x => x.ObservacaoAprovacao)
+                    @Html.ValueFor(x => x.ComplementoAprovacao)
                 </div>
             </div>
         </div>

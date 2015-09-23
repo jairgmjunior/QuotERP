@@ -21,6 +21,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.DataCadastro);
             Map(x => x.DataAlteracao);
             Map(x => x.Referencia);
+            Map(x => x.Catalogo);
             
             References(x => x.Artigo);
             References(x => x.Colecao);

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 {
@@ -65,7 +67,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public string Situacao { get; set; }
 
         [Display(Name = "Data aprovação")]
-        public string DataAprovacao { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DataAprovacao { get; set; }
 
         [Display(Name = "Fotos")]
         public List<ModeloFotoModel> Fotos { get; set; }
@@ -124,11 +127,14 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [Display(Name = "Dificuldade")]
         public string Dificuldade { get; set; }
 
+        [Display(Name = "Dificuldade")]
+        public string DificuldadeAprovacao { get; set; }
+
         [Display(Name = "Qtd. Produção")]
-        public string QuantidadeMix { get; set; }
+        public long QuantidadeMix { get; set; }
         
-        [Display(Name = "Observação")]
-        public string ObservacaoAprovacao { get; set; }
+        [Display(Name = "Complemento")]
+        public string ComplementoAprovacao { get; set; }
 
         [Display(Name = "Submodelos Aprovados")]
         public int QuantidadeSubmodelos { get; set; }

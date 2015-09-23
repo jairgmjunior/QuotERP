@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -21,6 +22,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
+using WebGrease.Css.Ast.MediaQuery;
 
 namespace Fashion.ERP.Web.Areas.Producao.Controllers
 {
@@ -264,6 +266,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     Cor = y.Id.ToString(),
                     Variacao = x.Variacao.Id.ToString()
                 })));
+
+                model.Catalogo = domain.Catalogo.HasValue ? domain.Catalogo : false;
 
                 return PartialView("Basicos", model);
             }
@@ -1037,6 +1041,206 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         #endregion
 
+        #region Copiar
+        public virtual ActionResult Copiar(long id)
+        {
+            var domain = _fichaTecnicaJeansRepository.Get(id);
+
+            if (domain != null)
+            {
+                var model = new CopiarFichaTecnicaModel
+                {
+                    ReferenciaOrigem = domain.Referencia,
+                    DescricaoOrigem = domain.Descricao,
+                    Observacao = "CÓPIA DA FICHA TÉCNICA DE REF." + domain.Referencia
+                };
+
+                return View("Copiar", model);
+            }
+
+            this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public virtual ActionResult Copiar(CopiarFichaTecnicaModel model)
+        {
+            // Valida referência
+            if (_fichaTecnicaJeansRepository.Find(p => p.Referencia == model.ReferenciaNova).Any())
+                ModelState.AddModelError("Nome", "Já existe uma ficha técnica cadastrada com esta referência.");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var domain =
+                        _fichaTecnicaJeansRepository.Find(m => m.Referencia == model.ReferenciaOrigem).FirstOrDefault();
+
+                    if (domain != null)
+                    {
+                        var fichaTecnica = new FichaTecnicaJeans
+                        {
+                            Referencia = model.ReferenciaNova,
+                            Observacao = model.Observacao,
+                            Tag = domain.Tag,
+                            Ano = domain.Ano,
+                            Artigo = domain.Artigo,
+                            Descricao = domain.Descricao,
+                            DataCadastro = DateTime.Now,
+                            Catalogo = domain.Catalogo,
+                            Classificacao = domain.Classificacao,
+                            ClassificacaoDificuldade = domain.ClassificacaoDificuldade,
+                            Colecao = domain.Colecao,
+                            Marca = domain.Marca,
+                            Natureza = domain.Natureza,
+                            Complemento = domain.Complemento,
+                            Detalhamento = domain.Detalhamento,
+                            Segmento = domain.Segmento,
+                            Estilista = domain.Estilista,
+                            Comprimento = domain.Comprimento,
+                            MedidaComprimento = domain.MedidaComprimento,
+                            Barra = domain.Barra,
+                            MedidaBarra = domain.MedidaBarra,
+                            ProdutoBase = domain.ProdutoBase,
+                            MedidaCos = domain.MedidaCos,
+                            Lavada = domain.Lavada,
+                            Bordado = domain.Bordado,
+                            MedidaPassante = domain.MedidaPassante,
+                            Pedraria = domain.Pedraria,
+                            Pesponto = domain.Pesponto,
+                            Silk = domain.Silk,
+                            
+                            FichaTecnicaMatriz = new FichaTecnicaMatriz()
+                            {
+                                Grade = domain.FichaTecnicaMatriz.Grade
+                            }
+                        };
+
+                        domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(domainVariacaoMatriz =>
+                        {
+                            var fichaTecnicaVariacaoMatriz = new FichaTecnicaVariacaoMatriz()
+                            {
+                                Variacao = domainVariacaoMatriz.Variacao
+                            };
+
+                            domainVariacaoMatriz.Cores.ForEach(cor => fichaTecnicaVariacaoMatriz.AddCor(cor));
+
+                            fichaTecnica.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Add(fichaTecnicaVariacaoMatriz);
+                        });
+
+                        domain.MateriaisConsumo.ForEach(
+                            materialConsumo => fichaTecnica.MateriaisConsumo.Add(new FichaTecnicaMaterialConsumo()
+                            {
+                                Quantidade = materialConsumo.Quantidade,
+                                DepartamentoProducao = materialConsumo.DepartamentoProducao,
+                                Material = materialConsumo.Material,
+                                Custo = materialConsumo.Custo
+                            }));
+
+                        domain.MateriaisConsumoVariacao.ForEach(
+                            materialConsumoVariacao =>
+                                fichaTecnica.MateriaisConsumoVariacao.Add(new FichaTecnicaMaterialConsumoVariacao()
+                                {
+                                    Quantidade = materialConsumoVariacao.Quantidade,
+                                    DepartamentoProducao = materialConsumoVariacao.DepartamentoProducao,
+                                    Material = materialConsumoVariacao.Material,
+                                    Custo = materialConsumoVariacao.Custo,
+                                    CompoeCusto = materialConsumoVariacao.CompoeCusto,
+                                    Tamanho = materialConsumoVariacao.Tamanho,
+                                    FichaTecnicaVariacaoMatriz =
+                                        domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.First(
+                                            x =>
+                                                x.Variacao.Id ==
+                                                materialConsumoVariacao.FichaTecnicaVariacaoMatriz.Variacao.Id)
+                                }));
+
+                        domain.MateriaisComposicaoCusto.ForEach(
+                            materialComposicaoCusto =>
+                                fichaTecnica.MateriaisComposicaoCusto.Add(new FichaTecnicaMaterialComposicaoCusto()
+                                {
+                                    Material = materialComposicaoCusto.Material,
+                                    Custo = materialComposicaoCusto.Custo
+                                }));
+
+                        if (domain.FichaTecnicaModelagem != null)
+                        {
+                            fichaTecnica.FichaTecnicaModelagem = new FichaTecnicaModelagem()
+                            {
+                                DataModelagem = domain.FichaTecnicaModelagem.DataModelagem,
+                                Modelista = domain.FichaTecnicaModelagem.Modelista,
+                                Observacao = domain.FichaTecnicaModelagem.Observacao
+                            };
+
+                            var filePathAtual = domain.FichaTecnicaModelagem.Arquivo.Nome.GetFilePath();
+                            if (System.IO.File.Exists(filePathAtual))
+                            {
+                                fichaTecnica.FichaTecnicaModelagem.Arquivo =
+                                    CopieArquivo(domain.FichaTecnicaModelagem.Arquivo);
+                            }
+
+                            domain.FichaTecnicaModelagem.Medidas.ForEach(domainMedida =>
+                            {
+                                var medida = new FichaTecnicaModelagemMedida()
+                                {
+                                    DescricaoMedida = domainMedida.DescricaoMedida
+                                };
+
+                                domainMedida.Itens.ForEach(domainMedidaItem => medida.Itens.Add(new FichaTecnicaModelagemMedidaItem()
+                                {
+                                    Medida = domainMedidaItem.Medida,
+                                    Tamanho = domainMedidaItem.Tamanho
+                                }));
+
+                                fichaTecnica.FichaTecnicaModelagem.Medidas.Add(medida);
+                            });
+                        }
+
+                        domain.FichaTecnicaFotos.ForEach(fichaTecnicaFoto =>
+                        {
+                            var filePathAtual = fichaTecnicaFoto.Arquivo.Nome.GetFilePath();
+                            if (System.IO.File.Exists(filePathAtual))
+                            {
+                                fichaTecnica.FichaTecnicaFotos.Add(new FichaTecnicaFoto()
+                                {
+                                    Arquivo = CopieArquivo(fichaTecnicaFoto.Arquivo),
+                                    Descricao = fichaTecnicaFoto.Descricao,
+                                    Impressao = fichaTecnicaFoto.Impressao,
+                                    Padrao = fichaTecnicaFoto.Padrao
+                                });
+                            }
+                        });
+
+                        domain.FichaTecnicaSequenciaOperacionals.ForEach(domainSequenciaOperacional => 
+                            fichaTecnica.FichaTecnicaSequenciaOperacionals.Add(new FichaTecnicaSequenciaOperacional()
+                        {
+                            Custo = domainSequenciaOperacional.Custo,
+                            DepartamentoProducao = domainSequenciaOperacional.DepartamentoProducao,
+                            OperacaoProducao = domainSequenciaOperacional.OperacaoProducao,
+                            PesoProdutividade = domainSequenciaOperacional.PesoProdutividade,
+                            SetorProducao = domainSequenciaOperacional.SetorProducao,
+                            Tempo = domainSequenciaOperacional.Tempo
+                        }));
+
+                        _fichaTecnicaJeansRepository.SaveOrUpdate(fichaTecnica);
+                        Framework.UnitOfWork.Session.Current.Flush();
+
+                        this.AddSuccessMessage("Ficha técnica copiada com sucesso");
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty,
+                        "Ocorreu um erro ao tentar criar a ficha técnica " + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            
+            }
+            return View(model);
+        }
+
+        #endregion
+
         #region PopulateViewData
 
         protected void PopulateViewDataBasicos(FichaTecnicaBasicosModel model)
@@ -1113,14 +1317,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             var variacaos = fichaTecnica.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.Select(x => x.Variacao);
             ViewBag.VariacaoFichaTecnicas = variacaos.Select(s => new { Id = s.Id.ToString(), s.Nome }).OrderBy(x => x.Nome);
-            //ViewBag.VariacaosDicionario_Material = variacaos.ToDictionary(k => k.Id, e => e.Nome);
             ViewBag.VariacaosDicionarioJson_Material = variacaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
 
             var dicionarioTamanhos = fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos;
             var tamanhoLista = dicionarioTamanhos.Keys;
 
             ViewBag.TamanhoGrades = tamanhoLista.Select(s => new { Id = s.Id.ToString(), s.Descricao }).OrderBy(x => x.Descricao);
-            //ViewBag.TamanhosDicionario_Material = tamanhoLista.ToDictionary(k => k.Id, e => e.Descricao);
             ViewBag.TamanhosDicionarioJson_Material = tamanhoLista.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
 
@@ -1310,5 +1512,28 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
 
         #endregion
+
+        public Arquivo CopieArquivo(Arquivo arquivoAtual)
+        {
+            var filePathAtual = arquivoAtual.Nome.GetFilePath();
+
+            var filename = Helpers.Upload.GenerateTempFilename(arquivoAtual.Extensao).GetTempFilePath();
+            var filePathNovo = filename.GetFilePath();
+
+            System.IO.File.Copy(filePathAtual, filePathNovo, true);
+
+            var fileInfo = new FileInfo(filePathNovo);
+            
+            var arquivo = new Arquivo
+            {
+                Nome = Path.GetFileName(filename),
+                Titulo = arquivoAtual.Titulo,
+                Data = fileInfo.CreationTime,
+                Extensao = fileInfo.Extension,
+                Tamanho = fileInfo.Length
+            };
+
+            return arquivo;
+        }
     }
 }

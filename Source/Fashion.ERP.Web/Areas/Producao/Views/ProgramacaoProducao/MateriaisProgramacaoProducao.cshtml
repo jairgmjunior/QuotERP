@@ -272,7 +272,9 @@
                     marqueCheckBox($('.chkbx')[i]);
                 }
             } else {
-                desmarqueCheckBox($('.chkbx'));
+                for (var i = 0; i < $('.chkbx').length; i++) {
+                    desmarqueCheckBox($('.chkbx')[i]);
+                }
             }
         });
 
@@ -344,6 +346,7 @@
         var grid = $('#GridItens').data("kendoGrid");
         var dataItem = grid.dataItem(row);
         dataItem.Reservado = false;
+        dataItem.set("Reservado", false);
     }
 
     function displayGeneroCategoria(id) {

@@ -9,7 +9,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Dificuldade")]
         public long? ClassificacaoDificuldade { get; set; }
         
-        [Display(Name = "Data de Cadastro")]
+        [Display(Name = "Data de Criação")]
         public DateTime? DataCadastro { get; set; }
 
         [Display(Name = "Até")]
@@ -50,19 +50,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Comprimento")]
         public long? Comprimento { get; set; }
-
-        //[Display(Name = "Período de cadastro")]
-        //public DateTime? PeriodoCadastro { get; set; }
-
-        //[Display(Name = "Até")]
-        //public DateTime? PeriodoCadastroAte { get; set; }
         
-        //[Display(Name = "Ordenar por")]
-        //public string OrdenarPor { get; set; }
-
-        //[Display(Name = "em")]
-        //public string OrdenarEm { get; set; }
-
         public IList<GridFichaTecnicaModel> Grid { get; set; }
     }
-}
+}  

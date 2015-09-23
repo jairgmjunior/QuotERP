@@ -1148,6 +1148,9 @@
                             <Component Id="cmpF8B11053552E29A1F9EAED18C6E6330D" Guid="*">
                                 <File Id="fil7D0D23FFD23B89785A5C7A39D3A92AF0" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
                             </Component>
+                            <Component Id="cmpF9D6CC2C4FBB47EE01D261AF973F9E57" Guid="*">
+                                <File Id="fil47A2893DB3C1DE9173C449D0CA749FEA" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Copiar.cshtml" />
+                            </Component>
                             <Component Id="cmp5A76138E085374B6A537CF8001EC860B" Guid="*">
                                 <File Id="fil8C9050A0307043E6588430072007B715" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
                             </Component>
@@ -2356,6 +2359,7 @@
             <ComponentRef Id="cmp3B3898A3CDDA999DC7591066C78400FC" />
             <ComponentRef Id="cmp1CCF12FC56544A2F7156FCA13D173E56" />
             <ComponentRef Id="cmpF8B11053552E29A1F9EAED18C6E6330D" />
+            <ComponentRef Id="cmpF9D6CC2C4FBB47EE01D261AF973F9E57" />
             <ComponentRef Id="cmp5A76138E085374B6A537CF8001EC860B" />
             <ComponentRef Id="cmp73960FE3A9F1F6821608D64F28381D27" />
             <ComponentRef Id="cmpEFDFD81337699AB1AE245A6FD3F04728" />

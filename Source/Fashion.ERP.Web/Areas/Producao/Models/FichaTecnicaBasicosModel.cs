@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Web.Models;
 
@@ -73,6 +74,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
+
+        [Display(Name = "Catálogo")]
+        public Boolean? Catalogo { get; set; }
 
         [Display(Name = "Variações")]
         public IList<GridFichaTecnicaVariacaoModel> GridFichaTecnicaVariacao { get; set; }

@@ -545,11 +545,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Segmento = domain.Segmento != null ? domain.Segmento.Descricao : null,
                     Lavada = domain.Lavada,
                     LinhaCasa = domain.LinhaCasa,
-                    Situacao = domain.Aprovado.HasValue == false
-                                    ? "Aguardando aprovação"
-                                    : domain.Aprovado.Value ? "Aprovado" : "Reprovado",
-                    DataAprovacao = domain.Aprovado ?? false
-                                    ? DateTime.Now.ToString("dd/MM/yyyy") : string.Empty,
+                    Situacao = domain.Situacao.EnumToString(),
+                    DataAprovacao = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.Data.Date : (DateTime?)null,
                     Modelista = domain.Modelista != null ? domain.Modelista.Nome : null,
                     Cos = domain.Cos.HasValue ? domain.Cos.Value.ToString("N2") : string.Empty,
                     Passante = domain.Passante.HasValue ? domain.Passante.Value.ToString("N2") : string.Empty,
@@ -559,11 +556,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     EtiquetaMarca = domain.EtiquetaMarca,
                     EtiquetaComposicao = domain.EtiquetaComposicao,
                     Tag = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.Tag : null,
+                    DificuldadeAprovacao = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.ClassificacaoDificuldade.Descricao : null,
+                    ComplementoAprovacao = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.Complemento : null,
                     Observacao = domain.Observacao,
+                    QuantidadeMix = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.QuantidadeTotaAprovacao : 0,
+                    QuantidadeSubmodelos = domain.ModeloAvaliacao != null && domain.ModeloAvaliacao.Aprovado ? domain.ModeloAvaliacao.ModelosAprovados.Count() : 0,
                     Forro = domain.Forro,
                     TecidoComplementar = domain.TecidoComplementar,
                     Dificuldade = domain.Dificuldade,
-                    QuantidadeSubmodelos = 0,
+                    
                     Fotos = domain.Fotos.Select(Mapper.Flat<ModeloFotoModel>).ToList(),
                     LinhaBordados = domain.LinhasBordado.ToArray(),
                     LinhaPespontos = domain.LinhasPesponto.ToArray(),

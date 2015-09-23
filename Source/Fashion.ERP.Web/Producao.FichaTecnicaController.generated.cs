@@ -91,6 +91,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Copiar()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Copiar);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult EditingInline_Read()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditingInline_Read);
@@ -181,6 +187,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Fotos = "Fotos";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
+            public readonly string Copiar = "Copiar";
             public readonly string EditingInline_Read = "EditingInline_Read";
             public readonly string EditingInline_Create = "EditingInline_Create";
             public readonly string EditingInline_Update = "EditingInline_Update";
@@ -208,6 +215,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Fotos = "Fotos";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
+            public const string Copiar = "Copiar";
             public const string EditingInline_Read = "EditingInline_Read";
             public const string EditingInline_Create = "EditingInline_Create";
             public const string EditingInline_Update = "EditingInline_Update";
@@ -298,6 +306,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public ActionParamsClass_Excluir ExcluirParams { get { return s_params_Excluir; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Excluir
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Copiar s_params_Copiar = new ActionParamsClass_Copiar();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Copiar CopiarParams { get { return s_params_Copiar; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Copiar
         {
             public readonly string id = "id";
         }
@@ -407,6 +423,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Basicos = "Basicos";
+                public readonly string Copiar = "Copiar";
                 public readonly string Editar = "Editar";
                 public readonly string Fotos = "Fotos";
                 public readonly string Index = "Index";
@@ -418,6 +435,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/FichaTecnica/_NovoOuEditar.cshtml";
             public readonly string Basicos = "~/Areas/Producao/Views/FichaTecnica/Basicos.cshtml";
+            public readonly string Copiar = "~/Areas/Producao/Views/FichaTecnica/Copiar.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/FichaTecnica/Editar.cshtml";
             public readonly string Fotos = "~/Areas/Producao/Views/FichaTecnica/Fotos.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/FichaTecnica/Index.cshtml";
@@ -590,6 +608,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ExcluirOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void CopiarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult Copiar(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Copiar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            CopiarOverride(callInfo, id);
             return callInfo;
         }
 
