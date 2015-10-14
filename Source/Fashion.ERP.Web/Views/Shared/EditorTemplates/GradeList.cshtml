@@ -1,0 +1,9 @@
+﻿@model long?
+
+@(Html.Kendo().DropDownList()
+    .BindTo(ViewBag.Grades)
+    .OptionLabel("- Selecione -")
+    .DataTextField("Descricao")
+    .DataValueField("Id")
+    .Name("Grade")
+)

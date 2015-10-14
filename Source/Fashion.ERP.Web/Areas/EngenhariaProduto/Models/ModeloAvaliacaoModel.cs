@@ -71,6 +71,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Barra")]
         public long? Barra { get; set; }
+
+        [Display(Name = "Grade")]
+        public long? Grade { get; set; }
         
         public IList<ModeloAprovacaoModel> GridItens { get; set; }
     }

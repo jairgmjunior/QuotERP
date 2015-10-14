@@ -488,13 +488,13 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         #region PopulateEstoqueMaterialViewData
         protected void PopulateEstoqueMaterialViewData(ConsultaEstoqueMaterialModel model)
         {
-            var familias = _familiaRepository.Find(f => f.Ativo).ToList();
+            var familias = _familiaRepository.Find(f => f.Ativo).OrderBy(x => x.Nome).ToList();
             ViewBag.Familias = familias.ToSelectList("Nome");
 
-            var marcas = _marcaMaterialRepository.Find(m => m.Ativo).ToList();
+            var marcas = _marcaMaterialRepository.Find(m => m.Ativo).OrderBy(x => x.Nome).ToList();
             ViewBag.Marcas = marcas.ToSelectList("Nome");
 
-            var categorias = _categoriaRepository.Find(c => c.Ativo).ToList();
+            var categorias = _categoriaRepository.Find(c => c.Ativo).OrderBy(x => x.Nome).ToList();
             ViewBag.Categorias = categorias.ToSelectList("Nome");
 
             if (model.Categorias.IsNullOrEmpty())
@@ -504,7 +504,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             else
             {
                 var categoriasId = model.Categorias.ConvertAll(long.Parse);
-                var subcategorias = _subcategoriaRepository.Find(p => categoriasId.Contains(p.Categoria.Id ?? 0) && p.Ativo).ToList();
+                var subcategorias = _subcategoriaRepository.Find(p => categoriasId.Contains(p.Categoria.Id ?? 0) && p.Ativo).OrderBy(x => x.Nome).ToList();
                 ViewBag.Subcategorias = subcategorias.ToSelectList("Nome");
             }
             

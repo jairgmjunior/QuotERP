@@ -79,6 +79,8 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Compras.Controllers.PedidoCompraCancelamentoController PedidoCompraCancelamento = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_PedidoCompraCancelamentoController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.PedidoCompraController PedidoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_PedidoCompraController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.RecebimentoCompraController RecebimentoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_RecebimentoCompraController();
+        public Fashion.ERP.Web.Areas.Compras.Controllers.RelatorioMateriaisPedidosCompraController RelatorioMateriaisPedidosCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_RelatorioMateriaisPedidosCompraController();
+        public Fashion.ERP.Web.Areas.Compras.Controllers.RelatorioNecessidadeCompraMaterialController RelatorioNecessidadeCompraMaterial = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_RelatorioNecessidadeCompraMaterialController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.TransportadoraController Transportadora = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_TransportadoraController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.ValidaPedidoCompraController ValidaPedidoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_ValidaPedidoCompraController();
         public T4MVC.Compras.OrdemEntradaCompraController OrdemEntradaCompra = new T4MVC.Compras.OrdemEntradaCompraController();
@@ -175,6 +177,8 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Producao.Controllers.ProgramacaoProducaoController ProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioConsumoMaterialProgramadoController RelatorioConsumoMaterialProgramado = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioConsumoMaterialProgramadoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioEstimativaConsumoProgramadoController RelatorioEstimativaConsumoProgramado = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioEstimativaConsumoProgramadoController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioFichaTecnicaController RelatorioFichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioFichaTecnicaController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioFichaTecnicaEstimativaCustoController RelatorioFichaTecnicaEstimativaCusto = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioFichaTecnicaEstimativaCustoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioMateriaisProgramacaoProducaoController RelatorioMateriaisProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioMateriaisProgramacaoProducaoController();
     }
 }

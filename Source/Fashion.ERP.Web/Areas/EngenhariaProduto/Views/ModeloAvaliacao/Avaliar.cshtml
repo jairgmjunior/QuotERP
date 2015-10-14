@@ -9,6 +9,8 @@
     @Html.HiddenFor(x => x.IdModelo)
     @Html.HiddenFor(x => x.SequenciaTag)
 
+    <input type="hidden" id="GradesDicionario" data-value = "@ViewBag.GradesDicionarioJson" />
+
     <fieldset>
         <legend><small>Dados do Modelo</small></legend>
         <div class="detail">
@@ -165,7 +167,6 @@
                 </div>
             </div>
         </div>
-
         @(Html.Kendo().Grid(@Model.GridItens)
               .Name("GridItens")
               .Columns(columns =>
@@ -177,6 +178,7 @@
                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
                   columns.Bound(p => p.Quantidade).EditorTemplateName("long").ClientTemplate("#= Quantidade #" +
                                                                   "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />").Width(80);
+                  columns.Bound(x => x.Grade).EditorTemplateName("GradeList").ClientTemplate("#= displayGrade(Grade) #<input type='hidden' name='GridItens[#= index(data)#].Grade' value='#= Grade #' />");                            
                   columns.Command(command => command.Destroy().Text("Excluir"));
               })
               .ClientDetailTemplateId("templateDetalheGrid")
@@ -192,9 +194,9 @@
                       model.Field(item => item.Comprimento).Editable(true).DefaultValue(@Model.Comprimento);
                       model.Field(item => item.Barra).Editable(true).DefaultValue(@Model.Barra);
                       model.Field(item => item.ProdutoBase).Editable(true).DefaultValue(@Model.ProdutoBase);
+                      model.Field(item => item.Grade).Editable(true).DefaultValue(@Model.Grade);
                       model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
                   })
-                    
               )
               .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
               .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
@@ -315,6 +317,12 @@
                 var dataItem = dataGridItens[i];
                 if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
                     mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna quantidade.<br/>";
+                }
+            }
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Grade == 0 || dataItem.Grade == null) {
+                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor de grade.<br/>";
                 }
             }
 
@@ -602,6 +610,22 @@
     function index(dataItem) {
         var data = $("#GridItens").data("kendoGrid").dataSource.data();
         return data.indexOf(dataItem);
+    }
+
+    function displayGrade(id) {
+        if (id == '' || id == null) {
+            return '';
+        }
+        var gradesDicionario = $("#GradesDicionario").data("value");
+        var nome = "";
+        $.each(gradesDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
     }
 
     (function ($, kendo) {

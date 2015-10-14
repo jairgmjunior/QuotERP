@@ -1171,11 +1171,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                                 Observacao = domain.FichaTecnicaModelagem.Observacao
                             };
 
-                            var filePathAtual = domain.FichaTecnicaModelagem.Arquivo.Nome.GetFilePath();
-                            if (System.IO.File.Exists(filePathAtual))
+                            if (domain.FichaTecnicaModelagem.Arquivo != null)
                             {
-                                fichaTecnica.FichaTecnicaModelagem.Arquivo =
-                                    CopieArquivo(domain.FichaTecnicaModelagem.Arquivo);
+                                var filePathAtual = domain.FichaTecnicaModelagem.Arquivo.Nome.GetFilePath();
+                                if (System.IO.File.Exists(filePathAtual))
+                                {
+                                    fichaTecnica.FichaTecnicaModelagem.Arquivo =
+                                        CopieArquivo(domain.FichaTecnicaModelagem.Arquivo);
+                                }    
                             }
 
                             domain.FichaTecnicaModelagem.Medidas.ForEach(domainMedida =>

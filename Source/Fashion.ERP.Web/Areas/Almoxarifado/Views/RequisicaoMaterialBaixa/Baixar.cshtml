@@ -3,7 +3,7 @@
 @using (Html.BeginForm(MVC.Almoxarifado.RequisicaoMaterialBaixa.Baixar(), FormMethod.Post, new {id = "form", @class = "form-horizontal", autocomplete = "off"}))
 {
     @Html.ValidationSummaryEx()
-
+    @Html.HiddenFor(x => x.UnidadeRequisitada)
     <legend><small>Dados da Requisição de Material</small></legend>
     <div class="detail">
         <div class="row">
@@ -366,7 +366,7 @@
         var depositoFoiSelecionado = $("#DepositoMaterial").val() != '';
         var checked = e.container.closest("tr").find("#Check").val();
 
-        if (e.model.QtdeEstoque < 0 || ehQtdeEstoque || ehCheck || !depositoFoiSelecionado || checked == 'false') {
+        if (e.model.QtdeEstoque < 0 || ehQtdeEstoque || ehCheck || !depositoFoiSelecionado || checked == 'false' || e.container.index() == 7) {
             this.closeCell();
         }
     }

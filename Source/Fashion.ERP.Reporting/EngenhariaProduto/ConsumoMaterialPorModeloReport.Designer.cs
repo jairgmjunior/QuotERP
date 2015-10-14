@@ -316,6 +316,7 @@ namespace Fashion.ERP.Reporting.EngenhariaProduto
             this.textBox10,
             this.textBox8,
             this.textBox38});
+            this.table4.KeepTogether = false;
             this.table4.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.3000001907348633D), Telerik.Reporting.Drawing.Unit.Cm(2.3008010387420654D));
             this.table4.Name = "table4";
             tableGroup6.Groupings.Add(new Telerik.Reporting.Grouping(null));

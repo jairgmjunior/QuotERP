@@ -335,6 +335,8 @@
     <Compile Include="Areas\Almoxarifado\Models\PesquisaReservaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\SimboloConservacaoModel.cs" />
     <Compile Include="Areas\Compras\ComprasAreaRegistration.cs" />
+    <Compile Include="Areas\Compras\Controllers\RelatorioNecessidadeCompraMaterialController.cs" />
+    <Compile Include="Areas\Compras\Controllers\RelatorioMateriaisPedidosCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\TransportadoraController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraConverter.cs" />
     <Compile Include="Areas\Compras\Controllers\MotivoCancelamentoPedidoCompraController.cs" />
@@ -344,10 +346,12 @@
     <Compile Include="Areas\Compras\Controllers\AutorizacoesController.cs" />
     <Compile Include="Areas\Compras\Controllers\RecebimentoCompraController.cs" />
     <Compile Include="Areas\Compras\Controllers\ValidaPedidoCompraController.cs" />
+    <Compile Include="Areas\Compras\Models\NecessidadeCompraMaterialModel.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItem.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraItemDetalhe.cs" />
     <Compile Include="Areas\Compras\Models\GridRequisicaoMaterialItemBaixaModel.cs" />
     <Compile Include="Areas\Compras\Models\GridTransportadoraModel.cs" />
+    <Compile Include="Areas\Compras\Models\MateriaisPedidosCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\NovoTransportadoraModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\PesquisaSimboloConservacaoModel.cs" />
     <Compile Include="Areas\Compras\Models\TransportadoraModel.cs" />
@@ -447,6 +451,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\Producao\Controllers\ColecaoProgramadaController.cs" />
+    <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaEstimativaCustosController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioConsumoMaterialProgramadoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioEstimativaConsumoProgramadoController.cs" />
@@ -685,6 +690,12 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Compras.RecebimentoCompraController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Compras.RelatorioMateriaisPedidosCompraController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Compras.RelatorioNecessidadeCompraMaterialController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Compras.SharedController.generated.cs">
@@ -976,6 +987,12 @@
     <Compile Include="Producao.RelatorioEstimativaConsumoProgramadoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Producao.RelatorioFichaTecnicaController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Producao.RelatorioFichaTecnicaEstimativaCustoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Producao.RelatorioMateriaisProgramacaoProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -1253,6 +1270,8 @@
     <Content Include="Areas\Producao\Views\RelatorioConsumoMaterialProgramado\ConsumoMaterialProgramado.cshtml" />
     <Content Include="Areas\Producao\Views\RelatorioMateriaisProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Copiar.cshtml" />
+    <Content Include="Areas\Compras\Views\RelatorioMateriaisPedidosCompra\MateriaisPedidosCompra.cshtml" />
+    <Content Include="Areas\Compras\Views\RelatorioNecessidadeCompraMaterial\NecessidadeCompraMaterial.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1564,6 +1583,7 @@
     <Content Include="Views\Shared\EditorTemplates\VariacaoFichaTecnicaList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\numeric2casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GeneroCategoriaList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GradeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -195,7 +195,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public virtual JsonResult Subcategorias(long id)
         {
             var subcategorias = _subcategoriaRepository
-                .Find(p => p.Categoria.Id == id && p.Ativo)
+                .Find(p => p.Categoria.Id == id && p.Ativo).OrderBy(x => x.Nome)
                 .Select(s => new { s.Id, s.Nome });
             return Json(subcategorias, JsonRequestBehavior.AllowGet);
         }

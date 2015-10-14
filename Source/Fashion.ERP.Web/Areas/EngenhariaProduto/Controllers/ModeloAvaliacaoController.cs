@@ -32,6 +32,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Comprimento> _comprimentoRepository;
         private readonly IRepository<Barra> _barraRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
+        private readonly IRepository<Grade> _gradeRepository;
         private readonly ILogger _logger;
 
         #region ColunasPesquisaAprovarModelo
@@ -60,7 +61,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public ModeloAvaliacaoController(ILogger logger, IRepository<Modelo> modeloRepository,
             IRepository<Colecao> colecaoRepository, IRepository<Pessoa> pessoaRepository,
             IRepository<ProdutoBase> produtoBaseRepository, IRepository<Comprimento> comprimentoRepository,
-            IRepository<Barra> barraRepository, IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository )
+            IRepository<Barra> barraRepository, IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
+            IRepository<Grade> gradeRepository )
         {
             _modeloRepository = modeloRepository;
             _colecaoRepository = colecaoRepository;
@@ -69,6 +71,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _comprimentoRepository = comprimentoRepository;
             _barraRepository = barraRepository;
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
+            _gradeRepository = gradeRepository;
             _logger = logger;
         }
         #endregion
@@ -223,6 +226,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Barra = domain.Barra != null ? domain.Barra.Id : null,
                     Comprimento = domain.Comprimento != null ? domain.Comprimento.Id : null,
                     ProdutoBase = domain.ProdutoBase != null ? domain.ProdutoBase.Id : null,
+                    Grade = domain.Grade != null ? domain.Grade.Id : null
                 };
 
                 if (domain.ModeloAvaliacao != null)
@@ -248,6 +252,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                                 Barra = x.Barra != null ? x.Barra.Id : null,
                                 Comprimento = x.Comprimento != null ? x.Comprimento.Id : null,
                                 ProdutoBase = x.ProdutoBase != null ? x.ProdutoBase.Id : null,
+                                Grade = x.Grade != null ? x.Grade.Id : null,
                                 Descricao = x.Descricao,
                                 Referencia = x.Referencia,
                                 Id = x.Id,
@@ -455,6 +460,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 Barra = modelItem.Barra.HasValue ? _barraRepository.Load(modelItem.Barra) : null,
                 Comprimento = modelItem.Comprimento.HasValue ? _comprimentoRepository.Load(modelItem.Comprimento) : null,
                 ProdutoBase = modelItem.ProdutoBase.HasValue ? _produtoBaseRepository.Load(modelItem.ProdutoBase) : null,
+                Grade = modelItem.Grade.HasValue ? _gradeRepository.Load(modelItem.Grade) : null,
                 Descricao = modelItem.Descricao,
                 Referencia = modelItem.Referencia,
                 Observacao = modelItem.Observacao,
@@ -501,7 +507,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             ViewData["ProdutoBase"] = produtosBase.ToSelectList("Descricao");
 
             var barras = _barraRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["Barra"] = barras.ToSelectList("Descricao", model.ColecaoAprovada);
+            ViewData["Barra"] = barras.ToSelectList("Descricao", model.Barra);
+
+            var grades = _gradeRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
+            ViewBag.Grades = grades.Select(s => new { s.Id, s.Descricao });
+            ViewBag.GradesDicionario = grades.ToDictionary(k => k.Id, e => e.Descricao);
+            ViewBag.GradesDicionarioJson = grades.ToDictionary(k => k.Id.ToString(), e => e.Descricao).FromDictionaryToJson();
         }
         #endregion
 

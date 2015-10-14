@@ -4,4 +4,7 @@ SET @PRODUCAOID = (select id from permissao where area = 'Producao' and descrica
 SET @FICHATECNICAID = (select id from permissao where area = 'Producao' and descricao = 'Ficha Técnica');
 
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) 
-VALUES ('FichaTecnicaEstimativaCusto', 'Producao', 'RelatorioFichaTecnicaEstimativaCusto', 'Estimativa de Custo',0 ,1,0, @FICHATECNICAID);	
+VALUES ('FichaTecnica', 'Producao', 'RelatorioFichaTecnica', 'Ficha Técnica',0 ,1,0, @FICHATECNICAID);
+
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, Ordem, permissaopai_id) 
+VALUES ('Copiar', 'Producao', 'FichaTecnica', 'Copiar',0 ,1,0, @FICHATECNICAID);	

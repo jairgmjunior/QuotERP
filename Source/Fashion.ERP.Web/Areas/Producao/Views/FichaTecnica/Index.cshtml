@@ -116,7 +116,7 @@
         columns.Template(@<text></text>).ClientTemplate( "<div class='myMenu'><li>Imprimir<ul><li>" + 
                 @Html.ActionLinkAuth("Estimativa de Custo", "FichaTecnicaEstimativaCusto", "RelatorioFichaTecnicaEstimativaCusto", new {Id = "#= Id #", Area = "Producao"}, new {target = "_blank"}).ToHtmlString()
             + "</li><li>"+
-                ""
+                @Html.ActionLinkAuth("Ficha Técnica", "FichaTecnica", "RelatorioFichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {target = "_blank"}).ToHtmlString()
             +"</li></ul></li></div>");               
 
 

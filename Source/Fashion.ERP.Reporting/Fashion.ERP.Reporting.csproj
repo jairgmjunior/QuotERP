@@ -127,6 +127,19 @@
     <Compile Include="Almoxarifado\TotalMaterialReport.Designer.cs">
       <DependentUpon>TotalMaterialReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compras\Models\MaterialNecessidadeCompraMaterialModel.cs" />
+    <Compile Include="Compras\NecessidadeCompraMaterialReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Compras\NecessidadeCompraMaterialReport.Designer.cs">
+      <DependentUpon>NecessidadeCompraMaterialReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compras\MateriaisPedidosCompraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Compras\MateriaisPedidosCompraReport.Designer.cs">
+      <DependentUpon>MateriaisPedidosCompraReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compras\PedidoCompraReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -246,6 +259,12 @@
     </Compile>
     <Compile Include="Producao\ConsumoMaterialProgramadoReport.Designer.cs">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Producao\FichaTecnicaReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\FichaTecnicaReport.Designer.cs">
+      <DependentUpon>FichaTecnicaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Producao\FichaTecnicaEstimativaCustosReport.cs">
       <SubType>Component</SubType>
@@ -379,6 +398,12 @@
     <EmbeddedResource Include="Almoxarifado\TotalMaterialReport.resx">
       <DependentUpon>TotalMaterialReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compras\NecessidadeCompraMaterialReport.resx">
+      <DependentUpon>NecessidadeCompraMaterialReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compras\MateriaisPedidosCompraReport.resx">
+      <DependentUpon>MateriaisPedidosCompraReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compras\PedidoCompraReport.resx">
       <DependentUpon>PedidoCompraReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -438,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\ConsumoMaterialProgramadoReport.resx">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\FichaTecnicaReport.resx">
+      <DependentUpon>FichaTecnicaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\FichaTecnicaEstimativaCustosReport.resx">
       <DependentUpon>FichaTecnicaEstimativaCustosReport.cs</DependentUpon>

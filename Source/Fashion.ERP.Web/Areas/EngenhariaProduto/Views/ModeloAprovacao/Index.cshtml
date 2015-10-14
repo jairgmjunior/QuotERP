@@ -91,7 +91,7 @@
                             </div>
                             <div class="span3">
                                 <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -104,6 +104,7 @@
 @(Html.Kendo().Grid<GridModeloAprovacaoModel>() 
 	.Name("Grid").Events(events => events.DataBound("onDataBound"))
     .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Técnicas", "CriarFichaTecnica", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
+    .AutoBind(false)
     .DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(true)
@@ -184,14 +185,8 @@
 
             limpeMensagensAlerta();
 
-            var $ModoConsulta = $('#ModoConsulta');
-
-            if ($ModoConsulta.val() == 'listagem') {
-
-                $('#Grid').data('kendoGrid').dataSource.read();
-                $('#Grid').data('kendoGrid').refresh();
-                return false;
-            }
+            $('#Grid').data('kendoGrid').dataSource.read();
+            $('#Grid').data('kendoGrid').refresh();
         });
 
         // Seleciona o modo de consulta

@@ -35,5 +35,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Produto Base")]
         public double? MedidaBarra { get; set; }
+
+        [Display(Name = "Grade")]
+        public long? Grade { get; set; }
     }
 }

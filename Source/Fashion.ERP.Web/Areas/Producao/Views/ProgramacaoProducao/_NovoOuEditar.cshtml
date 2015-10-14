@@ -199,8 +199,8 @@
     )
     .Editable(editable => editable.Mode(GridEditMode.InCell))
     .Resizable(resize => resize.Columns(true))
-    .Events(events => events.Edit("onEdit"))
-    .Navigatable()
+    .Events(events => events.Change("onChangeGrid").Save("onSaveGrid").Edit("onEdit").SaveChanges("onSaveChanges"))
+   
         )
 
 <br/>
@@ -289,6 +289,21 @@
         $("#GridItens").data("kendoGrid").refresh();
     }
 
+
+    function onChangeGrid(e) {
+
+        debugger;
+    }
+
+    function onSaveGrid(e) {
+
+        debugger;
+    }
+
+    function onSaveChanges() {
+        debugger;
+    }
+
     function onEdit(e) {
         if (e.container.index() == 3) {
             this.closeCell();
@@ -299,6 +314,16 @@
             recalculeTotalEnfestos();
             recalculeQuantidade();
         });
+
+        $("#QuantidadeVezes.k-input").blur(function (e) {
+            proximaCell(e);
+        });
+    }
+
+    function proximaCell(e) {
+        var grid = $("#GridItens").data("kendoGrid");
+        var currentIndex = $(e.target.closest("tr")).index();
+        grid.editCell(grid.tbody.find(">tr:eq(" + (currentIndex + 1) + ")").find("td:eq(2)"));
     }
 
     function recalculeQuantidade() {

@@ -100,7 +100,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             {
                 var modelos = _modeloRepository.Find(x => x.Situacao == SituacaoModelo.Aprovado)
                     .SelectMany(x => x.ModeloAvaliacao.ModelosAprovados, (x, s) => new {Modelo = x, ModeloAprovacao = s});
-                
+
+                modelos = modelos.Where(p => p.ModeloAprovacao.FichaTecnica != null);
+
                 #region Filtros
                 var filtros = new StringBuilder();
 
@@ -259,7 +261,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         Lavada = modelo.Lavada,
                         FichaTecnicaMatriz = new FichaTecnicaMatriz()
                         {
-                            Grade = modelo.Grade
+                            Grade = modeloAprovacao.Grade,
                         }
                     };
 

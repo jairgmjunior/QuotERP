@@ -84,7 +84,7 @@
                               columns.Bound(x => x.Custo).EditorTemplateName("numeric5casasdecimais")
                                   .ClientTemplate("#= kendo.toString(Custo, \"n5\") #<input type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
                               columns.Bound(x => x.CustoTotal).EditorTemplateName("numeric2casasdecimais")
-                                  .ClientTemplate("#= kendo.toString(numeric5casasdecimais, \"n5\") #");
+                                  .ClientTemplate("#= kendo.toString(CustoTotal, \"n5\") #");
                               columns.Bound(x => x.CompoeCusto)
                                   .ClientTemplate("#= CompoeCusto == false ? 'Não' : 'Sim' #<input id='CompoeCusto' type='hidden' name='GridMaterialConsumoItem[#= indexGridMaterialConsumoItem(data)#].CompoeCusto' value='#= CompoeCusto #' />");                            
                               columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")

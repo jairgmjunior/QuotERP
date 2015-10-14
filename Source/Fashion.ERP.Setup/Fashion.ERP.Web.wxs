@@ -320,6 +320,16 @@
                                 <File Id="fil54CBDE818C68CBF6E161E6992E72BA86" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\RecebimentoCompra\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
+                        <Directory Id="dir8EC063ECF278A5B4D60CD5337796E274" Name="RelatorioMateriaisPedidosCompra">
+                            <Component Id="cmpA9A9D398DE7F3F13E5E9E535964E22E2" Guid="*">
+                                <File Id="fil13B9431A656D8D797B949CEB0B37945F" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\RelatorioMateriaisPedidosCompra\MateriaisPedidosCompra.cshtml" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir46A72D532B198C8CCBAF063172F2A84E" Name="RelatorioNecessidadeCompraMaterial">
+                            <Component Id="cmp428D0557395AFE7E74856761AB9D8C16" Guid="*">
+                                <File Id="filB0B1172C0686AC2CB89D7D2CA1674CB6" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\RelatorioNecessidadeCompraMaterial\NecessidadeCompraMaterial.cshtml" />
+                            </Component>
+                        </Directory>
                         <Directory Id="dir07375448A401A82038437A347C952F60" Name="Transportadora">
                             <Component Id="cmp55AC9BB1CA54E508E472944E0A978E0B" Guid="*">
                                 <File Id="fil4D5F95BF5BCEA8A31C26A392F7409E70" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\Transportadora\Editar.cshtml" />
@@ -1976,6 +1986,9 @@
                         <Component Id="cmp3BB7FEDEC74AFD7C11248B8AD7A8BC64" Guid="*">
                             <File Id="fil600B040BD4FD83652C494EBABBDE31EC" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\GeneroCategoriaList.cshtml" />
                         </Component>
+                        <Component Id="cmp09271D0C82A79A7952EFD54DAF733255" Guid="*">
+                            <File Id="fil8761A5DEAB689943B49B3E398DB25D2D" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\GradeList.cshtml" />
+                        </Component>
                         <Component Id="cmpA53E2B2BCCBDB3717B5F2E724E8595E6" Guid="*">
                             <File Id="fil135B727E25DFCD82BB4E957089E597D2" KeyPath="yes" Source="SourceDir\Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
                         </Component>
@@ -2132,6 +2145,8 @@
             <ComponentRef Id="cmp4F2737018D7346C08E643535BA069678" />
             <ComponentRef Id="cmp3EC7FE38856B92AE52E37A91DB1792B4" />
             <ComponentRef Id="cmp19420C97664F017DF396B999965D2F50" />
+            <ComponentRef Id="cmpA9A9D398DE7F3F13E5E9E535964E22E2" />
+            <ComponentRef Id="cmp428D0557395AFE7E74856761AB9D8C16" />
             <ComponentRef Id="cmp55AC9BB1CA54E508E472944E0A978E0B" />
             <ComponentRef Id="cmp0B91A57C19D2797A0EFCC1F1EB4C1C87" />
             <ComponentRef Id="cmpE696A93835A36C4567BDB3A18A3AF99C" />
@@ -2612,6 +2627,7 @@
             <ComponentRef Id="cmp18BF24416CBF7D4E215C8F10B6CCEC67" />
             <ComponentRef Id="cmpC24ACF5DE215658C78E6ACFFE6CA1888" />
             <ComponentRef Id="cmp3BB7FEDEC74AFD7C11248B8AD7A8BC64" />
+            <ComponentRef Id="cmp09271D0C82A79A7952EFD54DAF733255" />
             <ComponentRef Id="cmpA53E2B2BCCBDB3717B5F2E724E8595E6" />
             <ComponentRef Id="cmp7C7387402DD73A23CE0416D7EBA69CFA" />
             <ComponentRef Id="cmp9708FDC0D77343023B24310FD67AADDF" />

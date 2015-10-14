@@ -222,7 +222,7 @@ function onContentLoadProcessos(e) {
                             dataItem.SetorProducao == dataItemAtual.SetorProducao &&
                             dataItem.DepartamentoProducao == dataItemAtual.DepartamentoProducao &&
                             dataItem.uid != dataItemAtual.uid) {
-                            dataItemAtual.OperacaoProducao = '';
+                            //dataItemAtual.OperacaoProducao = '';
                             return false;
                         }
                     }

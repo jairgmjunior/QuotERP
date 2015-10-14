@@ -316,6 +316,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public class ActionParamsClass_Copiar
         {
             public readonly string id = "id";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_EditingInline_Read s_params_EditingInline_Read = new ActionParamsClass_EditingInline_Read();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -618,6 +619,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Copiar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             CopiarOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void CopiarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.CopiarFichaTecnicaModel model);
+
+        public override System.Web.Mvc.ActionResult Copiar(Fashion.ERP.Web.Areas.Producao.Models.CopiarFichaTecnicaModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Copiar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CopiarOverride(callInfo, model);
             return callInfo;
         }
 

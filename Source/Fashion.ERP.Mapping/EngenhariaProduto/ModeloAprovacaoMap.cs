@@ -18,6 +18,7 @@ namespace Fashion.ERP.Mapping.EngenhariaProduto
             References(x => x.Comprimento);
             References(x => x.Barra);
             References(x => x.ProdutoBase);
+            References(x => x.Grade);
             References(x => x.FichaTecnica).Cascade.SaveUpdate();
         }
     }

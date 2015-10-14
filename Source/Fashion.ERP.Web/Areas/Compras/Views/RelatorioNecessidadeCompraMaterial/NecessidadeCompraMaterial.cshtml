@@ -1,0 +1,161 @@
+﻿@model Fashion.ERP.Web.Areas.Compras.Models.NecessidadeCompraMaterialModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.Compras.RelatorioNecessidadeCompraMaterial.NecessidadeCompraMaterial(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+<div class="accordion" id="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                Pesquisar
+            </a>
+        </div>
+        <div id="collapsePesquisar" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Unidade)
+                            <div class="controls">
+                                @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })
+                                @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.Label("referencia-material", "Referência do Material", new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.Hidden("Material")
+                                <div class="input-append">
+                                    <input id="referencia-material" class="input-small" type="text" />
+                                    <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+                                    <span id="descricao-material" class="add-on"></span>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Fornecedor)
+                            <div class="controls">
+                                <div class="input-append">
+                                    @Html.HiddenFor(x => x.Fornecedor)
+                                    <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
+                                    <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
+                                    <span id="descricao-fornecedor" class="add-on"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Categorias)
+                            <div class="controls">
+                                @(Html.Kendo().MultiSelect()
+                                      .Name("Categorias")
+                                      .BindTo(ViewBag.Categorias)
+                                      .Value(Model.Categorias)
+                                      )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Colecoes)
+                            <div class="controls">
+                                @(Html.Kendo().MultiSelect()
+                                      .Name("Colecoes")
+                                      .BindTo(ViewBag.Colecoes)
+                                      .Value(Model.Colecoes)
+                                      )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Subcategorias)
+                            <div class="controls">
+                                @(Html.Kendo().MultiSelect()
+                                      .Name("Subcategorias")
+                                      .BindTo(ViewBag.Subcategorias)
+                                      .Value(Model.Subcategorias)
+                                      )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.AgruparPor)
+                            <div class="controls">
+                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                            <div class="controls">
+                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                            <div class="controls">
+                                <select name="OrdenarEm">
+                                    <option value="asc">Ascendente</option>
+                                    <option value="desc">Descendente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div id="pdf"></div>
+<script>
+    // Preenche o combo de subcategoria de acordo com a categoria escolhida
+    $('#Categorias').on("change", function () {
+        var subcategoria = $('#Subcategorias').data("kendoMultiSelect");
+
+        // Limpar as subcategorias
+        subcategoria.setDataSource(new kendo.data.DataSource({ data: [] }));
+        // Limpa selecionados
+        //subcategoria.value([]);
+
+        var data = {};
+
+        var categorias = $(this).data("kendoMultiSelect").value();
+        if (categorias) {
+            $.each(categorias, function (index, value) {
+                var url = '/Almoxarifado/Subcategoria/Subcategorias/' + value;
+                $.getJSON(url, function (result) {
+                    $.each(result, function (idx, item) {
+                        subcategoria.dataSource.add({ Text: item.Nome, Value: item.Id });
+                    });
+                }).fail(function (jqXhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                });
+            });
+        }
+    });
+</script>
+@{
+    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
+}

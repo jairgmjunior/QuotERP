@@ -139,7 +139,7 @@
                     }
                     )
                     .DataSource(dataSource => dataSource
-                        .Ajax()
+                        .Ajax().ServerOperation(false)
                         .Model(model =>
                         {
                             model.Id(item => item.Id);
