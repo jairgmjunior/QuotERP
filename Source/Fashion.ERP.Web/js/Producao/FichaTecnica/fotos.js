@@ -14,14 +14,13 @@ function onContentLoadFotos(e) {
     } else {
         tabStrip.enable(tab, false);
     }
-    inicializeFotoUpload();
+
+    if ($(e.contentElement).prop("id") == "tabstrip-5") {
+        inicializeFotoUpload();
+    }
+    
     reparseFormFotos();
     
-    //$('#FotoTitulo').rules("add", {
-    //    maxlength: 100,
-    //    messages: { maxlength: "Título não deve ser maior que {1} caracteres." }
-    //});
-
     $('#incluirfoto').on('click', function () {
         $('#modal-fichatecnicafoto').modal('show').one('hidden', function () {
             var body = $('#modal-fichatecnicafoto .modal-body');

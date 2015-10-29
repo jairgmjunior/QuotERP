@@ -39,24 +39,28 @@
         $("#marcador-alert-success").append("<div class='alert alert-success'>\
             <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
             mensagem + "</div>");
+        window.scrollTo(0, 0);
     }
 
     function exibaAlertaInfo(mensagem) {
         $("#marcador-alert-info").append("<div class='alert alert-info'>\
             <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
             mensagem + "</div>");
+        window.scrollTo(0, 0);
     }
 
     function exibaAlertaWarning(mensagem) {
         $("#marcador-alert-warning").append("<div class='alert alert-warning'>\
             <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
             mensagem + "</div>");
+        window.scrollTo(0, 0);
     }
 
     function exibaAlertaErro(mensagem) {
         $("#marcador-alert-error").append("<div class='alert alert-error'>\
             <a class='close' data-dismiss='alert' href='javascript:void(0)'>&times;</a>" +
             mensagem + "</div>");
+        window.scrollTo(0, 0);
     }
 
     function limpeMensagensAlerta() {

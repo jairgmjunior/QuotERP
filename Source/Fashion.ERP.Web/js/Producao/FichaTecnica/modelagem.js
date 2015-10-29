@@ -26,11 +26,11 @@ function onContentLoadModelagem(e) {
     } else {
         tabStrip.enable(tab, false);
     }
-    inicializeArquivoUpload();
 
-    // Ao mudar a imagem, submeter o formulário
-    //$('.fileupload input').on('change', sendFile);
-
+    if ($(e.contentElement).prop("id") == "tabstrip-4") {
+        inicializeArquivoUpload();
+    }
+    
     $('#formModelagem').submit(function (ev) {
 
         var formValido = formularioEhValido();

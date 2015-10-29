@@ -49,7 +49,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 Descricao = x.DescricaoMedida,
                 Tamanho = y.Tamanho.Descricao,
                 y.Medida
-            }));
+            })).OrderBy(x => x.Descricao).ThenBy(x => x.Tamanho);
 
             var fichaTecnicaDynamic = new
             {

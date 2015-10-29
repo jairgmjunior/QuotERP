@@ -1142,7 +1142,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         public virtual JsonResult ObtenhaCusto(string referencia, long idFornecedor)
         {
             var material = _materialRepository.Get(p => p.Referencia == referencia);
-            double? valorcusto = null;
+            double valorcusto = 0;
             if (material != null)
             {
                 var custoMaterial =
@@ -1151,9 +1151,28 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     valorcusto = custoMaterial.Custo;
                 }
+                
+                if (valorcusto == 0)
+                {
+                    custoMaterial = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
+                    if (custoMaterial != null)
+                    {
+                        valorcusto = custoMaterial.Custo;
+                    }    
+                } 
+                
+                if (valorcusto == 0)
+                {
+                    var referenciaExterna =
+                        material.ReferenciaExternas.FirstOrDefault(x => x.Fornecedor.Id == idFornecedor);
+                    if (referenciaExterna != null)
+                    {
+                        valorcusto = referenciaExterna.Preco;
+                    }
+                }
             }
 
-            var result = new { Custo = valorcusto.HasValue ? valorcusto.Value : 0 };
+            var result = new { Custo = valorcusto };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

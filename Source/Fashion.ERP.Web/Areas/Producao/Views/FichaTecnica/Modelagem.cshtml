@@ -93,7 +93,7 @@
                         .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Tamanho' value='#= Tamanho #' />");
                     columns.Bound(x => x.Medida).EditorTemplateName("numeric2casasdecimais")
                         .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
-                    columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
+                    columns.Command(command => command.Destroy().Text("Excluir")).Width(150);
                 }
                 )
                 .DataSource(dataSource => dataSource

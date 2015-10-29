@@ -60,7 +60,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         [PopulateViewData("PopulateMateriaisProgramacaoProducao")]
         public virtual ActionResult MateriaisProgramacaoProducao()
         {
-            return View(new MateriaisProgramacaoProducaoModel());
+            return View(new MateriaisProgramacaoProducaoModel() {SemFoto = false});
         }
 
         [HttpPost, AjaxOnly, PopulateViewData("PopulateMateriaisProgramacaoProducao")]
@@ -135,6 +135,20 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     var materialDomain = _materialRepository.Find(m => model.Material == m.Id).FirstOrDefault();
                     filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);
                 }
+
+                if (!model.Departamentos.IsNullOrEmpty())
+                {
+                    query = query.Where(p => model.Departamentos.Contains(p.MaterialProgramacaoProducao.DepartamentoProducao.Id ?? 0));
+
+                    var departamentos = _departamentoProducaoRepository.Find(m => model.Departamentos.Contains(m.Id ?? 0));
+                    filtros.AppendFormat("Departamentos(s): {0}, ", departamentos.Select(c => c.Nome).ToList().Join(","));
+                }
+
+                if (!model.GeneroCategorias.IsNullOrEmpty())
+                {
+                    query = query.Where(p => model.GeneroCategorias.Contains(p.MaterialProgramacaoProducao.Material.Subcategoria.Categoria.GeneroCategoria));
+                    filtros.AppendFormat("Gênero da Categoria(s): {0}, ", model.GeneroCategorias.Select(c => c.EnumToString()).ToList().Join(","));
+                }
                 
                 //var result =   query.Fetch(p => p.ProgramacaoProducao).ThenFetch(p => p.FichaTecnica)
                 //    .Fetch(p => p.MaterialProgramacaoProducao).ThenFetch(p => p.Material)
@@ -152,7 +166,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     ReferenciaMaterial = q.MaterialProgramacaoProducao.Material.Referencia,
                     DescricaoMaterial = q.MaterialProgramacaoProducao.Material.Descricao,
                     UnidadeMedida = q.MaterialProgramacaoProducao.Material.UnidadeMedida.Sigla,
-                    NomeFoto = q.MaterialProgramacaoProducao.Material.Foto.Nome.GetFileUrl()
+                    NomeFoto = q.MaterialProgramacaoProducao.Material.Foto.Nome.GetFileUrl(),
+                    Departamento = q.MaterialProgramacaoProducao.DepartamentoProducao.Nome
                 }).ToList();
 
                 var resultadoAgrupado = result.GroupBy(x => new { x.Id, x.Tag, x.Referencia, x.QuantidadeProgramada, x.Descricao, x.Estilista }, (chave, grupo) => 
@@ -171,7 +186,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             UnidadeMedida = y.UnidadeMedida,
                             NomeFoto = y.NomeFoto,
                             QuantidadeConsumo = y.QuantidadeMaterial / chave.QuantidadeProgramada,
-                            QuantidadeMaterial = y.QuantidadeMaterial
+                            QuantidadeMaterial = y.QuantidadeMaterial,
+                            y.Departamento
                         }).OrderBy(y => y.Descricao)
                     });
 
@@ -181,7 +197,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     return Json(new { Error = "Nenhum item encontrado." });
 
                 #region Montar Relatório
-                Report report = new MateriaisProgramacaoProducaoReport() { DataSource = resultadoAgrupado };
+
+                Report report;
+
+                if (model.SemFoto)
+                {
+                    report = new MateriaisProgramacaoProducaoSemFotoReport() {DataSource = resultadoAgrupado};
+                }
+                else
+                {
+                    report = new MateriaisProgramacaoProducaoReport() { DataSource = resultadoAgrupado };
+                }
 
                 if (filtros.Length > 2)
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
@@ -209,7 +235,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         protected void PopulateMateriaisProgramacaoProducao(MateriaisProgramacaoProducaoModel model)
         {
             var departamentosProducao = _departamentoProducaoRepository.Find(p => p.Ativo).OrderBy(p => p.Nome).ToList();
-            ViewData["DepartamentosProducao"] = departamentosProducao.ToSelectList("Nome");
+            ViewData["Departamentos"] = departamentosProducao.ToSelectList("Nome");
 
             var colecaoAprovada = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
             ViewData["ColecaoProgramada"] = colecaoAprovada.ToSelectList("Descricao");
@@ -226,6 +252,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 var subcategorias = _subcategoriaRepository.Find(p => model.Subcategorias.Contains(p.Categoria.Id ?? 0) && p.Ativo).ToList();
                 ViewData["Subcategorias"] = subcategorias.ToSelectList("Nome");
             }
+
+            ViewBag.GeneroCategorias = GeneroCategoria.Aviamento.ToSelectList();
 
             ViewBag.OrdenarPor = new SelectList(ColunasMateriaisProgramacaoProducao, "value", "key");
         }

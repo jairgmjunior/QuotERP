@@ -15,7 +15,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a descrição")]
         public string DescricaoMedida { get; set; }
 
-        [Display(Name = "Medida")]
+        [Display(Name = "Medida em Cm")]
         public double Medida { get; set; }
     }
 }

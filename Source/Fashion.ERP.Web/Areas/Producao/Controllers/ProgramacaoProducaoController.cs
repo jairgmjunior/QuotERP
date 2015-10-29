@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Producao;
+using Fashion.ERP.Reporting.Helpers;
+using Fashion.ERP.Reporting.Producao;
 using Fashion.ERP.Web.Areas.Producao.Models;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Helpers;
@@ -19,6 +21,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
+using Telerik.Reporting;
 
 namespace Fashion.ERP.Web.Areas.Producao.Controllers
 {
@@ -69,6 +72,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {"Referencia", "FichaTecnica.Referencia"},
             {"Descricao", "FichaTecnica.Descricao"},
             {"QtdeProgramada", "Quantidade"}
+        };
+        #endregion
+
+        #region Colunas Ordenação de Relatório
+        private static readonly Dictionary<string, string> ColunasOrdenacaoRelatorio = new Dictionary<string, string>
+        {
+            {"Número", "Numero"},
+            {"Coleção", "Colecao.Descricao"},
+            {"Data Programada", "DataProgramada"},
+            {"Tag", "FichaTecnica.Tag"},
+            {"Referência", "FichaTecnica.Referencia"},
+            {"Descrição", "FichaTecnica.Descricao"}
         };
         #endregion
 
@@ -333,6 +348,50 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return View(model);
         }
 
+        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataPesquisa")]
+        public virtual ActionResult Index(PesquisaProgramacaoProducaoModel model)
+        {
+            try
+            {
+                var filtros = new StringBuilder();
+
+                var requisicaoMaterials = ObtenhaQueryFiltrada(model, filtros);
+
+                // Se não é uma listagem, gerar o relatório
+                var result = requisicaoMaterials.ToList();
+
+                if (!result.Any())
+                    return Json(new { Error = "Nenhum item encontrado." });
+
+                #region Montar Relatório
+                var report = new ListaProgramacaoProducaoReport { DataSource = result };
+
+                if (filtros.Length > 2)
+                    report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
+
+                if (model.OrdenarPor != null)
+                    report.Sortings.Add("=Fields." + model.OrdenarPor,
+                                        model.OrdenarEm == "asc" ? SortDirection.Asc : SortDirection.Desc);
+
+                #endregion
+
+                var filename = report.ToByteStream().SaveFile(".pdf");
+
+                return Json(new { Url = filename });
+            }
+            catch (Exception exception)
+            {
+                var message = exception.GetMessage();
+                _logger.Info(message);
+
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(new { Error = message });
+
+                ModelState.AddModelError(string.Empty, message);
+                return View(model);
+            }
+        }
+
         private IQueryable<ProgramacaoProducao> ObtenhaQueryFiltrada(PesquisaProgramacaoProducaoModel model, StringBuilder filtros)
         {
             var programacoesProducao = _programacaoProducaoRepository.Find();
@@ -444,7 +503,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 return Json(new DataSourceResult { Errors = message });
             }
         }
-
+        
         #endregion
 
         #region MateriaisProgramacaoProducao
@@ -531,16 +590,30 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             listaExcluir.Add(programacaoProducaoMaterial);
                         }
                     });
-
+                    
+                    var mensagemNaoPodeExcluir = String.Empty;
                     foreach (var programacaoProducaoMaterial in listaExcluir)
                     {
-                        domain.ProgramacaoProducaoMateriais.Remove(programacaoProducaoMaterial);
+                        if (programacaoProducaoMaterial.ReservaMaterial.SituacaoReservaMaterial ==
+                            SituacaoReservaMaterial.NaoAtendida)
+                        {
+                            _reservaMaterialRepository.Delete(programacaoProducaoMaterial.ReservaMaterial);
+                            domain.ProgramacaoProducaoMateriais.Remove(programacaoProducaoMaterial);
+
+                            var reservaMaterialItem = programacaoProducaoMaterial.ReservaMaterial.ReservaMaterialItems.First();
+                            ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(reservaMaterialItem.QuantidadeReserva * -1, reservaMaterialItem.Material, programacaoProducaoMaterial.ReservaMaterial.Unidade, _reservaEstoqueMaterialRepository);
+                        }
+                        else
+                        {
+                            mensagemNaoPodeExcluir += "Não foi possível excluir o material de referência: " 
+                                + programacaoProducaoMaterial.Material.Referencia + " já atendido por uma requisição.\n";
+                        }
                     }
 
                     _programacaoProducaoRepository.SaveOrUpdate(domain);
                     Framework.UnitOfWork.Session.Current.Flush();
 
-                    this.AddSuccessMessage("Materiais da programação da produção atualizados com sucesso.");
+                    this.AddSuccessMessage("Materiais da programação da produção atualizados com sucesso.\n" + mensagemNaoPodeExcluir);
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
@@ -651,6 +724,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             var colecaos = _colecaoRepository.Find(p => p.Ativo).ToList();
             ViewBag.Colecao = colecaos.ToSelectList("Descricao", model.Colecao);
+            ViewBag.OrdenarPor = new SelectList(ColunasOrdenacaoRelatorio, "value", "key");
         }
         #endregion
 

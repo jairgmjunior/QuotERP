@@ -91,6 +91,42 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.Departamentos)
+                            <div class="controls">
+                                 @(Html.Kendo().MultiSelect()
+                                      .Name("Departamentos")
+                                      .BindTo(ViewBag.Departamentos)
+                                      .Value(Model.Departamentos)
+                                      )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.GeneroCategorias)
+                            <div class="controls">
+                                @(Html.Kendo().MultiSelect()
+                                      .Name("GeneroCategorias")
+                                      .BindTo(ViewBag.GeneroCategorias)
+                                      .Value(Model.GeneroCategorias)
+                                      )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <div class="control-group">
+                            @Html.LabelForRequired(x => x.SemFoto)
+                            <div class="controls">
+                                @Html.EditorFor(x => x.SemFoto, new { @class = "input-small" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="span2">
                         <div class="control-group">
                             @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })

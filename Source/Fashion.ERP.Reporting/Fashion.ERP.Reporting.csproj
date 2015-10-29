@@ -260,6 +260,24 @@
     <Compile Include="Producao\ConsumoMaterialProgramadoReport.Designer.cs">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Producao\ListaProgramacaoProducaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\ListaProgramacaoProducaoReport.Designer.cs">
+      <DependentUpon>ListaProgramacaoProducaoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSemFotoSubReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSemFotoSubReport.Designer.cs">
+      <DependentUpon>MateriaisProgramacaoProducaoSemFotoSubReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSemFotoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\MateriaisProgramacaoProducaoSemFotoReport.designer.cs">
+      <DependentUpon>MateriaisProgramacaoProducaoSemFotoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Producao\FichaTecnicaReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -463,6 +481,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\ConsumoMaterialProgramadoReport.resx">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\ListaProgramacaoProducaoReport.resx">
+      <DependentUpon>ListaProgramacaoProducaoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\MateriaisProgramacaoProducaoSemFotoSubReport.resx">
+      <DependentUpon>MateriaisProgramacaoProducaoSemFotoSubReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\MateriaisProgramacaoProducaoSemFotoReport.resx">
+      <DependentUpon>MateriaisProgramacaoProducaoSemFotoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\FichaTecnicaReport.resx">
       <DependentUpon>FichaTecnicaReport.cs</DependentUpon>

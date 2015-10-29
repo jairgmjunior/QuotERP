@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Almoxarifado;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
@@ -11,6 +12,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
             //preencher as listas para não bugar o componente de multiselect
             Categorias = new List<long?>();
             Subcategorias = new List<long?>();
+            Departamentos = new List<long?>();
+            GeneroCategorias = new List<GeneroCategoria>();
         }
 
         [Display(Name = "Tag")]
@@ -22,6 +25,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Coleção Programada")]
         [Required(ErrorMessage = "Informe a coleção programada")]
         public long? ColecaoProgramada { get; set; }
+
+        [Display(Name = "Departamento")]
+        public IList<long?> Departamentos { get; set; }
+
+        [Display(Name = "Gênero da Categoria")]
+        public IList<GeneroCategoria> GeneroCategorias { get; set; }
 
         [Display(Name = "Categoria do Material")]
         public IList<long?> Categorias { get; set; }
@@ -37,6 +46,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Até")]
         public DateTime? DataFinal { get; set; }
+
+        [Display(Name = "Sem Foto")]
+        public Boolean SemFoto { get; set; }
 
         [Display(Name = "Ordenar por")]
         public string OrdenarPor { get; set; }
