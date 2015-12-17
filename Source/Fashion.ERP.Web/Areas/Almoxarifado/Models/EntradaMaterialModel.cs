@@ -42,6 +42,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         [Display(Name = "Fornecedor")]
         public long? Fornecedor { get; set; }
 
+        [Display(Name = "Observação")]
+        [DataType(DataType.MultilineText)]
+        public string Observacao { get; set; }
+
         public IList<long?> EntradaItemMateriais { get; set; }
         public IList<long> Materiais { get; set; }
         public IList<long> UnidadeMedidas { get; set; }

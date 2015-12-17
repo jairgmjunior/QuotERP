@@ -5,7 +5,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <hr />
     <fieldset>
         <input type="hidden" id="CorsDicionario" data-value = "@ViewBag.CorsDicionarioJson" />
         <input type="hidden" id="VariacaosDicionario" data-value = "@ViewBag.VariacaosDicionarioJson" />
@@ -23,8 +22,8 @@
                 <div class="control-group">
                     @Html.LabelForRequired(x => x.Tag)
                     <div class="controls">
-                        @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })
-                        @Html.TextBoxFor(x => x.Ano, new { @class = "input-small" })
+                        @Html.TextBoxFor(x => x.Tag, new { @class = "input-small numeric-only" })
+                        @Html.TextBoxFor(x => x.Ano, new { @class = "input-small numeric-only" })
                         @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
                         @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
                     </div>

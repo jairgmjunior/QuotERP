@@ -1,0 +1,173 @@
+﻿@model IEnumerable<Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaModel>
+
+<div id="modal-fichatecnica" class="modal hide fade">
+    
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Pesquisar ficha técnica</h3>
+    </div>
+    @using (Html.BeginForm(MVC.Producao.FichaTecnica.PesquisarVarios()))
+    {
+        @Html.AntiForgeryToken()
+        <div id="modal-body-fichatecnica" class="modal-body" style="overflow-y: hidden;">
+            <div class="width100 clearfix">
+                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
+                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
+                <input id="submit-pesquisar-fichatecnica" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+            </div>
+            <div id="grid-pesquisa-fichatecnica"></div>
+        </div>
+    }
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="selecionar-fichatecnica" class="btn btn-primary" type="button">Selecionar</button>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#submit-pesquisar-fichatecnica').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "@Html.GetUrl(MVC.Producao.FichaTecnica.PesquisarFiltro())",
+                beforeSubmit: function () {
+                    e.preventDefault();
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    var novoDataItem = obtenhaDataItensSelecionados();
+
+                    $.merge(novoDataItem, data);
+
+                    $(this).children(':submit').button('reset');
+
+                    $("#grid-pesquisa-fichatecnica").html("");
+
+                    grid = $("#grid-pesquisa-fichatecnica").kendoGrid({
+                        height: "410",
+                        selectable: "row",
+                        scrollable: {
+                            virtual: true
+                        },
+                        pageable: {
+                            info: true,
+                            numeric: false,
+                            previousNext: false
+                        },
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Referencia", title: "Referência", width: 85 },
+                            { field: "TagAno", title: "Tag", template: "#= Tag + ' / ' + Ano #", width: 80 },
+                            { field: "Descricao", title: "Descrição" },
+                            { field: "checked", template: "<input id='checked' type='checkbox' #=checked?'checked':''#/>", width: 30 }
+                        ],
+                        dataSource: {
+                            data: novoDataItem,
+                            pageSize: 3200,
+                            schema: {
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        Referencia: { type: "string" },
+                                        Descricao: { type: "string" },
+                                        TagAno: { type: "string" },
+                                        checked: { type: "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    if (grid.find("th:last input").get(0) == null) {
+                        grid.find("th:last")
+                            .append($('<input class="selectAll" type="checkbox"/>'))
+                            .delegate(".selectAll", "click", function () {
+                                var checkbox = $(this);
+                                grid.find("tr")
+                                    .find("td:last input")
+                                    .attr("checked", checkbox.is(":checked"))
+                                    .trigger("change");
+                            });
+
+                        grid.delegate($("tbody>tr"), "click", function (ev) {
+                            var linha = $(ev.target).closest('tr');
+                            if (!$(event.target).is("input")) {
+                                var checkbox = linha.find("td:last input");
+                                checkbox.prop("checked", !checkbox.prop("checked"));
+                                obtenhaGrid().dataItem(linha).set('checked', checkbox.prop("checked"));
+                            }
+                        });
+                    }
+
+                    var dataItensTodos = obtenhaGrid().dataSource.data();
+                    for (var i in dataItensTodos) {
+                        var dataItem = dataItensTodos[i];
+                        if (dataItem.checked) {
+                            var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
+                            var checkb = row.find("td:last input");
+                            checkb.prop("checked", true);
+                            obtenhaGrid().dataItem(row).set('checked', true);
+                        }
+                    }
+                },
+            });
+
+            return false;
+        });
+            
+        $('#pesquisarvarios-fichatecnica').on('click', function () {
+            $('#modal-fichatecnica').modal('show').one('hidden', function () {
+                $('#ColunaPesquisa')[0].selectedIndex = 0;
+                $('input[name$="ValorPesquisa"]').val('');
+                $('#grid-pesquisa-fichatecnica').empty();
+            });
+        });       
+
+        $('#selecionar-fichatecnica').on('click', selecionarFichaTecnica);
+        
+        function selecionarFichaTecnica() {
+            $('#modal-fichatecnica').modal('hide');
+
+            if (!obtenhaGrid()) return;
+
+            var itensSelecionados = obtenhaDataItensSelecionados();
+
+            var grid = obtenhaGrid();
+            if (grid != null)
+                grid.dataSource.data([]);
+
+            $("#selecionar-fichatecnica").trigger("pesquisar", { DataItemsSelecionados: itensSelecionados });
+        }
+    });
+
+    function obtenhaGrid() {
+        return $('#grid-pesquisa-fichatecnica').data("kendoGrid");
+    }
+
+    function obtenhaDataItensSelecionados() {
+        var grid = obtenhaGrid();
+        if (!grid) {
+            return [];
+        }
+        var dataItensTodos = grid.dataItems();
+        var dataItensSelecionados = [];
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
+
+            if (row.find("#checked").prop("checked")) {
+                dataItem.checked = true;
+                dataItensSelecionados.push(dataItem);
+            }
+        }
+
+        return dataItensSelecionados;
+    }
+
+</script>

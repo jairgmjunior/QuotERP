@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Models;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
@@ -9,9 +10,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
     public class ProgramacaoProducaoModel : IModel
     {
         public long? Id { get; set; }
-        
-        [Display(Name = "Número")]
-        public long? Numero { get; set; }
+
+        [Display(Name = "Lote/Ano")]
+        //[Required(ErrorMessage = "Informe o lote ou desabilite o campo.")]
+        public long? Lote { get; set; }
+
+        [Display(Name = "Ano")]
+        //[Required(ErrorMessage = "Informe o ano ou desabilite o campo.")]
+        public long? Ano { get; set; }
 
         [Display(Name = "Data")]
         public DateTime? Data { get; set; }
@@ -32,31 +38,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Required(ErrorMessage = "Informe a coleção")]
         public long? Colecao { get; set; }
 
-        [Display(Name = "Referência")]
-        [Required(ErrorMessage = "Informe a ficha técnica")]
-        public long? FichaTecnica { get; set; }
-
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Informe a quantidade")]
         public long Quantidade { get; set; }
 
-        [Display(Name = "Total de Enfesto")]
-        public long TotalEnfesto
-        {
-            get
-            {
-                if (TotalNumeroVezes != 0)
-                    return Quantidade / TotalNumeroVezes;
-                return 0;
-            }
-        }
+        [Display(Name = "Situação")]
+        public SituacaoProgramacaoProducao SituacaoProgramacaoProducao { get; set; }
 
-        [Display(Name = "Tipo de Enfesto de Tecido")]
-        public TipoEnfestoTecido TipoEnfestoTecido { get; set; }
+        //public IList<ProgramacaoProducaoMatrizCorteItemModel> GridItens { get; set; }
 
-        [Display(Name = "Total do Número de Vezes")]
-        public long TotalNumeroVezes { get; set; }
-
-        public IList<ProgramacaoProducaoMatrizCorteItemModel> GridItens { get; set; }
+        public IList<ProgramacaoProducaoItemModel> GridProgramacaoProducaoItens { get; set; }
     }
 }

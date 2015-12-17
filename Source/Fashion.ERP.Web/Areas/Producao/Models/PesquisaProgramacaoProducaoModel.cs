@@ -1,15 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Producao;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
-    public class PesquisaProgramacaoProducaoModel 
+    public class PesquisaProgramacaoProducaoModel
     {
         [Display(Name = "Tag")]
         public string Tag { get; set; }
 
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
+
+        [Display(Name = "Lote/Ano")]
+        public long? Lote { get; set; }
+        
+        public long? AnoLote { get; set; }
         
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
@@ -28,6 +34,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Até")]
         public DateTime? DataProgramadaAte { get; set; }
+
+        [Display(Name = "Situação")]
+        public SituacaoProgramacaoProducao? SituacaoProgramacaoProducao { get; set; }
 
         public string ModoConsulta { get; set; }
 

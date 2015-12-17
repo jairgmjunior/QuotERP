@@ -18,16 +18,18 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         private ProgramacaoProducaoMatrizCorte _programacaoProducaoMatrizCorte;
         private ProgramacaoProducaoMatrizCorteItem _programacaoProducaoMatrizCorteItem;
         private ProgramacaoProducaoMaterial _programacaoProducaoMaterial;
+        private ProgramacaoProducaoItem _programacaoProducaoItem;
 
         public override ProgramacaoProducao GetPersistentObject()
         {
             var programacaoProducao = FabricaObjetos.ObtenhaProgramacaoProducao();
 
-            programacaoProducao.FichaTecnica = _fichaTecnica;
+            //programacaoProducao.FichaTecnica = _fichaTecnica;
             programacaoProducao.Funcionario = _funcionario;
             programacaoProducao.Colecao = _colecao;
-            programacaoProducao.ProgramacaoProducaoMatrizCorte = _programacaoProducaoMatrizCorte;
+            //programacaoProducao.ProgramacaoProducaoMatrizCorte = _programacaoProducaoMatrizCorte;
             programacaoProducao.ProgramacaoProducaoMateriais.Add(_programacaoProducaoMaterial);
+            programacaoProducao.ProgramacaoProducaoItems.Add(_programacaoProducaoItem);
 
             return programacaoProducao;
         }
@@ -40,11 +42,15 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             _fichaTecnica = FabricaObjetosPersistidos.ObtenhaFichaTecnica();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
             _departamentoProducao = FabricaObjetosPersistidos.ObtenhaDepartamentoProducao();
-
+            
             _programacaoProducaoMatrizCorte = FabricaObjetos.ObtenhaProgramacaoProducaoMatrizCorte();
             _programacaoProducaoMatrizCorteItem = FabricaObjetos.ObtenhaProgramacaoProducaoMatrizCorteItem();
             _programacaoProducaoMatrizCorteItem.Tamanho = _tamanho;
             _programacaoProducaoMatrizCorte.ProgramacaoProducaoMatrizCorteItens.Add(_programacaoProducaoMatrizCorteItem);
+            
+            _programacaoProducaoItem = FabricaObjetos.ObtenhaProgramacaoProducaoItem();
+            _programacaoProducaoItem.FichaTecnica = _fichaTecnica;
+            _programacaoProducaoItem.ProgramacaoProducaoMatrizCorte = _programacaoProducaoMatrizCorte;
 
             _programacaoProducaoMaterial = FabricaObjetos.ObtenhaProducaoProducaoMaterial();
             _programacaoProducaoMaterial.Material = _material;

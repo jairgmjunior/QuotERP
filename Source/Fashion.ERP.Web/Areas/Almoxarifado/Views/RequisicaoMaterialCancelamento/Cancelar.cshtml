@@ -163,7 +163,7 @@
             if (possuiSelecionados()) {
                 return true;
             } else {
-                alert("É necessário selecionar ao menos um item da requisição de material.");
+                exibaAlertaErro("É necessário selecionar ao menos um item da requisição de material.");
                 $('#btnSubmit').button('reset');
                 return false;
             }

@@ -1273,10 +1273,19 @@ namespace Fashion.ERP.Testes.Persistencia
             {
                 Data = new DateTime(2015, 1, 1),
                 DataProgramada = new DateTime(2015, 1, 1),
-                Numero = 1,
+                Lote = 1,
+                Ano = 2015,
                 Quantidade = 1,
                 Observacao = "OBSERVAÇÃO"
             };
+        }
+
+        public ProgramacaoProducaoItem ObtenhaProgramacaoProducaoItem()
+        {
+            return new ProgramacaoProducaoItem()
+            {
+                Quantidade = 1
+            };            
         }
 
         public ProgramacaoProducaoMaterial ObtenhaProducaoProducaoMaterial()

@@ -24,11 +24,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Qtde.Programada")]
         public double Quantidade { get; set; }
-
-        [Display(Name = "Qtde.Reservada")]
-        public double QtdeReservada { get; set; }
-
+        
         public bool Reservado { get; set; }
+
+        public bool Editavel { get; set; }
 
         [Display(Name = "Departamento")]
         [Required(ErrorMessage = "Informe o departamento")]

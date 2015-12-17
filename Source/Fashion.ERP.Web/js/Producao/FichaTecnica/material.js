@@ -163,6 +163,31 @@ function onContentLoadMaterial(e) {
 
         return true;
     });
+
+    $("#atualizarCustoUnitarios").click(function () {
+        var url = '/Producao/FichaTecnica/ObtenhaGridMaterialConsumoMatriz?fichaTecnicaId=' + $("#Id").val();
+        $.getJSON(url, atualizeGridMaterialConsumoMatriz);
+
+        var url = '/Producao/FichaTecnica/ObtenhaGridMaterialConsumoVariacao?fichaTecnicaId=' + $("#Id").val();
+        $.getJSON(url, atualizeGridMaterialConsumoVariacao);
+    });
+}
+function atualizeGridMaterialConsumoMatriz(dados) {
+    if (dados.Error) {
+        console.log(dados.Error);
+        return;
+    }
+
+    $('#GridMaterialConsumoMatriz').data("kendoGrid").dataSource.data(dados);
+}
+
+function atualizeGridMaterialConsumoVariacao(dados) {
+    if (dados.Error) {
+        console.log(dados.Error);
+        return;
+    }
+    
+    $('#GridMaterialConsumoItem').data("kendoGrid").dataSource.data(dados);
 }
 
 function carregueGridMaterialConsumoMatriz(itens) {

@@ -280,7 +280,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     modelo.MateriaisConsumo.ForEach(
                         materialConsumo => fichaTecnica.MateriaisConsumo.Add(new FichaTecnicaMaterialConsumo()
                         {
-                            Quantidade = materialConsumo.Quantidade*materialConsumo.UnidadeMedida.FatorMultiplicativo,
+                            Quantidade = materialConsumo.Quantidade*materialConsumo.Material.UnidadeMedida.FatorMultiplicativo,
                             DepartamentoProducao = materialConsumo.DepartamentoProducao,
                             Material = materialConsumo.Material,
                             Custo = materialConsumo.Material.ObtenhaUltimoCusto()

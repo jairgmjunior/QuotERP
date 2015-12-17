@@ -6,7 +6,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <hr />
     <fieldset>
         <input type="hidden" id="DepartamentoProducaosDicionario" data-value = "@ViewBag.DepartamentoProducaosDicionarioJson" />
         <input type="hidden" id="SetorProducaosDicionario" data-value = "@ViewBag.SetorProducaosDicionarioJson" />

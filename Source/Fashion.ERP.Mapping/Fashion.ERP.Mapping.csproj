@@ -90,6 +90,7 @@
     <Compile Include="EngenhariaProduto\ModeloMaterialConsumoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloAvaliacaoMap.cs" />
     <Compile Include="EngenhariaProduto\ModeloReprovacaoMap.cs" />
+    <Compile Include="Producao\ProgramacaoProducaoItemMap.cs" />
     <Compile Include="Producao\ProgramacaoProducaoMaterialMap.cs" />
     <Compile Include="Producao\FichaTecnicaModelagemMedidaItemMap.cs" />
     <Compile Include="Producao\FichaTecnicaModelagemMedidaMap.cs" />

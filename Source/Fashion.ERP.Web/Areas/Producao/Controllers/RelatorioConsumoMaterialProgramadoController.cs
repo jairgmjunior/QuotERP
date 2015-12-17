@@ -126,17 +126,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Tag))
-            {
-                query = query.Where(p => model.Tag == p.ProgramacaoProducao.FichaTecnica.Tag);
-                filtros.AppendFormat("Tag: {0}, ", model.Tag);
-            }
+            //if (!string.IsNullOrWhiteSpace(model.Tag))
+            //{
+            //    query = query.Where(p => model.Tag == p.ProgramacaoProducao.FichaTecnica.Tag);
+            //    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+            //}
 
-            if (model.Ano.HasValue)
-            {
-                query = query.Where(p => model.Ano == p.ProgramacaoProducao.FichaTecnica.Ano);
-                filtros.AppendFormat("Ano: {0}, ", model.Ano);
-            }
+            //if (model.Ano.HasValue)
+            //{
+            //    query = query.Where(p => model.Ano == p.ProgramacaoProducao.FichaTecnica.Ano);
+            //    filtros.AppendFormat("Ano: {0}, ", model.Ano);
+            //}
 
             if (model.Material.HasValue)
             {
@@ -149,15 +149,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var result = query.Select(q => new
             {
                 q.ProgramacaoProducao.Id,
-                q.ProgramacaoProducao.FichaTecnica.Referencia,
-                q.ProgramacaoProducao.FichaTecnica.Tag,
-                q.ProgramacaoProducao.FichaTecnica.Descricao,
+                q.ProgramacaoProducao.DataProgramada,
+                q.ProgramacaoProducao.Lote,
+                q.ProgramacaoProducao.Ano,
                 ReferenciaMaterial = q.MaterialProgramacaoProducao.Material.Referencia,
                 IdMaterial = q.MaterialProgramacaoProducao.Material.Id,
                 DescricaoMaterial = q.MaterialProgramacaoProducao.Material.Descricao,
                 QuantidadeAprovada = q.ProgramacaoProducao.Quantidade,
-                QuantidadeMaterial = q.MaterialProgramacaoProducao.Quantidade * q.MaterialProgramacaoProducao.Material.UnidadeMedida.FatorMultiplicativo,
-                QuantidadeTotalMaterial = q.ProgramacaoProducao.Quantidade * (q.MaterialProgramacaoProducao.Quantidade * q.MaterialProgramacaoProducao.Material.UnidadeMedida.FatorMultiplicativo),
+                QuantidadeMaterial = q.MaterialProgramacaoProducao.Quantidade,
+                QuantidadeTotalMaterial = q.MaterialProgramacaoProducao.Quantidade,
                 NomeFoto = q.MaterialProgramacaoProducao.Material.Foto.Nome.GetFileUrl(),
                 UnidadeMedida = q.MaterialProgramacaoProducao.Material.UnidadeMedida.Sigla
             });
@@ -179,13 +179,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     QuantidadeDisponivel = ObtenhaQuantidadeDisponivel(chave.IdMaterial.Value),
                     FichasTecnicas = grupo.Select(w => new FichaTecnicaConsumoMaterialRelatorio()
                     {
-                        Descricao = w.Descricao,
-                        Referencia = w.Referencia,
-                        Tag = w.Tag,
+                        Lote = w.Lote,
+                        Ano = w.Ano,
+                        DataProgramada = w.DataProgramada,
                         QuantidadeAprovada = w.QuantidadeAprovada,
                         QuantidadeMaterial = w.QuantidadeMaterial,
                         QuantidadeTotalMaterial = w.QuantidadeTotalMaterial
-                    }).OrderBy(u => u.Descricao)
+                    }).OrderBy(u => u.Lote)
                 }).ToList();
 
             if (!query.Any())

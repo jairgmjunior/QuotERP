@@ -35,5 +35,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Catalogo")]
         public string Catalogo { get; set; }
+
+        [Display(Name = "Estilista")]
+        public string Estilista { get; set; }
     }
 }

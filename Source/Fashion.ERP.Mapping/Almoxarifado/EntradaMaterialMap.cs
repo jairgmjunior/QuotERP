@@ -1,4 +1,5 @@
-﻿using Fashion.ERP.Domain.Almoxarifado;
+﻿using System.Xml;
+using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.Framework.Mapping;
 using FluentNHibernate.Mapping;
 
@@ -11,6 +12,7 @@ namespace Fashion.ERP.Mapping.Almoxarifado
         {
             Map(x => x.DataEntrada).Not.Nullable();
             Map(x => x.DataAlteracao).Not.Nullable();
+            Map(x => x.Observacao).Nullable();
 
             References(x => x.DepositoMaterialDestino).Not.Nullable();
             References(x => x.DepositoMaterialOrigem);

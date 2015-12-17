@@ -43,6 +43,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Departamento")]
         [Required(ErrorMessage = "Informe o departamento")]
         public string DepartamentoProducao { get; set; }
+        public string DepartamentoProducaoNome { get; set; }
 
         [Display(Name = "Foto")]
         public string Foto { get; set; }

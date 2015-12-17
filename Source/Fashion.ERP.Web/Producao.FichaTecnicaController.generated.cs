@@ -161,6 +161,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaGridMaterialConsumoMatriz()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGridMaterialConsumoMatriz);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaGridMaterialConsumoVariacao()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGridMaterialConsumoVariacao);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public FichaTecnicaController Actions { get { return MVC.Producao.FichaTecnica; } }
@@ -196,10 +208,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string EditingInlineFichaTecnicaProcessos_Create = "EditingInlineFichaTecnicaProcessos_Create";
             public readonly string EditingInlineFichaTecnicaProcessos_Update = "EditingInlineFichaTecnicaProcessos_Update";
             public readonly string EditingInlineFichaTecnicaProcessos_Destroy = "EditingInlineFichaTecnicaProcessos_Destroy";
+            public readonly string PesquisarVarios = "PesquisarVarios";
             public readonly string Pesquisar = "Pesquisar";
             public readonly string PesquisarFiltro = "PesquisarFiltro";
             public readonly string PesquisarReferencia = "PesquisarReferencia";
             public readonly string PesquisarId = "PesquisarId";
+            public readonly string ObtenhaGridMaterialConsumoMatriz = "ObtenhaGridMaterialConsumoMatriz";
+            public readonly string ObtenhaGridMaterialConsumoVariacao = "ObtenhaGridMaterialConsumoVariacao";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -224,10 +239,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string EditingInlineFichaTecnicaProcessos_Create = "EditingInlineFichaTecnicaProcessos_Create";
             public const string EditingInlineFichaTecnicaProcessos_Update = "EditingInlineFichaTecnicaProcessos_Update";
             public const string EditingInlineFichaTecnicaProcessos_Destroy = "EditingInlineFichaTecnicaProcessos_Destroy";
+            public const string PesquisarVarios = "PesquisarVarios";
             public const string Pesquisar = "Pesquisar";
             public const string PesquisarFiltro = "PesquisarFiltro";
             public const string PesquisarReferencia = "PesquisarReferencia";
             public const string PesquisarId = "PesquisarId";
+            public const string ObtenhaGridMaterialConsumoMatriz = "ObtenhaGridMaterialConsumoMatriz";
+            public const string ObtenhaGridMaterialConsumoVariacao = "ObtenhaGridMaterialConsumoVariacao";
         }
 
 
@@ -412,6 +430,22 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_ObtenhaGridMaterialConsumoMatriz s_params_ObtenhaGridMaterialConsumoMatriz = new ActionParamsClass_ObtenhaGridMaterialConsumoMatriz();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaGridMaterialConsumoMatriz ObtenhaGridMaterialConsumoMatrizParams { get { return s_params_ObtenhaGridMaterialConsumoMatriz; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaGridMaterialConsumoMatriz
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+        }
+        static readonly ActionParamsClass_ObtenhaGridMaterialConsumoVariacao s_params_ObtenhaGridMaterialConsumoVariacao = new ActionParamsClass_ObtenhaGridMaterialConsumoVariacao();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaGridMaterialConsumoVariacao ObtenhaGridMaterialConsumoVariacaoParams { get { return s_params_ObtenhaGridMaterialConsumoVariacao; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaGridMaterialConsumoVariacao
+        {
+            public readonly string fichaTecnicaId = "fichaTecnicaId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -432,6 +466,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string Modelagem = "Modelagem";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
+                public readonly string PesquisarVarios = "PesquisarVarios";
                 public readonly string Processos = "Processos";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/FichaTecnica/_NovoOuEditar.cshtml";
@@ -444,6 +479,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Modelagem = "~/Areas/Producao/Views/FichaTecnica/Modelagem.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/FichaTecnica/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Producao/Views/FichaTecnica/Pesquisar.cshtml";
+            public readonly string PesquisarVarios = "~/Areas/Producao/Views/FichaTecnica/PesquisarVarios.cshtml";
             public readonly string Processos = "~/Areas/Producao/Views/FichaTecnica/Processos.cshtml";
         }
     }
@@ -718,6 +754,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return callInfo;
         }
 
+        partial void PesquisarVariosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult PesquisarVarios()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarVarios);
+            PesquisarVariosOverride(callInfo);
+            return callInfo;
+        }
+
         partial void PesquisarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         public override System.Web.Mvc.ActionResult Pesquisar()
@@ -754,6 +799,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             PesquisarIdOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void ObtenhaGridMaterialConsumoMatrizOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.JsonResult ObtenhaGridMaterialConsumoMatriz(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGridMaterialConsumoMatriz);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            ObtenhaGridMaterialConsumoMatrizOverride(callInfo, fichaTecnicaId);
+            return callInfo;
+        }
+
+        partial void ObtenhaGridMaterialConsumoVariacaoOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? fichaTecnicaId);
+
+        public override System.Web.Mvc.JsonResult ObtenhaGridMaterialConsumoVariacao(long? fichaTecnicaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaGridMaterialConsumoVariacao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
+            ObtenhaGridMaterialConsumoVariacaoOverride(callInfo, fichaTecnicaId);
             return callInfo;
         }
 

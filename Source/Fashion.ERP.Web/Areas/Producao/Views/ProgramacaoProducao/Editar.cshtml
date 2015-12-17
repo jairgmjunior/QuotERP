@@ -12,14 +12,16 @@
 @{Html.RenderPartial("_ConfirmDelete");}
 
 @{
-    Html.RenderAction("Pesquisar", "FichaTecnica", new { area = "Producao" });    
+    Html.RenderAction("PesquisarVarios", "FichaTecnica", new { area = "Producao" });    
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" }); 
+    Html.RenderAction("MatrizCorte", "ProgramacaoProducao", new { area = "Producao" });   
 }
 
 <script>
     $(document).ready(function () {
-
         $("#Data").data("kendoDatePicker").enable(false);
         $("#Numero").attr("disabled", "disabled");
+        $("#SituacaoProgramacaoProducao").attr("disabled", "disabled");
+        $('#Quantidade').attr('readonly', true);
     });
 </script>

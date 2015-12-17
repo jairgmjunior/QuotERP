@@ -31,6 +31,17 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelForRequired(x => x.Observacao)
+            <div class="controls">
+                @Html.EditorFor(x => x.Observacao)
+                @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+            </div>
+        </div>
+    </div>
+</div>
 
 <fieldset>
     <legend><small>Dados da origem</small></legend>
@@ -94,7 +105,6 @@
                     <input id="sigla" type="text" disabled="disabled"/>
                 </div>
             </div>
-            
         </div>
     </div>
     <div class="row">

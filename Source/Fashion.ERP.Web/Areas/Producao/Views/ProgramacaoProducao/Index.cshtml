@@ -1,4 +1,5 @@
-﻿@using Fashion.ERP.Web.Areas.Producao.Models
+﻿@using Fashion.ERP.Domain.Producao
+@using Fashion.ERP.Web.Areas.Producao.Models
 @model PesquisaProgramacaoProducaoModel
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
@@ -80,6 +81,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="span5">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.Lote, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.TextBoxFor(x => x.Lote, new { @class = "input-small numeric-only" })/
+                                    @Html.TextBoxFor(x => x.AnoLote, new { @class = "input-small numeric-only" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <div class="control-group">
+                                @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.SituacaoProgramacaoProducao, Model.SituacaoProgramacaoProducao.ToSelectList(), "-- Selecione --")
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="well">
                         <div class="row">
@@ -142,15 +162,16 @@
     )
     .Columns(columns =>
     {
-        columns.Bound(x => x.Numero);
+        columns.Bound(x => x.LoteAno);
         columns.Bound(x => x.Colecao);
         columns.Bound(x => x.DataProgramada).Format("{0:dd/MM/yyyy}");
-        columns.Bound(x => x.Tag);
-		columns.Bound(x => x.Referencia);
-        columns.Bound(x => x.Descricao);
+        columns.Bound(x => x.Responsavel);
+		columns.Bound(x => x.QtdeFichasTecnicas);
         columns.Bound(x => x.QtdeProgramada);
+        columns.Bound(x => x.SituacaoProgramacaoProducao).Template(s => s.SituacaoProgramacaoProducao.EnumToString());
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Materiais", "MateriaisProgramacaoProducao", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Requisições", "ProgramacaoProducaoRequisicao", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
     })
     .Resizable(resize => resize.Columns(true))
     .Reorderable(reorder => reorder.Columns(true))

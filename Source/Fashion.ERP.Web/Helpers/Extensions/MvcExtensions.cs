@@ -43,6 +43,26 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             return new SelectList(values, "Id", "Name", enumObject);
         }
 
+        public static SelectList ToSelectListValues<TEnum>(this TEnum @enum)
+        {
+            var enumType = typeof(TEnum);
+            object enumObject = @enum;
+
+            // Verifica se é um tipo Nullable
+            var underlyingType = Nullable.GetUnderlyingType(typeof(TEnum));
+            if (underlyingType != null)
+                enumType = underlyingType;
+
+            if (!enumType.IsEnum)
+                throw new ArgumentException("TEnum must be an enumerated type", "enum");
+
+            var values = (from Enum e in Enum.GetValues(enumType)
+                          let d = e.GetDisplay()
+                          select new { Id = Convert.ToInt32(e), Name = d != null ? d.Name : e.ToString() }).ToList();
+
+            return new SelectList(values, "Id", "Name", enumObject);
+        }
+
         #endregion
 
         #region ToMultiSelectList

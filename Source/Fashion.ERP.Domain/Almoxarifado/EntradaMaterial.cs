@@ -22,6 +22,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual DepositoMaterial DepositoMaterialOrigem { get; set; }
         public virtual DepositoMaterial DepositoMaterialDestino { get; set; }
         public virtual Pessoa Fornecedor { get; set; }
+        public virtual String Observacao { get; set; }
 
         #region EntradaItemMateriais
         public virtual IReadOnlyCollection<EntradaItemMaterial> EntradaItemMateriais

@@ -95,7 +95,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<ProcessoOperacional>(model);
-                    IList<SequenciaOperacional> listSequenciaOperacional;
+                    
                     foreach (SequenciaOperacionalModel s in sequenciaOperacoes)
                     {
                         SequenciaOperacional sequenciaOperacao = null;

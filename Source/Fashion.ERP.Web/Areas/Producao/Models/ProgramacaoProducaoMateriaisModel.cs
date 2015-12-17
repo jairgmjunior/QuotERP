@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Fashion.ERP.Domain.Comum;
+using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Models;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
@@ -10,17 +10,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
     {
         public long? Id { get; set; }
 
-        [Display(Name = "Tag")]
-        public string Tag{ get; set; }
-
-        [Display(Name = "Ano")]
-        public long Ano { get; set; }
+        [Display(Name = "Lote/Ano")]
+        public string LoteAno{ get; set; }
 
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
 
-        [Display(Name = "Coleção")]
+        [Display(Name = "Coleção Programada")]
         public string Colecao { get; set; }
+
+        [Display(Name = "Unidade")]
+        public long? UnidadeGeral { get; set; }
 
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
@@ -34,8 +34,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Qtde. Programada")]
         public long Quantidade { get; set; }
+
+        [Display(Name = "Situação")]
+        public String SituacaoProgramacaoProducao { get; set; }
         
-        public IEnumerable<string> Fotos { get; set; }
+        public IEnumerable<FotoTituloModel> Fotos { get; set; }
 
         public IList<GridProgramacaoProducaoMaterialModel> GridItens { get; set; }
     }

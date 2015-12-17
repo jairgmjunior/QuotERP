@@ -5,33 +5,40 @@
 
 <fieldset>
     <legend><small>Dados da Programação de Produção</small></legend>
-    @{
-        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
+                @Html.LabelForRequired(x => x.Lote)
+                <div class='controls'>
+                    <div class="input-append">
+                        @Html.TextBoxFor(x => x.Lote, new { @class = "input-mini numeric-only" })
+                        @Html.TextBoxFor(x => x.Ano, new { @class = "input-mini  numeric-only" })
+                        @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
+                        {
+                            <button id="editarlote" class="btn" type="button"><i class="icon-edit"></i></button> 
+                        }
+                    </div>
+                    @Html.HiddenFor(x => x.Lote)
+                    @Html.HiddenFor(x => x.Ano)
+                    @Html.ValidationMessageFor(x => x.Lote, null, new {@class = "help-block"})
+                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
+                </div>
+            </div>
+        </div>
+        @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
-            <div class="row">
-                <div class="span6">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Numero)
-                        <div class='controls'>
-                            @Html.EditorFor(x => x.Numero)
-                            @Html.HiddenFor(x => x.Numero)
-                            @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
-                        </div>
+            <div class="span4">
+                <div class="control-group">
+                    @Html.LabelForRequired(x => x.Data)
+                    <div class='controls'>
+                        @Html.EditorFor(x => x.Data)
+                        @Html.HiddenFor(x => x.Data)
+                        @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Data)
-                        <div class='controls'>
-                            @Html.EditorFor(x => x.Data)
-                            @Html.HiddenFor(x => x.Data)
-                            @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
-                        </div>
-                    </div>
-                </div>  
-            </div>
+            </div>  
         }
-    }
+    </div>
     <div class="row">
         <div class="span6">
             <div class="control-group">
@@ -69,6 +76,17 @@
         </div>
         <div class="span4">
             <div class="control-group">
+                @Html.LabelForRequired(x => x.Quantidade, new {@class = "title-label"})
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.Quantidade,  new { @class = "input-medium" })
+                    @Html.HiddenFor(x => x.Quantidade)
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="span6">
+            <div class="control-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
@@ -76,49 +94,11 @@
                 </div>
             </div>
         </div>
-    </div>  
- </fieldset>
-
-<fieldset>
-    <legend><small>Ficha Técnica da Programação de Produção</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.Label("referencia-fichatecnica", "Referência", new { @class = "control-label" })
-                <div class="controls">
-                    @Html.Hidden("FichaTecnica")
-                    <div class="input-append">
-                        <input id="referencia-fichatecnica" class="input-small" type="text" />
-                        <button id="pesquisar-fichatecnica" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-fichatecnica" class="add-on"></span>
-                    </div>
-                </div>
-            </div>
-        </div>                       
         <div class="span4">
             <div class="control-group">
-                @Html.Label("classificacao-fichatecnica", "Classificação", new { @class = "control-label" })
+                @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
                 <div class="controls">
-                    @Html.TextBox("classificacao-fichatecnica", "", new { disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.Label("tagano-fichatecnica", "Tag/Ano", new { @class = "control-label" })
-                <div class="controls">
-                    @Html.TextBox("tag-fichatecnica", "", new { @class = "input-small", disabled = "disabled" })/
-                    @Html.TextBox("ano-fichatecnica", "", new { @class = "input-small", disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="control-group">
-                @Html.Label("catalogo-fichatecnica", "Catálogo", new { @class = "control-label" })
-                <div class="controls">
-                    @Html.TextBox("catalogo-fichatecnica", "", new { @class = "input-small", disabled = "disabled" })
+                    @Html.EditorFor(x => x.SituacaoProgramacaoProducao)
                 </div>
             </div>
         </div>
@@ -126,103 +106,54 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Matriz de Corte da Programação de Produção</small></legend>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.TipoEnfestoTecido, new {@class = "title-label"})
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.TipoEnfestoTecido, Model.TipoEnfestoTecido.ToSelectList(), "-- Selecione --")
-                    @Html.ValidationMessageFor(x => x.TipoEnfestoTecido, null, new { @class = "help-block" })
-                </div>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.TotalEnfesto, new {@class = "title-label"})
-                <div class="controls">
-                    @Html.TextBoxFor(m => m.TotalEnfesto, new  { @class = "input-small", @readonly = "readonly"})
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Quantidade, new {@class = "title-label"})
-                <div class="controls">
-                    @(Html.Kendo().NumericTextBoxFor(m => m.Quantidade)
-                          .Format("n0")
-                          .Min(1).Spinners(false)
-                          .Name("Quantidade"))
-                    @Html.ValidationMessageFor(x => x.Quantidade, null, new { @class = "help-block" })
-                </div>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.TotalNumeroVezes, new {@class = "title-label"})
-                <div class="controls">
-                    @Html.TextBoxFor(m => m.TotalNumeroVezes, new { @class = "input-small", @readonly = "readonly"})
-                </div>
-            </div>
-        </div>
-    </div>
+    <legend><small>Fichas Técnicas Programadas</small></legend>
+        @(Html.Kendo().Grid(Model.GridProgramacaoProducaoItens)
+            .Name("GridProgramacaoProducaoItens")
+            .Editable(e => e.Mode(GridEditMode.InCell))
+            .Navigatable()
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.Id).Hidden()
+                    .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Id' value='#= Id #' />");
+                columns.Bound(x => x.MatrizCorteJson).Hidden()
+                    .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].MatrizCorteJson' value='#= MatrizCorteJson #' />");
+                columns.Bound(x => x.TagAno)
+                    .ClientTemplate("#= TagAno #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].TagAno' value='#= TagAno #' />");
+                columns.Bound(x => x.Referencia)
+                    .ClientTemplate("#= Referencia #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                columns.Bound(x => x.Descricao)
+                    .ClientTemplate("#= Descricao #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                columns.Bound(x => x.Estilista)
+                    .ClientTemplate("#= Estilista #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Estilista' value='#= Estilista #' />");
+                columns.Bound(x => x.Quantidade).Width(120)
+                    .ClientTemplate("#= Quantidade #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
+                columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                    "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                        "#}#" +
+                    "<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(125);                
+                columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
+            }
+            )
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Events(events => events.Error("onKendoGridError").Change("atualizeQuantidadeTotalProgramacaoProgramacao"))
+                .Model(model =>
+                {
+                    model.Id(item => item.Id);
+                    model.Field(item => item.Id).DefaultValue(0);
+                    model.Field(item => item.Foto).Editable(false); 
+                })
+            )
+            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-fichatecnica", @href = "javascript:void(0)", @class = "btn-primary"}))
+            .Events(events => events.Edit("onEdit"))
+            )
 </fieldset>
-
-
-@(Html.Kendo().Grid<ProgramacaoProducaoMatrizCorteItemModel>()
-    .Name("GridItens").HtmlAttributes(new { style="width:260px"})
-    .Columns(columns =>
-    {
-        columns.Bound(p => p.Tamanho).Hidden().ClientTemplate(
-            "<input type='hidden' name='GridItens[#= index(data)#].Tamanho' value='#= Tamanho #' />");
-        columns.Bound(p => p.DescricaoTamanho).Width(60).ClientTemplate("#= DescricaoTamanho #" +
-            "<input type='hidden' name='GridItens[#= index(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
-        columns.Bound(p => p.QuantidadeVezes).Width(60).ClientTemplate("#= (QuantidadeVezes == null) ? ' ' : QuantidadeVezes #" +
-            "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
-        columns.Bound(p => p.Quantidade).Width(55).ClientTemplate("#= (Quantidade == null) ? ' ' : kendo.toString(Quantidade, \"n2\") #" +
-            "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
-    })
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .ServerOperation(true)
-        .Model(model =>
-        {
-            model.Id(item => item.DescricaoTamanho);
-            model.Field(product => product.DescricaoTamanho).Editable(false);
-            model.Field(product => product.QuantidadeVezes).Editable(true);
-            model.Field(product => product.Quantidade).Editable(true).DefaultValue(0);
-        })
-        .Read(read => read.Action("ObtenhaListaGridMatrizCorteModel", "ProgramacaoProducao").Data("ObtenhaParametrosGridMatrizCorte"))
-        .Events(events => events.Error("onKendoGridError").Change("onChange"))
-    )
-    .Editable(editable => editable.Mode(GridEditMode.InCell))
-    .Resizable(resize => resize.Columns(true))
-    .Events(events => events.Change("onChangeGrid").Save("onSaveGrid").Edit("onEdit").SaveChanges("onSaveChanges"))
-   
-        )
-
-<br/>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $("form").data("validator").settings.ignore = ":hidden:not(.kendo-editor textarea, .k-numerictextbox input)";
-
-        $("#Quantidade").on("change", function () {
-            recalculeTotalEnfestos();
-            recalculeQuantidade();
-        });
-
-        $("#descricao-fichatecnica").on("change", function () {
-            $("#GridItens").data("kendoGrid").dataSource.read();
-            recalculeTotalNumeroVezes();
-            recalculeTotalEnfestos();
-            recalculeQuantidade();
-        });
-
-        $('#form').submit(function (e) {
+        $('#form').submit(function(e) {
             limpeMensagensAlerta();
 
             var formValido = formularioEhValido();
@@ -239,15 +170,13 @@
                 return false;
             }
 
-            var dataGridItens = $("#GridItens").data("kendoGrid").dataSource.data();
+            var dataGridItens = $("#GridProgramacaoProducaoItens").data("kendoGrid").dataSource.data();
 
             var mensagem = "";
             for (var i = 0; i < dataGridItens.length; i++) {
                 var dataItem = dataGridItens[i];
-                if (dataItem.QuantidadeVezes != 0 && dataItem.QuantidadeVezes != null) {
-                    if (!isInt(dataItem.Quantidade)) {
-                        mensagem += "O item de tamanho: " + dataItem.DescricaoTamanho + " possui um valor decimal.<br/>";
-                    }
+                if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                    mensagem += "A ficha técnica de referência "+ dataItem.Referencia+" não possui valor para a coluna quantidade</br>";
                 }
             }
 
@@ -261,7 +190,108 @@
             return true;
         });
 
+        $("#selecionar-fichatecnica").on("pesquisar", function(ev, itens) {
+            if (itens.DataItemsSelecionados.length == 0) {
+                return;
+            }
+
+            var grid = obtenhaGridProgramacaoProducaoItens();
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data();
+            var novosDados = itens.DataItemsSelecionados;
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia: dataItemNovo.Referencia,
+                        Descricao: dataItemNovo.Descricao,
+                        TagAno: dataItemNovo.Tag + '/' + dataItemNovo.Ano,
+                        Id: 0,
+                        Quantidade: 0,
+                        Estilista: dataItemNovo.Estilista,
+                        Foto: dataItemNovo.Foto,
+                        MatrizCorteJson: ""
+                    };
+
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                data: dadosAtuais,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+        });
+
+        $("#editarlote").click(function()
+        {
+            if ($("#Lote").prop("disabled") == false) {
+                $("#Lote").prop("disabled", true);
+                $("#Ano").prop("disabled", true);
+                $("#Lote").val("");
+                $("#Ano").val("");
+                
+                $("#Lote").rules("remove", "required");
+                $("#Ano").rules("remove", "required");
+
+                $('#form').validate().resetForm();
+                $(".control-group").removeClass("error");
+                $(".input-validation-error").removeClass("input-validation-error");
+                $("label[for='Lote']").removeClass("required-label");
+            } else {
+                $("#Lote").prop("disabled", false);
+                $("#Lote").focus();
+                $("#Ano").prop("disabled", false);
+                $("#Ano").val(new Date().getFullYear());
+
+                $("#Lote").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Informe o lote ou desabilite o campo."
+                    }
+                });
+
+                $("#Ano").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Informe o ano ou desabilite o campo."
+                    }
+                });
+
+                $("label[for='Lote']").addClass("required-label");
+            }
+        });
+
+        $("#Lote").prop("disabled", true);
+        $("#Ano").prop("disabled", true);
+        $("label[for='Lote']").removeClass("required-label");
+        
     });
+
+    function atualizeQuantidadeTotalProgramacaoProgramacao() {
+        var dataItensGridProgramacaoProducao = window.obtenhaGridProgramacaoProducaoItens().dataSource.data();
+
+        var quantidade = 0;
+        for (var i = 0; i < dataItensGridProgramacaoProducao.length; i++) {
+            var dataItem = dataItensGridProgramacaoProducao[i];
+            quantidade += dataItem.Quantidade;
+        }
+
+        $('[id=Quantidade]').val(quantidade);
+    }
 
     function formularioEhValido() {
         var retorno = true;
@@ -274,112 +304,29 @@
             retorno = false;
         }
 
-        // Ficha Tecnica 
-        if ($("#referencia-fichatecnica").val() == false) {
-            $('#FichaTecnica').val("");
-            $('#FichaTecnica').valid();
-            $('#descricao-fichatecnica').text("");
-            retorno = false;
-        }
         $(".k-input.k-invalid").parent(".k-numeric-wrap").css("border", "1px solid red");
         return retorno;
     }
 
-    function onChange(e) {
-        $("#GridItens").data("kendoGrid").refresh();
-    }
-
-
-    function onChangeGrid(e) {
-
-        debugger;
-    }
-
-    function onSaveGrid(e) {
-
-        debugger;
-    }
-
-    function onSaveChanges() {
-        debugger;
-    }
-
-    function onEdit(e) {
-        if (e.container.index() == 3) {
-            this.closeCell();
-        }
-
-        $("#QuantidadeVezes").on("blur", function () {
-            recalculeTotalNumeroVezes();
-            recalculeTotalEnfestos();
-            recalculeQuantidade();
+    $('#pesquisarvarios-fichatecnica').on('click', function (e) {
+        $('#modal-fichatecnica').modal('show').one('hidden', function () {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            $('#grid-pesquisa-fichatecnica').empty();
         });
-
-        $("#QuantidadeVezes.k-input").blur(function (e) {
-            proximaCell(e);
-        });
-    }
-
-    function proximaCell(e) {
-        var grid = $("#GridItens").data("kendoGrid");
-        var currentIndex = $(e.target.closest("tr")).index();
-        grid.editCell(grid.tbody.find(">tr:eq(" + (currentIndex + 1) + ")").find("td:eq(2)"));
-    }
-
-    function recalculeQuantidade() {
-
-        var totalEnfesto = $("#TotalEnfesto").val();
-
-        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
-        for (var i = 0; i < dataItens.length; i++) {
-            var dataItem = dataItens[i];
-            if (dataItem.QuantidadeVezes != null) {
-                var novaQuantidade = totalEnfesto * dataItem.QuantidadeVezes;
-                dataItem.set("Quantidade", parseFloat(novaQuantidade));
-            } else {
-                dataItem.set("Quantidade", "");
-            }
-        }
-    }
-
-    function recalculeTotalNumeroVezes() {
-        var dataItens = $("#GridItens").data("kendoGrid").dataSource.data();
-        var quantidadeTotal = 0;
-
-        for (var i = 0; i < dataItens.length; i++) {
-            var dataItem = dataItens[i];
-            quantidadeTotal = quantidadeTotal + dataItem.QuantidadeVezes;
-        }
-        $("#TotalNumeroVezes").val(quantidadeTotal);
-    }
-
-    function recalculeTotalEnfestos() {
-        var quantidade = $("#Quantidade").val();
-        var totalNumeroVezes = $("#TotalNumeroVezes").val();
-
-        if (quantidade == null || quantidade == 0 || totalNumeroVezes == null || totalNumeroVezes == 0) {
-            $("#TotalEnfesto").val(0);
-            return;
-        }
-
-        $("#TotalEnfesto").val(quantidade / totalNumeroVezes);
-    }
+        return false;
+    });
 
     function index(dataItem) {
-        var data = $("#GridItens").data("kendoGrid").dataSource.data();
+        var data = obtenhaGridProgramacaoProducaoItens().dataSource.data();
         return data.indexOf(dataItem);
     }
 
-    function isInt(n) {
-        return n % 1 === 0;
+    function onEdit(e) {
+        this.closeCell();
     }
 
-    function ObtenhaParametrosGridMatrizCorte() {
-        var parametros = {
-            id: $("#Id").val(),
-            fichaTecnicaId: $("#FichaTecnica").val()
-        };
-
-        return parametros;
+    function obtenhaGridProgramacaoProducaoItens() {
+        return $("#GridProgramacaoProducaoItens").data("kendoGrid");
     }
 </script>

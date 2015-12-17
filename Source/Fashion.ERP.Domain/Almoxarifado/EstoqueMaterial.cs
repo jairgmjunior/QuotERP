@@ -9,7 +9,6 @@ namespace Fashion.ERP.Domain.Almoxarifado
     public class EstoqueMaterial : DomainBase<EstoqueMaterial>
     {
         private readonly IList<MovimentacaoEstoqueMaterial> _movimentacaoEstoqueMateriais;
-        private readonly IList<ReservaEstoqueMaterial> _reservaEstoqueMaterial;
 
         public virtual double Quantidade { get; set; }
         public virtual double Reserva { get; set; }

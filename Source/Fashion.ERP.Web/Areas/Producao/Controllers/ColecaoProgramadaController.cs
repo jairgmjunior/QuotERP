@@ -141,18 +141,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             var programacoesProducao = _programacaoProducaoRepository.Find(x => x.Colecao.Id == id).ToList();
 
-            var result = programacoesProducao.Select(q => new
+            var result = programacoesProducao.SelectMany(x => x.ProgramacaoProducaoItems).GroupBy(x => 
+                new { x.FichaTecnica }, (chave, grupo) => new
             {
-                q.Id,
-                PrimeiraFoto = ObtenhaUrlPrimeiraFoto(q.FichaTecnica),
-                SegundaFoto = ObtenhaUrlSegundaFoto(q.FichaTecnica),
-                q.FichaTecnica.Tag,
-                q.FichaTecnica.Ano,
-                Catalogo = q.FichaTecnica.Catalogo.GetValueOrDefault() ? "Sim" : "Não",
-                q.FichaTecnica.Referencia,
-                q.DataProgramada,
-                Estilista = q.FichaTecnica.Estilista.Nome,
-                QuantidadeProgramada = q.Quantidade
+                PrimeiraFoto = ObtenhaUrlPrimeiraFoto(chave.FichaTecnica),
+                SegundaFoto = ObtenhaUrlSegundaFoto(chave.FichaTecnica),
+                chave.FichaTecnica.Tag,
+                chave.FichaTecnica.Ano,
+                chave.FichaTecnica.Descricao,
+                Catalogo = chave.FichaTecnica.Catalogo.GetValueOrDefault() ? "Sim" : "Não",
+                chave.FichaTecnica.Referencia,
+                Estilista = chave.FichaTecnica.Estilista.Nome,
+                QuantidadeProgramada = grupo.Sum(y => y.Quantidade)
             });
 
             var report = new BookColecaoProgramadaReport { DataSource = result };

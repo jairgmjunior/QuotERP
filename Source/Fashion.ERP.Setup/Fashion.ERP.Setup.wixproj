@@ -73,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Localization\WebAppInstallDlg_pt-br.wxl" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Transform.xsl" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -81,14 +84,15 @@
     <!--Atualiza a versão do sistema-->
     <Exec Command="Powershell -File &quot;$(SolutionDir)updateVersion.ps1&quot; &quot;$(SolutionDir)SolutionInfo.cs&quot;" />
     <!--Recompila o sistema-->
-    <Exec Command="&quot;$(DevEnvDir)Devenv&quot; &quot;$(SolutionDir)Fashion.ERP.Web/Fashion.ERP.Web.csproj&quot; /Build &quot;Release&quot;" />
+    <!--<Exec Command="&quot;$(DevEnvDir)Devenv&quot; &quot;$(SolutionDir)Fashion.ERP.Web/Fashion.ERP.Web.csproj&quot; /Build &quot;Release&quot;" />-->
+	<Exec Command="&quot;C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild&quot; &quot;$(SolutionDir)Fashion.ERP.Web/Fashion.ERP.Web.csproj&quot; /property:Configuration=Release /t:rebuild /verbosity:quiet" />
     <!--Publica o projeto web-->
     <MSBuild Projects="%(ProjectReference.FullPath)" Targets="Package" Properties="Configuration=$(Configuration);Platform=AnyCPU" Condition="'%(ProjectReference.WebProject)'=='True'" />
     <ItemGroup>
       <LinkerBindInputPaths Include="%(ProjectReference.RootDir)%(ProjectReference.Directory)obj\$(Configuration)\Package\PackageTmp\" />
     </ItemGroup>
     <!--Atualiza as referências-->
-    <HeatDirectory OutputFile="%(ProjectReference.Filename).wxs" Directory="%(ProjectReference.RootDir)%(ProjectReference.Directory)obj\$(Configuration)\Package\PackageTmp\" DirectoryRefId="INSTALLLOCATION" ComponentGroupName="%(ProjectReference.Filename)_Project" AutogenerateGuids="true" SuppressCom="true" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" Condition="'%(ProjectReference.WebProject)'=='True'" />
+    <HeatDirectory OutputFile="%(ProjectReference.Filename).wxs" Directory="%(ProjectReference.RootDir)%(ProjectReference.Directory)obj\$(Configuration)\Package\PackageTmp\" DirectoryRefId="INSTALLLOCATION" ComponentGroupName="%(ProjectReference.Filename)_Project" AutogenerateGuids="true" SuppressCom="true" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" Condition="'%(ProjectReference.WebProject)'=='True'" Transforms="$(ProjectDir)\Transform.xsl" />
   </Target>
   <!--<Target Name="AfterBuild">
 	</Target>-->

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Producao;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
@@ -50,7 +51,22 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Comprimento")]
         public long? Comprimento { get; set; }
+
+        [Display(Name = "Catálogo")]
+        public bool? Catalogo { get; set; }
+
+        [Display(Name = "Coleção")]
+        public long? Colecao { get; set; }
         
+        [Display(Name = "Agrupar por")]
+        public string AgruparPor { get; set; }
+
+        [Display(Name = "Ordenar por")]
+        public string OrdenarPor { get; set; }
+
+        [Display(Name = "em")]
+        public string OrdenarEm { get; set; }
+
         public IList<GridFichaTecnicaModel> Grid { get; set; }
     }
 }  

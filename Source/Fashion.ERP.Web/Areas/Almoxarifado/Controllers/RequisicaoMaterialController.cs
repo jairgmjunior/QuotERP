@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Helpers;
 using System.Text;
 using System.Web.Mvc;
@@ -39,6 +40,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<Material> _materialRepository;
         private readonly IRepository<DepositoMaterial> _depositoMaterialRepository;
         private readonly IRepository<ReservaEstoqueMaterial> _reservaEstoqueMaterialRepository;
+        private readonly IRepository<ProgramacaoProducaoMaterial> _programacaoProducaoMaterialRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaReservaMaterial;
         #endregion
@@ -49,7 +51,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<Material> materialRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<CentroCusto> centroCustoRepository,
             IRepository<DepositoMaterial> depositoMaterialRepository, IRepository<Usuario> usuarioRepository,
-            IRepository<EstoqueMaterial> estoqueMaterialRepository)
+            IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ProgramacaoProducaoMaterial> programacaoProducaoMaterialRepository)
         {
             _reservaMaterialRepository = reservaMaterialRepository;
             _pessoaRepository = pessoaRepository;
@@ -61,6 +63,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _depositoMaterialRepository = depositoMaterialRepository;
             _usuarioRepository = usuarioRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
+            _programacaoProducaoMaterialRepository = programacaoProducaoMaterialRepository;
 
             _logger = logger;
 
@@ -572,7 +575,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 {
                     var domain = _requisicaoMaterialRepository.Get(id);
                     
-                    domain.ReservaMateriais.ForEach( x => x.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository));
+                    domain.ReservaMateriais.ForEach(x =>
+                    {
+                        x.AtualizeReservaEstoqueMaterialAoExcluir(_reservaEstoqueMaterialRepository);
+                        var programacaoProducaoMaterial = _programacaoProducaoMaterialRepository.Find().FirstOrDefault(y => y.ReservaMaterial.Id == x.Id);
+                        if (programacaoProducaoMaterial != null)
+                        {
+                            programacaoProducaoMaterial.ReservaMaterial = null;
+                            _programacaoProducaoMaterialRepository.SaveOrUpdate(programacaoProducaoMaterial);
+                        }
+                    });
 
                     _requisicaoMaterialRepository.Delete(domain);
 
@@ -618,7 +630,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
         protected void PopulateViewDataNovoEditar(RequisicaoMaterialModel model)
         {
-            var unidades = _pessoaRepository.Find(p => p.Unidade != null).OrderBy(o => o.NomeFantasia).ToList();
+            var unidades = _pessoaRepository.Find(p => p.Unidade != null && p.Unidade.Ativo).OrderBy(o => o.NomeFantasia).ToList();
             ViewData["UnidadeRequerente"] = unidades.ToSelectList("NomeFantasia", model.UnidadeRequerente);
 
             var unidadesRequisitadas = _depositoMaterialRepository.Find(p => p.Unidade != null && p.Ativo).Select(x => x.Unidade).ToList()
@@ -629,7 +641,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             var tipoItems = _tipoItemRepository.Find().OrderBy(o => o.Descricao).ToList();
             ViewData["TipoItem"] = tipoItems.ToSelectList("Descricao", model.TipoItem);
 
-            var centroCustos = _centroCustoRepository.Find().OrderBy(o => o.Nome).ToList();
+            var centroCustos = _centroCustoRepository.Find(x => x.Ativo).OrderBy(o => o.Nome).ToList();
             ViewData["CentroCusto"] = centroCustos.ToSelectList("Nome", model.CentroCusto);
         }
         #endregion

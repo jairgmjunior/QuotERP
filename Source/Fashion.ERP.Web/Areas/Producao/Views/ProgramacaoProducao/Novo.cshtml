@@ -9,8 +9,15 @@
 	</div>
 }
 
+<script>
+    $(document).ready(function () {
+        $("#Quantidade").attr("disabled", "disabled");
+        $("#SituacaoProgramacaoProducao").attr("disabled", "disabled");
+    });
+</script>
 
 @{
-    Html.RenderAction("Pesquisar", "FichaTecnica", new { area = "Producao" });    
+    Html.RenderAction("PesquisarVarios", "FichaTecnica", new { area = "Producao" });    
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" }); 
+    Html.RenderAction("MatrizCorte", "ProgramacaoProducao", new { area = "Producao" });
 }

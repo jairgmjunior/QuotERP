@@ -4,6 +4,7 @@ using System.Linq;
 using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.Common.Base;
 using Fashion.Framework.Repository;
+using FluentNHibernate.Conventions;
 using NHibernate.Linq;
 
 namespace Fashion.ERP.Domain.Almoxarifado
@@ -133,19 +134,17 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 return;
             }
             
-            var reservaMaterialItem = ReservaMateriais.SelectMany(x => x.ReservaMaterialItems).FirstOrDefault(y => y.Material.Id == material.Id);
+            var reservasMaterialItem = ReservaMateriais.SelectMany(x => x.ReservaMaterialItems).Where(y => y.Material.Id == material.Id);
 
-            if (reservaMaterialItem == null)
+            reservasMaterialItem.ForEach(reservaMaterialItem =>
             {
-                return;
-            }
-
-            reservaMaterialItem.ReservaMaterialItemCancelado = new ReservaMaterialItemCancelado()
-            {
-                Data = DateTime.Now,
-                QuantidadeCancelada = quantidadeCancelada,
-                Observacao = observacaoCancelamento
-            };
+                reservaMaterialItem.ReservaMaterialItemCancelado = new ReservaMaterialItemCancelado()
+                {
+                    Data = DateTime.Now,
+                    QuantidadeCancelada = quantidadeCancelada,
+                    Observacao = observacaoCancelamento
+                };
+            });
 
             ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(quantidadeCancelada * -1, material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
         }
@@ -211,6 +210,14 @@ namespace Fashion.ERP.Domain.Almoxarifado
                 reservaMaterial.ReservaMaterialItems.Remove(x);
                 ReservaEstoqueMaterial.AtualizeReservaEstoqueMaterial(x.QuantidadeReserva * -1, x.Material, UnidadeRequisitada, reservaEstoqueMaterialRepository);
             });
+
+            for (int i = 0; i < ReservaMateriais.Count; i++)
+            {
+                if (ReservaMateriais[i].ReservaMaterialItems.IsEmpty())
+                {
+                    ReservaMateriais.Remove(ReservaMateriais[i]);
+                }
+            }
         }
     }
 }

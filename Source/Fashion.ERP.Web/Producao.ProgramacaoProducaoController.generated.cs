@@ -43,9 +43,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel()
+        public virtual System.Web.Mvc.JsonResult ObtenhaListaProgramacaoProducaoMatrizCorteItemModel()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaListaProgramacaoProducaoMatrizCorteItemModel);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -64,6 +64,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public virtual System.Web.Mvc.ActionResult ObtenhaListaGridModel()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ProgramacaoProducaoRequisicao()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProgramacaoProducaoRequisicao);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,24 +94,28 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public class ActionNamesClass
         {
             public readonly string Novo = "Novo";
-            public readonly string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
+            public readonly string ObtenhaListaProgramacaoProducaoMatrizCorteItemModel = "ObtenhaListaProgramacaoProducaoMatrizCorteItemModel";
             public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public readonly string ProgramacaoProducaoRequisicao = "ProgramacaoProducaoRequisicao";
             public readonly string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
+            public readonly string MatrizCorte = "MatrizCorte";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Novo = "Novo";
-            public const string ObtenhaListaGridMatrizCorteModel = "ObtenhaListaGridMatrizCorteModel";
+            public const string ObtenhaListaProgramacaoProducaoMatrizCorteItemModel = "ObtenhaListaProgramacaoProducaoMatrizCorteItemModel";
             public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public const string ProgramacaoProducaoRequisicao = "ProgramacaoProducaoRequisicao";
             public const string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
+            public const string MatrizCorte = "MatrizCorte";
         }
 
 
@@ -117,15 +127,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_ObtenhaListaGridMatrizCorteModel s_params_ObtenhaListaGridMatrizCorteModel = new ActionParamsClass_ObtenhaListaGridMatrizCorteModel();
+        static readonly ActionParamsClass_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel s_params_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel = new ActionParamsClass_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ObtenhaListaGridMatrizCorteModel ObtenhaListaGridMatrizCorteModelParams { get { return s_params_ObtenhaListaGridMatrizCorteModel; } }
+        public ActionParamsClass_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel ObtenhaListaProgramacaoProducaoMatrizCorteItemModelParams { get { return s_params_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ObtenhaListaGridMatrizCorteModel
+        public class ActionParamsClass_ObtenhaListaProgramacaoProducaoMatrizCorteItemModel
         {
-            public readonly string request = "request";
-            public readonly string id = "id";
-            public readonly string fichaTecnicaId = "fichaTecnicaId";
+            public readonly string referenciaFichaTecnica = "referenciaFichaTecnica";
         }
         static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -144,6 +152,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_ObtenhaListaGridModel s_params_ObtenhaListaGridModel = new ActionParamsClass_ObtenhaListaGridModel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ObtenhaListaGridModel ObtenhaListaGridModelParams { get { return s_params_ObtenhaListaGridModel; } }
@@ -151,6 +167,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public class ActionParamsClass_ObtenhaListaGridModel
         {
             public readonly string request = "request";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_ProgramacaoProducaoRequisicao s_params_ProgramacaoProducaoRequisicao = new ActionParamsClass_ProgramacaoProducaoRequisicao();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ProgramacaoProducaoRequisicao ProgramacaoProducaoRequisicaoParams { get { return s_params_ProgramacaoProducaoRequisicao; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ProgramacaoProducaoRequisicao
+        {
+            public readonly string id = "id";
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_MateriaisProgramacaoProducao s_params_MateriaisProgramacaoProducao = new ActionParamsClass_MateriaisProgramacaoProducao();
@@ -176,13 +201,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
                 public readonly string MateriaisProgramacaoProducao = "MateriaisProgramacaoProducao";
+                public readonly string MatrizCorte = "MatrizCorte";
                 public readonly string Novo = "Novo";
+                public readonly string ProgramacaoProducaoRequisicao = "ProgramacaoProducaoRequisicao";
             }
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/ProgramacaoProducao/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/ProgramacaoProducao/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/ProgramacaoProducao/Index.cshtml";
             public readonly string MateriaisProgramacaoProducao = "~/Areas/Producao/Views/ProgramacaoProducao/MateriaisProgramacaoProducao.cshtml";
+            public readonly string MatrizCorte = "~/Areas/Producao/Views/ProgramacaoProducao/MatrizCorte.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/ProgramacaoProducao/Novo.cshtml";
+            public readonly string ProgramacaoProducaoRequisicao = "~/Areas/Producao/Views/ProgramacaoProducao/ProgramacaoProducaoRequisicao.cshtml";
         }
     }
 
@@ -210,15 +239,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return callInfo;
         }
 
-        partial void ObtenhaListaGridMatrizCorteModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId);
+        partial void ObtenhaListaProgramacaoProducaoMatrizCorteItemModelOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string referenciaFichaTecnica);
 
-        public override System.Web.Mvc.ActionResult ObtenhaListaGridMatrizCorteModel(Kendo.Mvc.UI.DataSourceRequest request, long? id, long? fichaTecnicaId)
+        public override System.Web.Mvc.JsonResult ObtenhaListaProgramacaoProducaoMatrizCorteItemModel(string referenciaFichaTecnica)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridMatrizCorteModel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fichaTecnicaId", fichaTecnicaId);
-            ObtenhaListaGridMatrizCorteModelOverride(callInfo, request, id, fichaTecnicaId);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaListaProgramacaoProducaoMatrizCorteItemModel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referenciaFichaTecnica", referenciaFichaTecnica);
+            ObtenhaListaProgramacaoProducaoMatrizCorteItemModelOverride(callInfo, referenciaFichaTecnica);
             return callInfo;
         }
 
@@ -261,6 +288,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return callInfo;
         }
 
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.PesquisaProgramacaoProducaoModel model);
+
+        public override System.Web.Mvc.ActionResult Index(Fashion.ERP.Web.Areas.Producao.Models.PesquisaProgramacaoProducaoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IndexOverride(callInfo, model);
+            return callInfo;
+        }
+
         partial void ObtenhaListaGridModelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.PesquisaProgramacaoProducaoModel model);
 
         public override System.Web.Mvc.ActionResult ObtenhaListaGridModel(Kendo.Mvc.UI.DataSourceRequest request, Fashion.ERP.Web.Areas.Producao.Models.PesquisaProgramacaoProducaoModel model)
@@ -269,6 +306,26 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ObtenhaListaGridModelOverride(callInfo, request, model);
+            return callInfo;
+        }
+
+        partial void ProgramacaoProducaoRequisicaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult ProgramacaoProducaoRequisicao(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProgramacaoProducaoRequisicao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ProgramacaoProducaoRequisicaoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void ProgramacaoProducaoRequisicaoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoRequisicaoModel model);
+
+        public override System.Web.Mvc.ActionResult ProgramacaoProducaoRequisicao(Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoRequisicaoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProgramacaoProducaoRequisicao);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ProgramacaoProducaoRequisicaoOverride(callInfo, model);
             return callInfo;
         }
 
@@ -289,6 +346,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MateriaisProgramacaoProducao);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             MateriaisProgramacaoProducaoOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void MatrizCorteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult MatrizCorte()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MatrizCorte);
+            MatrizCorteOverride(callInfo);
             return callInfo;
         }
 

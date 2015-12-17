@@ -3,14 +3,14 @@
 @if (ViewData.ModelMetadata.IsNullableValueType)
 {
     @(Html.Kendo().DropDownListFor(model => model)
-        .BindTo(new List<SelectListItem>
-        {
-            new SelectListItem {Text = "Sim", Value = "True"},
-            new SelectListItem {Text = "Não", Value = "False"}
-        })
-        .OptionLabel("- Selecione -")
-        .Name(@Html.NameFor(model => model).ToString())
-        .Value(Model.HasValue? Model.ToString() : "")
+          .BindTo(new List<SelectListItem>
+          {
+              new SelectListItem {Text = "Sim", Value = "true"},
+              new SelectListItem {Text = "Não", Value = "false"}
+          })
+          .OptionLabel("- Selecione -")
+          .Name(@Html.NameFor(model => model).ToString())
+          .SelectedIndex(Model.HasValue? (Model.ToString().ToLower() == "true" ? 1 : 2): 0)
     )
 }
 else
@@ -18,10 +18,10 @@ else
     @(Html.Kendo().DropDownListFor(model => model)
         .BindTo(new List<SelectListItem>
         {
-            new SelectListItem {Text = "Sim", Value = "True"},
-            new SelectListItem {Text = "Não", Value = "False"}
+            new SelectListItem {Text = "Sim", Value = "true"},
+            new SelectListItem {Text = "Não", Value = "false"}
         })
         .Name(@Html.NameFor(model => model).ToString())
-        .Value(Model.ToString())
+        .SelectedIndex(Model.ToString().ToLower() == "true" ? 0 : 1)
     )
 }

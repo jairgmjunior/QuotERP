@@ -88,10 +88,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         [HttpPost, AjaxOnly, PopulateViewData("PopulateEstimativaConsumoProgramado")]
         public virtual JsonResult EstimativaConsumoProgramado(EstimativaConsumoProgramadoModel model)
         {
-            var queryMateriaisConsumo = _programacaoProducaoRepository.Find().SelectMany(x => x.FichaTecnica.MateriaisConsumo,
+            //var queryMateriaisConsumo = _programacaoProducaoRepository.Find().SelectMany(x => x.FichaTecnica.MateriaisConsumo,
+            //            (x, s) => new { ProgramacaoProducao = x, MaterialFichaTecnica = s });
+
+            //var queryMateriaisConsumoVariacao = _programacaoProducaoRepository.Find().SelectMany(x => x.FichaTecnica.MateriaisConsumoVariacao,
+            //            (x, s) => new { ProgramacaoProducao = x, MaterialFichaTecnica = s });
+
+            var queryMateriaisConsumo = _programacaoProducaoRepository.Find().SelectMany(x => x.ProgramacaoProducaoMateriais,
                         (x, s) => new { ProgramacaoProducao = x, MaterialFichaTecnica = s });
             
-            var queryMateriaisConsumoVariacao = _programacaoProducaoRepository.Find().SelectMany(x => x.FichaTecnica.MateriaisConsumoVariacao,
+            var queryMateriaisConsumoVariacao = _programacaoProducaoRepository.Find().SelectMany(x => x.ProgramacaoProducaoMateriais,
                         (x, s) => new { ProgramacaoProducao = x, MaterialFichaTecnica = s });
             
             var filtros = new StringBuilder();
@@ -137,15 +143,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Tag))
             {
-                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => model.Tag == p.ProgramacaoProducao.FichaTecnica.Tag);
-                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => model.Tag == p.ProgramacaoProducao.FichaTecnica.Tag);
+                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Tag == model.Tag));
+                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Tag == model.Tag));
                 filtros.AppendFormat("Tag: {0}, ", model.Tag);
             }
 
             if (model.Ano.HasValue)
             {
-                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => model.Ano == p.ProgramacaoProducao.FichaTecnica.Ano);
-                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => model.Ano == p.ProgramacaoProducao.FichaTecnica.Ano);
+                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Ano == model.Ano));
+                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Ano == model.Ano));
                 filtros.AppendFormat("Ano: {0}, ", model.Ano);
             }
 

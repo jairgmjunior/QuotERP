@@ -39,6 +39,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox2,
             this.textBox3});
             this.detail.Name = "detail";
+            this.detail.Style.BorderColor.Bottom = System.Drawing.Color.Silver;
             this.detail.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             this.detail.Style.BorderWidth.Default = Telerik.Reporting.Drawing.Unit.Point(0.20000000298023224D);
             this.detail.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;

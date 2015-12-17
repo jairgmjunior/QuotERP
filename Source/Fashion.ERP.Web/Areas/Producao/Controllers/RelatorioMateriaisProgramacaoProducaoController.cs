@@ -34,8 +34,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region MateriaisProgramacaoProducao
         private static readonly Dictionary<string, string> ColunasMateriaisProgramacaoProducao = new Dictionary<string, string>
         {
-            {"Tag", "Tag"},
-            {"Descrição", "Descricao"}
+            {"Lote", "Lote"},
+            {"Descrição", "Descricao"},
+            {"Referência", "Referencia"}
         };
         #endregion
         
@@ -67,7 +68,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public virtual JsonResult MateriaisProgramacaoProducao(MateriaisProgramacaoProducaoModel model)
         {
             var query = _programacaoProducaoRepository.Find()
-                .SelectMany(x => x.ProgramacaoProducaoMateriais, (x, s) => new { ProgramacaoProducao = x, MaterialProgramacaoProducao = s });
+                .SelectMany(x => x.ProgramacaoProducaoMateriais, (x, s) => 
+                    new { ProgramacaoProducao = x, MaterialProgramacaoProducao = s })
+                .SelectMany(x => x.ProgramacaoProducao.ProgramacaoProducaoItems, (x, z) =>
+                    new { x.ProgramacaoProducao, x.MaterialProgramacaoProducao, Item = z });
 
             var filtros = new StringBuilder();
 
@@ -120,14 +124,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         query = query.Where(p => categorias.Contains(p.MaterialProgramacaoProducao.Material.Subcategoria.Categoria.Id ?? 0L));
                     }
                 }
-
-                if (!string.IsNullOrWhiteSpace(model.Tag))
-                {
-                    query = query.Where(p => p.ProgramacaoProducao.FichaTecnica.Tag.Contains(model.Tag));
-
-                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
-                }
-
+                
                 if (model.Material.HasValue)
                 {
                     query = query.Where(p => model.Material == p.MaterialProgramacaoProducao.Material.Id);
@@ -150,48 +147,45 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     filtros.AppendFormat("Gênero da Categoria(s): {0}, ", model.GeneroCategorias.Select(c => c.EnumToString()).ToList().Join(","));
                 }
                 
-                //var result =   query.Fetch(p => p.ProgramacaoProducao).ThenFetch(p => p.FichaTecnica)
-                //    .Fetch(p => p.MaterialProgramacaoProducao).ThenFetch(p => p.Material)
-                //    .ToList();
-                
-                var result = query.Select(q => new
+                var query_ = query.ToList();
+
+                var result = query_.Select(q => new
                 {
                     Id = q.ProgramacaoProducao.Id,
-                    Tag = q.ProgramacaoProducao.FichaTecnica.Tag,
-                    Referencia = q.ProgramacaoProducao.FichaTecnica.Referencia,
-                    Descricao = q.ProgramacaoProducao.FichaTecnica.Descricao,
-                    Estilista = q.ProgramacaoProducao.FichaTecnica.Estilista.Nome,
+                    FichasTecnicas = q.ProgramacaoProducao.ProgramacaoProducaoItems.Select(x => 
+                        new { x.FichaTecnica.Tag, x.FichaTecnica.Descricao, x.FichaTecnica.Referencia, x.FichaTecnica.Estilista }),
+                    q.ProgramacaoProducao.DataProgramada,
+                    q.ProgramacaoProducao.Lote,
+                    q.ProgramacaoProducao.Ano,
                     QuantidadeProgramada = q.ProgramacaoProducao.Quantidade,
                     QuantidadeMaterial = q.MaterialProgramacaoProducao.Quantidade,
                     ReferenciaMaterial = q.MaterialProgramacaoProducao.Material.Referencia,
                     DescricaoMaterial = q.MaterialProgramacaoProducao.Material.Descricao,
                     UnidadeMedida = q.MaterialProgramacaoProducao.Material.UnidadeMedida.Sigla,
-                    NomeFoto = q.MaterialProgramacaoProducao.Material.Foto.Nome.GetFileUrl(),
+                    NomeFoto = q.MaterialProgramacaoProducao.Material.Foto != null? q.MaterialProgramacaoProducao.Material.Foto.Nome.GetFileUrl() : "",
                     Departamento = q.MaterialProgramacaoProducao.DepartamentoProducao.Nome
                 }).ToList();
 
-                var resultadoAgrupado = result.GroupBy(x => new { x.Id, x.Tag, x.Referencia, x.QuantidadeProgramada, x.Descricao, x.Estilista }, (chave, grupo) => 
+                var resultadoAgrupado = result.GroupBy(x => new { x.Id, x.QuantidadeProgramada, x.DataProgramada, x.Lote, x.Ano }, (chave, grupo) => 
                     new
                     {
-                        Id = chave.Id,
-                        Tag = chave.Tag, 
-                        Referencia = chave.Referencia,
-                        Descricao = chave.Descricao,
-                        QuantidadeProgramada = chave.QuantidadeProgramada,
-                        Estilista = chave.Estilista,
+                        chave.Id,
+                        chave.QuantidadeProgramada,
+                        grupo.First().FichasTecnicas,
+                        chave.DataProgramada,
+                        chave.Lote,
+                        chave.Ano,
                         Materiais = grupo.Select(y => new
                         {
                             Referencia = y.ReferenciaMaterial,
                             Descricao = y.DescricaoMaterial,
-                            UnidadeMedida = y.UnidadeMedida,
-                            NomeFoto = y.NomeFoto,
+                            y.UnidadeMedida,
+                            y.NomeFoto,
                             QuantidadeConsumo = y.QuantidadeMaterial / chave.QuantidadeProgramada,
-                            QuantidadeMaterial = y.QuantidadeMaterial,
+                            y.QuantidadeMaterial,
                             y.Departamento
-                        }).OrderBy(y => y.Descricao)
+                        }).Distinct().OrderBy(y => model.OrdenarPor == "Referencia" ? y.Referencia : y.Descricao)
                     });
-
-                //var result = query.ToList();
 
                 if (!query.Any())
                     return Json(new { Error = "Nenhum item encontrado." });
@@ -213,7 +207,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     report.ReportParameters["Filtros"].Value = filtros.ToString().Substring(0, filtros.Length - 2);
 
                 if (model.OrdenarPor != null)
-                    report.Sortings.Add("=Fields." + model.OrdenarPor, SortDirection.Asc);
+                    report.Sortings.Add("=Fields." + "Lote", SortDirection.Asc);
                 
                 #endregion
 

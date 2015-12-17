@@ -97,7 +97,7 @@ namespace Fashion.ERP.Domain.Compras
             }
             catch (Exception ex)
             {
-                throw new Exception("O mesmo material foi cadastrado mais de uma vez no pedido de compra. Referência: " +  referenciaMaterial);
+                throw new Exception("O mesmo material foi cadastrado mais de uma vez no pedido de compra. Referência: " +  referenciaMaterial, ex);
             }
         }
 
