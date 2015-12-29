@@ -1332,6 +1332,9 @@
                 <Component Id="cmp937E8EA5E289A1EAEC2C06A65FBD986F" Guid="*">
                     <File Id="filDBAA69BFEDB0204023DD9FA3F7EC1D61" KeyPath="yes" Source="SourceDir\bin\Kendo.Mvc.dll" />
                 </Component>
+                <Component Id="cmp6F9AEAAA9799E5FCCEA04A5D08C50CC4" Guid="*">
+                    <File Id="filAD08E288FFD635CAC626E61DA6B17FCA" KeyPath="yes" Source="SourceDir\bin\Kendo.Mvc.resources.dll" />
+                </Component>
                 <Component Id="cmp48B5CE506D86BF39F5848F1D62F6CFAE" Guid="*">
                     <File Id="fil4A13ABF803EECCA5885EFAE4997322B4" KeyPath="yes" Source="SourceDir\bin\Microsoft.Web.Infrastructure.dll" />
                 </Component>
@@ -2518,6 +2521,7 @@
             <ComponentRef Id="cmpDA4B1EFDF2D9DC71A20204AD963E7918" />
             <ComponentRef Id="cmpFF543F849D34E9F30199E862FDCD3A6E" />
             <ComponentRef Id="cmp937E8EA5E289A1EAEC2C06A65FBD986F" />
+            <ComponentRef Id="cmp6F9AEAAA9799E5FCCEA04A5D08C50CC4" />
             <ComponentRef Id="cmp48B5CE506D86BF39F5848F1D62F6CFAE" />
             <ComponentRef Id="cmpA01324F9D7EE6B8986D3B56D6974B109" />
             <ComponentRef Id="cmpCBBD857B6884D163CDBADD7367F6EAB5" />

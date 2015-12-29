@@ -172,6 +172,7 @@
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Materiais", "MateriaisProgramacaoProducao", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
         columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Requisições", "ProgramacaoProducaoRequisicao", "ProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Imprimir", "Imprimir", "RelatorioProgramacaoProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary", target = "_blank"}).ToHtmlString()).Width(80).Title("");  
     })
     .Resizable(resize => resize.Columns(true))
     .Reorderable(reorder => reorder.Columns(true))

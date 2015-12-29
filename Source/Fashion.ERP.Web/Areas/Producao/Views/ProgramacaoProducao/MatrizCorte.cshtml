@@ -1,10 +1,14 @@
 ﻿@using Fashion.ERP.Domain.Comum
 @using Fashion.ERP.Web.Areas.Producao.Models
 @model ProgramacaoProducaoMatrizCorteModel
-@using (Html.BeginForm(MVC.Producao.ProgramacaoProducao.MatrizCorte(), FormMethod.Post, new { id="formMatrizCorte", @class = "form-horizontal" }))
+@*@using (Html.BeginForm(MVC.Producao.ProgramacaoProducao.MatrizCorte(), FormMethod.Post, new { id="formMatrizCorte", @class = "form-horizontal" }))
 {
 	@Html.AntiForgeryToken()
-    <div id="modal-matrizcorte" class="modal hide fade">
+    
+}*@
+
+<form class="form-horizontal" id="formMatrizCorte" method="post" novalidate="novalidate">
+   <div id="modal-matrizcorte" class="modal hide fade">
         <div class="modal-header">
             <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
             <h3>Matriz de Corte</h3>
@@ -89,12 +93,8 @@
             <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             <button id="botaook" class="btn btn-primary" type="button">Ok</button>
         </div>
-    </div>
-}
-
-@*<form class="form-horizontal" id="formMatrizCorte" method="post" novalidate="novalidate">
-    
-</form>*@
+    </div> 
+</form>
 
 <script>
     var dataItemAtual;

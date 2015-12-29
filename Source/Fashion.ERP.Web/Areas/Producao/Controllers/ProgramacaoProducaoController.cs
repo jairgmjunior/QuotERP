@@ -112,7 +112,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return View(new ProgramacaoProducaoModel());
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Novo(ProgramacaoProducaoModel model)
         {
             if (ModelState.IsValid)
@@ -325,7 +325,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             return domain;
         }
 
-        [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewData")]
+        [HttpPost, PopulateViewData("PopulateViewData")]
         public virtual ActionResult Editar(ProgramacaoProducaoModel model)
         {
             if (ModelState.IsValid)

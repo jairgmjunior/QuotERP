@@ -260,6 +260,12 @@
     <Compile Include="Producao\ConsumoMaterialProgramadoReport.Designer.cs">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Producao\ProgramacaoProducaoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Producao\ProgramacaoProducaoReport.Designer.cs">
+      <DependentUpon>ProgramacaoProducaoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Producao\ListaFichaTecnicaReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -487,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\ConsumoMaterialProgramadoReport.resx">
       <DependentUpon>ConsumoMaterialProgramadoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Producao\ProgramacaoProducaoReport.resx">
+      <DependentUpon>ProgramacaoProducaoReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\ListaFichaTecnicaReport.resx">
       <DependentUpon>ListaFichaTecnicaReport.cs</DependentUpon>

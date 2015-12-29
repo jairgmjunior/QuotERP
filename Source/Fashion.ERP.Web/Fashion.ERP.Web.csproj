@@ -73,6 +73,9 @@
     <Reference Include="Kendo.Mvc">
       <HintPath>..\libraries\Kendo.Mvc\Kendo.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Kendo.Mvc.resources">
+      <HintPath>..\libraries\Kendo.Mvc\pt-PT\Kendo.Mvc.resources.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.Modeling.SDK.Integration.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -445,6 +448,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\Producao\Controllers\ColecaoProgramadaController.cs" />
+    <Compile Include="Areas\Producao\Controllers\RelatorioProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaEstimativaCustosController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioConsumoMaterialProgramadoController.cs" />

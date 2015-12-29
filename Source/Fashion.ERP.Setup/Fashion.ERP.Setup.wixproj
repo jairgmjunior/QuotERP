@@ -83,8 +83,7 @@
   <Target Name="BeforeBuild">
     <!--Atualiza a versão do sistema-->
     <Exec Command="Powershell -File &quot;$(SolutionDir)updateVersion.ps1&quot; &quot;$(SolutionDir)SolutionInfo.cs&quot;" />
-    <!--Recompila o sistema-->
-    <!--<Exec Command="&quot;$(DevEnvDir)Devenv&quot; &quot;$(SolutionDir)Fashion.ERP.Web/Fashion.ERP.Web.csproj&quot; /Build &quot;Release&quot;" />-->
+    <!--Recompila o sistema-->    
 	<Exec Command="&quot;C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild&quot; &quot;$(SolutionDir)Fashion.ERP.Web/Fashion.ERP.Web.csproj&quot; /property:Configuration=Release /t:rebuild /verbosity:quiet" />
     <!--Publica o projeto web-->
     <MSBuild Projects="%(ProjectReference.FullPath)" Targets="Package" Properties="Configuration=$(Configuration);Platform=AnyCPU" Condition="'%(ProjectReference.WebProject)'=='True'" />
