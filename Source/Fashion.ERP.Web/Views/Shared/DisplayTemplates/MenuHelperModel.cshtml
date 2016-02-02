@@ -1,7 +1,7 @@
 ﻿@model MenuHelperModel
 @using System.Web.Mvc.Html
 
-<ul id="menu" class="nav">
+<ul id="menu" class="nav navmenu-nav">
     @foreach (var node in Model.Nodes)
     { // .Where(n => n.IsRootNode)
         if (node.IsRootNode)

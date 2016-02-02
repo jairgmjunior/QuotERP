@@ -86,7 +86,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         #region ExcluirAuth
         public static MvcHtmlString ExcluirAuth(this HtmlHelper helper, ActionResult action)
         {
-            return ActionLinkAuth(helper, "Excluir", action, new { @class = "delete btn" });
+            return ActionLinkAuth(helper, "Excluir", action, new { @class = "delete btn btn-default" });
         }
         #endregion
 
@@ -280,7 +280,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
 
             var tag = new TagBuilder("label");
             tag.Attributes.Add("for", TagBuilder.CreateSanitizedId(html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
-            tag.Attributes.Add("class", "control-label");
+            tag.Attributes.Add("class", "control-label col-sm-4 col-md-3");
 
             if (isRequired)
                 tag.Attributes["class"] += " required-label";

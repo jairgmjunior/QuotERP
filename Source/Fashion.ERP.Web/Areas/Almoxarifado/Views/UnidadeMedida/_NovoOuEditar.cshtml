@@ -1,19 +1,19 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.UnidadeMedidaModel
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Sigla)
     <div class="controls">
         @Html.EditorFor(x => x.Sigla)
         @Html.ValidationMessageFor(x => x.Sigla, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Descricao)
     <div class="controls">
         @Html.EditorFor(x => x.Descricao)
         @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.FatorMultiplicativo)
     <div class="controls">
         @(Html.Kendo().NumericTextBoxFor(x => x.FatorMultiplicativo)

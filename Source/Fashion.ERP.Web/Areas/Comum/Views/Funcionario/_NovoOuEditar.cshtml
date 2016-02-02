@@ -1,60 +1,60 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.FuncionarioModel
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.TipoPessoa)
     <div class="controls">
         <label class="radio"><input name="TipoPessoa" id="radioFisica" type="radio" value="Fisica" checked="checked" />Física</label>
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Nome)
     <div class="controls">
         @Html.EditorFor(x => x.Nome)
         @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Cpf)
     <div class="controls">
         @Html.EditorFor(x => x.Cpf)
         @Html.ValidationMessageFor(x => x.Cpf, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.DocumentoIdentidade)
     <div class="controls">
         @Html.EditorFor(x => x.DocumentoIdentidade)
         @Html.ValidationMessageFor(x => x.DocumentoIdentidade, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.OrgaoExpedidor)
     <div class="controls">
         @Html.EditorFor(x => x.OrgaoExpedidor)
         @Html.ValidationMessageFor(x => x.OrgaoExpedidor, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.DataNascimento)
     <div class="controls">
         @Html.EditorFor(x => x.DataNascimento)
         @Html.ValidationMessageFor(x => x.DataNascimento, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.InscricaoEstadual)
     <div class="controls">
         @Html.EditorFor(x => x.InscricaoEstadual)
         @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.FuncionarioFuncaoFuncionario)
     <div class="controls">
         @Html.DropDownListFor(p => p.FuncionarioFuncaoFuncionario, Model.FuncionarioFuncaoFuncionario.ToSelectList())
         @Html.ValidationMessageFor(x => x.FuncionarioFuncaoFuncionario, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.FuncionarioPercentualComissao)
     <div class="controls">
         @(Html.Kendo().NumericTextBoxFor(m => m.FuncionarioPercentualComissao)

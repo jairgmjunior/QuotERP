@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridDepositoMaterialModel>
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.DepositoMaterial.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@(Html.Kendo().Grid(Model)
-	.Name("Grid")
-	.Columns(columns =>
-	{
-		columns.Bound(x => x.Nome);
-        columns.Bound(x => x.DataAbertura).Format("{0:dd/MM/yyyy}");
-		columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.DepositoMaterial.Editar(item.Id))).Width(80);
-        columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.DepositoMaterial.EditarSituacao(item.Id), item.Ativo)).Width(80);
-	})
-)
+
+<div class="table-responsive">
+    @(Html.Kendo().Grid(Model)
+        .Name("Grid")
+	    .Columns(columns =>
+	    {
+		    columns.Bound(x => x.Nome);
+            columns.Bound(x => x.DataAbertura).Format("{0:dd/MM/yyyy}");
+		    columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.DepositoMaterial.Editar(item.Id))).Width(80);
+            columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.DepositoMaterial.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	    })
+    )
+</div>

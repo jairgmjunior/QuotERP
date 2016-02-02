@@ -1,86 +1,100 @@
 ﻿@using Fashion.ERP.Web.Areas.Almoxarifado.Models
 @model PesquisaSaidaMaterialModel
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.SaidaMaterial.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
 @using (Html.BeginForm(MVC.Almoxarifado.SaidaMaterial.Index(), FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
-    <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-            <div class="accordion-heading">
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
                 </a>
             </div>
-            <div id="collapsePesquisar" class="accordion-body collapse">
-                <div class="accordion-inner">
+            <div id="collapsePesquisar" class="panel-collapse collapse">
+                <div class="panel-body">
                     <div class="row">
-                        <div class="span5">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.UnidadeRetirada, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.DropDownList("UnidadeRetirada", null, "-- Selecione --", new { @class = "input-large" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.UnidadeRetirada)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownList("UnidadeRetirada", null, "-- Selecione --", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span5">
-                            <div class="control-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.DepositoMaterialRetirada)
-                                <div class="controls">
-                                    @Html.DropDownList("DepositoMaterialRetirada", null, "-- Selecione --", new { @class = "input-large" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownList("DepositoMaterialRetirada", null, "-- Selecione --", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span5">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.CentroCusto, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.DropDownList("CentroCusto", null, "-- Selecione --", new { @class = "input-large" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.CentroCusto)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.DropDownList("CentroCusto", null, "-- Selecione --", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.DataSaidaDe, new { @class = "control-label"})
-                                <div class="controls">
-                                    @(Html.Kendo().DatePickerFor(x => x.DataSaidaDe))
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span3">
-                            <div class="control-group">
-                                @Html.Label("DataSaidaAte", "Até", new { @class = "control-label"})
-                                <div class="controls">
-                                    @(Html.Kendo().DatePickerFor(x => x.DataSaidaAte))
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataSaidaDe)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataSaidaDe))
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <label class="sr-only" for="DataSaidaDe">Data de Saída</label> 
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom:0">
+                                            @Html.Label("DataSaidaAte", "Até", new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataSaidaAte))
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
-                                @Html.LabelForRequired(x => x.Material)
-                                <div class="controls">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.Label("Material", "Material", new { @class = "control-label col-sm-4 col-md-3" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
                                     @Html.Hidden("Material")
-                                    <div class="input-append">
-                                        <input id="referencia-material" class="input-small" type="text" />
-                                        <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
-                                        <span id="descricao-material" class="add-on"></span>
+                                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                        <div class="input-group">
+                                            <input id="referencia-material" class="numeric-only form-control" type="text" style="width: 70%;">
+                                            <span class="input-group-btn pull-left">
+                                                <button id="pesquisar-material" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-material">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                        <input id="descricao-material" class="form-control" readonly="" data-toggle="tooltip">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="well">
-                        @Html.HiddenFor(x => x.ModoConsulta)
                         <div class="row">
-                            <div class="span9">
+                            <div class="col-sm-10 col-md-11">
                             </div>
-                            <div class="span3">
-                                <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            <div class="col-sm-2 col-md-1">
+                                <button id="pesquisar-grid-ajax" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -90,31 +104,33 @@
     </div>
 }
 
-@(Html.Kendo().Grid<GridSaidaMaterialModel>()
-    .Name("Grid")    
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .ServerOperation(true)
-        .PageSize(15)
-        .Read(read => read.Action("ObtenhaListaGridModel", "SaidaMaterial").Data("ObtenhaModelJsonObject"))
-        .Events(events => events.Error("onKendoGridError"))
-    )
-    .Columns(columns =>
-    {
-        columns.Bound(x => x.DataSaida).Format("{0:dd/MM/yyyy}");
-        columns.Bound(x => x.UnidadeOrigem);
-		columns.Bound(x => x.DepositoMaterialOrigem);
-        columns.Bound(x => x.CentroCusto);
-        columns.Bound(x => x.UnidadeDestino);
-		columns.Bound(x => x.DepositoMaterialDestino);
-        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "SaidaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
-    })
-    .Resizable(resize => resize.Columns(true))
-    .Reorderable(reorder => reorder.Columns(true))
-    .Pageable()
-    .Sortable()
-    .Groupable()   
-)
+<div class="table-responsive">
+    @(Html.Kendo().Grid<GridSaidaMaterialModel>()
+        .Name("Grid")    
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .PageSize(15)
+            .Read(read => read.Action("ObtenhaListaGridModel", "SaidaMaterial").Data("ObtenhaModelJsonObject"))
+            .Events(events => events.Error("onKendoGridError"))
+        )
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.DataSaida).Format("{0:dd/MM/yyyy}");
+            columns.Bound(x => x.UnidadeOrigem);
+		    columns.Bound(x => x.DepositoMaterialOrigem);
+            columns.Bound(x => x.CentroCusto);
+            columns.Bound(x => x.UnidadeDestino);
+		    columns.Bound(x => x.DepositoMaterialDestino);
+            columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "SaidaMaterial", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        })
+        .Resizable(resize => resize.Columns(true))
+        .Reorderable(reorder => reorder.Columns(true))
+        .Pageable()
+        .Sortable()
+        .Groupable()   
+    )    
+</div>
 
 <script>
 

@@ -1,19 +1,19 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ClassificacaoDificuldadeModel
-<div class="control-group">
+<div class="form-group">
 	@Html.LabelForRequired(x => x.Descricao)
 	<div class="controls">
 		@Html.EditorFor(x => x.Descricao)
 		@Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
 	</div>
 </div>
-<div class="control-group">
+<div class="form-group">
 	@Html.LabelForRequired(x => x.Criacao)
 	<div class="controls">
 		@Html.EditorFor(x => x.Criacao)
 		@Html.ValidationMessageFor(x => x.Criacao, null, new { @class="help-block" })
 	</div>
 </div>
-<div class="control-group">
+<div class="form-group">
 	@Html.LabelForRequired(x => x.Producao)
 	<div class="controls">
 		@Html.EditorFor(x => x.Producao)

@@ -19,21 +19,21 @@
             <div id="collapsePesquisar" class="accordion-body collapse in">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span10">
+                        <div class="col-md-10">
                             <h2>@Model.Nome</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span10">
+                        <div class="col-md-10">
                             @if (Model != null && Model.NomeParametro != null && Model.NomeParametro.Any())
                             {
-                                <div class="control-group">
+                                <div class="form-group">
                                     <label class="control-label">Parâmetros</label>
 
                                     @for (int i = 0; i < Model.NomeParametro.Count; i++)
                                     {
                                         <div class="controls">
-                                            <div class="input-append">
+                                            <div class="input-group">
                                                 @Model.NomeParametro[i]
                                             </div>
                                             <div class="input-prepend">
@@ -61,7 +61,7 @@
                                 </div>
                             }
                         </div>
-                        <div class="span2">
+                        <div class="col-md-2">
                             <div class="pull-right">
                                 <button id="pesquisar-relatorio" class="btn btn-info" type="button" data-loading-text="Aguarde...">Visualizar</button>
                             </div>

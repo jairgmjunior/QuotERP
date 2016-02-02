@@ -15,8 +15,8 @@
         <legend><small>Dados do Modelo</small></legend>
         <div class="detail">
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Descricao, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Descricao)
@@ -24,8 +24,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Referencia, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Referencia)
@@ -35,8 +35,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Estilista, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Estilista)
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Colecao)
@@ -55,8 +55,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Tecido, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Tecido)
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.Forro, new {@class = "title-label"})
                         <div class="value-label">
                             @Html.ValueFor(x => x.Forro)
@@ -80,7 +80,7 @@
     <fieldset>
         <legend><small>Avaliação do Modelo</small></legend>
         <div class="row">
-            <div class="span3">
+            <div class="col-md-3">
                 @Html.HiddenFor(x => x.AprovadoReprovado)
                 <div class="btn-group" data-toggle="buttons-radio">
                     <button name="btn-AprovadoReprovado" class="btn btn-info aprovado active" type="button" value="true">Aprovado</button>
@@ -93,8 +93,8 @@
     <div id="dadosReprovacao">
         <legend><small>Dados da Reprovação</small></legend>
         <div class="row">
-            <div class="span9">
-                <div class="control-group">
+            <div class="col-md-9">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Motivo)
                     <div class="controls">
                         @Html.EditorFor(x => x.Motivo)
@@ -108,8 +108,8 @@
     <div id=dadosAprovacao>
         <legend><small>Dados da Aprovação</small></legend>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Tag)
                     <div class="controls">
                         @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })@*//,  data_val=false*@
@@ -119,8 +119,8 @@
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Catalogo, new {@class = "title-label"})
                     <div class="controls">
                         @Html.EditorFor(x => x.Catalogo)
@@ -129,16 +129,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.ColecaoAprovada)
                     <div class="controls">
                         @Html.DropDownListFor(x => x.ColecaoAprovada, null, "-- Selecione --", new {@class = "input-large"})
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.ClassificacaoDificuldade, new {@class = "title-label"})
                     <div class="controls">
                         @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new {@class = "input-large"})
@@ -147,16 +147,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Complemento)
                     <div class="controls">
                         @Html.EditorFor(x => x.Complemento)
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.QuantidadeTotal)
                     <div class="controls">
                         @(Html.Kendo().NumericTextBoxFor(m => m.QuantidadeTotal)
@@ -206,24 +206,24 @@
 
         <script id="templateDetalheGrid" type="text/html">@*text/x-kendo-template*@
             <div class="row">
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Produto Base", new {@class = "control-label"})
                         <div class="controls">                        
                             <input id="GridItens_#= index(data)#__ProdutoBase" name="GridItens[#= index(data)#].ProdutoBase" type="text" value="#= ProdutoBase #" /> @*style="width: 300px"*@
                         </div>
                     </div>
                 </div> 
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Comprimento", new {@class = "control-label"})                        
                         <div class="controls">                        
                             <input id="GridItens_#= index(data)#__Comprimento" name="GridItens[#= index(data)#].Comprimento" type="text" value="#= Comprimento #"/> @*style="width: 300px"*@
                         </div>                        
                     </div>
                 </div> 
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Barra", new {@class = "control-label"})                        
                         <div class="controls">                        
                             <input id="GridItens_#= index(data)#__Barra" name="GridItens[#= index(data)#].Barra" type="text"  value="#= Barra #"/> @*style="width: 300px"*@
@@ -232,24 +232,24 @@
                 </div>                  
             </div>
             <div class="row">
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Observação", new {@class = "control-label"})
                         <div class="controls">
                             <input class="input-large" id="GridItens_#= index(data)#__Observacao" name="GridItens[#= index(data)#].Observacao" type="text"  value='#= Observacao #'>
                         </div>
                     </div>                    
                 </div> 
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Medida do Comprimento", new {@class = "control-label"})
                         <div class="controls">
                             <input name="GridItens[#= index(data)#].MedidaComprimento" id="GridItens_#= index(data)#__MedidaComprimento"  value='#= formateDecimal(MedidaComprimento) #'/>                                     
                         </div>
                     </div>
                 </div> 
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.Label("Medida da Barra", new {@class = "control-label"})
                         <div class="controls">
                             <input name="GridItens[#= index(data)#].MedidaBarra" id="GridItens_#= index(data)#__MedidaBarra"  value='#= formateDecimal(MedidaBarra) #'/> 

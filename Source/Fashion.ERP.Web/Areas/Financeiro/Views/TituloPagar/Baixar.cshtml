@@ -17,64 +17,64 @@
 <fieldset class="detail">
     <legend>Título a pagar</legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Unidade, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Unidade)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.NumeroParcela, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.NumeroParcela)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Fornecedor, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Fornecedor)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Valor, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Valor, "{0:R$ 0.00}")
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Historico, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Historico)
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.SituacaoTitulo, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.SituacaoTitulo)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Plano, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Plano)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Vencimento, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Vencimento)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Banco, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Banco)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Observacao)
@@ -86,7 +86,7 @@
     
 <fieldset>
     <legend>Baixas</legend>
-    <div class="control-group" style="width: 850px">
+    <div class="form-group" style="width: 850px">
         @(Html.Kendo().Grid(Model.BaixaTitulos)
                 .Name("Grid")
                 .Navigatable()

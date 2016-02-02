@@ -16,16 +16,16 @@
     
     <div class="detail">
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.LoteAno, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.LoteAno)
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.ColecaoProgramada, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.ColecaoProgramada)
@@ -34,16 +34,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.DataProgramada, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.DataProgramada)
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Quantidade, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Quantidade)
@@ -52,8 +52,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SituacaoProgramacaoProducao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.SituacaoProgramacaoProducao)
@@ -65,7 +65,7 @@
 
     <div class="row">
         @foreach (var foto in Model.Fotos) {
-            <div class="span2" style="width:110px">
+            <div class="col-md-2" style="width:110px">
                 <a href="@foto.Foto" class="thumbnail" data-lightbox='foto'><img src="@foto.Foto" data-title="@foto.Titulo" style="width:100px; height:100px"></a>
                 <p class="k-state-disabled" align="right"><small>Ref.@foto.Titulo</small></p>
             </div>
@@ -77,11 +77,11 @@
     </fieldset>
     
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
             @Html.LabelForRequired(x => x.Requerente)
             <div class="controls">
                 @Html.HiddenFor(x => x.Requerente, new { id = "funcionario" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-funcionario" class="add-on"></span>
@@ -89,8 +89,8 @@
                 @Html.ValidationMessageFor(x => x.Requerente, string.Empty, new { @class = "help-block" })
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x=> x.CentroCusto, new { @class = "control-label " })
                 <div class="controls">
                     @Html.DropDownListFor(x => x.CentroCusto, null, "-- Selecione --", new { @class = "input-large" })
@@ -99,8 +99,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x=> x.UnidadeRequerente, new { @class = "control-label " })
                 <div class="controls">
                     @Html.DropDownListFor(x => x.UnidadeRequerente, null, "-- Selecione --", new { @class = "input-large" })
@@ -112,7 +112,7 @@
     <fieldset>
         <legend><small>Dados dos Materiais</small></legend>
 
-        <div class="control-group">
+        <div class="form-group">
             @(Html.Kendo().Grid(Model.GridItens)
                   .Name("GridItens")
                   .Navigatable()

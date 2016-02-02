@@ -1,6 +1,6 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.DetalharOrdemEntradaCompraModel
 
-<div class="well well-small">
+<div class="well well-sm">
     <div class="btn-toolbar">
         <div class="btn-group">
             @Html.ActionLinkAuth("Novo", MVC.Compras.OrdemEntradaCompra.Novo(), new { @class = "btn" })
@@ -20,40 +20,40 @@
 <fieldset class="detail">
     <legend>Dados da Ordem de Entrada de Compra</legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Numero)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Data, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Data)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Fornecedor, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Fornecedor)
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Situacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Situacao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Comprador, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Comprador)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Observacao)
@@ -66,7 +66,7 @@
 @if (Model.OrdemEntradas.IsNullOrEmpty() == false)
 {
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <fieldset>
                 <legend>Pedidos de compras</legend>
 
@@ -103,19 +103,19 @@
 }
 
 @*<div class="row">
-    <fieldset class="span6">
+    <fieldset class="col-md-6">
         <legend>Notas fiscais</legend>
     </fieldset>
-    <fieldset class="span6">
+    <fieldset class="col-md-6">
         <legend>Conhecimento de transporte</legend>
     </fieldset>
 </div>
 
 <div class="row">
-    <fieldset class="span6">
+    <fieldset class="col-md-6">
         <legend>Pagar</legend>
     </fieldset>
-    <fieldset class="span6">
+    <fieldset class="col-md-6">
         <legend>Pagar</legend>
     </fieldset>
 </div>*@
@@ -123,7 +123,7 @@
 @if (Model.OrdemEntradas.IsNullOrEmpty() == false)
 {
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <fieldset>
                 <legend>Ordem entrada</legend>
 

@@ -1,46 +1,46 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.EmpresaModel
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.TipoPessoa)
     <div class="controls">
         <label class="radio"><input name="TipoPessoa" id="radioFisica" type="radio" value="Juridica" checked="checked" />Jurídica</label>
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Nome)
     <div class="controls">
         @Html.EditorFor(x => x.Nome)
         @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Cnpj)
     <div class="controls">
         @Html.EditorFor(x => x.Cnpj)
         @Html.ValidationMessageFor(x => x.Cnpj, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.NomeFantasia)
     <div class="controls">
         @Html.EditorFor(x => x.NomeFantasia)
         @Html.ValidationMessageFor(x => x.NomeFantasia, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.DataFundacao)
     <div class="controls">
         @Html.EditorFor(x => x.DataFundacao)
         @Html.ValidationMessageFor(x => x.DataFundacao, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.InscricaoEstadual)
     <div class="controls">
         @Html.EditorFor(x => x.InscricaoEstadual)
         @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class="help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.InscricaoMunicipal)
     <div class="controls">
         @Html.EditorFor(x => x.InscricaoMunicipal)

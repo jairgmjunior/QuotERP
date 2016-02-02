@@ -8,7 +8,7 @@
     }
 </style>
 
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Descricao)
     <div class="controls">
         @Html.EditorFor(x => x.Descricao)
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Tamanhos)
     <div class="controls">
         @Html.DropDownList("Tamanho", null, new { @class = "input-large"})

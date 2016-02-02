@@ -3,24 +3,29 @@
 **
 ** Sempre adicionar essa partial fora do form.
 ** * * * * * * * * * * * * * * * * * * * * * *@
-<div id="modal-foto" class="modal hide fade">
-    @using (Html.BeginForm("RecortarImagem", "Arquivo", new { area = "" }, FormMethod.Post, new { id = "crop-form" }))
-    {
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Foto</h3>
+
+<div id="modal-foto" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("RecortarImagem", "Arquivo", new {area = ""}, FormMethod.Post, new {id = "crop-form"}))
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Foto</h3>
+                </div>
+                <div class="modal-body" style="min-height: 400px">
+                    <img src="" id="imagem-crop" />
+                    <input type="hidden" name="urlTemp" id="urlTemp" />
+                    <input type="hidden" name="x" id="x" />
+                    <input type="hidden" name="y" id="y" />
+                    <input type="hidden" name="w" id="w" />
+                    <input type="hidden" name="h" id="h" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button id="btn-submit-foto" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Recortar</button>
+                </div>
+            }
         </div>
-        <div class="modal-body" style="min-height: 400px">
-            <img src="" id="imagem-crop" />
-            <input type="hidden" name="urlTemp" id="urlTemp" />
-            <input type="hidden" name="x" id="x" />
-            <input type="hidden" name="y" id="y" />
-            <input type="hidden" name="w" id="w" />
-            <input type="hidden" name="h" id="h" />
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button id="btn-submit-foto" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Recortar</button>
-        </div>
-    }
+    </div>
 </div>

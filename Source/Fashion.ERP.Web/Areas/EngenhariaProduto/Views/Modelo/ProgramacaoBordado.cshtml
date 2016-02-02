@@ -2,28 +2,28 @@
 
 <div class="detail">
     <div class="row">
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloReferencia)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloDescricao)
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloEstilistaNome)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloDataCriacao)
@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Modelo.NovoProgramacaoBordado(Model.ModeloId), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()

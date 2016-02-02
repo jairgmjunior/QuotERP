@@ -6,27 +6,27 @@
     @Html.ValidationSummary(true)
     @Html.HiddenFor(x => x.Id)
     @Html.HiddenFor(x => x.Nome)
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Nome)
         <div class="controls readonly">
             <b>@Model.Nome</b>
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.SenhaAtual)
         <div class="controls">
             @Html.PasswordFor(x => x.SenhaAtual)
             @Html.ValidationMessageFor(x => x.SenhaAtual, null, new { @class = "help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Senha)
         <div class="controls">
             @Html.PasswordFor(x => x.Senha)
             @Html.ValidationMessageFor(x => x.Senha, null, new { @class = "help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.ConfirmarSenha)
         <div class="controls">
             @Html.PasswordFor(x => x.ConfirmarSenha)

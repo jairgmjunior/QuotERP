@@ -1,7 +1,7 @@
 ﻿@using Fashion.ERP.Reporting.Helpers
 @model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.DetalharModeloModel
 
-<div class="well well-small">
+<div class="well well-sm">
     <div class="btn-toolbar">
         <div class="btn-group">
             @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Modelo.Novo(), new { @class = "btn" })
@@ -30,88 +30,88 @@
 <fieldset class="detail">
     <legend>Dados do modelo</legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Referencia, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Referencia)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Estilista, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Estilista)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.DataCriacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.DataCriacao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.LinhaCasa, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.LinhaCasa)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.TamanhoPadrao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.TamanhoPadrao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Forro, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Forro)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Detalhamento, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Detalhamento)
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Descricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Descricao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Colecao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Colecao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Marca, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Marca)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Grade, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Grade)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Segmento, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Segmento)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.TecidoComplementar, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.TecidoComplementar)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Lavada, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Lavada)
@@ -121,7 +121,7 @@
     </div>
 </fieldset>
 <div class="row">
-    <fieldset class="span6">
+    <fieldset class="col-md-6">
         <legend>Linhas</legend>
         @if (Model.LinhaBordados.IsNullOrEmpty() == false)
         {
@@ -174,7 +174,7 @@
     </fieldset>
     @if (Model.Fotos.IsNullOrEmpty() == false)
     {
-        <fieldset class="span6">
+        <fieldset class="col-md-6">
             <legend>Fotos</legend>
             <table class="table table-striped table-hover table-condensed">
                 <thead>
@@ -210,7 +210,7 @@
         <legend>Variação</legend>
         <!-- .minwidth { min-width:100px; width: auto !important; width: 100px; } -->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
             @foreach (var variacao in Model.Variacoes)
             {
                 <table class="table table-striped table-condensed" style="display:inline-table; min-width:100px; max-width: 300px; width: auto !important;">
@@ -236,7 +236,7 @@
 @if (Model.SequenciaProducao.IsNullOrEmpty() == false)
 {
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
             <fieldset>
                 <legend>Sequência Produção</legend>
 
@@ -264,56 +264,56 @@
 <fieldset class="detail">
     <legend>Modelagem</legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 <label class="title-label">Modelista</label>
                 <div class="value-label">&nbsp;@Html.ValueFor(x => x.Modelista)</div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 <label class="title-label">Modelagem</label>
                 <div class="value-label">&nbsp;@Html.ValueFor(x => x.Modelagem)</div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
             <h5>Detalhamento técnico</h5>
             <hr style="margin: 0"/>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Cós</label>
                 <div class="value-label">@Html.ValueFor(x => x.Cos)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Passante</label>
                 <div class="value-label">@Html.ValueFor(x => x.Passante)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Entrepernas</label>
                 <div class="value-label">@Html.ValueFor(x => x.Entrepernas)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Boca</label>
                 <div class="value-label">@Html.ValueFor(x => x.Boca)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Observação</label>
                 <div class="value-label">@Html.ValueFor(x => x.Observacao)</div>
             </div>
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             <h5>Localizações de etiquetas</h5>
             <hr style="margin: 0"/>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Etiqueta da marca</label>
                 <div class="value-label">@Html.ValueFor(x => x.EtiquetaMarca)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Etiqueta de composição</label>
                 <div class="value-label">@Html.ValueFor(x => x.EtiquetaComposicao)</div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="title-label">Tag</label>
                 <div class="value-label">@Html.ValueFor(x => x.Tag)</div>
             </div>
@@ -324,45 +324,45 @@
 <fieldset class="detail">
     <legend>Aprovação</legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Situacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Situacao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Tag, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Tag)
                 </div>
-            </div><div class="control-group">
+            </div><div class="form-group">
                 @Html.LabelFor(x => x.Dificuldade, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.DificuldadeAprovacao)
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(x => x.DataAprovacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.DisplayFor(x => x.DataAprovacao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.QuantidadeMix, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.QuantidadeMix)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.QuantidadeSubmodelos, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.QuantidadeSubmodelos)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ComplementoAprovacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ComplementoAprovacao)

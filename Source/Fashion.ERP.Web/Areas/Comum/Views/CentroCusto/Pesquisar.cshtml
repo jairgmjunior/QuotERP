@@ -1,28 +1,32 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridCentroCustoModel>
 
-<div id="modal-centrocusto" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar centro de custo</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Comum.CentroCusto.Pesquisar()))
-    {
-        @Html.AntiForgeryToken()
-        <div id="modal-body-centrocusto" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
-                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input id="submit-pesquisar-centrocusto" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+<div id="modal-centrocusto" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Centro de Custo</h3>
             </div>
-            <div id="grid-pesquisa-centrocusto"></div>
+            @using (Html.BeginForm(MVC.Comum.CentroCusto.Pesquisar()))
+            {
+                @Html.AntiForgeryToken()
+                <div id="modal-body-centrocusto" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline form-group">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 68%" />
+                        <input id="submit-pesquisar-centrocusto" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-centrocusto"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-centrocusto" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-centrocusto" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
 <script>
     $(function () {
         // Se o id do centrocusto vier preenchido, preencher o código e o nome
@@ -32,7 +36,8 @@
             $.getJSON('/Comum/CentroCusto/PesquisarId/' + centrocustoId, function (data) {
                 if (data.Id) {
                     $('#codigo-centrocusto').val(data.Codigo);
-                    $('#nome-centrocusto').text(data.Nome);
+                    $('#nome-centrocusto').val(data.Nome);
+                    $('#nome-centrocusto').prop("title", data.Nome);
                 }
             });
         }
@@ -77,13 +82,15 @@
             return false;
         });
             
-        $('#pesquisar-centrocusto').on('click', function () {
-            $('#modal-centrocusto').modal('show').one('hidden', function () {
-                $('#Coluna')[0].selectedIndex = 0;
-                $('input[name$="valor"]').val('');
-                $('#grid-pesquisa-centrocusto').empty();
-            });
+        
+        $('#modal-centrocusto').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="valor"]').val('');
+            $('#grid-pesquisa-centrocusto').empty();
+            $('#grid-pesquisa-centrocusto').prop("class", "");
+            $('#grid-pesquisa-centrocusto').prop("style", "");
         });
+        
         
         var pesquisaCentroCusto = function (codigo) {
             
@@ -94,17 +101,20 @@
                         alert(data.erro);
                         $('#CentroCusto').val('').trigger('change');
                         $('#codigo-centrocusto').val('');
-                        $('#nome-centrocusto').text('');
+                        $('#nome-centrocusto').val('');
+                        $('#nome-centrocusto').prop("title", "");
                     } else {
                         $('#CentroCusto').val(data.Id).trigger('change');
                         $('#codigo-centrocusto').val(data.Codigo);
-                        $('#nome-centrocusto').text(data.Nome);
+                        $('#nome-centrocusto').val(data.Nome);
+                        $('#nome-centrocusto').prop("title", data.Nome);
                     }
                 });
             } else {
                 $('#CentroCusto').val('').trigger('change');
                 $('#codigo-centrocusto').val('');
-                $('#nome-centrocusto').text('');
+                $('#nome-centrocusto').val('');
+                $('#nome-centrocusto').prop("title", '');
             }
             
         };
@@ -128,7 +138,8 @@
             if (data) {
                 $('#CentroCusto').val(data.Id).trigger('change');
                 $('#codigo-centrocusto').val(data.Codigo);
-                $('#nome-centrocusto').text(data.Nome);
+                $('#nome-centrocusto').val(data.Nome);
+                $('#nome-centrocusto').prop("title", data.Nome);
 
                 $('#modal-centrocusto').modal('hide');
             }

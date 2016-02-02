@@ -5,43 +5,43 @@
     <legend><small>Pedido de Compra</small></legend>
     <div class="detail">
         <div class="row">
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.UnidadeEstocadoraNomeFantasia, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.UnidadeEstocadoraNomeFantasia)
                         @Html.HiddenFor(x => x.UnidadeEstocadoraNomeFantasia)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Numero)
                         @Html.HiddenFor(x => x.Numero)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.FornecedorNome, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.FornecedorNome)
                         @Html.HiddenFor(x => x.FornecedorNome)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.CompradorNome, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.CompradorNome)
                         @Html.HiddenFor(x => x.CompradorNome)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.PrazoDescricao, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.PrazoDescricao)
                         @Html.HiddenFor(x => x.PrazoDescricao)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Observacao)
@@ -49,36 +49,36 @@
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SituacaoCompraDescricao, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.SituacaoCompraDescricao)
                         @Html.HiddenFor(x => x.SituacaoCompraDescricao)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.DataCompra)
                         @Html.HiddenFor(x => x.DataCompra)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.PrevisaoEntrega)
                         @Html.HiddenFor(x => x.PrevisaoEntrega)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.MeioPagamentoDescricao, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.MeioPagamentoDescricao)
                         @Html.HiddenFor(x => x.MeioPagamentoDescricao)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.ValorCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.ValorCompra)
@@ -91,15 +91,15 @@
 
     <fieldset>
         <legend><small>Dados do Cancelamento</small></legend>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.MotivoCancelamento)
                     <div class="controls">
                         @Html.DropDownList("MotivoCancelamento", null, "-- Selecione --", new {@class = "input-large"})
                         @Html.ValidationMessageFor(x => x.MotivoCancelamento, null, new {@class = "help-block"})
                     </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.ObservacaoCancelamento)
                     <div class="controls">
                         @Html.EditorFor(x => x.ObservacaoCancelamento)

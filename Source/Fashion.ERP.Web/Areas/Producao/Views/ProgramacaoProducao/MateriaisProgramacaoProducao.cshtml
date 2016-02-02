@@ -16,16 +16,16 @@
     </fieldset>
     <div class="detail">
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.LoteAno, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.LoteAno)
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Colecao)
@@ -34,16 +34,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.DataProgramada, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.DataProgramada)
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Quantidade, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.ValueFor(x => x.Quantidade)
@@ -52,8 +52,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SituacaoProgramacaoProducao, new {@class = "title-label"})
                     <div class="value-label">
                         @Html.DisplayFor(x => x.SituacaoProgramacaoProducao)
@@ -65,7 +65,7 @@
 
     <div class="row">
         @foreach (var foto in Model.Fotos) {
-            <div class="span2" style="width:110px">
+            <div class="col-md-2" style="width:110px">
                 <a href="@foto.Foto" class="thumbnail" data-lightbox='foto'><img src="@foto.Foto" data-title="@foto.Titulo" style="width:100px; height:100px"></a>
                 <p class="k-state-disabled" align="right"><small>Ref.@foto.Titulo</small></p>
             </div>
@@ -75,8 +75,8 @@
     <fieldset>
         <legend><small>Dados dos Materiais</small></legend>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-5">
+                <div class="form-group">
                     @Html.LabelForRequired(x=> x.UnidadeGeral, new { @class = "control-label " })
                     <div class="controls">
                         @Html.DropDownListFor(x => x.UnidadeGeral, null, "-- Selecione --", new { @class = "input-large" })
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             @(Html.Kendo().Grid(Model.GridItens)
                   .Name("GridItens")
                   .Editable(e => e.Mode(GridEditMode.InCell))

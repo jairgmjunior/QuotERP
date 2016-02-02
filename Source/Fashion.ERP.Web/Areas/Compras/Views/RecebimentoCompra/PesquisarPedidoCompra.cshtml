@@ -5,34 +5,34 @@
 <legend><small>Pedido de Compra</small></legend>
     <div class="detail">
         <div class="row">
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.NumeroPedido, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.NumeroPedido)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.FornecedorNome, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.FornecedorNome)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.CompradorNome, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.CompradorNome)
                     </div>
                 </div>
             </div>
-            <div class="span3">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.DataCompra)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.PrevisaoEntrega)

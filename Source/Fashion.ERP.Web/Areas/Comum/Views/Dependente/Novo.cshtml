@@ -9,35 +9,35 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Cliente)
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.GrauDependencia)
         <div class="controls">
             @Html.DropDownList("GrauDependencia")
             @Html.ValidationMessageFor(x => x.GrauDependencia, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Nome)
         <div class="controls">
             @Html.EditorFor(x => x.Nome)
             @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Cpf)
         <div class="controls">
             @Html.EditorFor(x => x.Cpf)
             @Html.ValidationMessageFor(x => x.Cpf, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Rg)
         <div class="controls">
             @Html.EditorFor(x => x.Rg)
             @Html.ValidationMessageFor(x => x.Rg, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.OrgaoExpedidor)
         <div class="controls">
             @Html.EditorFor(x => x.OrgaoExpedidor)

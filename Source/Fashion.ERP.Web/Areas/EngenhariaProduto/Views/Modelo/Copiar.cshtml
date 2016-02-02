@@ -4,14 +4,14 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     <div class="form-actions">
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.ReferenciaExistente)
             <div class="controls">
                 @Html.TextBoxFor(x => x.ReferenciaExistente, new { @class = "input-medium", @readonly = "readonly" })
                 @Html.ValidationMessageFor(x => x.ReferenciaExistente, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.ReferenciaNova)
             <div class="controls">
                 @Html.TextBoxFor(x => x.ReferenciaNova, new { @class = "input-medium" })

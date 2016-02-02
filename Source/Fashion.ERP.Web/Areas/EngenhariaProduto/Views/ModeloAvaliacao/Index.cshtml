@@ -17,16 +17,16 @@
             <div id="collapsePesquisar" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Referencia, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Situacao)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList(), "-- Selecione --")
@@ -35,16 +35,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Descricao, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Descricao, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
                                 <div class="controls">
                                    @Html.EditorFor(x => x.Tag, new { @class = "input-small" })
@@ -53,51 +53,51 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                           <div class="control-group">
+                        <div class="col-md-6">
+                           <div class="form-group">
                                 @Html.LabelForRequired(x => x.ColecaoAprovada)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.ColecaoAprovada, null, "-- Selecione --", new { @class = "input-large" })                    
                                 </div>
                             </div> 
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Estilista)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.Estilista, null, "-- Selecione --", new { @class = "input-large" })                    
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
+                        <div class="col-md-3">
                             
                         </div>
                     </div>
 
                     <div class="well">
                         <div class="row">
-                            <div class="span3">
+                            <div class="col-md-3">
                                 
                             </div>
                         </div>
                         <br />
                         <div class="row">
                             <div  id="row-imprimir" style="display: none">
-                                <div class="span3">
+                                <div class="col-md-3">
                                 </div>
-                                <div class="span3">
+                                <div class="col-md-3">
                                     
                                 </div>
-                                <div class="span3">
+                                <div class="col-md-3">
                                     
                                 </div>
                             </div>
 
                             <div  id="row-listagem">
-                                <div class="span9">
+                                <div class="col-md-9">
                                 </div>
                             </div>
-                            <div class="span3">
+                            <div class="col-md-3">
                                 <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
                                 <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>

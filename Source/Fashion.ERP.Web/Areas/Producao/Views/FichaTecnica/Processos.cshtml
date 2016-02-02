@@ -11,7 +11,7 @@
         <input type="hidden" id="SetorProducaosDicionario" data-value = "@ViewBag.SetorProducaosDicionarioJson" />
         <input type="hidden" id="OperacaoProducaosDicionario" data-value = "@ViewBag.OperacaoProducaosDicionarioJson" />
         <legend><small>Processos Operacionais</small></legend>
-            <div class="control-group">
+            <div class="form-group">
                 @(Html.Kendo().Grid(Model.GridFichaTecnicaProcessos)
                     .Name("GridFichaTecnicaProcessos")
                     .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))

@@ -1,34 +1,39 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel
-<div id="modal-funcionario" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar funcionário</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Comum.Funcionario.Pesquisar()))
-    {
-        @Html.AntiForgeryToken()
-        if (Model.FuncaoFuncionario != null)
-        {
-            foreach (var funcaoFuncionario in Model.FuncaoFuncionario)
-            {
-                <input type="hidden" name="FuncaoFuncionario" value="@funcaoFuncionario.ToString()"/>
-            }
-        }
-        <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium", @style="box-sizing: border-box; -webkit-box-sizing: border-box;"})
-                @Html.TextBoxFor(x => x.ValorPesquisa, new { @class = "pull-left input-xlarge"})
-                <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+
+<div id="modal-funcionario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Funcionário</h3>
             </div>
-            <div id="grid-pesquisa-funcionario"></div>
+            @using (Html.BeginForm(MVC.Comum.Funcionario.Pesquisar()))
+            {
+                @Html.AntiForgeryToken()
+                if (Model.FuncaoFuncionario != null)
+                {
+                    foreach (var funcaoFuncionario in Model.FuncaoFuncionario)
+                    {
+                        <input type="hidden" name="FuncaoFuncionario" value="@funcaoFuncionario.ToString()"/>
+                    }
+                }
+                <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 67%" />
+                        <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-funcionario"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-funcionario" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-funcionario" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
 <script>
     function inicializeComponentePesquisaFuncionario()
     {
@@ -39,7 +44,8 @@
             $.getJSON('/Comum/Funcionario/PesquisarId/' + funcionarioId, function (data) {
                 if (data.Id) {
                     $('#codigo-funcionario').val(data.Codigo);
-                    $('#descricao-funcionario').text(data.Nome).trigger('change');
+                    $('#descricao-funcionario').val(data.Nome).trigger('change');
+                    $('#descricao-funcionario').prop("title", data.Nome);
                 }
             });
         }
@@ -78,13 +84,15 @@
 
             return false;
         });
-        $('#pesquisar-funcionario').on('click', function () {
-            $('#modal-funcionario').modal('show').one('hidden', function () {
-                $('#ColunaPesquisa')[0].selectedIndex = 0;
-                $('input[name$="ValorPesquisa"]').val('');
-                $('#grid-pesquisa-funcionario').empty();
-            });
+
+        $('#modal-funcionario').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            $('#grid-pesquisa-funcionario').empty();
+            $('#grid-pesquisa-funcionario').prop("class", "");
+            $('#grid-pesquisa-funcionario').prop("style", "");
         });
+
         var pesquisaFuncionario = function (codigo) {
             if (codigo) {
                 var funcaoFuncionario = $('input[name$="FuncaoFuncionario"]').map(function() { return this.value; }).get().join();
@@ -94,17 +102,20 @@
                         alert(data.erro);
                         $('#funcionario').val('').trigger('change');
                         $('#codigo-funcionario').val('');
-                        $('#descricao-funcionario').text('').trigger('change');
+                        $('#descricao-funcionario').val('').trigger('change');
+                        $('#descricao-funcionario').prop("title", data.Nome);
                     } else {
                         $('#funcionario').val(data.Id).trigger('change');
                         $('#codigo-funcionario').val(data.Codigo);
-                        $('#descricao-funcionario').text(data.Nome).trigger('change');
+                        $('#descricao-funcionario').val(data.Nome).trigger('change');
+                        $('#descricao-funcionario').prop("title", data.Nome);
                     }
                 });
             } else {
                 $('#funcionario').val('').trigger('change');
                 $('#codigo-funcionario').val('');
-                $('#descricao-funcionario').text('').trigger('change');
+                $('#descricao-funcionario').val('').trigger('change');
+                $('#descricao-funcionario').prop("title", '');
             }
         };
         var entrouKeyDown = false;
@@ -125,8 +136,8 @@
 
                 if (!$('#codigo-funcionario').val()) {
                     $('#funcionario').val('');
-                    $('#descricao-funcionario').text('').trigger('change');
                     $('#descricao-funcionario').val('').trigger('change');
+                    $('#descricao-funcionario').prop("title", '');
                 } else {
                     pesquisaFuncionario($(this).val());
                 }
@@ -145,7 +156,8 @@
             if (data) {
                 $('#funcionario').val(data.Id).trigger('change');
                 $('#codigo-funcionario').val(data.Codigo);
-                $('#descricao-funcionario').text(data.Nome);
+                $('#descricao-funcionario').val(data.Nome);
+                $('#descricao-funcionario').prop("title", data.Nome);
 
                 $('#modal-funcionario').modal('hide');
             }

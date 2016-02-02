@@ -4,8 +4,8 @@
 <fieldset>
     <legend><small>Dados do Recebimento</small></legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Unidade)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
@@ -19,8 +19,8 @@
                 </div>
             </div>
         </div>    
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.SituacaoRecebimentoCompra)
                 <div class="controls">
                     @Html.EditorFor(x => x.SituacaoRecebimentoCompra)
@@ -32,8 +32,8 @@
             if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
             {
                 <div class="row">
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.Numero)
                             <div class="controls">
                                 @Html.EditorFor(x => x.Numero)
@@ -42,8 +42,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.Data)
                             <div class="controls">
                                 @Html.EditorFor(x => x.Data)
@@ -55,12 +55,12 @@
             }
          }
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Fornecedor)
                 <div class="controls">
                     @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                    <div class="input-append">
+                    <div class="input-group">
                         <input id="codigo-fornecedor" class="input-small" type="text" />
                         <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
                         <span id="descricao-fornecedor" class="add-on"></span>
@@ -69,8 +69,8 @@
                 </div>
             </div>  
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Valor)
                 <div class="controls">
                     @Html.EditorFor(x => x.Valor)
@@ -80,8 +80,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
@@ -89,8 +89,8 @@
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
                 <div class="controls">
                     @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })
@@ -160,8 +160,8 @@
     <div class="modal-body" style="min-height:400px">
         <div class="detail">
             <div class="row">
-                <div class="span5">
-                    <div class="control-group">
+                <div class="col-md-5">
+                    <div class="form-group">
                         <label class="title-label">Pedido de Compra</label>
                         <div>
                             @(Html.Kendo().DropDownList()

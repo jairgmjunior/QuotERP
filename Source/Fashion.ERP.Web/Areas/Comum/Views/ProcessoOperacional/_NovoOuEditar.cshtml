@@ -1,7 +1,7 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProcessoOperacionalModel
 
 @Html.HiddenFor(x => x.Id)
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Descricao)
     <div class="controls">
         @Html.EditorFor(x => x.Descricao)
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     @Html.Label("Sequências de Operação", new { @class = "title-label" })
     <div class="controls" style="width: 800px">
         @(Html.Kendo().Grid(Model.SequenciasOperacionais)

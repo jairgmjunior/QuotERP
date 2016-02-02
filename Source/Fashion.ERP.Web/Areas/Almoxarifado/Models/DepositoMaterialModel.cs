@@ -21,7 +21,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Data abertura")]
         [Required(ErrorMessage = "Informe a data de abertura")]
-        public DateTime DataAbertura { get; set; }
+        public DateTime? DataAbertura { get; set; }
 
         [Display(Name = "Unidade")]
         [Required(ErrorMessage = "Informe a unidade")]

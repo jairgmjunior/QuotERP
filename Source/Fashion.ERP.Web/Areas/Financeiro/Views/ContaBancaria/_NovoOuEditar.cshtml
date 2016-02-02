@@ -1,57 +1,57 @@
 ﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.ContaBancariaModel
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.TipoContaBancaria)
     <div class="controls">
         @Html.DropDownListFor(x => x.TipoContaBancaria, Model.TipoContaBancaria.ToSelectList())
         @Html.ValidationMessageFor(x => x.TipoContaBancaria, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Agencia)
     <div class="controls">
         @Html.EditorFor(x => x.Agencia)
         @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.NomeAgencia)
     <div class="controls">
         @Html.EditorFor(x => x.NomeAgencia)
         @Html.ValidationMessageFor(x => x.NomeAgencia, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Conta)
     <div class="controls">
         @Html.EditorFor(x => x.Conta)
         @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Gerente)
     <div class="controls">
         @Html.EditorFor(x => x.Gerente)
         @Html.ValidationMessageFor(x => x.Gerente, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Abertura)
     <div class="controls">
         @Html.EditorFor(x => x.Abertura)
         @Html.ValidationMessageFor(x => x.Abertura, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Telefone)
     <div class="controls">
         @Html.EditorFor(x => x.Telefone)
         @Html.ValidationMessageFor(x => x.Telefone, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.Banco)
     <div class="controls">
-        <div class="input-append">
+        <div class="input-group">
             @Html.HiddenFor(x => x.Banco)
             <input id="codigo-banco" class="input-small" type="text" />
             <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>

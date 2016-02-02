@@ -5,10 +5,10 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     <div class="row">
-        <div class="span6">
+        <div class="col-md-6">
             @Html.Partial("_NovoOuEditar", Model)
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             <div class="accordion" id="accordion-cliente">
                 <div class="accordion-group">
                     <div class="accordion-heading">

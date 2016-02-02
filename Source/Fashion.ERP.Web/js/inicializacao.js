@@ -5,6 +5,18 @@ var isStrict = (function () { return !this; })();
 //utilizada para amazenar um valor temporário de cidade selecionada
 var cidadeDoEstado;
 
+function iconControl() {
+    $(".btn-edit").prepend("<i class='fa fa-pencil fa-fw'></i>"); //botão editar
+    $(".btn-inativar").prepend("<i class='fa fa-ban fa-fw'></i>"); //botão inativar
+    $(".btn-ativar").prepend("<i class='fa fa-power-off fa-fw'></i>"); //botão ativar
+
+    $("#menu > li:nth-child(2) > a:first-child").prepend("<i class='fa fa-archive fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(3) > a:first-child").prepend("<i class='fa fa-edit fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(4) > a:first-child").prepend("<i class='fa fa-shopping-cart fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(5) > a:first-child").prepend("<i class='fa fa-cogs fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(6) > a:first-child").prepend("<i class='fa fa-money fa-fw'></i>"); //Menu
+}
+
 $(document).ready(function () {
 
     Globalize.culture('pt-BR');
@@ -20,6 +32,21 @@ $(document).ready(function () {
         // Espera até o kendoui transformar os controles
         $(":input:visible:enabled:not([readonly]):first").focus();
     }, 100);
+
+    $("#menu > li:nth-child(1) > a:first-child").prepend("<i class='fa fa-home fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(2) > a:first-child").prepend("<i class='fa fa-archive fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(3) > a:first-child").prepend("<i class='fa fa-edit fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(4) > a:first-child").prepend("<i class='fa fa-shopping-cart fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(5) > a:first-child").prepend("<i class='fa fa-cogs fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(6) > a:first-child").prepend("<i class='fa fa-money fa-fw'></i>"); //Menu
+    $("#menu > li:nth-child(7) > a:first-child").prepend("<i class='fa fa-tasks fa-fw'></i>"); //Menu
+
+    $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        $(this).parent().siblings().removeClass('open');
+        $(this).parent().toggleClass('open');
+    });
 
     // Altera o foco para o próximo elemento ao pressionar ENTER.
     $(document).on('keydown', ':input:enabled:not(:button,:submit,textarea)', function (e) {
@@ -192,7 +219,7 @@ $(document).ready(function () {
                 // Se existir um grid, esconder
                 $("#Grid").hide();
                 
-                $(".accordion-body").on('hidden', function () {
+                $(".collapse").on('hidden.bs.collapse', function () {
                     var oldHeight = $pdf.height();
                     var newHeight = $(window).height() - $pdf.offset().top;
                     
@@ -207,24 +234,6 @@ $(document).ready(function () {
                 alert('Ocorreu um erro desconhecido ao gerar o relatório.');
             }
         });
-    });
-    
-    // Define comportamento padrão para os modals
-    $('.modal').on('shown', function() {
-
-        // Pôe o foco no primeiro input
-        setTimeout(function () { $(this).find(":input:visible:enabled:first").focus(); }, 100);
-
-        var that = $('.modal:visible').not(this);
-        var inputs = that.find(':input');
-        inputs.attr('disabled', 'disabled');
-        
-    }).on('hidden', function () {
-        
-        var that = $('.modal:visible').not(this);
-        var inputs = that.find(':input');
-        inputs.removeAttr('disabled');
-        
     });
 
     // Mostra um 'loaging' no meio da tela ao esperar por um carregamento ajax (após 300 milisegundo).
@@ -280,11 +289,11 @@ $(document).ready(function () {
         };
     });
 
-    $('button[name=btn-ModoConsulta]').on('click', function () {
+    $('input[name=btn-ModoConsulta]').parent().on('click', function () {
 
         var $ModoConsulta = $('#ModoConsulta');
 
-        if (this.value == 'impressao') {
+        if ($(this).find("input").val() == 'impressao') {
             $ModoConsulta.val('Imprimir');
 
             $('#row-imprimir').show();
@@ -320,4 +329,58 @@ $(document).on('keydown', 'input[type="text"].numeric-only', function (e) {
          || (key >= 35 && key <= 40) // home, end, left, right
          || (key >= 48 && key <= 57)
          || (key >= 96 && key <= 105));
+});
+
+$(document).ready(function () {
+    $('.input-validation-error').parents('.form-group').addClass('has-error');
+    $('.field-validation-error').addClass('text-danger');
+
+    var form = $('form'),
+        formData = $.data(form[0]),
+        settings = formData.validator.settings,
+        oldErrorPlacement = settings.errorPlacement,
+        oldSuccess = settings.success,
+        oldHighlight = settings.highlight,
+        oldUnhighlight = settings.unhighlight;
+
+    settings.errorPlacement = function (label, element) {
+        // Call old handler so it can update the HTML
+        oldErrorPlacement(label, element);
+
+        // Add Bootstrap classes to newly added elements
+        label.parents('.form-group').addClass('has-error');
+        label.addClass('text-danger');
+    };
+
+    settings.success = function (label) {
+        // Remove error class from <div class="form-group">, but don't worry about
+        // validation error messages as the plugin is going to remove it anyway
+        label.parents('.form-group').removeClass('has-error');
+
+        // Call old handler to do rest of the work
+        oldSuccess(label);
+    };
+
+    settings.highlight = function (element, errorClass) {
+        element = $(element);
+        if (element.parent().hasClass("k-widget")) {
+            element.parent().addClass('input-validation-error');
+        } else {
+            element.addClass('input-validation-error');
+        }
+
+        oldHighlight(element, errorClass);
+    };
+
+    settings.unhighlight = function (element, errorClass) {
+        element = $(element);
+        if (element.parent().hasClass("k-widget")) {
+            element.parent().removeClass('input-validation-error');
+        } else {
+            element.removeClass('input-validation-error');
+            element.parents('.form-group').removeClass('has-error');
+            element.parents('.form-group').find(".field-validation-error").html("").text("");
+        }
+        oldUnhighlight(element, errorClass);
+    };
 });

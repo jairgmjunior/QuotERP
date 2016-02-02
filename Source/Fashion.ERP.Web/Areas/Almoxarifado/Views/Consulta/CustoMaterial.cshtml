@@ -1,51 +1,60 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.CustoMaterialModel
 
 @{ Layout = null; }
-@Html.AntiForgeryToken()
-@Html.HiddenFor(x => x.Id)
 
-<div class="detail">
-    <div class="">
-        <div class="row-fluid">
-            <div class="span3">
-                <a href='@Model.Foto' data-lightbox='foto' title='Material'><img src='@Model.Foto' class='img-rounded' style='width: 100px; height: 100px;'/></a>
-            </div>
-            <div class="span9">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Material, new { @class = "title-label" })
-                    <div class="value-label">
+<div class="modal-header">
+    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+    <h3>Custo do Material</h3>
+</div>
+<div id="modal-body-extratoitem" class="modal-body" style="overflow-y: hidden;">
+    <div class="container-fluid">
+        <div class="col-sm-9">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.Material, new { @class = "control-label font-bold" })
+                <div class="">
+                    <div class="form-control-static no-gutter">
                         @Html.ValueFor(x => x.Material)
                     </div>
                 </div>
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Descricao, new { @class = "title-label" })
-                    <div class="value-label">
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.Descricao, new { @class = "control-label font-bold" })
+                <div class="">
+                    <div class="form-control-static no-gutter">
                         @Html.ValueFor(x => x.Descricao)
                     </div>
                 </div>
-                <div class="control-group">
-                    @Html.LabelFor(x => x.UnidadeMedida, new { @class = "title-label" })
-                    <div class="value-label">
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.UnidadeMedida, new { @class = "control-label font-bold" })
+                <div class="">
+                    <div class="form-control-static no-gutter">
                         @Html.ValueFor(x => x.UnidadeMedida)
                     </div>
                 </div>
-                <div class="control-group">
-                    @Html.LabelFor(x => x.CustoAtual, new { @class = "title-label " })
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.CustoAtual)
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.CustoAtual, new { @class = "control-label font-bold" })
+                <div class="">
+                    <div class="form-control-static no-gutter">
+                        @Html.ValueFor(x => x.CustoAtual)
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-sm-3">
+            <a href='@Model.Foto' data-lightbox='foto' title='Material'><img src='@Model.Foto' class='img-rounded' style='width: 100px; height: 100px;'/></a>
+        </div>
     </div>
-
-    @(Html.Kendo().Grid(Model.Grid)
-          .Name("grid-extratoitem")
-          .Columns(columns =>
-                       {
-                           columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}");
-                           columns.Bound(x => x.Fornecedor);
-                           columns.Bound(x => x.Custo).Format("{0:C5}").HtmlAttributes(new { style = "text-align: right;" });
-                       })
-          )
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(Model.Grid)
+                .Name("grid-extratoitem")
+                .Columns(columns =>
+                            {
+                                columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}");
+                                columns.Bound(x => x.Fornecedor);
+                                columns.Bound(x => x.Custo).Format("{0:C5}").HtmlAttributes(new { style = "text-align: right;" });
+                            })
+                )        
+    </div>
 </div>

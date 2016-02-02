@@ -1017,8 +1017,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-override.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Bootstrap\editor.png" />
@@ -1028,20 +1028,22 @@
     <Content Include="Content\Bootstrap\slider-h.gif" />
     <Content Include="Content\Bootstrap\slider-v.gif" />
     <Content Include="Content\Bootstrap\sprite.png" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\nav-vertical.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\avatar_unknown.jpg" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\no_image.jpg" />
     <Content Include="Content\images\no_image_report.png" />
-    <Content Include="Content\jasny-bootstrap-responsive.css" />
-    <Content Include="Content\jasny-bootstrap-responsive.min.css" />
     <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\jasny-bootstrap.min.css" />
     <Content Include="Content\Jcrop.gif" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\kendo.bootstrap.css" />
     <Content Include="Content\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendo.common-bootstrap.css" />
     <Content Include="Content\kendo.common.css" />
     <Content Include="Content\kendo.common.min.css" />
     <Content Include="Content\layout.css" />
@@ -1287,6 +1289,8 @@
     <None Include="CodeTemplates\MvcView\_NovoOuEditar.cs.t4">
       <LastGenOutput>_NovoOuEditar.cshtml</LastGenOutput>
     </None>
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="font\iconic_fill.eot" />
     <Content Include="font\iconic_stroke.eot" />
     <None Include="DllInscE32.dll">
@@ -1447,14 +1451,25 @@
     <Content Include="Areas\Comum\Views\Barra\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Editar.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\open_sans\OpenSans-Bold.woff" />
+    <Content Include="fonts\open_sans\OpenSans-Extrabold.woff" />
+    <Content Include="fonts\open_sans\OpenSans-Italic.woff" />
+    <Content Include="fonts\open_sans\OpenSans-Light.woff" />
+    <Content Include="fonts\open_sans\OpenSans-Semibold.woff" />
+    <Content Include="fonts\open_sans\OpenSans.woff" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\FashionERP.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jasny-bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

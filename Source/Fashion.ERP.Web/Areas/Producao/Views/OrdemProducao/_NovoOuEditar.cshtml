@@ -3,8 +3,8 @@
 <fieldset>
     <legend><small>Dados básicos</small></legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Numero)
                 <div class="controls">
                     @(Html.Kendo().NumericTextBoxFor(x => x.Numero)
@@ -15,7 +15,7 @@
                     @Html.ValidationMessageFor(x => x.Numero, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Tag)
                 <div class="controls">
                     @Html.TextBoxFor(x => x.Tag, new { @class = "input-small"}) / 
@@ -24,14 +24,14 @@
                     @Html.ValidationMessageFor(x => x.Ano, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Data)
                 <div class="controls">
                     @Html.Kendo().DatePickerFor(x => x.Data).Min(DateTime.Now)
                     @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Descricao)
                 <div class="controls">
                     @Html.TextBoxFor(x => x.Descricao, new { disabled = "disabled" })
@@ -39,7 +39,7 @@
                     @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
@@ -47,29 +47,29 @@
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.SituacaoOrdemProducao)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.SituacaoOrdemProducao, Model.SituacaoOrdemProducao.ToSelectList())
                     @Html.ValidationMessageFor(x => x.SituacaoOrdemProducao, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.TipoOrdemProducao)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.TipoOrdemProducao, Model.TipoOrdemProducao.ToSelectList())
                     @Html.ValidationMessageFor(x => x.TipoOrdemProducao, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.DataProgramacao)
                 <div class="controls">
                     @Html.Kendo().DatePickerFor(x => x.DataProgramacao).Min(DateTime.Now)
                     @Html.ValidationMessageFor(x => x.DataProgramacao, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.DataPrevisao)
                 <div class="controls">
                     @Html.Kendo().DatePickerFor(x => x.DataPrevisao).Min(DateTime.Now)
@@ -134,7 +134,7 @@
 
 <fieldset>
     <legend><small>Fluxo básico</small></legend>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.FluxoDepartamentos)
         <div class="controls">
             @Html.DropDownList("DepartamentoProducao", null, new { @class = "input-large" })

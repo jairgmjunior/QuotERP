@@ -16,7 +16,7 @@
                 <div class="accordion-inner">
                     <div class="row">
                         <div class="span1">
-                            <div class="control-group">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Referencia, new { @class = "input-small" })
@@ -31,7 +31,7 @@
                     
                     <div class="row">
                     <div class="span1">
-                            <div class="control-group">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Descricao)
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Descricao, new { @class = "input-xlarge" })
@@ -41,16 +41,16 @@
                         </div>
 
                     <div class="row">
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Estilista)
                                 <div class="controls">
                                     @Html.DropDownList("Estilista", null, "-- Selecione --", new { @class = "input-xlarge" })
                                 </div>
                             </div>
                         </div>
-                       <div class="span4">
-                            <div class="control-group">
+                       <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Modelista)
                                 <div class="controls">
                                     @Html.DropDownList("Modelista", null, "-- Selecione --", new { @class = "input-xlarge" })
@@ -66,8 +66,8 @@
 
                     <div class="row">
                 
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Colecao)
                                 <div class="controls">
                                     @Html.DropDownList("Colecao", null , "-- Selecione --", new { @class = "input-xlarge" })
@@ -75,8 +75,8 @@
                             </div>
                         </div>
 
-                         <div class="span4">
-                            <div class="control-group">
+                         <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })
@@ -84,8 +84,8 @@
                             </div>
                         </div>
                          
-                        <div class="span4">   
-                            <div class="control-group">
+                        <div class="col-md-4">   
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Classificacao)
                                 <div class="controls">
                                     @Html.DropDownList("Classificacao", null, "-- Selecione --", new { @class = "input-large" })
@@ -93,8 +93,8 @@
                             </div>
                         </div>
 
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Marca)
                                 <div class="controls">
                                     @Html.DropDownList("Marca", null, "-- Selecione --", new { @class = "input-large" })
@@ -102,8 +102,8 @@
                             </div>                        
                         </div>
                         
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.ProdutoBase)
                                 <div class="controls">
                                     @Html.DropDownList("ProdutoBase", null, "-- Selecione --", new { @class = "input-large" })   
@@ -111,8 +111,8 @@
                             </div>
                         </div>
     
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Barra)
                                 <div class="controls">
                                     @Html.DropDownList("Barra", "-- Selecione --")
@@ -120,8 +120,8 @@
                             </div>
                         </div>    
                         
-                        <div class="span4">                       
-                            <div class="control-group">
+                        <div class="col-md-4">                       
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Grade)
                                 <div class="controls">
                                     @Html.DropDownList("Grade", "-- Selecione --")
@@ -129,8 +129,8 @@
                             </div>
                         </div>
     
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Natureza)
                                 <div class="controls">
                                     @Html.DropDownList("Natureza", null, "-- Selecione --", new { @class = "input-large" })
@@ -138,8 +138,8 @@
                             </div>
                         </div>            
 
-                        <div class="span4">
-                                <div class="control-group">
+                        <div class="col-md-4">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.Comprimento)
                                     <div class="controls">
                                         @Html.DropDownList("Comprimento", null, "-- Selecione --", new { @class = "input-large" }) 
@@ -147,8 +147,8 @@
                                 </div>
                             </div>
 
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.ReferenciaMaterial, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.ReferenciaMaterial, new { @class = "input-small" })
@@ -163,7 +163,7 @@
                    
                     <div class="well">
                         <div class="row">
-                            <div class="span3">
+                            <div class="col-md-3">
                                 @Html.HiddenFor(x => x.ModoConsulta)
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button name="btn-ModoConsulta" class="btn btn-info active" type="button" value="listagem">Listagem</button>
@@ -173,24 +173,24 @@
                         </div>
                         <br />
                         <div class="row">
-                            <div class="span3">
-                                <div id="row-imprimir" class="control-group" style="display: none">
+                            <div class="col-md-3">
+                                <div id="row-imprimir" class="form-group" style="display: none">
                                     @Html.LabelForRequired(x => x.AgruparPor)
                                     <div class="controls">
                                         @Html.DropDownList("AgruparPor", "--Selecione--")
                                     </div>
                                 </div>
                             </div>
-                            <div class="span3">
-                                <div class="control-group">
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
                                     <div class="controls">
                                         @Html.DropDownList("OrdenarPor", "--Selecione--")
                                     </div>
                                 </div>
                             </div>
-                            <div class="span3">
-                                <div class="control-group">
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
                                     <div class="controls">
                                         <select name="OrdenarEm">
@@ -200,7 +200,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span3">
+                            <div class="col-md-3">
                                 <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
                                 <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>

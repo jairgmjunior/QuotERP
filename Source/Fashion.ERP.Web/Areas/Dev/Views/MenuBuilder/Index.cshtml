@@ -2,7 +2,7 @@
 
 <div class="row">
     @Html.ValidationSummaryEx()
-    <div class="span6">
+    <div class="col-md-6">
         <fieldset>
             <legend>Estrutura do menu</legend>
             @using (Html.BeginForm("Index", "MenuBuilder", FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
@@ -20,14 +20,14 @@
             }
         </fieldset>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         <fieldset>
             <legend>Ações</legend>
             <div class="well">
-                <div class="control-group">
+                <div class="form-group">
                     <div class="controls">
-                        <div class="input-append">
-                            <input id="descricao-item" class="span2" placeholder="Descrição do menu" type="text">
+                        <div class="input-group">
+                            <input id="descricao-item" class="col-md-2" placeholder="Descrição do menu" type="text">
                             <button id="novo-item" class="btn" type="button">
                                 <i class="icon-ok-sign"></i> Novo
                             </button>

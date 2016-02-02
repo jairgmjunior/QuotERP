@@ -1,5 +1,5 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.PesquisaOrdemEntradaCompraModel
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Compras.OrdemEntradaCompra.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
@@ -15,8 +15,8 @@
             <div id="collapsePesquisar" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.UnidadeEstocadora, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-xlarge" })
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Numero)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Numero, new { @class = "input-small" })
@@ -35,12 +35,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Fornecedor)
                                 <div class="controls">
                                     @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                                    <div class="input-append">
+                                    <div class="input-group">
                                         <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
                                         <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
                                         <span id="descricao-fornecedor" class="add-on"></span>
@@ -48,8 +48,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.SituacaoOrdemEntradaCompra)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.SituacaoOrdemEntradaCompra, Model.SituacaoOrdemEntradaCompra.ToSelectList(), "-- Selecione --")
@@ -58,16 +58,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.DataInicial)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.DataInicial, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.DataFinal)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.DataFinal, new { @class = "input-small" })
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span3">
+                        <div class="col-md-3">
                             <button class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                         </div>
                     </div>

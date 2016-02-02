@@ -6,11 +6,11 @@
 <fieldset>
     <legend><small>Dados da Programação de Produção</small></legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Lote)
                 <div class='controls'>
-                    <div class="input-append">
+                    <div class="input-group">
                         @Html.TextBoxFor(x => x.Lote, new { @class = "input-mini numeric-only" })
                         @Html.TextBoxFor(x => x.Ano, new { @class = "input-mini  numeric-only" })
                         @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
@@ -27,8 +27,8 @@
         </div>
         @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Data)
                     <div class='controls'>
                         @Html.EditorFor(x => x.Data)
@@ -40,8 +40,8 @@
         }
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Colecao)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })                    
@@ -49,8 +49,8 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.DataProgramada, new { @class = "control-label " })
                 <div class="controls">
                     @(Html.Kendo().DatePickerFor(x => x.DataProgramada))                 
@@ -60,12 +60,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Responsavel)
                 <div class="controls">
                     @Html.HiddenFor(x => x.Responsavel, new { id = "funcionario" })
-                    <div class="input-append">
+                    <div class="input-group">
                         <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                         <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                         <span id="descricao-funcionario" class="add-on"></span>
@@ -74,8 +74,8 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Quantidade, new {@class = "title-label"})
                 <div class="controls">
                     @Html.TextBoxFor(x => x.Quantidade,  new { @class = "input-medium" })
@@ -85,8 +85,8 @@
         </div>
     </div>  
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Observacao)
@@ -94,8 +94,8 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
                 <div class="controls">
                     @Html.EditorFor(x => x.SituacaoProgramacaoProducao)
@@ -248,7 +248,7 @@
                 $("#Ano").rules("remove", "required");
 
                 $('#form').validate().resetForm();
-                $(".control-group").removeClass("error");
+                $(".form-group").removeClass("error");
                 $(".input-validation-error").removeClass("input-validation-error");
                 $("label[for='Lote']").removeClass("required-label");
             } else {

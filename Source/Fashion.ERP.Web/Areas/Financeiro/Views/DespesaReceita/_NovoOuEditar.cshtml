@@ -1,12 +1,12 @@
 ﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.DespesaReceitaModel
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.TipoDespesaReceita)
     <div class="controls">
         @Html.DropDownListFor(x => x.TipoDespesaReceita, Model.TipoDespesaReceita.ToSelectList())
         @Html.ValidationMessageFor(x => x.TipoDespesaReceita, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
 	@Html.LabelForRequired(x => x.Descricao)
 	<div class="controls">
 		@Html.EditorFor(x => x.Descricao)

@@ -1,32 +1,39 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.DepositoMaterialModel
+
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-sm-6">
+        <div class="form-group form-group-sm">
             @Html.LabelForRequired(x => x.Unidade)
-            <div class="controls">
-                @Html.DropDownList("Unidade")
+            <div class="col-sm-8 col-md-8 col-lg-7">
+                @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.Unidade, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group form-group-sm">
             @Html.LabelForRequired(x => x.Nome)
-            <div class="controls">
-                @Html.EditorFor(x => x.Nome)
+            <div class="col-sm-8 col-md-8 col-lg-7">
+                @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group form-group-sm">
             @Html.LabelForRequired(x => x.DataAbertura)
-            <div class="controls">
+            <div class="col-sm-8 col-md-8 col-lg-7">
                 @Html.EditorFor(x => x.DataAbertura)
                 @Html.ValidationMessageFor(x => x.DataAbertura, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group form-group-sm">
             @Html.LabelForRequired(x => x.Funcionarios)
-            <div class="controls">
-                @Html.DropDownList("Funcionario", null, new { @class = "input-large"})
-                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+            <div class="col-sm-8 col-md-8 col-lg-7">
+                <div class="input-group">
+                    @Html.DropDownList("Funcionario", null,  "-- Selecione --", new { @class = "form-control"})
+                    <span class="input-group-btn">
+                        <button id="btn-add" class="btn btn-default btn-sm " type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
                 <table id="table-funcionario" class="table table-striped table-condensed" style="width: 250px">
                     <thead>
                         <tr>
@@ -44,7 +51,13 @@
                                         @(ViewBag.FuncionariosDicionario[funcionario])
                                         <input type="hidden" name="Funcionarios" value="@(funcionario)"/>
                                     </td>
-                                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Delete(this)">
+                                            <button id="btn-remove" class="btn btn-default btn-sm " type="button">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </button>
+                                        </a>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -53,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         <div class="well">
             @(Html.TreeView(Model.TreeView)
                 .EmptyContent("Não há depósito de materiais cadastrados.")
@@ -94,6 +107,9 @@
             var funcionarioId = $('#Funcionario').val();
             var funcionario = $('#Funcionario option:selected').text();
 
+            if ($('#Funcionario option:selected').val() == "")
+                return;
+
             // Verificar se já está na lista
             var cadastrado = false;
             $('input[name=Funcionarios]').each(function () {
@@ -108,8 +124,7 @@
                 $('#table-funcionario tbody').append(
                     '<tr>\
                     <td>' + funcionario + '<input type="hidden" name="Funcionarios" value="' + funcionarioId + '"/></td>\
-                    <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
-                </tr>');
+                    <td><a href="javascript:void(0)" onclick="Delete(this)"><button id="btn-remove" class="btn btn-default btn-sm " type="button"><span class="glyphicon glyphicon-minus"></span></button></td>\</tr>');
             }
         });
     });

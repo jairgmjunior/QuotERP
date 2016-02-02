@@ -1,6 +1,6 @@
 ﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.PesquisaChequeRecebidoModel
 
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Financeiro.ChequeRecebido.Novo(), new { @class = "btn btn-primary" })
 </div>
 @using (Html.BeginForm(MVC.Financeiro.ChequeRecebido.Index(), FormMethod.Post, new { @class = "form-horizontal  small-labels" }))
@@ -16,24 +16,24 @@
             <div id="collapsePesquisar" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Emitente, new { @class = "control-label "})
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Emitente, new { @class = "input-medium"})
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Cliente, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Cliente, new { @class = "input-medium"})
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.NumeroCheque, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "input-small" })
@@ -42,16 +42,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.DropDownList("Unidade", "-- Selecione --")
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.VencimentoDe, new { @class = "control-label"})
                                 <div class="controls">
                                     @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
@@ -62,8 +62,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Compensado, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.Compensado, Model.Compensado.ToSelectList(), "-- Selecione --")
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span12">
+                        <div class="col-md-12">
                             <button class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 ﻿@model Fashion.ERP.Web.Areas.Compras.Models.OrdemEntradaCompraModel
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.UnidadeEstocadora)
             <div class="controls">
                 @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-large" })
@@ -11,26 +11,26 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Numero)
             <div class="controls">
                 @Html.EditorFor(x => x.Numero)
                 @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Data)
             <div class="controls">
                 @Html.EditorFor(x => x.Data)
                 @Html.ValidationMessageFor(x => x.Data, null, new { @class = "help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Fornecedor)
             <div class="controls">
                 @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-fornecedor" class="add-on"></span>
@@ -38,19 +38,19 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Comprador)
             <div class="controls">
                 @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-funcionario" class="add-on"></span>
                 </div>
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Observacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Observacao)
@@ -62,12 +62,12 @@
 <fieldset>
     <legend></legend>
     <div class="row">
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.Label("numero-pedidocompra", "Numero", new { @class = "control-label" })
                 <div class="controls">
                     @Html.Hidden("PedidoCompra")
-                    <div class="input-append">
+                    <div class="input-group">
                         <input id="numero-pedidocompra" class="input-small" type="text" />
                         <button id="pesquisar-pedidocompra" class="btn" type="button"><i class="icon-search"></i></button>
                     </div>
@@ -79,7 +79,7 @@
         </div>
     </div>
     
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <table id="table-sequencia" class="table table-striped table-condensed" style="width: 800px">
                 <thead>
@@ -148,7 +148,7 @@
                     }
                 </tbody>
             </table>
-            <div class="span7"><b class="pull-right">Total compra: R$ <span id="TotalGeral">0,00</span></b></div>
+            <div class="col-md-7"><b class="pull-right">Total compra: R$ <span id="TotalGeral">0,00</span></b></div>
         </div>
     </div>
 

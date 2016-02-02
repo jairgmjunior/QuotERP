@@ -1,30 +1,34 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Almoxarifado.Models.GridMaterialModel>
 
-<div id="modal-material" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar material</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Almoxarifado.Material.Pesquisar()))
-    {
-        @Html.AntiForgeryToken()
-        <div id="modal-body-material" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
-                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input name="TipoItemMaterial" type="hidden"/>
-                <input name="FornecedorMaterial" id="FornecedorMaterial" type="hidden" />
-                <input id="submit-pesquisar-material" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+<div id="modal-material" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Material</h3>
             </div>
-            <div id="grid-pesquisa-material"></div>
+            @using (Html.BeginForm(MVC.Almoxarifado.Material.Pesquisar()))
+            {
+                @Html.AntiForgeryToken()
+                <div id="modal-body-material" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 56%" />
+                        <input name="TipoItemMaterial" type="hidden"/>
+                        <input name="FornecedorMaterial" id="FornecedorMaterial" type="hidden" />
+                        <input id="submit-pesquisar-material" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-material"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-material" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-material" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
 <script>
     $(function () {
         // Se o id do material vier preenchido, preencher o código e descrição
@@ -34,7 +38,8 @@
             $.getJSON('/Almoxarifado/Material/PesquisarId/' + materialId, function (data) {
                 if (data.Id) {
                     $('#referencia-material').val(data.Referencia);
-                    $('#descricao-material').text(data.Descricao);
+                    $('#descricao-material').val(data.Descricao);
+                    $('#descricao-material').prop("title", data.Descricao);
                 }
             });
         }
@@ -75,14 +80,15 @@
 
             return false;
         });
-            
-        $('#pesquisar-material').on('click', function () {
-            $('#modal-material').modal('show').one('hidden', function () {
-                $('#ColunaPesquisa')[0].selectedIndex = 0;
-                $('input[name$="ValorPesquisa"]').val('');
-                $('#grid-pesquisa-material').empty();
-            });
+
+        $('#modal-material').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            $('#grid-pesquisa-material').empty();
+            $('#grid-pesquisa-material').prop("class", "");
+            $('#grid-pesquisa-material').prop("style", "");
         });
+
         var pesquisaMaterial = function (referencia) {
             if (referencia) {
                 var url = '@Html.GetUrl(MVC.Almoxarifado.Material.PesquisarReferencia())?referencia=' + referencia;
@@ -91,17 +97,20 @@
                         alert(data.erro);
                         $('#Material').val('').trigger('change');
                         $('#referencia-material').val('');
-                        $('#descricao-material').text('');
+                        $('#descricao-material').val('');
+                        $('#descricao-fornecedor').prop("title", "");
                     } else {
                         $('#Material').val(data.Id).trigger('change');
                         $('#referencia-material').val(data.Referencia);
-                        $('#descricao-material').text(data.Descricao);
+                        $('#descricao-material').val(data.Descricao);
+                        $('#descricao-material').prop("title", data.Descricao);
                     }
                 });
             } else {
                 $('#Material').val('').trigger('change');
                 $('#referencia-material').val('');
-                $('#descricao-material').text('');
+                $('#descricao-material').val('');
+                $('#descricao-material').prop("title", "");
             }
         };
 
@@ -123,12 +132,12 @@
 
                 if (!$('#referencia-material').val()) {
                     $('#Material').val('');
-                    $('#descricao-material').text('');
                     $('#descricao-material').val('');
+                    $('#descricao-material').prop("title", '');
                 } else {
                     pesquisaMaterial($(this).val());
                 }
-        }
+            }
         });
         $('#selecionar-material').on('click', selecionarMaterial);
         
@@ -142,9 +151,10 @@
             if (data) {
                 $('#Material').val(data.Id).trigger('change');
                 $('#referencia-material').val(data.Referencia);
-                $('#descricao-material').text(data.Descricao);
-                $('#referencia-externa').text(data.ReferenciaExterna);
+                $('#descricao-material').val(data.Descricao);
+                $('#descricao-material').prop("title", "");
 
+                $('#referencia-externa').text(data.ReferenciaExterna);
                 $('#modal-material').modal('hide');
             }
         }

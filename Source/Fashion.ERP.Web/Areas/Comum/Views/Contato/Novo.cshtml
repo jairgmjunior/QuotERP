@@ -8,35 +8,35 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Pessoa)
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.TipoContato)
         <div class="controls">
             @Html.DropDownListFor(p => p.TipoContato, Model.TipoContato.ToSelectList())
             @Html.ValidationMessageFor(x => x.TipoContato, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Nome)
         <div class="controls">
             @Html.EditorFor(x => x.Nome)
             @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Telefone)
         <div class="controls">
             @Html.EditorFor(x => x.Telefone)
             @Html.ValidationMessageFor(x => x.Telefone, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Operadora)
         <div class="controls">
             @Html.EditorFor(x => x.Operadora)
             @Html.ValidationMessageFor(x => x.Operadora, null, new { @class="help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Email)
         <div class="controls">
             @Html.EditorFor(x => x.Email)

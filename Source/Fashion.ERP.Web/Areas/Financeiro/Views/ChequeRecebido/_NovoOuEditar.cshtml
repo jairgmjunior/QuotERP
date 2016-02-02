@@ -15,15 +15,15 @@
     <div class="tab-content">
         <div class="tab-pane active" id="cadastro">
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Unidade)
                         <div class="controls">
                             @Html.DropDownList("Unidade")
                             @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Cmc7)
                         <div class="controls">
                             <div class="input-prepend">
@@ -37,10 +37,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Banco)
                         <div class="controls">
-                            <div class="input-append">
+                            <div class="input-group">
                                 @Html.HiddenFor(x => x.Banco)
                                 <input id="codigo-banco" class="input-small" type="text" />
                                 <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
@@ -49,35 +49,35 @@
                             @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Agencia)
                         <div class="controls">
                             @Html.TextBoxFor(x => x.Agencia)
                             @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Conta)
                         <div class="controls">
                             @Html.TextBoxFor(x => x.Conta)
                             @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.NumeroCheque)
                         <div class="controls">
                             @Html.TextBoxFor(x => x.NumeroCheque)
                             @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Valor)
                         <div class="controls">
                             @Html.EditorFor(x => x.Valor)
                             @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.DataEmissao)
                         <div class="controls">
                             @Html.EditorFor(x => x.DataEmissao)
@@ -85,25 +85,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.DataVencimento)
                         <div class="controls">
                             @Html.EditorFor(x => x.DataVencimento)
                             @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.DataProrrogacao)
                         <div class="controls">
                             @Html.EditorFor(x => x.DataProrrogacao)
                             @Html.ValidationMessageFor(x => x.DataProrrogacao, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Cliente)
                         <div class="controls">
-                            <div class="input-append">
+                            <div class="input-group">
                                 @Html.HiddenFor(x => x.Cliente)
                                 <input id="codigo-cliente" class="input-small" type="text" />
                                 <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
@@ -112,7 +112,7 @@
                             @Html.ValidationMessageFor(x => x.Cliente, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Emitente)
                         <div class="controls">
                             <button id="cadastrar-emitente" class="btn" type="button"><i class="icon-edit"></i>Editar</button>
@@ -120,7 +120,7 @@
                             @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Observacao)
                         <div class="controls">
                             @Html.EditorFor(x => x.Observacao)
@@ -132,25 +132,25 @@
         </div>
         <div class="tab-pane" id="complemento">
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Nominal)
                         <div class="controls">
                             @Html.EditorFor(x => x.Nominal)
                             @Html.ValidationMessageFor(x => x.Nominal, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Praca)
                         <div class="controls">
                             @Html.EditorFor(x => x.Praca)
                             @Html.ValidationMessageFor(x => x.Praca, null, new { @class = "help-block" })
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label">Funcionarios</label>
                         <div class="controls">
-                            <div class="input-append">
+                            <div class="input-group">
                                 <input id="codigo-funcionario" class="input-small" type="text" />
                                 <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                                 <button id="adicionar-funcionario" class="btn" type="button">Adicionar</button>
@@ -173,10 +173,10 @@
                                   ))
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label">Prestadores de serviço</label>
                         <div class="controls">
-                            <div class="input-append">
+                            <div class="input-group">
                                 <input id="codigo-prestadorservico" class="input-small" type="text" />
                                 <button id="pesquisar-prestadorservico" class="btn" type="button"><i class="icon-search"></i></button>
                                 <button id="adicionar-prestadorservico" class="btn" type="button">Adicionar</button>
@@ -199,7 +199,7 @@
                                   ))
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Historico)
                         <div class="controls">
                             @Html.TextAreaFor(x => x.Historico, new { @readonly = "readonly" })
@@ -207,8 +207,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Compensado)
                         <div class="controls">
                             @if (Model.Compensado)
@@ -217,7 +217,7 @@
                             { <i class="icon-ban-circle"></i> }
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.Saldo)
                         <div class="controls">
                             <b>@((Model.Saldo.HasValue ? Model.Saldo.Value : 0).ToString("c"))</b>
@@ -225,7 +225,7 @@
                     </div>
                     @if (Model.Id.HasValue)
                     {
-                        <div class="control-group">
+                        <div class="form-group">
                             <label class="control-label">Ocorrências</label>
                             <div class="controls">
 
@@ -243,7 +243,7 @@
                                       ))
                             </div>
                         </div>
-                        <div class="control-group">
+                        <div class="form-group">
                             <label class="control-label">Baixas realizadas</label>
                             <div class="controls">
                                 @(Html.Kendo().Grid<GridBaixaChequeRecebidoModel>()

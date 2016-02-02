@@ -14,6 +14,8 @@ namespace Links
             public static readonly string JasnyBootstrap = "~/Content/jasnybootstrap";
             public static readonly string FotoUpload = "~/Content/fotoupload";
             public static readonly string Lightbox = "~/Content/lightbox-img";
+            public static readonly string SmartMenus = "~/Content/smartmenus.bootstrap";
+            
         }
         #endregion
 
@@ -56,19 +58,19 @@ namespace Fashion.ERP.Web
 
             bundles.Add(new StyleBundle(Links.Bundles.Styles.Login)
                             .Include("~/Content/login.css"));
+            
+            bundles.Add(new StyleBundle(Links.Bundles.Styles.Kendo)
+                            .Include("~/Content/kendo.common-bootstrap.css",
+                                     "~/Content/kendo.bootstrap.css"));
 
             bundles.Add(new StyleBundle(Links.Bundles.Styles.Bootstrap)
                             .Include("~/Content/bootstrap.css",
-                                     "~/Content/bootstrap-responsive.css",
+                                     //"~/Content/bootstrap-theme.css",
                                      "~/Content/bootstrap-override.css"));
-
-            bundles.Add(new StyleBundle(Links.Bundles.Styles.Kendo)
-                            .Include("~/Content/kendo.common.css",
-                                     "~/Content/kendo.bootstrap.css"));
 
             bundles.Add(new StyleBundle(Links.Bundles.Styles.JasnyBootstrap)
                             .Include("~/Content/jasny-bootstrap.css",
-                                     "~/Content/jasny-bootstrap-responsive.css"));
+                                     "~/Content/font-awesome.min.css"));
 
             bundles.Add(new StyleBundle(Links.Bundles.Styles.FotoUpload)
                             .Include("~/Content/jquery.Jcrop.css"));
@@ -76,9 +78,9 @@ namespace Fashion.ERP.Web
             bundles.Add(new StyleBundle(Links.Bundles.Styles.Lightbox)
                             .Include("~/Content/lightbox.css"));
 
-            bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
-            "~/Content/kendo/kendo.common.min.css",
-            "~/Content/kendo/kendo.default.min.css"));
+            //bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
+            //"~/Content/kendo/kendo.common.min.css",
+            //"~/Content/kendo/kendo.default.min.css"));
 
             /////////////////// Scripts ////////////////////////
 

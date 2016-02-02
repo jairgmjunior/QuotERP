@@ -1,5 +1,13 @@
-﻿<input class="input-small" id="Referencia" name="Referencia" type="text" value="" data-bind="value: Referencia">
-<button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
+﻿<div class="col-sm-2 no-gutter ">
+    <div class="input-group">
+        <input class="k-input k-textbox" id="Referencia" name="Referencia" type="text" value="" data-bind="value: Referencia" style="width: 90px">
+        <span class="input-group-btn">
+            <button id="pesquisar-material" class="btn btn-default btn-sm" type="button" data-toggle="modal" data-target="#modal-material" style="height: 17px">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+</div>
 
 <script>
     $(function () {
@@ -42,14 +50,6 @@
             return false;
         });
             
-        $('#pesquisar-material').on('click', function () {
-            $('#modal-material').modal('show').one('hidden', function () {
-                $('#ColunaPesquisa')[0].selectedIndex = 0;
-                $('input[name$="ValorPesquisa"]').val('');
-                $('#grid-pesquisa-material').empty();
-            });
-        });
-
         var pesquisaMaterial = function (referencia) {
             if (referencia) {
                 var tipoItemMaterial = $("#TipoItem").val();

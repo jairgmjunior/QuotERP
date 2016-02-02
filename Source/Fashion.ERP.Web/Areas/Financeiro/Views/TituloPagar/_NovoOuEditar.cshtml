@@ -2,8 +2,8 @@
 @model Fashion.ERP.Web.Areas.Financeiro.Models.TituloPagarModel
 
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Unidade)
             <div class="controls liquidado-parcial">
                 @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-large" })
@@ -11,8 +11,8 @@
             </div>
         </div>
     </div>
-    <div class="span6 detail">
-        <div class="control-group">
+    <div class="col-md-6 detail">
+        <div class="form-group">
             @Html.LabelFor(x => x.SituacaoTitulo, new { @class = "title-label", style = "width: 160px; text-align: right;" })
             <div class="value-label">
                 @Html.EditorFor(x => x.SituacaoTitulo, "SituacaoTitulo")
@@ -22,8 +22,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             <label class="control-label">Número/Parcela</label>
             <div class="controls liquidado-parcial">
                 @Html.TextBoxFor(x => x.Numero, new { @class = "input-small" })
@@ -33,8 +33,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Plano)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Plano)
@@ -44,12 +44,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Fornecedor)
             <div class="controls liquidado-parcial">
                 @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-fornecedor" class="add-on"></span>
@@ -57,8 +57,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Emissao)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Emissao)
@@ -68,8 +68,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Vencimento)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Vencimento)
@@ -77,8 +77,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Prorrogacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Prorrogacao)
@@ -88,8 +88,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Valor)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Valor)
@@ -98,8 +98,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelFor(x => x.SaldoDevedor, new { @class = "control-label" })
             <div class="controls">
                 @Html.TextBoxFor(x => x.SaldoDevedor, "{0:R$ 0.00}", new { disabled = "disabled", id = "SaldoDevedorDisabled"})
@@ -110,8 +110,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Historico)
             <div class="controls">
                 @Html.EditorFor(x => x.Historico)
@@ -119,11 +119,11 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Banco)
             <div class="controls liquidado-parcial">
-                <div class="input-append">
+                <div class="input-group">
                     @Html.HiddenFor(x => x.Banco)
                     <input id="codigo-banco" class="input-small" type="text" />
                     <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
@@ -135,8 +135,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Observacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Observacao)
@@ -147,10 +147,10 @@
 </div>
 
 <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
         <fieldset>
             <legend class="required-label">Rateio por centro de custo</legend>
-            <div class="control-group">
+            <div class="form-group">
                 @(Html.Kendo().Grid(Model.CentroCustos)
                         .Name("GridCentroCusto")
                         .Editable(e => e.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))
@@ -179,12 +179,12 @@
         </fieldset>
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
 
         <fieldset>
             <legend class="required-label">Rateio por tipo de despesa</legend>
 
-            <div class="control-group">
+            <div class="form-group">
                 @(Html.Kendo().Grid(Model.DespesaReceitas)
                         .Name("GridDespesaReceita")
                         .Editable(e => e.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))

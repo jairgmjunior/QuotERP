@@ -1,8 +1,8 @@
 ﻿@using Fashion.ERP.Domain.Financeiro
 @model Fashion.ERP.Web.Areas.Financeiro.Models.TituloReceberModel
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Unidade)
             <div class="controls liquidado-parcial">
                 @Html.DropDownList("Unidade", null, "-- Selecione --", new { @class = "input-large" })
@@ -10,8 +10,8 @@
             </div>
         </div>
     </div>
-    <div class="span6 detail">
-        <div class="control-group">
+    <div class="col-md-6 detail">
+        <div class="form-group">
             @Html.LabelFor(x => x.SituacaoTitulo, new { @class = "title-label", style = "width: 160px; text-align: right;" })
             <div class="value-label">
                 @Html.EditorFor(x => x.SituacaoTitulo, "SituacaoTitulo")
@@ -21,8 +21,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             <label class="control-label">Número/Parcela</label>
             <div class="controls liquidado-parcial">
                 @Html.TextBoxFor(x => x.Numero, new { @class = "input-small" })
@@ -32,8 +32,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Plano)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Plano)
@@ -43,12 +43,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Cliente)
             <div class="controls liquidado-parcial">
                 @Html.HiddenFor(x => x.Cliente, new { id = "Cliente" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-cliente" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-cliente" class="add-on"></span>
@@ -56,8 +56,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Emissao)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Emissao)
@@ -67,12 +67,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Funcionario)
             <div class="controls liquidado-parcial">
                 @Html.HiddenFor(x => x.Funcionario, new { id = "funcionario" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-funcionario" class="add-on"></span>
@@ -80,8 +80,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Vencimento)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Vencimento)
@@ -91,12 +91,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Banco)
             <div class="controls liquidado-parcial">
                 @Html.HiddenFor(x => x.Banco, new { id = "Banco" })
-                    <div class="input-append">
+                    <div class="input-group">
                     <input id="codigo-banco" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-banco" class="add-on"></span>
@@ -104,8 +104,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Prorrogacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Prorrogacao)
@@ -115,8 +115,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Valor)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.Valor)
@@ -125,8 +125,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelFor(x => x.SaldoDevedor, new { @class = "control-label" })
             <div class="controls">
                 @Html.TextBoxFor(x => x.SaldoDevedor, "{0:R$ 0.00}", new { disabled = "disabled", id = "SaldoDevedorDisabled" })
@@ -137,8 +137,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.ValorDespesas)
             <div class="controls liquidado-parcial">
                 @Html.EditorFor(x => x.ValorDespesas)
@@ -147,8 +147,8 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelFor(x => x.ValorTotal, new { @class = "control-label" })
                 <div class="controls">
                     @Html.TextBoxFor(x => x.ValorTotal, "{0:R$ 0.00}", new { disabled = "disabled", id = "ValorTotalDisabled" })
@@ -159,8 +159,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span10">
-        <div class="control-group">
+    <div class="col-md-10">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Historico)
             <div class="controls input-xxlarge">
                 @Html.TextBoxFor(x => x.Historico, new { @class = "input-xlarge" })
@@ -170,8 +170,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="span10">
-        <div class="control-group">
+    <div class="col-md-10">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Observacao)
             <div class="controls">
                 @Html.TextAreaFor(x => x.Observacao,  new { @class = "input-xlarge" })

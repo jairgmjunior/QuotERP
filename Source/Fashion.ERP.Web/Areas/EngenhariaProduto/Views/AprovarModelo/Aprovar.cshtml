@@ -3,29 +3,29 @@
 <hr/>
 <div class="detail">
     <div class="row">
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Referencia, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Referencia)
                     @Html.HiddenFor(x => x.Referencia)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.DescricaoModelo, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.DescricaoModelo)
                     @Html.HiddenFor(x => x.DescricaoModelo)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.NaturezaDescricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.NaturezaDescricao)
                     @Html.HiddenFor(x => x.NaturezaDescricao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ArtigoDescricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ArtigoDescricao)
@@ -33,29 +33,29 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelFor(x => x.EstilistaNome, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.EstilistaNome)
                     @Html.HiddenFor(x => x.EstilistaNome)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.DataCriacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.DataCriacao)
                     @Html.HiddenFor(x => x.DataCriacao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ClassificacaoDescricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ClassificacaoDescricao)
                     @Html.HiddenFor(x => x.ClassificacaoDescricao)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.Observacao)
@@ -70,29 +70,29 @@
 	@Html.AntiForgeryToken()
 	@Html.HiddenFor(x => x.Id)
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.DataAprovacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.DataAprovacao)
                     @Html.ValidationMessageFor(x => x.DataAprovacao, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Tag)
                 <div class="controls">
                     @Html.EditorFor(x => x.Tag)
                     @Html.ValidationMessageFor(x => x.Tag, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Colecao)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })
                     @Html.ValidationMessageFor(x => x.Colecao, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.QuantidadeProducao)
                 <div class="controls">
                     @Html.EditorFor(x => x.QuantidadeProducao)
@@ -100,22 +100,22 @@
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
                 <div class="controls">
                     @Html.DropDownList("ClassificacaoDificuldade", null, "-- Selecione --", new { @class = "input-large" })
                     @Html.ValidationMessageFor(x => x.ClassificacaoDificuldade, null, new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.ProgramacaoProducao)
                 <div class="controls">
                     @Html.EditorFor(x => x.ProgramacaoProducao)
                     @Html.ValidationMessageFor(x => x.ProgramacaoProducao, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.ObservacaoAprovacao)
                 <div class="controls">
                     @Html.EditorFor(x => x.ObservacaoAprovacao)

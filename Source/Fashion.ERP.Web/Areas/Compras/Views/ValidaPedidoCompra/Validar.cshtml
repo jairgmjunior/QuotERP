@@ -9,43 +9,43 @@
     <legend><small>Pedido de Compra</small></legend>
     <div class="detail">
         <div class="row">
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.UnidadeEstocadora, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.UnidadeEstocadora)
                         @Html.HiddenFor(x => x.UnidadeEstocadora)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Numero, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Numero)
                         @Html.HiddenFor(x => x.Numero)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Fornecedor, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Fornecedor)
                         @Html.HiddenFor(x => x.Fornecedor)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Comprador, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Comprador)
                         @Html.HiddenFor(x => x.Comprador)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Prazo, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Prazo)
                         @Html.HiddenFor(x => x.Prazo)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Observacao, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.Observacao)
@@ -53,36 +53,36 @@
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelFor(x => x.SituacaoCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.SituacaoCompra)
                         @Html.HiddenFor(x => x.SituacaoCompra)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.DataCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.DataCompra)
                         @Html.HiddenFor(x => x.DataCompra)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.PrevisaoEntrega, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.PrevisaoEntrega)
                         @Html.HiddenFor(x => x.PrevisaoEntrega)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.MeioPagamento, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.ValueFor(x => x.MeioPagamento)
                         @Html.HiddenFor(x => x.MeioPagamento)
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelFor(x => x.ValorCompra, new { @class = "title-label" })
                     <div class="value-label">
                         @Html.DisplayFor(x => x.ValorCompra)
@@ -96,15 +96,15 @@
     <div>
         <fieldset>
             <legend><small>Dados da Validação</small></legend>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Funcionario)
                     <div class="controls">
                         @Html.DropDownList("Funcionario", null, "-- Selecione --", new { @class = "input-large" })
                         @Html.ValidationMessageFor(x => x.Funcionario, null, new { @class = "help-block" })
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Assinatura)
                     <div class="controls">
                         @Html.PasswordFor(x => x.Assinatura, new { autocomplete="off" })
@@ -112,8 +112,8 @@
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.ObservacaoValidacao)
                     <div class="controls">
                         @Html.EditorFor(x => x.ObservacaoValidacao)
@@ -129,8 +129,8 @@
 
     <legend><small>Itens do Pedido de Compra</small></legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group" style="width: 800px">
+        <div class="col-md-6">
+            <div class="form-group" style="width: 800px">
                 @(Html.Kendo().Grid(Model.GridItensPedidoCompra)
                       .Name("Grid")
                       .Columns(columns =>

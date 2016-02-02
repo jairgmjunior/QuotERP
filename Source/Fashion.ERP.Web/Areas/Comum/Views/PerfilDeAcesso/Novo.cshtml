@@ -5,14 +5,14 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Nome)
         <div class="controls">
             @Html.EditorFor(x => x.Nome)
             @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.Permissoes)
         <div class="controls">
             @(Html.TreeView(Model.PermissoesList)

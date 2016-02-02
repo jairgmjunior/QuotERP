@@ -18,262 +18,364 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     @Html.HiddenFor(x => x.Ativo)
-    <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Referencia)
-                <div class="controls">
-                    @if (this.IsEditar())
-                    {
-                        @Html.HiddenFor(x => x.Referencia)
-                        @Html.UneditableTextBoxFor(x => x.Referencia)
-                    }
-                    else
-                    {
-                        @Html.TextBoxFor(x => x.Referencia, new { @class = "input-small" })
+    
+    <fieldset>
+        <legend><small>Dados do Material</small></legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Referencia)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @if (this.IsEditar())
+                        {
+                            @Html.HiddenFor(x => x.Referencia)
+                            @Html.UneditableTextBoxFor(x => x.Referencia, new { @class = "form-control" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(x => x.Referencia, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Referencia, null, new { @class = "help-block" })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Descricao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Referencia, null, new { @class = "help-block" })
-                    }
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Descricao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Descricao)
-                    @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Detalhamento)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Detalhamento)
-                    @Html.ValidationMessageFor(x => x.Detalhamento, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.UnidadeMedida)
-                <div class="controls">
-                    @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.UnidadeMedida, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Categoria)
-                <div class="controls">
-                    @Html.DropDownList("Categoria", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Categoria, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Subcategoria)
-                <div class="controls">
-                    @Html.DropDownList("Subcategoria", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Subcategoria, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Familia)
-                <div class="controls">
-                    @Html.DropDownList("Familia", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Familia, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.MarcaMaterial)
-                <div class="controls">
-                    @Html.DropDownList("MarcaMaterial", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.MarcaMaterial, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Ncm)
-                <div class="controls">
-                    @Html.TextBoxFor(x => x.Ncm, new { data_mask = "99999999" })
-                    @Html.ValidationMessageFor(x => x.Ncm, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Aliquota)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Aliquota, "numeric")
-                    @Html.ValidationMessageFor(x => x.Aliquota, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.GeneroFiscal)
-                <div class="controls">
-                    @Html.DropDownList("GeneroFiscal", null, new { @class = "input-xlarge" })
-                    @Html.ValidationMessageFor(x => x.GeneroFiscal, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.TipoItem)
-                <div class="controls">
-                    @Html.DropDownList("TipoItem", null, new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.TipoItem, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.PesoBruto)
-                <div class="controls">
-                    @Html.EditorFor(x => x.PesoBruto, "numeric")
-                    @Html.ValidationMessageFor(x => x.PesoBruto, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.PesoLiquido)
-                <div class="controls">
-                    @Html.EditorFor(x => x.PesoLiquido, "numeric")
-                    @Html.ValidationMessageFor(x => x.PesoLiquido, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.OrigemSituacaoTributaria)
-                <div class="controls">
-                    @Html.DropDownList("OrigemSituacaoTributaria", null, new { @class = "input-xlarge" })
-                    @Html.ValidationMessageFor(x => x.OrigemSituacaoTributaria, null, new { @class = "help-block" })
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.FotoNome)
-                <div class="controls">
-                    @Html.HiddenFor(x => x.FotoId)
-                    <div class="clearfix">
-                        <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
-                            <div class="thumbnail">
-                                <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
-                            </div>
-                            <div>
-                                <span class="btn btn-file">
-                                    <span class="fileupload-new">Novo</span>
-                                    <span class="fileupload-exists">Alterar</span>
-                                    <input type="file" name="foto" />
-                                    @Html.HiddenFor(x => x.FotoNome)
-                                </span>
-                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Detalhamento)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextAreaFor(x => x.Detalhamento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Detalhamento, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.UnidadeMedida)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownList("UnidadeMedida", null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Detalhamento, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Categoria)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Categoria, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Categoria, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Subcategoria)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Subcategoria, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Subcategoria, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Familia)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Familia, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Familia, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.MarcaMaterial)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.MarcaMaterial, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.MarcaMaterial, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Ncm)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Ncm, new { data_mask = "99999999", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Ncm, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Aliquota)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.Aliquota, "numeric")
+                        @Html.ValidationMessageFor(x => x.Aliquota, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.GeneroFiscal)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.GeneroFiscal, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.GeneroFiscal, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.TipoItem)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.TipoItem, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.TipoItem, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.PesoBruto)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.PesoBruto, "numeric")
+                        @Html.ValidationMessageFor(x => x.PesoBruto, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.PesoLiquido)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.PesoLiquido, "numeric")
+                        @Html.ValidationMessageFor(x => x.PesoLiquido, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.OrigemSituacaoTributaria)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.OrigemSituacaoTributaria, null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.OrigemSituacaoTributaria, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.CodigoBarra)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.CodigoBarra, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.CodigoBarra, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Localizacao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Localizacao, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Localizacao, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelForRequired(x => x.FotoNome)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.HiddenFor(x => x.FotoId)
+                        <div class="clearfix">
+                            <div class="fileinput @(temFoto ? "fileinput-exists" : "fileinput-new")" data-provides="fileinput" data-crop="crop">
+                                <div class="thumbnail" data-trigger="fileinput">
+                                    <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
+                                </div>
+                                <div>
+                                    <span class="btn-default btn btn-file">
+                                        <span class="fileinput-new">Novo</span>
+                                        <span class="fileinput-exists">Alterar</span>
+                                        <input type="file" name="foto" />
+                                        @Html.HiddenFor(x => x.FotoNome)
+                                    </span>
+                                    <a href="javascript:void(0)" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="progress" style="display: none">
-                        <div class="bar"></div>
-                    </div>
-                    @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.CodigoBarra)
-                <div class="controls">
-                    @Html.EditorFor(x => x.CodigoBarra)
-                    @Html.ValidationMessageFor(x => x.CodigoBarra, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Localizacao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Localizacao)
-                    @Html.ValidationMessageFor(x => x.Localizacao, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Referência externa</label>
-                <div class="controls">
-                    <button id="adicionar-referencia-externa" class="btn" type="button">Adicionar</button>
-                    @(Html.Kendo().Grid((IEnumerable<ReferenciaExternaModel>)ViewBag.ReferenciaExternas)
-                          .Name("grid-referencias")
-                          .Columns(columns =>
-                          {
-                              columns.Bound(x => x.Referencia);
-                              columns.Bound(x => x.Descricao);
-                              columns.Bound(x => x.Preco).Format("{0:C}");
-                              columns.Bound(x => x.NomeFornecedor);
-                              columns.Bound(x => x.Id)
-                                  .ClientTemplate("<a href='/Almoxarifado/Material/RemoverReferenciaExterna/#= Id #' onclick='RemoverReferenciaExterna(this, event)' class='delete btn btn-small btn-danger'> X </a>")
-                                  .Title("")
-                                  .Width(30);
-                          }).DataSource(s => s.Ajax()
-                              .Read(r => r.Action("LerReferenciaExternas", "Material").Type(HttpVerbs.Get))
-                          ))
-                </div>
-            </div>
-            <div id="bordado">
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.BordadoDescricao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.BordadoDescricao)
-                        @Html.ValidationMessageFor(x => x.BordadoDescricao, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.BordadoPontos)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.BordadoPontos)
-                        @Html.ValidationMessageFor(x => x.BordadoPontos, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.BordadoAplicacao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.BordadoAplicacao)
-                        @Html.ValidationMessageFor(x => x.BordadoAplicacao, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.BordadoObservacao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.BordadoObservacao)
-                        @Html.ValidationMessageFor(x => x.BordadoObservacao, null, new { @class = "help-block" })
-                    </div>
-                </div>
-            </div>
-            <div id="tecido">
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.TecidoComposicao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.TecidoComposicao)
-                        @Html.ValidationMessageFor(x => x.TecidoComposicao, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.TecidoArmacao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.TecidoArmacao)
-                        @Html.ValidationMessageFor(x => x.TecidoArmacao, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.TecidoGramatura)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.TecidoGramatura)
-                        @Html.ValidationMessageFor(x => x.TecidoGramatura, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.TecidoLargura)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.TecidoLargura)
-                        @Html.ValidationMessageFor(x => x.TecidoLargura, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="control-group">
-                    @Html.LabelForRequired(x => x.TecidoRendimento)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.TecidoRendimento)
-                        @Html.ValidationMessageFor(x => x.TecidoRendimento, null, new { @class = "help-block" })
+                        <div class="progress" style="display: none">
+                            <div class="bar"></div>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @if (this.IsEditar())
-        {
-            @Html.ExcluirAuth(MVC.Almoxarifado.Material.Excluir(Model.Id))
-        }
+
+        <div class="row">
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <div class="form-group form-group-sm">
+                    @Html.Label("ReferenciaExterna", "Referência Externa", new { @class = "control-label col-sm-2 col-lg-2" })
+                    <div class="col-sm-8 col-md-8 col-lg-9">
+                        <button id="adicionar-referencia-externa" class="btn btn-sm btn-default" type="button">Adicionar</button>
+                                @(Html.Kendo().Grid((IEnumerable<ReferenciaExternaModel>)ViewBag.ReferenciaExternas)
+                                      .Name("grid-referencias")
+                                      .Columns(columns =>
+                                      {
+                                          columns.Bound(x => x.Referencia);
+                                          columns.Bound(x => x.Descricao);
+                                          columns.Bound(x => x.Preco).Format("{0:C}");
+                                          columns.Bound(x => x.NomeFornecedor);
+                                          columns.Bound(x => x.Id)
+                                              .ClientTemplate("<a href='/Almoxarifado/Material/RemoverReferenciaExterna/#= Id #' onclick='RemoverReferenciaExterna(this, event)' class=' delete btn btn-default btn-sm'><span class='glyphicon glyphicon-minus'></span></a>")
+                                              .Title("")
+                                              .Width(30);
+                                      }).DataSource(s => s.Ajax()
+                                          .Read(r => r.Action("LerReferenciaExternas", "Material").Type(HttpVerbs.Get))
+                                      ))
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <div id="bordado">
+        <fieldset>
+            <legend><small>Dados do Bordado</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.BordadoDescricao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.BordadoDescricao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.BordadoDescricao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.BordadoPontos)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.BordadoPontos, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.BordadoPontos, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.BordadoAplicacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.BordadoAplicacao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.BordadoAplicacao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.BordadoObservacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.BordadoObservacao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.BordadoObservacao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </fieldset>
+    </div>     
+
+    <div id="tecido">
+        <fieldset>
+            <legend><small>Dados do Tecido</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.TecidoComposicao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.TecidoComposicao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.TecidoComposicao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.TecidoArmacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.TecidoArmacao, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.TecidoArmacao, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.TecidoGramatura)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.TecidoGramatura, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.TecidoGramatura, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.TecidoLargura)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.TecidoLargura, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.TecidoLargura, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.TecidoRendimento)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.TecidoRendimento, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.TecidoRendimento, null, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </fieldset>
+    </div>   
+
+    <div class="row">
+        <div class="col-sm-6 form-group-sm"> 
+            <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                @if (this.IsEditar())
+                {
+                    @Html.ExcluirAuth(MVC.Almoxarifado.Material.Excluir(Model.Id))
+                }
+            </div>
+        </div>     
     </div>
 }
+
 @{Html.RenderPartial("_RecortarImagem");}
 
 <script>
@@ -419,7 +521,75 @@
         onChangeCategoria($('#Categoria'));
     });
 </script>
-<!-- CADASTRO DE REFERÊNCIAS EXTERNAS -->
+
+
+<div id="modal-referencias-externas" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Referência Externa</h3>
+            </div>
+            <form id="form-cadastrar-referencias-externas" class="form-horizontal">
+                <div id="modal-body-referencias-externas" class="modal-body" style="overflow-y: hidden;">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Referência", new { @class = "control-label col-sm-4 col-md-3" })
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <input type="text" name="Referencia" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Descrição", new { @class = "control-label col-sm-4 col-md-3" })
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <input id="descricao-referencia-externa" type="text" name="Descricao" class="form-control" />
+                        </div>
+                    </div> 
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Cod. Barras", new { @class = "control-label col-sm-4 col-md-3" })
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <input type="text" name="CodigoBarra" class="form-control" />
+                        </div>
+                    </div> 
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Preço", new { @class = "control-label col-sm-4 col-md-3" })
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @(Html.Kendo().NumericTextBox().Name("Preco")
+                                  .Format("c")
+                                  .Min(0)
+                                  .HtmlAttributes(new { @class = "currency" }))
+                        </div>
+                    </div>  
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Fornecedor", new { @class = "control-label col-sm-4 col-md-3" })
+                        <div class="col-sm-8 col-md-8 col-lg-7  ">
+                            @Html.Hidden("Fornecedor")
+                            <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                <div class="input-group">
+                                    <input id="codigo-fornecedor" class="numeric-only form-control" type="text" style="width: 70%;">
+                                    <span class="input-group-btn pull-left">
+                                        <button id="pesquisar-fornecedor" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-fornecedor">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                <input id="descricao-fornecedor" class="form-control" readonly="" data-toggle="tooltip">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="submit-salvar-referencias-externas" class="btn btn-primary" type="button">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<!-- CADASTRO DE REFERÊNCIAS EXTERNAS -->
 <div id="modal-referencias-externas" class="modal hide fade">
     <div class="modal-header">
         <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
@@ -427,37 +597,37 @@
     </div>
     <form id="form-cadastrar-referencias-externas" class="form-horizontal">
         <div id="modal-body-referencias-externas" class="modal-body">
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Referência</label>
                 <div class="controls">
                     <input type="text" name="Referencia" class="input-small" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Descrição</label>
                 <div class="controls">
                     <input id="descricao-referencia-externa" type="text" name="Descricao" class="input-medium" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Cod. Barras</label>
                 <div class="controls">
                     <input type="text" name="CodigoBarra" class="input-medium" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Preço</label>
                 <div class="controls">
                     @(Html.Kendo().NumericTextBox().Name("Preco")
-                        .Format("c")
-                        .Min(0)
-                        .HtmlAttributes(new { @class = "currency input-small" }))
+                          .Format("c")
+                          .Min(0)
+                          .HtmlAttributes(new { @class = "currency input-small" }))
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Fornecedor</label>
                 <div class="controls">
-                    <div class="input-append">
+                    <div class="input-group">
                         @Html.Hidden("Fornecedor")
                         <input id="codigo-fornecedor" class="input-small" type="text" />
                         <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
@@ -471,7 +641,8 @@
             <button id="submit-salvar-referencias-externas" class="btn btn-primary" type="button">Salvar</button>
         </div>
     </form>
-</div>
+</div>*@
+
 <script>
     $(function () {
         

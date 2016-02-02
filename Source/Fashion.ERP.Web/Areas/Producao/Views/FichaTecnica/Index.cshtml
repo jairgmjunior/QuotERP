@@ -2,7 +2,7 @@
 
 @section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
 
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Producao.FichaTecnica.Novo(), new { @class = "btn btn-primary" })
 </div>
 @using (Html.BeginForm(MVC.Producao.FichaTecnica.Index(), FormMethod.Post, new { @class = "form-horizontal  small-labels" }))
@@ -18,16 +18,16 @@
             <div id="collapsePesquisar" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label "})
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Referencia, new { @class = "input-medium"})
                                 </div>
                             </div>
                         </div>
-                        <div class="span5">
-                            <div class="control-group">
+                        <div class="col-md-5">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })/
@@ -37,16 +37,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Descricao, new { @class = "control-label "})
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Descricao)
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.ClassificacaoDificuldade, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.DropDownList("ClassificacaoDificuldade", null, "-- Selecione --", new { @class = "input-large" })
@@ -55,24 +55,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Estilista)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.Estilista, null, "-- Selecione --", new { @class = "input-large" })                    
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.DataCadastro, new { @class = "control-label"})
                                 <div class="controls">
                                     @(Html.Kendo().DatePickerFor(x => x.DataCadastro))
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.Label("DataCadastroAte", "Até", new { @class = "control-label"})
                                 <div class="controls">
                                     @(Html.Kendo().DatePickerFor(x => x.DataCadastroAte))
@@ -81,16 +81,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span6">
-                            <div class="control-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Catalogo, new {@class = "control-label"})
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Catalogo)
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Colecao, new { @class = "control-label"})
                                 <div class="controls">
                                     @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
@@ -100,7 +100,7 @@
                     </div>
                     <div class="well">
                         <div class="row">
-                            <div class="span3">
+                            <div class="col-md-3">
                                 <div class="btn-group" data-toggle="buttons-radio">
                                     <button name="btn-ModoConsulta" class="btn btn-info active" type="button" value="listagem">Listagem</button>
                                     <button name="btn-ModoConsulta" class="btn btn-info" type="button" value="impressao">Impressão</button>
@@ -109,26 +109,26 @@
                         </div>
                         <br />
                         <div class="row">
-        <div class="span10">
+        <div class="col-md-10">
             <div id="row-imprimir" style="display: none">
-                <div class="span3">
-                    <div class="control-group">
+                <div class="col-md-3">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.AgruparPor)
                         <div class="controls">
                             @Html.DropDownList("AgruparPor", "--Selecione--")
                         </div>
                     </div>
                 </div>
-                <div class="span3">
-                    <div class="control-group">
+                <div class="col-md-3">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
                         <div class="controls">
                             @Html.DropDownList("OrdenarPor", "--Selecione--")
                         </div>
                     </div>
                 </div>
-                <div class="span3">
-                    <div class="control-group">
+                <div class="col-md-3">
+                    <div class="form-group">
                         @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
                         <div class="controls">
                             <select name="OrdenarEm">
@@ -140,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <div class="span3">
+        <div class="col-md-3">
             <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
             <button id="pesquisar-grid-ajax" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
         </div>

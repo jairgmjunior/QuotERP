@@ -17,8 +17,8 @@
             <div id="marcadormatrizcorte-alert-error"></div>
             <fieldset>
                 <div class="row">
-                    <div class="span4">
-                        <div class="control-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.TipoEnfestoTecido, new {@class = "title-label"})
                             <div class="controls">
                                 @Html.DropDownListFor(x => x.TipoEnfestoTecido, TipoEnfestoTecido.Pares.ToSelectListValues())
@@ -26,8 +26,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span4">
-                        <div class="control-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.TotalEnfesto, new {@class = "title-label"})
                             <div class="controls">
                                 @Html.TextBoxFor(m => m.TotalEnfesto, new  { @class = "input-small", @readonly = "readonly"})
@@ -36,8 +36,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span4">
-                        <div class="control-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.QuantidadeItem, new {@class = "title-label"})
                             <div class="controls">
                                 @(Html.Kendo().NumericTextBoxFor(m => m.QuantidadeItem)
@@ -48,8 +48,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span4">
-                        <div class="control-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.TotalNumeroVezes, new {@class = "title-label"})
                             <div class="controls">
                                 @Html.TextBoxFor(m => m.TotalNumeroVezes, new { @class = "input-small", @readonly = "readonly"})

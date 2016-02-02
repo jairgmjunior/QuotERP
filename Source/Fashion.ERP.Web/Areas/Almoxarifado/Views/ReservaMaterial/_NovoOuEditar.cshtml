@@ -4,11 +4,11 @@
 <fieldset>
     <legend><small>Dados da Reserva de Material</small></legend>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label " })
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "input-large" })                    
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Unidade)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "form-control" })                    
                     @Html.ValidationMessageFor(x => x.Unidade, string.Empty, new { @class = "help-block" })
                     @{
                         if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
@@ -19,100 +19,108 @@
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.SituacaoReservaMaterial)
-                <div class="controls">
-                    @Html.EditorFor(x => x.SituacaoReservaMaterial)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    <p class="form-control-static form-group-sm">@Model.SituacaoReservaMaterial.EnumToString()</p>
                 </div>
             </div>
         </div>
     </div>
         @{
-        if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-        {
-            <div class="row">
-                <div class="span6">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Numero)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Numero)
-                            @Html.HiddenFor(x => x.Numero)
-                            @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+            if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+            {
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Numero)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.Numero, new { @class = "numeric-only form-control" })
+                                @Html.HiddenFor(x => x.Numero)
+                                @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                            </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Data)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.EditorFor(x => x.Data)
+                                @Html.HiddenFor(x => x.Data)
+                                @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-                <div class="span4">
-                    <div class="control-group">
-                        @Html.LabelForRequired(x => x.Data)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Data)
-                            @Html.HiddenFor(x => x.Data)
-                            @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
-                        </div>
-                    </div>
-                </div>  
-            </div>
-        }
+            }
         }
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.ReferenciaOrigem, new { @class = "control-label" })
-                <div class="controls">
-                    @Html.TextBoxFor(x => x.ReferenciaOrigem, new { @class = "input-small" })
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.ReferenciaOrigem)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.ReferenciaOrigem, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.ReferenciaOrigem, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Colecao)
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })                    
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control" })                    
                     @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Requerente)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
                     @Html.HiddenFor(x => x.Requerente, new { id = "funcionario" })
-                    <div class="input-append">
-                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-funcionario" class="add-on"></span>
+                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                        <div class="input-group">
+                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                            <span class="input-group-btn pull-left">
+                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
                     </div>
                     @Html.ValidationMessageFor(x => x.Requerente, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.DataProgramacao)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.EditorFor(x => x.DataProgramacao)
+                    @Html.HiddenFor(x => x.DataProgramacao)
                     @Html.ValidationMessageFor(x => x.DataProgramacao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>  
     </div>
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Observacao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Observacao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
     </div>
  </fieldset>
-
 
 <fieldset>
     <legend><small>Itens da Reserva de Material</small></legend>
@@ -122,14 +130,14 @@
             .Columns(columns =>
             {
                 columns.Bound(x => x.Id).Hidden();            
-                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("12%");
+                columns.Bound(x => x.Referencia).EditorTemplateName("BotaoPesquisaMaterialGrid").Width("140px");
                 columns.Bound(x => x.Descricao);
                 columns.Bound(x => x.UnidadeMedida).Width(100);
                 columns.Bound(x => x.QuantidadeSolicitada).EditorTemplateName("numeric").ClientTemplate("#= kendo.toString(QuantidadeSolicitada, \"n4\") #").Width(100);
                 columns.Bound(x => x.QuantidadeAtendida).EditorTemplateName("numeric").ClientTemplate("#= kendo.toString(QuantidadeAtendida, \"n4\") #").Width(100);
                 columns.Bound(x => x.QuantidadeCancelada).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #").Width(100);
                 columns.Bound(x => x.SituacaoReservaMaterial).Template(s => s.SituacaoReservaMaterial.EnumToString());   
-                columns.Command(command =>  { command.Edit(); command.Destroy(); } );
+                columns.Command(command =>  { command.Edit(); command.Destroy(); } ).Width(220);
             })
             .DataSource(s => s.Ajax()
                 .Model(model =>
@@ -165,9 +173,9 @@
 
     function onEditGrid(e) {
         $("#Descricao").attr("readonly", true);
-        $("#Descricao").width('86%');
+        $("#Descricao").addClass('k-input k-textbox');
         $("#UnidadeMedida").attr("readonly", true);
-        $("#UnidadeMedida").addClass("input-small");
+        $("#UnidadeMedida").addClass("k-input k-textbox");
         $("#QuantidadeSolicitada").data("kendoNumericTextBox").wrapper.width("100px");
         if (!e.model.isNew()) {
             $("#Referencia").attr("readonly", true);

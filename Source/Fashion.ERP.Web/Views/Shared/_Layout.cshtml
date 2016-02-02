@@ -12,26 +12,29 @@
     @RenderSection("css")
     @RenderSection("javascript")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <body>
+        <div class="navmenu navmenu-default navmenu-fixed-left  offcanvas">
+            <a class="navmenu-brand" href="~/"><b>FashionERP</b></a>    
+            @*<a class="navmenu-brand" href="~/"><img src="~/Content/images/logo.png" style="height: 20px;"/></a>    *@
+            @siteMap.Menu()
+            
+            
+
+        </div>
+        <div class="container-fluid">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="~/"><img src="~/Content/images/logo.png" /></a>
-                <div class="nav-collapse" style="height: auto;">
-                    @siteMap.Menu()
-                </div>
-                
+                </button>
+                        
                 @if (Request.IsAuthenticated)
                 {
-                    <ul class="nav pull-right">
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="divider-vertical"></li>
                         <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">@HttpContext.Current.User.Identity.Name<b class="caret"></b></a>
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class='fa fa-user fa-fw'></i>@HttpContext.Current.User.Identity.Name<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLinkAuth("Alterar senha", MVC.Comum.Usuario.AlterarSenha())</li>
                                 <li>@Html.ActionLink("Sair", MVC.Home.Logout())</li>
@@ -39,28 +42,30 @@
                         </li>
                     </ul>
                 }
-                
-                <img src="/Content/images/ajax-loader.gif" class="ajax-loading pull-right" />
-            </div>
+                    
+            <img src="/Content/images/ajax-loader.gif" class="ajax-loading pull-right" />
+            </div>            
         </div>
-    </div>
-    <div class="page">
-        @if (Request.RawUrl != "/")
-        {
-            @siteMap.SiteMapPath()
-        }
-        @Html.Partial("_Message")
-        @RenderBody()
-    </div>
-    <footer class="container-fluid">
-        <div class="row-fluid">
-            <div class="pull-left">
-                Fashion ERP © 2015 | <i class="icon-envelope icon-white"></i>&nbsp;contato@fashionsistemas.com.br
-            </div>
-            <div class="pull-right">
-                Desenvolvido por <a href="http://www.fashionsistemas.com.br" target="_blank">Fashion Consultoria &amp; Sistemas</a>
-            </div>
+
+        <div class="page container-fluid">
+            @if (Request.RawUrl != "/")
+            {
+                @siteMap.SiteMapPath()
+            }
+            @Html.Partial("_Message")
+            @RenderBody()
         </div>
-    </footer>
-</body>
+        <footer class="container-fluid">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="pull-left">
+                        <p>Fashion ERP © 2015 | <span class="glyphicon glyphicon-envelope"></span>contato@fashionsistemas.com.br</p>
+                    </div>
+                    <div class="pull-right">
+                        <p>Desenvolvido por Fashion Consultoria & Sistemas</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>

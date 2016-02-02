@@ -3,28 +3,28 @@
 <hr/>
 <div class="detail">
     <div class="row">
-        <div class="span3">
-            <div class="control-group">
+        <div class="col-md-3">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloReferencia)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloDescricao)
                 </div>
             </div>
         </div>
-        <div class="span3">
-            <div class="control-group">
+        <div class="col-md-3">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloEstilistaNome)
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
                 <div class="value-label">
                     @Html.ValueFor(x => x.ModeloDataCriacao)
@@ -46,15 +46,15 @@
     @Html.HiddenFor(x => x.ModeloDataCriacao)
 
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 <label class="control-label">Variação</label>
                 <div class="controls">
                     @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "input-large" })
                     @Html.ValidationMessage("Variacao", new { @class = "help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">Cor</label>
                 <div class="controls">
                     @Html.DropDownList("Cor", null, "-- Selecione --", new { @class = "input-large" })

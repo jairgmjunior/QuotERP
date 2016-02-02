@@ -12,24 +12,24 @@
             <div id="collapsePesquisar" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Referencia, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Descricao)
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Descricao, new { @class = "input-xlarge" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span2">
-                            <div class="control-group">
+                        <div class="col-md-2">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Aprovado)
                                 <div class="controls">
                                     @Html.EditorFor(x => x.Aprovado)
@@ -38,24 +38,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span4">
-                            <div class="control-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Estilista)
                                 <div class="controls">
                                     @Html.DropDownList("Estilista", null, "-- Selecione --", new { @class = "input-xlarge" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Marca)
                                 <div class="controls">
                                     @Html.DropDownList("Marca", "-- Selecione --")
                                 </div>
                             </div>
                         </div>
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Colecao)
                                 <div class="controls">
                                     @Html.DropDownList("Colecao", "-- Selecione --")
@@ -65,16 +65,16 @@
                     </div>
                     <div class="well">
                         <div class="row">
-                            <div class="span3">
-                                <div class="control-group">
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
                                     <div class="controls">
                                         @Html.DropDownList("OrdenarPor", "--Selecione--")
                                     </div>
                                 </div>
                             </div>
-                            <div class="span3">
-                                <div class="control-group">
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
                                     <div class="controls">
                                         <select name="OrdenarEm">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span3">
+                            <div class="col-md-3">
                                 <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>

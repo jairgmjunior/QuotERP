@@ -3,52 +3,52 @@
 @Html.HiddenFor(x => x.Modelo)
 
 <div class="row">
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.ProgramadorBordado)
             <div class="controls">
                 @Html.HiddenFor(x => x.ProgramadorBordado, new { id = "funcionario" })
-                <div class="input-append">
+                <div class="input-group">
                     <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                     <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                     <span id="descricao-funcionario" class="add-on"></span>
                 </div>
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Descricao)
             <div class="controls">
                 @Html.EditorFor(x => x.Descricao)
                 @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.QuantidadePontos)
             <div class="controls">
                 @Html.Kendo().IntegerTextBoxFor(m => m.QuantidadePontos).HtmlAttributes(new { @class = "integer input-small" })
                 @Html.ValidationMessageFor(x => x.QuantidadePontos, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.QuantidadeCores)
             <div class="controls">
                 @Html.Kendo().IntegerTextBoxFor(m => m.QuantidadeCores).HtmlAttributes(new { @class = "integer input-small" })
                 @Html.ValidationMessageFor(x => x.QuantidadeCores, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.NomeArquivo)
             <div class="controls">
                 @Html.EditorFor(x => x.NomeArquivo)
                 @Html.ValidationMessageFor(x => x.NomeArquivo, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
 	        @Html.LabelForRequired(x => x.ArquivoId)
             <div class="controls">
                 <div class="fileupload fileupload-new" data-provides="fileupload">
-                    <div class="input-append">
-                        <div class="uneditable-input span3">
+                    <div class="input-group">
+                        <div class="uneditable-input col-md-3">
                             <i class="icon-file fileupload-exists"></i>
                             <span class="fileupload-preview">@Html.ValueFor(x => x.NomeArquivoUpload)</span>
                         </div>
@@ -69,22 +69,22 @@
             </div>
         </div>
     </div>
-    <div class="span6">
-        <div class="control-group">
+    <div class="col-md-6">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Data)
             <div class="controls">
                 @Html.EditorFor(x => x.Data)
                 @Html.ValidationMessageFor(x => x.Data, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Aplicacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Aplicacao)
                 @Html.ValidationMessageFor(x => x.Aplicacao, null, new { @class="help-block" })
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             @Html.LabelForRequired(x => x.Observacao)
             <div class="controls">
                 @Html.EditorFor(x => x.Observacao)

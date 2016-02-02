@@ -12,7 +12,7 @@ if ($.validator && $.validator.unobtrusive) {
                 this.findByName(element.name).addClass(errorClass).removeClass(validClass);
             } else {
                 $(element).addClass(errorClass).removeClass(validClass);
-                $(element).closest('.control-group').removeClass('success').addClass('error');
+                $(element).closest('.form-group').removeClass('success').addClass('error');
             }
         },
         unhighlight: function (element, errorClass, validClass) {
@@ -20,7 +20,7 @@ if ($.validator && $.validator.unobtrusive) {
                 this.findByName(element.name).removeClass(errorClass);
             } else {
                 $(element).removeClass(errorClass);
-                $(element).closest('.control-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('error');
             }
         }
     });

@@ -4,7 +4,7 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.ValidaRecebimentoPedido)
         <div class="controls">
             @Html.EditorFor(x => x.ValidaRecebimentoPedido)
@@ -12,7 +12,7 @@
         </div>
     </div>
     
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelForRequired(x => x.PercentualCriacaoPedidoAutorizadoRecebimento)
         <div class="controls">
             @Html.EditorFor(x => x.PercentualCriacaoPedidoAutorizadoRecebimento, "percent")

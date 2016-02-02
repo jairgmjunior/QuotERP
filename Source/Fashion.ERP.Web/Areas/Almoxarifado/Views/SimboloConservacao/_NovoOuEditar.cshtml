@@ -18,15 +18,15 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     <div class="row">
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Descricao)
                 <div class="controls">
                     @Html.EditorFor(x => x.Descricao)
                     @Html.ValidationMessageFor(x => x.Descricao, null, new {@class = "help-block"})
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.CategoriaConservacao)
                 <div class="controls">
                     @Html.DropDownListFor(x => x.CategoriaConservacao, Model.CategoriaConservacao.ToSelectList())
@@ -37,8 +37,8 @@
         </div>
 
 
-        <div class="span6">
-            <div class="control-group">
+        <div class="col-md-6">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.FotoNome)
                 <div class="controls">
                     @Html.HiddenFor(x => x.FotoId)

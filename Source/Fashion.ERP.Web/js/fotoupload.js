@@ -8,7 +8,7 @@ function inicializeFotoUpload() {
     var sendFile = function () {
 
         var $inputFile = $(this);
-        var $fileupload = $inputFile.closest('.fileupload');
+        var $fileinput = $inputFile.closest('.fileinput');
         var inputFilename = $inputFile.siblings('input[name=FotoNome]');
 
         // Espera o componente completar a ação
@@ -35,7 +35,7 @@ function inicializeFotoUpload() {
             form.append($inputFile);
 
             // Verificar se é para usar o Crop
-            var useCrop = $fileupload.attr('data-crop') == 'crop';
+            var useCrop = $fileinput.attr('data-crop') == 'crop';
 
 
             // Envia a imagem via ajax
@@ -53,7 +53,7 @@ function inicializeFotoUpload() {
 
                     if (data.Error) {
                         alert(data.Error);
-                        $fileupload.fileupload('clear');
+                        $fileinput.fileinput('clear');
                         return;
                     }
 
@@ -70,7 +70,7 @@ function inicializeFotoUpload() {
                                 if (this.width < 150 || this.height < 150) {
                                     alert('Imagem muito pequena, por favor selecione outra.');
                                     $("#modal-foto").modal('hide');
-                                    $fileupload.fileupload('clear');
+                                    $fileinput.fileinput('clear');
                                     $('#imagem-avatar').attr("src", '/Content/images/no_image.jpg');
                                     $('#FotoNome').val('');
                                     return;
@@ -96,10 +96,10 @@ function inicializeFotoUpload() {
     }; // sendFile
 
     // Ao mudar a imagem, submeter o formulário
-    $('.fileupload input').on('change', sendFile);
+    $('.fileinput input').on('change', sendFile);
 
     $('#excluir-foto').on('click', function () {
-        // todo: excluir $('.fileupload')
+        // todo: excluir $('.fileinput')
         //var fotoId = $("#Foto").val();
         //var form = $('<form action="/Arquivo/Excluir/' + fotoId + '" method="post"></form>');
         //form.ajaxSubmit({

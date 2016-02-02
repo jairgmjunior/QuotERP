@@ -20,15 +20,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         public long? Id { get; set; }
 
-        [Display(Name = "Data entrada")]
+        [Display(Name = "Data de entrada")]
         [Required(ErrorMessage = "Informe a data da entrada")]
         public DateTime DataEntrada { get; set; }
 
-        [Display(Name = "Unidade destino")]
+        [Display(Name = "Unidade de destino")]
         [Required(ErrorMessage = "Informe a unidade de destino")]
         public long? UnidadeDestino { get; set; }
 
-        [Display(Name = "Depósito destino")]
+        [Display(Name = "Depósito de destino")]
         [Required(ErrorMessage = "Informe o depósito de destino")]
         public long? DepositoMaterialDestino { get; set; }
 

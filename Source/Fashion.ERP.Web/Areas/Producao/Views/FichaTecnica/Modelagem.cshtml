@@ -10,20 +10,20 @@
     <fieldset>
         <legend><small>Dados da Modelagem</small></legend>
         <div class="row">
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.DataModelagem)
                     <div class="controls">
                         @Html.EditorFor(x => x.DataModelagem) 
                     </div>
                 </div>
             </div>  
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Modelista)
                     <div class="controls">
                         @Html.HiddenFor(x => x.Modelista, new { id = "funcionario" })
-                        <div class="input-append">
+                        <div class="input-group">
                             <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
                             <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
                             <span id="descricao-funcionario" class="add-on"></span>
@@ -34,21 +34,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Observacao)
                     <div class="controls">
                         @Html.EditorFor(x => x.Observacao) 
                     </div>
                 </div>
             </div>
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.NomeArquivoUpload)
                     <div class="controls">
                         <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <div class="input-append">
-                                <div class="uneditable-input span3">
+                            <div class="input-group">
+                                <div class="uneditable-input col-md-3">
                                     <i class="icon-file fileupload-exists"></i>
                                     <span class="fileupload-preview">@Html.ValueFor(x => x.NomeArquivoUpload)</span>
                                 </div>

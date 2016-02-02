@@ -7,29 +7,29 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     <div class="row">
-        <div class="span4">
-            <div class="control-group">
+        <div class="col-md-4">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.Unidade)
                 <div class="controls">
                     @Html.DropDownList("Unidade", null, " -- Selecione -- ", new { @class = "input-large" })
                     @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.LabelForRequired(x => x.VencimentoDe, new { @class = "control-label"})
                 <div class="controls">
                     @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 @Html.Label("VencimentoAte", "Até", new { @class = "control-label"})
                 <div class="controls">
                     @(Html.Kendo().DatePickerFor(x => x.VencimentoAte))
                 </div>
             </div>
         </div>
-         <div class="span4">
-             <div class="control-group">
+         <div class="col-md-4">
+             <div class="form-group">
                  @Html.LabelForRequired(x => x.Situacao)
                  <div class="controls">
                      @{
@@ -51,8 +51,8 @@
     <fieldset>
         <legend>Cheques</legend>
         <div class="row">
-            <div class="span12">
-                <div class="control-group">
+            <div class="col-md-12">
+                <div class="form-group">
                     <div class="controls">
                     @(Html.Kendo().Grid<GridDepositoChequeRecebido>()
                           .Name("grid-cheque")
@@ -84,22 +84,22 @@
     <fieldset>
         <legend>Dados bancários</legend>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(x => x.Banco, new { @class = "control-label required-label"})
                     <div class="controls">
                         @Html.DropDownList("Banco", null, " -- Selecione -- ", new { @class = "input-large" })
                         @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.ContaBancaria)
                     <div class="controls">
                         <select id="ContaBancaria" name="ContaBancaria"><option>-- Selecione --</option></select>
                         @Html.ValidationMessageFor(x => x.ContaBancaria, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.DataDeposito)
                     <div class="controls">
                         @Html.EditorFor(x => x.DataDeposito)

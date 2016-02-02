@@ -8,8 +8,8 @@
         <legend><small>Ficha Técnica de Origem</small></legend>
         <div class="detail">
             <div class="row">
-                <div class="span6">
-                    <div class="control-group">
+                <div class="col-md-6">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.ReferenciaOrigem, new { @class = "title-label" })
                         <div class="value-label">
                             @Html.DisplayFor(x => x.ReferenciaOrigem)
@@ -17,8 +17,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.LabelFor(x => x.DescricaoOrigem, new { @class = "title-label" })
                         <div class="value-label">
                             @Html.DisplayFor(x => x.DescricaoOrigem)
@@ -32,16 +32,16 @@
     <fieldset>
         <legend><small>Nova Ficha Técnica</small></legend>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
+            <div class="col-md-6">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.ReferenciaNova, new { @class = "control-label " })
                     <div class="controls">
                         @Html.EditorFor(x => x.ReferenciaNova)
                     </div>
                 </div>
             </div>
-            <div class="span4">
-                <div class="control-group">
+            <div class="col-md-4">
+                <div class="form-group">
                     @Html.LabelForRequired(x => x.Observacao)
                     <div class="controls">
                         @Html.EditorFor(x => x.Observacao)

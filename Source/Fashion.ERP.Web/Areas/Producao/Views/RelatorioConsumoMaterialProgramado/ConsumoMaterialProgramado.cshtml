@@ -14,16 +14,16 @@
         <div id="collapsePesquisar" class="accordion-body collapse in">
             <div class="accordion-inner">
                 <div class="row">
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.ColecaoAprovada)
                             <div class="controls">
                                 @Html.DropDownList("Colecaoaprovada", null, "-- Selecione --", new { @class = "input-large" })
                             </div>
                         </div>
                     </div>
-                    <div class="span6">
-                          <div class="control-group">
+                    <div class="col-md-6">
+                          <div class="form-group">
                             @Html.LabelForRequired(x => x.Categorias)
                             <div class="controls">
                                 @(Html.Kendo().MultiSelect()
@@ -36,8 +36,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
                             <div class="controls">
                                 @Html.TextBoxFor(x => x.Tag, new { @class = "input-small" })/
@@ -45,8 +45,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.Subcategorias)
                             <div class="controls">
                                 @(Html.Kendo().MultiSelect()
@@ -59,28 +59,28 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span2" style="-ms-opacity: 0.99; opacity: 0.99;">
-                        <div class="control-group">
+                    <div class="col-md-2" style="-ms-opacity: 0.99; opacity: 0.99;">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.DataInicial)
                             <div class="controls">
                                 @Html.EditorFor(x => x.DataInicial, new { @class = "input-small" })
                             </div>
                         </div>
                     </div>
-                    <div class="span4">
-                        <div class="control-group">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.DataFinal)
                             <div class="controls">
                                 @Html.EditorFor(x => x.DataFinal, new { @class = "input-small" })
                             </div>
                         </div>
                     </div>
-                    <div class="span6">
-                        <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             @Html.Label("referencia-material", "Referência do Material", new { @class = "control-label" })
                             <div class="controls">
                                 @Html.Hidden("Material")
-                                <div class="input-append">
+                                <div class="input-group">
                                     <input id="referencia-material" class="input-small" type="text" />
                                     <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
                                     <span id="descricao-material" class="add-on"></span>
@@ -90,16 +90,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span2">
-                        <div class="control-group">
+                    <div class="col-md-2">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
                             <div class="controls">
                                 @Html.DropDownList("OrdenarPor", "--Selecione--")
                             </div>
                         </div>
                     </div>
-                    <div class="span3">
-                        <div class="control-group">
+                    <div class="col-md-3">
+                        <div class="form-group">
                             @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
                             <div class="controls">
                                 <select name="OrdenarEm">
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="span3">
+                    <div class="col-md-3">
                         <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                     </div>
                 </div>

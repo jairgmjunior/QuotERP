@@ -13,16 +13,16 @@
             <div id="collapsePesquisar" class="accordion-body collapse in">
                 <div class="accordion-inner">
                     <div class="row">
-                        <div class="span2">
-                            <div class="control-group">
+                        <div class="col-md-2">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Codigo, new { @class = "control-label " })
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Codigo, new { @class = "input-small" })
                                 </div>
                             </div>
                         </div>
-                        <div class="span10">
-                            <div class="control-group">
+                        <div class="col-md-10">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.Nome)
                                 <div class="controls">
                                     @Html.TextBoxFor(x => x.Nome, new { @class = "input-xxlarge" })
@@ -31,8 +31,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span3">
-                            <div class="control-group">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 @Html.LabelForRequired(x => x.TipoPessoa)
                                 <div class="controls">
                                     @Html.DropDownListFor(x => x.TipoPessoa, Model.TipoPessoa.ToSelectList(), "", new { @class = "input-medium" })
@@ -42,8 +42,8 @@
                     </div>
                     <div id="fisica">
                         <div class="row">
-                            <div class="span12">
-                                <div class="control-group">
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.Cpf)
                                     <div class="controls">
                                         @Html.EditorFor(x => x.Cpf)
@@ -55,8 +55,8 @@
                     </div>
                     <div id="juridica">
                         <div class="row">
-                            <div class="span12">
-                                <div class="control-group">
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     @Html.LabelForRequired(x => x.Cnpj)
                                     <div class="controls">
                                         @Html.EditorFor(x => x.Cnpj)
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="span12">
+                        <div class="col-md-12">
                             <div class="pull-right">
                                 <button id="pesquisar-relatorio" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>

@@ -6,7 +6,7 @@ string typeName = ViewDataTypeShortName.Replace("Grid", "").Replace("Model", "")
 string areaName = Crop(ViewDataTypeName, "Areas.", ".Models");
 #>
 @model IEnumerable<<#= ViewDataTypeName #>>
-<div class="well well-small">
+<div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.<#= areaName#>.<#= typeName #>.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()

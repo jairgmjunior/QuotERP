@@ -1,26 +1,26 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.CategoriaModel
-<div class="control-group">
+<div class="form-group">
 	@Html.LabelForRequired(x => x.Nome)
 	<div class="controls">
 		@Html.EditorFor(x => x.Nome)
 		@Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
 	</div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.CodigoNcm)
     <div class="controls">
         @Html.TextBoxFor(x => x.CodigoNcm, new { data_mask = "99999999" })
         @Html.ValidationMessageFor(x => x.CodigoNcm, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.TipoCategoria)
     <div class="controls">
         @Html.DropDownListFor(x => x.TipoCategoria, Model.TipoCategoria.ToSelectList())
         @Html.ValidationMessageFor(x => x.TipoCategoria, null, new { @class = "help-block" })
     </div>
 </div>
-<div class="control-group">
+<div class="form-group">
     @Html.LabelForRequired(x => x.GeneroCategoria)
     <div class="controls">
         @Html.DropDownListFor(x => x.GeneroCategoria, Model.GeneroCategoria.ToSelectList())

@@ -101,7 +101,7 @@ body.loading .ajax-loading {
   clear: both;
 }
 
-.detail .control-group {
+.detail .form-group {
     clear: left;
     margin-bottom: 0;
 }

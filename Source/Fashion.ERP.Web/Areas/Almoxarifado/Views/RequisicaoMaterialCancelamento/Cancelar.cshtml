@@ -7,103 +7,123 @@
     @Html.HiddenFor(x => x.Id)
 
     <legend><small>Dados da Requisição de Material</small></legend>
-    <div class="detail">
+    <div class="">
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Numero, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Numero)
-                        @Html.HiddenFor(x => x.Numero)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Numero, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter ">
+                            @Html.ValueFor(x => x.Numero)
+                            @Html.HiddenFor(x => x.Numero)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Data, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.Data)
-                        @Html.HiddenFor(x => x.Data)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Data, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.Data)
+                            @Html.HiddenFor(x => x.Data)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">        
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.TipoItemDescricao)
+                            @Html.HiddenFor(x => x.TipoItemDescricao)
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                            @Html.HiddenFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.TipoItemDescricao)
-                        @Html.HiddenFor(x => x.TipoItemDescricao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">                    
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+                            @Html.HiddenFor(x => x.UnidadeRequerenteNomeFantasia)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
-                        @Html.HiddenFor(x => x.SituacaoRequisicaoMaterialDescricao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">                                        
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.CentroCustoNome)
+                            @Html.HiddenFor(x => x.CentroCustoNome)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
-                        @Html.HiddenFor(x => x.UnidadeRequerenteNomeFantasia)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">                                        
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.RequerenteNome)
+                            @Html.HiddenFor(x => x.RequerenteNome)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.CentroCustoNome)
-                        @Html.HiddenFor(x => x.CentroCustoNome)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+                            @Html.HiddenFor(x => x.UnidadeRequisitadaNomeFantasia)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.RequerenteNome)
-                        @Html.HiddenFor(x => x.RequerenteNome)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Observacao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Observacao)
+                            @Html.HiddenFor(x => x.Observacao)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
-                        @Html.HiddenFor(x => x.UnidadeRequisitadaNomeFantasia)
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Observacao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Observacao)
-                        @Html.HiddenFor(x => x.Observacao)
-                    </div>
-                </div>
-            </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Origem, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Origem)
-                        @Html.HiddenFor(x => x.Origem)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Origem, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Origem)
+                            @Html.HiddenFor(x => x.Origem)
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,15 +132,15 @@
 
     <fieldset>
         <legend><small>Dados do Cancelamento</small></legend>
-        <div class="span4">
-            <div class="control-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ObservacaoCancelamento)
-                <div class="controls">
-                    @Html.EditorFor(x => x.ObservacaoCancelamento)
-                    @Html.ValidationMessageFor(x => x.ObservacaoCancelamento, null, new {@class = "help-block"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextAreaFor(x => x.ObservacaoCancelamento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ObservacaoCancelamento, null, new {@class = "help-block"})
+                    </div>
                 </div>
             </div>
-        </div>
     </fieldset>
    
     @(Html.Kendo().Grid(Model.GridItemCancelado)
@@ -150,11 +170,13 @@
                 .Model(model => model.Id(e => e.Id))
             )
             .Events(events => events.DataBound("onDataBound"))
-    )
-    
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Cancelar Selecionados</button>
-    </div>
+          )
+
+    <div class="col-sm-6 form-group" style="margin-top:25px"> 
+        <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+		    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Cancelar</button>
+        </div>
+    </div>    
  }
 
 <script>

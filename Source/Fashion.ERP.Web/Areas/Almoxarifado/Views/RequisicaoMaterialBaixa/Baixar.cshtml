@@ -5,93 +5,113 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.UnidadeRequisitada)
     <legend><small>Dados da Requisição de Material</small></legend>
-    <div class="detail">
+    <div class="">
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Numero, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Numero)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Numero, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Numero)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Data, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.Data)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Data, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.Data)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.TipoItemDescricao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TipoItemDescricao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.TipoItemDescricao)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SituacaoRequisicaoMaterialDescricao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.SituacaoRequisicaoMaterialDescricao)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm no-gutter">
+                    @Html.LabelFor(x => x.UnidadeRequerenteNomeFantasia, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.UnidadeRequerenteNomeFantasia)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.CentroCustoNome)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CentroCustoNome, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.CentroCustoNome)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.RequerenteNome)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.RequerenteNome, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.RequerenteNome)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.UnidadeRequisitadaNomeFantasia, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.UnidadeRequisitadaNomeFantasia)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Observacao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Observacao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Observacao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Observacao)
+                        </div>
                     </div>
                 </div>
             </div>        
-            <div class="span4">
-                <div class="control-group">
-                    @Html.LabelFor(x => x.Origem, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Origem)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Origem, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Origem)
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,11 +120,11 @@
 
     <fieldset>
         <legend><small>Itens da Requisição</small></legend>
-        <div class="span4">
-            <div class="control-group">
-                @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label " })
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "input-large" })                    
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DepositoMaterial, new { @class = "control-label col-sm-4 col-md-3" })
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.DepositoMaterial, null, "-- Selecione --", new { @class = "form-control" })                    
                     @Html.ValidationMessageFor(x => x.DepositoMaterial, string.Empty, new { @class = "help-block" })
                     @*@Html.HiddenFor(x => x.TipoItem)*@
                 </div>
@@ -114,55 +134,58 @@
 
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.Id)
-    
-    @(Html.Kendo().Grid(Model.GridItems)
-        .Name("GridItems")
-        .Columns(columns =>
-            {
-                columns.Bound(p => p.Id).Hidden().ClientTemplate(
-                    "<input type='hidden' name='GridItems[#= index(data)#].Id' value='#= Id #' />");
-                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].Referencia' value='#= Referencia #' />").Width(100);
-                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].Descricao' value='#= Descricao #' />");
-                columns.Bound(p => p.UND).ClientTemplate("#= UND #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].UND' value='#= UND #' />").Width(100);
-                columns.Bound(p => p.SituacaoRequisicaoMaterialDescricao).ClientTemplate("#= SituacaoRequisicaoMaterialDescricao #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].SituacaoRequisicaoMaterialDescricao' value='#= SituacaoRequisicaoMaterialDescricao #' />").Width(120);;
-                columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= kendo.toString(QtdeAtendida, \"n4\") #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeAtendida' value='#= formateDecimalGrid(QtdeAtendida) #' />").Width(100);
-                columns.Bound(p => p.QtdePendente).ClientTemplate("#= kendo.toString(QtdePendente, \"n4\") #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].QtdePendente' value='#= formateDecimalGrid(QtdePendente) #' />").Width(100);
-                columns.Bound(x => x.Check).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
-                    .Title("Select").ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/>"+
-                    "<input id='Check' type='hidden' name='GridItems[#= index(data)#].Check' value='#= Check #' /></div>").Width(27);
-                columns.Bound(p => p.QtdeEstoque).ClientTemplate("#= kendo.toString(QtdeEstoque, \"n2\") #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeEstoque' value='#= formateDecimalGrid(QtdeEstoque) #'/>").Width(100); 
-                columns.Bound(p => p.QtdeBaixa).ClientTemplate("#= kendo.toString(QtdeBaixa, \"n4" +"\")  #" +
-                    "<input type='hidden' name='GridItems[#= index(data)#].QtdeBaixa' value='#= formateDecimalGrid(QtdeBaixa) #' />").EditorTemplateName("numeric4casasdecimais").Width(100);                
-            })
-            .Editable(editable => editable.Mode(GridEditMode.InCell))
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .Batch(true)
-                .Model(model =>
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(Model.GridItems)
+            .Name("GridItems")
+            .Columns(columns =>
                 {
-                    model.Id(item => item.Id); 
-                    model.Field(item => item.Descricao).Editable(false); 
-                    model.Field(item => item.Referencia).Editable(false); 
-                    model.Field(item => item.UND).Editable(false); 
-                    model.Field(item => item.Check).Editable(true); 
-                    model.Field(item => item.QtdeAtendida).Editable(false); 
-                    model.Field(item => item.QtdePendente).Editable(false); 
-                    model.Field(item => item.QtdeEstoque).Editable(true);      
-                    model.Field(item => item.SituacaoRequisicaoMaterialDescricao).Editable(false);                   
+                    columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                        "<input type='hidden' name='GridItems[#= index(data)#].Id' value='#= Id #' />");
+                    columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].Referencia' value='#= Referencia #' />").Width(100);
+                    columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].Descricao' value='#= Descricao #' />");
+                    columns.Bound(p => p.UND).ClientTemplate("#= UND #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].UND' value='#= UND #' />").Width(100);
+                    columns.Bound(p => p.SituacaoRequisicaoMaterialDescricao).ClientTemplate("#= SituacaoRequisicaoMaterialDescricao #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].SituacaoRequisicaoMaterialDescricao' value='#= SituacaoRequisicaoMaterialDescricao #' />").Width(120);;
+                    columns.Bound(p => p.QtdeAtendida).ClientTemplate("#= kendo.toString(QtdeAtendida, \"n4\") #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].QtdeAtendida' value='#= formateDecimalGrid(QtdeAtendida) #' />").Width(100);
+                    columns.Bound(p => p.QtdePendente).ClientTemplate("#= kendo.toString(QtdePendente, \"n4\") #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].QtdePendente' value='#= formateDecimalGrid(QtdePendente) #' />").Width(100);
+                    columns.Bound(x => x.Check).Template(@<text></text>).HeaderTemplate("<input id='checkAll' class='check-box' type='checkbox' />")
+                        .Title("Select").ClientTemplate("<div><input type='checkbox' class='chkbx check-box' onclick='clicouCheckBox(this)'/>"+
+                        "<input id='Check' type='hidden' name='GridItems[#= index(data)#].Check' value='#= Check #' /></div>").Width(27);
+                    columns.Bound(p => p.QtdeEstoque).ClientTemplate("#= kendo.toString(QtdeEstoque, \"n2\") #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].QtdeEstoque' value='#= formateDecimalGrid(QtdeEstoque) #'/>").Width(100); 
+                    columns.Bound(p => p.QtdeBaixa).ClientTemplate("#= kendo.toString(QtdeBaixa, \"n4" +"\")  #" +
+                        "<input type='hidden' name='GridItems[#= index(data)#].QtdeBaixa' value='#= formateDecimalGrid(QtdeBaixa) #' />").EditorTemplateName("numeric4casasdecimais").Width(100);                
                 })
-            )
-            .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
-    )
-    
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Baixar Selecionados</button>
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Batch(true)
+                    .Model(model =>
+                    {
+                        model.Id(item => item.Id); 
+                        model.Field(item => item.Descricao).Editable(false); 
+                        model.Field(item => item.Referencia).Editable(false); 
+                        model.Field(item => item.UND).Editable(false); 
+                        model.Field(item => item.Check).Editable(true); 
+                        model.Field(item => item.QtdeAtendida).Editable(false); 
+                        model.Field(item => item.QtdePendente).Editable(false); 
+                        model.Field(item => item.QtdeEstoque).Editable(true);      
+                        model.Field(item => item.SituacaoRequisicaoMaterialDescricao).Editable(false);                   
+                    })
+                )
+                .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
+        )        
+    </div>    
+
+    <div class="col-sm-6 form-group" style="margin-top:25px"> 
+        <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+		    <button id="btnSubmit" class="btn btn-primary" data-loading-text="Aguarde..." type="submit">Baixar Selecionados</button>
+        </div>
     </div>
 }
 
