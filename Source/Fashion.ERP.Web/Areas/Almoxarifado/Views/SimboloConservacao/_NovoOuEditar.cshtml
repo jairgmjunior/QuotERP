@@ -17,66 +17,59 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Descricao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Descricao)
-                    @Html.ValidationMessageFor(x => x.Descricao, null, new {@class = "help-block"})
+
+    <fieldset>
+        <legend>Dados do Símbolo de Conservação</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Descricao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.Descricao, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.CategoriaConservacao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.DropDownListFor(x => x.CategoriaConservacao, Model.CategoriaConservacao.ToSelectList(), new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.CategoriaConservacao, null, new { @class="help-block" })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.CategoriaConservacao)
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.CategoriaConservacao, Model.CategoriaConservacao.ToSelectList())
-                    @Html.ValidationMessageFor(x => x.CategoriaConservacao, null, new {@class = "help-block"})
-                </div>
-            </div>   
-
-        </div>
-
-
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.FotoNome)
-                <div class="controls">
-                    @Html.HiddenFor(x => x.FotoId)
-                    <div class="clearfix">
-                        <div class="fileupload @(temFoto ? "fileupload-exists" : "fileupload-new")" data-provides="fileupload" data-crop="crop">
-                            <div class="thumbnail">
-                                <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
-                            </div>
-                            <div>
-                                <span class="btn btn-file">
-                                    <span class="fileupload-new">Novo</span>
-                                    <span class="fileupload-exists">Alterar</span>
-                                    <input type="file" name="foto" />
-                                    @Html.HiddenFor(x => x.FotoNome)
-                                </span>
-                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelForRequired(x => x.FotoNome)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.HiddenFor(x => x.FotoId)
+                        <div class="clearfix">
+                            <div class="fileinput @(temFoto ? "fileinput-exists" : "fileinput-new")" data-provides="fileinput" data-crop="crop">
+                                <div class="thumbnail" data-trigger="fileinput">
+                                    <img id="imagem-avatar" src="@(temFoto ? urlFoto : "/Content/images/no_image.jpg")" style="width: 150px; height: 150px;" />
+                                </div>
+                                <div>
+                                    <span class="btn-default btn btn-file">
+                                        <span class="fileinput-new">Novo</span>
+                                        <span class="fileinput-exists">Alterar</span>
+                                        <input type="file" name="foto" />
+                                        @Html.HiddenFor(x => x.FotoNome)
+                                    </span>
+                                    <a href="javascript:void(0)" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="progress" style="display: none">
-                        <div class="bar"></div>
+                        <div class="progress" style="display: none">
+                            <div class="progress-bar"></div>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                     </div>
-                    @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                 </div>
-            </div>    
-        </div> 
-        
-    </div>
-    
-     <div class="form-actions">
-            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-            @if (this.IsEditar())
-            {
-                @Html.ExcluirAuth(MVC.Almoxarifado.SimboloConservacao.Excluir(Model.Id))
-            }
+            </div>
         </div>
-
+    </fieldset>
+    
+    @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.SimboloConservacao.Excluir(Model.Id))
 }
 
 @{Html.RenderPartial("_RecortarImagem");}

@@ -5,102 +5,135 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
+
+    @Html.Partial("_NovoOuEditar", Model)
+
     <div class="row">
-        <div class="col-md-6">
-            @Html.Partial("_NovoOuEditar", Model)
-        </div>
-        <div class="col-md-6">
-            <div class="accordion" id="accordion-cliente">
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-cliente" href="#collapse1">
-                            <h4>Endereço</h4>
-                        </a>
-                    </div>
-                    <div id="collapse1" class="accordion-body collapse in">
-                        <div class="accordion-inner">
-                            <p>@Html.ActionLink("Novo", MVC.Comum.Endereco.Novo(Model.Id.GetValueOrDefault()), new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#modal-endereco" })</p>
-                            @{ Html.RenderAction("Index", "Endereco", new { pessoaId = Model.Id }); }
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-cliente" href="#collapse2">
-                            <h4>Contato</h4>
-                        </a>
-                    </div>
-                    <div id="collapse2" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <p>@Html.ActionLink("Novo", MVC.Comum.Contato.Novo(Model.Id.GetValueOrDefault()), new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#modal-contato" })</p>
-                            @{ Html.RenderAction("Index", "Contato", new { pessoaId = Model.Id }); }
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-cliente" href="#collapse3">
-                            <h4>Informações bancárias</h4>
-                        </a>
-                    </div>
-                    <div id="collapse3" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <p>@Html.ActionLink("Novo", MVC.Comum.InformacaoBancaria.Novo(Model.Id.GetValueOrDefault()), new { @class = "btn btn-primary", data_toggle = "modal", data_target = "#modal-informacao-bancaria" })</p>
-                            @{ Html.RenderAction("Index", "InformacaoBancaria", new { pessoaId = Model.Id }); }
-                        </div>
-                    </div>
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Endereço", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @{ Html.RenderAction("Index", "Endereco", new { pessoaId = Model.Id }); }
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.Comum.PrestadorServico.Excluir(Model.Id))
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Contato", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @{ Html.RenderAction("Index", "Contato", new { pessoaId = Model.Id }); }
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Informações Bancárias", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @{ Html.RenderAction("Index", "InformacaoBancaria", new { pessoaId = Model.Id }); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Referências", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @{ Html.RenderAction("Index", "Referencia", new { pessoaId = Model.Id }); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Dependentes", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @{ Html.RenderAction("Index", "Dependente", new { pessoaId = Model.Id }); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.FormActionAuth(this.IsEditar(), MVC.Comum.Cliente.Excluir(Model.Id))
 }
+}
+
 @{Html.RenderPartial("_ConfirmDelete");}
-<div id="modal-endereco" class="modal hide fade">
-    @using (Ajax.BeginForm(MVC.Comum.Endereco.Novo(Model.Id.GetValueOrDefault()), "#modal-endereco"))
-    {
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Endereço</h3>
+
+<div id="modal-endereco" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm(MVC.Comum.Endereco.Novo(Model.Id.GetValueOrDefault()), "#modal-endereco", "formEndereco"))
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Endereço</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            }
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        </div>
-    }
+    </div>
 </div>
-<div id="modal-contato" class="modal hide fade">
-    @using (Ajax.BeginForm(MVC.Comum.Contato.Novo(Model.Id.GetValueOrDefault()), "#modal-contato"))
-    {
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Contato</h3>
+
+<div id="modal-contato" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm(MVC.Comum.Contato.Novo(Model.Id.GetValueOrDefault()), "#modal-contato", "formContato"))
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Contato</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            }
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        </div>
-    }
+    </div>
 </div>
-<div id="modal-informacao-bancaria" class="modal hide fade">
-    @using (Ajax.BeginForm(MVC.Comum.InformacaoBancaria.Novo(Model.Id.GetValueOrDefault()), "#modal-informacao-bancaria"))
-    {
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Informação bancária</h3>
+
+<div id="modal-informacao-bancaria" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm(MVC.Comum.InformacaoBancaria.Novo(Model.Id.GetValueOrDefault()), "#modal-informacao-bancaria", "formInformacaoBancaria"))
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Informação Bancária</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="/Content/images/ajax-loader.gif" style="width: 30px; height: 30px" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            }
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        </div>
-    }
+    </div>
 </div>
+
 @{
     Html.RenderPartial("_ConfirmDelete");
 }

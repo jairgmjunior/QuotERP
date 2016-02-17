@@ -1,50 +1,56 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProcessoOperacionalModel
 
-@Html.HiddenFor(x => x.Id)
-<div class="form-group">
-    @Html.LabelForRequired(x => x.Descricao)
-    <div class="controls">
-        @Html.EditorFor(x => x.Descricao)
-        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+<fieldset>
+    <legend>Dados do Processo Operacional</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Descricao, new {  @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Sequências Operacionais", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    @(Html.Kendo().Grid(Model.SequenciasOperacionais)
+                            .Name("Grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(x => x.Id).Hidden();
+                                columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #");
+                                columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #");
+                                columns.Bound(x => x.NomeOperacao).EditorTemplateName("OperacaoProducaoList").Title("Operação").ClientTemplate("#= NomeOperacao == '' || NomeOperacao == null ? '- Selecione -' : NomeOperacao #");
+                                columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
+                                columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
+                                columns.Command(command => command.Destroy()).Width(110);
+                            })
+                            .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Batch(true)
+                                .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                                .Model(model =>
+                                {
+                                    model.Id(e => e.Id);
+                                    model.Field(product => product.NaturezaId).DefaultValue(@Model.Id);
+                                })
+                            )
+                            .ToolBar(toolbar => toolbar.Create())
+                            .Editable(editable => editable.Mode(GridEditMode.InCell))
+                            .Events(e => e.DataBound("onDataBound")))
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
 
-<div class="form-group">
-    @Html.Label("Sequências de Operação", new { @class = "title-label" })
-    <div class="controls" style="width: 800px">
-        @(Html.Kendo().Grid(Model.SequenciasOperacionais)
-              .Name("Grid")
-              .Columns(columns =>
-              {
-                  columns.Bound(x => x.Id).Hidden();
-                  columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
-                  columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #").Width(325);
-                  columns.Bound(x => x.NomeOperacao).EditorTemplateName("OperacaoProducaoList").Title("Operação").ClientTemplate("#= NomeOperacao == '' || NomeOperacao == null ? '- Selecione -' : NomeOperacao #").Width(325);
-                  columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
-                  columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
-                  columns.Command(command => command.Destroy());
-              }
-              )
-              .DataSource(dataSource => dataSource
-                  .Ajax()
-                  .Batch(true)
-                  .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
-                  .Model(model =>
-                  {
-                      model.Id(e => e.Id);
-                      model.Field(product => product.NaturezaId).DefaultValue(@Model.Id);
-                  })
-              )
-              .ToolBar(toolbar =>
-              {
-                  toolbar.Create();                  
-              }
-              )
-              .Editable(editable => editable.Mode(GridEditMode.InCell))
-              .Events(e => e.DataBound("onDataBound"))
-              )
-    </div>                    
-</div>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Comum.ProcessoOperacional.Excluir(Model.Id))
 
 <script>
     $(document).ready(function () {
@@ -172,9 +178,9 @@
     }
   
     function onDataBound(e) {
-        $(".k-grid-Up").find("span").addClass("icon-chevron-up");
+        $(".k-grid-Up").find("span").addClass("glyphicon glyphicon-chevron-up");
         $(".k-grid-Up").removeClass("k-button");
-        $(".k-grid-Down").find("span").addClass("icon-chevron-down");
+        $(".k-grid-Down").find("span").addClass("glyphicon glyphicon-chevron-down");
         $(".k-grid-Down").removeClass("k-button");
     }
 

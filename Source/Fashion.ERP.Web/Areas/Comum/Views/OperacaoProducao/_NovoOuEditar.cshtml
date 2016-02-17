@@ -1,73 +1,80 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.OperacaoProducaoModel
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Descricao)
-            <div class="controls">
-                @Html.EditorFor(x => x.Descricao)
-                @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
+
+<fieldset>
+    <legend>Dados do Operação de Produção</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Descricao, new {  @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Tempo)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Tempo, new {  @class = "form-control numeric" })
+                    @Html.ValidationMessageFor(x => x.Tempo, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Custo)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.EditorFor(x => x.Custo)
+                    @Html.ValidationMessageFor(x => x.Custo, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DepartamentoProducao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownList("DepartamentoProducao", null, "-- Selecione --", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.DepartamentoProducao, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.SetorProducao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownList("SetorProducao", null, "-- Selecione --", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.SetorProducao, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.PesoProdutividade)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.PesoProdutividade, new {  @class = "form-control numeric" })
+                    @Html.ValidationMessageFor(x => x.PesoProdutividade, null, new { @class="help-block" })
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Tempo)
-            <div class="controls">
-                @Html.EditorFor(x => x.Tempo, "numeric")
-                @Html.ValidationMessageFor(x => x.Tempo, null, new { @class = "help-block" })
+        <div class="col-sm-6">
+            <div class="well">
+                @(Html.TreeView(Model.TreeView)
+                      .EmptyContent("Não há operações dos setores cadastradas.")
+                      .Children(m => m.Itens)
+                      .HtmlAttributes(new { id = "treeview" })
+                      .ChildrenHtmlAttributes(new { @class = "subItem" })
+                      .ItemText(m => m.Name)
+                      .ItemTemplate(
+                          @<text>
+                               @if (item.IsChecked)
+                               {
+                                   <span id="item-selected">@item.Name</span>
+                               }
+                               else
+                               {
+                                   <span>@item.Name</span>
+                               }
+                           </text>
+                      ))
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Custo)
-            <div class="controls">
-                @Html.EditorFor(x => x.Custo)
-                @Html.ValidationMessageFor(x => x.Custo, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.DepartamentoProducao)
-            <div class="controls">
-                @Html.DropDownList("DepartamentoProducao", null, "-- Selecione --", new {@class = "input-large"})
-                @Html.ValidationMessageFor(x => x.DepartamentoProducao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.SetorProducao)
-            <div class="controls">
-                @Html.DropDownList("SetorProducao", null, "-- Selecione --", new {@class = "input-large"})
-                @Html.ValidationMessageFor(x => x.SetorProducao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.PesoProdutividade)
-            <div class="controls">
-                @Html.EditorFor(x => x.PesoProdutividade,"numeric")
-                @Html.ValidationMessageFor(x => x.PesoProdutividade, null, new { @class = "help-block" })
-            </div>
-        </div>
-        
     </div>
-    <div class="col-md-6">
-        <div class="well">
-            @(Html.TreeView(Model.TreeView)
-                .EmptyContent("Não há operações dos setores cadastradas.")
-                .Children(m => m.Itens)
-                .HtmlAttributes(new { id = "treeview" })
-                .ChildrenHtmlAttributes(new { @class = "subItem" })
-                .ItemText(m => m.Name)
-                .ItemTemplate(
-                @<text>
-                    @if (item.IsChecked)
-                    {
-                        <span id="item-selected">@item.Name</span>
-                    }
-                    else
-                    {
-                        <span>@item.Name</span>
-                    }
-                </text>
-                ))
-        </div>
-    </div>
-</div>
+</fieldset>
+
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Comum.OperacaoProducao.Excluir(Model.Id))
+
 <script>
     $(document).ready(function () {
 

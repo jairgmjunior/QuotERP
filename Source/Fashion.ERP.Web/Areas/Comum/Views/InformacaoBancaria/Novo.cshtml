@@ -3,58 +3,87 @@
 @{
     Layout = null;
 }
+@using (Ajax.BeginForm(MVC.Comum.InformacaoBancaria.Novo(Model.Id.GetValueOrDefault()), "#modal-informacao-bancaria", "formInformacaoBancaria"))
+{
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Informação Bancária</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummaryEx()
+            @Html.HiddenFor(x => x.Pessoa)
 
-<div class="row">
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummaryEx()
-    @Html.HiddenFor(x => x.Pessoa)
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Titular)
-        <div class="controls">
-            @Html.TextBoxFor(x => x.Titular)
-            @Html.ValidationMessageFor(x => x.Titular, null, new { @class = "help-block" })
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Titular)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Titular, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Titular, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Banco)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(p => p.Banco, null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Banco, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Agencia)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Agencia, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Agencia, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Conta)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Conta, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Conta, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TipoConta)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(p => p.TipoConta, Model.TipoConta.ToSelectList(), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Titular, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DataAbertura)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.EditorFor(x => x.DataAbertura, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.DataAbertura, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Telefone)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Telefone, null, new { @class="help-block" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Banco)
-        <div class="controls">
-            @Html.DropDownList("Banco")
-            @Html.ValidationMessageFor(x => x.Banco, null, new { @class="help-block" })
-        </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="btnSubmitModal" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Agencia)
-        <div class="controls">
-            @Html.TextBoxFor(x => x.Agencia)
-            @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Conta)
-        <div class="controls">
-            @Html.TextBoxFor(x => x.Conta)
-            @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.TipoConta)
-        <div class="controls">
-            @Html.DropDownListFor(p => p.TipoConta, Model.TipoConta.ToSelectList(), "Selecione")
-            @Html.ValidationMessageFor(x => x.TipoConta, null, new { @class = "help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.DataAbertura)
-        <div class="controls">
-            @Html.EditorFor(x => x.DataAbertura)
-            @Html.ValidationMessageFor(x => x.DataAbertura, null, new { @class = "help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Telefone)
-        <div class="controls">
-            @Html.TextBoxFor(x => x.Telefone)
-            @Html.ValidationMessageFor(x => x.Telefone, null, new { @class = "help-block" })
-        </div>
-    </div>
-</div>
+
+}
+<script>
+    $('#formInformacaoBancaria').submit(function (e) {
+        if (!$("#formInformacaoBancaria").valid()) {
+            e.preventDefault();
+            $('#btnSubmitModal').button('reset');
+            return false;
+        }
+
+        return true;
+    });
+
+    $.validator.unobtrusive.parse($("#formInformacaoBancaria"));
+    inicializeValidacaoFormulario($("#formInformacaoBancaria"));
+</script>

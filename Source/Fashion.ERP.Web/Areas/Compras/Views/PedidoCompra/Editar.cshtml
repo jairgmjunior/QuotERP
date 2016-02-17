@@ -9,16 +9,11 @@
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Compras.PedidoCompra.Excluir(Model.Id))
-	</div>
 }
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
-    //Html.RenderAction("PesquisarReferenciaExterna", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
     Html.RenderPartial("_ConfirmDelete");
 }

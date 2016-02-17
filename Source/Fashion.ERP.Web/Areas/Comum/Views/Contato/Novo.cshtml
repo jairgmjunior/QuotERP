@@ -4,43 +4,72 @@
     Layout = null;
 }
 
-<div class="row">
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummaryEx()
-    @Html.HiddenFor(x => x.Pessoa)
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.TipoContato)
-        <div class="controls">
-            @Html.DropDownListFor(p => p.TipoContato, Model.TipoContato.ToSelectList())
-            @Html.ValidationMessageFor(x => x.TipoContato, null, new { @class="help-block" })
+@using (Ajax.BeginForm(MVC.Comum.Contato.Novo(Model.Id.GetValueOrDefault()), "#modal-contato", "formContato"))
+{
+    <div class="modal-header">
+        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+        <h3>Contato</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummaryEx()
+            @Html.HiddenFor(x => x.Pessoa)
+        
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TipoContato)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(p => p.TipoContato, Model.TipoContato.ToSelectList(), new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.TipoContato, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Nome)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Telefone)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Telefone, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Operadora)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Operadora, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Operadora, null, new { @class="help-block" })
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Email)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Email, null, new { @class="help-block" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Nome)
-        <div class="controls">
-            @Html.EditorFor(x => x.Nome)
-            @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
-        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+        <button id="btnSubmitModal" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Telefone)
-        <div class="controls">
-            @Html.EditorFor(x => x.Telefone)
-            @Html.ValidationMessageFor(x => x.Telefone, null, new { @class="help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Operadora)
-        <div class="controls">
-            @Html.EditorFor(x => x.Operadora)
-            @Html.ValidationMessageFor(x => x.Operadora, null, new { @class="help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Email)
-        <div class="controls">
-            @Html.EditorFor(x => x.Email)
-            @Html.ValidationMessageFor(x => x.Email, null, new { @class="help-block" })
-        </div>
-    </div>
-</div>
+}
+
+<script>
+    $('#formContato').submit(function (e) {
+        if (!$("#formContato").valid()) {
+            e.preventDefault();
+            $('#btnSubmitModal').button('reset');
+            return false;
+        }
+
+        return true;
+    });
+
+    $.validator.unobtrusive.parse($("#formContato"));
+    inicializeValidacaoFormulario($("#formContato"));
+</script>

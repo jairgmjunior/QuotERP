@@ -1,108 +1,156 @@
 ﻿@using Fashion.ERP.Domain.Comum
 @model Fashion.ERP.Web.Areas.Comum.Models.PrestadorServicoModel
-<div class="form-group">
-    @Html.LabelForRequired(x => x.TipoPessoa)
-    <div class="controls">
-        <label class="radio">
-            <input name="TipoPessoa" id="radioFisica" type="radio" value="Fisica" checked="checked" />Física</label>
-        <label class="radio">
-            <input name="TipoPessoa" id="radioJuridica" type="radio" value="Juridica" />Jurídica</label>
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelForRequired(x => x.Nome)
-    <div class="controls">
-        @Html.EditorFor(x => x.Nome)
-        @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
-    </div>
-</div>
-<div id="fisica">
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Cpf)
-        <div class="controls">
-            @Html.EditorFor(x => x.Cpf)
-            @Html.ValidationMessageFor(x => x.Cpf, null, new { @class="help-block" })
+
+<fieldset>
+    <legend>Dados do Prestador de Serviço</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Nome)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.PrestadorServicoUnidade)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.PrestadorServicoUnidade, null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PrestadorServicoUnidade, null, new { @class="help-block" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.DocumentoIdentidade)
-        <div class="controls">
-            @Html.EditorFor(x => x.DocumentoIdentidade)
-            @Html.ValidationMessageFor(x => x.DocumentoIdentidade, null, new { @class="help-block" })
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.PrestadorServicoTipoPrestadorServicos)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.ListBoxFor(x => x.PrestadorServicoTipoPrestadorServicos, Model.PrestadorServicoTipoPrestadorServicos.ToMultiSelectList())
+                    <p class="help-block">Segure CTRL para selecionar múltiplos itens.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.PrestadorServicoComissao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.EditorFor(x => x.PrestadorServicoComissao, "percent")
+                    @Html.ValidationMessageFor(x => x.PrestadorServicoComissao, null, new { @class="help-block" })
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.OrgaoExpedidor)
-        <div class="controls">
-            @Html.EditorFor(x => x.OrgaoExpedidor)
-            @Html.ValidationMessageFor(x => x.OrgaoExpedidor, null, new { @class="help-block" })
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TipoPessoa)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    <label class="radio-inline"><input name="TipoPessoa" id="radioFisica" type="radio" value="Fisica" checked="checked" />Física</label>
+                    <label class="radio-inline"><input name="TipoPessoa" id="radioJuridica" type="radio" value="Juridica" />Jurídica</label>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.DataNascimento)
-        <div class="controls">
-            @Html.EditorFor(x => x.DataNascimento)
-            @Html.ValidationMessageFor(x => x.DataNascimento, null, new { @class="help-block" })
+    <div id="fisica">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Cpf)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.Cpf, new { data_mask = "999.999.999-99", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Cpf, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.DocumentoIdentidade)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.DocumentoIdentidade, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.DocumentoIdentidade, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.OrgaoExpedidor)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.OrgaoExpedidor, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.OrgaoExpedidor, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.DataNascimento)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.EditorFor(x => x.DataNascimento)
+                        @Html.ValidationMessageFor(x => x.DataNascimento, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div id="juridica">
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Cnpj)
-        <div class="controls">
-            @Html.EditorFor(x => x.Cnpj)
-            @Html.ValidationMessageFor(x => x.Cnpj, null, new { @class="help-block" })
+    <div id="juridica">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Cnpj)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.Cnpj, new { data_mask = "99.999.999/9999-99", @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Cnpj, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.NomeFantasia)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.NomeFantasia, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.InscricaoEstadual)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.InscricaoEstadual, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.InscricaoMunicipal)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.InscricaoMunicipal, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.InscricaoMunicipal, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>     
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.InscricaoSuframa)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.InscricaoSuframa, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.InscricaoSuframa, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>       
     </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.NomeFantasia)
-        <div class="controls">
-            @Html.EditorFor(x => x.NomeFantasia)
-            @Html.ValidationMessageFor(x => x.NomeFantasia, null, new { @class="help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.InscricaoEstadual)
-        <div class="controls">
-            @Html.EditorFor(x => x.InscricaoEstadual)
-            @Html.ValidationMessageFor(x => x.InscricaoEstadual, null, new { @class="help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.InscricaoMunicipal)
-        <div class="controls">
-            @Html.EditorFor(x => x.InscricaoMunicipal)
-            @Html.ValidationMessageFor(x => x.InscricaoMunicipal, null, new { @class="help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.InscricaoSuframa)
-        <div class="controls">
-            @Html.EditorFor(x => x.InscricaoSuframa)
-            @Html.ValidationMessageFor(x => x.InscricaoSuframa, null, new { @class="help-block" })
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelForRequired(x => x.PrestadorServicoUnidade)
-    <div class="controls">
-        @Html.DropDownList("PrestadorServicoUnidade")
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelForRequired(x => x.PrestadorServicoTipoPrestadorServicos)
-    <div class="controls">
-        @Html.ListBoxFor(x => x.PrestadorServicoTipoPrestadorServicos, Model.PrestadorServicoTipoPrestadorServicos.ToMultiSelectList())
-        <p class="help-block">Segure CTRL para selecionar múltiplos itens.</p>
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelForRequired(x => x.PrestadorServicoComissao)
-    <div class="controls">
-        @Html.EditorFor(x => x.PrestadorServicoComissao, "percent")
-        @Html.ValidationMessageFor(x => x.PrestadorServicoComissao, null, new { @class="help-block" })
-    </div>
-</div>
+</fieldset>
+
 <script>
     $(function () {
         $("#radioFisica").on("click", function () {

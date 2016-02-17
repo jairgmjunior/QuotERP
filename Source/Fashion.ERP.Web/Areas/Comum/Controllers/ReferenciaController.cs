@@ -39,13 +39,15 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         [ChildActionOnly]
         public virtual ActionResult Index(long pessoaId)
         {
-            var cliente = _pessoaRepository.Get(pessoaId);
+            //var cliente = _pessoaRepository.Get(pessoaId);
+            TempData["pessoaId"] = pessoaId;
 
-            if (cliente != null)
-            {
-                var clienteId = cliente.Id ?? 0;
-                TempData["clienteId"] = clienteId;
-            }
+            //if (cliente != null)
+            //{
+            //    var clienteId = cliente.Id ?? 0;
+            //    TempData["clienteId"] = clienteId;
+                
+            //}
             return View();
         }
 
@@ -53,14 +55,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         #region LerReferencias
         [AjaxOnly, OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual ActionResult LerReferencias([DataSourceRequest] DataSourceRequest request, long clienteId)
+        public virtual ActionResult LerReferencias([DataSourceRequest] DataSourceRequest request, long pessoaId)
         {
             if (request.PageSize == 0)
                 request.PageSize = 4;
 
-            var query = _referenciaRepository.Find(p => p.Cliente.Id == clienteId);
+            var cliente = _pessoaRepository.Load(pessoaId);
 
-            var list = query.Select(p => new GridReferenciaModel
+            var referencias = cliente.Cliente.Referencias;
+
+            var list = referencias.Select(p => new GridReferenciaModel
             {
                 Id = p.Id.GetValueOrDefault(),
                 TipoReferencia = p.TipoReferencia.EnumToString(),
@@ -79,8 +83,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         [HttpGet, AjaxOnly]
         public virtual ActionResult Novo(long pessoaId)
         {
-            var clienteId = _pessoaRepository.Get(pessoaId).Cliente.Id ?? 0;
-            var model = new ReferenciaModel { Cliente = clienteId };
+            var model = new ReferenciaModel { Cliente = pessoaId };
             return View(model);
         }
 
@@ -90,6 +93,9 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             if (ModelState.IsValid)
             {
                 var domain = Mapper.Unflat<Referencia>(model);
+                var pessoa = _pessoaRepository.Get(model.Cliente);
+                //pessoa.Cliente.AddReferencia(domain);
+                domain.Cliente = pessoa.Cliente;
 
                 _referenciaRepository.Save(domain);
 

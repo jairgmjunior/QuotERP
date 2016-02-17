@@ -1,8 +1,19 @@
 ﻿@model Fashion.ERP.Web.Areas.Comum.Models.ProdutoBaseModel
-<div class="form-group">
-    @Html.LabelForRequired(x => x.Descricao)
-    <div class="controls">
-        @Html.EditorFor(x => x.Descricao)
-        @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+
+<fieldset>
+    <legend>Dados do Produto Base</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Descricao, new {  @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</fieldset>
+
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Comum.ProdutoBase.Excluir(Model.Id))

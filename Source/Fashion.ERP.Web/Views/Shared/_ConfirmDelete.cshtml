@@ -3,22 +3,29 @@
 **
 ** Sempre adicionar essa partial fora do form.
 ** * * * * * * * * * * * * * * * * * * * * * *@
-<div id="confirm-delete" class="modal hide fade">
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Excluir</h3>
-    </div>
-    <div class="modal-body">
-        <p>Você deseja realmente excluir o item?</p>
-    </div>
-    <div class="modal-footer">
-        <form id="modal-form" method="POST">
-            @Html.AntiForgeryToken()
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button class="btn btn-primary btn-danger" type="submit" data-loading-text="Aguarde...">Excluir</button>
-        </form>
+
+
+<div id="confirm-delete" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Excluir</h3>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14px">Você deseja realmente excluir o item?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="modal-form" method="POST">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button class="btn btn-primary btn-danger" type="submit" data-loading-text="Aguarde...">Excluir</button>
+                </form>        
+            </div>
+        </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $('.delete').on('click', function (ev) {

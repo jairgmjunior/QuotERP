@@ -2,7 +2,7 @@
 @model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
 
 <fieldset>
-    <legend><small>Dados da Requisição de Material</small></legend>
+    <legend>Dados da Requisição de Material</legend>
     @{
         if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
@@ -134,39 +134,39 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Itens da Requisição de Material</small></legend>
+    <legend>Itens da Requisição de Material</legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(@Model.GridItens)
-            .Name("GridItens")
-            .Columns(columns =>
-            {
-                columns.Bound(p => p.IdRequisicaoMaterialItem).Hidden().ClientTemplate(
-                    "<input type='hidden' name='GridItens[#= index(data)#].IdRequisicaoMaterialItem' value='#= IdRequisicaoMaterialItem #' />");
-                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
-                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
-                columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-                columns.Bound(p => p.QuantidadeSolicitada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeSolicitada, \"n4\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeSolicitada' value='#= formateDecimalGrid(QuantidadeSolicitada) #' />");
-                columns.Bound(p => p.QuantidadeAtendida).Width(80).ClientTemplate("#= kendo.toString(QuantidadeAtendida, \"n4\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeAtendida' value='#= formateDecimalGrid(QuantidadeAtendida) #' />");
-                columns.Bound(p => p.QuantidadeCancelada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeCancelada' value='#= formateDecimalGrid(QuantidadeCancelada) #' />");
-                columns.Bound(p => p.QuantidadeDisponivel).Width(80).ClientTemplate("#= kendo.toString(QuantidadeDisponivel, \"n4\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeDisponivel' value='#= formateDecimalGrid(QuantidadeDisponivel) #' />");
-                columns.Bound(p => p.SituacaoRequisicaoMaterial).ClientTemplate("#= SituacaoRequisicaoMaterial #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].SituacaoRequisicaoMaterial' value='#= SituacaoRequisicaoMaterial #' />");
-                columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
-                    "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
-                        "#}#" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
-                columns.Command(command => command.Destroy().Text("Excluir") ).Width(105);
-            })
-            .DataSource(s => s.Ajax()
-                .Model(model =>
-                {
+              .Name("GridItens")
+              .Columns(columns =>
+              {
+                  columns.Bound(p => p.IdRequisicaoMaterialItem).Hidden().ClientTemplate(
+                      "<input type='hidden' name='GridItens[#= index(data)#].IdRequisicaoMaterialItem' value='#= IdRequisicaoMaterialItem #' />");
+                  columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                                                                 "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
+                                                                               "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                  columns.Bound(p => p.QuantidadeSolicitada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeSolicitada, \"n4\") #" +
+                                                                                      "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeSolicitada' value='#= formateDecimalGrid(QuantidadeSolicitada) #' />");
+                  columns.Bound(p => p.QuantidadeAtendida).Width(80).ClientTemplate("#= kendo.toString(QuantidadeAtendida, \"n4\") #" +
+                                                                                    "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeAtendida' value='#= formateDecimalGrid(QuantidadeAtendida) #' />");
+                  columns.Bound(p => p.QuantidadeCancelada).Width(80).ClientTemplate("#= kendo.toString(QuantidadeCancelada, \"n4\") #" +
+                                                                                     "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeCancelada' value='#= formateDecimalGrid(QuantidadeCancelada) #' />");
+                  columns.Bound(p => p.QuantidadeDisponivel).Width(80).ClientTemplate("#= kendo.toString(QuantidadeDisponivel, \"n4\") #" +
+                                                                                      "<input type='hidden' name='GridItens[#= index(data)#].QuantidadeDisponivel' value='#= formateDecimalGrid(QuantidadeDisponivel) #' />");
+                  columns.Bound(p => p.SituacaoRequisicaoMaterial).ClientTemplate("#= SituacaoRequisicaoMaterial #" +
+                                                                                  "<input type='hidden' name='GridItens[#= index(data)#].SituacaoRequisicaoMaterial' value='#= SituacaoRequisicaoMaterial #' />");
+                  columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                                                             "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                                             "#}#" +
+                                                             "<input type='hidden' name='GridItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                  columns.Command(command => command.Destroy().Text("Excluir") ).Width(105);
+              })
+              .DataSource(s => s.Ajax()
+                  .Model(model =>
+                  {
                       model.Id(item => item.IdRequisicaoMaterialItem); 
                       model.Field(product => product.Descricao).Editable(true); 
                       model.Field(product => product.QuantidadeAtendida).Editable(false); 
@@ -176,20 +176,32 @@
                       model.Field(product => product.UnidadeMedida).Editable(true); 
                       model.Field(product => product.Foto).Editable(false); 
                       model.Field(product => product.SituacaoRequisicaoMaterial).Editable(false).DefaultValue(SituacaoRequisicaoMaterial.NaoAtendido.EnumToString());  
-                })
-            )
-            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary", data_toggle="modal", data_target="#modal-materiais" }))
-            .Editable(editable =>
-                {
-                    editable.Mode(GridEditMode.InCell);
-                    editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
-                })
-            .Resizable(resize => resize.Columns(true))
-            .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
-            .Navigatable()
-            )  
+                  })
+              )
+              .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary", data_toggle="modal", data_target="#modal-materiais" }))
+              .Editable(editable =>
+              {
+                  editable.Mode(GridEditMode.InCell);
+                  editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
+              })
+              .Resizable(resize => resize.Columns(true))
+              .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
+              .Navigatable()
+              )  
     </div>
 </fieldset>
+
+@if (@Model.SituacaoRequisicaoMaterial == SituacaoRequisicaoMaterial.NaoAtendido)
+{
+    @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.RequisicaoMaterial.Excluir(Model.Id))
+}
+ else 
+{
+    <br/>
+    <div class="alert alert-info">
+        Não é possível alterar uma requisição de material com situação diferente de não atendido.
+    </div>
+}
 
 <script>
     function formateDecimalGrid(valor) {

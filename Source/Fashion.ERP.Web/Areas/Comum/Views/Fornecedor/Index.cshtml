@@ -9,102 +9,110 @@
 @using (Html.BeginForm(MVC.Comum.Fornecedor.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     @Html.AntiForgeryToken()
-    <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-            <div class="accordion-heading">
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
                 </a>
             </div>
-            <div id="collapsePesquisar" class="accordion-body collapse">
-                <div class="accordion-inner">
+            <div id="collapsePesquisar" class="panel-collapse collapse">
+                <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.Nome)
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.Nome, new { @class = "input-small" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.NomeFantasia)
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.NomeFantasia, new { @class = "input-small" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.CpfCnpj)
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.CpfCnpj, new { @class = "input-small" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.CpfCnpj, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Uf)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownList("Uf", null, "-- Selecione --", new{ id = "estado-option", @class = "form-control"})
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Uf)
-                                <div class="controls">
-                                    @Html.DropDownList("Uf", null, "-- Selecione --", new{ id = "estado-option", @class = "input-large"})
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.Cidade)
-                                <div class="controls">
-                                    @Html.DropDownListFor(x => x.Cidade, null, "-- Selecione --", new{ id = "cidade-option", @class = "input-large"})
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownListFor(x => x.Cidade, null, "-- Selecione --", new{ id = "cidade-option", @class = "form-control"})
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="well">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-sm-12">
                                 @Html.HiddenFor(x => x.ModoConsulta)
-                                <div class="btn-group" data-toggle="buttons-radio">
-                                    <button name="btn-ModoConsulta" class="btn btn-info active" type="button" value="listagem">Listagem</button>
-                                    <button name="btn-ModoConsulta" class="btn btn-info" type="button" value="impressao">Impressão</button>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input name="btn-ModoConsulta" type="radio" value="listagem"/>Listagem
+                                    </label>
+                                    <label class="btn btn-default">
+                                        <input name="btn-ModoConsulta" type="radio" value="impressao"/>Impressão
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <br />
                         <div class="row">
-                            <div class="col-md-3">
-                                <div id="row-imprimir" class="form-group" style="display: none">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", "--Selecione--")
+                            <div class="col-sm-10 col-md-11">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("AgruparPor", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.OrdenarPor)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("OrdenarPor", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.Label("OrdenarEm", "Em", new { @class = "control-label col-sm-2 col-md-1" })
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                <select name="OrdenarEm" class="form-control">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            <div class="col-sm-2 col-md-1 form-group">
+                                <button id="pesquisar-relatorio" class="btn btn-default pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
+                                <button id="pesquisar-grid" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -114,20 +122,23 @@
     </div>
 }
 <div id="pdf"></div>
-@(Html.Kendo().Grid(Model.Grid)
-	.Name("Grid")
-	.Columns(columns =>
-	{
-		columns.Bound(x => x.Codigo);
-        columns.Bound(x => x.Nome);
-        columns.Bound(x => x.CpfCnpj);
-	    columns.Bound(x => x.NomeFantasia);
-        columns.Bound(x => x.Estado);
-        columns.Bound(x => x.Cidade);
-        columns.Template(item => Html.EditarAuth(MVC.Comum.Fornecedor.Editar(item.Id))).Width(80);
-        columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.Fornecedor.EditarSituacao(item.Id), item.Ativo)).Width(80);
-	})
-      )
+
+<div class="table-responsive">
+    @(Html.Kendo().Grid(Model.Grid)
+          .Name("Grid")
+          .Columns(columns =>
+          {
+              columns.Bound(x => x.Codigo);
+              columns.Bound(x => x.Nome);
+              columns.Bound(x => x.CpfCnpj);
+              columns.Bound(x => x.NomeFantasia);
+              columns.Bound(x => x.Estado);
+              columns.Bound(x => x.Cidade);
+              columns.Template(item => Html.EditarAuth(MVC.Comum.Fornecedor.Editar(item.Id))).Width(80);
+              columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.Fornecedor.EditarSituacao(item.Id), item.Ativo)).Width(80);
+          }))
+</div>
+
 <script>
 
     $(document).ready(function() {
@@ -135,6 +146,20 @@
         $('#form').validate({
             ignore: "select"
         });
+
+        //$("#CpfCnpj").keydown(function () {
+        //    try {
+        //        $("#CpfCnpj").unmask();
+        //    } catch (e) { }
+
+        //    var tamanho = $("#CpfCnpj").val().length;
+
+        //    if (tamanho < 11) {
+        //        $("#CpfCnpj").mask("999.999.999-99");
+        //    } else if (tamanho >= 11) {
+        //        $("#CpfCnpj").mask("99.999.999/9999-99");
+        //    }
+        //});
     });
 
     $(function () {

@@ -33,11 +33,11 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         
         [Display(Name = "CEP")]
         [UIHint("Cep")]
-        [StringLength(9, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         [Required(ErrorMessage = "Informe o CEP")]
         public string Cep { get; set; }
         
         [Display(Name = "Cidade")]
+        [Required(ErrorMessage = "Informe a Cidade")]
         public long Cidade { get; set; } 
     }
 }

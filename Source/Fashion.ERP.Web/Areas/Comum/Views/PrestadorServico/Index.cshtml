@@ -3,15 +3,18 @@
 <div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Comum.PrestadorServico.Novo(), new { @class = "btn btn-primary" })
 </div>
-@Html.ValidationSummaryEx()
-@(Html.Kendo().Grid(Model)
-    .Name("Grid")
-    .Columns(columns =>
-    {
-        columns.Bound(x => x.Codigo);
-        columns.Bound(x => x.CpfCnpj);
-        columns.Bound(x => x.Nome);
-        columns.Template(item => Html.EditarAuth(MVC.Comum.PrestadorServico.Editar(item.Id))).Width(80);
-        columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.PrestadorServico.EditarSituacao(item.Id), item.Ativo)).Width(80);
-    })
-)
+
+<div class="table-responsive">
+    @Html.ValidationSummaryEx()
+    @(Html.Kendo().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.Codigo);
+            columns.Bound(x => x.CpfCnpj);
+            columns.Bound(x => x.Nome);
+            columns.Template(item => Html.EditarAuth(MVC.Comum.PrestadorServico.Editar(item.Id))).Width(80);
+            columns.Template(item => Html.EditarSituacaoAuth(MVC.Comum.PrestadorServico.EditarSituacao(item.Id), item.Ativo)).Width(80);
+        })
+    )    
+</div>

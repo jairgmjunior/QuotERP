@@ -167,12 +167,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         partial void LerDependentesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long clienteId);
 
-        public override System.Web.Mvc.ActionResult LerDependentes(Kendo.Mvc.UI.DataSourceRequest request, long clienteId)
+        public override System.Web.Mvc.ActionResult LerDependentes(Kendo.Mvc.UI.DataSourceRequest request, long pessoaId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LerDependentes);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "clienteId", clienteId);
-            LerDependentesOverride(callInfo, request, clienteId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "clienteId", pessoaId);
+            LerDependentesOverride(callInfo, request, pessoaId);
             return callInfo;
         }
 

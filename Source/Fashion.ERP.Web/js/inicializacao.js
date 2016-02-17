@@ -332,11 +332,14 @@ $(document).on('keydown', 'input[type="text"].numeric-only', function (e) {
 });
 
 $(document).ready(function () {
+    inicializeValidacaoFormulario($('form'));
+});
+
+function inicializeValidacaoFormulario(form) {
     $('.input-validation-error').parents('.form-group').addClass('has-error');
     $('.field-validation-error').addClass('text-danger');
 
-    var form = $('form'),
-        formData = $.data(form[0]),
+    var formData = $.data(form[0]),
         settings = formData.validator.settings,
         oldErrorPlacement = settings.errorPlacement,
         oldSuccess = settings.success,
@@ -383,4 +386,4 @@ $(document).ready(function () {
         }
         oldUnhighlight(element, errorClass);
     };
-});
+};

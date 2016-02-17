@@ -12,17 +12,16 @@
     {
         columns.Bound(p => p.Nome);
         columns.Bound(p => p.GrauDependencia);
-        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
     })
-    .Pageable(x => x.Refresh(true))
     .Scrollable(x => x.Height(100))
     .DataSource(dataSource => dataSource
         .Ajax()
         .Model(m => m.Id(p => p.Id))
-        .Read(builder => builder.Action("LerDependentes", "Dependente", new {clienteId = TempData["clienteId"]}).Type(HttpVerbs.Get))
+        .Read(builder => builder.Action("LerDependentes", "Dependente", new {pessoaId = TempData["pessoaId"]}).Type(HttpVerbs.Get))
         .Destroy("Excluir", "Dependente")
         .Events(e => e.Error("onKendoGridError"))
-    )
+    ).ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { data_target="#modal-dependente", data_toggle="modal", @href= "/Comum/Dependente/Novo?pessoaId=" + TempData["pessoaId"], @class="btn-primary" }))
     .AutoBind(true)
     .EnableCustomBinding(true)
 )

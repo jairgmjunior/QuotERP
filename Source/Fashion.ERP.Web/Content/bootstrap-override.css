@@ -458,17 +458,11 @@ footer a:hover {
     position:relative;
 }
 .dropdown-submenu>.dropdown-menu {
-    top:0;
-    left:100%;
-    margin-top:-6px;
-    margin-left:-1px;
-    -webkit-border-radius:0 6px 6px 6px;
-    -moz-border-radius:0 6px 6px 6px;
-    border-radius:0 6px 6px 6px;
+    margin-left: 15px !important;
 }
-.dropdown-submenu:hover>.dropdown-menu {
+/*.dropdown-submenu:hover>.dropdown-menu {
     display:block;
-}
+}*/
 .dropdown-submenu>a:after {
     display:block;
     content:" ";
@@ -680,4 +674,44 @@ body {
 
 .has-error .k-picker-wrap.k-state-default, .has-error .k-numeric-wrap.k-state-default, .has-error .k-dropdown-wrap.k-state-default {
     border-color: #a94442 !important;
+}
+
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -128px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+	height: 128px; /* .push must be the same height as .footer */
+}
+
+@media (min-width: 346px) {
+    .footer, .push {
+	    height: 95px; /* .push must be the same height as .footer */
+    }
+    .wrapper {
+	    margin: 0 auto -95px; /* the bottom margin is the negative value of the footer's height */
+    }
+}
+
+@media (min-width: 660px) {
+    .footer, .push {
+	    height: 67px; /* .push must be the same height as .footer */
+    }
+    .wrapper {
+	    margin: 0 auto -67px; /* the bottom margin is the negative value of the footer's height */
+    }
+}
+
+.table-responsive .k-grid {
+    margin-bottom: 20px;
+}
+
+.display-block {
+    display: block !important
 }

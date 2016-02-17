@@ -8,7 +8,7 @@
     @Html.HiddenFor(x => x.Id)
     <input type="hidden" id="TamanhosDicionario_Modelagem" data-value = "@ViewBag.TamanhosDicionarioJson_Modelagem" />
     <fieldset>
-        <legend><small>Dados da Modelagem</small></legend>
+        <legend>Dados da Modelagem</legend>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -78,7 +78,7 @@
     </fieldset>    
     <hr />
     <fieldset>
-        <legend><small>Medidas da Modelagem</small></legend>
+        <legend>Medidas da Modelagem</legend>
             @(Html.Kendo().Grid(Model.GridMedidas)
                 .Name("GridMedidas").HtmlAttributes(new { style="width:400px"})
                 .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))

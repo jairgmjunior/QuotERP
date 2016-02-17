@@ -22,7 +22,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         [StringLength(50, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Nome { get; set; }
 
-        [Display(Name = "Itens Perfis de Acesso")]
+        [Display(Name = "Itens")]
         public long?[] Permissoes { get; set; }
 
         public IList<TreeViewModel> PermissoesList { get; set; }

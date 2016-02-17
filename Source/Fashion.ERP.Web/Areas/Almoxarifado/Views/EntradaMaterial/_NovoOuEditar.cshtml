@@ -1,6 +1,6 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.EntradaMaterialModel
 <fieldset>
-    <legend><small>Dados da Entrada de Material</small></legend>
+    <legend>Dados da Entrada de Material</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -46,7 +46,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Dados da Origem</small></legend>
+    <legend>Dados da Origem</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -93,7 +93,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Itens da entrada</small></legend>
+    <legend>Itens da entrada</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -252,6 +252,8 @@
         </div>
     </div>
 </fieldset>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.EntradaMaterial.Excluir(Model.Id))
 
 <script>
 

@@ -28,7 +28,7 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public static string EnumToString(this GeneroCategoria generoCategoria)
         {
             var display = generoCategoria.GetDisplay();
-            return display != null ? display.Name : generoCategoria.ToString();
+            return display != null ? display.Name.ToUpper() : generoCategoria.ToString().ToUpper();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
     {
         public long? IdEndereco { get; set; }
 
-        [Display(Name = "Tipo Endereço")]
+        [Display(Name = "Tipo de endereço")]
         [Required(ErrorMessage = "Informe o tipo de endereço")]
         public TipoEndereco EnderecoTipoEndereco { get; set; }
 
@@ -38,7 +38,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         [Required(ErrorMessage = "Informe a cidade")]
         public long EnderecoCidade { get; set; }
 
-        [Display(Name = "Tipo Contato")]
+        [Display(Name = "Tipo de contato")]
         [Required(ErrorMessage = "Informe o tipo de contato")]
         public TipoContato ContatoTipoContato { get; set; }
 

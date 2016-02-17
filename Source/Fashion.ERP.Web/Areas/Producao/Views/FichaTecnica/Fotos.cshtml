@@ -8,7 +8,7 @@
     @Html.HiddenFor(x => x.Id)
     
     <fieldset>
-        <legend><small>Fotos da Ficha Técnica</small></legend>
+        <legend>Fotos da Ficha Técnica</legend>
             @(Html.Kendo().Grid(Model.GridFotos)
                 .Name("GridFotos").HtmlAttributes(new { style="width:600px"})
                 .Editable(e => e.Mode(GridEditMode.InCell))

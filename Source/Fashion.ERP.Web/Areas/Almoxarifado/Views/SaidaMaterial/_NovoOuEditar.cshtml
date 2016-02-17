@@ -1,7 +1,7 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.SaidaMaterialModel
 
 <fieldset>
-    <legend><small>Dados da Saída</small></legend>
+    <legend>Dados da Saída</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -36,7 +36,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Dados do Destino</small></legend>
+    <legend>Dados do Destino</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -83,7 +83,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Itens da Saída</small></legend>
+    <legend>Itens da Saída</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -201,6 +201,20 @@
         </div>
     </div>    
 </fieldset>
+    @if (@Model.PermiteAlterar)
+    {
+        @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.SaidaMaterial.Excluir(Model.Id))   
+    }
+    else
+    {
+        <br/>
+        <div class="row">
+            <div class="alert alert-info">
+                Não é possível alterar uma saída de material criada pela baixa de uma requisição de material.
+            </div>
+        </div>
+    }
+
 
 <script>
     $(document).ready(function () {

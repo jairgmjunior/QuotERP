@@ -15,9 +15,8 @@
         columns.Bound(p => p.Banco).Width(50);
         columns.Bound(p => p.Agencia);
         columns.Bound(p => p.Conta);
-        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
     })
-    .Pageable(x => x.Refresh(true))
     .Scrollable(x => x.Height(100))
     .DataSource(dataSource => dataSource
         .Ajax()
@@ -26,6 +25,7 @@
         .Destroy("Excluir", "InformacaoBancaria")
         .Events(e => e.Error("onKendoGridError"))
     )
+    .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { data_target="#modal-informacao-bancaria", data_toggle="modal", @href= "/Comum/InformacaoBancaria/Novo?pessoaId=" + TempData["pessoaId"], @class="btn-primary" }))
     .AutoBind(true)
     .EnableCustomBinding(true)
 )

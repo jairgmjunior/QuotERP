@@ -41,7 +41,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         [StringLength(20, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string DocumentoIdentidade { get; set; }
 
-        [Display(Name = "Órgão Expeditor")]
+        [Display(Name = "Órgão Expedidor")]
         [StringLength(20, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string OrgaoExpedidor { get; set; }
 
@@ -68,6 +68,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         [Display(Name = "Foto")]
         public long? FotoId { get; set; }
 
+        [Display(Name = "Foto")]
         public string FotoNome { get; set; }
 
         [Display(Name = "Sexo")]

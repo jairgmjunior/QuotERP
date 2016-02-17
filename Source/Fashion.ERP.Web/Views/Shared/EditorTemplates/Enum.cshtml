@@ -6,4 +6,4 @@
     var displayText = display != null ? display.Name.ToUpper() : Model.ToString().ToUpper();
 }
 
-@Html.Label(string.Empty, displayText, new { @class = "label"})
+@Html.Label(string.Empty, displayText.ToUpper(), new { @class = "label"})

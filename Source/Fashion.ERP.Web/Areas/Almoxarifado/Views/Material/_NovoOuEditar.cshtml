@@ -20,7 +20,7 @@
     @Html.HiddenFor(x => x.Ativo)
     
     <fieldset>
-        <legend><small>Dados do Material</small></legend>
+        <legend>Dados do Material</legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -224,7 +224,7 @@
                         </div>
 
                         <div class="progress" style="display: none">
-                            <div class="bar"></div>
+                            <div class="progress-bar"></div>
                         </div>
                         @Html.ValidationMessageFor(x => x.FotoNome, null, new { @class = "help-block" })
                     </div>
@@ -262,7 +262,7 @@
     
     <div id="bordado">
         <fieldset>
-            <legend><small>Dados do Bordado</small></legend>
+            <legend>Dados do Bordado</legend>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
@@ -308,7 +308,7 @@
 
     <div id="tecido">
         <fieldset>
-            <legend><small>Dados do Tecido</small></legend>
+            <legend>Dados do Tecido</legend>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
@@ -363,17 +363,8 @@
         </fieldset>
     </div>   
 
-    <div class="row">
-        <div class="col-sm-6 form-group-sm"> 
-            <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
-                <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-                @if (this.IsEditar())
-                {
-                    @Html.ExcluirAuth(MVC.Almoxarifado.Material.Excluir(Model.Id))
-                }
-            </div>
-        </div>     
-    </div>
+    @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.Material.Excluir(Model.Id))
+
 }
 
 @{Html.RenderPartial("_RecortarImagem");}
@@ -587,61 +578,6 @@
         </div>
     </div>
 </div>
-
-
-@*<!-- CADASTRO DE REFERÊNCIAS EXTERNAS -->
-<div id="modal-referencias-externas" class="modal hide fade">
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Referência externa</h3>
-    </div>
-    <form id="form-cadastrar-referencias-externas" class="form-horizontal">
-        <div id="modal-body-referencias-externas" class="modal-body">
-            <div class="form-group">
-                <label class="control-label">Referência</label>
-                <div class="controls">
-                    <input type="text" name="Referencia" class="input-small" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Descrição</label>
-                <div class="controls">
-                    <input id="descricao-referencia-externa" type="text" name="Descricao" class="input-medium" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Cod. Barras</label>
-                <div class="controls">
-                    <input type="text" name="CodigoBarra" class="input-medium" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Preço</label>
-                <div class="controls">
-                    @(Html.Kendo().NumericTextBox().Name("Preco")
-                          .Format("c")
-                          .Min(0)
-                          .HtmlAttributes(new { @class = "currency input-small" }))
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Fornecedor</label>
-                <div class="controls">
-                    <div class="input-group">
-                        @Html.Hidden("Fornecedor")
-                        <input id="codigo-fornecedor" class="input-small" type="text" />
-                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-fornecedor" class="add-on"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button id="submit-salvar-referencias-externas" class="btn btn-primary" type="button">Salvar</button>
-        </div>
-    </form>
-</div>*@
 
 <script>
     $(function () {

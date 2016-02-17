@@ -57,7 +57,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
             if (domain != null)
             {
-                var model = new AutorizacoesModel {Procedimento = domain.Descricao};
+                var model = new AutorizacoesModel {Procedimento = domain.Descricao.ToUpper()};
 
                 foreach (var item in domain.Funcionarios)
                     model.Funcionarios.Add(item.Id);

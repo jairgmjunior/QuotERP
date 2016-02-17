@@ -5,69 +5,83 @@
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     @Html.HiddenFor(x => x.Procedimento)
-    <div class="detail">
-        <div class="row">
-            <div class="span1"></div>
-            <div class="col-md-10">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Procedimento, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Procedimento)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <fieldset>
-        <legend></legend>
+        <legend>Dados do Recebimento de Compra</legend>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Funcionarios)
-                    <div class="controls">
-                        <input type="hidden" name="Funcionario" id="funcionario" />
-                        <div class="input-group">
-                            <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                            <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                            <span id="descricao-funcionario" class="add-on"></span>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Procedimento)
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Procedimento)
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
+        </div>
+        <div class="row">
+            <div class ="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Funcionarios)
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        @Html.HiddenFor(x => x.Funcionarios, new { id = "funcionario" })
+                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                            <div class="input-group">
+                                <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                                <span class="input-group-btn pull-left">
+                                    <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                            <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Funcionarios, string.Empty, new { @class = "help-block" })
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="controls">
-                <table id="table-funcionario" class="table table-striped table-condensed" style="width: 500px">
-                    <thead>
-                        <tr>
-                            <th>Funcionario</th>
-                            <th style="width: 16px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.Funcionarios != null)
-                        {
-                            for (int i = 0; i < Model.Funcionarios.Count; i++)
-                            {
-                                var funcionario = Model.Funcionarios[i];
-                            <tr>
-                                <td>
-                                    @ViewBag.FuncionariosDicionario[funcionario]
-                                    <input type="hidden" name="Funcionarios" value="@funcionario"/>
-                                </td>
-                                <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
-                            </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label("Funcionários", new { @class="control-label col-sm-4 col-md-3"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <table id="table-funcionario" class="table table-striped table-responsive" >
+                            <tbody>
+                                @if (Model.Funcionarios != null)
+                                {
+                                    for (int i = 0; i < Model.Funcionarios.Count; i++)
+                                    {
+                                        var funcionario = Model.Funcionarios[i];
+                                        <tr>
+                                            <td>
+                                                @ViewBag.FuncionariosDicionario[funcionario]
+                                                <input type="hidden" name="Funcionarios" value="@funcionario"/>
+                                            </td>
+                                            <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </fieldset>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
+    </div>
+
     <script>
         $(document).ready(function () {
 
@@ -117,10 +131,8 @@
             });
         }
     </script>
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-    </div>
 }
+
 @{
     Html.RenderPartial("_ConfirmDelete");
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });

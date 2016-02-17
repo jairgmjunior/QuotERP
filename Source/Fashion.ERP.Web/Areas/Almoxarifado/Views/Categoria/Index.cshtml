@@ -4,15 +4,17 @@
     @Html.ActionLinkAuth("Novo", MVC.Almoxarifado.Categoria.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@(Html.Kendo().Grid(Model)
-	.Name("Grid")
-	.Columns(columns =>
-	{
-        columns.Bound(x => x.Nome);
-        columns.Bound(x => x.CodigoNcm);
-        columns.Bound(x => x.TipoCategoria);
-        columns.Bound(x => x.GeneroCategoria);
-        columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.Categoria.Editar(item.Id))).Width(80);
-        columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.Categoria.EditarSituacao(item.Id), item.Ativo)).Width(80);
-	})
-)
+<div class="table-responsive">
+    @(Html.Kendo().Grid(Model)
+	    .Name("Grid")
+	    .Columns(columns =>
+	    {
+            columns.Bound(x => x.Nome);
+            columns.Bound(x => x.CodigoNcm);
+            columns.Bound(x => x.TipoCategoria);
+            columns.Bound(x => x.GeneroCategoria);
+            columns.Template(item => Html.EditarAuth(MVC.Almoxarifado.Categoria.Editar(item.Id))).Width(80);
+            columns.Template(item => Html.EditarSituacaoAuth(MVC.Almoxarifado.Categoria.EditarSituacao(item.Id), item.Ativo)).Width(80);
+	    })
+    )
+</div>

@@ -2,7 +2,7 @@
 @model Fashion.ERP.Web.Areas.Almoxarifado.Models.ReservaMaterialModel
 
 <fieldset>
-    <legend><small>Dados da Reserva de Material</small></legend>
+    <legend>Dados da Reserva de Material</legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -123,7 +123,7 @@
  </fieldset>
 
 <fieldset>
-    <legend><small>Itens da Reserva de Material</small></legend>
+    <legend>Itens da Reserva de Material</legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(@Model.GridItens)
             .Name("GridItens")
@@ -162,6 +162,18 @@
             )
     </div>
 </fieldset>
+
+@if (@Model.PermiteAlterar)
+{
+    @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.RequisicaoMaterial.Excluir(Model.Id))
+}
+else
+{
+    <br/>
+    <div class="alert alert-info">
+        Não é possível alterar uma reserva de material criada por uma requisição de material ou programação de produção.
+    </div>
+}
 
 <script>
     $(document).ready(function () {

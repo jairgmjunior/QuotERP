@@ -5,9 +5,5 @@
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.Comum.OperacaoProducao.Excluir(Model.Id))
-	</div>
 }
 @{Html.RenderPartial("_ConfirmDelete");}

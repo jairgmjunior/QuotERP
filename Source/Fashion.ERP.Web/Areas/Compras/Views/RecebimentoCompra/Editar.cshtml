@@ -4,10 +4,6 @@
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-		@Html.ExcluirAuth(MVC.Compras.RecebimentoCompra.Excluir(Model.Id))
-	</div>
 }
 @{
     Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });

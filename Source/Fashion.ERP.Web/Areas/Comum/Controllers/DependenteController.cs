@@ -42,7 +42,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         [ChildActionOnly]
         public virtual ActionResult Index(long pessoaId)
         {
-            TempData["clienteId"] = pessoaId;
+            TempData["pessoaId"] = pessoaId;
             return View();
         }
 
@@ -50,12 +50,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         #region LerDependentes
         [AjaxOnly, OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual ActionResult LerDependentes([DataSourceRequest] DataSourceRequest request, long clienteId)
+        public virtual ActionResult LerDependentes([DataSourceRequest] DataSourceRequest request, long pessoaId)
         {
             if (request.PageSize == 0)
                 request.PageSize = 4;
 
-            var cliente = _pessoaRepository.Load(clienteId);
+            var cliente = _pessoaRepository.Load(pessoaId);
 
             var dependentes = cliente.Cliente.Dependentes;
 

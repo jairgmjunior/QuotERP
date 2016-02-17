@@ -15,9 +15,8 @@
         columns.Bound(p => p.Telefone);
         columns.Bound(p => p.Operadora);
         columns.Bound(p => p.Email);
-        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
     })
-    .Pageable(x => x.Refresh(true))
     .Scrollable(x => x.Height(100))
     .DataSource(dataSource => dataSource
         .Ajax()
@@ -27,5 +26,6 @@
         .Events(e => e.Error("onKendoGridError"))
     )
     .AutoBind(true)
+    .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { data_target="#modal-contato", data_toggle="modal", @href= "/Comum/Contato/Novo?pessoaId=" + TempData["pessoaId"], @class="btn-primary" }))
     .EnableCustomBinding(true)
 )

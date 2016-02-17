@@ -5,72 +5,90 @@
 
 @*Criada para contornar um BUG no kendo*@
 @Html.Hidden("FlagValidacao")
+
 <fieldset>
-    <legend><small>Dados do Pedido de Compra</small></legend>
+    <legend>Dados do Pedido de Compra</legend>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.UnidadeEstocadora)
-                <div class="controls">
-                    @Html.DropDownList("UnidadeEstocadora", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.UnidadeEstocadora, null, new { @class = "help-block" })
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.UnidadeEstocadora, null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.UnidadeEstocadora, null, new { @class="help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.SituacaoCompra)
-                <div class="controls">
-                    @Html.EditorFor(x => x.SituacaoCompra)
-                    @Html.HiddenFor(x => x.SituacaoCompra)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.SituacaoCompra, Model.SituacaoCompra.ToSelectList(), "-- Selecione --",  new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.SituacaoCompra, null, new { @class="help-block" })
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Numero)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Numero)
-                    @Html.ValidationMessageFor(x => x.Numero, null, new { @class = "help-block" })
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Numero, new { @class = "numeric-only form-control" })
+                    @Html.ValidationMessageFor(x => x.Numero, null, new { @class="help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.DataCompra)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.EditorFor(x => x.DataCompra)
-                    @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class = "help-block" })
+                    @Html.ValidationMessageFor(x => x.DataCompra, null, new { @class="help-block" })
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Fornecedor)
-                <div class="controls">
-                    @Html.HiddenFor(x => x.Fornecedor, new { id = "Fornecedor" })
-                    <div class="input-group">
-                        <input id="codigo-fornecedor" class="input-small numeric-only" type="text" />
-                        <button id="pesquisar-fornecedor" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-fornecedor" class="add-on"></span>
+                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                    @Html.HiddenFor(x => x.Fornecedor)
+                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                        <div class="input-group">
+                            <input id="codigo-fornecedor" class="numeric-only form-control" type="text" style="width: 70%;">
+                            <span class="input-group-btn pull-left">
+                                <button id="pesquisar-fornecedor" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-fornecedor">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                        <input id="descricao-fornecedor" class="form-control" readonly="" data-toggle="tooltip">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Comprador)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
                     @Html.HiddenFor(x => x.Comprador, new { id = "funcionario" })
-                    <div class="input-group">
-                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-funcionario" class="add-on"></span>
+                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                        <div class="input-group">
+                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                            <span class="input-group-btn pull-left">
+                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Comprador, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
@@ -84,82 +102,82 @@
 
 <div class="tab-content">
     <div class="tab-pane active" id="pedido">
+        <br/>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.PrevisaoFaturamento)
-                    <div class="controls">
+                    <div class="col-sm-8 col-md-8 col-lg-7">
                         @Html.EditorFor(x => x.PrevisaoFaturamento)
-                        @Html.ValidationMessageFor(x => x.PrevisaoFaturamento, null, new { @class = "help-block" })
+                        @Html.ValidationMessageFor(x => x.PrevisaoFaturamento, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
-            
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.PrevisaoEntrega)
-                    <div class="controls">
+                    <div class="col-sm-8 col-md-8 col-lg-7">
                         @Html.EditorFor(x => x.PrevisaoEntrega)
-                        @Html.ValidationMessageFor(x => x.PrevisaoEntrega, null, new { @class = "help-block" })
+                        @Html.ValidationMessageFor(x => x.PrevisaoEntrega, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Transportadora)
-                    <div class="controls">
-                        @Html.DropDownList("Transportadora", null, "-- Selecione --", new { @class = "input-large" })
-                        @Html.ValidationMessageFor(x => x.Transportadora, null, new { @class = "help-block" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Transportadora, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Transportadora, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.TipoCobrancaFrete)
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.TipoCobrancaFrete, Model.TipoCobrancaFrete.ToSelectList())
-                        @Html.ValidationMessageFor(x => x.TipoCobrancaFrete, null, new { @class = "help-block" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.TipoCobrancaFrete, Model.TipoCobrancaFrete.ToSelectList(), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.TipoCobrancaFrete, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.MeioPagamento)
-                    <div class="controls">
-                        @Html.DropDownList("MeioPagamento", null, "-- Selecione --", new { @class = "input-large" })
-                        @Html.ValidationMessageFor(x => x.MeioPagamento, null, new { @class = "help-block" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.MeioPagamento, null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.MeioPagamento, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Prazo)
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Prazo, null, "-- Selecione --", new { @class = "input-large" })
-                        @Html.ValidationMessageFor(x => x.Prazo, null, new { @class = "help-block" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Prazo, null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Prazo, null, new { @class="help-block" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Observacao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Observacao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
                         @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Contato)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Contato)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Contato, new { @class = "form-control"})
                         @Html.ValidationMessageFor(x => x.Contato, null, new { @class = "help-block" })
                     </div>
                 </div>
@@ -169,21 +187,21 @@
             if (@Model.Autorizado)
             {
                 <fieldset>
-                    <legend><small>Dados da autorização</small></legend>
+                    <legend>Dados da autorização</legend>
                 </fieldset>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
                             @Html.LabelForRequired(x => x.FuncionarioAutorizador)
-                            <div class="controls">
-                                @Html.TextBoxFor(x => x.FuncionarioAutorizador, new {disabled = "disabled"})
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.FuncionarioAutorizador, new { @class="form-control", disabled = "disabled" })
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
                             @Html.LabelForRequired(x => x.DataAutorizacao)
-                            <div class="controls">
+                            <div class="col-sm-8 col-md-8 col-lg-7">
                                 @Html.EditorFor(x => x.DataAutorizacao)
                             </div>
                         </div>
@@ -192,59 +210,62 @@
             }
         }
     </div>
-    <div class="tab-pane" id="itens">@*.ClientDetailTemplateId("template")*@
+
+    <div class="tab-pane" id="itens">
+        <br/>
         @(Html.Kendo().Grid(@Model.GridItens)
-            .Name("GridItens")
-            .Columns(columns =>
-            {
-                columns.Bound(p => p.Id).Hidden().ClientTemplate(
-                    "<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
-                columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
-                columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
-                columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-                columns.Bound(p => p.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(80).ClientTemplate("#= kendo.toString(Quantidade, \"n4\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
-                columns.Bound(p => p.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorUnitario, \"n5\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].ValorUnitario' value='#= formateDecimalGrid(ValorUnitario) #' />");
-                columns.Bound(p => p.ValorDesconto).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorDesconto, \"n2\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].ValorDesconto' value='#= formateDecimalGrid(ValorDesconto) #' />");
-                columns.Bound(p => p.ValorTotal).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorTotal, \"n2\") #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].ValorTotal' value='#= formateDecimalGrid(ValorTotal) #' />");
-                columns.Bound(p => p.Situacao).ClientTemplate("#= Situacao #" +
-                    "<input type='hidden' name='GridItens[#= index(data)#].Situacao' value='#= Situacao #' />");
-                columns.Command(command => command.Destroy().Text("Excluir") );
-            })
-            .ClientDetailTemplateId("templateDetalheGrid")
-            .DataSource(s => s.Ajax()
-                .Model(model =>
-                {
-                    model.Id(item => item.Id);
-                    model.Field(product => product.Referencia).Editable(false);
-                    model.Field(product => product.Descricao).Editable(false);
-                    model.Field(product => product.UnidadeMedida).Editable(false);
-                    model.Field(product => product.ValorTotal).Editable(true);
-                })
-            )
-            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
-            .Editable(editable =>
-                {
-                    editable.Mode(GridEditMode.InCell);
-                    editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
-                })
-            .Resizable(resize => resize.Columns(true))
-            .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
-            .Navigatable()
-            )
-    
-        <script id="templateDetalheGrid" type="text/html">@*text/x-kendo-template*@
+              .Name("GridItens")
+              .Columns(columns =>
+              {
+                  columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                      "<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                  columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                                                                 "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
+                                                                               "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                  columns.Bound(p => p.Quantidade).EditorTemplateName("numeric4casasdecimais").Width(80).ClientTemplate("#= kendo.toString(Quantidade, \"n4\") #" +
+                                                                                                                        "<input type='hidden' name='GridItens[#= index(data)#].Quantidade' value='#= formateDecimalGrid(Quantidade) #' />");
+                  columns.Bound(p => p.ValorUnitario).EditorTemplateName("numeric5casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorUnitario, \"n5\") #" +
+                                                                                                                            "<input type='hidden' name='GridItens[#= index(data)#].ValorUnitario' value='#= formateDecimalGrid(ValorUnitario) #' />");
+                  columns.Bound(p => p.ValorDesconto).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorDesconto, \"n2\") #" +
+                                                                                                                            "<input type='hidden' name='GridItens[#= index(data)#].ValorDesconto' value='#= formateDecimalGrid(ValorDesconto) #' />");
+                  columns.Bound(p => p.ValorTotal).EditorTemplateName("numeric2casasdecimais").Width(110).ClientTemplate("#= kendo.toString(ValorTotal, \"n2\") #" +
+                                                                                                                         "<input type='hidden' name='GridItens[#= index(data)#].ValorTotal' value='#= formateDecimalGrid(ValorTotal) #' />");
+                  columns.Bound(p => p.Situacao).ClientTemplate("#= Situacao #" +
+                                                                "<input type='hidden' name='GridItens[#= index(data)#].Situacao' value='#= Situacao #' />");
+                  columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
+              })
+              .ClientDetailTemplateId("templateDetalheGrid")
+              .DataSource(s => s.Ajax()
+                  .Model(model =>
+                  {
+                      model.Id(item => item.Id);
+                      model.Field(product => product.Referencia).Editable(false);
+                      model.Field(product => product.Descricao).Editable(false);
+                      model.Field(product => product.UnidadeMedida).Editable(false);
+                      model.Field(product => product.Situacao).Editable(false);
+                      model.Field(product => product.ValorTotal).Editable(true);
+                  })
+              )
+              .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary", data_toggle="modal", data_target="#modal-materiais" }))
+              .Editable(editable =>
+              {
+                  editable.Mode(GridEditMode.InCell);
+                  editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
+              })
+              .Resizable(resize => resize.Columns(true))
+              .Events(events => events.DataBound("onDataBound").Edit("onEditGrid"))
+              .Navigatable()
+              )
+        <br/>
+        <script id="templateDetalheGrid" type="text/html">            
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Qtde. Entregue", new { @class = "control-label" })
-                        <div class="controls">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-4 col-md-3"> Entregue</label>                        
+                        <div class="col-sm-8 col-md-8 col-lg-7">
                             @(Html.Kendo().TextBox()
                                   .Name("teste")
                                   .Enable(false)
@@ -254,10 +275,10 @@
                         </div>
                     </div>
                 </div>  
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label(" Qtde. Não Entregue", new { @class = "control-label" })
-                        <div class="controls">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">                        
+                        <label class="control-label col-sm-4 col-md-3" for=""> Não Entregue</label>                        
+                        <div class="col-sm-8 col-md-8 col-lg-7">
                             @(Html.Kendo().TextBox()
                                   .Name("teste2")
                                   .Enable(false)
@@ -266,37 +287,37 @@
                                   )
                         </div>
                     </div>
-                </div>    
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Previsão de Entrega", new { @class = "control-label" })
-                        <div class="controls">                            
-                            <input class="input-small" data-mask="99/99/9999" id="PrevisaoEntregaString" name="GridItens[#= index(data)#].PrevisaoEntregaString" type="text"  onkeyup="preventDefaultCustomizado" value='#= limpeValor(PrevisaoEntregaString) #'>
+                </div> 
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        <label class="control-label col-sm-4 col-md-3" for="">Previsão de Entrega</label>                        
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <input class="k-textbox" data-mask="99/99/9999" id="PrevisaoEntregaString" name="GridItens[#= index(data)#].PrevisaoEntregaString" type="text"  onkeyup="preventDefaultCustomizado" value='#= limpeValor(PrevisaoEntregaString) #'>
                         </div>
                     </div>            
-                </div>
+                </div> 
             </div>
         </script>
     </div>
 </div>
 
 <fieldset>
-    <legend><small>Totais do Pedido</small></legend>
+    <legend>Totais do Pedido</legend>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorMercadorias)
-                <div class="controls">
-                    <input style=" width:130px;" readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled"/>
-                    <input type="hidden" id="ValorMercadorias" name="ValorMercadorias"  value=" @Model.ValorMercadorias" />
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    <input readonly="readonly" id="txtValorMercadorias" name="txtValorMercadorias" type="text" value=" @Model.ValorMercadorias" class="k-input k-state-disabled form-control"/>
+                    <input type="hidden" id="ValorMercadorias" name="ValorMercadorias" value=" @Model.ValorMercadorias" />
                     @Html.ValidationMessageFor(x => x.ValorMercadorias, null, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorFrete)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.EditorFor(x => x.ValorFrete)
                     @Html.ValidationMessageFor(x => x.ValorFrete, null, new { @class = "help-block" })
                 </div>
@@ -304,19 +325,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorEncargos)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.EditorFor(x => x.ValorEncargos)
                     @Html.ValidationMessageFor(x => x.ValorEncargos, null, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorEmbalagem)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.EditorFor(x => x.ValorEmbalagem)
                     @Html.ValidationMessageFor(x => x.ValorEmbalagem, null, new { @class = "help-block" })
                 </div>
@@ -324,21 +345,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorDescontoTotal)
-                <div class="controls">
-                    <input style=" width:130px;" readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDescontoTotal" class="k-input k-state-disabled"/>
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    <input readonly="readonly" id="txtValorDesconto" name="txtValorDesconto" type="text" value="@Model.ValorDescontoTotal" class="form-control k-state-disabled"/>
                     <input type="hidden" id="ValorDescontoTotal" name="ValorDescontoTotal"  value=" @Model.ValorDescontoTotal" />
                     @Html.ValidationMessageFor(x => x.ValorDescontoTotal, null, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorCompra)
-                <div class="controls">
-                    <input style=" width:130px;" readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="k-input k-state-disabled"/>
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    <input readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="form-control" k-state-disabled"/>
                     <input type="hidden" id="ValorCompra" name="ValorCompra"  value=" @Model.ValorCompra" />                
                     @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
                 </div>
@@ -346,6 +367,9 @@
         </div>
     </div>
 </fieldset>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Compras.PedidoCompra.Excluir(Model.Id))
+
 <script>
     function formateDecimalGrid(valor) {
         if (valor == null) {
@@ -370,11 +394,9 @@
         return false;
     }
 
-    
-
     $(document).ready(function() {
         
-        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+        $("#selecionar-materiais").on("pesquisar", function (ev, itens) {
             
             if (itens.DataItemsSelecionados.length == 0) {
                 return;
@@ -407,7 +429,7 @@
                         ValorUnitario: 0,
                         PedidoCompraId : $("#Id").val(),
                         MaterialId: dataItemNovo.Id,
-                        Situacao : "NaoAtendido"
+                        Situacao : "NÃO ATENDIDO"
                     };
 
                     atualizeUltimoCusto(dataItemNovo.Referencia, $("#Fornecedor").val(), dataItemNovoFinal);

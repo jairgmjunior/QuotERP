@@ -4,7 +4,7 @@
 @Html.HiddenFor(x => x.Id)
 
 <fieldset>
-    <legend><small>Dados da Programação de Produção</small></legend>
+    <legend>Dados da Programação de Produção</legend>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -106,7 +106,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Fichas Técnicas Programadas</small></legend>
+    <legend>Fichas Técnicas Programadas</legend>
         @(Html.Kendo().Grid(Model.GridProgramacaoProducaoItens)
             .Name("GridProgramacaoProducaoItens")
             .Editable(e => e.Mode(GridEditMode.InCell))

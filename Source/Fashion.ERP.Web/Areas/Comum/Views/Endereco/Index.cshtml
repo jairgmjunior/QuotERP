@@ -6,6 +6,7 @@
     Layout = null;
 }
 @Html.ValidationSummaryEx()
+
 @(Html.Kendo().Grid<GridEnderecoModel>()
     .Name("grid-endereco")
     .Columns(columns =>
@@ -14,9 +15,8 @@
         columns.Bound(p => p.Logradouro);
         columns.Bound(p => p.Cep);
         columns.Bound(p => p.Cidade);
-        columns.Command(command => command.Destroy().Text("Excluir")).Width(90);
+        columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
     })
-    .Pageable(x => x.Refresh(true))
     .Scrollable(x => x.Height(100))
     .DataSource(dataSource => dataSource
         .Ajax()
@@ -24,7 +24,7 @@
         .Read(builder => builder.Action("LerEnderecos", "Endereco", new {pessoaId = TempData["pessoaId"]}).Type(HttpVerbs.Get))
         .Destroy("Excluir", "Endereco")
         .Events(e => e.Error("onKendoGridError"))
-    )
+    ).ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { data_target="#modal-endereco", data_toggle="modal", @href= "/Comum/Endereco/Novo?pessoaId=" + TempData["pessoaId"], @class="btn-primary" }))
     .AutoBind(true)
     .EnableCustomBinding(true)
-)
+)    

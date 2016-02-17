@@ -3,6 +3,7 @@
 <div class="well well-sm">
     @Html.ActionLinkAuth("Novo", MVC.Comum.MeioPagamento.Novo(), new { @class = "btn btn-primary" })
 </div>
+
 @Html.ValidationSummaryEx()
 @(Html.Kendo().Grid(Model)
 	.Name("Grid")

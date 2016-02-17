@@ -5,39 +5,44 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Nome)
-        <div class="controls">
-            @Html.EditorFor(x => x.Nome)
-            @Html.ValidationMessageFor(x => x.Nome, null, new { @class = "help-block" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelForRequired(x => x.Permissoes)
-        <div class="controls">
-            @(Html.TreeView(Model.PermissoesList)
-                .EmptyContent("Não há permissões!")
-                .Children(m => m.Itens)
-                .HtmlAttributes(new { id = "treeview" })
-                .ChildrenHtmlAttributes(new { @class = "subItem" })
-                .ItemText(m => m.Name)
-                .ItemTemplate(
-                    @<text>
-                    <input type="checkbox" value="@item.Id" @(item.IsChecked ? "checked='ckecked'" : string.Empty) name="Permissoes"/>@item.Name
-                    </text>)
-                )
 
-            @Html.ValidationMessageFor(x => x.Permissoes, null, new { @class = "help-block" })
-        </div>
-    </div>
+    <fieldset>
+        <legend>Dados do Perfil de Acesso</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Nome)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.Nome, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Nome, null, new { @class="help-block" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Permissoes)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @(Html.TreeView(Model.PermissoesList)
+                              .EmptyContent("Não há permissões!")
+                              .Children(m => m.Itens)
+                              .HtmlAttributes(new { id = "treeview" })
+                              .ChildrenHtmlAttributes(new { @class = "subItem" })
+                              .ItemText(m => m.Name)
+                              .ItemTemplate(
+                                  @<text>
+                                       <input type="checkbox" value="@item.Id" @(item.IsChecked ? "checked='ckecked'" : string.Empty) name="Permissoes"/>@item.Name
+                                   </text>)
+                              )
 
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @if (Model.Id.HasValue)
-        {
-            @Html.ExcluirAuth(MVC.Comum.PerfilDeAcesso.Excluir(Model.Id))
-        }
-    </div>
+                        @Html.ValidationMessageFor(x => x.Permissoes, null, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    @Html.FormActionAuth(this.IsEditar(), MVC.Comum.PerfilDeAcesso.Excluir(Model.Id))
+}
+
+@{ Html.RenderPartial("_ConfirmDelete"); }
 
     <script>
         $(document).ready(function () {
@@ -51,5 +56,3 @@
             treeview.expand(".k-item");
         });
     </script>
-}
-@{ Html.RenderPartial("_ConfirmDelete"); }

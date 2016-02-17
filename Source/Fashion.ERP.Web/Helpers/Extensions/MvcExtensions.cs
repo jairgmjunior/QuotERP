@@ -38,7 +38,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
 
             var values = (from Enum e in Enum.GetValues(enumType)
                          let d = e.GetDisplay()
-                         select new { Id = e, Name = d != null ? d.Name : e.ToString() }).ToList();
+                         select new { Id = e, Name = d != null ? d.Name.ToUpper() : e.ToString().ToUpper() }).ToList();
 
             return new SelectList(values, "Id", "Name", enumObject);
         }

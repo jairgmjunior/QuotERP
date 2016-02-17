@@ -25,12 +25,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Models
         [Required(ErrorMessage = "Informe o custo")]
         public double Custo { get; set; }
 
-        [Display(Name = "Setor produtivo")]
-        [Required(ErrorMessage = "Informe o setor produtivo")]
+        [Display(Name = "Setor de produção")]
+        [Required(ErrorMessage = "Informe o setor de produção")]
         public long? SetorProducao { get; set; }
 
-        [Display(Name = "Departamento do setor produtivo")]
-        [Required(ErrorMessage = "Informe o departamento do setor produtivo")]
+        [Display(Name = "Departamento de Produção")]
+        [Required(ErrorMessage = "Informe o departamento de produção")]
         public long? DepartamentoProducao { get; set; }
 
         [Display(Name = "Peso Produtividade")]

@@ -677,7 +677,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
             pedidoCompraItemModel.ValorUnitario = item.ValorUnitario;
             pedidoCompraItemModel.Descricao = item.Material.Descricao;
             pedidoCompraItemModel.UnidadeMedida = item.UnidadeMedida.Sigla;
-            pedidoCompraItemModel.Situacao = item.SituacaoCompra.ToString();
+            pedidoCompraItemModel.Situacao = item.SituacaoCompra.EnumToString();
             pedidoCompraItemModel.Diferenca = item.ObtenhaDiferenca();
             pedidoCompraItemModel.QuantidadeEntregue = item.QuantidadeEntrega;
 

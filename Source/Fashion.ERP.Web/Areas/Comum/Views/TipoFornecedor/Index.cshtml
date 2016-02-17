@@ -4,11 +4,13 @@
     @Html.ActionLinkAuth("Novo", MVC.Comum.TipoFornecedor.Novo(), new { @class = "btn btn-primary" })
 </div>
 @Html.ValidationSummaryEx()
-@(Html.Kendo().Grid(Model)
-    .Name("Grid")
-    .Columns(columns =>
-    {
-        columns.Bound(x => x.Descricao);
-        columns.Template(item => Html.EditarAuth(MVC.Comum.TipoFornecedor.Editar(item.Id))).Width(80);
-    })
-)
+
+<div class="table-responsive">
+    @(Html.Kendo().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.Descricao);
+            columns.Template(item => Html.EditarAuth(MVC.Comum.TipoFornecedor.Editar(item.Id))).Width(80);
+        }))
+</div>

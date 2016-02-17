@@ -76,10 +76,26 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         }
         #endregion
 
+        public static MvcHtmlString FormActionAuth(this HtmlHelper helper, bool isEditar, ActionResult actionExcluir)
+        {
+            var resultado = @"<div class='row'>
+                <div class='col-sm-6'>
+                    <div class='form-group form-group-sm'>
+                        <div class='col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9'>
+                            <button id='btnSubmit' class='btn btn-primary' type='submit' data-loading-text='Aguarde...'>Salvar</button>
+                                " + (isEditar ? ExcluirAuth(helper, actionExcluir).ToString() : "") + @"                                                            
+                        </div>
+                    </div>
+                </div>     
+            </div>";
+
+            return new MvcHtmlString(resultado);
+        }
+
         #region EditarAuth
         public static MvcHtmlString EditarAuth(this HtmlHelper helper, ActionResult action)
         {
-            return ActionLinkAuth(helper, "Editar", action, new { @class = "btn btn-small btn-primary" });
+            return ActionLinkAuth(helper, "Editar", action, new { @class = "btn btn-primary" });
         }
         #endregion
         
@@ -102,8 +118,8 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         {
             // Gerar o botão de acordo com a situação
             return ativo
-                    ? ActionLinkAuth(helper, "Inativar", action, new { @class = "btn btn-small btn-danger btn-editar-situacao" })
-                    : ActionLinkAuth(helper, "Ativar", action, new { @class = "btn btn-small btn-success btn-editar-situacao" });
+                    ? ActionLinkAuth(helper, "Inativar", action, new { @class = "btn btn-primary display-block btn-editar-situacao" })
+                    : ActionLinkAuth(helper, "Ativar", action, new { @class = "btn btn-danger display-block btn-editar-situacao" });
         }
 
         public static MvcHtmlString EditarSituacaoAuth(this HtmlHelper helper, string text, string actionName,
@@ -111,8 +127,8 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         {
             // Gerar o botão de acordo com a situação
             return ativo == "false"
-                    ? ActionLinkAuth(helper, "Inativar", actionName, controllerName, routeValues , new { @class = "btn btn-small btn-danger btn-editar-situacao" })
-                    : ActionLinkAuth(helper, "Ativar", actionName, controllerName, routeValues, new { @class = "btn btn-small btn-success btn-editar-situacao" });
+                    ? ActionLinkAuth(helper, "Inativar", actionName, controllerName, routeValues, new { @class = "btn btn-primary display-block btn-editar-situacao" })
+                    : ActionLinkAuth(helper, "Ativar", actionName, controllerName, routeValues, new { @class = "btn btn-danger display-block btn-editar-situacao" });
         }
 
         #endregion
@@ -217,6 +233,14 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             var callInfo = result.GetT4MVCResult();
             var ajaxOptions = new AjaxOptions { OnSuccess = "onAjaxFormSucess('" + modalName + "')", OnComplete = "onAjaxFormComplete", HttpMethod = "POST" };
             var htmlAttributes = new Dictionary<string, object> { { "class", "form-horizontal" } };
+            return ajaxHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, ajaxOptions, htmlAttributes);
+        }
+        
+        public static MvcForm BeginForm(this AjaxHelper ajaxHelper, ActionResult result, string modalName, string id)
+        {
+            var callInfo = result.GetT4MVCResult();
+            var ajaxOptions = new AjaxOptions { OnSuccess = "onAjaxFormSucess('" + modalName + "')", OnComplete = "onAjaxFormComplete", HttpMethod = "POST" };
+            var htmlAttributes = new Dictionary<string, object> { { "class", "form-horizontal" }, {"id", id} };
             return ajaxHelper.BeginForm(callInfo.Action, callInfo.Controller, callInfo.RouteValueDictionary, ajaxOptions, htmlAttributes);
         }
         #endregion
