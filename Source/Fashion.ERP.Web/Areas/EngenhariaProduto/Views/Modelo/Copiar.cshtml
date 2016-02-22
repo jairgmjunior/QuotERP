@@ -3,21 +3,36 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
-    <div class="form-actions">
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.ReferenciaExistente)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.ReferenciaExistente, new { @class = "input-medium", @readonly = "readonly" })
-                @Html.ValidationMessageFor(x => x.ReferenciaExistente, null, new { @class = "help-block" })
+
+    <fieldset>
+        <legend>Dados Para a Cópia</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.ReferenciaExistente)
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        @Html.TextBoxFor(x => x.ReferenciaExistente, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ReferenciaExistente, string.Empty, new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.ReferenciaNova)
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        @Html.TextBoxFor(x => x.ReferenciaNova, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ReferenciaNova, string.Empty, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>   
+        </div>   
+    </fieldset>
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.ReferenciaNova)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.ReferenciaNova, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.ReferenciaNova, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        </div>     
     </div>
 }

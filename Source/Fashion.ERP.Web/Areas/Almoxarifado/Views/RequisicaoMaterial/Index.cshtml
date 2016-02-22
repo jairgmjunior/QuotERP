@@ -74,9 +74,9 @@
                             <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.UnidadeRequerente)
                                 <div class="col-sm-8 col-md-8 col-lg-7">
-                                    @Html.DropDownList("TipoItem", null, "-- Selecione --", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(x => x.TipoItem, string.Empty, new { @class = "help-block" })
-                                    @Html.HiddenFor(x => x.TipoItem)
+                                    @Html.DropDownList("UnidadeRequerente", null, "-- Selecione --", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.UnidadeRequerente, string.Empty, new { @class = "help-block" })
+                                    
                                 </div>
                             </div>
                         </div>

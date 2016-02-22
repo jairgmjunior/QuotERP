@@ -17,6 +17,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public string ModeloEstilistaNome { get; set; }
 
         [Display(Name = "Criação")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime ModeloDataCriacao { get; set; }
 
         [Display(Name = "Modelista")]

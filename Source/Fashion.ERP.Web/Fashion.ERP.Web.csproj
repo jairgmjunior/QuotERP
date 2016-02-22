@@ -1605,6 +1605,7 @@
     <Content Include="Views\Shared\EditorTemplates\numeric2casasdecimais.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GeneroCategoriaList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GradeList.cshtml" />
+    <Content Include="Views\Shared\_Inicio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -715,3 +715,12 @@ html, body {
 .display-block {
     display: block !important
 }
+
+/*.k-grid td {
+    border: 0 !important;
+}
+
+.k-grid .k-header {
+    border-Left: 0 !important;
+    border-right: 0 !important;
+}*/

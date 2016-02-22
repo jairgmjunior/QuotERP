@@ -7,12 +7,19 @@
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
 	@Html.HiddenFor(x => x.Id)
-    @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @Html.ExcluirAuth(MVC.EngenhariaProduto.Modelo.Excluir(Model.Id))
-	</div>
-}
+
+    <ul class="nav nav-tabs">
+        <li>@Html.ActionLinkAuth("Detalhar", MVC.EngenhariaProduto.Modelo.Detalhar(Model.Id.GetValueOrDefault()))</li>
+        <li class="active">@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.Id.GetValueOrDefault()))</li>
+    </ul>
+    <br/>
+
+    @Html.Partial("_NovoOuEditar", Model)}
 @{
     Html.RenderPartial("_RecortarImagem");
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "Estilista" });

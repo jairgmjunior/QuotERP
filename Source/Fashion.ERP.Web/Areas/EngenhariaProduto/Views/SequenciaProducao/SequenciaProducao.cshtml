@@ -1,40 +1,5 @@
 ﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.SequenciaProducaoModeloModel
 
-<hr/>
-<div class="detail">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloReferencia)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloDescricao)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloEstilistaNome)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloDataCriacao)
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr/>
-
 @using (Html.BeginForm(MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
@@ -45,45 +10,114 @@
     @Html.HiddenFor(x => x.ModeloEstilistaNome)
     @Html.HiddenFor(x => x.ModeloDataCriacao)
 
-    <div class="form-group">
-        @Html.Label("Sequências de Produção", new { @class = "title-label" })
-        <div class="controls" style="width: 800px">
-            @(Html.Kendo().Grid(Model.SequenciasProducao)
-                  .Name("Grid")
-                  .Columns(columns =>
-                      {
-                          columns.Bound(x => x.Id).Hidden();
-                          columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
-                          columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #").Width(325);
-                          columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
-                          columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
-                          columns.Command(command => command.Destroy());
-                      }
-                  )
-                  .DataSource(dataSource => dataSource
-                      .Ajax()
-                      .Batch(true)
-                      .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
-                      .Model(model =>
-                      {
-                           model.Id(e => e.Id);
-                           model.Field(product => product.ModeloId).DefaultValue(@Model.ModeloId);
-                      })
-                      .Create(create => create.Action("SalveSequenciaProducao", "SequenciaProducao"))
-                      .Update(update => update.Action("AtualizeSequenciaProducao", "SequenciaProducao"))
-                      .Destroy(destroy => destroy.Action("ExcluaSequenciaProducao", "SequenciaProducao"))
-                  )
-                  .ToolBar(toolbar =>
-                      {
-                          toolbar.Create();
-                          toolbar.Save();
-                      }
-                  )
-                  .Editable(editable => editable.Mode(GridEditMode.InCell))
-                  .Events(e => e.DataBound("onDataBound"))
-            )
-        </div>                    
-    </div>
+    <ul class="nav nav-tabs">
+        <li>@Html.ActionLinkAuth("Detalhar", MVC.EngenhariaProduto.Modelo.Detalhar(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.ModeloId))</li>
+        <li class="active">@Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.ModeloId))</li>
+    </ul>
+    
+    <br/>
+
+    <fieldset>
+        <legend>Dados do Modelo</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloReferencia, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloReferencia)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloDescricao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloDescricao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloEstilistaNome)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.ModeloDataCriacao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Sequência de Produção</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label(" ", new { @class = "control-label col-sm-4 col-md-3" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div style="width: 770px">
+                            @(Html.Kendo().Grid(Model.SequenciasProducao)
+                                  .Name("Grid")
+                                  .Columns(columns =>
+                                      {
+                                          columns.Bound(x => x.Id).Hidden();
+                                          columns.Bound(x => x.NomeDepartamento).EditorTemplateName("DepartamentosList").Title("Departamento").ClientTemplate("#= NomeDepartamento == '' ? '- Selecione -' : NomeDepartamento #").Width(325);
+                                          columns.Bound(x => x.NomeSetor).EditorTemplateName("SetorProducaoList").Title("Setor").ClientTemplate("#= NomeSetor == '' || NomeSetor == null ? '- Selecione -' : NomeSetor #").Width(325);
+                                          columns.Command(command => command.Custom("Up").Click("up").Text(" ")).Width(17);
+                                          columns.Command(command => command.Custom("Down").Click("down").Text(" ")).Width(17);
+                                          columns.Command(command => command.Destroy()).Width(110);
+                                      }
+                                  )
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Batch(true)
+                                      .Events(events => events.Error("error_handler").RequestEnd("onRequestEnd"))
+                                      .Model(model =>
+                                      {
+                                           model.Id(e => e.Id);
+                                           model.Field(product => product.ModeloId).DefaultValue(@Model.ModeloId);
+                                      })
+                                      .Create(create => create.Action("SalveSequenciaProducao", "SequenciaProducao"))
+                                      .Update(update => update.Action("AtualizeSequenciaProducao", "SequenciaProducao"))
+                                      .Destroy(destroy => destroy.Action("ExcluaSequenciaProducao", "SequenciaProducao"))
+                                  )
+                                  .ToolBar(toolbar =>
+                                      {
+                                          toolbar.Create();
+                                          toolbar.Save();
+                                      }
+                                  )
+                                  .Editable(editable => editable.Mode(GridEditMode.InCell))
+                                  .Events(e => e.DataBound("onDataBound"))
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
 }
 
 <script>
@@ -192,9 +226,9 @@
     }
   
     function onDataBound(e) {
-        $(".k-grid-Up").find("span").addClass("icon-chevron-up");
+        $(".k-grid-Up").find("span").addClass("glyphicon glyphicon-chevron-up");
         $(".k-grid-Up").removeClass("k-button");
-        $(".k-grid-Down").find("span").addClass("icon-chevron-down");
+        $(".k-grid-Down").find("span").addClass("glyphicon glyphicon-chevron-down");
         $(".k-grid-Down").removeClass("k-button");
     }
 

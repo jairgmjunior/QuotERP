@@ -44,15 +44,17 @@
                     <img src="/Content/images/ajax-loader.gif" class="ajax-loading pull-right" />
                 </div>            
             </div>
-
-            <div class="page container-fluid">
-                @if (Request.RawUrl != "/")
-                {
+            @if (Request.RawUrl == "/")
+            {
+                @Html.Partial("_Inicio")
+            }
+            else{
+                <div class="page container-fluid">
                     @siteMap.SiteMapPath()
-                }
-                @Html.Partial("_Message")
-                @RenderBody()
-            </div>
+                    @Html.Partial("_Message")
+                    @RenderBody()
+                </div>
+            }
             <div class="push"></div>
         </div>
         <footer class="container-fluid">

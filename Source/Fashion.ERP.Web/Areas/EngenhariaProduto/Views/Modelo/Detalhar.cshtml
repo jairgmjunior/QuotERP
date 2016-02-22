@@ -1,373 +1,554 @@
 ﻿@using Fashion.ERP.Reporting.Helpers
 @model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.DetalharModeloModel
 
-<div class="well well-sm">
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            @Html.ActionLinkAuth("Novo", MVC.EngenhariaProduto.Modelo.Novo(), new { @class = "btn" })
-            @Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.Id), new { @class = "btn" })
-            @Html.ActionLinkAuth("Copiar", MVC.EngenhariaProduto.Modelo.Copiar(Model.Id), new { @class = "btn" })
-        </div>
-        <div class="btn-group">
-            @Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.Id), new { @class = "btn" })
-            @Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.Id), new { @class = "btn" })
-            @Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.Id), new { @class = "btn"})
-            @Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.Id), new { @class = "btn" })
-            @Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.Id), new { @class = "btn" })
-        </div>
-        <div class="btn-group">
-            @Html.ActionLink("Imprimir", MVC.EngenhariaProduto.Modelo.ImprimirDetalhe(Model.Id), new { @class = "btn", target = "_blank" })
-        </div>
-@*        <div class="btn-group">
-            @if (!string.IsNullOrEmpty(@Model.Tag))
-            {
-                @Html.ActionLink("Requisitar", MVC.EngenhariaProduto.Modelo.RequisitarMateriais(Model.Id), new { @class = "btn", target = "_blank" })
-            }
-        </div>*@
-    </div>
-</div>
 
-<fieldset class="detail">
-    <legend>Dados do modelo</legend>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(x => x.Referencia, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Referencia)
+<ul class="nav nav-tabs">
+    <li class="active">@Html.ActionLinkAuth("Detalhar", MVC.EngenhariaProduto.Modelo.Detalhar(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.Id))</li>
+    <li>@Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.Id))</li>
+</ul>
+
+<br/>
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Dados do Modelo</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Referencia, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Referencia)
+                            @Html.HiddenFor(x => x.Referencia)
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Estilista, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Estilista)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.DataCriacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.DataCriacao)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.LinhaCasa, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.LinhaCasa)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.TamanhoPadrao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.TamanhoPadrao)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Forro, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Forro)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Detalhamento, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Detalhamento)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Estilista, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Estilista)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(x => x.Descricao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Descricao)
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataCriacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.DataCriacao)
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Colecao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Colecao)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Marca, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Marca)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Grade, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Grade)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Segmento, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Segmento)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.TecidoComplementar, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.TecidoComplementar)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Lavada, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Lavada)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.LinhaCasa, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.LinhaCasa)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</fieldset>
-<div class="row">
-    <fieldset class="col-md-6">
-        <legend>Linhas</legend>
-        @if (Model.LinhaBordados.IsNullOrEmpty() == false)
-        {
-            <table class="table table-striped table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Linha bordado</th>
-                    </tr>
-                </thead>
-                @foreach (var bordado in Model.LinhaBordados)
-                {
-                    <tr>
-                        <td>@bordado</td>
-                    </tr>
-                }
-            </table>
-        }
-        @if (Model.LinhaPespontos.IsNullOrEmpty() == false)
-        {
-            <table class="table table-striped table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Linha pesponto</th>
-                    </tr>
-                </thead>
-                @foreach (var bordado in Model.LinhaPespontos)
-                {
-                    <tr>
-                        <td>@bordado</td>
-                    </tr>
-                }
-            </table>
-        }
-        @if (Model.LinhaPespontos.IsNullOrEmpty() == false)
-        {
-            <table class="table table-striped table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Linha travete</th>
-                    </tr>
-                </thead>
-                @foreach (var bordado in Model.LinhaTravetes)
-                {
-                    <tr>
-                        <td>@bordado</td>
-                    </tr>
-                }
-            </table>
-        }
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TamanhoPadrao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.TamanhoPadrao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Forro, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Forro)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Detalhamento, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Detalhamento)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Descricao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Descricao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Colecao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Colecao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Marca, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Marca)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Grade, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Grade)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Segmento, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Segmento)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TecidoComplementar, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.TecidoComplementar)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Lavada, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Lavada)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
-    @if (Model.Fotos.IsNullOrEmpty() == false)
-    {
-        <fieldset class="col-md-6">
+
+    <fieldset>
+        <legend>Linhas</legend>
+        <div class="row">
+            @if (Model.LinhaBordados.IsNullOrEmpty() == false)
+            {
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Linha bordado", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <table class="table table-striped">
+                                @foreach (var bordado in Model.LinhaBordados)
+                                {
+                                    <tr>
+                                        <td>@bordado</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.LinhaPespontos.IsNullOrEmpty() == false)
+            {
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Linha Pesponto", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <div class="form-control-static no-gutter">
+                                <table class="table table-striped table-hover table-condensed">
+                                    @foreach (var pesponto in Model.LinhaPespontos)
+                                    {
+                                        <tr>
+                                            <td>@pesponto</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            @if (Model.LinhaBordados.IsNullOrEmpty() == false)
+            {
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Linha Travete", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <table class="table table-striped">
+                                @foreach (var travete in Model.LinhaTravetes)
+                                {
+                                    <tr>
+                                        <td>@travete</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </fieldset>
+    
+    @if (Model.Fotos.IsNullOrEmpty() == false) {
+        <fieldset>
             <legend>Fotos</legend>
-            <table class="table table-striped table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Padrão</th>
-                        <th>Impressão</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var foto in Model.Fotos)
-                    {
-                        <tr>
-                            <td>@foto.FotoTitulo</td>
-                            <td>@foto.Padrao.ToSimNao()</td>
-                            <td>@foto.Impressao.ToSimNao()</td>
-                            <td style="width: 50px">
-                                <a href='/Arquivo/Foto?nomeFoto=@foto.FotoNome' data-lightbox='foto' title='@foto.FotoTitulo'>
-                                    <img src="/Arquivo/Thumbnail?nomeFoto=@foto.FotoNome&width=50&height=50"/>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label(" ", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Padrão</th>
+                                        <th>Impressão</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var foto in Model.Fotos)
+                                    {
+                                        <tr>
+                                            <td>@foto.FotoTitulo</td>
+                                            <td>@foto.Padrao.ToSimNao()</td>
+                                            <td>@foto.Impressao.ToSimNao()</td>
+                                            <td style="width: 50px">
+                                                <a href='/Arquivo/Foto?nomeFoto=@foto.FotoNome' data-lightbox='foto' title='@foto.FotoTitulo'>
+                                                    <img src="/Arquivo/Thumbnail?nomeFoto=@foto.FotoNome&width=50&height=50"/>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </fieldset>
     }
-</div>
-@if (Model.Variacoes.IsNullOrEmpty() == false)
-{
+
+    @if (Model.Variacoes.IsNullOrEmpty() == false) {
+        <fieldset>
+            <legend>Variação</legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label(" ", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @foreach (var variacao in Model.Variacoes) {
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>@variacao.Key</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cor in variacao.Value)
+                                        {
+                                            <tr>
+                                                <td>@cor</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    }
+
+    @if (Model.SequenciaProducao.IsNullOrEmpty() == false) {
+        <fieldset>
+            <legend>Sequência de Produção</legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label(" ", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Departamento de produção</th>
+                                        <th>Entrada</th>
+                                        <th>Saída</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var sequencia in Model.SequenciaProducao)
+                                {
+                                    <tr>
+                                        <td>@sequencia.Nome</td>
+                                        <td>@sequencia.Entrada</td>
+                                        <td>@sequencia.Saida</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    }
+
     <fieldset>
-        <legend>Variação</legend>
-        <!-- .minwidth { min-width:100px; width: auto !important; width: 100px; } -->
+        <legend>Modelagem</legend>
         <div class="row">
-            <div class="col-md-12">
-            @foreach (var variacao in Model.Variacoes)
-            {
-                <table class="table table-striped table-condensed" style="display:inline-table; min-width:100px; max-width: 300px; width: auto !important;">
-                    <thead>
-                        <tr>
-                            <th>@variacao.Key</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cor in variacao.Value)
-                        {
-                            <tr>
-                                <td>@cor</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Modelista, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Modelista)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Modelagem, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Modelagem)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5>Detalhamento técnico</h5>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Cos, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Cos)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Passante, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Passante)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Entrepernas, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Entrepernas)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Boca, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Boca)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Observacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Observacao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5>Localizações de etiquetas</h5>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.EtiquetaMarca, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.EtiquetaMarca)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.EtiquetaComposicao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.EtiquetaComposicao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Tag, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Tag)
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </fieldset>
-}
-@if (Model.SequenciaProducao.IsNullOrEmpty() == false)
-{
-    <div class="row">
-        <div class="col-md-6">
-            <fieldset>
-                <legend>Sequência Produção</legend>
 
-                <table class="table table-striped table-hover table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Departamento de produção</th>
-                            <th>Entrada</th>
-                            <th>Saída</th>
-                        </tr>
-                    </thead>
-                    @foreach (var sequencia in Model.SequenciaProducao)
-                    {
-                        <tr>
-                            <td>@sequencia.Nome</td>
-                            <td>@sequencia.Entrada</td>
-                            <td>@sequencia.Saida</td>
-                        </tr>
-                    }
-                </table>
-            </fieldset>
-        </div>
-    </div>
-}
-<fieldset class="detail">
-    <legend>Modelagem</legend>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="title-label">Modelista</label>
-                <div class="value-label">&nbsp;@Html.ValueFor(x => x.Modelista)</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="title-label">Modelagem</label>
-                <div class="value-label">&nbsp;@Html.ValueFor(x => x.Modelagem)</div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h5>Detalhamento técnico</h5>
-            <hr style="margin: 0"/>
-            <div class="form-group">
-                <label class="title-label">Cós</label>
-                <div class="value-label">@Html.ValueFor(x => x.Cos)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Passante</label>
-                <div class="value-label">@Html.ValueFor(x => x.Passante)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Entrepernas</label>
-                <div class="value-label">@Html.ValueFor(x => x.Entrepernas)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Boca</label>
-                <div class="value-label">@Html.ValueFor(x => x.Boca)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Observação</label>
-                <div class="value-label">@Html.ValueFor(x => x.Observacao)</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h5>Localizações de etiquetas</h5>
-            <hr style="margin: 0"/>
-            <div class="form-group">
-                <label class="title-label">Etiqueta da marca</label>
-                <div class="value-label">@Html.ValueFor(x => x.EtiquetaMarca)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Etiqueta de composição</label>
-                <div class="value-label">@Html.ValueFor(x => x.EtiquetaComposicao)</div>
-            </div>
-            <div class="form-group">
-                <label class="title-label">Tag</label>
-                <div class="value-label">@Html.ValueFor(x => x.Tag)</div>
-            </div>
-        </div>
-    </div>
-</fieldset>
-
-<fieldset class="detail">
-    <legend>Aprovação</legend>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(x => x.Situacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Situacao)
+    <fieldset>
+        <legend>Aprovação</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Situacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Situacao)
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.Tag, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.Tag)
-                </div>
-            </div><div class="form-group">
-                @Html.LabelFor(x => x.Dificuldade, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.DificuldadeAprovacao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Tag, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Tag)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(x => x.DataAprovacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.DisplayFor(x => x.DataAprovacao)
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DificuldadeAprovacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.DificuldadeAprovacao)
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.QuantidadeMix, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.QuantidadeMix)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.QuantidadeSubmodelos, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.QuantidadeSubmodelos)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.ComplementoAprovacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ComplementoAprovacao)
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataAprovacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.DataAprovacao)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</fieldset>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.QuantidadeMix, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.QuantidadeMix)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Passante, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Passante)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.QuantidadeSubmodelos, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.QuantidadeSubmodelos)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ComplementoAprovacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ComplementoAprovacao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

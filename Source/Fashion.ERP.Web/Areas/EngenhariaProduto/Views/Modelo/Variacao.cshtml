@@ -1,40 +1,5 @@
 ﻿@model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.VariacaoModeloModel
 
-<hr/>
-<div class="detail">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloReferencia, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloReferencia)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloDescricao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloDescricao)
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloEstilistaNome)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "title-label" })
-                <div class="value-label">
-                    @Html.ValueFor(x => x.ModeloDataCriacao)
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<hr/>
-
 @using (Html.BeginForm(MVC.EngenhariaProduto.Modelo.Variacao(), FormMethod.Post, new { id = "form", @class = "form-horizontal", novalidate = "novalidate" }))
 {
     @Html.AntiForgeryToken()
@@ -45,68 +10,142 @@
     @Html.HiddenFor(x => x.ModeloEstilistaNome)
     @Html.HiddenFor(x => x.ModeloDataCriacao)
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label">Variação</label>
-                <div class="controls">
-                    @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "input-large" })
-                    @Html.ValidationMessage("Variacao", new { @class = "help-block" })
+    <ul class="nav nav-tabs">
+        <li>@Html.ActionLinkAuth("Detalhar", MVC.EngenhariaProduto.Modelo.Detalhar(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.ModeloId))</li>
+        <li class="active">@Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.ModeloId))</li>
+        <li>@Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.ModeloId))</li>
+    </ul>
+    
+    <br/>
+
+    <fieldset>
+        <legend>Dados do Modelo</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloReferencia, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloReferencia)
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Cor</label>
-                <div class="controls">
-                    @Html.DropDownList("Cor", null, "-- Selecione --", new { @class = "input-large" })
-                    <button id="btn-add" type="button" class="btn"><i class="icon-plus"></i></button>
-                    @Html.ValidationMessage("Cor", new { @class = "help-block" })
-
-                    <table id="table-variacao" class="table table-striped table-condensed" style="width: 250px">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th style="width: 100px"></th>
-                                <th style="width: 16px"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.Variacoes != null)
-                            {
-                                long variacaoid = 0;
-                                
-                                for (int i = 0; i < Model.Variacoes.Count; i++)
-                                {
-                                    var cor = Model.Cores[i];
-                                    
-                                    <tr>
-                                        @if (variacaoid != Model.Variacoes[i].Value)
-                                        {
-                                            variacaoid = Model.Variacoes[i].Value;
-                                            
-                                            <td rowspan="@Model.Variacoes.Count(s => s == variacaoid)">
-                                                @(ViewBag.VariacoesDicionario[variacaoid])
-                                            </td>
-                                        }
-
-                                        <td>
-                                            @(ViewBag.CoresDicionario[cor])
-                                            <input type="hidden" name="Variacoes" value="@Model.Variacoes[i]" />
-                                            <input type="hidden" name="Cores" value="@cor" />
-                                        </td>
-                                        <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
-                                    </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
-
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloDescricao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloDescricao)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloEstilistaNome, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ModeloEstilistaNome)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ModeloDataCriacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.ModeloDataCriacao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Dados da Variação</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label("Variação", new { @class = "control-label col-sm-4 col-md-3" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownList("Variacao", null, "-- Selecione --", new { @class = "form-control" })
+                        @Html.ValidationMessage("Variacao", new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.Label("Cor", new { @class = "control-label col-sm-4 col-md-3" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="input-group">
+                            @Html.DropDownList("Cor", null, "-- Selecione --", new { @class = "form-control" })
+                            <span class="input-group-btn">
+                                <button id="btn-add" class="btn btn-default btn-sm " type="button">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
+                        @Html.ValidationMessage("Cor", new { @class = "help-block" })
+
+                        <table id="table-variacao" class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th style="width: 100px"></th>
+                                    <th style="width: 16px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Variacoes != null)
+                                {
+                                    long variacaoid = 0;
+                                
+                                    for (int i = 0; i < Model.Variacoes.Count; i++)
+                                    {
+                                        var cor = Model.Cores[i];
+                                    
+                                        <tr>
+                                            @if (variacaoid != Model.Variacoes[i].Value)
+                                            {
+                                                variacaoid = Model.Variacoes[i].Value;
+                                            
+                                                <td rowspan="@Model.Variacoes.Count(s => s == variacaoid)">
+                                                    @(ViewBag.VariacoesDicionario[variacaoid])
+                                                </td>
+                                            }
+
+                                            <td>
+                                                @(ViewBag.CoresDicionario[cor])
+                                                <input type="hidden" name="Variacoes" value="@Model.Variacoes[i]" />
+                                                <input type="hidden" name="Cores" value="@cor" />
+                                            </td>
+                                            <td><a href="javascript:void(0)" onclick="Delete(this)"><span class="glyphicon glyphicon-minus"></span></a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
     </div>
 }
 <script>
@@ -173,7 +212,7 @@
                         <td rowspan="1">' + variacao + '</td>\
                         <td>' + cor + '<input type="hidden" name="Cores" value="' + corId + '"/>\
                             <input type="hidden" name="Variacoes" value="' + variacaoId + '"/></td>\
-                        <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                        <td><a href="javascript:void(0)" onclick="Delete(this)"><span class="glyphicon glyphicon-minus"></span></a></td>\
                     </tr>');
                     
                 } else {
@@ -187,7 +226,7 @@
                     lastRow.after('<tr>\
                             <td>' + cor + '<input type="hidden" name="Cores" value="' + corId + '"/>\
                                 <input type="hidden" name="Variacoes" value="' + variacaoId + '"/></td>\
-                            <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>\
+                            <td><a href="javascript:void(0)" onclick="Delete(this)"><span class="glyphicon glyphicon-minus"></span></a></td>\
                         </tr>');
                 }
                 

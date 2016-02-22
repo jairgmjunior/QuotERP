@@ -38,7 +38,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         [StringLength(250, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Observacao { get; set; }
 
-        [Display(Name = "Prog. bordado")]
+        [Display(Name = "Programador de Bordado")]
         [Required(ErrorMessage = "Informe o programador do bordado")]
         public long? ProgramadorBordado { get; set; }
 

@@ -1,458 +1,602 @@
 ﻿@using Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 @model ModeloModel
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Referencia)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.Referencia, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.Referencia, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Colecao)
-            <div class="controls">
-                @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Colecao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Estilista)
-            <div class="controls">
-                @Html.HiddenFor(x => x.Estilista, new { id = "funcionario" })
-                <div class="input-group">
-                    <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                    <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                    <span id="descricao-funcionario" class="add-on"></span>
+
+<fieldset>
+    <legend>Dados do Modelo</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Referencia)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Referencia, new {  @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Referencia, null, new { @class="help-block" })
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Natureza)
-            <div class="controls">
-                @Html.DropDownList("Natureza", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Natureza, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Classificacao)
-            <div class="controls">
-                @Html.DropDownList("Classificacao", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Classificacao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Artigo)
-            <div class="controls">
-                @Html.DropDownList("Artigo", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Artigo, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.ProdutoBase)
-            <div class="controls">
-                @Html.DropDownList("ProdutoBase", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.ProdutoBase, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Comprimento)
-            <div class="controls">
-                @Html.DropDownList("Comprimento", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Comprimento, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Barra)
-            <div class="controls">
-                @Html.DropDownList("Barra", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Barra, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Descricao)
-            <div class="controls">
-                @Html.TextAreaFor(x => x.Descricao, new { @readonly = "readonly"})
-                @Html.ValidationMessageFor(x => x.Descricao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Complemento)
-            <div class="controls">
-                @Html.EditorFor(x => x.Complemento)
-                @Html.ValidationMessageFor(x => x.Complemento, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Detalhamento)
-            <div class="controls">
-                @Html.EditorFor(x => x.Detalhamento)
-                @Html.ValidationMessageFor(x => x.Detalhamento, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Grade)
-            <div class="controls">
-                @Html.DropDownList("Grade", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Grade, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.TamanhoPadrao)
-            <div class="controls">
-                @Html.EditorFor(x => x.TamanhoPadrao)
-                @Html.ValidationMessageFor(x => x.TamanhoPadrao, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Marca)
-            <div class="controls">
-                @Html.DropDownList("Marca", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Marca, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Segmento)
-            <div class="controls">
-                @Html.DropDownList("Segmento", null, "-- Selecione --", new { @class = "input-large" })
-                @Html.ValidationMessageFor(x => x.Segmento, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Lavada)
-            <div class="controls">
-                @Html.EditorFor(x => x.Lavada)
-                @Html.ValidationMessageFor(x => x.Lavada, null, new { @class = "help-block" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.LinhaCasa)
-            <div class="controls">
-                @Html.EditorFor(x => x.LinhaCasa)
-                @Html.ValidationMessageFor(x => x.LinhaCasa, null, new { @class = "help-block" })
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Colecao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Colecao, null, new { @class="help-block" })
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label class="control-label">Fotos</label>
-            <div class="controls">
-                
-                <input id="adicionar-foto" type="button" value="Adicionar foto" class="btn" />
-                @(Html.Kendo().Grid((IEnumerable<GridModeloFotoModel>)ViewBag.Fotos)
-                      .Name("grid-modelofoto")
-                      .Columns(columns =>
-                                   {
-                                       columns.Bound(x => x.FotoTitulo);
-                                       columns.Bound(x => x.Padrao).ClientTemplate("#= Padrao ? 'Sim' : 'Não' #");
-                                       columns.Bound(x => x.Impressao).ClientTemplate("#= Impressao ? 'Sim' : 'Não' #");
-                                       columns.Bound(x => x.FotoNome)
-                                           .ClientTemplate("<a href='/Arquivo/Foto?nomeFoto=#= FotoNome #' data-lightbox='modelofoto' title='#= FotoTitulo #'><img src='/Arquivo/Thumbnail?nomeFoto=#= FotoNome #&width=50&height=50' /></a>")
-                                           .Title("Foto")
-                                           .Width(60);
-                                       columns.Bound(x => x.Id)
-                                           .ClientTemplate("<a href='/Modelo/RemoverFoto?FotoNome=#= FotoNome #' onclick='RemoverFoto(this, event)' class='btn btn-small btn-danger'>X</a>")
-                                           .Title("")
-                                           .Width(40);
-                                   }).DataSource(s =>
-                                                 s.Ajax()
-                                                     .Read(r => r.Action("LerFotos", "Modelo", new { area = "EngenhariaProduto" }).Type(HttpVerbs.Get))))
-                <script>
-                    function RemoverFoto(a, e) {
-                        e.preventDefault();
-                        var url = $(a).attr('href');
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Estilista)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.HiddenFor(x => x.Estilista, new { id = "funcionario" })
+                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                        <div class="input-group">
+                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                            <span class="input-group-btn pull-left">
+                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Natureza)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Natureza", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Natureza, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Classificacao)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Classificacao", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Classificacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Artigo)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Artigo", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Artigo, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.ProdutoBase)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("ProdutoBase", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ProdutoBase, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Comprimento)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Comprimento", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Comprimento, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Barra)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("ProdutoBase", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ProdutoBase, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Descricao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Comprimento)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Comprimento, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Comprimento, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Detalhamento)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextAreaFor(x => x.Detalhamento, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Detalhamento, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Grade)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Grade", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Grade, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TamanhoPadrao)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.TamanhoPadrao, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.TamanhoPadrao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Marca)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownList("Marca", null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Marca, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Segmento)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownListFor(x => x.Segmento, null, "-- Selecione --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Segmento, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="row">   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DataPrevisaoEnvio)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.EditorFor(x => x.DataPrevisaoEnvio, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.DataPrevisaoEnvio, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+    </div>
+</fieldset>
 
-                        $.post(url, function () {
-                            var grid = $('#grid-modelofoto').data("kendoGrid");
-                            grid.dataSource.read();
-                        });
-                    }
-                </script>
+<fieldset>
+    <legend>Dados Complementares</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Lavada)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Lavada, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Lavada, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Tecido)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.Tecido, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.Tecido, null, new { @class = "help-block" })
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.LinhaCasa)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.LinhaCasa, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.LinhaCasa, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.Forro)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.Forro, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.Forro, null, new { @class = "help-block" })
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Tecido)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Tecido, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Tecido, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.TecidoComplementar)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.TecidoComplementar, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.TecidoComplementar, null, new { @class = "help-block" })
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Forro)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Forro, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Forro, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.ZiperBraguilha)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.ZiperBraguilha, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.ZiperBraguilha, null, new { @class = "help-block" })
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TecidoComplementar)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.TecidoComplementar, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.TecidoComplementar, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.ZiperDetalhe)
-            <div class="controls">
-                @Html.TextBoxFor(x => x.ZiperDetalhe, new { @class = "input-medium" })
-                @Html.ValidationMessageFor(x => x.ZiperDetalhe, null, new { @class = "help-block" })
+        </div>   
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.ZiperBraguilha)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.ZiperBraguilha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ZiperBraguilha, string.Empty, new { @class = "help-block" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="LinhaBordado">Linha bordado</label>
-            <div class="controls">
-                <input id="LinhaBordado" type="text" />
-                <button id="adicionar-linhabordado" type="button" class="btn"><i class="icon-plus"></i></button>
-                <script>
-                    function RemoverLinhaBordado(data, e) {
-                        e.preventDefault();
-                        var url = '/EngenhariaProduto/Modelo/RemoverLinhaBordado?nome=' + encodeURIComponent(data);
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.ZiperDetalhe)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.ZiperDetalhe, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ZiperDetalhe, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>   
+    </div>
+</fieldset>
 
-                        $.post(url, function () {
-                            var grid = $('#grid-linhabordado').data("kendoGrid");
-                            grid.dataSource.read();
-                        });
-                    }
-                    $(function () {
-                        $('#LinhaBordado').rules("add", {
-                            maxlength: 50,
-                            messages: { maxlength: "Linha bordado não deve ser maior que {1} caracteres." }
-                        });
-                        $('#adicionar-linhabordado').on('click', function () {
-                            var linhabordado = $('#LinhaBordado').val();
-
-                            if (linhabordado != '' && linhabordado.length <= 50) {
-                                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaBordado?nome=' + encodeURIComponent(linhabordado);
-                                $.post(url, function (data) {
-                                    if (data.Error) {
-                                        
-                                        alert(data.Error);
-                                        
-                                    } else {
-
-                                        var grid = $('#grid-linhabordado').data("kendoGrid");
-                                        grid.dataSource.read();
-                                        
-                                    }
-                                    
-                                    $('#LinhaBordado').val('').focus();
-                                });
-                            }
-                        });
-                    });
-                </script>
-                @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaBordados)
+<fieldset>
+    <legend>Linha</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.Label("Linha Bordado", new {@class = "control-label col-sm-4 col-md-3"})
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    <div class="input-group">
+                        <input id="LinhaBordado" type="text" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button id="adicionar-linhabordado" class="btn btn-default btn-sm " type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                    @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaBordados)
                           .Name("grid-linhabordado")
                           .Columns(columns =>
-                        {
-                            columns.Bound(x => x).ClientTemplate("#: data #");
-                            columns.Bound(x => x)
-                                .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaBordado(\"#: data #\", event)' class='btn btn-small btn-danger'>X</a>")
-                                .Title("")
-                                .Width(40);
+                          {
+                              columns.Bound(x => x).ClientTemplate("#: data #");
+                              columns.Bound(x => x)
+                                  .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaBordado(\"#: data #\", event)' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-minus'></span></a>")
+                                  .Title("")
+                                  .Width(40);
                           }).DataSource(s =>s.Ajax()
-                                             .Read(r => r.Action("LerLinhaBordados", "Modelo", new { area = "EngenhariaProduto" }).Type(HttpVerbs.Get))))
+                              .Read(r => r.Action("LerLinhaBordados", "Modelo", new { area = "EngenhariaProduto" }).Type(HttpVerbs.Get))))
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="LinhaPesponto">Linha pesponto</label>
-            <div class="controls">
-                <input id="LinhaPesponto" type="text" maxlength="50"/>
-                <button id="adicionar-linhapesponto" type="button" class="btn"><i class="icon-plus"></i></button>
-                <script>
-                    function RemoverLinhaPesponto(data, e) {
-                        e.preventDefault();
-                        var url = '/EngenhariaProduto/Modelo/RemoverLinhaPesponto?nome=' + encodeURIComponent(data);
-
-                        $.post(url, function () {
-                            var grid = $('#grid-linhapesponto').data("kendoGrid");
-                            grid.dataSource.read();
-                        });
-                    }
-                    $(function () {
-                        $('#LinhaPesponto').rules("add", {
-                            maxlength: 50,
-                            messages: { maxlength: "Linha pesponto não deve ser maior que {1} caracteres." }
-                        });
-                        $('#adicionar-linhapesponto').on('click', function () {
-                            var linhapesponto = $('#LinhaPesponto').val();
-
-                            if (linhapesponto != '' && linhapesponto.length <= 50) {
-                                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaPesponto?nome=' + encodeURIComponent(linhapesponto);
-                                $.post(url, function (data) {
-                                    if (data.Error) {
-                                        alert(data.Error);
-                                    } else {
-                                        var grid = $('#grid-linhapesponto').data("kendoGrid");
-                                        grid.dataSource.read();
-                                    }
-
-                                    $('#LinhaPesponto').val('').focus();
-                                });
-                            }
-                        });
-                    });
-                </script>
-                @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaPespontos)
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.Label("Linha Pesponto", new {@class = "control-label col-sm-4 col-md-3"})
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    <div class="input-group">
+                    <input id="LinhaPesponto" type="text" maxlength="50" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button id="adicionar-linhapesponto" class="btn btn-default btn-sm " type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                    @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaPespontos)
                           .Name("grid-linhapesponto")
                           .Columns(columns =>
                           {
                               columns.Bound(x => x).ClientTemplate("#: data #");
                               columns.Bound(x => x)
-                                  .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaPesponto(\"#: data #\", event)' class='btn btn-small btn-danger'>X</a>")
+                                  .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaPesponto(\"#: data #\", event)' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-minus'></span></a>")
                                   .Title("")
                                   .Width(40);
                           }).DataSource(s => s.Ajax()
-                                              .Read(r => r.Action("LerLinhaPespontos", "Modelo", new { area = "EngenhariaProduto" })
-                                                          .Type(HttpVerbs.Get))))
+                              .Read(r => r.Action("LerLinhaPespontos", "Modelo", new { area = "EngenhariaProduto" })
+                                  .Type(HttpVerbs.Get))))
+                </div>
+            </div>
+        </div>   
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.Label("Linha Travete", new {@class = "control-label col-sm-4 col-md-3"})
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    <div class="input-group">
+                    <input type="hidden" id="LinhaTraveteId" />
+                    <input id="LinhaTravete" type="text" maxlength="50" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button id="adicionar-linhatravete" class="btn btn-default btn-sm " type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+                    </div>
+                    @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaTravetes)
+                          .Name("grid-linhatravete")
+                          .Columns(columns =>
+                          {
+                              columns.Bound(x => x).ClientTemplate("#: data #");
+                              columns.Bound(x => x)
+                                  .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaTravete(\"#: data #\", event)' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-minus'></span></a>")
+                                  .Title("")
+                                  .Width(20);
+                          }).DataSource(s =>s.Ajax()
+                              .Read(r => r.Action("LerLinhaTravetes", "Modelo", new { area = "EngenhariaProduto" })
+                                  .Type(HttpVerbs.Get))))
+                </div>
+            </div>
+        </div> 
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Fotos</legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.Label(" ", new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @(Html.Kendo().Grid((IEnumerable<GridModeloFotoModel>)ViewBag.Fotos)
+                        .Name("grid-modelofoto")
+                        .ToolBar(toolbar => toolbar.Custom().Text("Adicionar").HtmlAttributes(new { href="#", id = "adicionar-foto", @class="btn-primary" })) 
+                        .Columns(columns =>
+                            {
+                                columns.Bound(x => x.FotoTitulo);
+                                columns.Bound(x => x.Padrao).ClientTemplate("#= Padrao ? 'Sim' : 'Não' #");
+                                columns.Bound(x => x.Impressao).ClientTemplate("#= Impressao ? 'Sim' : 'Não' #");
+                                columns.Bound(x => x.FotoNome)
+                                    .ClientTemplate("<a href='/Arquivo/Foto?nomeFoto=#= FotoNome #' data-lightbox='modelofoto' title='#= FotoTitulo #'><img src='/Arquivo/Thumbnail?nomeFoto=#= FotoNome #&width=50&height=50' /></a>")
+                                    .Title("Foto")
+                                    .Width(60);
+                                columns.Bound(x => x.Id)
+                                    .ClientTemplate("<a href='/Modelo/RemoverFoto?FotoNome=#= FotoNome #' onclick='RemoverFoto(this, event)' class='btn btn-default btn-small'><span class='glyphicon glyphicon-minus'></a>")
+                                    .Title("")
+                                    .Width(40);
+                            })
+                            .DataSource(s =>
+                                s.Ajax()
+                                    .Read(r => r.Action("LerFotos", "Modelo", new { area = "EngenhariaProduto" }).Type(HttpVerbs.Get))))
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="LinhaTravete">Linha travete</label>
-            <div class="controls">
-                <input type="hidden" id="LinhaTraveteId" />
-                <input id="LinhaTravete" type="text" maxlength="50"/>
-                <button id="adicionar-linhatravete" type="button" class="btn"><i class="icon-plus"></i></button>
-                <script>
-                    function RemoverLinhaTravete(data, e) {
-                        e.preventDefault();
-                        var url = '/EngenhariaProduto/Modelo/RemoverLinhaTravete?nome=' + encodeURIComponent(data);
+    </div>
+</fieldset>
 
-                        $.post(url, function () {
-                            var grid = $('#grid-linhatravete').data("kendoGrid");
-                            grid.dataSource.read();
-                        });
-                    }
-                    $(function () {
-                        $('#LinhaTravete').rules("add", {
-                            maxlength: 50,
-                            messages: { maxlength: "Linha travate não deve ser maior que {1} caracteres." }
-                        });
-                        $('#adicionar-linhatravete').on('click', function () {
-                            var linhatravete = $('#LinhaTravete').val();
-
-                            if (linhatravete != '' && linhatravete.length <= 50) {
-                                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaTravete?nome=' + encodeURIComponent(linhatravete);
-                                $.post(url, function (data) {
-                                    if (data.Error) {
-                                        alert(data.Error);
-                                    } else {
-                                        var grid = $('#grid-linhatravete').data("kendoGrid");
-                                        grid.dataSource.read();
-                                    }
-                                    
-                                    $('#LinhaTravete').val('').focus();
-                                });
-                            }
-                        });
-                    });
-                </script>
-                @(Html.Kendo().Grid((IEnumerable<string>)ViewBag.LinhaTravetes)
-                      .Name("grid-linhatravete")
-                      .Columns(columns =>
-                      {
-                          columns.Bound(x => x).ClientTemplate("#: data #");
-                          columns.Bound(x => x)
-                              .ClientTemplate("<a href='javascript:void(0)' onclick='RemoverLinhaTravete(\"#: data #\", event)' class='btn btn-small btn-danger'>X</a>")
-                              .Title("")
-                              .Width(40);
-                      }).DataSource(s =>s.Ajax()
-                          .Read(r => r.Action("LerLinhaTravetes", "Modelo", new { area = "EngenhariaProduto" })
-                              .Type(HttpVerbs.Get))))
+<div id="modal-modelofoto" class="modal fade">
+    <div id="modal-modelofoto-dialog" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Fotos</h3>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.DataPrevisaoEnvio)
-            <div class="controls">
-                @Html.EditorFor(x => x.DataPrevisaoEnvio)
-                @Html.ValidationMessageFor(x => x.DataPrevisaoEnvio, null, new { @class = "help-block" })
+            <div class="modal-body" style="overflow-y: hidden;">
+                <div class="form-group form-group-sm">
+                    @Html.Label("Foto", new {@class = "control-label col-sm-4 col-md-3"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <div class="clearfix">
+                            <div class="fileinput fileinput-new" data-provides="fileinput" data-crop="crop">
+                                <div class="thumbnail" data-trigger="fileinput">
+                                    <img id="imagem-avatar" src="/Content/images/no_image.jpg" style="width: 150px; height: 150px;" />
+                                </div>
+                                <div>
+                                    <span class="btn-default btn btn-file">
+                                        <span class="fileinput-new">Novo</span>
+                                        <span class="fileinput-exists">Alterar</span>
+                                        <input type="file" name="foto" />
+                                        <input type="hidden" name="FotoNome" />
+                                    </span>
+                                    <a href="javascript:void(0)" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress" style="display: none">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.Label("Título", new {@class = "control-label col-sm-4 col-md-3"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <input type="text" name="FotoTitulo" id="FotoTitulo" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.Label("Padrão", new {@class = "control-label col-sm-4 col-md-3"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <select name="Padrao" class="form-control">
+                            <option value="false">Não</option>
+                            <option value="true">Sim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @Html.Label("Impressão", new {@class = "control-label col-sm-4 col-md-3"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <select name="Padrao" class="form-control">
+                            <option value="false">Não</option>
+                            <option value="true">Sim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button id="btn-salvar-modelofoto" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Salvar</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div id="modal-modelofoto" class="modal hide fade">
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Fotos</h3>
-        </div>
-        <div class="modal-body small-labels">
-            <div class="form-group">
-                <label class="control-label">Foto</label>
-                <div class="controls">
-                    <div class="clearfix">
-                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <div class="thumbnail">
-                                <img id="imagem-avatar" src="/Content/images/no_image.jpg" style="width: 150px; height: 150px;" />
-                            </div>
-                            <div>
-                                <span class="btn btn-file">
-                                    <span class="fileupload-new">Novo</span>
-                                    <span class="fileupload-exists">Alterar</span>
-                                    <input type="file" name="foto" />
-                                    <input type="hidden" name="FotoNome" />
-                                </span>
-                                <a href="javascript:void(0)" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="progress" style="display: none">
-                    <div class="bar"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Título</label>
-                <div class="controls">
-                    <input type="text" name="FotoTitulo" id="FotoTitulo" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Padrão</label>
-                <div class="controls">
-                    <select name="Padrao">
-                        <option value="false">Não</option>
-                        <option value="true">Sim</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Impressão</label>
-                <div class="controls">
-                    <select name="Impressao">
-                        <option value="false">Não</option>
-                        <option value="true">Sim</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button id="btn-salvar-modelofoto" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Salvar</button>
-        </div>
-    </div>
+@Html.FormActionAuth(this.IsEditar(), MVC.Comum.Cor.Excluir(Model.Id))
+
 <script>
+    function RemoverLinhaPesponto(data, e) {
+        e.preventDefault();
+        var url = '/EngenhariaProduto/Modelo/RemoverLinhaPesponto?nome=' + encodeURIComponent(data);
+
+        $.post(url, function () {
+            var grid = $('#grid-linhapesponto').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }
+    $(function () {
+
+
+        $('#LinhaPesponto').rules("add", {
+            maxlength: 50,
+            messages: { maxlength: "Linha pesponto não deve ser maior que {1} caracteres." }
+        });
+        $('#adicionar-linhapesponto').on('click', function () {
+            var linhapesponto = $('#LinhaPesponto').val();
+
+            if (linhapesponto != '' && linhapesponto.length <= 50) {
+                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaPesponto?nome=' + encodeURIComponent(linhapesponto);
+                $.post(url, function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                    } else {
+                        var grid = $('#grid-linhapesponto').data("kendoGrid");
+                        grid.dataSource.read();
+                    }
+
+                    $('#LinhaPesponto').val('').focus();
+                });
+            }
+        });
+    });    
+
+    function RemoverLinhaTravete(data, e) {
+        e.preventDefault();
+        var url = '/EngenhariaProduto/Modelo/RemoverLinhaTravete?nome=' + encodeURIComponent(data);
+
+        $.post(url, function () {
+            var grid = $('#grid-linhatravete').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }
+
+    $(function () {
+        $('#LinhaTravete').rules("add", {
+            maxlength: 50,
+            messages: { maxlength: "Linha travate não deve ser maior que {1} caracteres." }
+        });
+        $('#adicionar-linhatravete').on('click', function () {
+            var linhatravete = $('#LinhaTravete').val();
+
+            if (linhatravete != '' && linhatravete.length <= 50) {
+                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaTravete?nome=' + encodeURIComponent(linhatravete);
+                $.post(url, function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                    } else {
+                        var grid = $('#grid-linhatravete').data("kendoGrid");
+                        grid.dataSource.read();
+                    }
+                                    
+                    $('#LinhaTravete').val('').focus();
+                });
+            }
+        });
+        $("#grid-linhabordado .k-grid-header").hide();
+        $("#grid-linhapesponto .k-grid-header").hide();
+        $("#grid-linhatravete .k-grid-header").hide();
+    });    
+
+    function RemoverFoto(a, e) {
+        e.preventDefault();
+        var url = $(a).attr('href');
+
+        $.post(url, function () {
+            var grid = $('#grid-modelofoto').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }    
+
+    function RemoverLinhaBordado(data, e) {
+        e.preventDefault();
+        var url = '/EngenhariaProduto/Modelo/RemoverLinhaBordado?nome=' + encodeURIComponent(data);
+
+        $.post(url, function () {
+            var grid = $('#grid-linhabordado').data("kendoGrid");
+            grid.dataSource.read();
+        });
+    }
+    $(function () {
+        $('#LinhaBordado').rules("add", {
+            maxlength: 50,
+            messages: { maxlength: "Linha bordado não deve ser maior que {1} caracteres." }
+        });
+        $('#adicionar-linhabordado').on('click', function () {
+            var linhabordado = $('#LinhaBordado').val();
+
+            if (linhabordado != '' && linhabordado.length <= 50) {
+                var url = '/EngenhariaProduto/Modelo/AdicionarLinhaBordado?nome=' + encodeURIComponent(linhabordado);
+                $.post(url, function (data) {
+                    if (data.Error) {
+                                        
+                        alert(data.Error);
+                                        
+                    } else {
+
+                        var grid = $('#grid-linhabordado').data("kendoGrid");
+                        grid.dataSource.read();
+                                        
+                    }
+                                    
+                    $('#LinhaBordado').val('').focus();
+                });
+            }
+        });
+    });    
+
+
     $(function () {
         $('#FotoTitulo').rules("add", {
             maxlength: 100,
             messages: { maxlength: "Título não deve ser maior que {1} caracteres." }
         });
+
+
+        $('#adicionar-foto').click(function (e){
+            e.preventDefault();
+
+            $('#modal-modelofoto').modal('show');
+        });
+
+        $('#modal-modelofoto').on('hidden.bs.modal', function (e) {
+            clearForm(body);
+            // Reseta o componente de foto
+            $('#imagem-avatar').attr("src", '/Content/images/no_image.jpg');
+            $('#FotoNome').val('');
+            $('#modal-modelofoto .fileupload').removeClass('fileupload-exists').addClass('fileupload-new');
+        });
+
         $('#adicionar-foto').on('click', function() {
-            $('#modal-modelofoto').modal('show').one('hidden', function () {
-                clearForm(body);
-                // Reseta o componente de foto
-                $('#imagem-avatar').attr("src", '/Content/images/no_image.jpg');
-                $('#FotoNome').val('');
-                $('#modal-modelofoto .fileupload').removeClass('fileupload-exists').addClass('fileupload-new');
-            });
+
         });
 
         $('#btn-salvar-modelofoto').on('click', function() {
@@ -477,7 +621,7 @@
         });
 
         @if (this.IsNovo()){
-        <text>
+            <text>
         $('#Referencia').on('blur', function () {
             var $referencia = $(this);
             var url = "@Html.GetUrl(MVC.EngenhariaProduto.Modelo.VerificarReferencia())?referencia=" + $referencia.val();
@@ -497,7 +641,7 @@
             });
         });
         </text>
-    }
+        }
         
         // Quando a imagem carregar, setar o foco no campo Titulo
         $('#imagem-avatar').load(function() {
@@ -535,3 +679,15 @@
     }
 
 </script>
+
+<style>
+    #grid-linhatravete td, #grid-linhabordado td, #grid-linhapesponto td{
+        border: 0 !important;
+    }
+
+    /*#grid-linhatravete .k-header, #grid-linhabordado .k-header, #grid-linhapesponto .k-header {
+        border-Left: 0 !important;
+        border-right: 0 !important;
+    }*/
+</style>
+

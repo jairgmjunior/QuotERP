@@ -8,98 +8,79 @@
 @using (Html.BeginForm(MVC.EngenhariaProduto.ModeloAvaliacao.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     @Html.AntiForgeryToken()
-    <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-            <div class="accordion-heading">
+
+
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
                 </a>
             </div>
-            <div id="collapsePesquisar" class="accordion-body collapse">
-                <div class="accordion-inner">
+            <div id="collapsePesquisar" class="panel-collapse collapse">
+                <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Referencia, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.Referencia, new { @class = "input-small" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Referencia)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Referencia, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.Situacao)
-                                <div class="controls">
-                                    @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList(), "-- Selecione --")
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList(), "-- Selecione --",  new { @class = "form-control"})
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Descricao, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.Descricao, new { @class = "input-small" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Descricao)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Tag, new { @class = "control-label " })
-                                <div class="controls">
-                                   @Html.EditorFor(x => x.Tag, new { @class = "input-small" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Tag)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.ColecaoAprovada)
-                                <div class="controls">
-                                    @Html.DropDownListFor(x => x.ColecaoAprovada, null, "-- Selecione --", new { @class = "input-large" })                    
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Estilista)
-                                <div class="controls">
-                                    @Html.DropDownListFor(x => x.Estilista, null, "-- Selecione --", new { @class = "input-large" })                    
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownList("ColecaoAprovada", null, "-- Selecione --", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Estilista)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.DropDownListFor(x => x.Estilista, null, "-- Selecione --", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="well">
-                        <div class="row">
-                            <div class="col-md-3">
-                                
-                            </div>
-                        </div>
                         <br />
                         <div class="row">
-                            <div  id="row-imprimir" style="display: none">
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                </div>
+                            <div class="col-sm-10 col-md-11">
                             </div>
-
-                            <div  id="row-listagem">
-                                <div class="col-md-9">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-info pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            <div class="col-sm-2 col-md-1 form-group">
+                                <button id="pesquisar-relatorio" class="btn btn-default pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
+                                <button id="pesquisar-grid-ajax" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
