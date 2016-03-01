@@ -6,285 +6,374 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Unidade)
-                <div class="controls">
-                    @Html.DropDownList("Unidade", null, new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
-                </div>
+
+    <fieldset>
+        <legend>Dados do Cheque Recebido</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Unidade)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+                    </div>
+                </div>  
             </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Cliente)
-                <div class="controls">
-                    <div class="input-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Cliente)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
                         @Html.HiddenFor(x => x.Cliente)
-                        <input id="codigo-cliente" class="input-small" type="text" />
-                        <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-cliente" class="add-on"></span>
+                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                            <div class="input-group">
+                                <input id="codigo-cliente" class="numeric-only form-control" type="text" style="width: 70%;">
+                                <span class="input-group-btn pull-left">
+                                    <button id="pesquisar-cliente" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-cliente">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                            <input id="descricao-cliente" class="form-control" readonly="" data-toggle="tooltip">
+                        </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.Cliente, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Situacao)
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList())
-                    @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.DataEmissao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.DataEmissao)
-                    @Html.ValidationMessageFor(x => x.DataEmissao, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Historico)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Historico)
-                    @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Observacao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Observacao)
-                    @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                    <label class="control-label">Funcionarios</label>
-                    <div class="controls">
-                        <div class="input-group">
-                            <input id="codigo-funcionario" class="input-small" type="text" />
-                            <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                            <button id="adicionar-funcionario" class="btn" type="button">Adicionar</button>
-                            <span id="descricao-funcionario" class="add-on"></span>
-                        </div>
-                        @(Html.Kendo().Grid((IEnumerable<GridFuncionarioModel>)ViewBag.Funcionarios)
-                              .Name("grid-funcionario")
-                              .Columns(columns =>
-                              {
-                                  columns.Bound(x => x.Codigo).Width(60);
-                                  columns.Bound(x => x.Nome);
-                                  columns.Bound(x => x.Id)
-                                      .ClientTemplate("<a href='RemoverFuncionario/#= Id #' onclick='RemoverFuncionario(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
-                                      .Title("")
-                                      .Width(80);
-                              }).DataSource(s =>
-                                  s.Ajax()
-                                      .Read(r => r.Action("LerFuncionarios", "ChequeRecebido")
-                                          .Type(HttpVerbs.Get))
-                              ))
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Situacao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.DropDownListFor(x => x.Situacao, Model.Situacao.ToSelectList(), "-- Selecione --", new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })
+                    </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.DataEmissao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.EditorFor(x => x.DataEmissao)
+                        @Html.ValidationMessageFor(x => x.DataEmissao, null, new { @class="help-block" })
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Prestadores de serviço</label>
-                    <div class="controls">
-                        <div class="input-group">
-                            <input id="codigo-prestadorservico" class="input-small" type="text" />
-                            <button id="pesquisar-prestadorservico" class="btn" type="button"><i class="icon-search"></i></button>
-                            <button id="adicionar-prestadorservico" class="btn" type="button">Adicionar</button>
-                            <span id="descricao-prestadorservico" class="add-on"></span>
-                        </div>
-                        @(Html.Kendo().Grid((IEnumerable<GridPrestadorServicoModel>)ViewBag.Prestadores)
-                              .Name("grid-prestadorservico")
-                              .Columns(columns =>
-                              {
-                                  columns.Bound(x => x.Codigo).Width(60);
-                                  columns.Bound(x => x.Nome);
-                                  columns.Bound(x => x.Id)
-                                      .ClientTemplate("<a href='RemoverPrestador/#= Id #' onclick='RemoverPrestador(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
-                                      .Title("")
-                                      .Width(80);
-                              }).DataSource(s =>
-                                  s.Ajax()
-                                      .Read(r => r.Action("LerPrestadores", "ChequeRecebido")
-                                          .Type(HttpVerbs.Get))
-                              ))
-                    </div>
-                </div>
+            </div>
         </div>
-    </div>
-    
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Historico)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextBoxFor(x => x.Historico, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Historico, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Observacao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.TextAreaFor(x => x.Observacao, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Observacao, null, new { @class="help-block" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label("Funcionario", "Funcionários", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        @Html.Hidden("funcionario")
+                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                            <div class="input-group">
+                                <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                                <span class="input-group-btn pull-left">
+                                    <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <button id="adicionar-funcionario" class="btn btn-default btn-sm" type="button" >
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                            <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                        </div>
+                        <div class="col-sm-12 no-gutter">
+                            @(Html.Kendo().Grid((IEnumerable<GridFuncionarioModel>)ViewBag.Funcionarios)
+                                  .Name("grid-funcionario")
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(x => x.Codigo).Width(60);
+                                      columns.Bound(x => x.Nome);
+                                      columns.Bound(x => x.Id)
+                                          .ClientTemplate("<a href='RemoverFuncionario/#= Id #' onclick='RemoverFuncionario(this, event)' class='delete btn btn-default btn-small'><span class='glyphicon glyphicon-minus'></span></a>")
+                                          .Title("")
+                                          .Width(40);
+                                  })
+                                  .DataSource(s =>s.Ajax().Read(r => r.Action("LerFuncionarios", "ChequeRecebido").Type(HttpVerbs.Get))
+                                  ))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label("PrestadorServiço", "Prestadores de Serviço", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                            <div class="input-group">
+                                <input id="codigo-prestadorservico" class="numeric-only form-control" type="text" style="width: 70%;">
+                                <span class="input-group-btn pull-left">
+                                    <button id="pesquisar-prestadorservico" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-prestadorservico">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <button id="adicionar-prestadorservico" class="btn btn-default btn-sm" type="button" >
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                            <input id="descricao-prestadorservico" class="form-control" readonly="" data-toggle="tooltip">
+                        </div>
+                        <div class="col-sm-12 no-gutter">
+                            @(Html.Kendo().Grid((IEnumerable<GridPrestadorServicoModel>)ViewBag.Prestadores)
+                                  .Name("grid-prestadorservico")
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(x => x.Codigo).Width(60);
+                                      columns.Bound(x => x.Nome);
+                                      columns.Bound(x => x.Id)
+                                          .ClientTemplate("<a href='RemoverPrestador/#= Id #' onclick='RemoverPrestador(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
+                                          .Title("")
+                                          .Width(40);
+                                  }).DataSource(s =>
+                                      s.Ajax()
+                                          .Read(r => r.Action("LerPrestadores", "ChequeRecebido")
+                                              .Type(HttpVerbs.Get))
+                                  ))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
     <fieldset>
         <legend>Parcelas</legend>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Cmc7)
-                    <div class="controls">
-                        <div class="input-prepend">
-                            <span class="add-on">
-                                <label class="checkbox">
-                                    <input id="check-cmc7" type="checkbox">
-                                </label>
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input id="check-cmc7" type="checkbox">
                             </span>
-                            @Html.TextBoxFor(x => x.Cmc7, new { data_mask = "999999999999999999999999999999", disabled = "disabled", @class = "input-xlarge" })
+                            @Html.TextBoxFor(x => x.Cmc7, new { data_mask = "999999999999999999999999999999", disabled = "disabled", @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.Cmc7, null, new { @class = "help-block" })
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Banco, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        <div class="input-group">
-                            @Html.HiddenFor(x => x.Banco)
-                            <input id="codigo-banco" class="input-small" type="text" />
-                            <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
-                            <span id="descricao-banco" class="add-on"></span>
-                        </div>
-                        @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Agencia, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.TextBoxFor(x => x.Agencia)
-                        @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Conta, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.TextBoxFor(x => x.Conta)
-                        @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.NumeroCheque, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.TextBoxFor(x => x.NumeroCheque)
-                        @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
-                    </div>
-                </div>
+                </div>  
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.DataVencimento, new { @class = "control-label control-label required-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.DataVencimento)
-                        @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Emitente, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        <button id="cadastrar-emitente" class="btn" type="button"><i class="icon-edit"></i>Editar</button>
-                        <div id="emitente-painel"></div>
-                        @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Praca, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Praca)
-                        @Html.ValidationMessageFor(x => x.Praca, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Valor, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Valor)
-                        @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="controls">
-                        <button id="btn-add-parcela" type="button" class="btn">Adicionar</button>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Banco, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7 ">
+                        @Html.HiddenFor(x => x.Banco)
+                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                            <div class="input-group">
+                                <input id="codigo-banco" class="numeric-only form-control" type="text" style="width: 70%;">
+                                <span class="input-group-btn pull-left">
+                                    <button id="pesquisar-banco" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-banco">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                            <input id="descricao-banco" class="form-control" readonly="" data-toggle="tooltip">
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Banco, string.Empty, new { @class = "help-block" })
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="controls">
-                        <table id="table-parcelas" class="table table-striped table-condensed" style="width: 800px">
-                            <thead>
-                                <tr>
-                                    <th>Banco</th>
-                                    <th>Agência</th>
-                                    <th>Conta</th>
-                                    <th>Nº Cheque</th>
-                                    <th>Vencimento</th>
-                                    <th>Emitente</th>
-                                    <th>Praça</th>
-                                    <th>Valor</th>
-                                    <th style="width: 16px"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.Bancos != null)
-                                    {
-                                        for (int i = 0; i < Model.Bancos.Count; i++)
-                                        {
-                                            var banco = Model.Bancos[i];
-                                            var idBanco = Model.IdBancos[i];
-                                            var agencia = Model.Agencias[i];
-                                            var conta = Model.Contas[i];
-                                            var cheque = Model.Cheques[i];
-                                            var vencimento = Model.Vencimentos[i];
-                                            var idEmitente = Model.IdEmitentes[i];
-                                            var emitente = Model.Emitentes[i];
-                                            var praca = Model.Pracas[i];
-                                            var valor = Model.Valores[i];
-
-                                        <tr>
-                                            <td>
-                                                @banco
-                                                <input type="hidden" name="IdBancos" value="@idBanco"/>
-                                                <input type="hidden" name="Bancos" value="@banco"/>
-                                            </td>
-                                            <td>
-                                                @agencia
-                                                <input type="hidden" name="Agencias" value="@agencia"/>
-                                            </td>
-                                            <td>
-                                                @conta
-                                                <input type="hidden" name="Contas" value="@conta"/>
-                                            </td>
-                                            <td>
-                                                @cheque
-                                                <input type="hidden" name="Cheques" value="@cheque"/>
-                                            </td>
-                                            <td>
-                                                @vencimento
-                                                <input type="hidden" name="Vencimentos" value="@vencimento"/>
-                                            </td>
-                                            <td>
-                                                @emitente
-                                                <input type="hidden" name="IdEmitentes" value="@idEmitente"/>
-                                                <input type="hidden" name="Emitentes" value="@emitente"/>
-                                            </td>
-                                            <td>
-                                                @praca
-                                                <input type="hidden" name="Pracas" value="@praca"/>
-                                            </td>
-                                            <td>
-                                                @valor.ToString("C2")
-                                                <input type="hidden" name="Valores" value="@valor"/>
-                                            </td>
-                                            <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
-                                        </tr>
-                                        }
-                                    }
-                            </tbody>
-                        </table>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Agencia, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Agencia, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
+                        
                     </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Conta, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Conta, new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Conta, null, new { @class="help-block" })
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.NumeroCheque, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
+                        
+                    </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataVencimento, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.DataVencimento)
+                        @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class="help-block" })
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Emitente, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <button id="cadastrar-emitente" class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-edit"></span>Editar
+                        </button>
+                        <div id="emitente-painel"></div>
+                        @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
+                    </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Praca, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Praca, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Praca, null, new { @class="help-block" })
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Valor, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.Valor)
+                        @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </fieldset>
+     <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label(" ", new { @class = "control-label col-sm-2 col-lg-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    <button id="btn-add-parcela" class="btn btn-default" type="button" data-loading-text="Aguarde...">Adicionar</button>
+                    <table id="table-parcelas" class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Banco</th>
+                                <th>Agência</th>
+                                <th>Conta</th>
+                                <th>Nº Cheque</th>
+                                <th>Vencimento</th>
+                                <th>Emitente</th>
+                                <th>Praça</th>
+                                <th>Valor</th>
+                                <th style="width: 16px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Bancos != null)
+                            {
+                                for (int i = 0; i < Model.Bancos.Count; i++)
+                                {
+                                    var banco = Model.Bancos[i];
+                                    var idBanco = Model.IdBancos[i];
+                                    var agencia = Model.Agencias[i];
+                                    var conta = Model.Contas[i];
+                                    var cheque = Model.Cheques[i];
+                                    var vencimento = Model.Vencimentos[i];
+                                    var idEmitente = Model.IdEmitentes[i];
+                                    var emitente = Model.Emitentes[i];
+                                    var praca = Model.Pracas[i];
+                                    var valor = Model.Valores[i];
+
+                                    <tr>
+                                        <td>
+                                            @banco
+                                            <input type="hidden" name="IdBancos" value="@idBanco"/>
+                                            <input type="hidden" name="Bancos" value="@banco"/>
+                                        </td>
+                                        <td>
+                                            @agencia
+                                            <input type="hidden" name="Agencias" value="@agencia"/>
+                                        </td>
+                                        <td>
+                                            @conta
+                                            <input type="hidden" name="Contas" value="@conta"/>
+                                        </td>
+                                        <td>
+                                            @cheque
+                                            <input type="hidden" name="Cheques" value="@cheque"/>
+                                        </td>
+                                        <td>
+                                            @vencimento
+                                            <input type="hidden" name="Vencimentos" value="@vencimento"/>
+                                        </td>
+                                        <td>
+                                            @emitente
+                                            <input type="hidden" name="IdEmitentes" value="@idEmitente"/>
+                                            <input type="hidden" name="Emitentes" value="@emitente"/>
+                                        </td>
+                                        <td>
+                                            @praca
+                                            <input type="hidden" name="Pracas" value="@praca"/>
+                                        </td>
+                                        <td>
+                                            @valor.ToString("C2")
+                                            <input type="hidden" name="Valores" value="@valor"/>
+                                        </td>
+                                        <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </fieldset>    
-        <div class="form-actions">
-            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
+    </div>
 }
+
 <script>
     // Cmc7
     $(function () {
@@ -546,20 +635,25 @@
     }
 </script>
 <!-- CADASTRO DE EMITENTE -->
-<div id="modal-emitente" class="modal hide fade">
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Emitente</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Financeiro.Emitente.NovoOuEditar(), FormMethod.Post, new { id = "form-cadastrar-emitente", @class = "form-horizontal" }))
-    {
-        <div id="modal-body-emitente" class="modal-body"></div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="submit-salvar-emitente" class="btn btn-primary" type="submit">Salvar</button>
+<div id="modal-emitente" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm(MVC.Financeiro.Emitente.NovoOuEditar(), FormMethod.Post, new {id = "form-cadastrar-emitente", @class = "form-horizontal"}))
+            {
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Emitente</h3>
+                </div>
+                <div id="modal-body-emitente" class="modal-body" style="overflow-y: hidden;"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button id="submit-salvar-emitente" class="btn btn-primary" type="button">Salvar</button>
+                </div>
+            }
+        </div>
     </div>
 </div>
+
 <script>
     $(function () {
         $('#cadastrar-emitente').on('click', function () {

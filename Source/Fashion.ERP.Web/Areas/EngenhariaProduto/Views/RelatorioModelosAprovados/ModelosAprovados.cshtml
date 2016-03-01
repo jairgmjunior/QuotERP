@@ -4,124 +4,144 @@
 
 @using (Html.BeginForm(MVC.EngenhariaProduto.RelatorioModelosAprovados.ModelosAprovados(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
-<div class="accordion" id="accordion">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
-                Pesquisar
-            </a>
-        </div>
-        <div id="collapsePesquisar" class="accordion-body collapse in">
-            <div class="accordion-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Colecao)
-                            <div class="controls">
-                                @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })
-                                @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Catalogo, new {@class = "title-label"})
-                            <div class="controls">
-                                @Html.EditorFor(x => x.Catalogo)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
-                            <div class="controls">
-                                @Html.DropDownList("ClassificacaoDificuldade", null, "-- Selecione --", new { @class = "input-large" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Tag)
-                            <div class="controls">
-                                @Html.TextBoxFor(x => x.Tag, new { @class = "input-mini" }) / 
-                                @Html.TextBoxFor(x => x.Ano, new { @class = "input-mini" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2" style="-ms-opacity: 0.99; opacity: 0.99;">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.IntervaloInicial)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.IntervaloInicial, new { @class = "input-small" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.IntervaloFinal)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.IntervaloFinal, new { @class = "input-small" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.Label("referencia-material", "Referência de Material", new { @class = "control-label" })
-                            <div class="controls">
-                                @Html.Hidden("Material")
-                                <div class="input-group">
-                                    <input id="referencia-material" class="input-small" type="text" />
-                                    <button id="pesquisar-material" class="btn" type="button"><i class="icon-search"></i></button>
-                                    <span id="descricao-material" class="add-on"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="well">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelForRequired(x => x.AgruparPor)
-                                    <div class="controls">
-                                        @Html.DropDownList("AgruparPor", "--Selecione--")
-                                    </div>
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Colecao)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                                    <div class="controls">
-                                        @Html.DropDownList("OrdenarPor", "--Selecione--")
-                                    </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Catalogo)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.EditorFor(x => x.Catalogo)
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                                    <div class="controls">
-                                        <select name="OrdenarEm">
-                                            <option value="asc">Ascendente</option>
-                                            <option value="desc">Descendente</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Tag)
+                                <div class="col-sm-4 col-md-4 col-lg-3" style='padding-right : 0'>
+                                    @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
+                                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4" style='padding-left : 0'>
+                                    @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.IntervaloInicial)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.IntervaloInicial))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0">
+                                            @Html.Label("Ate", "Até", new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.IntervaloFinal))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Material)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.HiddenFor(x => x.Material)
+                                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                        <div class="input-group">
+                                            <input id="referencia-material" class="numeric-only form-control" type="text" style="width: 70%;">
+                                            <span class="input-group-btn pull-left">
+                                                <button id="pesquisar-material" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-material">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                        <input id="descricao-material" class="form-control" readonly="" data-toggle="tooltip">
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Material, string.Empty, new { @class = "help-block" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-10 col-md-11">
+                                <div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.AgruparPor)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("AgruparPor", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.OrdenarPor)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("OrdenarPor", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.Label("OrdenarEm", "Em", new { @class = "control-label col-sm-2 col-md-1" })
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                <select name="OrdenarEm" class="form-control">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-md-1 form-group">
+                                <button id="pesquisar-relatorio" class="btn btn-default pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 }
 <div id="pdf"></div>
 @{

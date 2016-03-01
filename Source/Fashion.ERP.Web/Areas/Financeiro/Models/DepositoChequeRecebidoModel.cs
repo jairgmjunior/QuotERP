@@ -31,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         [Required(ErrorMessage = "Informe o banco")]
         public long? ContaBancaria { get; set; }
 
-        [Display(Name = "Data depósito")]
+        [Display(Name = "Data de Depósito")]
         [Required(ErrorMessage = "Informe a data de depósito")]
         public DateTime? DataDeposito { get; set; }
 

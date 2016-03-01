@@ -239,7 +239,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         model.Ano = domain.ModeloAvaliacao.Ano;
                         model.SequenciaTag = domain.ModeloAvaliacao.SequenciaTag;
                         model.AprovadoReprovado = domain.ModeloAvaliacao.Aprovado;
-                        model.ClassificacaoDificuldade = domain.ModeloAvaliacao.ClassificacaoDificuldade.Id;
+                        model.ClassificacaoDificuldade = domain.ModeloAvaliacao.ClassificacaoDificuldade != null ? domain.ModeloAvaliacao.ClassificacaoDificuldade.Id : null;
                         model.Catalogo = domain.ModeloAvaliacao.Catalogo;
                         model.ColecaoAprovada = domain.ModeloAvaliacao.Colecao.Id;
                         model.Complemento = domain.ModeloAvaliacao.Complemento;
@@ -331,7 +331,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 {
                     Ano = model.Ano.Value,
                     Aprovado = model.AprovadoReprovado,
-                    Catalogo = model.Catalogo.Value,
+                    Catalogo = model.Catalogo.HasValue ? model.Catalogo : false,
                     SequenciaTag = model.SequenciaTag,
                     ClassificacaoDificuldade =
                         model.ClassificacaoDificuldade.HasValue

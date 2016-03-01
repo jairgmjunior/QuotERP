@@ -93,14 +93,19 @@
         <legend>Avaliação do Modelo</legend>
         <div class="row">
             <div class="col-sm-6">
-                @Html.HiddenFor(x => x.AprovadoReprovado)
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default">
-                        <input name="btn-AprovadoReprovado" class="aprovado active" type="radio" value="true"/>Aprovado
-                    </label>
-                    <label class="btn btn-default">
-                        <input name="btn-AprovadoReprovado" class="reprovado" type="radio" value="false"/>Reprovado
-                    </label>
+                <div class="form-group form-group-sm">
+                    @Html.Label("Avaliação", new { @class = "control-label col-sm-4 col-md-3" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.HiddenFor(x => x.AprovadoReprovado)
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input name="btn-AprovadoReprovado" class="aprovado active" type="radio" value="true"/>Aprovado
+                            </label>
+                            <label class="btn btn-default">
+                                <input name="btn-AprovadoReprovado" class="reprovado" type="radio" value="false"/>Reprovado
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

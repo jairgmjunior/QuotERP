@@ -6,116 +6,150 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Unidade)
-                <div class="controls">
-                    @Html.DropDownList("Unidade", null, " -- Selecione -- ", new { @class = "input-large" })
-                    @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+
+    <fieldset>
+        <legend>Dados do Depósito</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Unidade)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new {  @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+                    </div>
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.VencimentoDe)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="col-lg-5 col-md-5 padding0">
+                            <div class="">
+                                @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+                            <div class="form-group form-group-sm" style="margin-bottom: 0;">
+                                @Html.LabelFor(x=>x.VencimentoAte, new { @class = "control-label control-label-meio col-sm-3" })
+                                <div class="col-lg-9 col-md-9 padding0">
+                                    @(Html.Kendo().DatePickerFor(x => x.VencimentoAte))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.VencimentoDe, new { @class = "control-label"})
-                <div class="controls">
-                    @(Html.Kendo().DatePickerFor(x => x.VencimentoDe))
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("VencimentoAte", "Até", new { @class = "control-label"})
-                <div class="controls">
-                    @(Html.Kendo().DatePickerFor(x => x.VencimentoAte))
+        </div>  
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Situacao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                         @{
+                             var naoDepositado = ChequeSituacao.NaoDepositado.EnumToString();
+                             var devolvido = ChequeSituacao.Devolvido.EnumToString();
+                             var custodia = ChequeSituacao.Custodia.EnumToString();
+                         }
+                         <label class="checkbox-inline"><input id="naoDepositado" name="Situacao" type="checkbox" value="NaoDepositado" checked="checked" /> @naoDepositado</label>
+                         <label class="checkbox-inline"><input id="devolvido" name="Situacao" type="checkbox" value="Devolvido" checked="checked" /> @devolvido</label>
+                         <label class="checkbox-inline"><input id="custodia" name="Situacao" type="checkbox" value="Custodia" /> @custodia</label>
+                         @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })                        
+                    </div>
                 </div>
             </div>
         </div>
-         <div class="col-md-4">
-             <div class="form-group">
-                 @Html.LabelForRequired(x => x.Situacao)
-                 <div class="controls">
-                     @{
-                         var naoDepositado = ChequeSituacao.NaoDepositado.EnumToString();
-                         var devolvido = ChequeSituacao.Devolvido.EnumToString();
-                         var custodia = ChequeSituacao.Custodia.EnumToString();
-                     }
-                     <label class="checkbox"><input id="naoDepositado" name="Situacao" type="checkbox" value="NaoDepositado" checked="checked" /> @naoDepositado</label>
-                     <label class="checkbox"><input id="devolvido" name="Situacao" type="checkbox" value="Devolvido" checked="checked" /> @devolvido</label>
-                     <label class="checkbox"><input id="custodia" name="Situacao" type="checkbox" value="Custodia" /> @custodia</label>
-                     @Html.ValidationMessageFor(x => x.Situacao, null, new { @class="help-block" })
-                 </div>
-             </div>
-             <button id="pesquisar" class="btn btn-info pull-right" type="button">Pesquisar</button>
-        </div>
-            
-    </div>
-    
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                        <button id="pesquisar" class="btn btn-default" data-loading-text="Aguarde...">Pesquisar</button>
+                    </div>
+                </div>
+            </div>     
+        </div> 
+    </fieldset>
+
     <fieldset>
         <legend>Cheques</legend>
         <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="controls">
-                    @(Html.Kendo().Grid<GridDepositoChequeRecebido>()
-                          .Name("grid-cheque")
-                          .Columns(columns =>
-                          {
-                              columns.Bound(x => x.Unidade);
-                              columns.Bound(x => x.Emitente);
-                              columns.Bound(x => x.NumeroCheque);
-                              columns.Bound(x => x.Banco);
-                              columns.Bound(x => x.Valor).Format("{0:C}");
-                              columns.Bound(x => x.DataVencimento).Format("{0:dd/MM/yyyy}");
-                              columns.Bound(x => x.Situacao);
-                              columns.Bound(x => x.Id)
-                                  .ClientTemplate("<input type='checkbox' name='Cheques' value='#= Id #' />")
-                                  .Title("Depositar")
-                                  .Width(60).HtmlAttributes(new { @class = "text-center" });
-                          }).DataSource(s =>
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <div class="form-group form-group-sm">
+                    @Html.Label(" ", new { @class = "control-label col-sm-2 col-lg-2 font-bold" })
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        @(Html.Kendo().Grid<GridDepositoChequeRecebido>()
+                              .Name("grid-cheque")
+                              .Columns(columns =>
+                              {
+                                  columns.Bound(x => x.Unidade);
+                                  columns.Bound(x => x.Emitente);
+                                  columns.Bound(x => x.NumeroCheque);
+                                  columns.Bound(x => x.Banco);
+                                  columns.Bound(x => x.Valor).Format("{0:C}");
+                                  columns.Bound(x => x.DataVencimento).Format("{0:dd/MM/yyyy}");
+                                  columns.Bound(x => x.Situacao);
+                                  columns.Bound(x => x.Id)
+                                      .ClientTemplate("<input type='checkbox' name='Cheques' value='#= Id #' />")
+                                      .Title("Depositar")
+                                      .Width(60).HtmlAttributes(new { @class = "text-center" });
+                              }).DataSource(s =>
                                   s.Ajax()
-                                      .Read(r => r.Action("LerCheques", "DepositoChequeRecebido")
-                                          .Type(HttpVerbs.Get))
-                              )
-                          )
+                                      .Read(r => r.Action("LerCheques", "DepositoChequeRecebido").Type(HttpVerbs.Get))
+                              ))            
                     </div>
                 </div>
             </div>
         </div>
     </fieldset>
-    
+
     <fieldset>
-        <legend>Dados bancários</legend>
+        <legend>Dados Bancários</legend>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Banco, new { @class = "control-label required-label"})
-                    <div class="controls">
-                        @Html.DropDownList("Banco", null, " -- Selecione -- ", new { @class = "input-large" })
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Banco)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.Banco, null, " -- Selecione -- ", new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
                     </div>
-                </div>
-                <div class="form-group">
+                </div>  
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.ContaBancaria)
-                    <div class="controls">
-                        <select id="ContaBancaria" name="ContaBancaria"><option>-- Selecione --</option></select>
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <select id="ContaBancaria" name="ContaBancaria" class="form-control"><option>-- Selecione --</option></select>
                         @Html.ValidationMessageFor(x => x.ContaBancaria, null, new {@class = "help-block"})
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.DataDeposito)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.DataDeposito)
-                        @Html.ValidationMessageFor(x => x.DataDeposito, null, new {@class = "help-block"})
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="form-actions">
-            <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.DataDeposito)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.EditorFor(x => x.DataDeposito)
+                        @Html.ValidationMessageFor(x => x.DataDeposito, null, new { @class = "help-block" })
+                    </div>
+                </div>  
+            </div>
+        </div>  
     </fieldset>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
+    </div>
 }
 <script>
     $(function () {
-        $('#pesquisar').on('click', function () {
+        $('#pesquisar').on('click', function (e) {
+            e.preventDefault();
             var unidade = $('#Unidade').val();
             var vencimentoDe = $('#VencimentoDe').val();
             var vencimentoAte = $('#VencimentoAte').val();

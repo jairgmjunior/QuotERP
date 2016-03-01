@@ -5,8 +5,5 @@
 	@Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.Partial("_NovoOuEditar", Model)
-	<div class="form-actions">
-		<button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-	</div>
 }
 @{Html.RenderAction("Pesquisar", "Banco", new { area = "Comum" });}

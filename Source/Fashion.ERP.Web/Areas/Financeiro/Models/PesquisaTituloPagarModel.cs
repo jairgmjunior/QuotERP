@@ -19,19 +19,19 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         [Display(Name = "Situação")]
         public SituacaoTitulo? SituacaoTitulo { get; set; }
 
-        [Display(Name = "Data emissão")]
+        [Display(Name = "Data de Emissão")]
         public DateTime? DataEmissaoInicio { get; set; }
         
         [Display(Name = "Até")]
         public DateTime? DataEmissaoFim { get; set; }
 
-        [Display(Name = "Data cadastro")]
+        [Display(Name = "Data de Cadastro")]
         public DateTime? DataCadastroInicio { get; set; }
 
         [Display(Name = "Até")]
         public DateTime? DataCadastroFim { get; set; }
 
-        [Display(Name = "Data vencimento")]
+        [Display(Name = "Data de Vencimento")]
         public DateTime? DataVencimentoInicio { get; set; }
 
         [Display(Name = "Até")]

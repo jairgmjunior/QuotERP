@@ -30,7 +30,7 @@ namespace Fashion.ERP.Domain.Financeiro
         public static string EnumToString(this ChequeSituacao chequeSituacao)
         {
             var display = chequeSituacao.GetDisplay();
-            return display != null ? display.Name : chequeSituacao.ToString();
+            return display != null ? display.Name.ToUpper() : chequeSituacao.ToString().ToUpper();
         }
     }
 }

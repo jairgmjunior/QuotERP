@@ -22,7 +22,7 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         [Display(Name = "Saldo")]
         public double Saldo { get; set; }
 
-        [Display(Name = "Emissao")]
+        [Display(Name = "Emissão")]
         public DateTime Emissao { get; set; }
 
         [Display(Name = "Vencimento")]

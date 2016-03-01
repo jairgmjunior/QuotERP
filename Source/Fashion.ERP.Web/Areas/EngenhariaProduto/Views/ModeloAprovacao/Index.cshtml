@@ -116,34 +116,36 @@
         </div>
     </div>
 }
-@*.ToolBar(toolBar => toolBar.Template("<a class='k-button k-button-icontext' onclick='criarFichasTecnicas()' href='#'></span>Criar Fichas Técnicas</a>"))*@
-@(Html.Kendo().Grid<GridModeloAprovacaoModel>() 
-	.Name("Grid").Events(events => events.DataBound("onDataBound"))
-    .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Técnicas", "CriarFichaTecnica", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
-    .AutoBind(false)
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .ServerOperation(true)
-        .PageSize(50)
-        .Read(read => read.Action("ObtenhaListaGridModeloAprovacaoModel", "ModeloAprovacao").Data("ObtenhaPesquisaModeloAprovacaoModel"))
-        .Events(events => events.Error("onError"))
-    )
-	.Columns(columns =>
-	{ 
-        columns.Bound(x => x.Check).HeaderTemplate("<input id='checkAll' type='checkbox' onclick='clicouCheckBoxAll(this)' />")
-            .Title("").ClientTemplate("<input type='checkbox' class='check-box' onclick='clicouCheckBox(this)'/>").Width(27).Sortable(false);
-        columns.Bound(x => x.TagAno);
-	    columns.Bound(x => x.ColecaoAprovada);
-        columns.Bound(x => x.Dificuldade);
-		columns.Bound(x => x.Referencia);
-		columns.Bound(x => x.Descricao);
-		columns.Bound(x => x.Quantidade);
-	})
-    .Resizable(resize => resize.Columns(true))
-    .Reorderable(reorder => reorder.Columns(true))
-    .Pageable()
-    .Sortable()
-    .Groupable())
+
+<div class="table-responsive">
+    @(Html.Kendo().Grid<GridModeloAprovacaoModel>() 
+          .Name("Grid").Events(events => events.DataBound("onDataBound"))
+          .ToolBar(toolBar => toolBar.Template(@Html.ActionLinkAuth("Criar Fichas Técnicas", "CriarFichaTecnica", "ModeloAprovacao", new {Area = "EngenhariaProduto"}, new {id = "criarFichasTecnicasButton", Area = "EngenhariaProducao", @class = "k-button k-button-icontext"}).ToHtmlString()))
+          .AutoBind(false)
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .ServerOperation(true)
+              .PageSize(50)
+              .Read(read => read.Action("ObtenhaListaGridModeloAprovacaoModel", "ModeloAprovacao").Data("ObtenhaPesquisaModeloAprovacaoModel"))
+              .Events(events => events.Error("onError"))
+          )
+          .Columns(columns =>
+          { 
+              columns.Bound(x => x.Check).HeaderTemplate("<input id='checkAll' type='checkbox' onclick='clicouCheckBoxAll(this)' />")
+                  .Title("").ClientTemplate("<input type='checkbox' class='check-box' onclick='clicouCheckBox(this)'/>").Width(27).Sortable(false);
+              columns.Bound(x => x.TagAno);
+              columns.Bound(x => x.ColecaoAprovada);
+              columns.Bound(x => x.Dificuldade);
+              columns.Bound(x => x.Referencia);
+              columns.Bound(x => x.Descricao);
+              columns.Bound(x => x.Quantidade);
+          })
+          .Resizable(resize => resize.Columns(true))
+          .Reorderable(reorder => reorder.Columns(true))
+          .Pageable()
+          .Sortable()
+          .Groupable())
+</div>
 
 <script>
     function onDataBound() {

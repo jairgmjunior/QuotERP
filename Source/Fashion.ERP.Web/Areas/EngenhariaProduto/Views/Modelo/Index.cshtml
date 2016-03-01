@@ -75,9 +75,22 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
-                                @Html.LabelForRequired(x => x.ReferenciaMaterial)
+                                @Html.Label("Material", "Material", new { @class = "control-label col-sm-4 col-md-3" })
                                 <div class="col-sm-8 col-md-8 col-lg-7">
-                                    @Html.TextBoxFor(x => x.ReferenciaMaterial, new { @class = "form-control" })
+                                    @Html.Hidden("Material")
+                                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                        <div class="input-group">
+                                            <input id="referencia-material" class="numeric-only form-control" type="text" style="width: 70%;">
+                                            <span class="input-group-btn pull-left">
+                                                <button id="pesquisar-material" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-material">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                        <input id="descricao-material" class="form-control" readonly="" data-toggle="tooltip">
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,89 +1,4 @@
 ﻿@model Fashion.ERP.Web.Areas.Financeiro.Models.DevolucaoChequeRecebidoModel
-<hr />
-<fieldset>
-    <legend>Dados do cheque</legend>
-    <div class="detail">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Unidade, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Unidade)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Cliente, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Cliente)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Banco, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Banco)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Agencia, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Agencia)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Conta, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Conta)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.NumeroCheque, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.NumeroCheque)
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.SituacaoCheque, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.SituacaoCheque)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Emitente, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Emitente)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.DataEmissao, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.DataEmissao, "{0:dd/MM/yyyy}")
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.DataVencimento, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.DataVencimento, "{0:dd/MM/yyyy}")
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.DataProrrogacao, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.DataProrrogacao, "{0:dd/MM/yyyy}")
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Valor, new { @class = "title-label" })
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Valor, "{0:C}")
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</fieldset>
-<hr />
 
 @using (Html.BeginForm(MVC.Financeiro.ChequeRecebido.Devolucao(), FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
 {
@@ -102,42 +17,186 @@
     @Html.HiddenFor(x => x.DataVencimento)
     @Html.HiddenFor(x => x.DataProrrogacao)
     @Html.HiddenFor(x => x.Valor)
+    
+    <hr />
+
     <fieldset>
-        <legend>Dados da devolução</legend>
+        <legend>Dados do Cheque Recebido</legend>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Unidade, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Unidade)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Cliente, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Cliente)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Banco, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Banco)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Agencia, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Agencia)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Conta, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Conta)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.NumeroCheque, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.NumeroCheque)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SituacaoCheque, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.SituacaoCheque)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Emitente, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Emitente)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataVencimento, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.DataVencimento, "{0:dd/MM/yyyy}")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataProrrogacao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.DataProrrogacao, "{0:dd/MM/yyyy}")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Valor, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Valor, "{0:C}")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <hr />
+
+    <fieldset>
+        <legend>Dados da Devolução</legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.DataDevolucao)
-                    <div class="controls">
+                    <div class="col-sm-8 col-md-8 col-lg-7">
                         @Html.EditorFor(x => x.DataDevolucao)
-                        @Html.ValidationMessageFor(x => x.DataDevolucao, null, new { @class = "help-block" })
                     </div>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.CompensacaoCheque)
-                    <div class="controls">
-                        @Html.DropDownList("CompensacaoCheque", null, new { @class = "input-large" })
-                        @Html.ValidationMessageFor(x => x.CompensacaoCheque, null, new { @class="help-block" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownList("CompensacaoCheque", null, new { @class = "form-control" })
                     </div>
                 </div>
-                <div class="form-group">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.SituacaoChequeRecebido)
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.SituacaoChequeRecebido, Model.SituacaoChequeRecebido.ToSelectList())
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.SituacaoChequeRecebido, Model.SituacaoChequeRecebido.ToSelectList(), new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.SituacaoChequeRecebido, null, new { @class="help-block" })
                     </div>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Observacao)
-                    <div class="controls">
-                        @Html.TextAreaFor(x => x.Observacao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
                     </div>
                 </div>
             </div>
         </div>
     </fieldset>
-    <div class="form-actions">
-        <button class="btn btn-primary btn-large" type="submit" data-loading-text="Aguarde...">Salvar</button>
+   
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
     </div>
 }

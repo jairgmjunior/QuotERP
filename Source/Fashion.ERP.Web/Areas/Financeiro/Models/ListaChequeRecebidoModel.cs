@@ -23,13 +23,13 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Models
         [Display(Name = "Emissão")]
         public DateTime? DataEmissaoInicio { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Até")]
         public DateTime? DataEmissaoFim { get; set; }
 
         [Display(Name = "Vencimento")]
         public DateTime? DataVencimentoInicio { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Até")]
         public DateTime? DataVencimentoFim { get; set; }
 
         [Display(Name = "Saldo")]

@@ -13,44 +13,52 @@
     <fieldset>
         <legend>Materiais de Composição do Custo da Ficha Técnica</legend>
     </fieldset>
-
-    @(Html.Kendo().Grid(@Model.GridItens)
-        .Name("GridItens")
-        .Columns(columns =>
-        {
-            columns.Bound(p => p.Id).Hidden().ClientTemplate(
-                "<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
-            columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
-                "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
-            columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
-                "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
-            columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
-                "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
-            columns.Bound(p => p.Custo).EditorTemplateName("numeric4casasdecimais").Width(110).ClientTemplate("#= kendo.toString(Custo, \"n4\") #" +
-                "<input type='hidden' name='GridItens[#= index(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+    <br/>
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(@Model.GridItens)
+              .Name("GridItens")
+              .Columns(columns =>
+              {
+                  columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                      "<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                  columns.Bound(p => p.Referencia).ClientTemplate("#= Referencia #" +
+                                                                  "<input type='hidden' name='GridItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(p => p.Descricao).ClientTemplate("#= Descricao #" +
+                                                                 "<input type='hidden' name='GridItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(p => p.UnidadeMedida).Width(55).ClientTemplate("#= UnidadeMedida #" +
+                                                                               "<input type='hidden' name='GridItens[#= index(data)#].UnidadeMedida' value='#= UnidadeMedida #' />");
+                  columns.Bound(p => p.Custo).EditorTemplateName("numeric4casasdecimais").Width(110).ClientTemplate("#= kendo.toString(Custo, \"n4\") #" +
+                                                                                                                    "<input type='hidden' name='GridItens[#= index(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
                 
-            columns.Command(command => command.Destroy() );
-        })
-        .DataSource(s => s.Ajax()
-            .Model(model =>
-            {
-                model.Id(item => item.Id);
-                model.Field(item => item.Referencia).Editable(false);
-                model.Field(item => item.Descricao).Editable(false);
-                model.Field(item => item.UnidadeMedida).Editable(false);
-                model.Field(item => item.Custo).Editable(true);
-                model.Field(item => item.Id).Editable(true).DefaultValue(0);
-            })
-        )
-        .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" }))
-        .Editable(editable => editable.Mode(GridEditMode.InCell))
-        .Resizable(resize => resize.Columns(true))
-        .Events(events =>events.Edit("onEditGrid"))
-        .Navigatable()
-            )
-
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                  columns.Command(command => command.Destroy() ).Width(110);
+              })
+              .DataSource(s => s.Ajax()
+                  .Model(model =>
+                  {
+                      model.Id(item => item.Id);
+                      model.Field(item => item.Referencia).Editable(false);
+                      model.Field(item => item.Descricao).Editable(false);
+                      model.Field(item => item.UnidadeMedida).Editable(false);
+                      model.Field(item => item.Custo).Editable(true);
+                      model.Field(item => item.Id).Editable(true).DefaultValue(0);
+                  })
+              )
+              .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisarvarios-material", @href = "javascript:void(0)", @class = "btn-primary" , data_toggle="modal", data_target="#modal-materiais"}))
+              .Editable(editable => editable.Mode(GridEditMode.InCell))
+              .Resizable(resize => resize.Columns(true))
+              .Events(events =>events.Edit("onEditGrid"))
+              .Navigatable()
+              )
+    </div>
+<br/>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
     </div>
 }
 @{
@@ -62,7 +70,7 @@
 
     $(document).ready(function () {
 
-        $("#selecionar-material").on("pesquisar", function (ev, itens) {
+        $("#selecionar-materiais").on("pesquisar", function (ev, itens) {
 
             if (itens.DataItemsSelecionados.length == 0) {
                 return;

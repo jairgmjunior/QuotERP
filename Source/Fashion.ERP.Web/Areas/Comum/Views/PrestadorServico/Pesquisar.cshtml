@@ -1,27 +1,34 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridPrestadorServicoModel>
-<div id="modal-prestadorservico" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar prestador de serviço</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Comum.PrestadorServico.Pesquisar()))
-    {
-        @Html.AntiForgeryToken()
-        <div id="modal-body-prestadorservico" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
-                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input id="submit-pesquisar-prestador" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+
+<div id="modal-prestadorservico" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Prestador de Serviço</h3>
             </div>
-            <div id="grid-pesquisa-prestadorservico"></div>
+            @using (Html.BeginForm(MVC.Comum.PrestadorServico.Pesquisar()))
+            {
+                @Html.AntiForgeryToken()
+                <div id="modal-body-prestadorservico" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 66%" />
+                        <input id="submit-pesquisar-prestador" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-prestadorservico"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-prestadorservico" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-prestadorservico" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
+
+
 <script>
     $(function () {
         // Se o id do prestador vier preenchido, preencher o código e descrição
@@ -31,7 +38,7 @@
             $.getJSON('/Comum/PrestadorServico/PesquisarId/' + prestadorId, function (data) {
                 if (data.Id) {
                     $('#codigo-prestadorservico').val(data.Codigo);
-                    $('#descricao-prestadorservico').text(data.Nome);
+                    $('#descricao-prestadorservico').val(data.Nome);
                 }
             });
         }
@@ -70,13 +77,13 @@
 
             return false;
         });
-        $('#pesquisar-prestadorservico').on('click', function () {
-            $('#modal-prestadorservico').modal('show').one('hidden', function () {
-                $('#Coluna')[0].selectedIndex = 0;
-                $('input[name$="valor"]').val('');
-                $('#grid-pesquisa-prestadorservico').empty();
-            });
+
+        $('#modal-prestadorservico').on('hidden.bs.modal', function (e) {
+            $('#Coluna')[0].selectedIndex = 0;
+            $('input[name$="valor"]').val('');
+            $('#grid-pesquisa-prestadorservico').empty();
         });
+
         var pesquisaPrestadorServico = function (codigo) {
             if (codigo) {
                 var url = '/Comum/PrestadorServico/PesquisarCodigo?codigo=' + codigo;
@@ -85,17 +92,17 @@
                         alert(data.erro);
                         $('#prestadorservico').val('').trigger('change');
                         $('#codigo-prestadorservico').val('');
-                        $('#descricao-prestadorservico').text('');
+                        $('#descricao-prestadorservico').val('');
                     } else {
                         $('#prestadorservico').val(data.Id).trigger('change');
                         $('#codigo-prestadorservico').val(data.Codigo);
-                        $('#descricao-prestadorservico').text(data.Nome);
+                        $('#descricao-prestadorservico').val(data.Nome);
                     }
                 });
             } else {
                 $('#prestadorservico').val('').trigger('change');
                 $('#codigo-prestadorservico').val('');
-                $('#descricao-prestadorservico').text('');
+                $('#descricao-prestadorservico').val('');
             }
         };
         $('#codigo-prestadorservico').on({
@@ -117,7 +124,7 @@
             if (data) {
                 $('#prestadorservico').val(data.Id).trigger('change');
                 $('#codigo-prestadorservico').val(data.Codigo);
-                $('#descricao-prestadorservico').text(data.Nome);
+                $('#descricao-prestadorservico').val(data.Nome);
 
                 $('#modal-prestadorservico').modal('hide');
             }

@@ -1,27 +1,32 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Comum.Models.GridClienteModel>
-<div id="modal-cliente" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar cliente</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Comum.Cliente.Pesquisar()))
-    {
-        @Html.AntiForgeryToken()
-        <div id="modal-body-cliente" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
-                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input id="submit-pesquisar-cliente" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+
+<div id="modal-cliente" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Cliente</h3>
             </div>
-            <div id="grid-pesquisa-cliente"></div>
+            @using (Html.BeginForm(MVC.Comum.Cliente.Pesquisar()))
+            {
+                @Html.AntiForgeryToken()
+                <div id="modal-body-cliente" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 66%" />
+                        <input id="submit-pesquisar-cliente" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-cliente"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-cliente" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-cliente" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
 <script>
     $(function () {
         // Se o id do cliente vier preenchido, preencher o código e descrição
@@ -31,7 +36,7 @@
             $.getJSON('/Comum/Cliente/PesquisarId/' + clienteId, function (data) {
                 if (data.Id) {
                     $('#codigo-cliente').val(data.Codigo);
-                    $('#descricao-cliente').text(data.Nome);
+                    $('#descricao-cliente').val(data.Nome);
                 }
             });
         }
@@ -75,14 +80,13 @@
 
             return false;
         });
-            
-        $('#pesquisar-cliente').on('click', function () {
-            $('#modal-cliente').modal('show').one('hidden', function () {
-                $('#ColunaPesquisa')[0].selectedIndex = 0;
-                $('input[name$="ValorPesquisa"]').val('');
-                $('#grid-pesquisa-cliente').empty();
-            });
+
+        $('#modal-cliente').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            $('#grid-pesquisa-cliente').empty();
         });
+        
         var pesquisaCliente = function (codigo) {
             if (codigo) {
                 var url = '/Comum/Cliente/PesquisarCodigo?codigo=' + codigo;
@@ -91,17 +95,17 @@
                         alert(data.erro);
                         $('#Cliente').val('').trigger('change');
                         $('#codigo-cliente').val('');
-                        $('#descricao-cliente').text('');
+                        $('#descricao-cliente').val('');
                     } else {
                         $('#Cliente').val(data.Id).trigger('change');
                         $('#codigo-cliente').val(data.Codigo);
-                        $('#descricao-cliente').text(data.Nome);
+                        $('#descricao-cliente').val(data.Nome);
                     }
                 });
             } else {
                 $('#Cliente').val('').trigger('change');
                 $('#codigo-cliente').val('');
-                $('#descricao-cliente').text('');
+                $('#descricao-cliente').val('');
             }
         };
         $('#codigo-cliente').on({
@@ -124,7 +128,7 @@
             if (data) {
                 $('#Cliente').val(data.Id).trigger('change');
                 $('#codigo-cliente').val(data.Codigo);
-                $('#descricao-cliente').text(data.Nome);
+                $('#descricao-cliente').val(data.Nome);
 
                 $('#modal-cliente').modal('hide');
             }

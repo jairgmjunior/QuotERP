@@ -490,12 +490,12 @@ footer a:hover {
     border-radius:6px 0 6px 6px;
 }
 
-*, :before, :after
+/**, :before, :after
 {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
-}
+}*/
 
 /* set a border-box model only to elements that need it */
 
@@ -724,3 +724,13 @@ html, body {
     border-Left: 0 !important;
     border-right: 0 !important;
 }*/
+
+.divider-pesquisar {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;    
+  margin-bottom: 25px;
+}

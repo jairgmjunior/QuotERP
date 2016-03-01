@@ -4,35 +4,38 @@
 
 @using (Html.BeginForm(MVC.Financeiro.Relatorio.ListaChequeRecebido(), FormMethod.Post, new { @class = "form-horizontal  small-labels" }))
 {
-    <div class="accordion" id="accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">Pesquisar</a>
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
             </div>
-            <div id="collapsePesquisar" class="accordion-body collapse in">
-                <div class="accordion-inner">
+            <div id="collapsePesquisar" class="panel-collapse collapse in">
+                <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.NumeroCheque, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "input-small", data_mask = "999999"})
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.NumeroCheque)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "numeric-only form-control", data_mask = "999999" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Valor, new { @class = "control-label " })
-                                <div class="controls">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Valor)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
                                     @Html.EditorFor(x => x.Valor)
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Compensado, new { @class = "control-label " })
-                                <div class="controls">
-                                    <select name="Compensado" class="input-small">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Compensado)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    <select name="Compensado" class="form-control">
                                         <option></option>
                                         <option value="true">Sim</option>
                                         <option value="false">Não</option>
@@ -40,128 +43,147 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Banco, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Banco, new { @class = "input-small", data_mask = "999" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Agencia, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Agencia, new { @class = "input-small", data_mask = "9999" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Conta, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Conta, new { @class = "input-small", data_mask = "999999" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Banco)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Banco, new { @class = "form-control", data_mask = "999" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Cliente, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Cliente, new { @class = "input-small", data_mask = "999999" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Agencia)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Agencia, new { @class = "form-control", data_mask = "9999" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Nominal, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Nominal, new { @class = "input-medium" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Emitente, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.TextBoxFor(x => x.Emitente, new { @class = "input-medium" })
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Conta)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Conta, new { @class = "form-control", data_mask = "999999" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Unidade, new { @class = "control-label " })
-                                <div class="controls">
-                                     @Html.DropDownList("Unidade", "")
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Cliente)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Cliente, new { @class = "form-control", data_mask = "999999" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.DataEmissaoInicio , new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.DataEmissaoInicio)
-                                </div>
-                                <br />
-                                @Html.LabelForRequired(x => x.DataEmissaoFim , new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.DataEmissaoFim)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.DataVencimentoInicio, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.DataVencimentoInicio)
-                                </div>
-                                <br />
-                                @Html.LabelForRequired(x => x.DataVencimentoFim , new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.EditorFor(x => x.DataVencimentoFim)
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Nominal)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Nominal, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Group, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.DropDownList("Group", "")
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Emitente)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Emitente, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.Sort, new { @class = "control-label " })
-                                <div class="controls">
-                                    @Html.DropDownList("Sort", "")
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @Html.LabelForRequired(x => x.SortDirection, new { @class = "control-label " })
-                                <div class="controls">
-                                    <select name="SortDirection">
-                                        <option value="asc">Ascendente</option>
-                                        <option value="desc">Descendente</option>
-                                    </select>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Unidade)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="pull-right">
-                                <button id="pesquisar-relatorio" class="btn btn-primary" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataEmissaoInicio)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataEmissaoInicio))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0;">
+                                            @Html.LabelFor(x=>x.DataEmissaoFim, new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataEmissaoFim))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataVencimentoInicio)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataVencimentoInicio))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0;">
+                                            @Html.LabelFor(x=>x.DataVencimentoFim, new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataVencimentoFim))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-10 col-md-11">
+                                <div id="row-imprimir" style="display: none">
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.Group)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("Group", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelForRequired(x => x.Sort)
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                @Html.DropDownList("Sort", null, "--Selecione--", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group form-group-sm">
+                                            @Html.Label("OrdenarEm", "Em", new { @class = "control-label col-sm-2 col-md-1" })
+                                            <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                                <select name="OrdenarEm" class="form-control">
+                                                    <option value="asc">Ascendente</option>
+                                                    <option value="desc">Descendente</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-md-1 form-group">
+                                <button id="pesquisar-relatorio" class="btn btn-default pull-right" type="button" data-loading-text="Aguarde..." >Pesquisar</button>
                             </div>
                         </div>
                     </div>

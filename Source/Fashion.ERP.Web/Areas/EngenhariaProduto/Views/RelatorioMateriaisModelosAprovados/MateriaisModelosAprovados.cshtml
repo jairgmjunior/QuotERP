@@ -4,118 +4,119 @@
 
 @using (Html.BeginForm(MVC.EngenhariaProduto.RelatorioMateriaisModelosAprovados.MateriaisModelosAprovados(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
-<div class="accordion" id="accordion">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
-                Pesquisar
-            </a>
-        </div>
-        <div id="collapsePesquisar" class="accordion-body collapse in">
-            <div class="accordion-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Colecoes)
-                            <div class="controls">
-                                @(Html.Kendo().MultiSelect()
-                                      .Name("Colecoes")
-                                      .BindTo(ViewBag.Colecoes)
-                                      .Value(Model.Colecoes)
-                                      )
+    <div class="accordion" id="accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                    Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Colecoes)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("Colecoes")
+                                          .BindTo(ViewBag.Colecoes)
+                                          .Value(Model.Colecoes)
+                                          )
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.ColecoesAprovadas)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("ColecoesAprovadas")
+                                          .BindTo(ViewBag.ColecoesAprovadas)
+                                          .Value(Model.ColecoesAprovadas)
+                                          )
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.ColecoesAprovadas)
-                            <div class="controls">
-                                @(Html.Kendo().MultiSelect()
-                                      .Name("ColecoesAprovadas")
-                                      .BindTo(ViewBag.ColecoesAprovadas)
-                                      .Value(Model.ColecoesAprovadas)
-                                      )
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Categorias)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("Categorias")
+                                          .BindTo(ViewBag.Categorias)
+                                          .Value(Model.Categorias)
+                                          )
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Subcategorias)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("Subcategorias")
+                                          .BindTo(ViewBag.Subcategorias)
+                                          .Value(Model.Subcategorias)
+                                          )
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Categorias)
-                            <div class="controls">
-                                @(Html.Kendo().MultiSelect()
-                                        .Name("Categorias")
-                                        .BindTo(ViewBag.Categorias)
-                                        .Value(Model.Categorias)
-                                        )
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Tag)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.Tag, new { @class = "input-small" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.DataProgramacaoProducao)
+                                <div class="controls">
+                                    @Html.EditorFor(x => x.DataProgramacaoProducao, new { @class = "input-small" })
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Subcategorias)
-                            <div class="controls">
-                                @(Html.Kendo().MultiSelect()
-                                        .Name("Subcategorias")
-                                        .BindTo(ViewBag.Subcategorias)
-                                        .Value(Model.Subcategorias)
-                                        )
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.DepartamentosProducao)
+                                <div class="controls">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("DepartamentosProducao")
+                                          .BindTo(ViewBag.DepartamentosProducao)
+                                          .Value(Model.DepartamentosProducao)
+                                          )
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Tag)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.Tag, new { @class = "input-small" })
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.AgruparPor)
+                                <div class="controls">
+                                    @Html.DropDownList("AgruparPor", "--Selecione--")
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.DataProgramacaoProducao)
-                            <div class="controls">
-                                @Html.EditorFor(x => x.DataProgramacaoProducao, new { @class = "input-small" })
-                            </div>
+                        <div class="col-md-6">
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.DepartamentosProducao)
-                            <div class="controls">
-                                @(Html.Kendo().MultiSelect()
-                                        .Name("DepartamentosProducao")
-                                        .BindTo(ViewBag.DepartamentosProducao)
-                                        .Value(Model.DepartamentosProducao)
-                                        )
-                            </div>
+                        <div class="col-md-3">
+                            <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.AgruparPor)
-                            <div class="controls">
-                                @Html.DropDownList("AgruparPor", "--Selecione--")
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-3">
-                        <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 }
 <div id="pdf"></div>
 <script>

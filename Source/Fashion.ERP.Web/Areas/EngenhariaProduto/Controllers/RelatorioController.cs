@@ -46,6 +46,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         private readonly IRepository<Segmento> _segmentoRepository;
         private readonly IRepository<Artigo> _artigoRepository;
         private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
+        private readonly IRepository<Material> _materialRepository;
         private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
         #region ColunasListagemModelos
         private static readonly Dictionary<string, string> ColunasListagemModelos = new Dictionary<string, string>
@@ -107,7 +108,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             IRepository<Marca> marcaRepository, IRepository<ProdutoBase> produtoBaseRepository,
             IRepository<Comprimento> comprimentoRepository, IRepository<Barra> barraRepository, 
             IRepository<Segmento> segmentoRepository, IRepository<Artigo> artigoRepository,
-            IRepository<DepartamentoProducao> departamentoProducaoRepository )
+            IRepository<DepartamentoProducao> departamentoProducaoRepository, IRepository<Material> materialRepository )
         {
             _logger = logger;
             _modeloRepository = modeloRepository;
@@ -129,6 +130,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             _segmentoRepository = segmentoRepository;
             _artigoRepository = artigoRepository;
             _departamentoProducaoRepository = departamentoProducaoRepository;
+            _materialRepository = materialRepository;
         }
 
         #endregion
@@ -259,12 +261,12 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     filtros.AppendFormat("Segmento: {0}, ", _segmentoRepository.Get(model.Segmento.Value).Descricao);
                 }
 
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaMaterial))
+                if (model.Material.HasValue)
                 {
                     modelos = modelos.Where(p => p.MateriaisConsumo.Any(material =>
-                        material.Material.Referencia == model.ReferenciaMaterial));
+                        material.Material.Id== model.Material));
 
-                    filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
+                    filtros.AppendFormat("Referência do Material: {0}, ", _materialRepository.Get(model.Material).Referencia);
                 }
 
                 if (model.Natureza.HasValue)

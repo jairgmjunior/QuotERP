@@ -14,269 +14,354 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="cadastro">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Unidade)
-                        <div class="controls">
-                            @Html.DropDownList("Unidade")
-                            @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
-                        </div>
+            <br/> 
+            <fieldset>
+                <legend>Dados do Cheque Recebido</legend>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Unidade)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.DropDownListFor(x => x.Unidade, null, "-- Selecione --", new {  @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Unidade, null, new { @class="help-block" })
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Cmc7)
-                        <div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on">
-                                    <label class="checkbox">
+                </div>        
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Cmc7)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
                                         <input id="check-cmc7" type="checkbox">
-                                    </label>
-                                </span>
-                                @Html.TextBoxFor(x => x.Cmc7, new { data_mask = "999999999999999999999999999999", disabled = "disabled" })
-                                @Html.ValidationMessageFor(x => x.Cmc7, null, new { @class = "help-block" })
+                                    </span>
+                                    @Html.TextBoxFor(x => x.Cmc7, new { data_mask = "999999999999999999999999999999", disabled = "disabled", @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Cmc7, null, new { @class = "help-block" })
+                                </div>
                             </div>
-                        </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Banco)
-                        <div class="controls">
-                            <div class="input-group">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Banco)
+                            <div class="col-sm-8 col-md-8 col-lg-7 ">
                                 @Html.HiddenFor(x => x.Banco)
-                                <input id="codigo-banco" class="input-small" type="text" />
-                                <button id="pesquisar-banco" class="btn" type="button"><i class="icon-search"></i></button>
-                                <span id="descricao-banco" class="add-on"></span>
+                                <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                    <div class="input-group">
+                                        <input id="codigo-banco" class="numeric-only form-control" type="text" style="width: 70%;">
+                                        <span class="input-group-btn pull-left">
+                                            <button id="pesquisar-banco" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-banco">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                    <input id="descricao-banco" class="form-control" readonly="" data-toggle="tooltip">
+                                </div>
+                                @Html.ValidationMessageFor(x => x.Banco, string.Empty, new { @class = "help-block" })
                             </div>
-                            @Html.ValidationMessageFor(x => x.Banco, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Agencia)
-                        <div class="controls">
-                            @Html.TextBoxFor(x => x.Agencia)
-                            @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Conta)
-                        <div class="controls">
-                            @Html.TextBoxFor(x => x.Conta)
-                            @Html.ValidationMessageFor(x => x.Conta, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.NumeroCheque)
-                        <div class="controls">
-                            @Html.TextBoxFor(x => x.NumeroCheque)
-                            @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Valor)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Valor)
-                            @Html.ValidationMessageFor(x => x.Valor, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.DataEmissao)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.DataEmissao)
-                            @Html.ValidationMessageFor(x => x.DataEmissao, null, new { @class = "help-block" })
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.DataVencimento)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.DataVencimento)
-                            @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class = "help-block" })
-                        </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Agencia)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.Agencia, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Agencia, null, new { @class = "help-block" })
+                        
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.DataProrrogacao)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.DataProrrogacao)
-                            @Html.ValidationMessageFor(x => x.DataProrrogacao, null, new { @class = "help-block" })
-                        </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Conta)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.Conta, new {  @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Conta, null, new { @class="help-block" })
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Cliente)
-                        <div class="controls">
-                            <div class="input-group">
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.NumeroCheque)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.NumeroCheque, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.NumeroCheque, null, new { @class = "help-block" })
+                        
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.DataVencimento)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.EditorFor(x => x.DataVencimento)
+                                @Html.ValidationMessageFor(x => x.DataVencimento, null, new { @class="help-block" })
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.DataProrrogacao)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.EditorFor(x => x.DataProrrogacao)
+                                @Html.ValidationMessageFor(x => x.DataProrrogacao, null, new { @class="help-block" })
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Cliente)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
                                 @Html.HiddenFor(x => x.Cliente)
-                                <input id="codigo-cliente" class="input-small" type="text" />
-                                <button id="pesquisar-cliente" class="btn" type="button"><i class="icon-search"></i></button>
-                                <span id="descricao-cliente" class="add-on"></span>
+                                <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                    <div class="input-group">
+                                        <input id="codigo-cliente" class="numeric-only form-control" type="text" style="width: 70%;">
+                                        <span class="input-group-btn pull-left">
+                                            <button id="pesquisar-cliente" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-cliente">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                    <input id="descricao-cliente" class="form-control" readonly="" data-toggle="tooltip">
+                                </div>
                             </div>
-                            @Html.ValidationMessageFor(x => x.Cliente, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Emitente)
-                        <div class="controls">
-                            <button id="cadastrar-emitente" class="btn" type="button"><i class="icon-edit"></i>Editar</button>
-                            <div id="emitente-painel"></div>
-                            @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Observacao)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Observacao)
-                            @Html.ValidationMessageFor(x => x.Observacao, null, new { @class = "help-block" })
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Emitente, new { @class="control-label col-sm-4 col-md-3 required-label"})
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                <button id="cadastrar-emitente" class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-edit"></span>Editar
+                                </button>
+                                <div id="emitente-painel"></div>
+                                @Html.ValidationMessageFor(x => x.Emitente, null, new { @class = "help-block" })
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Observacao)
+                            <div class='col-sm-8 col-md-8 col-lg-7'>
+                                @Html.TextAreaFor(x => x.Observacao, new {  @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Observacao, null, new { @class="help-block" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
         <div class="tab-pane" id="complemento">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Nominal)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Nominal)
-                            @Html.ValidationMessageFor(x => x.Nominal, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Praca)
-                        <div class="controls">
-                            @Html.EditorFor(x => x.Praca)
-                            @Html.ValidationMessageFor(x => x.Praca, null, new { @class = "help-block" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Funcionarios</label>
-                        <div class="controls">
-                            <div class="input-group">
-                                <input id="codigo-funcionario" class="input-small" type="text" />
-                                <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                                <button id="adicionar-funcionario" class="btn" type="button">Adicionar</button>
-                                <span id="descricao-funcionario" class="add-on"></span>
+            <br/>
+            <fieldset>
+                <legend>Dados do Cheque Recebido</legend>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Nominal)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.Nominal, new {  @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Nominal, null, new { @class="help-block" })
                             </div>
-                            @(Html.Kendo().Grid((IEnumerable<GridFuncionarioModel>)ViewBag.Funcionarios)
-                                  .Name("grid-funcionario")
-                                  .Columns(columns =>
-                                               {
-                                                   columns.Bound(x => x.Codigo).Width(60);
-                                                   columns.Bound(x => x.Nome);
-                                                   columns.Bound(x => x.Id)
-                                                       .ClientTemplate("<a href='RemoverFuncionario/#= Id #' onclick='RemoverFuncionario(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
-                                                       .Title("")
-                                                       .Width(80);
-                                               }).DataSource(s =>
-                                                             s.Ajax()
-                                                                 .Read(r => r.Action("LerFuncionarios", "ChequeRecebido")
-                                                                             .Type(HttpVerbs.Get))
-                                  ))
-                        </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Prestadores de serviço</label>
-                        <div class="controls">
-                            <div class="input-group">
-                                <input id="codigo-prestadorservico" class="input-small" type="text" />
-                                <button id="pesquisar-prestadorservico" class="btn" type="button"><i class="icon-search"></i></button>
-                                <button id="adicionar-prestadorservico" class="btn" type="button">Adicionar</button>
-                                <span id="descricao-prestadorservico" class="add-on"></span>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Compensado)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                <div class="form-control-static no-gutter">
+                                    @if (Model.Compensado)
+                                    {
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                    }
+                                </div>
                             </div>
-                            @(Html.Kendo().Grid((IEnumerable<GridPrestadorServicoModel>)ViewBag.Prestadores)
-                                  .Name("grid-prestadorservico")
-                                  .Columns(columns =>
-                                               {
-                                                   columns.Bound(x => x.Codigo).Width(60);
-                                                   columns.Bound(x => x.Nome);
-                                                   columns.Bound(x => x.Id)
-                                                       .ClientTemplate("<a href='RemoverPrestador/#= Id #' onclick='RemoverPrestador(this, event)' class='delete btn btn-small btn-danger'>Remover</a>")
-                                                       .Title("")
-                                                       .Width(80);
-                                               }).DataSource(s =>
-                                                   s.Ajax()
-                                                   .Read(r => r.Action("LerPrestadores", "ChequeRecebido")
-                                                               .Type(HttpVerbs.Get))
-                                  ))
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Historico)
-                        <div class="controls">
-                            @Html.TextAreaFor(x => x.Historico, new { @readonly = "readonly" })
-                            @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
-                        </div>
+                        </div> 
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Compensado)
-                        <div class="controls">
-                            @if (Model.Compensado)
-                            { <i class="icon-ok-circle"></i> }
-                            else
-                            { <i class="icon-ban-circle"></i> }
-                        </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Praca)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextBoxFor(x => x.Praca, new {  @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Praca, null, new { @class="help-block" })
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        @Html.LabelForRequired(x => x.Saldo)
-                        <div class="controls">
-                            <b>@((Model.Saldo.HasValue ? Model.Saldo.Value : 0).ToString("c"))</b>
-                        </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Saldo)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                <div class="form-control-static no-gutter">
+                                    <b>@((Model.Saldo.HasValue ? Model.Saldo.Value : 0).ToString("c"))</b>
+                                </div>
+                            </div>
+                        </div>  
                     </div>
-                    @if (Model.Id.HasValue)
-                    {
-                        <div class="form-group">
-                            <label class="control-label">Ocorrências</label>
-                            <div class="controls">
-
-                                @(Html.Kendo().Grid<GridOcorrenciaCompensacaoModel>()
-                                      .Name("grid-ocorrencias")
-                                      .Columns(columns =>
-                                                   {
-                                                       columns.Bound(x => x.Data).Width(80);
-                                                       columns.Bound(x => x.ChequeSituacao);
-                                                       columns.Bound(x => x.Compensacao);
-                                                   }).DataSource(s =>
-                                                                 s.Ajax()
-                                                                     .Read(r => r.Action("LerOcorrencias", "ChequeRecebido", new { id = Model.Id.Value })
-                                                                                 .Type(HttpVerbs.Get))
-                                      ))
+                </div> 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.Label("Funcionario", "Funcionários", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.Hidden("funcionario")
+                                <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                    <div class="input-group">
+                                        <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                                        <span class="input-group-btn pull-left">
+                                            <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <button id="adicionar-funcionario" class="btn btn-default btn-sm" type="button" >
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                    <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                                </div>
+                                <div class="col-sm-12 no-gutter">
+                                    @(Html.Kendo().Grid((IEnumerable<GridFuncionarioModel>)ViewBag.Funcionarios)
+                                          .Name("grid-funcionario")
+                                          .Columns(columns =>
+                                          {
+                                              columns.Bound(x => x.Codigo).Width(60);
+                                              columns.Bound(x => x.Nome);
+                                              columns.Bound(x => x.Id)
+                                                  .ClientTemplate("<a href='RemoverFuncionario/#= Id #' onclick='RemoverFuncionario(this, event)' class='delete btn btn-default btn-small'><span class='glyphicon glyphicon-minus'></span></a>")
+                                                  .Title("")
+                                                  .Width(40);
+                                          })
+                                          .DataSource(s =>s.Ajax().Read(r => r.Action("LerFuncionarios", "ChequeRecebido").Type(HttpVerbs.Get))
+                                          ))
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Baixas realizadas</label>
-                            <div class="controls">
+                    </div>
+                    <div class="col-sm-6">
+                        @if (Model.Id.HasValue)
+                        {
+                            <div class="form-group form-group-sm">
+                                @Html.Label("Ocorrencias", "Ocorrências", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @(Html.Kendo().Grid<GridOcorrenciaCompensacaoModel>()
+                                          .Name("grid-ocorrencias")
+                                          .Columns(columns =>
+                                          {
+                                              columns.Bound(x => x.Data).Width(80);
+                                              columns.Bound(x => x.ChequeSituacao);
+                                              columns.Bound(x => x.Compensacao);
+                                          }).DataSource(s =>
+                                              s.Ajax()
+                                                  .Read(r => r.Action("LerOcorrencias", "ChequeRecebido", new { id = Model.Id.Value })
+                                                      .Type(HttpVerbs.Get))
+                                          ))
+                                </div>
+                            </div>
+                        
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.Label("PrestadorServiço", "Prestadores de Serviço", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                            <div class="col-sm-8 col-md-8 col-lg-7 ">
+                                <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                    <div class="input-group">
+                                        <input id="codigo-prestadorservico" class="numeric-only form-control" type="text" style="width: 70%;">
+                                        <span class="input-group-btn pull-left">
+                                            <button id="pesquisar-prestadorservico" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-prestadorservico">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <button id="adicionar-prestadorservico" class="btn btn-default btn-sm" type="button" >
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                    <input id="descricao-prestadorservico" class="form-control" readonly="" data-toggle="tooltip">
+                                </div>
+                                <div class="col-sm-12 no-gutter">
+                                    @(Html.Kendo().Grid((IEnumerable<GridPrestadorServicoModel>)ViewBag.Prestadores)
+                                          .Name("grid-prestadorservico")
+                                          .Columns(columns =>
+                                          {
+                                              columns.Bound(x => x.Codigo).Width(60);
+                                              columns.Bound(x => x.Nome);
+                                              columns.Bound(x => x.Id)
+                                                  .ClientTemplate("<a href='RemoverPrestador/#= Id #' onclick='RemoverPrestador(this, event)' class='delete btn btn-default btn-small'><span class='glyphicon glyphicon-minus'></span></a>")
+                                                  .Title("")
+                                                  .Width(40);
+                                          }).DataSource(s =>
+                                              s.Ajax().Read(r => r.Action("LerPrestadores", "ChequeRecebido").Type(HttpVerbs.Get))
+                                          ))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.Label("Baixas", "Baixas Realizadas", new { @class = "control-label col-sm-4 col-md-3 required-label" })
+                            <div class="col-sm-8 col-md-8 col-lg-7">
                                 @(Html.Kendo().Grid<GridBaixaChequeRecebidoModel>()
                                       .Name("grid-baixasrealizadas")
                                       .Columns(columns =>
-                                                   {
-                                                       columns.Bound(x => x.Data).Width(80);
-                                                       columns.Bound(x => x.ValorJuros);
-                                                       columns.Bound(x => x.ValorDesconto);
-                                                       columns.Bound(x => x.Valor);
-                                                       columns.Bound(x => x.Id)
-                                                           .ClientTemplate("<a href='/Financeiro/ChequeRecebido/ExcluirBaixa/#= Id #' class='delete btn btn-small btn-primary'>Excluir</a>")
-                                                           .Width(70).Title("");
-                                                   }).DataSource(s =>
-                                                                 s.Ajax()
-                                                                     .Read(r => r.Action("LerBaixasRealizadas", "ChequeRecebido", new { id = Model.Id.Value })
-                                                                                 .Type(HttpVerbs.Get))
-                                      ))
+                                      {
+                                          columns.Bound(x => x.Data).Width(80);
+                                          columns.Bound(x => x.ValorJuros);
+                                          columns.Bound(x => x.ValorDesconto);
+                                          columns.Bound(x => x.Valor);
+                                          columns.Bound(x => x.Id)
+                                              .ClientTemplate("<a href='/Financeiro/ChequeRecebido/ExcluirBaixa/#= Id #' class='delete btn btn-small btn-primary'>Excluir</a>")
+                                              .Width(70).Title("");
+                                      }).DataSource(s =>
+                                          s.Ajax()
+                                              .Read(r => r.Action("LerBaixasRealizadas", "ChequeRecebido", new { id = Model.Id.Value })
+                                                  .Type(HttpVerbs.Get))))
                             </div>
                         </div>
-                    }
+                    </div>
                 </div>
-            </div>
+                <div class="row ">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelForRequired(x => x.Historico)
+                            <div class="col-sm-8 col-md-8 col-lg-7">
+                                @Html.TextAreaFor(x => x.Historico, new { @class="form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(x => x.Historico, null, new { @class = "help-block" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
-        @if (this.ActionName() == MVC.Financeiro.ChequeRecebido.ActionNames.Editar)
-        {
-            @Html.ExcluirAuth(MVC.Financeiro.ChequeRecebido.Excluir(Model.Id))
-        }
-    </div>
+
+    @Html.FormActionAuth(this.IsEditar(), MVC.Financeiro.ChequeRecebido.Excluir(Model.Id))
 }
+
 <script>
     // Cmc7
     $(function () {

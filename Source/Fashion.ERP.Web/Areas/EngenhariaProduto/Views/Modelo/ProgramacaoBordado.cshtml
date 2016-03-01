@@ -5,15 +5,15 @@
     <li>@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.ModeloId))</li>
     <li>@Html.ActionLinkAuth("Variação", MVC.EngenhariaProduto.Modelo.Variacao(Model.ModeloId))</li>
     <li>@Html.ActionLinkAuth("Modelagem", MVC.EngenhariaProduto.Modelo.Modelagem(Model.ModeloId))</li>
-    <li>@Html.ActionLinkAuth("Sequência Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.ModeloId))</li>
+    <li>@Html.ActionLinkAuth("Sequência de Produção", MVC.EngenhariaProduto.SequenciaProducao.SequenciaProducao(Model.ModeloId))</li>
     <li>@Html.ActionLinkAuth("Materiais de Consumo", MVC.EngenhariaProduto.ModeloMaterialConsumo.ModeloMaterialConsumo(Model.ModeloId))</li>
-    <li class="active">@Html.ActionLinkAuth("Programação Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.ModeloId))</li>
+    <li class="active">@Html.ActionLinkAuth("Programação de Bordado", MVC.EngenhariaProduto.Modelo.ProgramacaoBordado(Model.ModeloId))</li>
 </ul>
     
 <br/>
 <form class="form-horizontal">
     <fieldset>
-        <legend>Dados da Modelo</legend>
+        <legend>Dados do Modelo</legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -61,7 +61,7 @@
     </fieldset>
     <br/>
     <fieldset>
-        <legend><small>Programações de Bordado</small></legend>
+        <legend>Programações de Bordado</legend>
         <div class="row">
             <div class="col-sm-12">
                 @Html.ValidationSummaryEx()

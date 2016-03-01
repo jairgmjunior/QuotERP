@@ -209,18 +209,15 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     modelos = modelos.Where(p => p.Segmento.Id == model.Segmento);
                     filtros.AppendFormat("Segmento: {0}, ", _segmentoRepository.Get(model.Segmento.Value).Descricao);
                 }
-
-
-                if (!string.IsNullOrWhiteSpace(model.ReferenciaMaterial))
+                
+                if (model.Material.HasValue)
                 {
-
                     modelos = modelos.Where(p => 
                     p.MateriaisConsumo.Any(material =>
-                    material.Material.Referencia == model.ReferenciaMaterial));
-
-                    filtros.AppendFormat("ReferenciaMaterial: {0}, ", model.ReferenciaMaterial);
+                    material.Material.Id == model.Material));
+                    
+                    filtros.AppendFormat("Referência do material: {0}, ", _materialRepository.Get(model.Material).Referencia);
                 }
-               
 
                 if (model.Natureza.HasValue)
                 {
@@ -233,7 +230,6 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     modelos = modelos.Where(p => p.Classificacao.Id == model.Classificacao);
                     filtros.AppendFormat("Classificação: {0}, ", _classificacaoRepository.Get(model.Classificacao.Value).Descricao);
                 }
-
                 
                 if (!string.IsNullOrWhiteSpace(model.Tag))
                 {

@@ -160,7 +160,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     Descricao = p.ModeloAprovacao.Descricao,
                     Referencia = p.ModeloAprovacao.Referencia,
                     ColecaoAprovada = p.Modelo.ModeloAvaliacao.Colecao.Descricao,
-                    Dificuldade = p.Modelo.ModeloAvaliacao.ClassificacaoDificuldade.Descricao,
+                    Dificuldade = p.Modelo.ModeloAvaliacao.ClassificacaoDificuldade != null ? p.Modelo.ModeloAvaliacao.ClassificacaoDificuldade.Descricao : null,
                     Quantidade = p.ModeloAprovacao.Quantidade,
                     TagAno = p.Modelo.ModeloAvaliacao.ObtenhaTagCompleta()
                 }).ToList();

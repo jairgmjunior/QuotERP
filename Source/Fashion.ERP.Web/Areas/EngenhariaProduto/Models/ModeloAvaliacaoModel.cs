@@ -45,6 +45,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
         public int? Ano { get; set; }
 
         [Display(Name = "Coleção Aprovada")]
+        [Required(ErrorMessage = "Informe a tag")]
         public long? ColecaoAprovada { get; set; }
         
         [Display(Name = "Complemento")]
