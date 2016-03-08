@@ -2,7 +2,7 @@
 @model Fashion.ERP.Web.Areas.Almoxarifado.Models.RequisicaoMaterialModel
 
 <fieldset>
-    <legend>Dados da Requisição de Material</legend>
+    <legend><small>Dados da Requisição de Material</small></legend>
     @{
         if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
@@ -134,7 +134,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Itens da Requisição de Material</legend>
+    <legend><small>Itens da Requisição de Material</small></legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(@Model.GridItens)
               .Name("GridItens")

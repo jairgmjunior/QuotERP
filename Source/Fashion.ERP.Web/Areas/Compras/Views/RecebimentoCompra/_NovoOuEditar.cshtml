@@ -2,7 +2,7 @@
 @model RecebimentoCompraModel
 
 <fieldset>
-    <legend>Dados do Recebimento de Compra</legend>
+    <legend><small>Dados do Recebimento de Compra</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -119,7 +119,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Itens do Recebimento</legend>
+    <legend><small>Itens do Recebimento</small></legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(@Model.GridItens)
               .Name("GridItens")

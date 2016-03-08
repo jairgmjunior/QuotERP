@@ -1,7 +1,6 @@
 ﻿@using Fashion.ERP.Reporting.Helpers
 @model Fashion.ERP.Web.Areas.EngenhariaProduto.Models.DetalharModeloModel
 
-
 <ul class="nav nav-tabs">
     <li class="active">@Html.ActionLinkAuth("Detalhar", MVC.EngenhariaProduto.Modelo.Detalhar(Model.Id))</li>
     <li>@Html.ActionLinkAuth("Editar", MVC.EngenhariaProduto.Modelo.Editar(Model.Id))</li>
@@ -16,7 +15,7 @@
 
 <form class="form-horizontal">
     <fieldset>
-        <legend>Dados do Modelo</legend>
+        <legend><small>Dados do Modelo</small></legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -175,7 +174,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Linhas</legend>
+        <legend><small>Linhas</small></legend>
         <div class="row">
             @if (Model.LinhaBordados.IsNullOrEmpty() == false)
             {
@@ -240,7 +239,7 @@
     
     @if (Model.Fotos.IsNullOrEmpty() == false) {
         <fieldset>
-            <legend>Fotos</legend>
+            <legend><small>Fotos</small></legend>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
@@ -280,7 +279,7 @@
 
     @if (Model.Variacoes.IsNullOrEmpty() == false) {
         <fieldset>
-            <legend>Variação</legend>
+            <legend><small>Variação</small></legend>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
@@ -312,7 +311,7 @@
 
     @if (Model.SequenciaProducao.IsNullOrEmpty() == false) {
         <fieldset>
-            <legend>Sequência de Produção</legend>
+            <legend><small>Sequência de Produção</small></legend>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
@@ -343,7 +342,7 @@
     }
 
     <fieldset>
-        <legend>Modelagem</legend>
+        <legend><small>Modelagem</small></legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -461,7 +460,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Aprovação</legend>
+        <legend><small>Aprovação</small></legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">

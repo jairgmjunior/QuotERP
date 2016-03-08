@@ -4,33 +4,39 @@
 @Html.HiddenFor(x => x.Id)
 
 <fieldset>
-    <legend>Dados da Programação de Produção</legend>
+    <legend><small>Dados da Programação de Produção</small></legend>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Lote)
-                <div class='controls'>
-                    <div class="input-group">
-                        @Html.TextBoxFor(x => x.Lote, new { @class = "input-mini numeric-only" })
-                        @Html.TextBoxFor(x => x.Ano, new { @class = "input-mini  numeric-only" })
-                        @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
-                        {
-                            <button id="editarlote" class="btn" type="button"><i class="icon-edit"></i></button> 
-                        }
-                    </div>
-                    @Html.HiddenFor(x => x.Lote)
-                    @Html.HiddenFor(x => x.Ano)
+                <div class="col-sm-4 col-md-4 col-lg-3" style='padding-right : 0'>
+                    @Html.TextBoxFor(x => x.Lote, new { @class = "numeric-only form-control" })
                     @Html.ValidationMessageFor(x => x.Lote, null, new {@class = "help-block"})
-                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
+                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4" style='padding-left : 0'>
+                    @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
+                    {
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                            <div class="input-group-btn">
+                                <button id="editarlote" class="btn btn-default btn-sm" type="button"><span class="glyphicon glyphicon-edit"></span></button> 
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                    }
                 </div>
             </div>
         </div>
         @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
-            <div class="col-md-4">
-                <div class="form-group">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Data)
-                    <div class='controls'>
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
                         @Html.EditorFor(x => x.Data)
                         @Html.HiddenFor(x => x.Data)
                         @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
@@ -40,65 +46,73 @@
         }
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Colecao)
-                <div class="controls">
-                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "input-large" })                    
-                    @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new { @class = "help-block" })
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control" })                    
+                    @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.DataProgramada, new { @class = "control-label " })
-                <div class="controls">
-                    @(Html.Kendo().DatePickerFor(x => x.DataProgramada))                 
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DataProgramada)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.EditorFor(x => x.DataProgramada)                
                     @Html.ValidationMessageFor(x => x.DataProgramada, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Responsavel)
-                <div class="controls">
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
                     @Html.HiddenFor(x => x.Responsavel, new { id = "funcionario" })
-                    <div class="input-group">
-                        <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                        <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                        <span id="descricao-funcionario" class="add-on"></span>
+                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                        <div class="input-group">
+                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                            <span class="input-group-btn pull-left">
+                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
                     </div>
                     @Html.ValidationMessageFor(x => x.Responsavel, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelForRequired(x => x.Quantidade, new {@class = "title-label"})
-                <div class="controls">
-                    @Html.TextBoxFor(x => x.Quantidade,  new { @class = "input-medium" })
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Quantidade)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextBoxFor(x => x.Quantidade,  new { @class = "form-control" })
                     @Html.HiddenFor(x => x.Quantidade)
                 </div>
             </div>
         </div>
     </div>  
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Observacao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.Observacao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
                     @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
-                <div class="controls">
-                    @Html.EditorFor(x => x.SituacaoProgramacaoProducao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.SituacaoProgramacaoProducao, Model.SituacaoProgramacaoProducao.ToSelectList(), "-- Selecione --", new { @class = "form-control" })                    
                 </div>
             </div>
         </div>
@@ -106,7 +120,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Fichas Técnicas Programadas</legend>
+    <legend><small>Fichas Técnicas Programadas</small></legend>
         @(Html.Kendo().Grid(Model.GridProgramacaoProducaoItens)
             .Name("GridProgramacaoProducaoItens")
             .Editable(e => e.Mode(GridEditMode.InCell))
@@ -131,10 +145,9 @@
                     "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
                         "#}#" +
                     "<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
-                columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(125);                
-                columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
-            }
-            )
+                columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(135);                
+                columns.Command(command => command.Destroy().Text("Excluir")).Width(105);
+            })
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .Events(events => events.Error("onKendoGridError").Change("atualizeQuantidadeTotalProgramacaoProgramacao"))
@@ -149,6 +162,10 @@
             .Events(events => events.Edit("onEdit"))
             )
 </fieldset>
+
+<hr/>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Producao.ProgramacaoProducao.Excluir(Model.Id))
 
 <script>
     $(document).ready(function() {

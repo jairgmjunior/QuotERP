@@ -7,7 +7,7 @@
     @Html.HiddenFor(x => x.Autorizado)
 
     <fieldset>
-        <legend>Pedido de Compra</legend>
+        <legend><small>Pedido de Compra</small></legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -144,7 +144,7 @@
     </fieldset>
     
     <fieldset>
-        <legend>Dados da Validação</legend>
+        <legend><small>Dados da Validação</small></legend>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group form-group-sm">
@@ -191,7 +191,7 @@
         </div>     
     </div>
 
-    <legend>Itens do Pedido de Compra</legend>
+    <legend><small>Itens do Pedido de Compra</small></legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(Model.GridItensPedidoCompra)
                 .Name("Grid")

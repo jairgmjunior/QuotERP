@@ -6,55 +6,68 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
+
+    <hr/>
+
     <fieldset>
         <input type="hidden" id="DepartamentoProducaosDicionario" data-value = "@ViewBag.DepartamentoProducaosDicionarioJson" />
         <input type="hidden" id="SetorProducaosDicionario" data-value = "@ViewBag.SetorProducaosDicionarioJson" />
         <input type="hidden" id="OperacaoProducaosDicionario" data-value = "@ViewBag.OperacaoProducaosDicionarioJson" />
-        <legend>Processos Operacionais</legend>
-            <div class="form-group">
+
+        <div class="container-fluid">
+            <legend><small>Processos Operacionais</small></legend>
+            <div class="form-group form-group-sm">
                 @(Html.Kendo().Grid(Model.GridFichaTecnicaProcessos)
-                    .Name("GridFichaTecnicaProcessos")
-                    .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
-                    .Navigatable()
-                    .Columns(columns =>
-                    {
-                        columns.Bound(x => x.Id).Hidden()
-                            .ClientTemplate("<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Id' value='#= Id #' />");
-                        columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
-                            .ClientTemplate("#= displayDepartamentoProducao(DepartamentoProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
-                        columns.Bound(x => x.SetorProducao).EditorTemplateName("SetorProducaoList2")
-                            .ClientTemplate("#= displaySetorProducao(SetorProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].SetorProducao' value='#= SetorProducao #' />");
-                        columns.Bound(x => x.OperacaoProducao).EditorTemplateName("OperacaoProducaoList2")
-                            .ClientTemplate("#= displayOperacaoProducao(OperacaoProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].OperacaoProducao' value='#= OperacaoProducao #' />");
-                        columns.Bound(x => x.Custo).EditorTemplateName("numeric3casasdecimais")
-                            .ClientTemplate("#= kendo.toString(Custo, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
-                        columns.Bound(x => x.Tempo).EditorTemplateName("numeric3casasdecimais")
-                            .ClientTemplate("#= kendo.toString(Tempo, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Tempo' value='#= formateDecimalGrid(Tempo) #' />");
-                        columns.Bound(x => x.PesoProdutividade).EditorTemplateName("numeric3casasdecimais")
-                            .ClientTemplate("#= kendo.toString(PesoProdutividade, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].PesoProdutividade' value='#= formateDecimalGrid(PesoProdutividade) #' />");
-                        columns.Command(command => command.Destroy().Text("Excluir"));
-                    }
-                    )
-                    .DataSource(dataSource => dataSource
-                        .Ajax()
-                        .Model(model =>
-                        {
-                            model.Id(item => item.Id);
-                            model.Field(product => product.DepartamentoProducao).DefaultValue("0");
-                            model.Field(product => product.SetorProducao).DefaultValue("0");
-                            model.Field(product => product.OperacaoProducao).DefaultValue("0");
-                            model.Field(product => product.Custo).DefaultValue(null);
-                            model.Field(product => product.Tempo).DefaultValue(null);
-                            model.Field(product => product.PesoProdutividade).DefaultValue(null);
-                            model.Field(product => product.Id).DefaultValue(0);
-                        })
-                    )
-                    .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
-                    .Events(events => events.Edit("onEditGrid"))
-                    )
+                      .Name("GridFichaTecnicaProcessos")
+                      .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
+                      .Navigatable()
+                      .Columns(columns =>
+                      {
+                          columns.Bound(x => x.Id).Hidden()
+                              .ClientTemplate("<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Id' value='#= Id #' />");
+                          columns.Bound(x => x.DepartamentoProducao).EditorTemplateName("DepartamentoProducaoList")
+                              .ClientTemplate("#= displayDepartamentoProducao(DepartamentoProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].DepartamentoProducao' value='#= DepartamentoProducao #' />");
+                          columns.Bound(x => x.SetorProducao).EditorTemplateName("SetorProducaoList2")
+                              .ClientTemplate("#= displaySetorProducao(SetorProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].SetorProducao' value='#= SetorProducao #' />");
+                          columns.Bound(x => x.OperacaoProducao).EditorTemplateName("OperacaoProducaoList2")
+                              .ClientTemplate("#= displayOperacaoProducao(OperacaoProducao) #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].OperacaoProducao' value='#= OperacaoProducao #' />");
+                          columns.Bound(x => x.Custo).EditorTemplateName("numeric3casasdecimais")
+                              .ClientTemplate("#= kendo.toString(Custo, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                          columns.Bound(x => x.Tempo).EditorTemplateName("numeric3casasdecimais")
+                              .ClientTemplate("#= kendo.toString(Tempo, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].Tempo' value='#= formateDecimalGrid(Tempo) #' />");
+                          columns.Bound(x => x.PesoProdutividade).EditorTemplateName("numeric3casasdecimais")
+                              .ClientTemplate("#= kendo.toString(PesoProdutividade, \"n3\") #<input type='hidden' name='GridFichaTecnicaProcessos[#= indexGridFichaTecnicaProcessos(data)#].PesoProdutividade' value='#= formateDecimalGrid(PesoProdutividade) #' />");
+                          columns.Command(command => command.Destroy().Text("Excluir"));
+                      })
+                      .DataSource(dataSource => dataSource
+                          .Ajax()
+                          .Model(model =>
+                          {
+                              model.Id(item => item.Id);
+                              model.Field(product => product.DepartamentoProducao).DefaultValue("0");
+                              model.Field(product => product.SetorProducao).DefaultValue("0");
+                              model.Field(product => product.OperacaoProducao).DefaultValue("0");
+                              model.Field(product => product.Custo).DefaultValue(null);
+                              model.Field(product => product.Tempo).DefaultValue(null);
+                              model.Field(product => product.PesoProdutividade).DefaultValue(null);
+                              model.Field(product => product.Id).DefaultValue(0);
+                          })
+                      )
+                      .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
+                      .Events(events => events.Edit("onEditGrid")))
             </div>
+        </div>
     </fieldset>
-    <div class="form-actions">
-        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Processos(), "btnSubmitProcessos")        
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Processos(), "btnSubmitProcessos")        
+                </div>
+            </div>
+        </div>     
     </div>
 }

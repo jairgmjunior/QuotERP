@@ -8,7 +8,7 @@
               new SelectListItem {Text = "Sim", Value = "true"},
               new SelectListItem {Text = "Não", Value = "false"}
           })
-          .OptionLabel("- Selecione -")
+          .OptionLabel("  -- Selecione -- ")
           .Name(@Html.NameFor(model => model).ToString())
           .SelectedIndex(Model.HasValue? (Model.ToString().ToLower() == "true" ? 1 : 2): 0)
     )

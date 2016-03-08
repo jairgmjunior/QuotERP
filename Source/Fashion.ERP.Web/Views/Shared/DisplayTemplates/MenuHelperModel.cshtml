@@ -9,6 +9,7 @@
             <li class="@Html.Raw(node.IsCurrentNode ? "active" : "")">
                 @Html.DisplayFor(m => node)
             </li>
+            <li class="nav-divider"></li>
         }
         else
         {
@@ -16,6 +17,7 @@
                 @Html.DisplayFor(m => node)
                 @Html.DisplayFor(m => node.Children)
             </li>
+            <li class="nav-divider"></li>
         }
     }
 </ul>

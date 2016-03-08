@@ -19,7 +19,9 @@
     </ul>
     <br/>
 
-    @Html.Partial("_NovoOuEditar", Model)}
+    @Html.Partial("_NovoOuEditar", Model)
+}
+
 @{
     Html.RenderPartial("_RecortarImagem");
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "Estilista" });

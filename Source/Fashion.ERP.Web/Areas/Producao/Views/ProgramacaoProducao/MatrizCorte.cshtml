@@ -1,99 +1,86 @@
 ﻿@using Fashion.ERP.Domain.Comum
 @using Fashion.ERP.Web.Areas.Producao.Models
 @model ProgramacaoProducaoMatrizCorteModel
-@*@using (Html.BeginForm(MVC.Producao.ProgramacaoProducao.MatrizCorte(), FormMethod.Post, new { id="formMatrizCorte", @class = "form-horizontal" }))
-{
-	@Html.AntiForgeryToken()
-    
-}*@
 
 <form class="form-horizontal" id="formMatrizCorte" method="post" novalidate="novalidate">
-   <div id="modal-matrizcorte" class="modal hide fade">
-        <div class="modal-header">
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Matriz de Corte</h3>
-        </div>
-        <div id="modal-body-matrizcorte" class="modal-body" style="overflow-y: hidden;">
-            <div id="marcadormatrizcorte-alert-error"></div>
-            <fieldset>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.TipoEnfestoTecido, new {@class = "title-label"})
-                            <div class="controls">
-                                @Html.DropDownListFor(x => x.TipoEnfestoTecido, TipoEnfestoTecido.Pares.ToSelectListValues())
-                                @Html.ValidationMessageFor(x => x.TipoEnfestoTecido, null, new { @class = "help-block" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.TotalEnfesto, new {@class = "title-label"})
-                            <div class="controls">
-                                @Html.TextBoxFor(m => m.TotalEnfesto, new  { @class = "input-small", @readonly = "readonly"})
-                            </div>
-                        </div>
-                    </div>
+    <div id="modal-matrizcorte" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3>Matriz de Corte</h3>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.QuantidadeItem, new {@class = "title-label"})
-                            <div class="controls">
-                                @(Html.Kendo().NumericTextBoxFor(m => m.QuantidadeItem)
-                                      .Format("n0")
-                                      .Min(1).Spinners(false)
-                                      .Name("QuantidadeItem"))
-                                @Html.ValidationMessageFor(x => x.QuantidadeItem, null, new { @class = "help-block" })
+                <div id="modal-body-matrizcorte" class="modal-body" style="overflow-y: hidden;">
+                    <div id="marcadormatrizcorte-alert-error"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.TipoEnfestoTecido)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownListFor(x => x.TipoEnfestoTecido, TipoEnfestoTecido.Pares.ToSelectListValues(), new { @class = "form-control"})
+                                    @Html.ValidationMessageFor(x => x.TipoEnfestoTecido, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.TotalEnfesto)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(m => m.TotalEnfesto, new  { @class = "form-control", @readonly = "readonly"})
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.QuantidadeItem)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @(Html.Kendo().NumericTextBoxFor(m => m.QuantidadeItem)
+                                          .Format("n0")
+                                          .Min(1).Spinners(false)
+                                          .Name("QuantidadeItem"))
+                                    @Html.ValidationMessageFor(x => x.QuantidadeItem, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.TotalNumeroVezes)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(m => m.TotalNumeroVezes, new { @class = "form-control", @readonly = "readonly"})
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.TotalNumeroVezes, new {@class = "title-label"})
-                            <div class="controls">
-                                @Html.TextBoxFor(m => m.TotalNumeroVezes, new { @class = "input-small", @readonly = "readonly"})
-                            </div>
-                        </div>
-                    </div>
+                    @(Html.Kendo().Grid<ProgramacaoProducaoMatrizCorteItemModel>()
+                          .Name("GridMatrizCorteItens")
+                          .Columns(columns =>
+                          {
+                              columns.Bound(p => p.Tamanho).Hidden().ClientTemplate(
+                                  "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Tamanho' value='#= Tamanho #' />");
+                              columns.Bound(p => p.DescricaoTamanho).Width(60).ClientTemplate("#= DescricaoTamanho #" +
+                                                                                              "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
+                              columns.Bound(p => p.QuantidadeVezes).Width(60).ClientTemplate("#= (QuantidadeVezes == null) ? ' ' : QuantidadeVezes #" +
+                                                                                             "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
+                              columns.Bound(p => p.Quantidade).Width(55).ClientTemplate("#= (Quantidade == null) ? ' ' : kendo.toString(Quantidade, \"n2\") #" +
+                                                                                        "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Quantidade' value='#= Quantidade #' />");
+                          })
+                          .DataSource(dataSource => dataSource
+                              .Ajax()
+                              .ServerOperation(true)
+                              .Model(model =>
+                              {
+                                  model.Id(item => item.DescricaoTamanho);
+                                  model.Field(product => product.DescricaoTamanho).Editable(false);
+                                  model.Field(product => product.QuantidadeVezes).Editable(true);
+                                  model.Field(product => product.Quantidade).Editable(true).DefaultValue(0);
+                              })
+                              .Events(events => events.Error("onKendoGridError").Change("onChangeGridMatrizCorteItens"))
+                          )
+                          .Editable(editable => editable.Mode(GridEditMode.InCell))
+                          .Resizable(resize => resize.Columns(true))
+                          .Events(events => events.Edit("onEditGridMatrizCorteItens")))
                 </div>
-            </fieldset>
-            @(Html.Kendo().Grid<ProgramacaoProducaoMatrizCorteItemModel>()
-                  .Name("GridMatrizCorteItens").HtmlAttributes(new { style="width:260px"})
-                  .Columns(columns =>
-                  {
-                      columns.Bound(p => p.Tamanho).Hidden().ClientTemplate(
-                          "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Tamanho' value='#= Tamanho #' />");
-                      columns.Bound(p => p.DescricaoTamanho).Width(60).ClientTemplate("#= DescricaoTamanho #" +
-                                                                                      "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
-                      columns.Bound(p => p.QuantidadeVezes).Width(60).ClientTemplate("#= (QuantidadeVezes == null) ? ' ' : QuantidadeVezes #" +
-                                                                                     "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
-                      columns.Bound(p => p.Quantidade).Width(55).ClientTemplate("#= (Quantidade == null) ? ' ' : kendo.toString(Quantidade, \"n2\") #" +
-                                                                                "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Quantidade' value='#= Quantidade #' />");
-                  })
-                  .DataSource(dataSource => dataSource
-                      .Ajax()
-                      .ServerOperation(true)
-                      .Model(model =>
-                      {
-                          model.Id(item => item.DescricaoTamanho);
-                          model.Field(product => product.DescricaoTamanho).Editable(false);
-                          model.Field(product => product.QuantidadeVezes).Editable(true);
-                          model.Field(product => product.Quantidade).Editable(true).DefaultValue(0);
-                      })
-                      .Events(events => events.Error("onKendoGridError").Change("onChangeGridMatrizCorteItens"))
-                  )
-                  .Editable(editable => editable.Mode(GridEditMode.InCell))
-                  .Resizable(resize => resize.Columns(true))
-                  .Events(events => events.Edit("onEditGridMatrizCorteItens"))
-                  )
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    <button id="botaook" class="btn btn-primary" type="button">Ok</button>
+                </div>
+            </div>
         </div>
-    
-        <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button id="botaook" class="btn btn-primary" type="button">Ok</button>
-        </div>
-    </div> 
+    </div>
 </form>
 
 <script>
@@ -125,9 +112,11 @@
                 }
             }
 
-            window.dataItemAtual.set("MatrizCorteJson", obtenhaJsonString());
-            window.dataItemAtual.set("Quantidade", $("#QuantidadeItem").val());
+            dataItemAtual.set("MatrizCorteJson", obtenhaJsonString());
+            dataItemAtual.set("Quantidade", $("#QuantidadeItem").val());
             $('#modal-matrizcorte').modal('hide');
+
+            obtenhaGridMatrizCorteItens().dataSource.data([]);
 
             atualizeQuantidadeTotalProgramacaoProgramacao();
         });
@@ -179,35 +168,35 @@
         });
     }
 
+    $('#modal-matrizcorte').on('show.bs.modal', function () {
+        var referenciaFichaTecnica = dataItemAtual.Referencia;
+        var matrizCorte = dataItemAtual.MatrizCorteJson;
+
+        if (!matrizCorte) {
+            $("#QuantidadeItem").data("kendoNumericTextBox").value("");
+            $("#TotalEnfesto").val(0);
+            $("#TipoEnfestoTecido").val(0);
+            $("#TotalNumeroVezes").val(0);
+            obtenhaListaProgramacaoMatrizCorteItens(referenciaFichaTecnica);
+        } else {
+            var matrizCorteObject = JSON.parse(matrizCorte);
+            $("#QuantidadeItem").data("kendoNumericTextBox").value(matrizCorteObject.QuantidadeItem);
+            $("#TotalEnfesto").val(matrizCorteObject.TotalEnfesto);
+            $("#TipoEnfestoTecido").val(matrizCorteObject.TipoEnfestoTecido);
+            $("#TotalNumeroVezes").val(matrizCorteObject.TotalNumeroVezes);
+            obtenhaGridMatrizCorteItens().dataSource.data(matrizCorteObject.GridMatrizCorteItens);
+
+            recalculeTotalNumeroVezes();
+            recalculeTotalEnfestos();
+            recalculeQuantidade();
+        }
+    });
+
     function chamarMatrizCorteModal(e) {
-        $('#modal-matrizcorte').modal('show').show(function () {
+        dataItemAtual = obtenhaGridProgramacaoProducaoItens().dataItem($(e.currentTarget).closest("tr"));
 
-            var dataItem = obtenhaGridProgramacaoProducaoItens().dataItem($(e.currentTarget).closest("tr"));
-            var referenciaFichaTecnica = dataItem.Referencia;
-            dataItemAtual = dataItem;
-            //$("#dataItemGridProgramacaoProducaoItens").val(dataItem);
-
-            var matrizCorte = dataItem.MatrizCorteJson;
-            if (!matrizCorte) {
-                $("#QuantidadeItem").data("kendoNumericTextBox").value("");
-                $("#TotalEnfesto").val(0);
-                $("#TipoEnfestoTecido").val(0);
-                $("#TotalNumeroVezes").val(0);
-                obtenhaListaProgramacaoMatrizCorteItens(referenciaFichaTecnica);
-            } else {
-                var matrizCorteObject = JSON.parse(matrizCorte);
-                $("#QuantidadeItem").data("kendoNumericTextBox").value(matrizCorteObject.QuantidadeItem);
-                $("#TotalEnfesto").val(matrizCorteObject.TotalEnfesto);
-                $("#TipoEnfestoTecido").val(matrizCorteObject.TipoEnfestoTecido);
-                $("#TotalNumeroVezes").val(matrizCorteObject.TotalNumeroVezes);
-                obtenhaGridMatrizCorteItens().dataSource.data(matrizCorteObject.GridMatrizCorteItens);
-
-                recalculeTotalNumeroVezes();
-                recalculeTotalEnfestos();
-                recalculeQuantidade();
-            }
-        });
-        return false;
+        $('#modal-matrizcorte').modal();
+        
     }
 
     function recalculeQuantidade() {

@@ -3,7 +3,7 @@
 @Html.HiddenFor(x => x.Modelo)
 
 <fieldset>
-    <legend>Dados da Modelo</legend>
+    <legend><small>Dados da Modelo</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
-                @Html.Label("Estilista", new { @class = "control-label col-sm-4 col-md-3" })
+                @Html.Label("Estilista", new { @class = "control-label col-sm-4 col-md-3 font-bold" })
                 <div class="col-sm-8 col-md-8 col-lg-7">
                     <div class="form-control-static no-gutter">
                         @ViewBag.ModeloEstilistaNome
@@ -39,7 +39,7 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
-                @Html.Label("Data de Criação", new { @class = "control-label col-sm-4 col-md-3" })
+                @Html.Label("Data de Criação", new { @class = "control-label col-sm-4 col-md-3 font-bold" })
                 <div class="col-sm-8 col-md-8 col-lg-7">
                     <div class="form-control-static no-gutter">
                         @ViewBag.ModeloDataCriacao
@@ -53,7 +53,7 @@
 <br/>
 
 <fieldset>
-    <legend>Dados da Programação de Bordado</legend>
+    <legend><small>Dados da Programação de Bordado</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -79,7 +79,7 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
-                @Html.Label("Descrição", new { @class = "control-label col-sm-4 col-md-3" })
+                @Html.LabelForRequired(x => x.Descricao)
                 <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control"})
                 </div>
@@ -151,7 +151,7 @@
                             <input type="file" name="Arquivo" />
                             @Html.HiddenFor(x => x.NomeArquivoUpload)
                         </span>
-                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileupload">Remover</a>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                     </div>
                     @Html.HiddenFor(x => x.ArquivoId)
                     <div class="progress" style="display: none">

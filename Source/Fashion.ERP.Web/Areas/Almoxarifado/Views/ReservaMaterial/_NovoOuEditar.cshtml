@@ -2,7 +2,7 @@
 @model Fashion.ERP.Web.Areas.Almoxarifado.Models.ReservaMaterialModel
 
 <fieldset>
-    <legend>Dados da Reserva de Material</legend>
+    <legend><small>Dados da Reserva de Material</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -123,7 +123,7 @@
  </fieldset>
 
 <fieldset>
-    <legend>Itens da Reserva de Material</legend>
+    <legend><small>Itens da Reserva de Material</small></legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(@Model.GridItens)
             .Name("GridItens")

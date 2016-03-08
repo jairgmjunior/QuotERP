@@ -1,341 +1,365 @@
 ﻿@using Fashion.ERP.Web.Areas.Producao.Models
 @model FichaTecnicaBasicosModel
+
+<style>
+    * {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+</style>
+
 @using (Html.BeginForm(MVC.Producao.FichaTecnica.Basicos(), FormMethod.Post, new {id = "formBasicos", @class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
+    
     <input type="hidden" id="CorsDicionario" data-value = "@ViewBag.CorsDicionarioJson" />
     <input type="hidden" id="VariacaosDicionario" data-value = "@ViewBag.VariacaosDicionarioJson" />
 
-    <fieldset>
-        <legend>Dados Básicos</legend>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Referencia)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Referencia, new { @class = "form-control"})
+    <hr/>
+
+    <div class="container-fluid">
+        <fieldset>
+            <legend><small>Dados Básicos</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Referencia)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Referencia, new { @class = "form-control"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Tag)
+                        <div class="col-sm-4 col-md-4 col-lg-3" style='padding-right : 0'>
+                            @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
+                            @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4" style='padding-left : 0'>
+                            @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Tag)
-                    <div class="col-sm-4 col-md-4 col-lg-3" style='padding-right : 0'>
-                        @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
-                        @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Natureza)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Natureza, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Natureza, null, new {@class = "help-block"})
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4" style='padding-left : 0'>
-                        @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Descricao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Descricao, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Natureza)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Natureza, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Natureza, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Colecao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Marca)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Marca, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Marca, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Descricao)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Descricao, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Classificacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Classificacao, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Classificacao, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Artigo)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Artigo, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Artigo, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Colecao)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Colecao, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Segmento)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Segmento, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Segmento, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.ClassificacaoDificuldade, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Marca)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Marca, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Marca, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Silk)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Silk, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Silk, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Bordado)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Bordado, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Bordado, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Classificacao)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Classificacao, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Classificacao, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Pedraria)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Pedraria, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Pedraria, null, new {@class = "help-block"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Detalhamento)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Detalhamento, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Detalhamento, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Artigo)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Artigo, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Artigo, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Segmento)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.Segmento, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Segmento, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.ClassificacaoDificuldade)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.DropDownListFor(x => x.ClassificacaoDificuldade, null, "-- Selecione --", new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.ClassificacaoDificuldade, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Silk)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Silk, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Silk, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Bordado)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Bordado, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Bordado, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Pedraria)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Pedraria, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Pedraria, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Detalhamento)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextBoxFor(x => x.Detalhamento, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Detalhamento, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Estilista)
-                    <div class="col-sm-8 col-md-8 col-lg-7 ">
-                        @Html.HiddenFor(x => x.Estilista, new { id = "funcionario" })
-                        <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                            <div class="input-group">
-                                <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
-                                <span class="input-group-btn pull-left">
-                                    <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Estilista)
+                        <div class="col-sm-8 col-md-8 col-lg-7 ">
+                            @Html.HiddenFor(x => x.Estilista, new { id = "funcionario" })
+                            <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                <div class="input-group">
+                                    <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                                    <span class="input-group-btn pull-left">
+                                        <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
                         </div>
-                        <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                            <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Catalogo)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.EditorFor(x => x.Catalogo)
+                            @Html.ValidationMessageFor(x => x.Catalogo, null, new {@class = "help-block"})
                         </div>
-                        @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Catalogo)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.EditorFor(x => x.Catalogo)
-                        @Html.ValidationMessageFor(x => x.Catalogo, null, new {@class = "help-block"})
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Observacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Observacao, null, new {@class = "help-block"})
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group form-group-sm">
-                    @Html.LabelForRequired(x => x.Observacao)
-                    <div class="col-sm-8 col-md-8 col-lg-7">
-                        @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
-                        @Html.ValidationMessageFor(x => x.Observacao, null, new {@class = "help-block"})
-                    </div>
-                </div>
-            </div>
-        </div>
-    </fieldset>
+        </fieldset>
   
-    <hr />
+        <hr />
 
-    <fieldset>
-        <legend>Dados da Matriz</legend>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Grade, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Grade, null, "-- Selecione --", new {@class = "input-large"})
+        <fieldset>
+            <legend><small>Dados da Matriz de Corte</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Grade, new {@class = "title-label"})
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Grade, null, "-- Selecione --", new {@class = "form-control"})
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div class="form-group form-group-sm">
+                        @Html.Label(" ", new { @class = "control-label col-sm-2 col-lg-2" })
+                        <div class="col-sm-10 col-md-10 col-lg-10">
+                            @(Html.Kendo().Grid(Model.GridFichaTecnicaVariacao)
+                                  .Name("GridFichaTecnicaVariacao")
+                                  .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
+                                  .Navigatable()
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoList").Width(250)
+                                          .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
+                                      columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
+                                          .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
+                                      columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
+                                  })
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Model(model => model.Id(e => e.Id))
+                                      .Create(update => update.Action("EditingInline_Create", "FichaTecnica"))
+                                      .Read(read => read.Action("EditingInline_Read", "FichaTecnica"))
+                                      .Update(update => update.Action("EditingInline_Update", "FichaTecnica"))
+                                      .Destroy(update => update.Action("EditingInline_Destroy", "FichaTecnica"))
+                                  )
+                                  .ToolBar(toolbar => toolbar.Create().Text("Incluir")))
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelForRequired(x => x.GridFichaTecnicaVariacao, new {@class = "control-label"})
-            <div class="controls">
-                @(Html.Kendo().Grid(Model.GridFichaTecnicaVariacao)
-                        .Name("GridFichaTecnicaVariacao")
-                        .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
-                        .Navigatable()
-                        .Columns(columns =>
-                        {
-                            columns.Bound(x => x.Variacao).EditorTemplateName("VariacaoList").Width(250)
-                                .ClientTemplate("#= displayVariacao(Variacao) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Variacao' value='#= Variacao #' />");
-                            columns.Bound(x => x.Cor).EditorTemplateName("CorList").Width(250)
-                                .ClientTemplate("#= displayCor(Cor) #<input type='hidden' name='GridFichaTecnicaVariacao[#= indexGridFichaTecnicaVariacao(data)#].Cor' value='#= Cor #' />");
-                            columns.Command(command => command.Destroy().Text("Excluir")).Width(100);
-                        }
-                        )
-                        .DataSource(dataSource => dataSource
-                            .Ajax()
-                            .Model(model => model.Id(e => e.Id))
-                            .Create(update => update.Action("EditingInline_Create", "FichaTecnica"))
-                            .Read(read => read.Action("EditingInline_Read", "FichaTecnica"))
-                            .Update(update => update.Action("EditingInline_Update", "FichaTecnica"))
-                            .Destroy(update => update.Action("EditingInline_Destroy", "FichaTecnica"))
-                        )
-                        .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
-                        )
-            </div>
-        </div>
-    </fieldset>    
+        </fieldset>    
 
-    <hr />
+        <hr />
 
-    <fieldset>
-        <legend>Dados Específicos de Jeans</legend>
+        <fieldset>
+            <legend><small>Dados Específicos de Jeans</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.ProdutoBase)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.ProdutoBase, null, "-- Selecione --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.MedidaBarra)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.MedidaBarra, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.MedidaPassante)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.MedidaPassante, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Comprimento)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Comprimento, null, "-- Selecione --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Barra)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.DropDownListFor(x => x.Barra, null, "-- Selecione --", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Lavada)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Lavada, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.MedidaCos)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.MedidaCos, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Pesponto)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Pesponto, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.MedidaComprimento)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.MedidaComprimento, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <hr />
+
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.ProdutoBase, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.ProdutoBase, null, "-- Selecione --", new {@class = "input-large"})
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Basicos(), "btnSubmitBasicos")
+                        @Html.ExcluirAuth(MVC.Producao.FichaTecnica.Excluir(Model.Id))
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.MedidaBarra, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.MedidaBarra) 
-                    </div>
-                </div>
-            </div>
-        </div>    
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.MedidaPassante, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.MedidaPassante) 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Comprimento, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Comprimento, null, "-- Selecione --", new {@class = "input-large"})
-                    </div>
-                </div>
-            </div>
-        </div>  
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Barra, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.Barra, null, "-- Selecione --", new {@class = "input-large"})
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Lavada, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Lavada) 
-                    </div>
-                </div>
-            </div>
-        </div>  
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.MedidaCos, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.MedidaCos)
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Pesponto, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Pesponto) 
-                    </div>
-                </div>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.MedidaComprimento, new {@class = "title-label"})
-                    <div class="controls">
-                        @Html.EditorFor(x => x.MedidaComprimento)
-                    </div>
-                </div>
-            </div>
+            </div>     
         </div>
-    </fieldset>
-    <hr />
-    <div class="form-actions">
-        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Basicos(), "btnSubmitBasicos")
-        @Html.ExcluirAuth(MVC.Producao.FichaTecnica.Excluir(Model.Id))
     </div>
+
 }
+
 @{
     
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });

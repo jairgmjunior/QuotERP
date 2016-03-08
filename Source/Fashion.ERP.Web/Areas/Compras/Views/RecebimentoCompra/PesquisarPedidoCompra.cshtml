@@ -3,7 +3,7 @@
 @{ Layout = null; }
 
 <fieldset>
-    <legend><small>Dados do Pedido de Compra</small></legend>
+    <legend><small><small>Dados do Pedido de Compra</small></small></legend>
     <div class="row">
         <div class="col-sm-7">
             <div class="form-group form-group-sm">
@@ -63,7 +63,7 @@
 </fieldset>
 
 <fieldset>
-    <legend><small>Itens do Pedido de Compra</small></legend>
+    <legend><small><small>Itens do Pedido de Compra</small></small></legend>
     @(Html.Kendo().Grid(Model.Grid)
             .Name("GridPedidosItens")
             .Columns(columns =>

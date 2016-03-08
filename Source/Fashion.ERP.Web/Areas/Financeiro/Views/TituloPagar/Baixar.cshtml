@@ -15,7 +15,7 @@
 @Html.HiddenFor(x => x.Observacao)
     
 <fieldset class="detail">
-    <legend>Título a pagar</legend>
+    <legend><small>Título a pagar</small></legend>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -85,7 +85,7 @@
 </fieldset>
     
 <fieldset>
-    <legend>Baixas</legend>
+    <legend><small>Baixas</small></legend>
     <div class="form-group" style="width: 850px">
         @(Html.Kendo().Grid(Model.BaixaTitulos)
                 .Name("Grid")

@@ -8,7 +8,7 @@ function inicializeArquivoUpload() {
     function sendFile() {
 
         var $inputFile = $(this);
-        var $fileupload = $inputFile.closest('.fileupload');
+        var $fileupload = $inputFile.closest('.fileinput');
 
         // Espera o componente completar a ação
         setTimeout(function () {
@@ -61,7 +61,7 @@ function inicializeArquivoUpload() {
     }; // sendFile    
 
     // Ao mudar a imagem, submeter o formulário
-    $('.fileupload input').on('change', sendFile);
+    $('.fileinput input').on('change', sendFile);
 };
 
 $(function () {

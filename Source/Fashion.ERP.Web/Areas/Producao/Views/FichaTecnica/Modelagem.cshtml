@@ -1,120 +1,148 @@
 ﻿@using Fashion.ERP.Web.Areas.Producao.Models
 @model FichaTecnicaModelagemModel
 
+<style>
+    * {
+        -webkit-box-sizing: border-box !important;
+        -moz-box-sizing: border-box !important;
+        box-sizing: border-box !important;
+    }
+</style>
+
 @using (Html.BeginForm(MVC.Producao.FichaTecnica.Modelagem(), FormMethod.Post, new {id = "formModelagem", @class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
     <input type="hidden" id="TamanhosDicionario_Modelagem" data-value = "@ViewBag.TamanhosDicionarioJson_Modelagem" />
-    <fieldset>
-        <legend>Dados da Modelagem</legend>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.DataModelagem)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.DataModelagem) 
-                    </div>
-                </div>
-            </div>  
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Modelista)
-                    <div class="controls">
-                        @Html.HiddenFor(x => x.Modelista, new { id = "funcionario" })
-                        <div class="input-group">
-                            <input id="codigo-funcionario" class="input-small numeric-only" type="text" />
-                            <button id="pesquisar-funcionario" class="btn" type="button"><i class="icon-search"></i></button>
-                            <span id="descricao-funcionario" class="add-on"></span>
+
+    <hr/>
+    <div class="container-fluid">
+        <fieldset>
+            <legend><small>Dados da Modelagem</small></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.DataModelagem)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.EditorFor(x => x.DataModelagem)
+                            @Html.ValidationMessageFor(x => x.DataModelagem, null, new { @class="help-block" })
                         </div>
-                        @Html.ValidationMessageFor(x => x.Modelista, string.Empty, new { @class = "help-block" })
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.Observacao)
-                    <div class="controls">
-                        @Html.EditorFor(x => x.Observacao) 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelForRequired(x => x.NomeArquivoUpload)
-                    <div class="controls">
-                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <div class="input-group">
-                                <div class="uneditable-input col-md-3">
-                                    <i class="icon-file fileupload-exists"></i>
-                                    <span class="fileupload-preview">@Html.ValueFor(x => x.NomeArquivoUpload)</span>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Modelista)
+                        <div class="col-sm-8 col-md-8 col-lg-7 ">
+                            @Html.HiddenFor(x => x.Modelista, new { id = "funcionario" })
+                            <div class="col-lg-3 col-sm-5 col-md-4 padding0">
+                                <div class="input-group">
+                                    <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
+                                    <span class="input-group-btn pull-left">
+                                        <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
                                 </div>
-                                <span class="btn btn-file">
-                                    <span class="fileupload-new">Selecione</span>
-                                    <span class="fileupload-exists">Alterar</span>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12 padding0">
+                                <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
+                            </div>
+                            @Html.ValidationMessageFor(x => x.Modelista, string.Empty, new { @class = "help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Observacao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Observacao, null, new { @class="help-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.NomeArquivoUpload)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            <div class="fileinput input-group fileinput-new" data-provides="fileinput">
+                                <div class="form-control">
+                                    <div class="uneditable-input">
+                                        <span class="glyphicon glyphicon-file fileinput-exists"></span>
+                                        <span class="fileinput-preview">@Html.ValueFor(x => x.NomeArquivoUpload)</span>
+                                    </div>
+                                </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                                    <span class="fileinput-new">Selecione</span>
+                                    <span class="fileinput-exists">Alterar</span>
                                     <input type="file" name="Arquivo" />
                                     @Html.HiddenFor(x => x.NomeArquivoUpload)
                                 </span>
-                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                             </div>
-                            @{
-                                if (@Model.Arquivo.HasValue)
-                                {
-                                    @Html.ActionLink("download", MVC.Arquivo.Download(Model.Arquivo.GetValueOrDefault()), new { download= "", target = "_blank" });
-                                }
-                            }
+                            @Html.HiddenFor(x => x.NomeArquivoUpload)
+                            <div class="progress" style="display: none">
+                                <div class="progress-bar"></div>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.NomeArquivoUpload, null, new { @class="help-block" })
                         </div>
-                        <div class="progress" style="display: none">
-                            <div class="bar"></div>
-                        </div>
-                        @Html.ValidationMessageFor(x => x.NomeArquivoUpload, null, new { @class="help-block" })
                     </div>
                 </div>
-            </div>  
-        </div>
-    </fieldset>    
-    <hr />
-    <fieldset>
-        <legend>Medidas da Modelagem</legend>
-            @(Html.Kendo().Grid(Model.GridMedidas)
-                .Name("GridMedidas").HtmlAttributes(new { style="width:400px"})
-                .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
-                .Navigatable()
-                .Columns(columns =>
-                {
-                    columns.Bound(x => x.Id).Hidden()
-                        .ClientTemplate("<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Id' value='#= Id #' />");
-                    columns.Bound(p => p.DescricaoMedida).ClientTemplate("#= DescricaoMedida #" +
-                        "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].DescricaoMedida' value='#= DescricaoMedida #' />");
-                    columns.Bound(x => x.Tamanho).EditorTemplateName("TamanhoGradeList")
-                        .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Tamanho' value='#= Tamanho #' />");
-                    columns.Bound(x => x.Medida).EditorTemplateName("numeric2casasdecimais")
-                        .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
-                    columns.Command(command => command.Destroy().Text("Excluir")).Width(150);
-                }
-                )
-                .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .Events(events => events.Error("onKendoGridError"))
-                    .Model(model =>
-                    {
-                        model.Id(item => item.Id);
-                        model.Field(item => item.DescricaoMedida).Editable(true);
-                        model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
-                    })
-                )
-                .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
-                .Events(events => events.Edit("onEditGridMedidas"))
-            )
-    </fieldset>    
-
-    <hr />
-    <div class="form-actions">
-        @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Modelagem(), "btnSubmitModelagem")        
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Medidas de Modelagem", new { @class = "control-label col-sm-4 col-md-3 required-label" } )
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @(Html.Kendo().Grid(Model.GridMedidas)
+                                  .Name("GridMedidas")
+                                  .Editable(e => e.Mode(GridEditMode.InCell).DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?"))
+                                  .Navigatable()
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(x => x.Id).Hidden()
+                                          .ClientTemplate("<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Id' value='#= Id #' />");
+                                      columns.Bound(p => p.DescricaoMedida).ClientTemplate("#= DescricaoMedida #" +
+                                                                                           "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].DescricaoMedida' value='#= DescricaoMedida #' />");
+                                      columns.Bound(x => x.Tamanho).EditorTemplateName("TamanhoGradeList")
+                                          .ClientTemplate("#= displayTamanho_Modelagem(Tamanho) #" + "<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Tamanho' value='#= Tamanho #' />");
+                                      columns.Bound(x => x.Medida).EditorTemplateName("numeric2casasdecimais")
+                                          .ClientTemplate("#= kendo.toString(Medida, \"n2\") #"+"<input type='hidden' name='GridMedidas[#= indexModelagem(data)#].Medida' value='#= formateDecimalGrid(Medida) #' />");
+                                      columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
+                                  })
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Events(events => events.Error("onKendoGridError"))
+                                      .Model(model =>
+                                      {
+                                          model.Id(item => item.Id);
+                                          model.Field(item => item.DescricaoMedida).Editable(true);
+                                          model.Field(item => item.Id).Editable(false).DefaultValue(0);                    
+                                      })
+                                  )
+                                  .ToolBar(toolbar => toolbar.Create().Text("Incluir"))
+                                  .Events(events => events.Edit("onEditGridMedidas")))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <hr />
+        
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                            @Html.SubmitButtonAuth(MVC.Producao.FichaTecnica.Modelagem(), "btnSubmitModelagem")        
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </fieldset>
     </div>
+
 }
 
 @{

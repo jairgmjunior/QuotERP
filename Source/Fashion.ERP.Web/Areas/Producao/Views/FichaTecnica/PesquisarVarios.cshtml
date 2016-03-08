@@ -1,28 +1,31 @@
 ﻿@model IEnumerable<Fashion.ERP.Web.Areas.Producao.Models.GridFichaTecnicaModel>
-
-<div id="modal-fichatecnica" class="modal hide fade">
-    
-    <div class="modal-header">
-        <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-        <h3>Pesquisar ficha técnica</h3>
-    </div>
-    @using (Html.BeginForm(MVC.Producao.FichaTecnica.PesquisarVarios()))
-    {
-        @Html.AntiForgeryToken()
-        <div id="modal-body-fichatecnica" class="modal-body" style="overflow-y: hidden;">
-            <div class="width100 clearfix">
-                @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left input-medium"})
-                <input name="ValorPesquisa" class="pull-left input-xlarge" type="text" />
-                <input id="submit-pesquisar-fichatecnica" type="button" value="Pesquisar" class="btn input-mini pull-right" />
+<div id="modal-fichatecnica" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Fichas Técnicas</h3>
             </div>
-            <div id="grid-pesquisa-fichatecnica"></div>
+            @using (Html.BeginForm(MVC.Producao.FichaTecnica.PesquisarVarios()))
+            {
+                @Html.AntiForgeryToken()
+                <div id="modal-body-fichatecnica" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 64%" />
+                        <input id="submit-pesquisar-fichatecnica" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-fichatecnica"></div>  
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-fichatecnica" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
         </div>
-    }
-    <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-        <button id="selecionar-fichatecnica" class="btn btn-primary" type="button">Selecionar</button>
     </div>
 </div>
+
 <script>
     $(function () {
 

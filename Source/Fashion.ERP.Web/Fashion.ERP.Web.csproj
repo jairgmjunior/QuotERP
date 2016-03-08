@@ -1029,6 +1029,7 @@
     <Content Include="Content\Bootstrap\slider-v.gif" />
     <Content Include="Content\Bootstrap\sprite.png" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\quodlogo.png" />
     <Content Include="Content\nav-vertical.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\avatar_unknown.jpg" />

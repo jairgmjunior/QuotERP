@@ -4,7 +4,7 @@
     @Html.ValidationSummaryEx()
     <div class="col-md-6">
         <fieldset>
-            <legend>Estrutura do menu</legend>
+            <legend><small>Estrutura do menu</small></legend>
             @using (Html.BeginForm("Index", "MenuBuilder", FormMethod.Post, new { id = "form", @class = "form-horizontal" }))
             {
                 <div class="well">
@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-6">
         <fieldset>
-            <legend>Ações</legend>
+            <legend><small>Ações</small></legend>
             <div class="well">
                 <div class="form-group">
                     <div class="controls">
@@ -49,7 +49,7 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Itens disponíveis</legend>
+            <legend><small>Itens disponíveis</small></legend>
             <div class="well">
                 <div id="itens-disponiveis">Aguarde enquanto a treeview é carregada.</div>
             </div>

@@ -1,5 +1,4 @@
-﻿@using Fashion.ERP.Domain.Almoxarifado
-@model Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoMateriaisModel
+﻿@model Fashion.ERP.Web.Areas.Producao.Models.ProgramacaoProducaoMateriaisModel
 
 @using (Html.BeginForm(MVC.Producao.ProgramacaoProducao.MateriaisProgramacaoProducao(), FormMethod.Post, new {id = "form", @class = "form-horizontal"}))
 {
@@ -12,80 +11,99 @@
     <input type="hidden" id="UnidadeDicionario" data-value = "@ViewBag.UnidadeDicionarioJson" />
     
     <fieldset>
-        <legend>Dados da Programação de Produção</legend>
+        <legend><small>Dados da Programação de Produção</small></legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.LoteAno, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.LoteAno)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Colecao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Colecao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DataProgramada, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.DataProgramada)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Quantidade, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.Quantidade)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SituacaoProgramacaoProducao, new { @class = "control-label col-sm-4 col-md-3 font-bold" })
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.SituacaoProgramacaoProducao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
-    <div class="detail">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.LoteAno, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.LoteAno)
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Colecao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Colecao)
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.DataProgramada, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.DataProgramada)
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.Quantidade, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.ValueFor(x => x.Quantidade)
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(x => x.SituacaoProgramacaoProducao, new {@class = "title-label"})
-                    <div class="value-label">
-                        @Html.DisplayFor(x => x.SituacaoProgramacaoProducao)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        @foreach (var foto in Model.Fotos) {
-            <div class="col-md-2" style="width:110px">
-                <a href="@foto.Foto" class="thumbnail" data-lightbox='foto'><img src="@foto.Foto" data-title="@foto.Titulo" style="width:100px; height:100px"></a>
-                <p class="k-state-disabled" align="right"><small>Ref.@foto.Titulo</small></p>
-            </div>
-        }
-    </div>
+
+    if (!Model.Fotos.IsNullOrEmpty())
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.Label("Fotos", new { @class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-9">
+                        @foreach (var foto in Model.Fotos) {
+                            <div class="col-sm-2 no-gutter" style="width:130px">
+                                <a href="@foto.Foto" class="img-thumbnail" data-lightbox='foto'><img src="@foto.Foto" data-title="@foto.Titulo" style="width:100px; height:100px"></a>
+                                <p class="k-state-disabled" align="left"><small>Ref.@foto.Titulo</small></p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>     
+        </div>
+    }
 
     <fieldset>
-        <legend>Dados dos Materiais</legend>
+        <legend><small>Materiais da Programação de Produção</small></legend>
         <div class="row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    @Html.LabelForRequired(x=> x.UnidadeGeral, new { @class = "control-label " })
-                    <div class="controls">
-                        @Html.DropDownListFor(x => x.UnidadeGeral, null, "-- Selecione --", new { @class = "input-large" })
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x=> x.UnidadeGeral)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.DropDownListFor(x => x.UnidadeGeral, null, "-- Selecione --", new { @class = "form-control" })
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-group-sm">
             @(Html.Kendo().Grid(Model.GridItens)
                   .Name("GridItens")
                   .Editable(e => e.Mode(GridEditMode.InCell))
@@ -117,7 +135,7 @@
                           .ClientTemplate("#= displayUnidade(Unidade) #<input type='hidden' name='GridItens[#= index(data)#].Unidade' value='#= Unidade #' />");                        
                       columns.Bound(x => x.Editavel).Hidden()
                           .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Editavel' value='#= Editavel #' />");
-                      columns.Command(command => command.Destroy()).Width(100);
+                      columns.Command(command => command.Destroy()).Width(110);
                   }
                   )
                   .DataSource(dataSource => dataSource
@@ -138,8 +156,14 @@
         </div>
     </fieldset>
 
-    <div class="form-actions">
-        <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>     
     </div>
 }
 @{

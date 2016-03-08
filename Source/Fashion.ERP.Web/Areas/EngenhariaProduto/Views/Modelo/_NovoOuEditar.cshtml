@@ -2,7 +2,7 @@
 @model ModeloModel
 
 <fieldset>
-    <legend>Dados do Modelo</legend>
+    <legend><small>Dados do Modelo</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -190,7 +190,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Dados Complementares</legend>
+    <legend><small>Dados Complementares</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -265,7 +265,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Linha</legend>
+    <legend><small>Linha</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -354,7 +354,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Fotos</legend>
+    <legend><small>Fotos</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -464,8 +464,6 @@
         });
     }
     $(function () {
-
-
         $('#LinhaPesponto').rules("add", {
             maxlength: 50,
             messages: { maxlength: "Linha pesponto não deve ser maior que {1} caracteres." }
@@ -684,10 +682,5 @@
     #grid-linhatravete td, #grid-linhabordado td, #grid-linhapesponto td{
         border: 0 !important;
     }
-
-    /*#grid-linhatravete .k-header, #grid-linhabordado .k-header, #grid-linhapesponto .k-header {
-        border-Left: 0 !important;
-        border-right: 0 !important;
-    }*/
 </style>
 

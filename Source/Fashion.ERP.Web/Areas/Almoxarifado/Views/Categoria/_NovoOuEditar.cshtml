@@ -1,7 +1,7 @@
 ﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.CategoriaModel
 
 <fieldset>
-    <legend>Dados da Categoria</legend>
+    <legend><small>Dados da Categoria</small></legend>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
@@ -43,3 +43,5 @@
         </div>
     </div>
 </fieldset>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.Categoria.Excluir(Model.Id))
