@@ -1,0 +1,12 @@
+﻿@model string
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .BindTo(ViewBag.ClassificacoesDificuldade)
+    .Name("ClassificacaoDificuldade")
+    .OptionLabel("-- Selecione --")
+    .DataTextField("Descricao")
+    .DataValueField("Id"))
+
+@Html.ValidationMessageFor(m => m)
+
+

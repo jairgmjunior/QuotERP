@@ -1,15 +1,12 @@
 ﻿@model long?
 
-@*@model String*@
-
 @(Html.Kendo().DropDownListFor(m => m)
     .BindTo(ViewBag.Unidades)
     .Name("Unidade")
-    .OptionLabel("- Selecione -")
+    .OptionLabel("-- Selecione --")
     .DataTextField("NomeFantasia")
-    .DataValueField("Id")
-    
-      )
+    .DataValueField("Id"))
+
 @Html.ValidationMessageFor(m => m)
 
 

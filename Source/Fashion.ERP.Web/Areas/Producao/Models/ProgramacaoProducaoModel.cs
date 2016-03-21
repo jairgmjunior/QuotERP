@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Web.Models;
 

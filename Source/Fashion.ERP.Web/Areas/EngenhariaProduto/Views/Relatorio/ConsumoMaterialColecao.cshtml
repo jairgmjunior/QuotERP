@@ -5,89 +5,89 @@
 @using (Html.BeginForm(MVC.EngenhariaProduto.Relatorio.ConsumoMaterialColecao(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
 {
     <div class="accordion" id="accordion">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
-                Pesquisar
-            </a>
-        </div>
-        <div id="collapsePesquisar" class="accordion-body collapse in">
-            <div class="accordion-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Colecao)
-                            <div class="controls">
-                                @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapsePesquisar">
+                    Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Colecao)
+                                <div class="controls">
+                                    @Html.DropDownList("Colecao", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.ColecaoAprovada)
-                            <div class="controls">
-                                @Html.DropDownList("Colecaoaprovada", null, "-- Selecione --", new { @class = "input-large" })
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.ColecaoAprovada)
+                                <div class="controls">
+                                    @Html.DropDownList("Colecaoaprovada", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Familia)
-                            <div class="controls">
-                                @Html.DropDownList("Familia", null, "-- Selecione --", new { @class = "input-large" })
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Familia)
+                                <div class="controls">
+                                    @Html.DropDownList("Familia", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
                             </div>
-                        </div>
                         
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Categoria)
-                            <div class="controls">
-                                @Html.DropDownList("Categoria", null, "-- Selecione --", new { @class = "input-large" })
-                            </div>
                         </div>
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.Subcategoria)
-                            <div class="controls">
-                                @Html.DropDownList("Subcategoria", null, "-- Selecione --", new { @class = "input-large" })
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Categoria)
+                                <div class="controls">
+                                    @Html.DropDownList("Categoria", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.AgruparPor)
-                            <div class="controls">
-                                @Html.DropDownList("AgruparPor", "--Selecione--")
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.Subcategoria)
+                                <div class="controls">
+                                    @Html.DropDownList("Subcategoria", null, "-- Selecione --", new { @class = "input-large" })
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
-                            <div class="controls">
-                                @Html.DropDownList("OrdenarPor", "--Selecione--")
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.AgruparPor)
+                                <div class="controls">
+                                    @Html.DropDownList("AgruparPor", "--Selecione--")
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
-                            <div class="controls">
-                                <select name="OrdenarEm">
-                                    <option value="asc">Ascendente</option>
-                                    <option value="desc">Descendente</option>
-                                </select>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.OrdenarPor, new { @class = "control-label " })
+                                <div class="controls">
+                                    @Html.DropDownList("OrdenarPor", "--Selecione--")
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelForRequired(x => x.OrdenarEm, new { @class = "control-label " })
+                                <div class="controls">
+                                    <select name="OrdenarEm">
+                                        <option value="asc">Ascendente</option>
+                                        <option value="desc">Descendente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="pesquisar-relatorio" class="btn btn-info pull-right" type="button" data-loading-text="Aguarde...">Pesquisar</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }
 <div id="pdf"></div>
 <script>

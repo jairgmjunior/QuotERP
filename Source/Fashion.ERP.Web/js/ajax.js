@@ -56,6 +56,6 @@ $(document).ajaxError(function (xhr, status, error) {
     Método chamado quando ocorrer algum erro na operação da KendoUi Grid
 **/
 function onKendoGridError(e) {
-    console.log(e.errors);
+    console.log(e.errorThrown);
     this.cancelChanges();
 }

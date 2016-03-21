@@ -77,6 +77,19 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             try
             {
+
+                if (!string.IsNullOrWhiteSpace(model.Tag))
+                {
+                    query = query.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(item => item.FichaTecnica.Tag == model.Tag));
+                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                }
+
+                if (model.Ano.HasValue)
+                {
+                    query = query.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(item => item.FichaTecnica.Ano == model.Ano));
+                    filtros.AppendFormat("Ano: {0}, ", model.Ano);
+                }
+
                 if (model.ColecaoProgramada.HasValue)
                 {
                     query = query.Where(p => p.ProgramacaoProducao.Colecao.Id == model.ColecaoProgramada);

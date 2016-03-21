@@ -180,6 +180,8 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioFichaTecnicaController RelatorioFichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioFichaTecnicaController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioFichaTecnicaEstimativaCustoController RelatorioFichaTecnicaEstimativaCusto = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioFichaTecnicaEstimativaCustoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioMateriaisProgramacaoProducaoController RelatorioMateriaisProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioMateriaisProgramacaoProducaoController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioProgramacaoProducaoController RelatorioProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioProgramacaoProducaoController();
+        public Fashion.ERP.Web.Areas.Producao.Controllers.RemessaProducaoController RemessaProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RemessaProducaoController();
     }
 }
 
@@ -360,12 +362,13 @@ namespace Links
     
         public static readonly string bootstrap_override_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-override.min.css") ? Url("bootstrap-override.min.css") : Url("bootstrap-override.css");
              
-        public static readonly string bootstrap_responsive_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-responsive.min.css") ? Url("bootstrap-responsive.min.css") : Url("bootstrap-responsive.css");
+        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
              
-        public static readonly string bootstrap_responsive_min_css = Url("bootstrap-responsive.min.css");
+        public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string font_awesome_min_css = Url("font-awesome.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class images {
             private const string URLPATH = "~/Content/images";
@@ -379,13 +382,12 @@ namespace Links
             public static readonly string logo_png = Url("logo.png");
             public static readonly string no_image_jpg = Url("no_image.jpg");
             public static readonly string no_image_report_png = Url("no_image_report.png");
+            public static readonly string quodlogo_png = Url("quodlogo.png");
         }
     
-        public static readonly string jasny_bootstrap_responsive_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jasny-bootstrap-responsive.min.css") ? Url("jasny-bootstrap-responsive.min.css") : Url("jasny-bootstrap-responsive.css");
-             
-        public static readonly string jasny_bootstrap_responsive_min_css = Url("jasny-bootstrap-responsive.min.css");
         public static readonly string jasny_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jasny-bootstrap.min.css") ? Url("jasny-bootstrap.min.css") : Url("jasny-bootstrap.css");
              
+        public static readonly string jasny_bootstrap_min_css = Url("jasny-bootstrap.min.css");
         public static readonly string Jcrop_gif = Url("Jcrop.gif");
         public static readonly string jquery_Jcrop_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.Jcrop.min.css") ? Url("jquery.Jcrop.min.css") : Url("jquery.Jcrop.css");
              
@@ -393,9 +395,10 @@ namespace Links
         public static readonly string kendo_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/kendo.bootstrap.min.css") ? Url("kendo.bootstrap.min.css") : Url("kendo.bootstrap.css");
              
         public static readonly string kendo_bootstrap_min_css = Url("kendo.bootstrap.min.css");
+        public static readonly string kendo_common_bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/kendo.common-bootstrap.min.css") ? Url("kendo.common-bootstrap.min.css") : Url("kendo.common-bootstrap.css");
+             
         public static readonly string kendo_common_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/kendo.common.min.css") ? Url("kendo.common.min.css") : Url("kendo.common.css");
              
-        public static readonly string kendo_common_min_css = Url("kendo.common.min.css");
         public static readonly string layout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/layout.min.css") ? Url("layout.min.css") : Url("layout.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -412,6 +415,8 @@ namespace Links
         public static readonly string lightbox_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/lightbox.min.css") ? Url("lightbox.min.css") : Url("lightbox.css");
              
         public static readonly string login_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/login.min.css") ? Url("login.min.css") : Url("login.css");
+             
+        public static readonly string nav_vertical_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/nav-vertical.min.css") ? Url("nav-vertical.min.css") : Url("nav-vertical.css");
              
         public static readonly string pick_a_color_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/pick-a-color.min.css") ? Url("pick-a-color.min.css") : Url("pick-a-color.css");
              

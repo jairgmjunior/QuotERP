@@ -41,6 +41,12 @@ namespace Fashion.ERP.Web.Controllers
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Login()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC.Home; } }
@@ -77,6 +83,7 @@ namespace Fashion.ERP.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Login
         {
+            public readonly string returnUrl = "returnUrl";
             public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -113,12 +120,13 @@ namespace Fashion.ERP.Web.Controllers
             return callInfo;
         }
 
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
 
-        public override System.Web.Mvc.ActionResult Login()
+        public override System.Web.Mvc.ActionResult Login(string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
-            LoginOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            LoginOverride(callInfo, returnUrl);
             return callInfo;
         }
 

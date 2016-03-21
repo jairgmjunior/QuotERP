@@ -38,6 +38,7 @@ namespace T4MVC
                 public readonly string _Confirm = "_Confirm";
                 public readonly string _ConfirmDelete = "_ConfirmDelete";
                 public readonly string _Default = "_Default";
+                public readonly string _Inicio = "_Inicio";
                 public readonly string _Layout = "_Layout";
                 public readonly string _Message = "_Message";
                 public readonly string _MessagePopup = "_MessagePopup";
@@ -47,6 +48,7 @@ namespace T4MVC
             public readonly string _Confirm = "~/Views/Shared/_Confirm.cshtml";
             public readonly string _ConfirmDelete = "~/Views/Shared/_ConfirmDelete.cshtml";
             public readonly string _Default = "~/Views/Shared/_Default.cshtml";
+            public readonly string _Inicio = "~/Views/Shared/_Inicio.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _Message = "~/Views/Shared/_Message.cshtml";
             public readonly string _MessagePopup = "~/Views/Shared/_MessagePopup.cshtml";
@@ -76,6 +78,7 @@ namespace T4MVC
                 public readonly string BotaoPesquisaMaterialGrid = "BotaoPesquisaMaterialGrid";
                 public readonly string CentroCustoList = "CentroCustoList";
                 public readonly string Cep = "Cep";
+                public readonly string ClassificacaoDificuldadeList = "ClassificacaoDificuldadeList";
                 public readonly string Cnpj = "Cnpj";
                 public readonly string CorList = "CorList";
                 public readonly string Cpf = "Cpf";

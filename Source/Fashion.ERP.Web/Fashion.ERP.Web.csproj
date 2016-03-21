@@ -448,6 +448,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
     <Compile Include="Areas\Producao\Controllers\ColecaoProgramadaController.cs" />
+    <Compile Include="Areas\Producao\Controllers\RemessaProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaEstimativaCustosController.cs" />
@@ -469,6 +470,10 @@
     <Compile Include="Areas\Producao\Controllers\RelatorioMateriaisProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\Producao\Models\CopiarFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\RemessaProducaoCapacidadeProdutivaItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridRemessaProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaRemessaProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProgramacaoProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\FotoTituloModel.cs" />
     <Compile Include="Areas\Producao\Models\GridProgramacaoProducaoRequisicaoModel.cs" />
     <Compile Include="Areas\Producao\Models\ProgramacaoProducaoRequisicaoModel.cs" />
@@ -505,7 +510,7 @@
     <Compile Include="Areas\Producao\Models\GridOrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\OrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaOrdemProducaoModel.cs" />
-    <Compile Include="Areas\Producao\Models\ProgramacaoProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\RemessaProducaoModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
     <Compile Include="Areas\Comum\Controllers\ClassificacaoController.cs" />
@@ -999,6 +1004,12 @@
     <Compile Include="Producao.RelatorioMateriaisProgramacaoProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Producao.RelatorioProgramacaoProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Producao.RemessaProducaoController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1046,7 +1057,6 @@
     <Content Include="Content\kendo.bootstrap.min.css" />
     <Content Include="Content\kendo.common-bootstrap.css" />
     <Content Include="Content\kendo.common.css" />
-    <Content Include="Content\kendo.common.min.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\lightbox.css" />
     <Content Include="Content\Lightbox\close.png" />
@@ -1281,6 +1291,10 @@
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\MatrizCorte.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\PesquisarVarios.cshtml" />
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\ProgramacaoProducaoRequisicao.cshtml" />
+    <Content Include="Areas\Producao\Views\RemessaProducao\Index.cshtml" />
+    <Content Include="Areas\Producao\Views\RemessaProducao\Novo.cshtml" />
+    <Content Include="Areas\Producao\Views\RemessaProducao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Producao\Views\RemessaProducao\Editar.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1290,10 +1304,10 @@
     <None Include="CodeTemplates\MvcView\_NovoOuEditar.cs.t4">
       <LastGenOutput>_NovoOuEditar.cshtml</LastGenOutput>
     </None>
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="font\iconic_fill.eot" />
-    <Content Include="font\iconic_stroke.eot" />
+    <EmbeddedResource Include="fonts\fontawesome-webfont.svg" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.svg" />
+    <EmbeddedResource Include="font\iconic_fill.eot" />
+    <EmbeddedResource Include="font\iconic_stroke.eot" />
     <None Include="DllInscE32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1452,25 +1466,27 @@
     <Content Include="Areas\Comum\Views\Barra\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Editar.cshtml" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\open_sans\OpenSans-Bold.woff" />
-    <Content Include="fonts\open_sans\OpenSans-Extrabold.woff" />
-    <Content Include="fonts\open_sans\OpenSans-Italic.woff" />
-    <Content Include="fonts\open_sans\OpenSans-Light.woff" />
-    <Content Include="fonts\open_sans\OpenSans-Semibold.woff" />
-    <Content Include="fonts\open_sans\OpenSans.woff" />
+    <EmbeddedResource Include="fonts\fontawesome-webfont.eot" />
+    <EmbeddedResource Include="fonts\fontawesome-webfont.ttf" />
+    <EmbeddedResource Include="fonts\fontawesome-webfont.woff" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
+    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans-Bold.woff" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans-Extrabold.woff" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans-Italic.woff" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans-Light.woff" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans-Semibold.woff" />
+    <EmbeddedResource Include="fonts\open_sans\OpenSans.woff" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\FashionERP.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jasny-bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1607,6 +1623,7 @@
     <Content Include="Views\Shared\EditorTemplates\GeneroCategoriaList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GradeList.cshtml" />
     <Content Include="Views\Shared\_Inicio.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ClassificacaoDificuldadeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

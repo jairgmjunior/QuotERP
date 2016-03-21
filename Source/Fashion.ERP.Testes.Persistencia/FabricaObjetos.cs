@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using Fashion.ERP.Domain;
 using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Compras;
@@ -1280,9 +1281,30 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public RemessaProducao ObtenhaRemessaProducao()
+        {
+            return new RemessaProducao
+            {
+                Ano = 2015,
+                DataAlteracao = new DateTime(2015, 1, 1),
+                DataLimite = new DateTime(2015, 1, 1),
+                Descricao = "DESCRIÇÃO DA REMESSA DE PRODUÇÃO",
+                DataInicio = new DateTime(2015, 1, 1),
+                Numero = 2
+            };
+        }
+
+        public RemessaProducaoCapacidadeProdutiva ObrenhaRemessaProducaoCapacidadeProdutiva()
+        {
+            return new RemessaProducaoCapacidadeProdutiva
+            {
+                Quantidade = 1
+            };
+        }
+
         public ProgramacaoProducaoItem ObtenhaProgramacaoProducaoItem()
         {
-            return new ProgramacaoProducaoItem()
+            return new ProgramacaoProducaoItem
             {
                 Quantidade = 1
             };            
@@ -1290,7 +1312,7 @@ namespace Fashion.ERP.Testes.Persistencia
 
         public ProgramacaoProducaoMaterial ObtenhaProducaoProducaoMaterial()
         {
-            return new ProgramacaoProducaoMaterial()
+            return new ProgramacaoProducaoMaterial
             {
                 Quantidade = 1
             };            
@@ -1298,7 +1320,7 @@ namespace Fashion.ERP.Testes.Persistencia
         
         public ProgramacaoProducaoMatrizCorte ObtenhaProgramacaoProducaoMatrizCorte()
         {
-            return new ProgramacaoProducaoMatrizCorte()
+            return new ProgramacaoProducaoMatrizCorte
             {
                 TipoEnfestoTecido = TipoEnfestoTecido.Folha
             };
@@ -1306,7 +1328,7 @@ namespace Fashion.ERP.Testes.Persistencia
 
         public ProgramacaoProducaoMatrizCorteItem ObtenhaProgramacaoProducaoMatrizCorteItem()
         {
-            return new ProgramacaoProducaoMatrizCorteItem()
+            return new ProgramacaoProducaoMatrizCorteItem
             {
                 Quantidade = 1,
                 QuantidadeVezes = 1

@@ -138,6 +138,7 @@
     <Compile Include="FabricaObjetosPersistidos.cs" />
     <Compile Include="Financeiro\DespesaReceitaPersistencia.cs" />
     <Compile Include="InitializeTests.cs" />
+    <Compile Include="Producao\RemessaProducaoPersistencia.cs" />
     <Compile Include="Producao\ProgramacaoProducaoPersistencia.cs" />
     <Compile Include="Producao\FichaTecnicaJeansPersistencia.cs" />
     <Compile Include="TestPersistentObject.cs" />

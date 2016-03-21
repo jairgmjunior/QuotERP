@@ -44,12 +44,12 @@
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.Tag)
-                                <div class="col-sm-4 col-md-4 col-lg-3" style='padding-right : 0'>
+                                <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
                                     @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(x => x.Tag, null, new {@class = "help-block"})
                                     @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
                                 </div>
-                                <div class="col-sm-4 col-md-4 col-lg-4" style='padding-left : 0'>
+                                <div class="col-sm-4 col-md-4 col-lg-4 campo-duplo-esquerdo">
                                     @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.IntervaloInicial)
-                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                <div class="col-sm-8 col-md-8 col-lg-7">
                                     <div class="col-lg-5 col-md-5 padding0">
                                         <div class="">
                                             @(Html.Kendo().DatePickerFor(x => x.IntervaloInicial))

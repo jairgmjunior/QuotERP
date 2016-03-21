@@ -359,7 +359,7 @@
             <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.ValorCompra)
                 <div class="col-sm-8 col-md-8 col-lg-7">
-                    <input readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="form-control" k-state-disabled"/>
+                    <input readonly="readonly" id="txtValorCompra" name="txtValorCompra" type="text" value=" @Model.ValorCompra"  class="form-control k-state-disabled"/>
                     <input type="hidden" id="ValorCompra" name="ValorCompra"  value=" @Model.ValorCompra" />                
                     @Html.ValidationMessageFor(x => x.ValorCompra, null, new { @class = "help-block" })
                 </div>

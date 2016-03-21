@@ -1,0 +1,284 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model RemessaProducaoModel
+
+@Html.HiddenFor(x => x.Id)
+
+<input type="hidden" id="ClassificacaoDificuldadeDicionario" data-value = "@ViewBag.ClassificacaoDificuldadeJson" />
+
+<fieldset>
+    <legend><small>Dados da Remessa de Produção</small></legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Numero)
+                <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
+                    @Html.TextBoxFor(x => x.Numero, new { @class = "numeric-only form-control" })
+                    @Html.ValidationMessageFor(x => x.Numero, null, new {@class = "help-block"})
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 campo-duplo-esquerdo">
+                    @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
+                    {
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-sm editarnumero" type="button"><span class="glyphicon glyphicon-edit"></span></button> 
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                    }
+                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"}) 
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DataInicio)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.EditorFor(x => x.DataInicio)
+                    @Html.ValidationMessageFor(x => x.DataInicio, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control" })                    
+                    @Html.ValidationMessageFor(x => x.Descricao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.DataLimite)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.EditorFor(x => x.DataLimite)                
+                    @Html.ValidationMessageFor(x => x.DataLimite, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Colecao)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control" })                    
+                    @Html.ValidationMessageFor(x => x.Colecao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.Label("Capacidade Total da Remessa", new { @class = "control-label col-sm-4 col-md-3"})
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    <input class="form-control numeric-only" id="CapacidadeRemessa" name="CapacidadeRemessa" type="text" value="">
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Observacao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="form-group form-group-sm">
+                @Html.Label("Capacidade Produtiva", new { @class = "control-label col-sm-2 col-md-2" })
+                <div class="col-sm-10 col-md-10 col-lg-10 table-responsive">
+                    @(Html.Kendo().Grid(@Model.GridRemessaProducaoCapacidadeProdutiva)
+                        .Name("GridRemessaProducaoCapacidadeProdutiva")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.Id).Hidden().ClientTemplate(
+                                "<input type='hidden' name='GridRemessaProducaoCapacidadeProdutiva[#= index(data)#].Id' value='#= Id #' />");
+                            columns.Bound(x => x.ClassificacaoDificuldade).EditorTemplateName("ClassificacaoDificuldadeList").Filterable(false)
+                                .ClientTemplate("#= displayClassificacaoDificuldade(ClassificacaoDificuldade) #" +
+                                    "<input type='hidden' name='GridRemessaProducaoCapacidadeProdutiva[#= index(data)#].ClassificacaoDificuldade' value='#= ClassificacaoDificuldade #' />");                        
+                            columns.Bound(p => p.CapacidadeProducao).Width(80)
+                                .ClientTemplate("#= CapacidadeProducao #" +
+                                    "<input type='hidden' name='GridRemessaProducaoCapacidadeProdutiva[#= index(data)#].CapacidadeProducao' value='#= CapacidadeProducao #' />");
+                            columns.Command(command => command.Destroy().Text("Excluir")).Width(110);
+                        })
+                        .DataSource(s => s.Ajax()
+                            .Batch(true)
+                            .Events(events => events.Error("onKendoGridError").Change("atualizeCapacidadeTotalRemessa"))
+                            .Model(model =>
+                            {
+                                model.Id(item => item.Id);
+                                model.Field(item => item.Id).DefaultValue(0);
+                    
+                            }))                              
+                        .ToolBar(toolbar => toolbar.Create())
+                        .Editable(editable =>
+                        {
+                            editable.Mode(GridEditMode.InCell);
+                            editable.DisplayDeleteConfirmation("Tem certeza que deseja excluir esse item?");
+                        })
+                        .Resizable(resize => resize.Columns(true))
+                          .Navigatable())  
+                        @Html.ValidationMessageFor(x => x.GridRemessaProducaoCapacidadeProdutiva, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<hr/>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Producao.RemessaProducao.Excluir(Model.Id))
+
+<script>
+    function displayClassificacaoDificuldade(id) {
+        var classificacaoDificuldadeDicionario = $("#ClassificacaoDificuldadeDicionario").data("value");
+        var nome = "";
+        $.each(classificacaoDificuldadeDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function NumeroEhValido() {
+        return $("#Numero").valid() && $("#Ano").valid();
+    }
+
+    $(document).ready(function () {
+
+        $('#form').submit(function(e) {
+            limpeMensagensAlerta();
+            
+            var formEValido = $("#form").valid();
+            var numeroEhValido = NumeroEhValido();
+
+            if (!formEValido || !numeroEhValido) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            if (!$('#CapacidadeRemessa').valid()) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            var dataGridItens = obtenhaGridRemessaProducaoCapacidadeProdutiva().dataSource.data();
+
+            var mensagem = "";
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.CapacidadeProducao == 0 || dataItem.CapacidadeProducao == null) {
+                    var row = $(obtenhaGridRemessaProducaoCapacidadeProdutiva().tbody).find("tr[data-uid='" + dataItem.uid + "']");
+                    mensagem += "A classificação de dificuldade " + row.find("td").eq(1).text() + " não possui valor de capacidade de produção.</br>";
+                }
+            }
+
+            if (mensagem != "") {
+                e.preventDefault();
+                exibaAlertaErro(mensagem);
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            return true;
+        });
+
+        $(".editarnumero").click(function()
+        {
+            if ($("#Numero").prop("disabled") == false) {
+                $("#Numero").prop("disabled", true);
+                $("#Ano").prop("disabled", true);
+                $("#Numero").val("");
+                $("#Ano").val("");
+
+                configureValidacaoNumeroAno(false);
+
+            } else {
+                $("#Numero").prop("disabled", false);
+                $("#Numero").focus();
+                $("#Ano").prop("disabled", false);
+                $("#Ano").val(new Date().getFullYear());
+
+                configureValidacaoNumeroAno(true);
+            }
+        });
+
+        $.validator.addMethod("numeroCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o número ou desabilite o campo.");
+
+        $.validator.addMethod("anoCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o ano ou desabilite o campo.");
+
+        $("#Numero").prop("disabled", true);
+        $("#Ano").prop("disabled", true);
+
+        configureValidacaoNumeroAno(false);
+    });
+
+    function configureValidacaoNumeroAno(deveValidar) {
+        if (deveValidar) {
+            $("#Numero").rules("add", {
+                numeroCondicional: true
+            });
+
+            $("#Ano").rules("add", {
+                anoCondicional: true
+            });
+            $("label[for='Numero']").removeClass("required-label");
+        } else {
+            $("#Numero").rules("remove", "numeroCondicional");
+            $("#Ano").rules("remove", "anoCondicional");
+            $("label[for='Numero']").removeClass("required-label");
+
+            $("#Numero").valid();
+            $("#Ano").valid();
+        }
+    }
+
+    function atualizeCapacidadeTotalRemessa() {
+        var dataItens = window.obtenhaGridRemessaProducaoCapacidadeProdutiva().dataSource.data();
+
+        var quantidade = 0;
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            quantidade += dataItem.CapacidadeProducao;
+        }
+
+        $('[id=CapacidadeRemessa]').val(quantidade);
+    }
+
+    function index(dataItem) {
+        var data = obtenhaGridRemessaProducaoCapacidadeProdutiva().dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function obtenhaGridRemessaProducaoCapacidadeProdutiva() {
+        return $("#GridRemessaProducaoCapacidadeProdutiva").data("kendoGrid");
+    }
+</script>

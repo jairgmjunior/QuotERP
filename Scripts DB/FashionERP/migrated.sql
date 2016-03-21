@@ -1,145 +1,24 @@
 /* Using Database sqlserver2012 and Connection String server=.\SQLEXPRESS;Database=FashionERP;User Id=sa;Password=123456; */
-/* 201505191523: Migration201505191523 migrating ============================= */
+/* 201603091702: Migration201603091702 migrating ============================= */
 
 /* Beginning Transaction */
-/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201505191523.permissao.sql */
+/* CreateTable remessaproducao */
+CREATE TABLE [dbo].[remessaproducao] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [numero] BIGINT NOT NULL, [ano] BIGINT NOT NULL, [descricao] NVARCHAR(255) NOT NULL, [datainicio] DATETIME NOT NULL, [datalimite] DATETIME NOT NULL, [dataalteracao] DATETIME NOT NULL, [observacao] NVARCHAR(255), [colecao_id] BIGINT NOT NULL, CONSTRAINT [PK_remessaproducao] PRIMARY KEY ([id]))
 
-DECLARE @ESTOQUEMATERIALID AS BIGINT;
+/* CreateForeignKey FK_remessaproducao_colecao remessaproducao(colecao_id) colecao(id) */
+ALTER TABLE [dbo].[remessaproducao] ADD CONSTRAINT [FK_remessaproducao_colecao] FOREIGN KEY ([colecao_id]) REFERENCES [dbo].[colecao] ([id])
 
-set @ESTOQUEMATERIALID = (select id from  [dbo].[permissao] where action = 'EstoqueMaterial' and controller = 'Consulta')
+/* CreateTable remessaproducaocapacidadeprodutiva */
+CREATE TABLE [dbo].[remessaproducaocapacidadeprodutiva] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [quantidade] REAL NOT NULL, [remessaproducao_id] BIGINT NOT NULL, [classificacaodificuldade_id] BIGINT NOT NULL, CONSTRAINT [PK_remessaproducaocapacidadeprodutiva] PRIMARY KEY ([id]))
 
+/* CreateForeignKey FK_remessaproducaocapacidadeprodutiva_remessaproducao remessaproducaocapacidadeprodutiva(remessaproducao_id) remessaproducao(id) */
+ALTER TABLE [dbo].[remessaproducaocapacidadeprodutiva] ADD CONSTRAINT [FK_remessaproducaocapacidadeprodutiva_remessaproducao] FOREIGN KEY ([remessaproducao_id]) REFERENCES [dbo].[remessaproducao] ([id])
 
-INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Custo do Material'
-           ,'CustoMaterial'
-           ,'Almoxarifado'
-           ,'Consulta'
-           ,0
-           ,1
-           ,@ESTOQUEMATERIALID
-           ,0
-		   )     
-  
-INSERT INTO [dbo].[permissao]
-           ([descricao]
-           ,[action]
-           ,[area]
-           ,[controller]
-           ,[exibenomenu]
-           ,[requerpermissao]
-           ,[permissaopai_id]
-           ,[ordem])
-     VALUES
-           ('Extrato do Item'
-           ,'ExtratoItem'
-           ,'Almoxarifado'
-           ,'Consulta'
-           ,0
-           ,1
-           ,@ESTOQUEMATERIALID
-           ,0
-		   )     
-  
+/* CreateForeignKey FK_remessaproducaocapacidadeprodutiva_classificacaodificuldade remessaproducaocapacidadeprodutiva(classificacaodificuldade_id) classificacaodificuldade(id) */
+ALTER TABLE [dbo].[remessaproducaocapacidadeprodutiva] ADD CONSTRAINT [FK_remessaproducaocapacidadeprodutiva_classificacaodificuldade] FOREIGN KEY ([classificacaodificuldade_id]) REFERENCES [dbo].[classificacaodificuldade] ([id])
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201505191523, '2015-06-08T13:21:33', 'Migration201505191523')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-03-11T13:58:56', 'Migration201603091702')
 /* Committing Transaction */
-/* 201505191523: Migration201505191523 migrated */
+/* 201603091702: Migration201603091702 migrated */
 
-/* 201505251307: Migration201505251307 migrating ============================= */
-
-/* Beginning Transaction */
-/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201505251307.modelomaterialconsumo.sql */
-CREATE TABLE modelomaterialconsumo(
-	[id] [bigint] NOT NULL,
-	[idempresa] [bigint] NOT NULL,
-	[idtenant] [bigint] NOT NULL,	
-	[quantidade] [float] NULL,					
-	[material_id] [bigint]  NULL,
-	[unidademedida_id] [bigint]  NULL,
-	[departamentoproducao_id] [bigint] NULL,	
-	[modelo_id] [bigint] NULL,	
-	CONSTRAINT [PK_modelomaterialconsumo] PRIMARY KEY (id)
- )
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_material] FOREIGN KEY([material_id])
-REFERENCES [dbo].[material] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_unidademedida] FOREIGN KEY([unidademedida_id])
-REFERENCES [dbo].[unidademedida] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_departamentoproducao] FOREIGN KEY([departamentoproducao_id])
-REFERENCES [dbo].[departamentoproducao] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_modelo] FOREIGN KEY([modelo_id])
-REFERENCES [dbo].[modelo] ([id])
-GO
-
-update permissao set descricao = 'Materiais de Consumo', action = 'ModeloMaterialConsumo', controller = 'ModeloMaterialConsumo' where controller = 'MaterialComposicaoModelo'
-
-
-INSERT INTO modelomaterialconsumo
-(id, idempresa, idtenant, quantidade, material_id, unidademedida_id, departamentoproducao_id, modelo_id)
-SELECT materialcomposicaomodelo.id, 0, 0, quantidade, material_id, unidademedida_id, departamentoproducao_id, modelo_id
-FROM materialcomposicaomodelo, sequenciaproducao where sequenciaproducao_id = sequenciaproducao.id;
-
-drop table materialcomposicaomodelo;
-
-update uniquekeys set nexthi = (select nexthi from uniquekeys where tablename = 'materialcomposicaomodelo') where tablename = 'modelomaterialconsumo';
-/* !!! An error occurred executing the following sql:
-CREATE TABLE modelomaterialconsumo(
-	[id] [bigint] NOT NULL,
-	[idempresa] [bigint] NOT NULL,
-	[idtenant] [bigint] NOT NULL,	
-	[quantidade] [float] NULL,					
-	[material_id] [bigint]  NULL,
-	[unidademedida_id] [bigint]  NULL,
-	[departamentoproducao_id] [bigint] NULL,	
-	[modelo_id] [bigint] NULL,	
-	CONSTRAINT [PK_modelomaterialconsumo] PRIMARY KEY (id)
- )
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_material] FOREIGN KEY([material_id])
-REFERENCES [dbo].[material] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_unidademedida] FOREIGN KEY([unidademedida_id])
-REFERENCES [dbo].[unidademedida] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_departamentoproducao] FOREIGN KEY([departamentoproducao_id])
-REFERENCES [dbo].[departamentoproducao] ([id])
-GO
-
-ALTER TABLE modelomaterialconsumo  WITH CHECK ADD  CONSTRAINT [FK_modelomaterialconsumo_modelo] FOREIGN KEY([modelo_id])
-REFERENCES [dbo].[modelo] ([id])
-GO
-
-update permissao set descricao = 'Materiais de Consumo', action = 'ModeloMaterialConsumo', controller = 'ModeloMaterialConsumo' where controller = 'MaterialComposicaoModelo'
-
-
-INSERT INTO modelomaterialconsumo
-(id, idempresa, idtenant, quantidade, material_id, unidademedida_id, departamentoproducao_id, modelo_id)
-SELECT materialcomposicaomodelo.id, 0, 0, quantidade, material_id, unidademedida_id, departamentoproducao_id, modelo_id
-FROM materialcomposicaomodelo, sequenciaproducao where sequenciaproducao_id = sequenciaproducao.id;
-
-drop table materialcomposicaomodelo;
-
-update uniquekeys set nexthi = (select nexthi from uniquekeys where tablename = 'materialcomposicaomodelo') where tablename = 'modelomaterialconsumo';
-GO
-The error was Já existe um objeto com nome 'modelomaterialconsumo' no banco de dados.
- */
-/* Rolling back transaction */
+/* Task completed. */

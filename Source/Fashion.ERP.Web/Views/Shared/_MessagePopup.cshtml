@@ -1,18 +1,22 @@
 ﻿@if (this.HasSuccessMessage())
-{
-    <div id='success-modal' class='modal hide'>
-        <div class='modal-header alert-success'>
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Sucesso</h3>
-        </div>
-        <div class='modal-body'>
-        @foreach (var message in this.GetSuccessMessage())
-        {
-            <p>@message</p>
-        }
-        </div>
-        <div class="modal-footer">
-            <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+{   
+    <div id="success-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Sucesso</h3>
+                </div>
+                <div id="modal-body" class="modal-body" style="overflow-y: hidden;">
+                    @foreach (var message in this.GetSuccessMessage())
+                    {
+                        <p>@message</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -21,21 +25,26 @@
         });
     </script>
 }
+
 @if (this.HasInfoMessage())
 {
-    <div id='info-modal' class='modal hide'>
-        <div class='modal-header alert-info'>
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Informação</h3>
-        </div>
-        <div class='modal-body'>
-            @foreach (var message in this.GetInfoMessage())
-            {
-                <p>@message</p>
-            }
-        </div>
-        <div class="modal-footer">
-            <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+    <div id="info-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Informação</h3>
+                </div>
+                <div id="modal-body" class="modal-body" style="overflow-y: hidden;">
+                    @foreach (var message in this.GetInfoMessage())
+                    {
+                        <p>@message</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -44,21 +53,26 @@
         });
     </script>
 }
+
 @if (this.HasErrorMessage())
 {
-    <div id='error-modal' class='modal hide'>
-        <div class='modal-header alert-error'>
-            <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
-            <h3>Erro</h3>
-        </div>
-        <div class='modal-body'>
-            @foreach (var message in this.GetErrorMessage())
-            {
-                <p>@message</p>
-            }
-        </div>
-        <div class="modal-footer">
-            <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+    <div id="error-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                    <h3><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Erro</h3>
+                </div>
+                <div id="modal-body" class="modal-body" style="overflow-y: hidden;">
+                @foreach (var message in this.GetErrorMessage())
+                {
+                    <p>@message</p>
+                }
+                </div>
+                <div class="modal-footer">
+                    <a id="fechar-button" href="javascript:void(0)" class="btn" data-dismiss="modal">Fechar</a>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -67,6 +81,7 @@
         });
     </script>
 }
+
 <script>
     $(function () {
         setTimeout(function () {

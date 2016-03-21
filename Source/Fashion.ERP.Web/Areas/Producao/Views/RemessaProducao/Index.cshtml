@@ -1,0 +1,132 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model PesquisaRemessaProducaoModel
+
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+<div class="well well-sm">
+    @Html.ActionLinkAuth("Novo", MVC.Producao.RemessaProducao.Novo(), new { @class = "btn btn-primary" })
+</div>
+
+@Html.ValidationSummaryEx()
+
+@using (Html.BeginForm(MVC.Producao.RemessaProducao.Index(), FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar</a>
+            </div>
+            <div id="collapsePesquisar" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Numero)
+                                <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
+                                    @Html.TextBoxFor(x => x.Numero, new { @class = "form-control" })
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 campo-duplo-esquerdo">
+                                    @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataInicio)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataInicio))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0">
+                                            @Html.LabelFor(x => x.DataInicioAte, "Até", new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataInicioAte))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Descricao)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataLimite)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataLimite))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0">
+                                            @Html.LabelFor(x => x.DataLimiteAte, "Até", new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataLimiteAte))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.Colecao)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    @Html.DropDownListFor(x => x.Colecao, null, "-- Selecione --", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12 1 form-group">
+                                <button id="pesquisar-grid-ajax" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="pdf"></div>
+<div class="table-responsive">
+    @(Html.Kendo().Grid<GridRemessaProducaoModel>()
+        .Name("Grid")    
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .PageSize(15)
+            .Read(read => read.Action("ObtenhaListaGridModel", "RemessaProducao").Data("ObtenhaModelJsonObject"))
+            .Events(events => events.Error("onKendoGridError"))
+        )
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.Descricao);
+            columns.Bound(x => x.Colecao);
+            columns.Bound(x => x.DataInicio);
+		    columns.Bound(x => x.DataLimite);
+            columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "RemessaProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        })
+        .Resizable(resize => resize.Columns(true))
+        .Reorderable(reorder => reorder.Columns(true))
+        .Pageable()
+        .Sortable()
+        .Groupable())
+</div>

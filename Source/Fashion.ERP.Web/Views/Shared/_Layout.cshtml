@@ -30,7 +30,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="divider-vertical"></li>
+                            @*<li class="nav-divider"></li>*@
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class='fa fa-user fa-fw'></i>@HttpContext.Current.User.Identity.Name<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -48,7 +48,8 @@
             {
                 @Html.Partial("_Inicio")
             }
-            else{
+            else
+            {
                 <div class="page container-fluid">
                     @siteMap.SiteMapPath()
                     @Html.Partial("_Message")
@@ -61,7 +62,7 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="pull-left">
-                        <p>Fashion ERP © 2015 | <span class="glyphicon glyphicon-envelope"></span>contato@fashionsistemas.com.br</p>
+                        <p>FashionERP © 2015 | <span class="glyphicon glyphicon-envelope"></span>contato@fashionsistemas.com.br</p>
                     </div>
                     <div class="pull-right">
                         <p>Desenvolvido por Fashion Consultoria & Sistemas</p>

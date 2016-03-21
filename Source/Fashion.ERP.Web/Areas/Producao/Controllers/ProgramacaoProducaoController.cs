@@ -22,7 +22,6 @@ using FluentNHibernate.Conventions;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using Microsoft.Ajax.Utilities;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;

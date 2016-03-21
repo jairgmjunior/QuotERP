@@ -14,6 +14,8 @@ namespace Fashion.ERP.Web.Models
         [StringLength(50, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Senha { get; set; }
 
+        public string ReturnUrl { get; set; }
+
         [Display(Name = "Permanecer Logado")]
         public bool PermanecerLogado { get; set; }
     }

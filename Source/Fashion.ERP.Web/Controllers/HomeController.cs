@@ -37,9 +37,19 @@ namespace Fashion.ERP.Web.Controllers
 
         #region Login
         [AllowAnonymous]
-        public virtual ActionResult Login()
+        public virtual ActionResult Login(string returnUrl)
         {
-            return PartialView(new LoginModel());
+            if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
+            var model = new LoginModel();
+
+            if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+            {
+                model.ReturnUrl = returnUrl;
+            }
+
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -50,12 +60,22 @@ namespace Fashion.ERP.Web.Controllers
             {
                 try
                 {
+                    string decodedUrl = "";
+                    if (!string.IsNullOrEmpty(model.ReturnUrl))
+                        decodedUrl = Server.UrlDecode(model.ReturnUrl);
+
                     var usuario = _usuarioRepository.Find(x => x.Login == model.Usuario).FirstOrDefault();
 
                     if (usuario != null && usuario.Autenticar(model.Senha))
                     {
                         FashionSecurity.Login(usuario.Id, usuario.Nome, 10080 /* 1 semana */, model.PermanecerLogado);
-                        return RedirectToAction("Index");
+                        
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            return Redirect(decodedUrl);
+                        }
+                        
+                        return RedirectToAction("Index", "Home");
                     }
 
                     this.AddErrorMessage("O nome de usuário ou a senha inserido está incorreto.");

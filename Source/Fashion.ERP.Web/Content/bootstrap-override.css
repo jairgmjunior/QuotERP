@@ -349,11 +349,16 @@ html, body {
     display: block !important
 }
 
-/*.divider-menu {
-  height: 1px;
-  width:100%;
-  display:block; /* for use on default inline elements like span */
-  /*margin: 9px 0;*/
-  overflow: hidden;
-  background-color: #e5e5e5;    
-}*/
+.navbar-toggle {
+    z-index : 2000
+}
+
+@media (min-width: 768px) {
+    .campo-duplo-direito {
+        padding-right: 0 !important;
+    }
+
+    .campo-duplo-esquerdo {
+        padding-left: 0 !important;
+    }
+}

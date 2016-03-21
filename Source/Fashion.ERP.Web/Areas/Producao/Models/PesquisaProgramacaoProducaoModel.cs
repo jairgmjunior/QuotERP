@@ -6,7 +6,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 {
     public class PesquisaProgramacaoProducaoModel
     {
-        [Display(Name = "Tag")]
+        [Display(Name = "Tag/Ano")]
         public string Tag { get; set; }
 
         [Display(Name = "Ano")]

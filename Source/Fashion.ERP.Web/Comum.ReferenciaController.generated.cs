@@ -112,7 +112,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionParamsClass_LerReferencias
         {
             public readonly string request = "request";
-            public readonly string clienteId = "clienteId";
+            public readonly string pessoaId = "pessoaId";
         }
         static readonly ActionParamsClass_Novo s_params_Novo = new ActionParamsClass_Novo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -165,14 +165,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return callInfo;
         }
 
-        partial void LerReferenciasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long clienteId);
+        partial void LerReferenciasOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, long pessoaId);
 
-        public override System.Web.Mvc.ActionResult LerReferencias(Kendo.Mvc.UI.DataSourceRequest request, long clienteId)
+        public override System.Web.Mvc.ActionResult LerReferencias(Kendo.Mvc.UI.DataSourceRequest request, long pessoaId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LerReferencias);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "clienteId", clienteId);
-            LerReferenciasOverride(callInfo, request, clienteId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pessoaId", pessoaId);
+            LerReferenciasOverride(callInfo, request, pessoaId);
             return callInfo;
         }
 

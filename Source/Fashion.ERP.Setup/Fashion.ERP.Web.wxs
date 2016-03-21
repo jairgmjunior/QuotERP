@@ -1543,11 +1543,11 @@
                 <Component Id="cmp991FC72FF6B6062847CCB709C261BFDB" Guid="*">
                     <File Id="fil756FAE7438865F09F4DAA266137A16D4" KeyPath="yes" Source="SourceDir\Content\bootstrap-override.css" />
                 </Component>
-                <Component Id="cmpB03D1D02F697096A98EE7DE8864C34F9" Guid="*">
-                    <File Id="filFD86F531A29DE862E14562248AF817A5" KeyPath="yes" Source="SourceDir\Content\bootstrap-responsive.css" />
+                <Component Id="cmp8E2EC055762807858192B50CE7AA1E38" Guid="*">
+                    <File Id="filD4AB6E0A6A542AC4D9601D3DCB1AEC85" KeyPath="yes" Source="SourceDir\Content\bootstrap-theme.css" />
                 </Component>
-                <Component Id="cmp57DA27E3D06726056B8B4024EC9EB547" Guid="*">
-                    <File Id="filDCA0D60CBDA8E6EBF0BB1DED44AC2E1A" KeyPath="yes" Source="SourceDir\Content\bootstrap-responsive.min.css" />
+                <Component Id="cmp42CA9F20CAB4E826CAA5E2D494EE7FF9" Guid="*">
+                    <File Id="fil15BBE8A06A054EA8DE14F08AF327131A" KeyPath="yes" Source="SourceDir\Content\bootstrap-theme.min.css" />
                 </Component>
                 <Component Id="cmp15A29A5425E4420E8590287F099C164B" Guid="*">
                     <File Id="fil2B32A0798AFE201883EEA7F732E79BE8" KeyPath="yes" Source="SourceDir\Content\bootstrap.css" />
@@ -1555,14 +1555,14 @@
                 <Component Id="cmpD20F55D3C1DA2E299A41E34E7C50C69C" Guid="*">
                     <File Id="fil7D6129762B888CF5A1D70C51C26BE7DA" KeyPath="yes" Source="SourceDir\Content\bootstrap.min.css" />
                 </Component>
-                <Component Id="cmp37FCAB2AE394450DFDFF7E3F60ADF974" Guid="*">
-                    <File Id="fil1049006B6E3DDBD97C5DC5375640DF4E" KeyPath="yes" Source="SourceDir\Content\jasny-bootstrap-responsive.css" />
-                </Component>
-                <Component Id="cmp6878E9818BDE6D3D2855DD573B0A7D0D" Guid="*">
-                    <File Id="fil3E24CC18B7D8712756907135305F5769" KeyPath="yes" Source="SourceDir\Content\jasny-bootstrap-responsive.min.css" />
+                <Component Id="cmp9902ACDE38C111E7EAEBA6C9F56C2770" Guid="*">
+                    <File Id="fil478BA3047BABE50C2C66008E2EC9F157" KeyPath="yes" Source="SourceDir\Content\font-awesome.min.css" />
                 </Component>
                 <Component Id="cmp8485435F58442EB156422C837664EADB" Guid="*">
                     <File Id="filE6FACE775B8F04932AA6E3739049A237" KeyPath="yes" Source="SourceDir\Content\jasny-bootstrap.css" />
+                </Component>
+                <Component Id="cmpC2E5314593533DF903A543E8A778FD6A" Guid="*">
+                    <File Id="fil2BB1C48A604ED5BB212ADDC119B8DE1C" KeyPath="yes" Source="SourceDir\Content\jasny-bootstrap.min.css" />
                 </Component>
                 <Component Id="cmp63ECED6B3DC796FB8820061D6018946B" Guid="*">
                     <File Id="fil7B80EEE5368941A79161EACC7D9F733F" KeyPath="yes" Source="SourceDir\Content\Jcrop.gif" />
@@ -1579,11 +1579,11 @@
                 <Component Id="cmpD0D03B2E20CB901FA01110871D3EA08C" Guid="*">
                     <File Id="fil8938752741A5888308D17DE025341841" KeyPath="yes" Source="SourceDir\Content\kendo.bootstrap.min.css" />
                 </Component>
+                <Component Id="cmp0C9F033CD26A47A5B757D89CFC382ECB" Guid="*">
+                    <File Id="fil632F50A9F2CF4F457C3E4DE68ACB5A86" KeyPath="yes" Source="SourceDir\Content\kendo.common-bootstrap.css" />
+                </Component>
                 <Component Id="cmp3CA153EBEA09F6D52B1E601263DAD9D7" Guid="*">
                     <File Id="filC7FDE1402CC0A83BAB33071FA5A54BCC" KeyPath="yes" Source="SourceDir\Content\kendo.common.css" />
-                </Component>
-                <Component Id="cmp8B6B94ABCB60748DBFF04494DE9D6163" Guid="*">
-                    <File Id="filE350B491C27083ED3916CCBAF240E7FD" KeyPath="yes" Source="SourceDir\Content\kendo.common.min.css" />
                 </Component>
                 <Component Id="cmp33D2CFF8279D989EC29CECA14D1D2C9B" Guid="*">
                     <File Id="fil754C3E6C1C7EB9645D645EC1E0982BA8" KeyPath="yes" Source="SourceDir\Content\layout.css" />
@@ -1593,6 +1593,9 @@
                 </Component>
                 <Component Id="cmp46C4AB4254FAC2978B7A05FA01F859F4" Guid="*">
                     <File Id="fil864701240591EF5AF09B04799DA3FAC4" KeyPath="yes" Source="SourceDir\Content\login.css" />
+                </Component>
+                <Component Id="cmp4F9037BD762F8C55FE5B0DE3849993C2" Guid="*">
+                    <File Id="fil1D847ABCACAD322AA490CA9A301FB4C0" KeyPath="yes" Source="SourceDir\Content\nav-vertical.css" />
                 </Component>
                 <Component Id="cmpCC69BCDDC1CB4F40F7E1541F8F7D426F" Guid="*">
                     <File Id="fil0D735632B8369A9F35593EA1A4467C53" KeyPath="yes" Source="SourceDir\Content\pick-a-color.css" />
@@ -1647,6 +1650,9 @@
                     </Component>
                     <Component Id="cmpFE8F063BBA64D367473BAD0DD5ED0D4B" Guid="*">
                         <File Id="filC8B562D23B149001AF2E938B5591E5F9" KeyPath="yes" Source="SourceDir\Content\images\no_image_report.png" />
+                    </Component>
+                    <Component Id="cmp121040256910E09EF22C2E10C113A317" Guid="*">
+                        <File Id="filE44EF9E84F1C19E0C39A54B696FC74C1" KeyPath="yes" Source="SourceDir\Content\images\quodlogo.png" />
                     </Component>
                 </Directory>
                 <Directory Id="dir9D0843F2E8C92E85176F0F0271CC1EC8" Name="Lightbox">
@@ -1733,6 +1739,55 @@
                 <Component Id="cmp3502B835DF4FD120C59A4EC431858755" Guid="*">
                     <File Id="fil6C4667D0E280E9B2ED002F3909533C3B" KeyPath="yes" Source="SourceDir\font\iconic_stroke.eot" />
                 </Component>
+            </Directory>
+            <Directory Id="dir21A808226B08DCA5F347A5FF8CAD32C0" Name="fonts">
+                <Component Id="cmpAC8891B44CE2CDA777AC046D29D4DB1B" Guid="*">
+                    <File Id="fil8DC5BA5748CEF2A7425C4031E0BA0905" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.eot" />
+                </Component>
+                <Component Id="cmpCD0AC7776B22C526FDB7C89583A3916C" Guid="*">
+                    <File Id="fil6F6269A67F09DB9DA42DFDFBD973A7B3" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.svg" />
+                </Component>
+                <Component Id="cmpB5D764EA5B9C10886B321A2161BC30FE" Guid="*">
+                    <File Id="fil3D80DC08EA7B794970B8908625638465" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.ttf" />
+                </Component>
+                <Component Id="cmpBE4DF9AD425DC3AB2075EE7E07935F87" Guid="*">
+                    <File Id="filBFB5F2C1BE25E07FD5939C2988992D79" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.woff" />
+                </Component>
+                <Component Id="cmp618E2ED6E4DE2973C5B46AB59E0F6E62" Guid="*">
+                    <File Id="fil0EBC82D958B79F0B08363BD4E270486A" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.eot" />
+                </Component>
+                <Component Id="cmp74152213EE9945A8A493E97E6A392C60" Guid="*">
+                    <File Id="filA689A65972145B4A2609E61180008DB3" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.svg" />
+                </Component>
+                <Component Id="cmpC47CCD09F4895FD91FD4028DECEE9866" Guid="*">
+                    <File Id="fil34BF6027D6A392A73D6D3BF7B05257B2" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.ttf" />
+                </Component>
+                <Component Id="cmp5374FF3BBF4349E79B493D2BB4D34C17" Guid="*">
+                    <File Id="filCA6220873D70AC659DB8080602101E4D" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.woff" />
+                </Component>
+                <Component Id="cmp13B5675818EB1B89A0C2DC7F95BDDC0A" Guid="*">
+                    <File Id="fil89C0CBE05AC4A2D572CEC38C796AB363" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.woff2" />
+                </Component>
+                <Directory Id="dir93B2B4CB8CF3AD83A6AD506FC73EA9BB" Name="open_sans">
+                    <Component Id="cmpF1B6CE4BE682185BF6115D2EEDE11CF3" Guid="*">
+                        <File Id="fil04B2EBFAC086CBA3043D18DB3DC81531" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans-Bold.woff" />
+                    </Component>
+                    <Component Id="cmp90026B7AA7B54D691937D11D65B8FEC0" Guid="*">
+                        <File Id="fil13586861D1B923176F27637116D4D4AA" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans-Extrabold.woff" />
+                    </Component>
+                    <Component Id="cmpFFE302CFB45CF6DB65F6F76E16621855" Guid="*">
+                        <File Id="fil5E1348D24F09E9D373C49679E1CD8508" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans-Italic.woff" />
+                    </Component>
+                    <Component Id="cmp5F7F616EDEF0EBCBD6E1A6259FE92250" Guid="*">
+                        <File Id="filB59DCD2ED0050155A77BBCEAA27AC603" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans-Light.woff" />
+                    </Component>
+                    <Component Id="cmp775CC4DB526C876573D665DD26C5E524" Guid="*">
+                        <File Id="fil607F169D38B871CA1F6C6609D6554D3E" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans-Semibold.woff" />
+                    </Component>
+                    <Component Id="cmp745612C6E1E240C75DDE481F61B2A472" Guid="*">
+                        <File Id="fil4489B2AE2D33AD92206A63755A951A7C" KeyPath="yes" Source="SourceDir\fonts\open_sans\OpenSans.woff" />
+                    </Component>
+                </Directory>
             </Directory>
             <Directory Id="dirB87C6C8333363FFD9F1609ECA39D2CC4" Name="js">
                 <Component Id="cmp135FB7645C7CABBBCC46C495AAF92362" Guid="*">
@@ -1983,6 +2038,9 @@
                     </Component>
                     <Component Id="cmp20886ED491D3257315BCD725383C1EBB" Guid="*">
                         <File Id="filF20BE797644A43C94FE4B5B51F549C57" KeyPath="yes" Source="SourceDir\Views\Shared\_Default.cshtml" />
+                    </Component>
+                    <Component Id="cmpDA093421D9A37EAA86568D0F93D25ECB" Guid="*">
+                        <File Id="fil33EC98A97DBE58991F5C154BF1E61652" KeyPath="yes" Source="SourceDir\Views\Shared\_Inicio.cshtml" />
                     </Component>
                     <Component Id="cmpAE199113591C9A84FB87557594D8EDCB" Guid="*">
                         <File Id="filE98CBFAC9E5BD051167AA52F84DD8011" KeyPath="yes" Source="SourceDir\Views\Shared\_Layout.cshtml" />
@@ -2578,23 +2636,24 @@
             <ComponentRef Id="cmp741CD9F9CCD0FE296004B07132F27A2B" />
             <ComponentRef Id="cmp7266B67162CC9CBD53D8FC3354DAB356" />
             <ComponentRef Id="cmp991FC72FF6B6062847CCB709C261BFDB" />
-            <ComponentRef Id="cmpB03D1D02F697096A98EE7DE8864C34F9" />
-            <ComponentRef Id="cmp57DA27E3D06726056B8B4024EC9EB547" />
+            <ComponentRef Id="cmp8E2EC055762807858192B50CE7AA1E38" />
+            <ComponentRef Id="cmp42CA9F20CAB4E826CAA5E2D494EE7FF9" />
             <ComponentRef Id="cmp15A29A5425E4420E8590287F099C164B" />
             <ComponentRef Id="cmpD20F55D3C1DA2E299A41E34E7C50C69C" />
-            <ComponentRef Id="cmp37FCAB2AE394450DFDFF7E3F60ADF974" />
-            <ComponentRef Id="cmp6878E9818BDE6D3D2855DD573B0A7D0D" />
+            <ComponentRef Id="cmp9902ACDE38C111E7EAEBA6C9F56C2770" />
             <ComponentRef Id="cmp8485435F58442EB156422C837664EADB" />
+            <ComponentRef Id="cmpC2E5314593533DF903A543E8A778FD6A" />
             <ComponentRef Id="cmp63ECED6B3DC796FB8820061D6018946B" />
             <ComponentRef Id="cmpCA3DDD0D69AC0EA915F14CB342A67EA2" />
             <ComponentRef Id="cmp5605FF2FDA475460DD055FEA22B58FF7" />
             <ComponentRef Id="cmpDE617A8A4F3C03880070547D8D833062" />
             <ComponentRef Id="cmpD0D03B2E20CB901FA01110871D3EA08C" />
+            <ComponentRef Id="cmp0C9F033CD26A47A5B757D89CFC382ECB" />
             <ComponentRef Id="cmp3CA153EBEA09F6D52B1E601263DAD9D7" />
-            <ComponentRef Id="cmp8B6B94ABCB60748DBFF04494DE9D6163" />
             <ComponentRef Id="cmp33D2CFF8279D989EC29CECA14D1D2C9B" />
             <ComponentRef Id="cmpA7649CDEC6574660D4B9CC98652D63FD" />
             <ComponentRef Id="cmp46C4AB4254FAC2978B7A05FA01F859F4" />
+            <ComponentRef Id="cmp4F9037BD762F8C55FE5B0DE3849993C2" />
             <ComponentRef Id="cmpCC69BCDDC1CB4F40F7E1541F8F7D426F" />
             <ComponentRef Id="cmp96D710794B45BA988996F24A42EB7670" />
             <ComponentRef Id="cmpA0F055F422D5119D7F7FD8634A0B5979" />
@@ -2612,6 +2671,7 @@
             <ComponentRef Id="cmp1983E88EB402266DD4564647A8B23832" />
             <ComponentRef Id="cmp185DE35D998FF5A38AF8C0EEEFD1EEA0" />
             <ComponentRef Id="cmpFE8F063BBA64D367473BAD0DD5ED0D4B" />
+            <ComponentRef Id="cmp121040256910E09EF22C2E10C113A317" />
             <ComponentRef Id="cmpD2765704356DB6F4C3012B99D9A815F2" />
             <ComponentRef Id="cmp9F29015206355AF4F5ED37A103972834" />
             <ComponentRef Id="cmp0AA1BB27FBC1625F3EB51B8FA1B629A8" />
@@ -2636,6 +2696,21 @@
             <ComponentRef Id="cmpCE801C386CA0C2AAA2F8785DCA2D508C" />
             <ComponentRef Id="cmp7A27651FD98D5AD1CBE28DB0150414B0" />
             <ComponentRef Id="cmp3502B835DF4FD120C59A4EC431858755" />
+            <ComponentRef Id="cmpAC8891B44CE2CDA777AC046D29D4DB1B" />
+            <ComponentRef Id="cmpCD0AC7776B22C526FDB7C89583A3916C" />
+            <ComponentRef Id="cmpB5D764EA5B9C10886B321A2161BC30FE" />
+            <ComponentRef Id="cmpBE4DF9AD425DC3AB2075EE7E07935F87" />
+            <ComponentRef Id="cmp618E2ED6E4DE2973C5B46AB59E0F6E62" />
+            <ComponentRef Id="cmp74152213EE9945A8A493E97E6A392C60" />
+            <ComponentRef Id="cmpC47CCD09F4895FD91FD4028DECEE9866" />
+            <ComponentRef Id="cmp5374FF3BBF4349E79B493D2BB4D34C17" />
+            <ComponentRef Id="cmp13B5675818EB1B89A0C2DC7F95BDDC0A" />
+            <ComponentRef Id="cmpF1B6CE4BE682185BF6115D2EEDE11CF3" />
+            <ComponentRef Id="cmp90026B7AA7B54D691937D11D65B8FEC0" />
+            <ComponentRef Id="cmpFFE302CFB45CF6DB65F6F76E16621855" />
+            <ComponentRef Id="cmp5F7F616EDEF0EBCBD6E1A6259FE92250" />
+            <ComponentRef Id="cmp775CC4DB526C876573D665DD26C5E524" />
+            <ComponentRef Id="cmp745612C6E1E240C75DDE481F61B2A472" />
             <ComponentRef Id="cmp135FB7645C7CABBBCC46C495AAF92362" />
             <ComponentRef Id="cmpF7AD717BC502E72642D8C6E4901F769F" />
             <ComponentRef Id="cmp4FB8D20B6038BE5CBA1DA1C1A584DC39" />
@@ -2710,6 +2785,7 @@
             <ComponentRef Id="cmpAEACA9EF7A0430B971C75113A1F55BCD" />
             <ComponentRef Id="cmp02051433EFA51FB01CC40B51AF257840" />
             <ComponentRef Id="cmp20886ED491D3257315BCD725383C1EBB" />
+            <ComponentRef Id="cmpDA093421D9A37EAA86568D0F93D25ECB" />
             <ComponentRef Id="cmpAE199113591C9A84FB87557594D8EDCB" />
             <ComponentRef Id="cmp3B45539586423BBB0888E2B6A7CA0973" />
             <ComponentRef Id="cmpA40FC3735A36D7262BCBBD49BF5C3DBD" />
