@@ -12,7 +12,6 @@
                 <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
                     @Html.TextBoxFor(x => x.Lote, new { @class = "numeric-only form-control" })
                     @Html.ValidationMessageFor(x => x.Lote, null, new {@class = "help-block"})
-                    @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4  campo-duplo-esquerdo">
                     @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
@@ -23,10 +22,10 @@
                                 <button id="editarlote" class="btn btn-default btn-sm" type="button"><span class="glyphicon glyphicon-edit"></span></button> 
                             </div>
                         </div>
-                    }
-                    else
+                    }else
                     {
                         @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                        @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
                     }
                 </div>
             </div>
@@ -173,9 +172,11 @@
         $('#form').submit(function(e) {
             limpeMensagensAlerta();
 
-            var formValido = formularioEhValido();
+            var formEValido = $("#form").valid();
 
-            if (!$("#form").valid() || !formValido) {
+            var formularioValido = formularioEhValido();
+
+            if (!$("#form").valid() || !formularioValido) {
                 e.preventDefault();
                 $('#btnSubmit').button('reset');
                 return false;
@@ -253,50 +254,67 @@
             grid.refresh();
         });
 
-        $("#editarlote").click(function()
-        {
+
+        $("#editarlote").click(function () {
             if ($("#Lote").prop("disabled") == false) {
                 $("#Lote").prop("disabled", true);
                 $("#Ano").prop("disabled", true);
                 $("#Lote").val("");
                 $("#Ano").val("");
-                
-                $("#Lote").rules("remove", "required");
-                $("#Ano").rules("remove", "required");
 
-                $('#form').validate().resetForm();
-                $(".form-group").removeClass("error");
-                $(".input-validation-error").removeClass("input-validation-error");
-                $("label[for='Lote']").removeClass("required-label");
+                configureValidacaoLoteAno(false);
+
             } else {
                 $("#Lote").prop("disabled", false);
                 $("#Lote").focus();
                 $("#Ano").prop("disabled", false);
                 $("#Ano").val(new Date().getFullYear());
 
-                $("#Lote").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Informe o lote ou desabilite o campo."
-                    }
-                });
-
-                $("#Ano").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Informe o ano ou desabilite o campo."
-                    }
-                });
-
-                $("label[for='Lote']").addClass("required-label");
+                configureValidacaoLoteAno(true);
             }
         });
 
+        $.validator.addMethod("loteCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o lote ou desabilite o campo.");
+
+        $.validator.addMethod("anoCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o ano ou desabilite o campo.");
+
         $("#Lote").prop("disabled", true);
         $("#Ano").prop("disabled", true);
-        $("label[for='Lote']").removeClass("required-label");
-        
+
+        configureValidacaoLoteAno(false);
     });
+
+    function configureValidacaoLoteAno(deveValidar) {
+        if (deveValidar) {
+            $("#Lote").rules("add", {
+                loteCondicional: true
+            });
+
+            $("#Ano").rules("add", {
+                anoCondicional: true
+            });
+            $("label[for='Lote']").removeClass("required-label");
+        } else {
+            $("#Lote").rules("remove", "loteCondicional");
+            $("#Ano").rules("remove", "anoCondicional");
+            $("label[for='Lote']").removeClass("required-label");
+
+            $("#Lote").valid();
+            $("#Ano").valid();
+        }
+    }
 
     function atualizeQuantidadeTotalProgramacaoProgramacao() {
         var dataItensGridProgramacaoProducao = window.obtenhaGridProgramacaoProducaoItens().dataSource.data();
@@ -322,7 +340,7 @@
         }
 
         $(".k-input.k-invalid").parent(".k-numeric-wrap").css("border", "1px solid red");
-        return retorno;
+        return $("#Lote").valid() && $("#Ano").valid() && retorno;
     }
 
     $('#pesquisarvarios-fichatecnica').on('click', function (e) {

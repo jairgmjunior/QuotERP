@@ -11,11 +11,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         public long? Id { get; set; }
 
         [Display(Name = "Lote/Ano")]
-        //[Required(ErrorMessage = "Informe o lote ou desabilite o campo.")]
         public long? Lote { get; set; }
 
         [Display(Name = "Ano")]
-        //[Required(ErrorMessage = "Informe o ano ou desabilite o campo.")]
         public long? Ano { get; set; }
 
         [Display(Name = "Data")]
@@ -43,8 +41,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Situação")]
         public SituacaoProgramacaoProducao SituacaoProgramacaoProducao { get; set; }
-
-        //public IList<ProgramacaoProducaoMatrizCorteItemModel> GridItens { get; set; }
 
         public IList<ProgramacaoProducaoItemModel> GridProgramacaoProducaoItens { get; set; }
     }
