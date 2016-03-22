@@ -63,7 +63,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.720994234085083D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
             this.textBox31.StyleName = "Caption";
-            this.textBox31.Value = "Referencia";
+            this.textBox31.Value = "Referência";
             // 
             // textBox2
             // 
@@ -128,8 +128,8 @@ namespace Fashion.ERP.Reporting.Producao
             // table1
             // 
             this.table1.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.FichasTecnicas"));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.7209954261779785D)));
-            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(7.2879915237426758D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.7209955453872681D)));
+            this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(7.287992000579834D)));
             this.table1.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(6.0947046279907227D)));
             this.table1.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999982118606567D)));
             this.table1.Body.SetCellContent(0, 0, this.textBox30);

@@ -20,8 +20,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
 
-        [Display(Name = "Coleção")]
-        public long? Colecao { get; set; }
+        [Display(Name = "Remessa")]
+        public long? RemessaProducao { get; set; }
         
         [Display(Name = "Data de Cadastro")]
         public DateTime? DataCadastro { get; set; }

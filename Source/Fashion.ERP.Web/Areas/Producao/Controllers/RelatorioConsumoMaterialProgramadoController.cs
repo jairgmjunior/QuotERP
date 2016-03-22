@@ -26,6 +26,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly ILogger _logger;
         private readonly IRepository<ProgramacaoProducao> _programacaoProducaoRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
+        private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<Categoria> _categoriaRepository;
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
@@ -46,10 +47,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public RelatorioConsumoMaterialProgramadoController(ILogger logger, IRepository<Colecao> colecaoRepository, 
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository, 
-            IRepository<ProgramacaoProducao> programacaoProducaorRepository, IRepository<Material> materialRepository)
+            IRepository<ProgramacaoProducao> programacaoProducaorRepository, IRepository<Material> materialRepository,
+            IRepository<RemessaProducao> remessaProducaoRepository )
         {
             _logger = logger;
             _colecaoRepository = colecaoRepository;
+            _remessaProducaoRepository = remessaProducaoRepository;
             _categoriaRepository = categoriaRepository;
             _subcategoriaRepository = subcategoriaRepository;
             _reservaEstoqueMaterialRepository = reservaEstoqueMaterialRepository;
@@ -120,10 +123,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            if (model.ColecaoAprovada.HasValue)
+            if (model.RemessaProducao.HasValue)
             {
-                query = query.Where(p => p.ProgramacaoProducao.Colecao.Id == model.ColecaoAprovada);
-                filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
+                query = query.Where(p => p.ProgramacaoProducao.RemessaProducao.Id == model.RemessaProducao);
+                filtros.AppendFormat("Remessa de produção: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
             }
 
             //if (!string.IsNullOrWhiteSpace(model.Tag))
@@ -220,8 +223,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region PopulateConsumoMaterialProgramado
         protected void PopulateConsumoMaterialProgramado(ConsumoMaterialProgramadoModel model)
         {
-            var colecaoAprovada = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["ColecaoAprovada"] = colecaoAprovada.ToSelectList("Descricao", model.ColecaoAprovada);
+            var remessaProducao = _remessaProducaoRepository.Find().OrderBy(p => p.Descricao).ToList();
+            ViewData["RemessaProducao"] = remessaProducao.ToSelectList("Descricao", model.RemessaProducao);
             
             var categorias = _categoriaRepository.Find(p => p.Ativo).OrderBy(o => o.Nome).ToList();
             ViewData["Categorias"] = categorias.ToSelectList("Nome");

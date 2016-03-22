@@ -32,8 +32,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Qtde. Programada")]
         public long Quantidade { get; set; }
 
-        [Display(Name = "Coleção Programada")]
-        public string ColecaoProgramada { get; set; }
+        [Display(Name = "Remessa")]
+        public string RemessaProducao { get; set; }
 
         [Display(Name = "Situação")]
         public String SituacaoProgramacaoProducao { get; set; }

@@ -33,6 +33,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Variaveis
         private readonly IRepository<ProgramacaoProducao> _programacaoProducaoRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
+        private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
@@ -60,7 +61,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             IRepository<DepartamentoProducao> departamentoProducaoRepository, IRepository<ReservaEstoqueMaterial> reservaEstoqueMaterialRepository,
             IRepository<ProgramacaoProducaoMatrizCorte> programacaoProducaoMatrizCorteRepository, IRepository<UltimoNumero> ultimoNumeroRepository,
             IRepository<Usuario> usuarioRepository, IRepository<CentroCusto> centroCustoRepository,
-            IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<TipoItem> tipoItemRepository)
+            IRepository<RequisicaoMaterial> requisicaoMaterialRepository, IRepository<TipoItem> tipoItemRepository,
+            IRepository<RemessaProducao> remessaProducaoRepository )
         {
             _programacaoProducaoRepository = programacaoProducaoRepository;
             _colecaoRepository = colecaoRepository;
@@ -77,6 +79,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _centroCustoRepository = centroCustoRepository;
             _requisicaoMaterialRepository = requisicaoMaterialRepository;
             _tipoItemRepository = tipoItemRepository;
+            _remessaProducaoRepository = remessaProducaoRepository;
             _logger = logger;
         }
         #endregion
@@ -119,7 +122,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<ProgramacaoProducao>(model);
-                    domain.Colecao = _colecaoRepository.Load(model.Colecao);
+                    domain.RemessaProducao = _remessaProducaoRepository.Load(model.RemessaProducao);
                     domain.Data = DateTime.Now.Date;
                     domain.DataAlteracao = DateTime.Now.Date;
                     domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
@@ -347,7 +350,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     }
 
                     domain = Mapper.Unflat(model, domain);
-                    domain.Colecao = _colecaoRepository.Load(model.Colecao);
+                    domain.RemessaProducao = _remessaProducaoRepository.Load(model.RemessaProducao);
                     domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
                     domain.Quantidade = model.Quantidade;
 
@@ -600,10 +603,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Ano do Lote: {0}, ", model.AnoLote);
             }
 
-            if (model.Colecao.HasValue)
+            if (model.RemessaProducao.HasValue)
             {
-                programacoesProducao = programacoesProducao.Where(p => p.Colecao.Id == model.Colecao);
-                filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
+                programacoesProducao = programacoesProducao.Where(p => p.RemessaProducao.Id == model.RemessaProducao);
+                filtros.AppendFormat("Remessa: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
             }
 
             if (model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
@@ -667,7 +670,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 {
                     Id = p.Id.GetValueOrDefault(),
                     LoteAno = p.Lote.ToString() + '/' + p.Ano,
-                    Colecao = p.Colecao.Descricao,
+                    RemessaProducao = p.RemessaProducao.Descricao,
                     DataProgramada = p.DataProgramada.Date,
                     Responsavel = p.Funcionario.Nome,
                     QtdeFichasTecnicas = p.ProgramacaoProducaoItems.Count(),
@@ -711,7 +714,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {
                 DataProgramada = domain.DataProgramada,
                 Quantidade = domain.Quantidade,
-                ColecaoProgramada = domain.Colecao.Descricao,
+                RemessaProducao = domain.RemessaProducao.Descricao,
                 LoteAno = domain.Lote + "/" + domain.Ano,
                 SituacaoProgramacaoProducao = domain.SituacaoProgramacaoProducao.EnumToString(),
                 GridItens = new List<GridProgramacaoProducaoRequisicaoModel>(),
@@ -888,7 +891,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 DataProgramada = domain.DataProgramada,
                 Quantidade = domain.Quantidade,
                 LoteAno = domain.Lote + "/" + domain.Ano,
-                Colecao = domain.Colecao.Descricao,
+                RemessaProducao = domain.RemessaProducao.Descricao,
                 SituacaoProgramacaoProducao = domain.SituacaoProgramacaoProducao.EnumToString(),
                 GridItens = new List<GridProgramacaoProducaoMaterialModel>(),
                 Fotos = domain.ProgramacaoProducaoItems.SelectMany(x => x.FichaTecnica.FichaTecnicaFotos.Select(p => new FotoTituloModel
@@ -1079,7 +1082,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             var reservaMaterial = new ReservaMaterial()
             {
-                Colecao = domain.Colecao,
+                Colecao = domain.RemessaProducao.Colecao,
                 Numero = ProximoNumeroReservaMaterial(),
                 Data = DateTime.Now,
                 DataProgramacao = domain.DataProgramada,
@@ -1122,8 +1125,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         protected void PopulateViewDataPesquisa(PesquisaProgramacaoProducaoModel model)
         {
-            var colecaos = _colecaoRepository.Find(p => p.Ativo).ToList();
-            ViewBag.Colecao = colecaos.ToSelectList("Descricao", model.Colecao);
+            var remessas = _remessaProducaoRepository.Find().ToList();
+            ViewBag.RemessaProducao = remessas.ToSelectList("Descricao", model.RemessaProducao);
             ViewBag.OrdenarPor = new SelectList(ColunasOrdenacaoRelatorio, "value", "key");
         }
         #endregion
@@ -1132,8 +1135,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         protected void PopulateViewData(ProgramacaoProducaoModel model)
         {
-            var colecaos = _colecaoRepository.Find(p => p.Ativo).ToList();
-            ViewBag.Colecao = colecaos.ToSelectList("Descricao", model.Colecao);
+            var remessas = _remessaProducaoRepository.Find().ToList();
+            ViewBag.RemessaProducao = remessas.ToSelectList("Descricao", model.RemessaProducao);
         }
         #endregion
 

@@ -32,6 +32,17 @@ namespace Fashion.ERP.Migrator
                 .ForeignKey("FK_remessaproducaocapacidadeprodutiva_classificacaodificuldade", "classificacaodificuldade", "id");
 
             Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201603091702.permissao.sql");
+            
+            Alter.Table("programacaoproducao")
+                .AddColumn("remessaproducao_id")
+                .AsInt64()
+                .Nullable()
+                .ForeignKey("FK_programacaoproducao_remessaproducao", "remessaproducao", "id");
+            
+            Execute.Sql(@"UPDATE programacaoproducao SET remessaproducao_id = colecao_id");
+
+            Delete.ForeignKey("FK_programacaoproducao_colecao").OnTable("programacaoproducao");
+            Delete.Column("colecao_id").FromTable("programacaoproducao");
         }
 
         public override void Down()

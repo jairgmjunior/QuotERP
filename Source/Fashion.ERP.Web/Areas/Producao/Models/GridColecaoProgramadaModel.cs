@@ -7,8 +7,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
     {
         public long? Id { get; set; }
 
-        [Display(Name = "Coleção")]
-        public string Colecao { get; set; }
+        [Display(Name = "Remessa")]
+        public string RemessaProgramada { get; set; }
 
         [Display(Name = "Fichas Técnicas Programadas")]
         public long QtdeFichasTecnicasProgramadas { get; set; }

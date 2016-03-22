@@ -1,0 +1,97 @@
+﻿@model Fashion.ERP.Web.Areas.Producao.Models.PesquisaColecaoProgramadaModel
+@section javascript{@Scripts.Render(Links.Bundles.Scripts.PdfObject)}
+
+@using (Html.BeginForm(MVC.Producao.RemessaProgramada.Index(), FormMethod.Post, new { @class = "form-horizontal small-labels" }))
+{
+    <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsePesquisar">Pesquisar
+                </a>
+            </div>
+            <div id="collapsePesquisar" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.RemessasProducao)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @(Html.Kendo().MultiSelect()
+                                          .Name("RemessasProducao")
+                                          .Value(Model.RemessasProducao)
+                                          .BindTo(ViewBag.RemessasProducao))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.DataInicial)
+                                <div class="col-sm-8 col-md-8 col-lg-7  ">
+                                    <div class="col-lg-5 col-md-5 padding0">
+                                        <div class="">
+                                            @(Html.Kendo().DatePickerFor(x => x.DataInicial))
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <div class="form-group form-group-sm" style="margin-bottom: 0;">
+                                            @Html.LabelFor(x=>x.DataFinal, new { @class = "control-label control-label-meio col-sm-3" })
+                                            <div class="col-lg-9 col-md-9 padding0">
+                                                @(Html.Kendo().DatePickerFor(x => x.DataFinal))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-10 col-md-11">
+                            </div>
+                            <div class="col-sm-2 col-md-1 form-group">
+                                <button id="pesquisar-grid-ajax" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(Model.Grid)
+              .Name("Grid")    
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .ServerOperation(true)
+                  .PageSize(15)
+                  .Read(read => read.Action("ObtenhaListaGridModel", "RemessaProgramada").Data("ObtenhaModelJsonObjectRemessaProgramada"))
+                  .Events(events => events.Error("onKendoGridError"))
+              )
+              .Columns(columns =>
+              {
+                  columns.Bound(x => x.RemessaProgramada);
+                  columns.Bound(x => x.QtdeFichasTecnicasProgramadas).Sortable(false);        
+                  columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Book", "Book", "ColecaoProgramada", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary" , target = "_blank"}).ToHtmlString()).Width(80).Title("");               
+              })
+              .Resizable(resize => resize.Columns(true))
+              .Reorderable(reorder => reorder.Columns(true))
+              .Pageable()
+              .Sortable()
+              .Groupable()   
+              )
+    </div>
+}
+
+<script>
+    function ObtenhaModelJsonObjectRemessaProgramada() {
+        var parametros = {
+            model: $("form").serializeObject()
+        };
+
+        return parametros;
+    }
+</script>
+
+

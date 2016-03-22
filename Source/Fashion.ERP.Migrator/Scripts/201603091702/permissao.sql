@@ -11,3 +11,7 @@ SET @ID = SCOPE_IDENTITY()
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Novo', 'Producao', 'RemessaProducao', 'Novo', 0, 1, 0, @ID);
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Editar', 'Producao', 'RemessaProducao', 'Editar', 0, 1, 0, @ID);
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Excluir', 'Producao', 'RemessaProducao', 'Excluir', 0, 1, 0, @ID);
+
+INSERT INTO remessaproducao(id, idtenant, idempresa, numero, ano, descricao, datainicio, datalimite, dataalteracao, observacao, colecao_id)
+	SELECT id, 0, 0, id, 2016, descricao, GETDATE(), GETDATE(), GETDATE(), NULL, id	
+		FROM COLECAO

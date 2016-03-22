@@ -19,8 +19,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
         
-        [Display(Name = "Coleção Aprovada")]
-        public long? ColecaoAprovada { get; set; }
+        [Display(Name = "Remessa")]
+        public long? RemessaProducao { get; set; }
 
         [Display(Name = "Categoria do Material")]
         public IList<long?> Categorias { get; set; }

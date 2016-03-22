@@ -6,8 +6,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 {
     public class PesquisaColecaoProgramadaModel
     {
-        [Display(Name = "Coleção Programada")]
-        public List<string> ColecoesProgramadas { get; set; }
+        [Display(Name = "Remessas")]
+        public List<string> RemessasProducao { get; set; }
         
         [Display(Name = "Período de Programação")]
         public DateTime? DataInicial { get; set; }

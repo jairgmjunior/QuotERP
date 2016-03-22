@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Fashion.ERP.Web.Areas.Producao.Controllers
 {
-    public partial class ColecaoProgramadaController
+    public partial class RemessaProgramadaController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected ColecaoProgramadaController(Dummy d) { }
+        protected RemessaProgramadaController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -55,13 +55,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ColecaoProgramadaController Actions { get { return MVC.Producao.ColecaoProgramada; } }
+        public RemessaProgramadaController Actions { get { return MVC.Producao.RemessaProgramada; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "Producao";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "ColecaoProgramada";
+        public readonly string Name = "RemessaProgramada";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "ColecaoProgramada";
+        public const string NameConst = "RemessaProgramada";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,14 +112,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {
                 public readonly string Index = "Index";
             }
-            public readonly string Index = "~/Areas/Producao/Views/ColecaoProgramada/Index.cshtml";
+            public readonly string Index = "~/Areas/Producao/Views/RemessaProgramada/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ColecaoProgramadaController : Fashion.ERP.Web.Areas.Producao.Controllers.ColecaoProgramadaController
+    public partial class T4MVC_RemessaProgramadaController : Fashion.ERP.Web.Areas.Producao.Controllers.RemessaProgramadaController
     {
-        public T4MVC_ColecaoProgramadaController() : base(Dummy.Instance) { }
+        public T4MVC_RemessaProgramadaController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 

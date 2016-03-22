@@ -22,9 +22,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
 
-        [Display(Name = "Coleção Programada")]
-        [Required(ErrorMessage = "Informe a coleção programada")]
-        public long? ColecaoProgramada { get; set; }
+        [Display(Name = "Remessa")]
+        [Required(ErrorMessage = "Informe a remessa de produção")]
+        public long? RemessaProducao { get; set; }
 
         [Display(Name = "Departamento")]
         public IList<long?> Departamentos { get; set; }

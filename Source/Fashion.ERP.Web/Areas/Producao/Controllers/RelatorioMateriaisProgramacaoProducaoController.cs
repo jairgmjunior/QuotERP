@@ -24,7 +24,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
     public partial class RelatorioMateriaisProgramacaoProducaoController : BaseController
     {        
         private readonly ILogger _logger;
-        private readonly IRepository<Colecao> _colecaoRepository;
+        private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<Categoria> _categoriaRepository;
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
         private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
@@ -42,17 +42,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         
         #region Construtores
         public RelatorioMateriaisProgramacaoProducaoController(ILogger logger, IRepository<Modelo> modeloRepository,
-            IRepository<Colecao> colecaoRepository, IRepository<Categoria> categoriaRepository, 
+            IRepository<Categoria> categoriaRepository, 
             IRepository<Subcategoria> subcategoriaRepository, IRepository<DepartamentoProducao> departamentoProducaoRepository,
-            IRepository<ProgramacaoProducao> programacaoProducaoRepository, IRepository<Material> materialRepository )
+            IRepository<ProgramacaoProducao> programacaoProducaoRepository, IRepository<Material> materialRepository,
+            IRepository<RemessaProducao> remesssaProducaoRepository )
         {
             _logger = logger;
-            _colecaoRepository = colecaoRepository;
             _categoriaRepository = categoriaRepository;
             _subcategoriaRepository = subcategoriaRepository;
             _departamentoProducaoRepository = departamentoProducaoRepository;
             _programacaoProducaoRepository = programacaoProducaoRepository;
             _materialRepository = materialRepository;
+            _remessaProducaoRepository = remesssaProducaoRepository;
         }
 
         #endregion
@@ -90,10 +91,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     filtros.AppendFormat("Ano: {0}, ", model.Ano);
                 }
 
-                if (model.ColecaoProgramada.HasValue)
+                if (model.RemessaProducao.HasValue)
                 {
-                    query = query.Where(p => p.ProgramacaoProducao.Colecao.Id == model.ColecaoProgramada);
-                    filtros.AppendFormat("Coleção Programada: {0}, ", _colecaoRepository.Get(model.ColecaoProgramada.Value).Descricao);
+                    query = query.Where(p => p.ProgramacaoProducao.RemessaProducao.Id == model.RemessaProducao);
+                    filtros.AppendFormat("Remessa: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
                 }
 
                 if (model.DataInicial.HasValue)
@@ -244,8 +245,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var departamentosProducao = _departamentoProducaoRepository.Find(p => p.Ativo).OrderBy(p => p.Nome).ToList();
             ViewData["Departamentos"] = departamentosProducao.ToSelectList("Nome");
 
-            var colecaoAprovada = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["ColecaoProgramada"] = colecaoAprovada.ToSelectList("Descricao");
+            var remessasProducao = _remessaProducaoRepository.Find().OrderBy(p => p.Descricao).ToList();
+            ViewData["RemessaProducao"] = remessasProducao.ToSelectList("Descricao");
 
             var categorias = _categoriaRepository.Find(p => p.Ativo).OrderBy(o => o.Nome).ToList();
             ViewData["Categorias"] = categorias.ToSelectList("Nome");

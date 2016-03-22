@@ -344,11 +344,11 @@
     <Compile Include="EngenhariaProduto\ListaModeloReport.designer.cs">
       <DependentUpon>ListaModeloReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Producao\BookColecaoProgramadaReport.cs">
+    <Compile Include="Producao\BookRemesssaProgramadaReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Producao\BookColecaoProgramadaReport.Designer.cs">
-      <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
+    <Compile Include="Producao\BookRemesssaProgramadaReport.Designer.cs">
+      <DependentUpon>BookRemesssaProgramadaReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Producao\MateriaisProgramacaoProducaoReport.cs">
       <SubType>Component</SubType>
@@ -551,8 +551,8 @@
     <EmbeddedResource Include="Producao\ListaOrdemProducaoReport.resx">
       <DependentUpon>ListaOrdemProducaoReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Producao\BookColecaoProgramadaReport.resx">
-      <DependentUpon>BookColecaoProgramadaReport.cs</DependentUpon>
+    <EmbeddedResource Include="Producao\BookRemesssaProgramadaReport.resx">
+      <DependentUpon>BookRemesssaProgramadaReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Producao\MateriaisProgramacaoProducaoReport.resx">
       <DependentUpon>MateriaisProgramacaoProducaoReport.cs</DependentUpon>

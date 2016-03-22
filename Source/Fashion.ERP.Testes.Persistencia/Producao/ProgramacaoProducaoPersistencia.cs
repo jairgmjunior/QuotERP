@@ -10,7 +10,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
     public class ProgramacaoProducaoPersistencia : TestPersistentObject<ProgramacaoProducao>
     {
         private Pessoa _funcionario;
-        private Colecao _colecao;
+        private RemessaProducao _remessaProducao;
         private FichaTecnicaJeans _fichaTecnica;
         private Tamanho _tamanho;
         private Material _material;
@@ -26,7 +26,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
 
             //programacaoProducao.FichaTecnica = _fichaTecnica;
             programacaoProducao.Funcionario = _funcionario;
-            programacaoProducao.Colecao = _colecao;
+            programacaoProducao.RemessaProducao = _remessaProducao;
             //programacaoProducao.ProgramacaoProducaoMatrizCorte = _programacaoProducaoMatrizCorte;
             programacaoProducao.ProgramacaoProducaoMateriais.Add(_programacaoProducaoMaterial);
             programacaoProducao.ProgramacaoProducaoItems.Add(_programacaoProducaoItem);
@@ -37,7 +37,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         public override void Init()
         {
             _funcionario = FabricaObjetosPersistidos.ObtenhaFuncionario();
-            _colecao = FabricaObjetosPersistidos.ObtenhaColecao();
+            _remessaProducao = FabricaObjetosPersistidos.ObtenhaRemessaProducao();
             _tamanho = FabricaObjetosPersistidos.ObtenhaTamanho();
             _fichaTecnica = FabricaObjetosPersistidos.ObtenhaFichaTecnica();
             _material = FabricaObjetosPersistidos.ObtenhaMaterial();
@@ -62,7 +62,7 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
         public override void Cleanup()
         {
             FabricaObjetosPersistidos.ExcluaFichaTecnicaJeans(_fichaTecnica);
-            FabricaObjetosPersistidos.ExcluaColecao(_colecao);
+            FabricaObjetosPersistidos.ExcluaRemessaProducao(_remessaProducao);
             FabricaObjetosPersistidos.ExcluaTamanho(_tamanho);
             FabricaObjetosPersistidos.ExcluaPessoa(_funcionario);
             FabricaObjetosPersistidos.ExcluaMaterial(_material);

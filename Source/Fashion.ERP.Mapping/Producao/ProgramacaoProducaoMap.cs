@@ -18,7 +18,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.SituacaoProgramacaoProducao).Not.Nullable();
 
             References(x => x.Funcionario);
-            References(x => x.Colecao);
+            References(x => x.RemessaProducao);
 
             HasMany(x => x.ProgramacaoProducaoMateriais)
                 .Not.KeyNullable()

@@ -26,6 +26,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<ProgramacaoProducao> _programacaoProducaoRepository;
         private readonly IRepository<MarcaMaterial> _marcaMaterialRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
+        private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<Categoria> _categoriaRepository;
         private readonly IRepository<Subcategoria> _subcategoriaRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
@@ -36,7 +37,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Valores agrupamento e ordenação
         private static readonly Dictionary<string, string> ColunasAgrupamento = new Dictionary<string, string>
         {
-            {"Coleção", "Colecao"},
+            {"Remessa", "RemessaProducao"},
             {"Categoria", "Categoria"},
             {"Subcategoria", "Subcategoria"},
             {"Marca", "Marca"} 
@@ -55,7 +56,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             IRepository<Categoria> categoriaRepository, IRepository<Subcategoria> subcategoriaRepository,
             IRepository<EstoqueMaterial> estoqueMaterialRepository, IRepository<ReservaEstoqueMaterial> reservaMaterialRepository,
             IRepository<PedidoCompraItem> pedidoCompraItemRepository, IRepository<ProgramacaoProducao> programacaoProducaoRepository,
-            IRepository<Material> materialRepository)
+            IRepository<Material> materialRepository, IRepository<RemessaProducao> remessaProducaoRepository )
         {
             _logger = logger;
             _colecaoRepository = colecaoRepository;
@@ -67,6 +68,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _pedidoCompraItemRepository = pedidoCompraItemRepository;
             _programacaoProducaoRepository = programacaoProducaoRepository;
             _materialRepository = materialRepository;
+            _remessaProducaoRepository = remessaProducaoRepository;
         }
 
         #endregion
@@ -79,7 +81,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             {
                 DataFinal = DateTime.Now,
                 DataInicial = DateTime.Now.AddMonths(-3),
-                AgruparPor = "Colecao"
+                AgruparPor = "RemessaProducao"
             };
 
             return View(model);
@@ -116,11 +118,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Data programada até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
             }
 
-            if (model.ColecaoAprovada.HasValue)
+            if (model.RemessaProducao.HasValue)
             {
-                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.Colecao.Id == model.ColecaoAprovada);
-                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.Colecao.Id == model.ColecaoAprovada);
-                filtros.AppendFormat("Coleção Aprovada: {0}, ", _colecaoRepository.Get(model.ColecaoAprovada.Value).Descricao);
+                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.RemessaProducao.Id == model.RemessaProducao);
+                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.RemessaProducao.Id == model.RemessaProducao);
+                filtros.AppendFormat("Remessa de Produção: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
             }
 
             if (!model.Marcas.IsNullOrEmpty())
@@ -198,7 +200,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 DataProgramacao = q.ProgramacaoProducao.DataProgramada.Date,
                 UnidadeMedida = q.MaterialFichaTecnica.Material.UnidadeMedida.Sigla,
                 Marca = q.MaterialFichaTecnica.Material.MarcaMaterial.Nome,
-                Colecao = q.ProgramacaoProducao.Colecao.Descricao,
+                RemessaProducao = q.ProgramacaoProducao.RemessaProducao.Descricao,
                 Categoria = q.MaterialFichaTecnica.Material.Subcategoria.Categoria.Nome,
                 Subcategoria = q.MaterialFichaTecnica.Material.Subcategoria.Nome,
                 QuantidadeAprovada = (q.MaterialFichaTecnica.Quantidade * q.ProgramacaoProducao.Quantidade) * q.MaterialFichaTecnica.Material.UnidadeMedida.FatorMultiplicativo
@@ -214,7 +216,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 DataProgramacao = q.ProgramacaoProducao.DataProgramada.Date,
                 UnidadeMedida = q.MaterialFichaTecnica.Material.UnidadeMedida.Sigla,
                 Marca = q.MaterialFichaTecnica.Material.MarcaMaterial.Nome,
-                Colecao = q.ProgramacaoProducao.Colecao.Descricao,
+                RemessaProducao = q.ProgramacaoProducao.RemessaProducao.Descricao,
                 Categoria = q.MaterialFichaTecnica.Material.Subcategoria.Categoria.Nome,
                 Subcategoria = q.MaterialFichaTecnica.Material.Subcategoria.Nome,
                 QuantidadeAprovada = (q.MaterialFichaTecnica.Quantidade * q.ProgramacaoProducao.Quantidade) * q.MaterialFichaTecnica.Material.UnidadeMedida.FatorMultiplicativo
@@ -225,7 +227,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             if (model.AgruparPor == null)
             {
-                model.AgruparPor = "Colecao";
+                model.AgruparPor = "RemessaProducao";
             }
 
             if (model.OrdenarPor != null)
@@ -240,7 +242,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         .ThenBy("DescricaoMaterial");
 
             
-            var resultadoAgrupado = resultadoUnido.GroupBy(x => new { x.Colecao }, (chave1, grupo1) => new { Valor = chave1.Colecao, NomeAgrupamento = "Coleção", grupo1 });
+            var resultadoAgrupado = resultadoUnido.GroupBy(x => new { x.RemessaProducao }, (chave1, grupo1) => new { Valor = chave1.RemessaProducao, NomeAgrupamento = "Remessa", grupo1 });
 
             if (model.AgruparPor == "Categoria")
             {
@@ -350,8 +352,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var marcas = _marcaMaterialRepository.Find(p => p.Ativo).OrderBy(p => p.Nome).ToList();
             ViewData["Marcas"] = marcas.ToSelectList("Nome");
             
-            var colecoesAprovadas = _colecaoRepository.Find(p => p.Ativo).OrderBy(p => p.Descricao).ToList();
-            ViewData["ColecaoAprovada"] = colecoesAprovadas.ToSelectList("Descricao");
+            var remessasProducao = _remessaProducaoRepository.Find().OrderBy(p => p.Descricao).ToList();
+            ViewData["RemessaProducao"] = remessasProducao.ToSelectList("Descricao");
 
             var categorias = _categoriaRepository.Find(p => p.Ativo).OrderBy(o => o.Nome).ToList();
             ViewData["Categorias"] = categorias.ToSelectList("Nome");

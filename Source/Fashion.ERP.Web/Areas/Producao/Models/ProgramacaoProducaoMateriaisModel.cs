@@ -16,8 +16,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Referência")]
         public string Referencia { get; set; }
 
-        [Display(Name = "Coleção Programada")]
-        public string Colecao { get; set; }
+        [Display(Name = "Remessa")]
+        public string RemessaProducao { get; set; }
 
         [Display(Name = "Unidade")]
         public long? UnidadeGeral { get; set; }

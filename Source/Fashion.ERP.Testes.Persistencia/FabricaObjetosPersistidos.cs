@@ -819,6 +819,22 @@ namespace Fashion.ERP.Testes.Persistencia
 
             return colecao;
         }
+
+        public RemessaProducao ObtenhaRemessaProducao()
+        {
+            var remessaProducao = _fabricaObjetos.ObtenhaRemessaProducao();
+            remessaProducao.Colecao = ObtenhaColecao();
+
+            RepositoryFactory.Create<RemessaProducao>().Save(remessaProducao);
+
+            return remessaProducao;
+        }
+
+        public void ExcluaRemessaProducao(RemessaProducao remessaProducao)
+        {
+            RepositoryFactory.Create<RemessaProducao>().Delete(remessaProducao);
+            RepositoryFactory.Create<Colecao>().Delete(remessaProducao.Colecao);
+        }
         
         public void ExcluaColecao(Colecao colecao)
         {

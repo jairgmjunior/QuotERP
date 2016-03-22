@@ -11,8 +11,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Lote/Ano")]
         public string LoteAno { get; set; }
 
-        [Display(Name = "Coleção")]
-        public string Colecao { get; set; }
+        [Display(Name = "Remessa")]
+        public string RemessaProducao { get; set; }
         
         [Display(Name = "Responsável")]
         public string Responsavel { get; set; }
