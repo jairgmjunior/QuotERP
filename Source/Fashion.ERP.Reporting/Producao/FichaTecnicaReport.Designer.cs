@@ -71,6 +71,8 @@ namespace Fashion.ERP.Reporting.Producao
             this.table1 = new Telerik.Reporting.Table();
             this.textBox30 = new Telerik.Reporting.TextBox();
             this.textBox5 = new Telerik.Reporting.TextBox();
+            this.textBox6 = new Telerik.Reporting.TextBox();
+            this.textBox8 = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox109
@@ -246,7 +248,9 @@ namespace Fashion.ERP.Reporting.Producao
             this.table9,
             this.textBox34,
             this.table2,
-            this.table1});
+            this.table1,
+            this.textBox6,
+            this.textBox8});
             this.detail.Name = "detail";
             // 
             // textBox1
@@ -408,7 +412,7 @@ namespace Fashion.ERP.Reporting.Producao
             // 
             // textBox28
             // 
-            this.textBox28.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(2.6012017726898193D));
+            this.textBox28.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(3.2000000476837158D));
             this.textBox28.Name = "textBox28";
             this.textBox28.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(19.923641204833984D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox28.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
@@ -418,7 +422,7 @@ namespace Fashion.ERP.Reporting.Producao
             // pictureBox1
             // 
             this.pictureBox1.Bindings.Add(new Telerik.Reporting.Binding("Value", "= FashionErp.EnderecoFoto(Fields.PrimeiraFoto)"));
-            this.pictureBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(3.2014024257659912D));
+            this.pictureBox1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(3.8002007007598877D));
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(8.84708309173584D), Telerik.Reporting.Drawing.Unit.Cm(8.79859733581543D));
             this.pictureBox1.Sizing = Telerik.Reporting.Drawing.ImageSizeMode.ScaleProportional;
@@ -426,7 +430,7 @@ namespace Fashion.ERP.Reporting.Producao
             // pictureBox2
             // 
             this.pictureBox2.Bindings.Add(new Telerik.Reporting.Binding("Value", "= FashionErp.EnderecoFoto(Fields.SegundaFoto)"));
-            this.pictureBox2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.899999618530273D), Telerik.Reporting.Drawing.Unit.Cm(3.2014033794403076D));
+            this.pictureBox2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.899999618530273D), Telerik.Reporting.Drawing.Unit.Cm(3.8002016544342041D));
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.0044946670532227D), Telerik.Reporting.Drawing.Unit.Cm(8.7985954284667969D));
             this.pictureBox2.Sizing = Telerik.Reporting.Drawing.ImageSizeMode.ScaleProportional;
@@ -434,7 +438,7 @@ namespace Fashion.ERP.Reporting.Producao
             // textBox29
             // 
             this.textBox29.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Variacoes)"));
-            this.textBox29.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(12.000200271606445D));
+            this.textBox29.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(12.5989990234375D));
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.8970832824707031D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox29.StyleName = "GroupPanel";
@@ -443,7 +447,7 @@ namespace Fashion.ERP.Reporting.Producao
             // textBox122
             // 
             this.textBox122.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.SequenciasOperacionais)"));
-            this.textBox122.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.067560195922852D), Telerik.Reporting.Drawing.Unit.Cm(12.000200271606445D));
+            this.textBox122.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.067560195922852D), Telerik.Reporting.Drawing.Unit.Cm(12.5989990234375D));
             this.textBox122.Name = "textBox122";
             this.textBox122.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.8369350433349609D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox122.StyleName = "GroupPanel";
@@ -462,7 +466,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.table9.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox23,
             this.textBox109});
-            this.table9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.050000190734863D), Telerik.Reporting.Drawing.Unit.Cm(12.608741760253906D));
+            this.table9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(10.050000190734863D), Telerik.Reporting.Drawing.Unit.Cm(13.207542419433594D));
             this.table9.Name = "table9";
             tableGroup2.Groupings.Add(new Telerik.Reporting.Grouping(null));
             tableGroup2.Name = "DetailGroup";
@@ -479,7 +483,7 @@ namespace Fashion.ERP.Reporting.Producao
             // textBox34
             // 
             this.textBox34.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Medidas)"));
-            this.textBox34.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(13.799998283386231D));
+            this.textBox34.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(14.398797035217285D));
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.9499998092651367D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox34.StyleName = "GroupPanel";
@@ -489,8 +493,8 @@ namespace Fashion.ERP.Reporting.Producao
             // 
             this.table2.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.Medidas"));
             this.table2.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.Medidas)"));
-            this.table2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.742896556854248D)));
-            this.table2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.9233369827270508D)));
+            this.table2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.7428963184356689D)));
+            this.table2.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.9233367443084717D)));
             this.table2.Body.Rows.Add(new Telerik.Reporting.TableBodyRow(Telerik.Reporting.Drawing.Unit.Cm(0.49999982118606567D)));
             this.table2.Body.SetCellContent(0, 0, this.textBox35);
             this.table2.Body.SetCellContent(0, 1, this.textBox40);
@@ -508,7 +512,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox39,
             this.textBox12,
             this.textBox9});
-            this.table2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(14.400197982788086D));
+            this.table2.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(14.998996734619141D));
             this.table2.Name = "table2";
             tableGroup7.Groupings.Add(new Telerik.Reporting.Grouping(null));
             tableGroup7.Name = "DetailGroup";
@@ -566,7 +570,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox31,
             this.textBox5,
             this.textBox3});
-            this.table1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(12.608841896057129D));
+            this.table1.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D), Telerik.Reporting.Drawing.Unit.Cm(13.207640647888184D));
             this.table1.Name = "table1";
             tableGroup11.Name = "group";
             tableGroup10.ChildGroups.Add(tableGroup11);
@@ -595,6 +599,24 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(4.3277373313903809D), Telerik.Reporting.Drawing.Unit.Cm(0.50000029802322388D));
             this.textBox5.StyleName = "Caption";
             this.textBox5.Value = "Variação";
+            // 
+            // textBox6
+            // 
+            this.textBox6.CanGrow = true;
+            this.textBox6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.044990792870521545D), Telerik.Reporting.Drawing.Unit.Cm(2.6012017726898193D));
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.7550092935562134D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox6.StyleName = "Caption";
+            this.textBox6.Value = "Modelagem";
+            // 
+            // textBox8
+            // 
+            this.textBox8.CanGrow = true;
+            this.textBox8.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(1.8001999855041504D), Telerik.Reporting.Drawing.Unit.Cm(2.6012017726898193D));
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(9.0918731689453125D), Telerik.Reporting.Drawing.Unit.Cm(0.5D));
+            this.textBox8.StyleName = "Data";
+            this.textBox8.Value = "=Fields.FichaTecnica.FichaTecnicaModelagem.Descricao";
             // 
             // FichaTecnicaReport
             // 
@@ -667,6 +689,8 @@ namespace Fashion.ERP.Reporting.Producao
         private Telerik.Reporting.TextBox textBox3;
         private Telerik.Reporting.TextBox textBox12;
         private Telerik.Reporting.TextBox textBox9;
+        private Telerik.Reporting.TextBox textBox6;
+        private Telerik.Reporting.TextBox textBox8;
 
     }
 }

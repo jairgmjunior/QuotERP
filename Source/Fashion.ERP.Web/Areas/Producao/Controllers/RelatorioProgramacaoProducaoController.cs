@@ -41,8 +41,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 programacaoProducao.DataProgramada,
                 Responsavel = programacaoProducao.Funcionario.Nome,
                 QuantidadeProgramada = programacaoProducao.Quantidade,
-                LoteAno = programacaoProducao.Lote + '/' + programacaoProducao.Ano,
-                Tecidos = programacaoProducao.ProgramacaoProducaoMateriais.Where(m => m.Material.Subcategoria.Categoria.GeneroCategoria == GeneroCategoria.Tecido).Select(y => new
+                LoteAno = programacaoProducao.Lote.ToString() + "/" + programacaoProducao.Ano.ToString(),
+                Tecidos = programacaoProducao.ProgramacaoProducaoMateriais.Where(m => 
+                    m.Material.Subcategoria.Categoria.GeneroCategoria == GeneroCategoria.Tecido &&
+                    (x.FichaTecnica.MateriaisConsumo.Any(mc => mc.Material.Id == m.Material.Id) 
+                        || x.FichaTecnica.MateriaisConsumoVariacao.Any(mc => mc.Material.Id == m.Material.Id))).Select(y => new
                 {
                     y.Material.Referencia,
                     y.Material.Descricao,
@@ -57,12 +60,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 x.FichaTecnica.Catalogo,
                 x.FichaTecnica.Silk,
                 x.FichaTecnica.Pedraria,
+                Modelagem = x.FichaTecnica.FichaTecnicaModelagem != null ? x.FichaTecnica.FichaTecnicaModelagem.Descricao : null,
                 Dificuldade = x.FichaTecnica.ClassificacaoDificuldade.Descricao,
                 x.FichaTecnica.Observacao,
                 x.FichaTecnica.Bordado,
                 PrimeiraFoto = ObtenhaUrlPrimeiraFoto(x.FichaTecnica),
                 SegundaFoto = ObtenhaUrlSegundaFoto(x.FichaTecnica),
-                Medidas = x.FichaTecnica.FichaTecnicaModelagem.Medidas.SelectMany(z => z.Itens.Select(y => new
+                Medidas = x.FichaTecnica.FichaTecnicaModelagem == null ? null : x.FichaTecnica.FichaTecnicaModelagem.Medidas.SelectMany(z => z.Itens.Select(y => new
                 {
                     Descricao = z.DescricaoMedida,
                     Tamanho = y.Tamanho.Descricao,

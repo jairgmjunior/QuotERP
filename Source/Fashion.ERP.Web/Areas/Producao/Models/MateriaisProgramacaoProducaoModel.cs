@@ -17,7 +17,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
             GeneroCategorias = new List<GeneroCategoria>();
         }
 
-        [Display(Name = "Lote")]
+        [Display(Name = "Lote/Ano")]
         public long? Lote { get; set; }
 
         [Display(Name = "Ano")]

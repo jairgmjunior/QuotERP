@@ -12,6 +12,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual string Observacao { get; set; }
         public virtual DateTime DataModelagem { get; set; }
         public virtual Pessoa Modelista{ get; set; }
+        public virtual string Descricao { get; set; }
 
         public virtual IList<FichaTecnicaModelagemMedida> Medidas
         {

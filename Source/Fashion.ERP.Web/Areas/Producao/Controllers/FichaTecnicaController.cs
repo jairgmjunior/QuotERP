@@ -871,6 +871,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         Id = domain.Id,
                         DataModelagem = domain.FichaTecnicaModelagem.DataModelagem,
                         Observacao = domain.FichaTecnicaModelagem.Observacao,
+                        Descricao = domain.FichaTecnicaModelagem.Descricao,
                         Modelista = domain.FichaTecnicaModelagem.Modelista.Id,
                         NomeArquivoUpload =
                             domain.FichaTecnicaModelagem.Arquivo != null
@@ -921,6 +922,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         fichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
                         fichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
                         fichaTecnicaModelagem.Observacao = model.Observacao;
+                        fichaTecnicaModelagem.Descricao = model.Descricao;
                         fichaTecnicaModelagem.Arquivo = arquivo;
                         domain.FichaTecnicaModelagem = fichaTecnicaModelagem;
 
@@ -931,6 +933,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
                         domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
                         domain.FichaTecnicaModelagem.Observacao = model.Observacao;
+                        domain.FichaTecnicaModelagem.Descricao = model.Descricao;
                         
                         if (!string.IsNullOrEmpty(model.NomeArquivoUpload))
                         {
@@ -1253,6 +1256,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             {
                                 DataModelagem = domain.FichaTecnicaModelagem.DataModelagem,
                                 Modelista = domain.FichaTecnicaModelagem.Modelista,
+                                Descricao = domain.FichaTecnicaModelagem.Descricao,
                                 Observacao = domain.FichaTecnicaModelagem.Observacao
                             };
 

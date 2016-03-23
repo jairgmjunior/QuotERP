@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Fashion.ERP.Domain.Almoxarifado;
@@ -342,14 +343,18 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             "Ao alterar a quantidade de peças programadas é necessário recalcular manualmente a quantidade de todos os materiais.");
                     }
 
-                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada)
+                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada && domain.DataProgramada.Date == model.DataProgramada.GetValueOrDefault().Date)
                     {
                         this.AddInfoMessage("Nâo é possível alterar uma programação produção com alguma reserva ou requisição de material");
                         
                         return RedirectToAction("Editar", new { domain.Id }); 
                     }
+                    var lote = domain.Lote;
+                    var ano = domain.Ano;
 
                     domain = Mapper.Unflat(model, domain);
+                    domain.Lote = lote;
+                    domain.Ano = ano;
                     domain.RemessaProducao = _remessaProducaoRepository.Load(model.RemessaProducao);
                     domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
                     domain.Quantidade = model.Quantidade;

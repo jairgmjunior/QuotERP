@@ -43,6 +43,11 @@ namespace Fashion.ERP.Migrator
 
             Delete.ForeignKey("FK_programacaoproducao_colecao").OnTable("programacaoproducao");
             Delete.Column("colecao_id").FromTable("programacaoproducao");
+            
+            Alter.Table("fichatecnicamodelagem")
+                .AddColumn("descricao")
+                .AsString()
+                .Nullable();
         }
 
         public override void Down()

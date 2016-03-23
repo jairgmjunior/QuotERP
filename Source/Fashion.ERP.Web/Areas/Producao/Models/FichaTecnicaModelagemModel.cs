@@ -12,11 +12,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Data da Modelagem")]
         [Required(ErrorMessage = "Informe o modelista")]
         public DateTime? DataModelagem { get; set; }
-        
+
         [Display(Name = "Observação")]
         [DataType(DataType.MultilineText)]
         [StringLength(250, ErrorMessage = "{0} não deve ser maior que {1} caracteres")]
         public string Observacao { get; set; }
+
+        [Display(Name = "Descrição")]
+        public string Descricao { get; set; }
 
         [Display(Name = "Modelista")]
         [Required(ErrorMessage = "Informe o modelista")]

@@ -82,11 +82,21 @@
                                 </span>
                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                             </div>
-                            @Html.HiddenFor(x => x.NomeArquivoUpload)
                             <div class="progress" style="display: none">
                                 <div class="progress-bar"></div>
                             </div>
                             @Html.ValidationMessageFor(x => x.NomeArquivoUpload, null, new { @class="help-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelForRequired(x => x.Descricao)
+                        <div class="col-sm-8 col-md-8 col-lg-7">
+                            @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(x => x.Descricao, null, new { @class="help-block" })
                         </div>
                     </div>
                 </div>

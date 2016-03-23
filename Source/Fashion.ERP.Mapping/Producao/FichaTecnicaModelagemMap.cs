@@ -9,6 +9,7 @@ namespace Fashion.ERP.Mapping.Producao
             : base("fichatecnicamodelagem", 0)
         {
             Map(x => x.Observacao).Nullable();
+            Map(x => x.Descricao).Nullable();
             Map(x => x.DataModelagem);
             
             References(x => x.Modelista);

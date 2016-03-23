@@ -44,7 +44,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 Variacao = x.Variacao.Nome
             }));
 
-            var medidas = fichaTecnica.FichaTecnicaModelagem.Medidas.SelectMany(x => x.Itens.Select(y => new
+            var medidas = fichaTecnica.FichaTecnicaModelagem == null ? null : fichaTecnica.FichaTecnicaModelagem.Medidas.SelectMany(x => x.Itens.Select(y => new
             {
                 Descricao = x.DescricaoMedida,
                 Tamanho = y.Tamanho.Descricao,

@@ -301,6 +301,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                         {
                             DataModelagem = modelo.DataModelagem.Value,
                             Modelista = modelo.Modelista,
+                            Descricao = modelo.Descricao,
                             Observacao = modelo.Modelagem,
                         };
                     }
