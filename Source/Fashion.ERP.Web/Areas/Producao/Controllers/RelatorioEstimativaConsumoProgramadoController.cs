@@ -143,11 +143,11 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Referência do Material: {0}, ", materialDomain.Referencia);
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Tag))
+            if (model.Lote.HasValue)
             {
-                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Tag == model.Tag));
-                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(x => x.FichaTecnica.Tag == model.Tag));
-                filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                queryMateriaisConsumo = queryMateriaisConsumo.Where(p => p.ProgramacaoProducao.Lote == model.Lote);
+                queryMateriaisConsumoVariacao = queryMateriaisConsumoVariacao.Where(p => p.ProgramacaoProducao.Lote == model.Ano);
+                filtros.AppendFormat("Lote: {0}, ", model.Lote);
             }
 
             if (model.Ano.HasValue)

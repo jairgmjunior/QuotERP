@@ -78,11 +78,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             try
             {
-
-                if (!string.IsNullOrWhiteSpace(model.Tag))
+                if (model.Lote.HasValue)
                 {
-                    query = query.Where(p => p.ProgramacaoProducao.ProgramacaoProducaoItems.Any(item => item.FichaTecnica.Tag == model.Tag));
-                    filtros.AppendFormat("Tag: {0}, ", model.Tag);
+                    query = query.Where(p => p.ProgramacaoProducao.Lote == model.Lote);
+                    filtros.AppendFormat("Lote: {0}, ", model.Lote);
                 }
 
                 if (model.Ano.HasValue)

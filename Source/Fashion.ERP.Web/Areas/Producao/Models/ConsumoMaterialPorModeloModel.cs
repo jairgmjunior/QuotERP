@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fashion.ERP.Domain.Producao;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
@@ -13,11 +14,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
             Subcategorias = new List<long?>();
         }
 
-        [Display(Name = "Tag")]
-        public string Tag { get; set; }
+        [Display(Name = "Lote")]
+        public long? Lote { get; set; }
 
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
+        
+        [Display(Name = "Situação")]
+        public SituacaoProgramacaoProducao? SituacaoProgramacaoProducao { get; set; }
         
         [Display(Name = "Remessa")]
         public long? RemessaProducao { get; set; }

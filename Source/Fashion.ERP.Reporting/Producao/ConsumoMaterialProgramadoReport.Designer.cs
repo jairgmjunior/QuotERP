@@ -288,9 +288,9 @@ namespace Fashion.ERP.Reporting.Producao
             // 
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("DataSource", "=ReportItem.DataObject.FichasTecnicas"));
             this.table4.Bindings.Add(new Telerik.Reporting.Binding("Style.Visible", "=FashionErp.Any(ReportItem.DataObject.FichasTecnicas)"));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.5766685009002686D)));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.2549381256103516D)));
-            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.60187029838562D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.576668381690979D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(1.254938006401062D)));
+            this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(3.601870059967041D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.3390536308288574D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.8172461986541748D)));
             this.table4.Body.Columns.Add(new Telerik.Reporting.TableBodyColumn(Telerik.Reporting.Drawing.Unit.Cm(2.9963717460632324D)));
@@ -394,7 +394,7 @@ namespace Fashion.ERP.Reporting.Producao
             this.textBox46.Name = "textBox46";
             this.textBox46.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(14.649899482727051D), Telerik.Reporting.Drawing.Unit.Cm(0.60000002384185791D));
             this.textBox46.StyleName = "GroupPanel";
-            this.textBox46.Value = "Fichas Técnicas Programadas";
+            this.textBox46.Value = "Dados de Programações de Produção";
             // 
             // textBox2
             // 

@@ -129,17 +129,23 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Remessa de produção: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
             }
 
-            //if (!string.IsNullOrWhiteSpace(model.Tag))
-            //{
-            //    query = query.Where(p => model.Tag == p.ProgramacaoProducao.FichaTecnica.Tag);
-            //    filtros.AppendFormat("Tag: {0}, ", model.Tag);
-            //}
+            if (model.Lote.HasValue)
+            {
+                query = query.Where(p => model.Lote == p.ProgramacaoProducao.Lote);
+                filtros.AppendFormat("Lote: {0}, ", model.Lote);
+            }
 
-            //if (model.Ano.HasValue)
-            //{
-            //    query = query.Where(p => model.Ano == p.ProgramacaoProducao.FichaTecnica.Ano);
-            //    filtros.AppendFormat("Ano: {0}, ", model.Ano);
-            //}
+            if (model.Ano.HasValue)
+            {
+                query = query.Where(p => model.Ano == p.ProgramacaoProducao.Ano);
+                filtros.AppendFormat("Ano: {0}, ", model.Ano);
+            }
+
+            if (model.SituacaoProgramacaoProducao.HasValue)
+            {
+                query = query.Where(p => model.SituacaoProgramacaoProducao == p.ProgramacaoProducao.SituacaoProgramacaoProducao);
+                filtros.AppendFormat("Situação: {0}, ", model.SituacaoProgramacaoProducao.GetValueOrDefault().EnumToString());
+            }
 
             if (model.Material.HasValue)
             {

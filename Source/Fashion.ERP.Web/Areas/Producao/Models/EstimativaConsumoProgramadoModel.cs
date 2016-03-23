@@ -35,8 +35,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         [Display(Name = "Referência")]
         public long? Material { get; set; }
 
-        [Display(Name = "Tag/Ano")]
-        public string Tag { get; set; }
+        [Display(Name = "Lote/Ano")]
+        public long? Lote { get; set; }
         
         public long? Ano { get; set; }
 

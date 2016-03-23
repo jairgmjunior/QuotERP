@@ -35,9 +35,9 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
-                                @Html.LabelForRequired(x => x.Tag)
+                                @Html.LabelForRequired(x => x.Lote)
                                 <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
-                                    @Html.TextBoxFor(x => x.Tag, new { @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.Lote, new { @class = "numeric-only form-control" })
                                 </div>
                                 <div class="col-sm-4 col-md-4 col-lg-4 campo-duplo-esquerdo">
                                     @Html.TextBoxFor(x => x.Ano, new { @class = "form-control" })
@@ -95,6 +95,16 @@
                                     <div class="col-lg-9 col-md-8 col-sm-12 padding0">
                                         <input id="descricao-material" class="form-control" readonly="" data-toggle="tooltip">
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.DropDownListFor(x => x.SituacaoProgramacaoProducao, Model.SituacaoProgramacaoProducao.ToSelectList(), "-- Selecione --",  new { @class = "form-control"})
                                 </div>
                             </div>
                         </div>

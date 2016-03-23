@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Fashion.ERP.Domain.Almoxarifado;
+using Fashion.ERP.Domain.Producao;
 
 namespace Fashion.ERP.Web.Areas.Producao.Models
 {
@@ -16,8 +17,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
             GeneroCategorias = new List<GeneroCategoria>();
         }
 
-        [Display(Name = "Tag")]
-        public string Tag { get; set; }
+        [Display(Name = "Lote")]
+        public long? Lote { get; set; }
 
         [Display(Name = "Ano")]
         public long? Ano { get; set; }
@@ -49,7 +50,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Sem Foto")]
         public Boolean SemFoto { get; set; }
-
+        
+        [Display(Name = "Situação")]
+        public SituacaoProgramacaoProducao? SituacaoProgramacaoProducao { get; set; }
+        
         [Display(Name = "Ordenar por")]
         public string OrdenarPor { get; set; }
 
