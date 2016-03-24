@@ -35,6 +35,7 @@
                                           .Min(1).Spinners(false)
                                           .Name("QuantidadeItem"))
                                     @Html.ValidationMessageFor(x => x.QuantidadeItem, null, new { @class = "help-block" })
+                                    <input type="hidden" id="QuantidadeItemOriginal"/>
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">
@@ -52,11 +53,11 @@
                               columns.Bound(p => p.Tamanho).Hidden().ClientTemplate(
                                   "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Tamanho' value='#= Tamanho #' />");
                               columns.Bound(p => p.DescricaoTamanho).Width(60).ClientTemplate("#= DescricaoTamanho #" +
-                                                                                              "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
+                                "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].DescricaoTamanho' value='#= DescricaoTamanho #' />");
                               columns.Bound(p => p.QuantidadeVezes).Width(60).ClientTemplate("#= (QuantidadeVezes == null) ? ' ' : QuantidadeVezes #" +
-                                                                                             "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
+                                "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].QuantidadeVezes' value='#= QuantidadeVezes #' />");
                               columns.Bound(p => p.Quantidade).Width(55).ClientTemplate("#= (Quantidade == null) ? ' ' : kendo.toString(Quantidade, \"n2\") #" +
-                                                                                        "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Quantidade' value='#= Quantidade #' />");
+                                "<input type='hidden' name='GridMatrizCorteItens[#= indexGridMatrizCorteItens(data)#].Quantidade' value='#= Quantidade #' />");
                           })
                           .DataSource(dataSource => dataSource
                               .Ajax()
@@ -190,13 +191,17 @@
             recalculeTotalEnfestos();
             recalculeQuantidade();
         }
+
+        if ($("#Id").val() != "" && $("#SituacaoProgramacaoProducao").val() != "Iniciada") {
+            $("#TipoEnfestoTecido").prop("disabled", true);
+            $("#QuantidadeItem").prop("disabled", true);
+        }
     });
 
     function chamarMatrizCorteModal(e) {
         dataItemAtual = obtenhaGridProgramacaoProducaoItens().dataItem($(e.currentTarget).closest("tr"));
 
         $('#modal-matrizcorte').modal();
-        
     }
 
     function recalculeQuantidade() {

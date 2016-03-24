@@ -158,7 +158,7 @@
                 })
             )
             .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-fichatecnica", @href = "javascript:void(0)", @class = "btn-primary"}))
-            .Events(events => events.Edit("onEdit"))
+            .Events(events => events.Edit("onEdit").DataBound("onDataBound"))
             )
 </fieldset>
 
@@ -169,6 +169,13 @@
 <script>
     $(document).ready(function() {
 
+        if ($("#Id").val() != "" && $("#SituacaoProgramacaoProducao").val() != "Iniciada") {
+            $("#RemessaProducao").prop("disabled", true);
+            $("#codigo-funcionario").prop("disabled", true);
+            $("#pesquisar-funcionario").prop("disabled", true);
+            $("#Observacao").prop("disabled", true);
+        }
+
         $('#form').submit(function(e) {
             limpeMensagensAlerta();
 
@@ -176,7 +183,7 @@
 
             var formularioValido = formularioEhValido();
 
-            if (!$("#form").valid() || !formularioValido) {
+            if (!formEValido || !formularioValido) {
                 e.preventDefault();
                 $('#btnSubmit').button('reset');
                 return false;
@@ -197,6 +204,8 @@
                     mensagem += "A ficha técnica de referência "+ dataItem.Referencia+" não possui valor para a coluna quantidade</br>";
                 }
             }
+
+            //TODO valideQuantidadeTotal
 
             if (mensagem != "") {
                 e.preventDefault();
@@ -253,7 +262,6 @@
             grid.setDataSource(dataSource);
             grid.refresh();
         });
-
 
         $("#editarlote").click(function () {
             if ($("#Lote").prop("disabled") == false) {
@@ -316,6 +324,22 @@
         }
     }
 
+    function valideQuantidadeTotal() {
+        var url = "/Producao/Remessa/ObtenhaCapacidadeProdutivaDisponivel=" + $("#RemessaProducao").val() + '&idProgramacaoProducaoAtual=' + $("#Id").val();
+
+        $.getJSON(url, function (result) {
+            console.log(JSON.stringify(result));
+            if (result.capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > result.capacidadeProdutivaDisponivel) {
+                exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva da remessa disponível. Capacidade produtiva disponível: " + result.capacidadeProdutivaDisponivel);
+                return false;
+            }
+            
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            alert(errorThrown);
+        });
+        return true;
+    };
+
     function atualizeQuantidadeTotalProgramacaoProgramacao() {
         var dataItensGridProgramacaoProducao = window.obtenhaGridProgramacaoProducaoItens().dataSource.data();
 
@@ -343,14 +367,14 @@
         return $("#Lote").valid() && $("#Ano").valid() && retorno;
     }
 
-    $('#pesquisarvarios-fichatecnica').on('click', function (e) {
-        $('#modal-fichatecnica').modal('show').one('hidden', function () {
-            $('#ColunaPesquisa')[0].selectedIndex = 0;
-            $('input[name$="ValorPesquisa"]').val('');
-            $('#grid-pesquisa-fichatecnica').empty();
-        });
-        return false;
-    });
+    //$('#pesquisarvarios-fichatecnica').on('click', function (e) {
+    //    $('#modal-fichatecnica').modal('show').one('hidden', function () {
+    //        $('#ColunaPesquisa')[0].selectedIndex = 0;
+    //        $('input[name$="ValorPesquisa"]').val('');
+    //        $('#grid-pesquisa-fichatecnica').empty();
+    //    });
+    //    return false;
+    //});
 
     function index(dataItem) {
         var data = obtenhaGridProgramacaoProducaoItens().dataSource.data();
@@ -359,6 +383,14 @@
 
     function onEdit(e) {
         this.closeCell();
+    }
+
+    function onDataBound() {
+        if ($("#Id").val() != "" && $("#SituacaoProgramacaoProducao").val() != "Iniciada") {
+            
+            $("#pesquisarvarios-fichatecnica").addClass("k-state-disabled");
+            $(".k-grid-delete").addClass("k-state-disabled");
+        }
     }
 
     function obtenhaGridProgramacaoProducaoItens() {

@@ -339,16 +339,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     if (model.Quantidade != domain.Quantidade)
                     {
-                        this.AddInfoMessage(
-                            "Ao alterar a quantidade de peças programadas é necessário recalcular manualmente a quantidade de todos os materiais.");
+                        this.AddInfoMessage("Ao alterar a quantidade de peças programadas é necessário recalcular manualmente a quantidade de todos os materiais.");
                     }
 
-                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada && domain.DataProgramada.Date == model.DataProgramada.GetValueOrDefault().Date)
+                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada)
                     {
                         this.AddInfoMessage("Nâo é possível alterar uma programação produção com alguma reserva ou requisição de material");
-                        
-                        return RedirectToAction("Editar", new { domain.Id }); 
+
+                        return RedirectToAction("Editar", new { domain.Id });
                     }
+                    
                     var lote = domain.Lote;
                     var ano = domain.Ano;
 
@@ -362,7 +362,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     model.GridProgramacaoProducaoItens.ForEach(modelItem => EditarProgramacaoProducaoItem(domain, modelItem));
 
                     VerifiqueExcluirProgramacaoProducaoItem(domain, model);
-
+                    
                     _programacaoProducaoRepository.SaveOrUpdate(domain);
 
                     this.AddSuccessMessage("Programação da produção atualizada com sucesso.");
@@ -378,7 +378,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }
             return View(model);
         }
-
+        
         private void EditarProgramacaoProducaoItem(ProgramacaoProducao domain, ProgramacaoProducaoItemModel modelItem)
         {
             var javaScriptSerializer = new JavaScriptSerializer();

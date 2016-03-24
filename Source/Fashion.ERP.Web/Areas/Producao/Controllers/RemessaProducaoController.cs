@@ -25,6 +25,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
     {
         #region Variaveis
         private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
+        private readonly IRepository<ProgramacaoProducao> _programacaoProducaoRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
@@ -48,12 +49,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Construtores
         public RemessaProducaoController(ILogger logger, IRepository<RemessaProducao> remessaProducaoRepository,
             IRepository<Colecao> colecaoRepository, IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
-            IRepository<UltimoNumero> ultimoNumeroRepository)
+            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<ProgramacaoProducao> programacaoProdutivaRepository)
         {
             _remessaProducaoRepository = remessaProducaoRepository;
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
             _colecaoRepository = colecaoRepository;
             _ultimoNumeroRepository = ultimoNumeroRepository;
+            _programacaoProducaoRepository = programacaoProdutivaRepository;
             
             _logger = logger;
         }
@@ -456,6 +458,21 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ultimoNumero.Numero++;
             var remessaProducao = _remessaProducaoRepository.Get(x => x.Numero == ultimoNumero.Numero);
             return remessaProducao != null ? ObtenhaProximoNumeroDisponivel(ultimoNumero) : ultimoNumero;
+        }
+        
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaCapacidadeProdutivaDisponivel(long idRemessa, long? idProgramacaoProducaoAtual)
+        {
+            var programacoesProducao = _programacaoProducaoRepository.Find(x => x.RemessaProducao.Id == idRemessa && x.Id != idProgramacaoProducaoAtual);
+            var totalProgramado = programacoesProducao.Sum(x => x.ProgramacaoProducaoItems.Sum(y => y.Quantidade));
+
+            var remessaProdutiva = _remessaProducaoRepository.Get(idRemessa);
+            var capacidadeProdutivaRemessa = remessaProdutiva.RemessasProducaoCapacidadesProdutivas.Sum(x => x.Quantidade);
+
+            var capacidadeProdutivaDisponivel = totalProgramado >= capacidadeProdutivaRemessa ? 0 : capacidadeProdutivaRemessa - totalProgramado;
+
+            var result = new { capacidadeProdutivaDisponivel };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
