@@ -210,6 +210,21 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filtros.AppendFormat("Depósito origem: {0}, ", _depositoMaterialRepository.Get(model.DepositoMaterialOrigem.Value).Nome);
             }
 
+
+            if (model.DataEntradaDe.HasValue && !model.DataEntradaAte.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date >= model.DataEntradaDe.Value);
+
+                filtros.AppendFormat("Data de entrada de '{0}', ", model.DataEntradaDe.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataEntradaDe.HasValue && model.DataEntradaAte.HasValue)
+            {
+                entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date <= model.DataEntradaAte.Value);
+
+                filtros.AppendFormat("Data de entrada até '{0}', ", model.DataEntradaAte.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataEntradaDe.HasValue && model.DataEntradaAte.HasValue)
             {
                 entradaMateriais = entradaMateriais.Where(p => p.DataEntrada.Date >= model.DataEntradaDe.Value

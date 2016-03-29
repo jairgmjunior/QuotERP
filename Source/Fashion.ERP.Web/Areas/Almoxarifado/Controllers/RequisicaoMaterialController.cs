@@ -194,6 +194,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Requerente.Value).Nome);
             }
 
+            if (model.DataInicio.HasValue && !model.DataFim.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date >= model.DataInicio.Value);
+
+                filtros.AppendFormat("Data de início de '{0}', ", model.DataInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataInicio.HasValue && model.DataFim.HasValue)
+            {
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date <= model.DataFim.Value);
+
+                filtros.AppendFormat("Data de início até '{0}', ", model.DataFim.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataInicio.HasValue && model.DataFim.HasValue)
             {
                 requisicaoMaterials = requisicaoMaterials.Where(p => p.Data.Date >= model.DataInicio.Value

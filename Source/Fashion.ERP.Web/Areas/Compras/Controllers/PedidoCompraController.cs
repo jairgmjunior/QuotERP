@@ -119,11 +119,25 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 filtros.AppendFormat("Situação: {0}, ", model.SituacaoCompra.Value.EnumToString());
             }
 
+            if (model.DataCompraInicio.HasValue && !model.DataCompraFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date >= model.DataCompraInicio.Value);
+
+                filtros.AppendFormat("Data da compra de '{0}', ", model.DataCompraInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataCompraInicio.HasValue && model.DataCompraFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date <= model.DataCompraFim.Value);
+
+                filtros.AppendFormat("Data da compra até '{0}', ", model.DataCompraFim.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataCompraInicio.HasValue && model.DataCompraFim.HasValue)
             {
                 pedidoCompras = pedidoCompras.Where(p => p.DataCompra.Date >= model.DataCompraInicio.Value
                                                          && p.DataCompra.Date <= model.DataCompraFim.Value);
-                filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                filtros.AppendFormat("Data da compra de '{0}' até '{1}', ",
                                      model.DataCompraInicio.Value.ToString("dd/MM/yyyy"),
                                      model.DataCompraFim.Value.ToString("dd/MM/yyyy"));
             }
@@ -137,21 +151,49 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                                      model.ValorCompraFim.Value.ToString("C2"));
             }
 
+            if (model.PrevisaoFaturamentoInicio.HasValue && !model.PrevisaoFaturamentoFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PrevisaoFaturamento.Date >= model.PrevisaoFaturamentoInicio.Value);
+
+                filtros.AppendFormat("Data de faturamento de '{0}', ", model.PrevisaoFaturamentoInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.PrevisaoFaturamentoInicio.HasValue && model.PrevisaoFaturamentoFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PrevisaoFaturamento.Date <= model.PrevisaoFaturamentoFim.Value);
+
+                filtros.AppendFormat("Data de faturamento até '{0}', ", model.PrevisaoFaturamentoFim.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.PrevisaoFaturamentoInicio.HasValue && model.PrevisaoFaturamentoFim.HasValue)
             {
                 pedidoCompras =
                     pedidoCompras.Where(p => p.PrevisaoFaturamento.Date >= model.PrevisaoFaturamentoInicio.Value
                                              && p.PrevisaoFaturamento.Date <= model.PrevisaoFaturamentoFim.Value);
-                filtros.AppendFormat("Previsão faturamento de '{0}' até '{1}', ",
+                filtros.AppendFormat("Previsão de faturamento de '{0}' até '{1}', ",
                                      model.PrevisaoFaturamentoInicio.Value.ToString("dd/MM/yyyy"),
                                      model.PrevisaoFaturamentoFim.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (model.PrevisaoEntregaInicio.HasValue && !model.PrevisaoEntregaFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date >= model.PrevisaoEntregaInicio.Value);
+
+                filtros.AppendFormat("Previsão de entrega de '{0}', ", model.PrevisaoEntregaInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.PrevisaoEntregaInicio.HasValue && model.PrevisaoEntregaFim.HasValue)
+            {
+                pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date <= model.PrevisaoEntregaFim.Value);
+
+                filtros.AppendFormat("Previsão de entrega até '{0}', ", model.PrevisaoEntregaFim.Value.ToString("dd/MM/yyyy"));
             }
 
             if (model.PrevisaoEntregaInicio.HasValue && model.PrevisaoEntregaFim.HasValue)
             {
                 pedidoCompras = pedidoCompras.Where(p => p.PrevisaoEntrega.Date >= model.PrevisaoEntregaInicio.Value
                                                          && p.PrevisaoEntrega.Date <= model.PrevisaoEntregaFim.Value);
-                filtros.AppendFormat("Data aprovação de '{0}' até '{1}', ",
+                filtros.AppendFormat("Previsão de entrega de '{0}' até '{1}', ",
                                      model.PrevisaoEntregaInicio.Value.ToString("dd/MM/yyyy"),
                                      model.PrevisaoEntregaFim.Value.ToString("dd/MM/yyyy"));
             }

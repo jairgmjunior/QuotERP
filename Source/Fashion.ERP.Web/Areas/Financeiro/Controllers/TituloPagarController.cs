@@ -123,6 +123,20 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                     filtros.AppendFormat("Situação: {0}, ", model.SituacaoTitulo.Value.EnumToString());
                 }
 
+                if (model.DataEmissaoInicio.HasValue && !model.DataEmissaoFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.Emissao.Date >= model.DataEmissaoInicio.Value);
+
+                    filtros.AppendFormat("Data de emissão de '{0}', ", model.DataEmissaoInicio.Value.ToString("dd/MM/yyyy"));
+                }
+
+                if (!model.DataEmissaoInicio.HasValue && model.DataEmissaoFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.Emissao.Date <= model.DataEmissaoFim.Value);
+
+                    filtros.AppendFormat("Data de emissão até '{0}', ", model.DataEmissaoFim.Value.ToString("dd/MM/yyyy"));
+                }
+
                 if (model.DataEmissaoInicio.HasValue && model.DataEmissaoFim.HasValue)
                 {
                     titulos = titulos.Where(p => p.Emissao.Date >= model.DataEmissaoInicio.Value
@@ -132,20 +146,48 @@ namespace Fashion.ERP.Web.Areas.Financeiro.Controllers
                                          model.DataEmissaoFim.Value.ToString("dd/MM/yyyy"));
                 }
 
+                if (model.DataCadastroInicio.HasValue && !model.DataCadastroFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.DataCadastro.Date >= model.DataCadastroInicio.Value);
+
+                    filtros.AppendFormat("Data de cadastro de '{0}', ", model.DataCadastroInicio.Value.ToString("dd/MM/yyyy"));
+                }
+
+                if (!model.DataCadastroInicio.HasValue && model.DataCadastroFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.DataCadastro.Date <= model.DataCadastroFim.Value);
+
+                    filtros.AppendFormat("Data de cadastro até '{0}', ", model.DataCadastroFim.Value.ToString("dd/MM/yyyy"));
+                }
+
                 if (model.DataCadastroInicio.HasValue && model.DataCadastroFim.HasValue)
                 {
                     titulos = titulos.Where(p => p.DataCadastro.Date >= model.DataCadastroInicio.Value
                                                              && p.DataCadastro.Date <= model.DataCadastroFim.Value);
-                    filtros.AppendFormat("Data cadastro de '{0}' até '{1}', ",
+                    filtros.AppendFormat("Data de cadastro de '{0}' até '{1}', ",
                                          model.DataCadastroInicio.Value.ToString("dd/MM/yyyy"),
                                          model.DataCadastroFim.Value.ToString("dd/MM/yyyy"));
+                }
+
+                if (model.DataVencimentoInicio.HasValue && !model.DataVencimentoFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.Vencimento.Date >= model.DataVencimentoInicio.Value);
+
+                    filtros.AppendFormat("Data de vencimento de '{0}', ", model.DataVencimentoInicio.Value.ToString("dd/MM/yyyy"));
+                }
+
+                if (!model.DataVencimentoInicio.HasValue && model.DataVencimentoFim.HasValue)
+                {
+                    titulos = titulos.Where(p => p.Vencimento.Date <= model.DataVencimentoFim.Value);
+
+                    filtros.AppendFormat("Data de vencimento até '{0}', ", model.DataVencimentoFim.Value.ToString("dd/MM/yyyy"));
                 }
 
                 if (model.DataVencimentoInicio.HasValue && model.DataVencimentoFim.HasValue)
                 {
                     titulos = titulos.Where(p => p.Vencimento.Date >= model.DataVencimentoInicio.Value
                                                              && p.Vencimento.Date <= model.DataVencimentoFim.Value);
-                    filtros.AppendFormat("Data vencimento de '{0}' até '{1}', ",
+                    filtros.AppendFormat("Data de vencimento de '{0}' até '{1}', ",
                                          model.DataVencimentoInicio.Value.ToString("dd/MM/yyyy"),
                                          model.DataVencimentoFim.Value.ToString("dd/MM/yyyy"));
                 }

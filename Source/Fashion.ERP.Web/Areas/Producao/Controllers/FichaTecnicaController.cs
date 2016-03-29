@@ -235,6 +235,20 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Catálogo: {0}, ", model.Catalogo.GetValueOrDefault() ? "sim" : "não");
             }
 
+            if (model.DataCadastro.HasValue && !model.DataCadastroAte.HasValue)
+            {
+                fichaTecnicas = fichaTecnicas.Where(p => p.DataCadastro.Date >= model.DataCadastro.Value);
+
+                filtros.AppendFormat("Data de cadastro de '{0}', ", model.DataCadastro.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
+            {
+                fichaTecnicas = fichaTecnicas.Where(p => p.DataCadastro.Date <= model.DataCadastroAte.Value);
+
+                filtros.AppendFormat("Data de cadastro até '{0}', ", model.DataCadastroAte.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
             {
                 fichaTecnicas = fichaTecnicas.Where(p => p.DataCadastro.Date >= model.DataCadastro.Value

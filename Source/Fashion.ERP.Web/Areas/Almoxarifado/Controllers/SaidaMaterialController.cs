@@ -103,12 +103,26 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
             }
             
+            if (model.DataSaidaDe.HasValue && !model.DataSaidaAte.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.DataSaida.Date >= model.DataSaidaDe.Value);
+
+                filtros.AppendFormat("Data de '{0}', ", model.DataSaidaDe.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataSaidaDe.HasValue && model.DataSaidaAte.HasValue)
+            {
+                saidaMateriais = saidaMateriais.Where(p => p.DataSaida.Date <= model.DataSaidaAte.Value);
+
+                filtros.AppendFormat("Data até '{0}', ", model.DataSaidaAte.Value.ToString("dd/MM/yyyy"));
+            }
+            
             if (model.DataSaidaDe.HasValue && model.DataSaidaAte.HasValue)
             {
                 saidaMateriais = saidaMateriais.Where(p => p.DataSaida.Date >= model.DataSaidaDe.Value
                                                          && p.DataSaida.Date <= model.DataSaidaAte.Value);
                 
-                filtros.AppendFormat("Data compra de '{0}' até '{1}', ",
+                filtros.AppendFormat("Data de '{0}' até '{1}', ",
                                      model.DataSaidaDe.Value.ToString("dd/MM/yyyy"),
                                      model.DataSaidaAte.Value.ToString("dd/MM/yyyy"));
             }

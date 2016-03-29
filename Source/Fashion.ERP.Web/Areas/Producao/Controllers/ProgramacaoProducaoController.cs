@@ -640,6 +640,20 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Remessa: {0}, ", _remessaProducaoRepository.Get(model.RemessaProducao.Value).Descricao);
             }
 
+            if (model.DataCadastro.HasValue && !model.DataCadastroAte.HasValue)
+            {
+                programacoesProducao = programacoesProducao.Where(p => p.Data.Date >= model.DataCadastro.Value);
+
+                filtros.AppendFormat("Data de cadastro de '{0}', ", model.DataCadastro.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
+            {
+                programacoesProducao = programacoesProducao.Where(p => p.Data.Date <= model.DataCadastroAte.Value);
+
+                filtros.AppendFormat("Data de cadastro até '{0}', ", model.DataCadastroAte.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataCadastro.HasValue && model.DataCadastroAte.HasValue)
             {
                 programacoesProducao = programacoesProducao.Where(p => p.Data.Date >= model.DataCadastro.Value
@@ -656,6 +670,20 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 filtros.AppendFormat("Situação: {0}", model.SituacaoProgramacaoProducao.GetValueOrDefault().EnumToString());
             }
 
+            if (model.DataProgramada.HasValue && !model.DataProgramadaAte.HasValue)
+            {
+                programacoesProducao = programacoesProducao.Where(p => p.DataProgramada.Date >= model.DataProgramada.Value);
+
+                filtros.AppendFormat("Data programada de '{0}', ", model.DataProgramada.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataProgramada.HasValue && model.DataProgramadaAte.HasValue)
+            {
+                programacoesProducao = programacoesProducao.Where(p => p.DataProgramada.Date <= model.DataProgramadaAte.Value);
+
+                filtros.AppendFormat("Data programada até '{0}', ", model.DataProgramadaAte.Value.ToString("dd/MM/yyyy"));
+            }
+            
             if (model.DataProgramada.HasValue && model.DataProgramadaAte.HasValue)
             {
                 programacoesProducao = programacoesProducao.Where(p => p.DataProgramada.Date >= model.DataProgramada.Value

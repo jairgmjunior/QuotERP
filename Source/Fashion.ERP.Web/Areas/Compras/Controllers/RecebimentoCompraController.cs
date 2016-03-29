@@ -132,6 +132,20 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 filtros.AppendFormat("Situação: {0}, ", model.SituacaoRecebimentoCompra.Value.EnumToString());
             }
 
+            if (model.DataInicio.HasValue && !model.DataFim.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date >= model.DataInicio.Value);
+
+                filtros.AppendFormat("Data de '{0}', ", model.DataInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataInicio.HasValue && model.DataFim.HasValue)
+            {
+                recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date <= model.DataFim.Value);
+
+                filtros.AppendFormat("Data até '{0}', ", model.DataFim.Value.ToString("dd/MM/yyyy"));
+            }
+
             if (model.DataInicio.HasValue && model.DataFim.HasValue)
             {
                 recebimentoCompras = recebimentoCompras.Where(p => p.Data.Date >= model.DataInicio.Value

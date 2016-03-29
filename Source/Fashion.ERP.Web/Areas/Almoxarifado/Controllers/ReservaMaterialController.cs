@@ -105,6 +105,20 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filtros.AppendFormat("Unidade: {0}, ", _pessoaRepository.Get(model.Unidade.Value).NomeFantasia);
             }
 
+            if (model.DataProgramacaoInicio.HasValue && !model.DataProgramacaoFim.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value);
+
+                filtros.AppendFormat("Data de programação de '{0}', ", model.DataProgramacaoInicio.Value.ToString("dd/MM/yyyy"));
+            }
+
+            if (!model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
+            {
+                reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date <= model.DataProgramacaoFim.Value);
+
+                filtros.AppendFormat("Data de programação até '{0}', ", model.DataProgramacaoFim.Value.ToString("dd/MM/yyyy"));
+            }
+            
             if (model.DataProgramacaoInicio.HasValue && model.DataProgramacaoFim.HasValue)
             {
                 reservaMaterials = reservaMaterials.Where(p => p.DataProgramacao.Value.Date >= model.DataProgramacaoInicio.Value

@@ -93,6 +93,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 query = query.Where(p => p.ProgramacaoProducao.DataProgramada <= model.DataFinal.Value);
                 filtros.AppendFormat("Data programada até: {0:dd/MM/yyyy}, ", model.DataFinal.Value);
             }
+
             if (!model.Categorias.IsNullOrEmpty())
             {
                 var categorias = new List<long?>(model.Categorias);
