@@ -6,7 +6,10 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
     public class GridRemessaProducaoModel
     {
         public long Id { get; set; }
-        
+
+        [Display(Name = "Número/Ano")]
+        public string NumeroAno { get; set; }
+
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 

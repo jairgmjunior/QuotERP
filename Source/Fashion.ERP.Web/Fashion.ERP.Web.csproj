@@ -447,7 +447,6 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
-    <Compile Include="Areas\Producao\Controllers\RemessaProgramadaController.cs" />
     <Compile Include="Areas\Producao\Controllers\RemessaProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaController.cs" />
@@ -1007,9 +1006,6 @@
     <Compile Include="Producao.RemessaProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Producao.RemessaProgramadaController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatorioController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1282,7 +1278,6 @@
     <Content Include="Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\ModeloAprovacao\CriarFichaTecnica.cshtml" />
     <Content Include="Areas\Producao\Views\ProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
-    <Content Include="Areas\Producao\Views\RemessaProgramada\Index.cshtml" />
     <Content Include="Areas\Producao\Views\RelatorioConsumoMaterialProgramado\ConsumoMaterialProgramado.cshtml" />
     <Content Include="Areas\Producao\Views\RelatorioMateriaisProgramacaoProducao\MateriaisProgramacaoProducao.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Copiar.cshtml" />

@@ -181,7 +181,6 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioMateriaisProgramacaoProducaoController RelatorioMateriaisProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioMateriaisProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioProgramacaoProducaoController RelatorioProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RemessaProducaoController RemessaProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RemessaProducaoController();
-        public Fashion.ERP.Web.Areas.Producao.Controllers.RemessaProgramadaController RemessaProgramada = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RemessaProgramadaController();
     }
 }
 

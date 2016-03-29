@@ -6,6 +6,8 @@ using System.Text;
 using System.Web.Mvc;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Producao;
+using Fashion.ERP.Reporting.Helpers;
+using Fashion.ERP.Reporting.Producao;
 using Fashion.ERP.Web.Areas.Producao.Models;
 using Fashion.ERP.Web.Controllers;
 using Fashion.ERP.Web.Helpers;
@@ -17,6 +19,7 @@ using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Ninject.Extensions.Logging;
+using Telerik.Reporting;
 using WebGrease.Css.Extensions;
 
 namespace Fashion.ERP.Web.Areas.Producao.Controllers
@@ -379,6 +382,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 var list = resultado.Select(p => new GridRemessaProducaoModel
                 {
                     Id = p.Id.GetValueOrDefault(),
+                    NumeroAno = p.Numero.ToString() + '/' + p.Ano.ToString(),
                     Descricao= p.Descricao,
                     Colecao = p.Colecao.Descricao,
                     DataInicio= p.DataInicio.Date,
@@ -484,5 +488,58 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var result = new { capacidadeProdutivaDisponivel };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        
+        #region Imprimir
+        public virtual ActionResult Book(long id)
+        {
+            var programacoesProducao = _programacaoProducaoRepository.Find(x => x.RemessaProducao.Id == id).ToList();
+
+            var result = programacoesProducao.SelectMany(x => x.ProgramacaoProducaoItems).GroupBy(x =>
+                new { x.FichaTecnica }, (chave, grupo) => new
+                {
+                    PrimeiraFoto = ObtenhaUrlPrimeiraFoto(chave.FichaTecnica),
+                    SegundaFoto = ObtenhaUrlSegundaFoto(chave.FichaTecnica),
+                    chave.FichaTecnica.Tag,
+                    chave.FichaTecnica.Ano,
+                    chave.FichaTecnica.Descricao,
+                    Catalogo = chave.FichaTecnica.Catalogo.GetValueOrDefault() ? "Sim" : "Não",
+                    chave.FichaTecnica.Referencia,
+                    Estilista = chave.FichaTecnica.Estilista.Nome,
+                    QuantidadeProgramada = grupo.Sum(y => y.Quantidade)
+                });
+
+            var report = new BookRemesssaProgramadaReport { DataSource = result };
+
+            var reportHeaderSection = report.Items.First(item => item.Name == "reportHeader") as ReportHeaderSection;
+            var colecaoAprovadaTextBox = reportHeaderSection.Items.First(item => item.Name == "Colecao") as TextBox;
+            colecaoAprovadaTextBox.Value = _colecaoRepository.Get(id).Descricao;
+
+            report.Sortings.Add("=Fields.Tag", SortDirection.Asc);
+
+            var filename = report.ToByteStream().SaveFile(".pdf");
+
+            return File(filename);
+        }
+
+        public string ObtenhaUrlPrimeiraFoto(FichaTecnica fichaTecnica)
+        {
+            if (fichaTecnica.FichaTecnicaFotos.Any(x => x.Impressao))
+            {
+                return fichaTecnica.FichaTecnicaFotos.Where(x => x.Impressao).ElementAt(0).Arquivo.Nome.GetFileUrl();
+            }
+
+            return null;
+        }
+
+        public string ObtenhaUrlSegundaFoto(FichaTecnica fichaTecnica)
+        {
+            if (fichaTecnica.FichaTecnicaFotos.Count(x => x.Impressao) > 1)
+            {
+                return fichaTecnica.FichaTecnicaFotos.Where(x => x.Impressao).ElementAt(1).Arquivo.Nome.GetFileUrl();
+            }
+
+            return null;
+        }
+        #endregion
     }
 }

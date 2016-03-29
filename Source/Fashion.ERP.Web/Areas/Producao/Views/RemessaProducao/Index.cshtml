@@ -118,11 +118,14 @@
         )
         .Columns(columns =>
         {
+            columns.Bound(x => x.NumeroAno);
             columns.Bound(x => x.Descricao);
             columns.Bound(x => x.Colecao);
             columns.Bound(x => x.DataInicio);
 		    columns.Bound(x => x.DataLimite);
+            columns.Bound(x => x.CapacidadeProdutiva);
             columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "RemessaProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+            columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Book", "Book", "RemessaProducao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary" , target = "_blank"}).ToHtmlString()).Width(80).Title("");               
         })
         .Resizable(resize => resize.Columns(true))
         .Reorderable(reorder => reorder.Columns(true))

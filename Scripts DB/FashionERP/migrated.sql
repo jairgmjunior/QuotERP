@@ -36,6 +36,12 @@ INSERT INTO remessaproducao(id, idtenant, idempresa, numero, ano, descricao, dat
 	SELECT id, 0, 0, id, 2016, descricao, GETDATE(), GETDATE(), GETDATE(), NULL, id	
 		FROM COLECAO
 
+----MIGRAÇÃO BOOK DA COLEÇÃO PROGRAMADA PARA REMESSA DE PRODUÇÃO
+DECLARE @INDEXID AS BIGINT;
+SET @INDEXID = (SELECT id FROM permissao WHERE action = 'Index' and controller = 'RemessaProducao');
+SELECT * FROM permissao WHERE action = 'Book'
+
+UPDATE permissao SET controller = 'RemessaProducao', permissaopai_id = @INDEXID WHERE action = 'Book';
 
 /* AlterTable programacaoproducao */
 /* No SQL statement executed. */
@@ -81,7 +87,7 @@ ALTER TABLE [dbo].[programacaoproducao] DROP COLUMN [colecao_id];
 /* CreateColumn fichatecnicamodelagem descricao String */
 ALTER TABLE [dbo].[fichatecnicamodelagem] ADD [descricao] NVARCHAR(255)
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-03-23T19:11:27', 'Migration201603091702')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-03-29T14:00:10', 'Migration201603091702')
 /* Committing Transaction */
 /* 201603091702: Migration201603091702 migrated */
 

@@ -15,3 +15,10 @@ INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerP
 INSERT INTO remessaproducao(id, idtenant, idempresa, numero, ano, descricao, datainicio, datalimite, dataalteracao, observacao, colecao_id)
 	SELECT id, 0, 0, id, 2016, descricao, GETDATE(), GETDATE(), GETDATE(), NULL, id	
 		FROM COLECAO
+
+----MIGRAÇÃO BOOK DA COLEÇÃO PROGRAMADA PARA REMESSA DE PRODUÇÃO
+DECLARE @INDEXID AS BIGINT;
+SET @INDEXID = (SELECT id FROM permissao WHERE action = 'Index' and controller = 'RemessaProducao');
+SELECT * FROM permissao WHERE action = 'Book'
+
+UPDATE permissao SET controller = 'RemessaProducao', permissaopai_id = @INDEXID WHERE action = 'Book';

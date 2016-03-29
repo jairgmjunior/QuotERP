@@ -65,6 +65,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCapacidadeProdutivaDisponivel);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Book()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Book);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RemessaProducaoController Actions { get { return MVC.Producao.RemessaProducao; } }
@@ -87,6 +93,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public readonly string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
+            public readonly string Book = "Book";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,6 +105,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public const string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
+            public const string Book = "Book";
         }
 
 
@@ -151,6 +159,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string idRemessa = "idRemessa";
             public readonly string idProgramacaoProducaoAtual = "idProgramacaoProducaoAtual";
+        }
+        static readonly ActionParamsClass_Book s_params_Book = new ActionParamsClass_Book();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Book BookParams { get { return s_params_Book; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Book
+        {
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -266,6 +282,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idRemessa", idRemessa);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idProgramacaoProducaoAtual", idProgramacaoProducaoAtual);
             ObtenhaCapacidadeProdutivaDisponivelOverride(callInfo, idRemessa, idProgramacaoProducaoAtual);
+            return callInfo;
+        }
+
+        partial void BookOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult Book(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Book);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            BookOverride(callInfo, id);
             return callInfo;
         }
 
