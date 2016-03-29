@@ -461,15 +461,25 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         
         [AjaxOnly]
-        public virtual JsonResult ObtenhaCapacidadeProdutivaDisponivel(long idRemessa, long? idProgramacaoProducaoAtual)
+        public virtual JsonResult ObtenhaCapacidadeProdutivaDisponivel(long? idRemessa, long? idProgramacaoProducaoAtual)
         {
             var programacoesProducao = _programacaoProducaoRepository.Find(x => x.RemessaProducao.Id == idRemessa && x.Id != idProgramacaoProducaoAtual);
-            var totalProgramado = programacoesProducao.Sum(x => x.ProgramacaoProducaoItems.Sum(y => y.Quantidade));
+            
+            long totalProgramado = Enumerable.Sum(programacoesProducao, programacaoProducao => programacaoProducao.ProgramacaoProducaoItems.Sum(y => y.Quantidade));
 
             var remessaProdutiva = _remessaProducaoRepository.Get(idRemessa);
             var capacidadeProdutivaRemessa = remessaProdutiva.RemessasProducaoCapacidadesProdutivas.Sum(x => x.Quantidade);
 
-            var capacidadeProdutivaDisponivel = totalProgramado >= capacidadeProdutivaRemessa ? 0 : capacidadeProdutivaRemessa - totalProgramado;
+            long capacidadeProdutivaDisponivel;
+
+            if (capacidadeProdutivaRemessa == 0)
+            {
+                capacidadeProdutivaDisponivel = -1;
+            }
+            else
+            {
+                capacidadeProdutivaDisponivel = totalProgramado >= capacidadeProdutivaRemessa ? 0 : capacidadeProdutivaRemessa - totalProgramado;   
+            }
 
             var result = new { capacidadeProdutivaDisponivel };
             return Json(result, JsonRequestBehavior.AllowGet);

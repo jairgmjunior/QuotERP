@@ -59,6 +59,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ObtenhaListaGridModel);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaCapacidadeProdutivaDisponivel()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCapacidadeProdutivaDisponivel);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RemessaProducaoController Actions { get { return MVC.Producao.RemessaProducao; } }
@@ -80,6 +86,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Excluir = "Excluir";
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public readonly string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +97,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Excluir = "Excluir";
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
+            public const string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
         }
 
 
@@ -134,6 +142,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string request = "request";
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivel s_params_ObtenhaCapacidadeProdutivaDisponivel = new ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivel();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivel ObtenhaCapacidadeProdutivaDisponivelParams { get { return s_params_ObtenhaCapacidadeProdutivaDisponivel; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivel
+        {
+            public readonly string idRemessa = "idRemessa";
+            public readonly string idProgramacaoProducaoAtual = "idProgramacaoProducaoAtual";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -238,6 +255,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ObtenhaListaGridModelOverride(callInfo, request, model);
+            return callInfo;
+        }
+
+        partial void ObtenhaCapacidadeProdutivaDisponivelOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? idRemessa, long? idProgramacaoProducaoAtual);
+
+        public override System.Web.Mvc.JsonResult ObtenhaCapacidadeProdutivaDisponivel(long? idRemessa, long? idProgramacaoProducaoAtual)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCapacidadeProdutivaDisponivel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idRemessa", idRemessa);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idProgramacaoProducaoAtual", idProgramacaoProducaoAtual);
+            ObtenhaCapacidadeProdutivaDisponivelOverride(callInfo, idRemessa, idProgramacaoProducaoAtual);
             return callInfo;
         }
 

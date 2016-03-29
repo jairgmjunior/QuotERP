@@ -51,6 +51,10 @@
                 <div class='col-sm-8 col-md-8 col-lg-7'>
                     @Html.DropDownListFor(x => x.RemessaProducao, null, "-- Selecione --", new { @class = "form-control" })                    
                     @Html.ValidationMessageFor(x => x.RemessaProducao, string.Empty, new { @class = "help-block" })
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.RemessaProducao)                    
+                    }
                 </div>
             </div>
         </div>
@@ -112,6 +116,10 @@
                 @Html.LabelForRequired(x => x.SituacaoProgramacaoProducao)
                 <div class="col-sm-8 col-md-8 col-lg-7">
                     @Html.DropDownListFor(x => x.SituacaoProgramacaoProducao, Model.SituacaoProgramacaoProducao.ToSelectList(), "-- Selecione --", new { @class = "form-control" })                    
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.SituacaoProgramacaoProducao);
+                    }
                 </div>
             </div>
         </div>
@@ -120,46 +128,48 @@
 
 <fieldset>
     <legend><small>Fichas Técnicas Programadas</small></legend>
+    <div class="table-responsive">
         @(Html.Kendo().Grid(Model.GridProgramacaoProducaoItens)
-            .Name("GridProgramacaoProducaoItens")
-            .Editable(e => e.Mode(GridEditMode.InCell))
-            .Navigatable()
-            .Columns(columns =>
-            {
-                columns.Bound(x => x.Id).Hidden()
-                    .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Id' value='#= Id #' />");
-                columns.Bound(x => x.MatrizCorteJson).Hidden()
-                    .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].MatrizCorteJson' value='#= MatrizCorteJson #' />");
-                columns.Bound(x => x.TagAno)
-                    .ClientTemplate("#= TagAno #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].TagAno' value='#= TagAno #' />");
-                columns.Bound(x => x.Referencia)
-                    .ClientTemplate("#= Referencia #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Referencia' value='#= Referencia #' />");
-                columns.Bound(x => x.Descricao)
-                    .ClientTemplate("#= Descricao #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Descricao' value='#= Descricao #' />");
-                columns.Bound(x => x.Estilista)
-                    .ClientTemplate("#= Estilista #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Estilista' value='#= Estilista #' />");
-                columns.Bound(x => x.Quantidade).Width(120)
-                    .ClientTemplate("#= Quantidade #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
-                columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
-                    "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
-                        "#}#" +
-                    "<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
-                columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(135);                
-                columns.Command(command => command.Destroy().Text("Excluir")).Width(105);
-            })
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .Events(events => events.Error("onKendoGridError").Change("atualizeQuantidadeTotalProgramacaoProgramacao"))
-                .Model(model =>
-                {
-                    model.Id(item => item.Id);
-                    model.Field(item => item.Id).DefaultValue(0);
-                    model.Field(item => item.Foto).Editable(false); 
-                })
-            )
-            .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-fichatecnica", @href = "javascript:void(0)", @class = "btn-primary"}))
-            .Events(events => events.Edit("onEdit").DataBound("onDataBound"))
-            )
+              .Name("GridProgramacaoProducaoItens")
+              .Editable(e => e.Mode(GridEditMode.InCell))
+              .Navigatable()
+              .Columns(columns =>
+              {
+                  columns.Bound(x => x.Id).Hidden()
+                      .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Id' value='#= Id #' />");
+                  columns.Bound(x => x.MatrizCorteJson).Hidden()
+                      .ClientTemplate("<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].MatrizCorteJson' value='#= MatrizCorteJson #' />");
+                  columns.Bound(x => x.TagAno)
+                      .ClientTemplate("#= TagAno #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].TagAno' value='#= TagAno #' />");
+                  columns.Bound(x => x.Referencia)
+                      .ClientTemplate("#= Referencia #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(x => x.Descricao)
+                      .ClientTemplate("#= Descricao #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(x => x.Estilista)
+                      .ClientTemplate("#= Estilista #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Estilista' value='#= Estilista #' />");
+                  columns.Bound(x => x.Quantidade).Width(120)
+                      .ClientTemplate("#= Quantidade #<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
+                  columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                                                             "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                                             "#}#" +
+                                                             "<input type='hidden' name='GridProgramacaoProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                  columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(135);                
+                  columns.Command(command => command.Destroy().Text("Excluir")).Width(105);
+              })
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Events(events => events.Error("onKendoGridError").Change("atualizeQuantidadeTotalProgramacaoProgramacao"))
+                  .Model(model =>
+                  {
+                      model.Id(item => item.Id);
+                      model.Field(item => item.Id).DefaultValue(0);
+                      model.Field(item => item.Foto).Editable(false); 
+                  })
+              )
+              .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-fichatecnica", @href = "javascript:void(0)", @class = "btn-primary"}))
+              .Events(events => events.Edit("onEdit").DataBound("onDataBound"))
+              )
+    </div>
 </fieldset>
 
 <hr/>
@@ -205,7 +215,11 @@
                 }
             }
 
-            //TODO valideQuantidadeTotal
+            //if (!valideQuantidadeTotal()) {
+            //    e.preventDefault();
+            //    $('#btnSubmit').button('reset');
+            //    return false;
+            //}
 
             if (mensagem != "") {
                 e.preventDefault();
@@ -325,19 +339,40 @@
     }
 
     function valideQuantidadeTotal() {
-        var url = "/Producao/Remessa/ObtenhaCapacidadeProdutivaDisponivel=" + $("#RemessaProducao").val() + '&idProgramacaoProducaoAtual=' + $("#Id").val();
+        var idProgramacaoProducaoAtual = $("#Id").val() == "" ? 0 : $("#Id").val();
+
+        $.ajaxSetup({
+            async: false
+        });
+
+        var capacidadeProdutivaDisponivel;
+
+        var url = "/Producao/RemessaProducao/ObtenhaCapacidadeProdutivaDisponivel?idRemessa=" + $("#RemessaProducao").val() + '&idProgramacaoProducaoAtual=' + idProgramacaoProducaoAtual;
 
         $.getJSON(url, function (result) {
             console.log(JSON.stringify(result));
-            if (result.capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > result.capacidadeProdutivaDisponivel) {
-                exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva da remessa disponível. Capacidade produtiva disponível: " + result.capacidadeProdutivaDisponivel);
-                return false;
-            }
-            
+            capacidadeProdutivaDisponivel = result.capacidadeProdutivaDisponivel;
         }).fail(function (jqXhr, textStatus, errorThrown) {
             alert(errorThrown);
         });
+
+        $.ajaxSetup({
+            async: true
+        });
+
+        //A capacidade produtiva da remessa não foi especificada.
+        if (capacidadeProdutivaDisponivel < 0) {
+            return true;
+        }
+        
+        if (result.capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > result.capacidadeProdutivaDisponivel) {
+            exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva da remessa disponível. "
+                + "Capacidade produtiva disponível: " + result.capacidadeProdutivaDisponivel);
+            return false;
+        }
+
         return true;
+
     };
 
     function atualizeQuantidadeTotalProgramacaoProgramacao() {

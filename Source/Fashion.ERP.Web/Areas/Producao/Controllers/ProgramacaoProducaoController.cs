@@ -23,6 +23,7 @@ using FluentNHibernate.Conventions;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Microsoft.Ajax.Utilities;
 using NHibernate.Linq;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
@@ -342,7 +343,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         this.AddInfoMessage("Ao alterar a quantidade de peças programadas é necessário recalcular manualmente a quantidade de todos os materiais.");
                     }
 
-                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada)
+                    if (domain.SituacaoProgramacaoProducao != SituacaoProgramacaoProducao.Iniciada 
+                        & domain.DataProgramada == model.DataProgramada
+                        & NumeroVezesMatrizCorteEhIgual(domain, model))
                     {
                         this.AddInfoMessage("Nâo é possível alterar uma programação produção com alguma reserva ou requisição de material");
 
@@ -378,13 +381,36 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }
             return View(model);
         }
-        
+
+        private bool NumeroVezesMatrizCorteEhIgual(ProgramacaoProducao domain, ProgramacaoProducaoModel model)
+        {
+            bool ehIgual = true;
+
+            domain.ProgramacaoProducaoItems.ForEach(itemDomain =>
+            {
+                var matrizCorteJsonDomain = ObtenhaMatrizCorteJson(itemDomain);
+                var gridItem = model.GridProgramacaoProducaoItens.FirstOrDefault(x => x.Id == itemDomain.Id);
+
+                if (gridItem == null)
+                {
+                    return;
+                }
+
+                if (matrizCorteJsonDomain != gridItem.MatrizCorteJson)
+                {
+                    ehIgual = false;
+                }
+            });
+
+            return ehIgual;
+        }
+
         private void EditarProgramacaoProducaoItem(ProgramacaoProducao domain, ProgramacaoProducaoItemModel modelItem)
         {
             var javaScriptSerializer = new JavaScriptSerializer();
             var programacaoProducaoMatrizCorteModel =
-                javaScriptSerializer.Deserialize<ProgramacaoProducaoMatrizCorteModel>(
-                    modelItem.MatrizCorteJson);
+                javaScriptSerializer.Deserialize<ProgramacaoProducaoMatrizCorteModel>(modelItem.MatrizCorteJson);
+
             var programacaoProducaoMatrizCorte = new ProgramacaoProducaoMatrizCorte()
             {
                 TipoEnfestoTecido =

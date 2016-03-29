@@ -1,12 +1,20 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700|Lato:100,300,400);
 
-
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active
 input:-webkit-autofill:visited  {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.alinhamentoverticallogin {
+    margin-top: 30px !important;
+}
+
+@media (min-width: 768px) {
+    .alinhamentoverticallogin {
+        margin-top: 200px !important;
+    }
 }
 
