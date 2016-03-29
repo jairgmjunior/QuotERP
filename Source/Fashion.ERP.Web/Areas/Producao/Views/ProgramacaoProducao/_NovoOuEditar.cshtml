@@ -215,11 +215,11 @@
                 }
             }
 
-            //if (!valideQuantidadeTotal()) {
-            //    e.preventDefault();
-            //    $('#btnSubmit').button('reset');
-            //    return false;
-            //}
+            if (!valideQuantidadeTotal()) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
 
             if (mensagem != "") {
                 e.preventDefault();
@@ -365,9 +365,9 @@
             return true;
         }
         
-        if (result.capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > result.capacidadeProdutivaDisponivel) {
-            exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva da remessa disponível. "
-                + "Capacidade produtiva disponível: " + result.capacidadeProdutivaDisponivel);
+        if (capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > capacidadeProdutivaDisponivel) {
+            exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva disponível da remessa. "
+                + "Capacidade produtiva disponível: " + capacidadeProdutivaDisponivel);
             return false;
         }
 
