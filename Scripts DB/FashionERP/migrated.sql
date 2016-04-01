@@ -87,7 +87,22 @@ ALTER TABLE [dbo].[programacaoproducao] DROP COLUMN [colecao_id];
 /* CreateColumn fichatecnicamodelagem descricao String */
 ALTER TABLE [dbo].[fichatecnicamodelagem] ADD [descricao] NVARCHAR(255)
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-03-29T14:00:10', 'Migration201603091702')
+/* AlterTable customaterial */
+/* No SQL statement executed. */
+
+/* CreateColumn customaterial funcionario_id Int64 */
+ALTER TABLE [dbo].[customaterial] ADD [funcionario_id] BIGINT
+
+/* CreateForeignKey FK_customaterial_pessoa customaterial(funcionario_id) pessoa(id) */
+ALTER TABLE [dbo].[customaterial] ADD CONSTRAINT [FK_customaterial_pessoa] FOREIGN KEY ([funcionario_id]) REFERENCES [dbo].[pessoa] ([id])
+
+/* AlterTable customaterial */
+/* No SQL statement executed. */
+
+/* CreateColumn customaterial cadastromanual Boolean */
+ALTER TABLE [dbo].[customaterial] ADD [cadastromanual] BIT NOT NULL CONSTRAINT [DF_customaterial_cadastromanual] DEFAULT 0
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-03-31T16:07:38', 'Migration201603091702')
 /* Committing Transaction */
 /* 201603091702: Migration201603091702 migrated */
 

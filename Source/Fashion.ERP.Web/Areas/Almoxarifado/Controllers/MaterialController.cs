@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Fashion.ERP.Web.Helpers;
@@ -15,6 +16,7 @@ using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using Kendo.Mvc;
@@ -43,9 +45,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         private readonly IRepository<ReferenciaExterna> _referenciaExternaRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
         private readonly IRepository<EstoqueMaterial> _estoqueMaterialRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
         private readonly ILogger _logger;
         private Dictionary<string, string> _colunasPesquisaMaterial;
-        private readonly string[] _tipoRelatorio = new[] { "Detalhado", "Listagem", "Sintético" };
+        private readonly string[] _tipoRelatorio = { "Detalhado", "Listagem", "Sintético" };
         public const string ChaveReferenciaExterna = "BBA07134-0372-45d5-9B37-5979EB88C221";
         #endregion
 
@@ -55,10 +58,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             IRepository<Familia> familiaRepository, IRepository<MarcaMaterial> marcaMaterialRepository,
             IRepository<UnidadeMedida> unidadeMedidaRepository, IRepository<TipoItem> tipoItemRepository,
             IRepository<GeneroFiscal> generoFiscalRepository, IRepository<Pessoa> pessoaRepository,
-            IRepository<OrigemSituacaoTributaria> origemSituacaoTributariaRepository, 
-            IRepository<ReferenciaExterna> referenciaExternaRepository,
-            IRepository<UltimoNumero> ultimoNumeroRepository,
-            IRepository<EstoqueMaterial> estoqueMaterialRepository)
+            IRepository<OrigemSituacaoTributaria> origemSituacaoTributariaRepository, IRepository<ReferenciaExterna> referenciaExternaRepository,
+            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<EstoqueMaterial> estoqueMaterialRepository,
+            IRepository<Usuario> usuarioRepository)
         {
             _materialRepository = materialRepository;
             _categoriaRepository = categoriaRepository;
@@ -73,6 +75,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             _referenciaExternaRepository = referenciaExternaRepository;
             _ultimoNumeroRepository = ultimoNumeroRepository;
             _estoqueMaterialRepository = estoqueMaterialRepository;
+            _usuarioRepository = usuarioRepository;
             _logger = logger;
 
             PreecheColunasPesquisa();
@@ -1009,6 +1012,77 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             }
 
             return Json(new { Error = "Ocorreu um erro ao buscar a quantidade em estoque do material." }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Custo
+
+        public virtual ActionResult MaterialCusto(long id)
+        {
+            var material = _materialRepository.Load(id);
+
+            var userId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(userId);
+            var funcionarioId = usuario.Funcionario != null ? usuario.Funcionario.Id : null;
+
+            if (funcionarioId == null)
+            {
+                this.AddErrorMessage("O usuário logado não possui funcionário associado a ele.");
+                return RedirectToAction("Index");
+            }
+
+            var model = new MaterialCustoModel()
+            {
+                Referencia = material.Referencia,
+                Descricao = material.Descricao,
+                UnidadeMedida = material.UnidadeMedida.Sigla,
+                Foto = material.Foto != null ? material.Foto.Nome.GetFileUrl() : string.Empty,
+                FuncionarioLogado = usuario.Funcionario.Nome,
+                GridItens = new List<GridMaterialCustoModel>()
+            };
+
+            material.CustoMaterials.ForEach(custoMaterial =>
+            {
+                var editavel = custoMaterial.CadastroManual && custoMaterial.Funcionario.Id == usuario.Funcionario.Id;
+
+                var gridItem = new GridMaterialCustoModel
+                {
+                    Id = custoMaterial.Id,
+                    Responsavel = custoMaterial.Funcionario != null ? custoMaterial.Funcionario.Nome : "",
+                    Ativo = custoMaterial.Ativo,
+                    CadastroManual = custoMaterial.CadastroManual,
+                    Custo = custoMaterial.Custo,
+                    CustoAquisicao = custoMaterial.CustoAquisicao,
+                    Data = custoMaterial.Data.Date,
+                    Fornecedor = custoMaterial.Fornecedor.Nome,
+                    Editavel = editavel
+                };
+
+                model.GridItens.Add(gridItem);
+            });
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public virtual ActionResult MaterialCusto(MaterialCustoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    this.AddSuccessMessage("Material atualizado com sucesso.");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o material. Confira se os dados foram informados corretamente: " 
+                        + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return View(model);
         }
         #endregion
 

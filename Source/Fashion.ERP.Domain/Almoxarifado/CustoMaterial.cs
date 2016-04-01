@@ -10,8 +10,10 @@ namespace Fashion.ERP.Domain.Almoxarifado
         public virtual double CustoMedio { get; set; }
         public virtual double Custo { get; set; }
         public virtual bool Ativo { get; set; }
+        public virtual bool CadastroManual { get; set; }
 
         public virtual CustoMaterial CustoAnterior { get; set; }
         public virtual Pessoa Fornecedor { get; set; }
+        public virtual Pessoa Funcionario { get; set; }
     }
 }

@@ -455,6 +455,13 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             PreencheColuna();
             return PartialView();
         }
+
+        [ChildActionOnly]
+        public virtual ActionResult PesquisarComParametros(PesquisarFornecedorParametrosModel model)
+        {
+            PreencheColuna();
+            return PartialView(model);
+        }
         #endregion
 
         #region PesquisarFiltro

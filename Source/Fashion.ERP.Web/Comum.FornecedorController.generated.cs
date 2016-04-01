@@ -67,6 +67,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarComParametros()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarComParametros);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult PesquisarFiltro()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
@@ -106,6 +112,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string EditarSituacao = "EditarSituacao";
             public readonly string VerificarCpfCnpj = "VerificarCpfCnpj";
             public readonly string Pesquisar = "Pesquisar";
+            public readonly string PesquisarComParametros = "PesquisarComParametros";
             public readonly string PesquisarFiltro = "PesquisarFiltro";
             public readonly string PesquisarCodigo = "PesquisarCodigo";
             public readonly string PesquisarId = "PesquisarId";
@@ -121,6 +128,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string EditarSituacao = "EditarSituacao";
             public const string VerificarCpfCnpj = "VerificarCpfCnpj";
             public const string Pesquisar = "Pesquisar";
+            public const string PesquisarComParametros = "PesquisarComParametros";
             public const string PesquisarFiltro = "PesquisarFiltro";
             public const string PesquisarCodigo = "PesquisarCodigo";
             public const string PesquisarId = "PesquisarId";
@@ -176,6 +184,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             public readonly string cpfCnpj = "cpfCnpj";
         }
+        static readonly ActionParamsClass_PesquisarComParametros s_params_PesquisarComParametros = new ActionParamsClass_PesquisarComParametros();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarComParametros PesquisarComParametrosParams { get { return s_params_PesquisarComParametros; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarComParametros
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_PesquisarFiltro s_params_PesquisarFiltro = new ActionParamsClass_PesquisarFiltro();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PesquisarFiltro PesquisarFiltroParams { get { return s_params_PesquisarFiltro; } }
@@ -215,12 +231,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
+                public readonly string PesquisarVarios = "PesquisarVarios";
             }
             public readonly string _NovoOuEditar = "~/Areas/Comum/Views/Fornecedor/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Comum/Views/Fornecedor/Editar.cshtml";
             public readonly string Index = "~/Areas/Comum/Views/Fornecedor/Index.cshtml";
             public readonly string Novo = "~/Areas/Comum/Views/Fornecedor/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Comum/Views/Fornecedor/Pesquisar.cshtml";
+            public readonly string PesquisarVarios = "~/Areas/Comum/Views/Fornecedor/PesquisarVarios.cshtml";
         }
     }
 
@@ -323,6 +341,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pesquisar);
             PesquisarOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void PesquisarComParametrosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.PesquisarFornecedorParametrosModel model);
+
+        public override System.Web.Mvc.ActionResult PesquisarComParametros(Fashion.ERP.Web.Areas.Comum.Models.PesquisarFornecedorParametrosModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarComParametros);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PesquisarComParametrosOverride(callInfo, model);
             return callInfo;
         }
 

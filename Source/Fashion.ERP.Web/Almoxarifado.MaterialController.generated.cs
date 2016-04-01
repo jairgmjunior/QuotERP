@@ -133,6 +133,12 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MaterialCusto()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MaterialCusto);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult VerificarReferencia()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.VerificarReferencia);
@@ -191,6 +197,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public readonly string UnidadeMedida = "UnidadeMedida";
             public readonly string QuantidadeEstoque = "QuantidadeEstoque";
+            public readonly string MaterialCusto = "MaterialCusto";
             public readonly string VerificarReferencia = "VerificarReferencia";
             public readonly string ObtenhaCusto = "ObtenhaCusto";
             public readonly string ObtenhaCustoAtual = "ObtenhaCustoAtual";
@@ -220,6 +227,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public const string PesquisarReferenciaExternaId = "PesquisarReferenciaExternaId";
             public const string UnidadeMedida = "UnidadeMedida";
             public const string QuantidadeEstoque = "QuantidadeEstoque";
+            public const string MaterialCusto = "MaterialCusto";
             public const string VerificarReferencia = "VerificarReferencia";
             public const string ObtenhaCusto = "ObtenhaCusto";
             public const string ObtenhaCustoAtual = "ObtenhaCustoAtual";
@@ -368,6 +376,15 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string id = "id";
             public readonly string depositoId = "depositoId";
         }
+        static readonly ActionParamsClass_MaterialCusto s_params_MaterialCusto = new ActionParamsClass_MaterialCusto();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_MaterialCusto MaterialCustoParams { get { return s_params_MaterialCusto; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_MaterialCusto
+        {
+            public readonly string id = "id";
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_VerificarReferencia s_params_VerificarReferencia = new ActionParamsClass_VerificarReferencia();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_VerificarReferencia VerificarReferenciaParams { get { return s_params_VerificarReferencia; } }
@@ -414,6 +431,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
+                public readonly string MaterialCusto = "MaterialCusto";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
                 public readonly string PesquisarReferenciaExterna = "PesquisarReferenciaExterna";
@@ -422,6 +440,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             public readonly string _NovoOuEditar = "~/Areas/Almoxarifado/Views/Material/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Almoxarifado/Views/Material/Editar.cshtml";
             public readonly string Index = "~/Areas/Almoxarifado/Views/Material/Index.cshtml";
+            public readonly string MaterialCusto = "~/Areas/Almoxarifado/Views/Material/MaterialCusto.cshtml";
             public readonly string Novo = "~/Areas/Almoxarifado/Views/Material/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Almoxarifado/Views/Material/Pesquisar.cshtml";
             public readonly string PesquisarReferenciaExterna = "~/Areas/Almoxarifado/Views/Material/PesquisarReferenciaExterna.cshtml";
@@ -660,6 +679,26 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "depositoId", depositoId);
             QuantidadeEstoqueOverride(callInfo, id, depositoId);
+            return callInfo;
+        }
+
+        partial void MaterialCustoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult MaterialCusto(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MaterialCusto);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            MaterialCustoOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void MaterialCustoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Almoxarifado.Models.MaterialCustoModel model);
+
+        public override System.Web.Mvc.ActionResult MaterialCusto(Fashion.ERP.Web.Areas.Almoxarifado.Models.MaterialCustoModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MaterialCusto);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MaterialCustoOverride(callInfo, model);
             return callInfo;
         }
 

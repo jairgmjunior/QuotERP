@@ -297,6 +297,8 @@
     <Compile Include="Areas\Almoxarifado\Controllers\SaidaMaterialController.cs" />
     <Compile Include="Areas\Almoxarifado\Controllers\SimboloConservacaoController.cs" />
     <Compile Include="Areas\Almoxarifado\Models\ConsultaEstoqueMaterialModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\GridMaterialCustoModel.cs" />
+    <Compile Include="Areas\Almoxarifado\Models\MaterialCustoModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\PesquisaSaidaMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\GridCustoMaterialModel.cs" />
     <Compile Include="Areas\Almoxarifado\Models\CustoMaterialModel.cs" />
@@ -397,6 +399,7 @@
     <Compile Include="Areas\Comum\Controllers\PrazoController.cs" />
     <Compile Include="Areas\Comum\Models\CentroCustoModel.cs" />
     <Compile Include="Areas\Comum\Models\ClassificacaoDificuldadeModel.cs" />
+    <Compile Include="Areas\Comum\Models\PesquisarFornecedorParametrosModel.cs" />
     <Compile Include="Areas\Comum\Models\GridVariacaoModel.cs" />
     <Compile Include="Areas\Comum\Models\VariacaoModel.cs" />
     <Compile Include="Areas\Comum\Models\CorModel.cs" />
@@ -1290,6 +1293,8 @@
     <Content Include="Areas\Producao\Views\RemessaProducao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\RemessaProducao\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\RemessaProducao\Editar.cshtml" />
+    <Content Include="Areas\Almoxarifado\Views\Material\MaterialCusto.cshtml" />
+    <Content Include="Areas\Comum\Views\Fornecedor\PesquisarComParametros.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

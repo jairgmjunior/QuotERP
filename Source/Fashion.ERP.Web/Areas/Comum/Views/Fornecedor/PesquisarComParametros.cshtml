@@ -1,0 +1,281 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.PesquisarFornecedorParametrosModel
+
+<div id="modal-fornecedor" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Fornecedor</h3>
+            </div>
+            @using (Html.BeginForm(MVC.Comum.Fornecedor.PesquisarComParametros()))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.SelecaoUnica)
+                @Html.HiddenFor(x => x.NomeGridOrigem)
+                @Html.HiddenFor(x => x.ValidacaoDuplicadosGridOrigem)
+
+                <div id="modal-body-fornecedor" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 56%" />
+                        <input id="submit-pesquisar-fornecedor" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-fornecedor"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-fornecedor" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submit-pesquisar-fornecedor').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "@Html.GetUrl(MVC.Comum.Fornecedor.PesquisarFiltro())",
+                beforeSubmit: function() {
+                    e.preventDefault();
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                    
+                    if ($("#SelecaoUnica").val() == "false") {
+                        selecaoMultipla(data);
+
+                    } else {
+                        selecaoUnica(data);
+                    }
+                },
+            });
+
+            return false;
+        });
+        
+        $('#modal-fornecedor').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            $("#grid-pesquisa-fornecedor").data("kendoGrid").destroy();
+            $('#grid-pesquisa-fornecedor').empty();
+            $("#grid-pesquisa-fornecedor").html("");
+            //$('#grid-pesquisa-fornecedor').remove();
+            $('#grid-pesquisa-fornecedor').prop("class", "");
+            $('#grid-pesquisa-fornecedor').prop("style", "");
+        });
+
+        $('#selecionar-fornecedor').on('click', selecionarFornecedor);
+    });
+
+    function obtenhaGrid() {
+        return $('#grid-pesquisa-fornecedor').data("kendoGrid");
+    }
+
+    $("#selecionar-fornecedor").on("pesquisar", function (ev, itens) {
+
+        if (itens.DataItemsSelecionados.length == 0) {
+            $('#modal-fornecedor').modal('hide');
+            return;
+        }
+
+        var nomeGridOrigem = $("#NomeGridOrigem").val() == "" ? "GridItens" : $("#NomeGridOrigem").val();
+        var gridOrigem = $('#' + nomeGridOrigem).data("kendoGrid");
+        var model = gridOrigem.dataSource.options.schema.model;
+        var dadosAtuais = gridOrigem.dataSource.data();
+        var novosDados = itens.DataItemsSelecionados;
+
+        for (var i = 0; i < novosDados.length; i++) {
+            var dataItemNovo = novosDados[i];
+            dataItemNovo.Descartado = false;
+            if ($("#ValidacaoDuplicadosGridOrigem").val() != "false") {
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Codigo == dataItemAtual.CodigoFornecedor) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+            }
+
+            if (!dataItemNovo.Descartado) {
+
+                var dataItemNovoFinal;
+                if (typeof obtenhaNovoDataItem != "undefined") {
+                    dataItemNovoFinal = obtenhaNovoDataItem(dataItemNovo);
+                }
+                else {
+                    dataItemNovoFinal = {
+                    Fornecedor: dataItemNovo.Nome,
+                    CodigoFornecedor: dataItemNovo.Codigo,
+                    CpfCnpj: dataItemNovo.CpfCnpj
+                    };
+                }
+
+                dadosAtuais.unshift(dataItemNovoFinal);
+            }
+        }
+
+        var dataSource = new kendo.data.DataSource({
+            data: dadosAtuais,
+            schema: {
+                model: model
+            }
+        });
+        dataSource.read();
+        gridOrigem.setDataSource(dataSource);
+        gridOrigem.refresh();
+
+        $('#modal-fornecedor').modal('hide');
+    });
+
+    //Seleção Única
+    function selecaoUnica(data) {
+        var grid = $("#grid-pesquisa-fornecedor").kendoGrid({
+            height: "380px",
+            selectable: "row",
+            columns: [
+                { field: "Id", hidden: true },
+                { field: "Nome", title: "Nome" },
+                { field: "Codigo", title: "Código" },
+                { field: "CpfCnpj", title: "CPF/CNPJ" }
+            ],
+            dataSource: {
+                data: data,
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Nome: { type: "string" },
+                            Codigo: { type: "long" },
+                            CpfCnpj: { type: "string" }
+                        }
+                    }
+                }
+            }
+        });
+
+        
+
+        $("#grid-pesquisa-fornecedor tbody").delegate("tr", "dblclick", selecionarFornecedor);
+    }
+
+    function selecionarFornecedor() {
+        var gridPesquisa = $('#grid-pesquisa-fornecedor').data("kendoGrid");
+
+        if (!gridPesquisa) return;
+
+        var dataItem = gridPesquisa.dataItem(gridPesquisa.select());
+
+        $("#selecionar-fornecedor").trigger("pesquisar", { DataItemsSelecionados: [dataItem] });
+    }
+
+    //Seleção Múltipla
+    function selecaoMultipla(data) {
+        var novoDataItem = obtenhaDataItensSelecionados();
+
+        $.merge(novoDataItem, data);
+
+        var grid = $("#grid-pesquisa-fornecedor").kendoGrid({
+            height: "380px",
+            columns: [
+                { field: "Id", hidden: true },
+                { field: "Nome", title: "Nome" },
+                { field: "Codigo", title: "Código" },
+                { field: "CpfCnpj", title: "CPF/CNPJ" },
+                { field: "checked", title: " ", template: "<input id='checked' type='checkbox' #=checked?'checked':''#/>", width: 30 }
+            ],
+            dataSource: {
+                data: novoDataItem,
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Nome: { type: "string" },
+                            Codigo: { type: "long" },
+                            CpfCnpj: { type: "string" },
+                            checked: { type: "boolean" }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (grid.find("th:last input").get(0) == null) {
+            grid.find("th:last")
+                .append($('<input class="selectAll" type="checkbox"/>'))
+                .delegate(".selectAll", "click", function () {
+                    var checkbox = $(this);
+                    grid.find("tr")
+                        .find("td:last input")
+                        .attr("checked", checkbox.is(":checked"))
+                        .trigger("change");
+                });
+
+
+            $("#grid-pesquisa-fornecedor tbody").delegate("tr", "click", function (ev) {
+                var linha = $(ev.target).closest('tr');
+                if (!$(event.target).is("input")) {
+                    var checkbox = linha.find("td:last input");
+                    checkbox.prop("checked", !checkbox.prop("checked"));
+                    obtenhaGrid().dataItem(linha).set('checked', checkbox.prop("checked"));
+                }
+            });
+        }
+
+        var dataItensTodos = obtenhaGrid().dataSource.data();
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            if (dataItem.checked) {
+                var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
+                var checkb = row.find("td:last input");
+                checkb.prop("checked", true);
+                obtenhaGrid().dataItem(row).set('checked', true);
+            }
+        }
+    }
+
+    function selecionarFornecedores() {
+
+        $('#modal-fornecedor').modal('hide');
+
+        if (!obtenhaGrid()) return;
+
+        var itensSelecionados = obtenhaDataItensSelecionados();
+
+        var grid = obtenhaGrid();
+        if (grid != null)
+            grid.dataSource.data([]);
+
+        $("#selecionar-fornecedor").trigger("pesquisar", { DataItemsSelecionados: itensSelecionados });
+    }
+
+    function obtenhaDataItensSelecionados() {
+        var grid = obtenhaGrid();
+        if (!grid) {
+            return [];
+        }
+        var dataItensTodos = grid.dataItems();
+        var dataItensSelecionados = [];
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
+
+            if (row.find("#checked").prop("checked")) {
+                dataItem.checked = true;
+                dataItensSelecionados.push(dataItem);
+            }
+        }
+
+        return dataItensSelecionados;
+    }
+    
+</script>

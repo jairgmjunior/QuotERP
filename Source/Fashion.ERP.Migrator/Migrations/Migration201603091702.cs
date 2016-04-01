@@ -48,6 +48,17 @@ namespace Fashion.ERP.Migrator
                 .AddColumn("descricao")
                 .AsString()
                 .Nullable();
+
+            Alter.Table("customaterial")
+                .AddColumn("funcionario_id")
+                .AsInt64()
+                .Nullable()
+                .ForeignKey("FK_customaterial_pessoa", "pessoa", "id");
+
+            Alter.Table("customaterial")
+                .AddColumn("cadastromanual")
+                .AsBoolean()
+                .WithDefaultValue(false);
         }
 
         public override void Down()
