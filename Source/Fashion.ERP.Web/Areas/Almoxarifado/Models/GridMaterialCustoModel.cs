@@ -9,19 +9,24 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         public long CodigoFornecedor { get; set; }
 
+        [Display(Name = "Fornecedor")]
         public string Fornecedor { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime Data { get; set; }
-
+        
+        [Display(Name = "Data")]
+        public String DataCustoString { get; set; }
+        
+        [Display(Name = "Custo de Aquisição")]
         public double CustoAquisicao { get; set; }
 
+        [Display(Name = "Custo")]
         public double Custo { get; set; }
 
         public Boolean Ativo { get; set; }
 
+        [Display(Name = "Cadastro Manual")]
         public Boolean CadastroManual { get; set; }
 
+        [Display(Name = "Responsável")]
         public String Responsavel { get; set; }
 
         public Boolean Editavel { get; set; }

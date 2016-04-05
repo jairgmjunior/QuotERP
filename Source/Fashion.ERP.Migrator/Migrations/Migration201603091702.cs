@@ -59,6 +59,9 @@ namespace Fashion.ERP.Migrator
                 .AddColumn("cadastromanual")
                 .AsBoolean()
                 .WithDefaultValue(false);
+            
+            Delete.ForeignKey("FK_customaterial_customaterial").OnTable("customaterial");
+            Delete.Column("custoanterior_id").FromTable("customaterial");
         }
 
         public override void Down()

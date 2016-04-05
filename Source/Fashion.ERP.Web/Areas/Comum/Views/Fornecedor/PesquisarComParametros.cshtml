@@ -17,7 +17,7 @@
                 <div id="modal-body-fornecedor" class="modal-body" style="overflow-y: hidden;">
                     <div class="clearfix form-inline" style="margin-bottom: 15px;">
                         @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
-                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 56%" />
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 67%" />
                         <input id="submit-pesquisar-fornecedor" type="button" value="Pesquisar" class="btn btn-default pull-right" />
                     </div>
                     <div id="grid-pesquisa-fornecedor"></div>    
@@ -114,9 +114,9 @@
                 }
                 else {
                     dataItemNovoFinal = {
-                    Fornecedor: dataItemNovo.Nome,
-                    CodigoFornecedor: dataItemNovo.Codigo,
-                    CpfCnpj: dataItemNovo.CpfCnpj
+                        Fornecedor: dataItemNovo.Nome,
+                        CodigoFornecedor: dataItemNovo.Codigo,
+                        CpfCnpj: dataItemNovo.CpfCnpj
                     };
                 }
 

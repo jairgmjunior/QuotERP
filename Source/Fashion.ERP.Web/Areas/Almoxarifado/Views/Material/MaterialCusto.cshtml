@@ -67,48 +67,50 @@
             <div class="col-sm-12">
                 <div class="table-responsive">
                     @(Html.Kendo().Grid(Model.GridItens)
-                          .Name("GridItens")
-                          .Editable(e => e.Mode(GridEditMode.InCell))
-                          .Navigatable()
-                          .Columns(columns =>
-                          {
-                              columns.Bound(x => x.Id).Hidden()
-                                  .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
-                              columns.Bound(x => x.CodigoFornecedor).Hidden()
-                                  .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].CodigoFornecedor' value='#= CodigoFornecedor #' />");
-                              columns.Bound(x => x.Fornecedor)
-                                  .ClientTemplate("#= Fornecedor #<input type='hidden' name='GridItens[#= index(data)#].Fornecedor' value='#= Fornecedor #' />");
-                              columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}")
-                                  .ClientTemplate("#= kendo.toString(Data, 'dd/MM/yyyy') #<input type='hidden' name='GridItens[#= index(data)#].Data' value='#= Data #' />");
-                              columns.Bound(x => x.CustoAquisicao).EditorTemplateName("numeric4casasdecimais")
-                                  .ClientTemplate("#= kendo.toString(CustoAquisicao, \"n4\") #<input type='hidden' name='GridItens[#= index(data)#].CustoAquisicao' value='#= formateDecimalGrid(CustoAquisicao) #' />");
-                              columns.Bound(x => x.Custo).EditorTemplateName("numeric4casasdecimais")
-                                  .ClientTemplate("#= kendo.toString(Custo, \"n4\") #<input type='hidden' name='GridItens[#= index(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
-                              columns.Bound(x => x.Ativo).Template(@<text></text>)
-                                  .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' #= Ativo ? checked='checked' : '' # onclick='clicouCheckBox(this)'/>"+
-                                                  "<input id='Check' type='hidden' name='GridItens[#= index(data)#].Ativo' value='#= Ativo #' /></div>").Width(27);
-                              columns.Bound(x => x.CadastroManual).Template(@<text></text>)
-                                  .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' disabled #= CadastroManual ? checked='checked' : '' # onclick='clicouCheckBox(this)'/>"+
-                                                  "<input id='Check' type='hidden' name='GridItens[#= index(data)#].CadastroManual' value='#= CadastroManual #' /></div>").Width(27);
-                              columns.Bound(x => x.Responsavel)
-                                  .ClientTemplate("#= Responsavel #<input type='hidden' name='GridItens[#= index(data)#].Responsavel' value='#= Responsavel #' />");
-                              columns.Bound(x => x.Editavel).Hidden()
-                                  .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Editavel' value='#= Editavel #' />");
+                        .Name("GridItens")
+                        .Editable(e => e.Mode(GridEditMode.InCell))
+                        .Navigatable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.Id).Hidden()
+                                .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Id' value='#= Id #' />");
+                                @*kendo.toString(kendo.parseDate(DataCusto,'yyyy/MM/dd'), 'dd/MM/yyyy' )*@
+                                  
+                            columns.Bound(x => x.CodigoFornecedor).Hidden()
+                                .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].CodigoFornecedor' value='#= CodigoFornecedor #' />");
+                            columns.Bound(x => x.Fornecedor)
+                                .ClientTemplate("#= Fornecedor #<input type='hidden' name='GridItens[#= index(data)#].Fornecedor' value='#= Fornecedor #' />");
+                            columns.Bound(x => x.DataCustoString)
+                                .ClientTemplate("#= DataCustoString #<input type='hidden' name='GridItens[#= index(data)#].DataCustoString' value='#= DataCustoString #' />");
+                            columns.Bound(x => x.CustoAquisicao).EditorTemplateName("numeric4casasdecimais").Width(125)
+                                .ClientTemplate("#= kendo.toString(CustoAquisicao, \"n4\") #<input type='hidden' name='GridItens[#= index(data)#].CustoAquisicao' value='#= formateDecimalGrid(CustoAquisicao) #' />");
+                            columns.Bound(x => x.Custo).EditorTemplateName("numeric4casasdecimais").Width(110)
+                                .ClientTemplate("#= kendo.toString(Custo, \"n4\") #<input type='hidden' name='GridItens[#= index(data)#].Custo' value='#= formateDecimalGrid(Custo) #' />");
+                            columns.Bound(x => x.Ativo).Template(@<text></text>)
+                                .ClientTemplate("<div><input type='checkbox' class='chkbx check-box' #= Ativo ? checked='checked' : '' # onclick='clicouCheckBox(this)'/>"+
+                                                "<input id='Check' type='hidden' name='GridItens[#= index(data)#].Ativo' value='#= Ativo #' /></div>").Width(27);
+                            columns.Bound(x => x.CadastroManual).Template(@<text></text>)
+                                .ClientTemplate("<div><input type='checkbox' class='' disabled #= CadastroManual ? checked='checked' : '' # />"+
+                                                "<input id='Check' type='hidden' name='GridItens[#= index(data)#].CadastroManual' value='#= CadastroManual #' /></div>").Width(27);
+                            columns.Bound(x => x.Responsavel)
+                                .ClientTemplate("#= Responsavel #<input type='hidden' name='GridItens[#= index(data)#].Responsavel' value='#= Responsavel #' />");
+                            columns.Bound(x => x.Editavel).Hidden()
+                                .ClientTemplate("<input type='hidden' name='GridItens[#= index(data)#].Editavel' value='#= Editavel #' />");
 
-                              columns.Command(command => command.Destroy()).Width(110);
-                          })
-                          .DataSource(dataSource => dataSource
-                              .Ajax().ServerOperation(false)
-                              .Model(model =>
-                              {
-                                  model.Id(item => item.Id);
-                                  model.Field(item => item.Id).DefaultValue(0);                                                                    
-                              })
-                              .Events(events => events.Error("onKendoGridError"))
-                          )
-                          .Filterable()
-                          .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisar-fornecedor", @href = "javascript:void(0)", @class = "btn-primary", data_toggle="modal", data_target="#modal-fornecedor" }))
-                          .Events(events => events.Edit("onEditGrid").DataBound("onDataBound")))
+                            columns.Command(command => command.Destroy()).Width(110);
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax().ServerOperation(false)
+                            .Model(model =>
+                            {
+                                model.Id(item => item.Id);
+                                model.Field(item => item.Id).DefaultValue(0);
+                            })
+                            .Events(events => events.Error("onKendoGridError"))
+                        )
+                        .Filterable()
+                        .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new { @id = "pesquisar-fornecedor", @href = "javascript:void(0)", @class = "btn-primary", data_toggle="modal", data_target="#modal-fornecedor" }))
+                        .Events(events => events.Edit("onEditGrid").DataBound("onDataBound")))
                 </div>
             </div>
         </div>
@@ -133,7 +135,6 @@
 
     $(document).ready(function () {
        
-
         $('#form').submit(function (e) {
             //e.preventDefault();
             limpeMensagensAlerta();
@@ -142,22 +143,8 @@
             var mensagem = "";
             for (var i = 0; i < dataGridItens.length; i++) {
                 var dataItem = dataGridItens[i];
-                if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
-                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna qtde programada.<br/>";
-                }
-            }
-
-            for (var i = 0; i < dataGridItens.length; i++) {
-                var dataItem = dataGridItens[i];
-                if (dataItem.DepartamentoProducao == 0 || dataItem.DepartamentoProducao == null) {
-                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna departamento produção.<br/>";
-                }
-            }
-
-            for (var i = 0; i < dataGridItens.length; i++) {
-                var dataItem = dataGridItens[i];
-                if ((dataItem.Unidade == 0 || dataItem.Unidade == null) && dataItem.Reservado == true && dataItem.Editavel == true) {
-                    mensagem += "O item de referência: " + dataItem.Referencia + " não tem valor na coluna unidade.<br/>";
+                if (dataItem.Custo == 0 || dataItem.Custo == null) {
+                    mensagem += "O custo do fornecedor " + dataItem.Fornecedor+ " não foi especificado.<br/>";
                 }
             }
 
@@ -174,16 +161,19 @@
     });
 
     function obtenhaNovoDataItem(dataItemGridPesquisa) {
+
+        desmarqueTodosAtivos();
         return {
             Fornecedor: dataItemGridPesquisa.Nome,
-            Data: new Date(),
+            DataCustoString: kendo.toString(new Date(), 'dd/MM/yyyy'),
             CodigoFornecedor: dataItemGridPesquisa.Codigo,
             CustoAquisicao: 0,
             Custo: 0,
-            Ativo: false,
+            Ativo: true,
             CadastroManual: true,
             Responsavel: $("#FuncionarioLogado").val(),
-            Editavel: true
+            Editavel: true,
+            Id: 0
         };
     }
 
@@ -227,46 +217,59 @@
         });
     }
 
+    function desmarqueTodosAtivos() {
+        for (var i = 0; i < $('.chkbx').length; i++) {
+            desmarqueCheckBox($('.chkbx')[i]);
+        }
+    }
+
     function clicouCheckBox(a) {
         var checked = $(a).is(':checked');
 
+        desmarqueTodosAtivos();
+
         if (!checked)
-            desmarqueCheckBox($(a));
+            return;
         else {
             marqueCheckBox($(a));
-        }
-
-        var numChkBoxes = $('.chkbx').length;
-        var numChkBoxesChecked = $('.chkbx:checked').length;
-        if (numChkBoxes == numChkBoxesChecked && numChkBoxes > 0) {
-            $('#checkAll').attr('checked', 'checked');
-        }
-        else {
-            $('#checkAll').removeAttr('checked');
         }
     }
 
     function marqueCheckBox(checkBoxElement) {
         var row = $(checkBoxElement).closest("tr");
         var grid = $('#GridItens').data("kendoGrid");
-        var dataItem = grid.dataItem(row);
+        
+        //var dataItem = grid.dataItem(row); deveria funcionar, erro no kendo
+
+        var dataItem;
+        for (var i = 0; i < grid.dataItems().length; i++) {
+            if ($(row).data("uid") == grid.dataItems()[i].uid) {
+                dataItem = grid.dataItems()[i];
+            }
+        }
 
         if (checkBoxElement.disabled) return;
         $(checkBoxElement).parent().find('input[type=hidden]').val(true);
         $(checkBoxElement).attr('checked', 'checked');
 
-        dataItem.set("Reservado", true);
+        dataItem.set("Ativo", true);
     }
 
     function desmarqueCheckBox(checkBoxElement) {
-        if (checkBoxElement.disabled) return;
+        
         $(checkBoxElement).parent().find('input[type=hidden]').val(false);
         $(checkBoxElement).removeAttr('checked');
 
         var row = $(checkBoxElement).closest("tr");
         var grid = $('#GridItens').data("kendoGrid");
-        var dataItem = grid.dataItem(row);
-        dataItem.Reservado = false;
-        dataItem.set("Reservado", false);
+        var dataItem;
+
+        for (var i = 0; i < grid.dataItems().length; i++) {
+            if ($(row).data("uid") == grid.dataItems()[i].uid) {
+                dataItem = grid.dataItems()[i];
+            }
+        }
+        
+        dataItem.set("Ativo", false);
     }
 </script>

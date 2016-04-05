@@ -1041,7 +1041,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 GridItens = new List<GridMaterialCustoModel>()
             };
 
-            material.CustoMaterials.ForEach(custoMaterial =>
+            material.CustoMaterials.OrderByDescending(x => x.Data).ForEach(custoMaterial =>
             {
                 var editavel = custoMaterial.CadastroManual && custoMaterial.Funcionario.Id == usuario.Funcionario.Id;
 
@@ -1053,8 +1053,9 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     CadastroManual = custoMaterial.CadastroManual,
                     Custo = custoMaterial.Custo,
                     CustoAquisicao = custoMaterial.CustoAquisicao,
-                    Data = custoMaterial.Data.Date,
+                    DataCustoString = custoMaterial.Data.ToString("dd/MM/yyyy"),
                     Fornecedor = custoMaterial.Fornecedor.Nome,
+                    CodigoFornecedor = custoMaterial.Fornecedor.Fornecedor.Codigo,
                     Editavel = editavel
                 };
 
@@ -1071,12 +1072,47 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             {
                 try
                 {
-                    this.AddSuccessMessage("Material atualizado com sucesso.");
+                    var material = _materialRepository.Get(model.Id);
+
+                    var userId = FashionSecurity.GetLoggedUserId();
+                    var usuario = _usuarioRepository.Get(userId);
+                    
+                    model.GridItens.ForEach(modelItem =>
+                    {
+                        if (modelItem.Id.HasValue && modelItem.Id.Value != 0)
+                        {
+                            var custoMaterial = material.CustoMaterials.First(x => x.Id == modelItem.Id);
+                            custoMaterial.Ativo = modelItem.Ativo;
+                        }
+                        else
+                        {
+                            var custoMaterial = new CustoMaterial()
+                            {
+                                Ativo = true,
+                                CadastroManual = true,
+                                Custo = modelItem.Custo,
+                                CustoAquisicao = modelItem.CustoAquisicao,
+                                CustoMedio = 0,
+                                Data = DateTime.Now,
+                                Fornecedor =_pessoaRepository.Find(p => p.Fornecedor != null 
+                                    && p.Fornecedor.Codigo == modelItem.CodigoFornecedor).First(),
+                                Funcionario = usuario.Funcionario
+                            };
+
+                            material.CustoMaterials.Add(custoMaterial);
+                        }
+                    });
+
+                    ExcluaCustoMaterial(model, material);
+
+                    _materialRepository.SaveOrUpdate(material);
+
+                    this.AddSuccessMessage("Custo do material atualizado com sucesso.");
                     return RedirectToAction("Index");
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar o material. Confira se os dados foram informados corretamente: " 
+                    ModelState.AddModelError(string.Empty, "Ocorreu um erro ao salvar custo do material. Confira se os dados foram informados corretamente: " 
                         + exception.Message);
                     _logger.Info(exception.GetMessage());
                 }
@@ -1084,6 +1120,32 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             return View(model);
         }
+
+
+        private void ExcluaCustoMaterial(MaterialCustoModel model, Material material)
+        {
+            var custoMaterialItensExcluir = new List<CustoMaterial>();
+            material.CustoMaterials.ForEach(x =>
+            {
+                if (model.GridItens.All(y => y.Id != x.Id && x.Id != null))
+                {
+                    custoMaterialItensExcluir.Add(x);
+                }
+            });
+
+            custoMaterialItensExcluir.ForEach(x => material.CustoMaterials.Remove(x));
+
+            var custoMaterialAtivo = material.CustoMaterials.FirstOrDefault(x => x.Ativo);
+            if (custoMaterialAtivo == null)
+            {
+                var ultimoCusto = material.CustoMaterials.OrderBy(x => x.Data).LastOrDefault();
+                if (ultimoCusto != null)
+                {
+                    ultimoCusto.Ativo = true;
+                }
+            }
+        }
+
         #endregion
 
         #endregion
