@@ -19,6 +19,11 @@ INSERT INTO remessaproducao(id, idtenant, idempresa, numero, ano, descricao, dat
 ----MIGRAÇÃO BOOK DA COLEÇÃO PROGRAMADA PARA REMESSA DE PRODUÇÃO
 DECLARE @INDEXID AS BIGINT;
 SET @INDEXID = (SELECT id FROM permissao WHERE action = 'Index' and controller = 'RemessaProducao');
-SELECT * FROM permissao WHERE action = 'Book'
 
 UPDATE permissao SET controller = 'RemessaProducao', permissaopai_id = @INDEXID WHERE action = 'Book';
+
+----CUSTO DO MATERIAL
+DECLARE @INDEXMATERIALID AS BIGINT;
+SET @INDEXMATERIALID = (SELECT id FROM permissao WHERE action = 'Index' and controller = 'Material');
+
+INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('MaterialCusto', 'Almoxarifado', 'Material', 'Custo', 0, 1, 0, @INDEXMATERIALID);

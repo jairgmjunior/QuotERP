@@ -188,6 +188,7 @@
                                                          "<a href='" + "#= Foto #" + "'' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
                                                          "#}#").Width(60).Sortable(false);
               columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+              columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Custo", "MaterialCusto", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
               columns.Template(@<text></text>).ClientTemplate( "#if(Ativo) {#" + 
                                                                @Html.ActionLinkAuth("Inativar", "EditarSituacao", "Material", new {Id = "#= Id #", Area = "Almoxarifado"}, new {@class = "btn btn-small btn-danger btn-editar-situacao"}).ToHtmlString() +
                                                                "#} else {#" +

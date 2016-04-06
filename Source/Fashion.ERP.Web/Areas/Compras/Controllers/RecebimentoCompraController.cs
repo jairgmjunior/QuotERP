@@ -368,7 +368,6 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                     {
                         Custo = valorUnitario,
                         CustoAquisicao = valorUnitario,
-                        CustoMedio = valorUnitario,
                         Data = DateTime.Now,
                         Fornecedor = recebimentoCompra.Fornecedor
                     };

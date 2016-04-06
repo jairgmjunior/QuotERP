@@ -98,7 +98,6 @@ namespace Fashion.ERP.Testes.Persistencia
                 Ativo = true,
                 Custo = 1,
                 CustoAquisicao = 1,
-                CustoMedio = 1,
                 Data = new DateTime(2014,1,1)
             };
         }

@@ -1083,16 +1083,17 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                         {
                             var custoMaterial = material.CustoMaterials.First(x => x.Id == modelItem.Id);
                             custoMaterial.Ativo = modelItem.Ativo;
+                            custoMaterial.Custo = modelItem.Custo;
+                            custoMaterial.CustoAquisicao = modelItem.CustoAquisicao;
                         }
                         else
                         {
                             var custoMaterial = new CustoMaterial()
                             {
-                                Ativo = true,
+                                Ativo = modelItem.Ativo,
                                 CadastroManual = true,
                                 Custo = modelItem.Custo,
                                 CustoAquisicao = modelItem.CustoAquisicao,
-                                CustoMedio = 0,
                                 Data = DateTime.Now,
                                 Fornecedor =_pessoaRepository.Find(p => p.Fornecedor != null 
                                     && p.Fornecedor.Codigo == modelItem.CodigoFornecedor).First(),

@@ -62,6 +62,7 @@ namespace Fashion.ERP.Migrator
             
             Delete.ForeignKey("FK_customaterial_customaterial").OnTable("customaterial");
             Delete.Column("custoanterior_id").FromTable("customaterial");
+            Delete.Column("customedio").FromTable("customaterial");
         }
 
         public override void Down()

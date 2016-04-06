@@ -61,7 +61,6 @@ namespace Fashion.ERP.Domain.Compras
                 {
                     custoAtual.Custo = valorUnitario;
                     custoAtual.CustoAquisicao = valorUnitario;
-                    custoAtual.CustoMedio = valorUnitario;
                 }
                 else
                 {
@@ -69,7 +68,6 @@ namespace Fashion.ERP.Domain.Compras
                     {
                         Custo = valorUnitario,
                         CustoAquisicao = valorUnitario,
-                        CustoMedio = valorUnitario,
                         Fornecedor = fornecedor,
                         Data = DateTime.Now
                     };
