@@ -1,7 +1,7 @@
 using System.Reflection;
 
-[assembly: AssemblyVersion("0.1.76.0")]
-[assembly: AssemblyFileVersion("0.1.76.0")]
+[assembly: AssemblyVersion("0.1.77.0")]
+[assembly: AssemblyFileVersion("0.1.77.0")]
 
 [assembly: AssemblyCompany("Fashion Consultoria e Sistemas Ltda")]
 [assembly: AssemblyCopyright("Copyright © Fashion Consultoria e Sistemas Ltda 2013")]
@@ -13,5 +13,5 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-// Versão 0.1.76.0 (8/11)
+// Versão 0.1.77.0 (8/11)
 //      - Engenharia de produto

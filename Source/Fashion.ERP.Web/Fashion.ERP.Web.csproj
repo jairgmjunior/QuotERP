@@ -368,7 +368,6 @@
     <Compile Include="Areas\Compras\Models\GridProcedimentoModuloComprasModel.cs" />
     <Compile Include="Areas\Compras\Models\GridMotivoCancelamentoPedidoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\MotivoCancelamentoPedidoCompraModel.cs" />
-    <Compile Include="Areas\Compras\Models\OrdemEntradaCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\ParametroModuloCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraItemRecebimentoModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraModel.cs" />
@@ -399,6 +398,7 @@
     <Compile Include="Areas\Comum\Controllers\PrazoController.cs" />
     <Compile Include="Areas\Comum\Models\CentroCustoModel.cs" />
     <Compile Include="Areas\Comum\Models\ClassificacaoDificuldadeModel.cs" />
+    <Compile Include="Areas\Comum\Models\ComboBoxItemFornecedorModel.cs" />
     <Compile Include="Areas\Comum\Models\PesquisarFornecedorParametrosModel.cs" />
     <Compile Include="Areas\Comum\Models\GridVariacaoModel.cs" />
     <Compile Include="Areas\Comum\Models\VariacaoModel.cs" />
@@ -1188,12 +1188,6 @@
     <Content Include="Areas\Comum\Views\Empresa\Index.cshtml" />
     <Content Include="Areas\Comum\Views\Empresa\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\Empresa\Pesquisar.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\Index.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\Novo.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\Editar.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\SelecionarPedidoCompra.cshtml" />
-    <Content Include="Areas\Compras\Views\OrdemEntradaCompra\Detalhar.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ListagemModelos2.cshtml" />
     <Content Include="Areas\Compras\Views\PedidoCompraCancelamento\CancelamentoPedido.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\Relatorio\ListagemModelos.cshtml" />
@@ -1295,6 +1289,7 @@
     <Content Include="Areas\Producao\Views\RemessaProducao\Editar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Material\MaterialCusto.cshtml" />
     <Content Include="Areas\Comum\Views\Fornecedor\PesquisarComParametros.cshtml" />
+    <Content Include="App_Code\HtmlCustom.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

@@ -1,4 +1,5 @@
-﻿@model Fashion.ERP.Web.Areas.Almoxarifado.Models.EntradaMaterialModel
+﻿@using Microsoft.Ajax.Utilities
+@model Fashion.ERP.Web.Areas.Almoxarifado.Models.EntradaMaterialModel
 <fieldset>
     <legend><small>Dados da Entrada de Material</small></legend>
     <div class="row">
@@ -51,24 +52,11 @@
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Fornecedor)
-                <div class="col-sm-8 col-md-8 col-lg-7  ">
-                    @Html.HiddenFor(x => x.Fornecedor)
-                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                        <div class="input-group">
-                            <input id="codigo-fornecedor" class="numeric-only form-control" type="text" style="width: 70%;">
-                            <span class="input-group-btn pull-left">
-                                <button id="pesquisar-fornecedor" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-fornecedor">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                        <input id="descricao-fornecedor" class="form-control" readonly="" data-toggle="tooltip">
-                    </div>
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.CustomKendoComboBoxForFornecedor(x => x.Fornecedor)
                 </div>
             </div>
-        </div>     
+        </div> 
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.UnidadeOrigem)
@@ -189,7 +177,7 @@
             <div class="form-group form-group-sm">
                 <div class="col-sm-2 col-md-3"></div>    
                 <div class="col-sm-offset-2 col-md-offset-3 col-sm-8 col-md-9">
-                    <table id="table-sequencia" class="table table-striped" style="width: 800px">
+                    <table id="table-sequencia" class="table table-responsive table-striped" style="width: 800px">
                         <thead>
                             <tr>
                                 <th>Referência</th>
@@ -256,8 +244,36 @@
 @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.EntradaMaterial.Excluir(Model.Id))
 
 <script>
+    
+    //function valueMapper(options) {
+    //    $.ajax({
+    //        url: '/Comum/Fornecedor/Fornecedores_ValueMapper', 
+    //        data: convertValues(options.value),
+    //        success: function (data) {
+    //            options.success(data);
+    //        },
+    //        error: function (error) {
+    //            console.log(error);
+    //        }
+    //    });
+    //}
+
+    //function convertValues(value) {
+    //    var data = {};
+
+    //    value = $.isArray(value) ? value : [value];
+
+    //    for (var idx = 0; idx < value.length; idx++) {
+    //        data["values[" + idx + "]"] = value[idx];
+    //    }
+
+    //    return data;
+    //}
 
     $(document).ready(function () {
+
+//        $("#Fornecedor").data("kendoComboBox").value("969");
+                            
         if ($('#DepositoMaterialDestino').val() == '') {
             $("#referencia-material").prop("disabled", true);
             $("#pesquisar-material").prop("disabled", true);
@@ -277,6 +293,7 @@
             });
         });
     });
+
     $(function() {
         $('#UnidadeDestino').on("change", function () {
 

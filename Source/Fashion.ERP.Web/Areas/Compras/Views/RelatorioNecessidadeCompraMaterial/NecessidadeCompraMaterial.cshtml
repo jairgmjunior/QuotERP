@@ -48,21 +48,8 @@
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
                                 @Html.LabelForRequired(x => x.Fornecedor)
-                                <div class="col-sm-8 col-md-8 col-lg-7  ">
-                                    @Html.HiddenFor(x => x.Fornecedor)
-                                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                                        <div class="input-group">
-                                            <input id="codigo-fornecedor" class="numeric-only form-control" type="text" style="width: 70%;">
-                                            <span class="input-group-btn pull-left">
-                                                <button id="pesquisar-fornecedor" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-fornecedor">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                                        <input id="descricao-fornecedor" class="form-control" readonly="" data-toggle="tooltip">
-                                    </div>
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.CustomKendoComboBoxForFornecedor(x => x.Fornecedor)
                                 </div>
                             </div>
                         </div>
@@ -176,6 +163,6 @@
     });
 </script>
 @{
-    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
 }

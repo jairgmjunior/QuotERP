@@ -7,6 +7,6 @@
 }
 @{
     Html.RenderPartial("_ConfirmDelete");
-    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
 }

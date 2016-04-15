@@ -17,6 +17,8 @@ using Fashion.ERP.Web.Models;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Ninject.Extensions.Logging;
 using Telerik.Reporting;
 
@@ -614,6 +616,74 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 ModelState.AddModelError("", "Não é possível excluir este fornecedor, pois existe uma referência externa cadastrada com ele.");
         }
         #endregion
+
+        #endregion
+
+        #region ComboBox Pesquisa
+
+        IEnumerable<ComboBoxItemFornecedorModel> ObtenheFornecedoresFiltrados(string filtro)
+        {
+            var queryFornecedores = _pessoaRepository.Find(p => p.Fornecedor != null);
+
+            if (!filtro.IsNullOrEmpty())
+            {
+                long filtroLong;
+                if (long.TryParse(filtro, out filtroLong))
+                {
+                    queryFornecedores =
+                        queryFornecedores.Where(p => p.Nome.Contains(filtro) || p.NomeFantasia.Contains(filtro) || p.Fornecedor.Codigo == filtroLong || p.CpfCnpj.Contains(filtro));
+                }
+                else
+                {
+                    queryFornecedores =
+                        queryFornecedores.Where(p => p.Nome.Contains(filtro) || p.NomeFantasia.Contains(filtro) || p.CpfCnpj.Contains(filtro));
+                }                
+            }
+
+            var resultado =  queryFornecedores.OrderBy(x => x.Fornecedor.Codigo).ToList();
+
+            return resultado.Select(x => new ComboBoxItemFornecedorModel
+            {
+                Id = x.Id.GetValueOrDefault(),
+                Tooltip = "Código: " + x.Fornecedor.Codigo + "\nNome: " + x.Nome + "\nNome fantasia: " + x.NomeFantasia + "\nCnpj: " + Convert.ToUInt64(x.CpfCnpj).ToString(@"00\.000\.000\/0000\-00"),
+                CodigoNome = x.Fornecedor.Codigo + " " + x.Nome
+            });
+        }
+
+        public ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var filtro = "";
+
+            if (request.Filters.Count != 0)
+            {
+                filtro = ((Kendo.Mvc.FilterDescriptor) (request.Filters.ToList()[0])).ConvertedValue.ToString();
+            }
+
+            var fornecedores = ObtenheFornecedoresFiltrados(filtro);
+
+            return Json(fornecedores.ToDataSourceResult(request));
+        }
+
+        public ActionResult Fornecedores_ValueMapper(long[] values)
+        {
+            var indices = new List<long>();
+
+            if (values != null && values.Any())
+            {
+                var index = 0;
+                foreach (var fornecedor in ObtenheFornecedoresFiltrados(""))
+                {
+                    if (values.Contains(fornecedor.Id))
+                    {
+                        indices.Add(index);
+                    }
+
+                    index += 1;
+                }
+            }
+
+            return Json(indices, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
     }

@@ -88,6 +88,13 @@
             return;
         }
 
+        if ($("#Fornecedor")[0] != null) {
+            var combobox = $("#Fornecedor").data("kendoComboBox");
+            combobox.value(itens.DataItemsSelecionados[0].Id);
+            $('#modal-fornecedor').modal('hide');
+            return;
+        }
+
         var nomeGridOrigem = $("#NomeGridOrigem").val() == "" ? "GridItens" : $("#NomeGridOrigem").val();
         var gridOrigem = $('#' + nomeGridOrigem).data("kendoGrid");
         var model = gridOrigem.dataSource.options.schema.model;
@@ -162,8 +169,6 @@
                 }
             }
         });
-
-        
 
         $("#grid-pesquisa-fornecedor tbody").delegate("tr", "dblclick", selecionarFornecedor);
     }

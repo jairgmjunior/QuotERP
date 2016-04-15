@@ -5,7 +5,7 @@
     @Html.Partial("_NovoOuEditar", Model)
 }
 @{
-    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
 }
 
 <script>

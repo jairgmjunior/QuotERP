@@ -6,7 +6,7 @@
     @Html.Partial("_NovoOuEditar", Model)
 }
 @{
-    Html.RenderAction("Pesquisar", "Fornecedor", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
 }
 
 @{Html.RenderPartial("_ConfirmDelete");}
@@ -21,7 +21,7 @@
         $("#Data").data("kendoDatePicker").enable(false);
         $("#Numero").attr("disabled", "disabled");
         
-        $('#codigo-fornecedor').prop("disabled", true);
+        $("#Fornecedor").data("kendoComboBox").enable(false);
         $('#pesquisar-fornecedor').prop("disabled", true);
 
         $("#Unidade").prop("disabled", true);

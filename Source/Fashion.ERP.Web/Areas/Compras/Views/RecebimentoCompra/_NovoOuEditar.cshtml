@@ -63,20 +63,8 @@
             <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Fornecedor)
                 <div class="col-sm-8 col-md-8 col-lg-7  ">
-                    @Html.HiddenFor(x => x.Fornecedor)
-                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                        <div class="input-group">
-                            <input id="codigo-fornecedor" class="numeric-only form-control" type="text" style="width: 70%;">
-                            <span class="input-group-btn pull-left">
-                                <button id="pesquisar-fornecedor" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-fornecedor">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                        <input id="descricao-fornecedor" class="form-control" readonly="" data-toggle="tooltip">
-                    </div>
+                    @Html.CustomKendoComboBoxForFornecedor(x => x.Fornecedor)
+                    @Html.ValidationMessageFor(x => x.Fornecedor, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>
@@ -446,20 +434,18 @@
     function formularioEhValido() {
         var retorno = true;
 
-        // Valor 
+        //// Valor 
         var valor = $('#Valor').val();
         if (valor <= 0 && !$('#Valor').valid()) {
             retorno = false;
         }
 
-        // Fornecedor 
-        if ($("#codigo-fornecedor").val() == false) {
-            $('#Fornecedor').val("");
-            $('#Fornecedor').valid();
-            $('#descricao-fornecedor').text("");
+        //// Fornecedor 
+        if (!$('#Fornecedor').valid()) {
             retorno = false;
         }
 
+        $(".k-input.k-invalid").parent(".k-numeric-wrap").css("border", "1px solid red");
         return retorno;
     }
 
@@ -483,17 +469,19 @@
     $(document).ready(function() {
 
         $('#form').validate({
-            debug: true,
-            ignore: "input:hidden:not(#Valor)"
+            ignore: "input:hidden:not(#Valor, #Fornecedor)"
         });
-
+        
         $('#form').submit(function(e) {
             e.preventDefault();
 
+            $(".k-widget").removeClass("input-validation-error");
+            var validacaoTodoFormulario = $("#form").valid();
+            
             // Validar
             var formValido = formularioEhValido();
 
-            if (!$("#form").valid() || !formValido) {
+            if (!validacaoTodoFormulario || !formValido) {
                 $('#btnSubmit').button('reset');
                 return true;
             }

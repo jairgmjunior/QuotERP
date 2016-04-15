@@ -362,3 +362,13 @@ html, body {
         padding-left: 0 !important;
     }
 }
+
+li.k-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}
