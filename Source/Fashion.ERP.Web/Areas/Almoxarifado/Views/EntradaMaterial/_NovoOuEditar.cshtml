@@ -244,35 +244,8 @@
 @Html.FormActionAuth(this.IsEditar(), MVC.Almoxarifado.EntradaMaterial.Excluir(Model.Id))
 
 <script>
-    
-    //function valueMapper(options) {
-    //    $.ajax({
-    //        url: '/Comum/Fornecedor/Fornecedores_ValueMapper', 
-    //        data: convertValues(options.value),
-    //        success: function (data) {
-    //            options.success(data);
-    //        },
-    //        error: function (error) {
-    //            console.log(error);
-    //        }
-    //    });
-    //}
-
-    //function convertValues(value) {
-    //    var data = {};
-
-    //    value = $.isArray(value) ? value : [value];
-
-    //    for (var idx = 0; idx < value.length; idx++) {
-    //        data["values[" + idx + "]"] = value[idx];
-    //    }
-
-    //    return data;
-    //}
 
     $(document).ready(function () {
-
-//        $("#Fornecedor").data("kendoComboBox").value("969");
                             
         if ($('#DepositoMaterialDestino').val() == '') {
             $("#referencia-material").prop("disabled", true);

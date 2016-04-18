@@ -386,32 +386,21 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         #region CustomKendoComboBoxFornecedor
         public static MvcHtmlString CustomKendoComboBoxForFornecedor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
         {
-            var kendoComponenteHtml = html.Kendo().ComboBoxFor(expression)
-                .Placeholder("-- Selecione --")
-                .DataTextField("CodigoNome")
-                .DataValueField("Id")
-                .Template("<span data-toggle='tooltip' title='#=Tooltip#' style='width:100%'>#=CodigoNome#</span>")
-                .AutoBind(false)
-                .Filter("contains")
-                .DataSource(source => source.Custom()
-                    .ServerFiltering(true)
-                    .ServerPaging(true)
-                    .PageSize(80)
-                    .Type("aspnetmvc-ajax")
-                    .Transport(transport =>
-                        transport.Read("VirtualizationComboBox_Read", "Fornecedor", new { Area = "Comum" }))
-                    .Schema(schema =>
-                        schema.Data("Data").Total("Total")))
-                .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"));
-            
+            var kendoComponenteHtml = html.Kendo().ComboBoxFor(expression);
 
-            return ObtenhaEstruturaCustomKendoComboBox(kendoComponenteHtml);
+            return ObtenhaEstruturaCustomKendoComboBoxFornecedor(kendoComponenteHtml);
         }
 
         public static MvcHtmlString CustomKendoComboBoxFornecedor(this HtmlHelper html, String nome = "Fornecedor", object htmlAttributes = null)
         {
-            var kendoComponenteHtml = html.Kendo().ComboBox()
-                .Name(nome)
+            var kendoComponenteHtml = html.Kendo().ComboBox().Name(nome);
+
+            return ObtenhaEstruturaCustomKendoComboBoxFornecedor(kendoComponenteHtml);
+        }
+
+        private static MvcHtmlString ObtenhaEstruturaCustomKendoComboBoxFornecedor(ComboBoxBuilder kendoComponenteHtml)
+        {
+            kendoComponenteHtml = kendoComponenteHtml
                 .Placeholder("-- Selecione --")
                 .DataTextField("CodigoNome")
                 .DataValueField("Id")
@@ -424,16 +413,11 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                     .PageSize(80)
                     .Type("aspnetmvc-ajax")
                     .Transport(transport =>
-                        transport.Read("VirtualizationComboBox_Read", "Fornecedor", new { Area = "Comum" }))
+                        transport.Read("VirtualizationComboBox_Read", "Fornecedor", new {Area = "Comum"}))
                     .Schema(schema =>
                         schema.Data("Data").Total("Total")))
                 .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"));
 
-            return ObtenhaEstruturaCustomKendoComboBox(kendoComponenteHtml);
-        }
-
-        private static MvcHtmlString ObtenhaEstruturaCustomKendoComboBox(ComboBoxBuilder kendoComponenteHtml)
-        {
             var divInputGroup = new TagBuilder("div");
             divInputGroup.AddCssClass("input-group");
             divInputGroup.Attributes.Add("style", "width:100%;");
@@ -491,6 +475,103 @@ namespace Fashion.ERP.Web.Helpers.Extensions
 
             builder.AppendLine(@"$(document).ready(function () {
                 $('#Fornecedor').data('kendoComboBox').value($('#Fornecedor').val());
+            });");
+
+            builder.AppendLine(@"</script>");
+
+            return MvcHtmlString.Create(htmlFinal + builder);
+        }
+        #endregion
+
+        #region CustomKendoComboBoxFuncionario
+        public static MvcHtmlString CustomKendoComboBoxForFuncionario<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, String nome = "Funcionario", object htmlAttributes = null)
+        {
+            var kendoComponenteHtml = html.Kendo().ComboBoxFor(expression).Name(nome);
+
+            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml);
+        }
+
+        public static MvcHtmlString CustomKendoComboBoxFuncionario(this HtmlHelper html, String nome = "Funcionario", object htmlAttributes = null)
+        {
+            var kendoComponenteHtml = html.Kendo().ComboBox().Name(nome);
+
+            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml);
+        }
+
+        private static MvcHtmlString ObtenhaEstruturaCustomKendoComboBoxFuncionario(ComboBoxBuilder kendoComponenteHtml)
+        {
+            kendoComponenteHtml = kendoComponenteHtml
+                .Placeholder("-- Selecione --")
+                .DataTextField("CodigoNome")
+                .DataValueField("Id")
+                .Template("<span data-toggle='tooltip' title='#=Tooltip#' style='width:100%'>#=CodigoNome#</span>")
+                .AutoBind(false)
+                .Filter("contains")
+                .DataSource(source => source.Custom()
+                    .ServerFiltering(true)
+                    .ServerPaging(true)
+                    .PageSize(80)
+                    .Type("aspnetmvc-ajax")
+                    .Transport(transport =>
+                        transport.Read("VirtualizationComboBox_Read", "Funcionario", new { Area = "Comum" }))
+                    .Schema(schema =>
+                        schema.Data("Data").Total("Total")))
+                .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"));
+
+            var divInputGroup = new TagBuilder("div");
+            divInputGroup.AddCssClass("input-group");
+            divInputGroup.Attributes.Add("style", "width:100%;");
+            
+            var spanInputGroupBtn = new TagBuilder("span");
+            spanInputGroupBtn.AddCssClass("input-group-btn");
+            
+            var button = new TagBuilder("button");
+            button.Attributes.Add("id", "pesquisar-funcionario");
+            button.AddCssClass("btn btn-default btn-sm");
+            button.Attributes.Add("type", "button");
+            button.Attributes.Add("data-toggle", "modal");
+            button.Attributes.Add("data-target", "#modal-funcionario");
+            
+            var spanIconPesquisa = new TagBuilder("span");
+            spanIconPesquisa.AddCssClass("glyphicon glyphicon-search");
+
+            button.InnerHtml += spanIconPesquisa.ToString();
+            spanInputGroupBtn.InnerHtml += button.ToString();
+            divInputGroup.InnerHtml += kendoComponenteHtml;
+            divInputGroup.InnerHtml += spanInputGroupBtn.ToString();
+
+            var htmlFinal = divInputGroup.ToString(TagRenderMode.Normal);
+
+            var builder = new StringBuilder();
+            builder.AppendLine(@"<script>");
+
+            builder.AppendLine(@"function valueMapper(options) {
+                $.ajax({
+                    url: '/Comum/Funcionario/Funcionarios_ValueMapper', 
+                    data: convertValues(options.value),
+                    success: function (data) {
+                        options.success(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }");
+
+            builder.AppendLine(@"function convertValues(value) {
+                var data = {};
+
+                value = $.isArray(value) ? value : [value];
+
+                for (var idx = 0; idx < value.length; idx++) {
+                    data['values[' + idx + ']'] = value[idx];
+                }
+
+                return data;
+            }");
+
+            builder.AppendLine(@"$(document).ready(function () {
+                $('#Funcionario').data('kendoComboBox').value($('#Funcionario').val());
             });");
 
             builder.AppendLine(@"</script>");

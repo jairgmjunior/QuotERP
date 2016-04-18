@@ -7,7 +7,7 @@
     @Html.Partial("_NovoOuEditar", Model)
 }
 @{
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
     Html.RenderPartial("_ConfirmDelete");
 }

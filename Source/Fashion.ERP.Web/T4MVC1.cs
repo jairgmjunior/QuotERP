@@ -83,7 +83,6 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Compras.Controllers.RelatorioNecessidadeCompraMaterialController RelatorioNecessidadeCompraMaterial = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_RelatorioNecessidadeCompraMaterialController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.TransportadoraController Transportadora = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_TransportadoraController();
         public Fashion.ERP.Web.Areas.Compras.Controllers.ValidaPedidoCompraController ValidaPedidoCompra = new Fashion.ERP.Web.Areas.Compras.Controllers.T4MVC_ValidaPedidoCompraController();
-        public T4MVC.Compras.OrdemEntradaCompraController OrdemEntradaCompra = new T4MVC.Compras.OrdemEntradaCompraController();
         public T4MVC.Compras.SharedController Shared = new T4MVC.Compras.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

@@ -1,0 +1,289 @@
+﻿@model Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel
+
+<div id="modal-funcionario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                <h3>Funcionário</h3>
+            </div>
+            @using (Html.BeginForm(MVC.Comum.Funcionario.PesquisarComParametros()))
+            {
+                @Html.AntiForgeryToken()
+                if (Model.FuncaoFuncionario != null)
+                {
+                    foreach (var funcaoFuncionario in Model.FuncaoFuncionario)
+                    {
+                        <input type="hidden" name="FuncaoFuncionario" value="@funcaoFuncionario.ToString()"/>
+                    }
+                }
+                <div id="modal-body-funcionario" class="modal-body" style="overflow-y: hidden;">
+                    <div class="clearfix form-inline" style="margin-bottom: 15px;">
+                        @Html.DropDownList("ColunaPesquisa", null, new {@class = "pull-left form-control"})
+                        <input name="ValorPesquisa" class="pull-left form-control" type="text" style="width: 67%" />
+                        <input id="submit-pesquisar-funcionario" type="button" value="Pesquisar" class="btn btn-default pull-right" />
+                    </div>
+                    <div id="grid-pesquisa-funcionario"></div>    
+                </div>
+            }
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                <button id="selecionar-funcionario" class="btn btn-primary" type="button">Selecionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#submit-pesquisar-funcionario').off('click').on('click', function (e) {
+            var form = $(this).closest("form");
+            
+            form.ajaxSubmit({
+                dataType: 'json',
+                cache: false,
+                url: "@Html.GetUrl(MVC.Comum.Funcionario.PesquisarFiltro())",
+                beforeSubmit: function() {
+                    e.preventDefault();
+                },
+                success: function (data) {
+                    if (data.Error) {
+                        alert(data.Error);
+                        return;
+                    }
+
+                    $(this).children(':submit').button('reset');
+                    
+                    if ($("#SelecaoUnica").val() == "false") {
+                        selecaoMultipla(data);
+
+                    } else {
+                        selecaoUnica(data);
+                    }
+                },
+            });
+
+            return false;
+        });
+        
+        $('#modal-funcionario').on('hidden.bs.modal', function (e) {
+            $('#ColunaPesquisa')[0].selectedIndex = 0;
+            $('input[name$="ValorPesquisa"]').val('');
+            obtenhaGridPesquisarFuncionarios().destroy();
+            $('#grid-pesquisa-funcionario').empty();
+            $("#grid-pesquisa-funcionario").html("");
+            $('#grid-pesquisa-funcionario').prop("class", "");
+            $('#grid-pesquisa-funcionario').prop("style", "");
+        });
+
+        $('#selecionar-funcionario').on('click', selecionarFuncionario);
+    });
+
+    function obtenhaGridPesquisarFuncionarios() {
+        return $('#grid-pesquisa-funcionario').data("kendoGrid");
+    }
+
+    $("#selecionar-funcionario").on("pesquisar", function (ev, itens) {
+
+        if (itens.DataItemsSelecionados.length == 0) {
+            $('#modal-funcionario').modal('hide');
+            return;
+        }
+
+        if ($("#Funcionario")[0] != null) {
+            var combobox = $("#Funcionario").data("kendoComboBox");
+            combobox.value(itens.DataItemsSelecionados[0].Id);
+            $('#modal-funcionario').modal('hide');
+            return;
+        }
+
+        var nomeGridOrigem = $("#NomeGridOrigem").val() == "" ? "GridItens" : $("#NomeGridOrigem").val();
+        var gridOrigem = $('#' + nomeGridOrigem).data("kendoGrid");
+        var model = gridOrigem.dataSource.options.schema.model;
+        var dadosAtuais = gridOrigem.dataSource.data();
+        var novosDados = itens.DataItemsSelecionados;
+
+        for (var i = 0; i < novosDados.length; i++) {
+            var dataItemNovo = novosDados[i];
+            dataItemNovo.Descartado = false;
+            if ($("#ValidacaoDuplicadosGridOrigem").val() != "false") {
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Codigo == dataItemAtual.CodigoFuncionario) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+            }
+
+            if (!dataItemNovo.Descartado) {
+
+                var dataItemNovoFinal;
+                if (typeof obtenhaNovoDataItem != "undefined") { //se existir a definição do dataItem na tela de origem
+                    dataItemNovoFinal = obtenhaNovoDataItem(dataItemNovo);
+                }
+                else {
+                    dataItemNovoFinal = {
+                        Funcionario: dataItemNovo.Nome,
+                        CodigoFuncionario: dataItemNovo.Codigo,
+                        CpfCnpj: dataItemNovo.CpfCnpj
+                    };
+                }
+
+                dadosAtuais.unshift(dataItemNovoFinal);
+            }
+        }
+
+        var dataSource = new kendo.data.DataSource({
+            data: dadosAtuais,
+            schema: {
+                model: model
+            }
+        });
+        dataSource.read();
+        gridOrigem.setDataSource(dataSource);
+        gridOrigem.refresh();
+
+        $('#modal-funcionario').modal('hide');
+    });
+
+    //Seleção Única
+    function selecaoUnica(data) {
+        var grid = $("#grid-pesquisa-funcionario").kendoGrid({
+            height: "380px",
+            selectable: "row",
+            columns: [
+                { field: "Id", hidden: true },
+                { field: "Nome", title: "Nome" },
+                { field: "Codigo", title: "Código" },
+                { field: "CpfCnpj", title: "CPF/CNPJ" }
+            ],
+            dataSource: {
+                data: data,
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Nome: { type: "string" },
+                            Codigo: { type: "long" },
+                            CpfCnpj: { type: "string" }
+                        }
+                    }
+                }
+            }
+        });
+
+        $("#grid-pesquisa-funcionario tbody").delegate("tr", "dblclick", selecionarFuncionario);
+    }
+
+    function selecionarFuncionario() {
+        var gridPesquisa = obtenhaGridPesquisarFuncionarios();
+
+        if (!gridPesquisa) return;
+
+        var dataItem = gridPesquisa.dataItem(gridPesquisa.select());
+
+        $("#selecionar-funcionario").trigger("pesquisar", { DataItemsSelecionados: [dataItem] });
+    }
+
+    //Seleção Múltipla
+    function selecaoMultipla(data) {
+        var novoDataItem = obtenhaDataItensSelecionados();
+
+        $.merge(novoDataItem, data);
+
+        var grid = $("#grid-pesquisa-funcionario").kendoGrid({
+            height: "380px",
+            columns: [
+                { field: "Id", hidden: true },
+                { field: "Nome", title: "Nome" },
+                { field: "Codigo", title: "Código" },
+                { field: "CpfCnpj", title: "CPF/CNPJ" },
+                { field: "checked", title: " ", template: "<input id='checked' type='checkbox' #=checked?'checked':''#/>", width: 30 }
+            ],
+            dataSource: {
+                data: novoDataItem,
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Nome: { type: "string" },
+                            Codigo: { type: "long" },
+                            CpfCnpj: { type: "string" },
+                            checked: { type: "boolean" }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (grid.find("th:last input").get(0) == null) {
+            grid.find("th:last")
+                .append($('<input class="selectAll" type="checkbox"/>'))
+                .delegate(".selectAll", "click", function () {
+                    var checkbox = $(this);
+                    grid.find("tr")
+                        .find("td:last input")
+                        .attr("checked", checkbox.is(":checked"))
+                        .trigger("change");
+                });
+
+
+            $("#grid-pesquisa-funcionario tbody").delegate("tr", "click", function (ev) {
+                var linha = $(ev.target).closest('tr');
+                if (!$(event.target).is("input")) {
+                    var checkbox = linha.find("td:last input");
+                    checkbox.prop("checked", !checkbox.prop("checked"));
+                    obtenhaGridPesquisarFuncionarios().dataItem(linha).set('checked', checkbox.prop("checked"));
+                }
+            });
+        }
+
+        var dataItensTodos = obtenhaGridPesquisarFuncionarios().dataSource.data();
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            if (dataItem.checked) {
+                var row = obtenhaGridPesquisarFuncionarios().tbody.find("tr[data-uid='" + dataItem.uid + "']");
+                var checkb = row.find("td:last input");
+                checkb.prop("checked", true);
+                obtenhaGridPesquisarFuncionarios().dataItem(row).set('checked', true);
+            }
+        }
+    }
+
+    function selecionarFuncionarios() {
+
+        $('#modal-funcionario').modal('hide');
+
+        if (!obtenhaGridPesquisarFuncionarios()) return;
+
+        var itensSelecionados = obtenhaDataItensSelecionados();
+
+        var grid = obtenhaGridPesquisarFuncionarios();
+        if (grid != null)
+            grid.dataSource.data([]);
+
+        $("#selecionar-funcionario").trigger("pesquisar", { DataItemsSelecionados: itensSelecionados });
+    }
+
+    function obtenhaDataItensSelecionados() {
+        var grid = obtenhaGridPesquisarFuncionarios();
+        if (!grid) {
+            return [];
+        }
+        var dataItensTodos = grid.dataItems();
+        var dataItensSelecionados = [];
+        for (var i in dataItensTodos) {
+            var dataItem = dataItensTodos[i];
+            var row = grid.tbody.find("tr[data-uid='" + dataItem.uid + "']");
+
+            if (row.find("#checked").prop("checked")) {
+                dataItem.checked = true;
+                dataItensSelecionados.push(dataItem);
+            }
+        }
+
+        return dataItensSelecionados;
+    }
+    
+</script>

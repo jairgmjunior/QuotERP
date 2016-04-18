@@ -650,7 +650,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             });
         }
 
-        public ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request)
+        public virtual ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request)
         {
             var filtro = "";
 
@@ -664,7 +664,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return Json(fornecedores.ToDataSourceResult(request));
         }
 
-        public ActionResult Fornecedores_ValueMapper(long[] values)
+        public virtual ActionResult Fornecedores_ValueMapper(long[] values)
         {
             var indices = new List<long>();
 

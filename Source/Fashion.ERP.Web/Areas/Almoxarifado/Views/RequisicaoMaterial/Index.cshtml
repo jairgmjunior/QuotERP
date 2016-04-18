@@ -92,22 +92,9 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group form-group-sm">
-                                @Html.LabelForRequired(x => x.Requerente)
-                                <div class="col-sm-8 col-md-8 col-lg-7  ">
-                                    @Html.HiddenFor(x => x.Requerente, new { id = "funcionario" })
-                                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                                        <div class="input-group">
-                                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
-                                            <span class="input-group-btn pull-left">
-                                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
-                                                    <span class="glyphicon glyphicon-search"></span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
-                                    </div>
+                                @Html.LabelForRequired(x => x.Funcionario)
+                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                    @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
                                 </div>
                             </div>
                         </div>
@@ -297,7 +284,7 @@
 </script>
 
 @{
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
 }

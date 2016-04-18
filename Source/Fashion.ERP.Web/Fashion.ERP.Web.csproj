@@ -399,6 +399,7 @@
     <Compile Include="Areas\Comum\Models\CentroCustoModel.cs" />
     <Compile Include="Areas\Comum\Models\ClassificacaoDificuldadeModel.cs" />
     <Compile Include="Areas\Comum\Models\ComboBoxItemFornecedorModel.cs" />
+    <Compile Include="Areas\Comum\Models\ComboBoxItemFuncionarioModel.cs" />
     <Compile Include="Areas\Comum\Models\PesquisarFornecedorParametrosModel.cs" />
     <Compile Include="Areas\Comum\Models\GridVariacaoModel.cs" />
     <Compile Include="Areas\Comum\Models\VariacaoModel.cs" />
@@ -685,9 +686,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Compras.MotivoCancelamentoPedidoCompraController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Compras.OrdemEntradaCompraController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Compras.ParametroModuloCompraController.generated.cs">
@@ -1290,6 +1288,7 @@
     <Content Include="Areas\Almoxarifado\Views\Material\MaterialCusto.cshtml" />
     <Content Include="Areas\Comum\Views\Fornecedor\PesquisarComParametros.cshtml" />
     <Content Include="App_Code\HtmlCustom.cshtml" />
+    <Content Include="Areas\Comum\Views\Funcionario\PesquisarComParametros.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>
@@ -1299,8 +1298,8 @@
     <None Include="CodeTemplates\MvcView\_NovoOuEditar.cs.t4">
       <LastGenOutput>_NovoOuEditar.cshtml</LastGenOutput>
     </None>
-    <EmbeddedResource Include="fonts\fontawesome-webfont.svg" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <EmbeddedResource Include="font\iconic_fill.eot" />
     <EmbeddedResource Include="font\iconic_stroke.eot" />
     <None Include="DllInscE32.dll">
@@ -1461,13 +1460,13 @@
     <Content Include="Areas\Comum\Views\Barra\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\Barra\Editar.cshtml" />
-    <EmbeddedResource Include="fonts\fontawesome-webfont.eot" />
-    <EmbeddedResource Include="fonts\fontawesome-webfont.ttf" />
-    <EmbeddedResource Include="fonts\fontawesome-webfont.woff" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.eot" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.ttf" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff" />
-    <EmbeddedResource Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <EmbeddedResource Include="fonts\open_sans\OpenSans-Bold.woff" />
     <EmbeddedResource Include="fonts\open_sans\OpenSans-Extrabold.woff" />
     <EmbeddedResource Include="fonts\open_sans\OpenSans-Italic.woff" />

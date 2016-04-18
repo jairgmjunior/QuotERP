@@ -14,6 +14,8 @@ using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
 using Fashion.Framework.UnitOfWork.DinamicFilter;
 using FluentNHibernate.Conventions;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Ninject.Extensions.Logging;
 
 namespace Fashion.ERP.Web.Areas.Comum.Controllers
@@ -248,6 +250,13 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             PreencheColuna();
             return PartialView(model);
         }
+
+        [ChildActionOnly]
+        public virtual ActionResult PesquisarComParametros(PesquisarFuncionarioModel model)
+        {
+            PreencheColuna();
+            return PartialView(model);
+        }
         #endregion
 
         #region PesquisarFiltro
@@ -407,6 +416,74 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
 
         }
         #endregion
+
+        #endregion
+        
+        #region ComboBox Pesquisa
+
+        IEnumerable<ComboBoxItemFuncionarioModel> ObtenhaFuncionariosFiltrados(string filtro)
+        {
+            var queryFuncionarios = _pessoaRepository.Find(p => p.Funcionario != null);
+
+            if (!filtro.IsNullOrEmpty())
+            {
+                long filtroLong;
+                if (long.TryParse(filtro, out filtroLong))
+                {
+                    queryFuncionarios =
+                        queryFuncionarios.Where(p => p.Nome.Contains(filtro) || p.Funcionario.Codigo == filtroLong || p.CpfCnpj.Contains(filtro));
+                }
+                else
+                {
+                    queryFuncionarios =
+                        queryFuncionarios.Where(p => p.Nome.Contains(filtro) || p.CpfCnpj.Contains(filtro));
+                }
+            }
+
+            var resultado = queryFuncionarios.OrderBy(x => x.Funcionario.Codigo).ToList();
+
+            return resultado.Select(x => new ComboBoxItemFuncionarioModel
+            {
+                Id = x.Id.GetValueOrDefault(),
+                Tooltip = "Código: " + x.Funcionario.Codigo + "\nNome: " + x.Nome + "\nCpf: " + Convert.ToUInt64(x.CpfCnpj).ToString(@"000\.000\.000\-00"),
+                CodigoNome = x.Funcionario.Codigo + " " + x.Nome
+            });
+        }
+
+        public virtual ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var filtro = "";
+
+            if (request.Filters.Count != 0)
+            {
+                filtro = ((Kendo.Mvc.FilterDescriptor)(request.Filters.ToList()[0])).ConvertedValue.ToString();
+            }
+
+            var funcionarios = ObtenhaFuncionariosFiltrados(filtro);
+
+            return Json(funcionarios.ToDataSourceResult(request));
+        }
+
+        public virtual ActionResult Funcionarios_ValueMapper(long[] values)
+        {
+            var indices = new List<long>();
+
+            if (values != null && values.Any())
+            {
+                var index = 0;
+                foreach (var funcionario in ObtenhaFuncionariosFiltrados(""))
+                {
+                    if (values.Contains(funcionario.Id))
+                    {
+                        indices.Add(index);
+                    }
+
+                    index += 1;
+                }
+            }
+
+            return Json(indices, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
     }

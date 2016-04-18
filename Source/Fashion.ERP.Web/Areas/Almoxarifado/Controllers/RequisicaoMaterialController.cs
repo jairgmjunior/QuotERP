@@ -188,10 +188,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 filtros.AppendFormat("Centro de Custo: {0}, ", _centroCustoRepository.Get(model.CentroCusto.Value).Nome);
             }
 
-            if (model.Requerente.HasValue)
+            if (model.Funcionario.HasValue)
             {
-                requisicaoMaterials = requisicaoMaterials.Where(p => p.Requerente.Id == model.Requerente);
-                filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Requerente.Value).Nome);
+                requisicaoMaterials = requisicaoMaterials.Where(p => p.Requerente.Id == model.Funcionario);
+                filtros.AppendFormat("Requerente: {0}, ", _pessoaRepository.Get(model.Funcionario.Value).Nome);
             }
 
             if (model.DataInicio.HasValue && !model.DataFim.HasValue)
@@ -335,7 +335,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
             return View(new RequisicaoMaterialModel
             {
-                Requerente = funcionarioId
+                Funcionario = funcionarioId
             });
         }
 
@@ -357,7 +357,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     domain.Numero = ProximoNumero();
                     domain.UnidadeRequerente = _pessoaRepository.Get(model.UnidadeRequerente);
                     domain.UnidadeRequisitada = _pessoaRepository.Get(model.UnidadeRequisitada);
-                    domain.Requerente = _pessoaRepository.Get(model.Requerente);
+                    domain.Requerente = _pessoaRepository.Get(model.Funcionario);
                     domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);
                     domain.TipoItem = _tipoItemRepository.Get(model.TipoItem);
 
@@ -422,6 +422,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<RequisicaoMaterialModel>(domain);
+                model.Funcionario = domain.Requerente.Id;
 
                 model.GridItens = domain.RequisicaoMaterialItems.Select(x =>
                     new RequisicaoMaterialItemModel
@@ -497,7 +498,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     domain = Mapper.Unflat(model, domain);
 
-                    domain.Requerente = _pessoaRepository.Get(model.Requerente);
+                    domain.Requerente = _pessoaRepository.Get(model.Funcionario);
                     domain.UnidadeRequerente = _pessoaRepository.Get(model.UnidadeRequerente);
                     domain.UnidadeRequisitada = _pessoaRepository.Get(model.UnidadeRequisitada);
                     domain.CentroCusto = _centroCustoRepository.Get(model.CentroCusto);

@@ -89,6 +89,18 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult VirtualizationComboBox_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VirtualizationComboBox_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Fornecedores_ValueMapper()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fornecedores_ValueMapper);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public FornecedorController Actions { get { return MVC.Comum.Fornecedor; } }
@@ -116,6 +128,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string PesquisarFiltro = "PesquisarFiltro";
             public readonly string PesquisarCodigo = "PesquisarCodigo";
             public readonly string PesquisarId = "PesquisarId";
+            public readonly string VirtualizationComboBox_Read = "VirtualizationComboBox_Read";
+            public readonly string Fornecedores_ValueMapper = "Fornecedores_ValueMapper";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -132,6 +146,8 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string PesquisarFiltro = "PesquisarFiltro";
             public const string PesquisarCodigo = "PesquisarCodigo";
             public const string PesquisarId = "PesquisarId";
+            public const string VirtualizationComboBox_Read = "VirtualizationComboBox_Read";
+            public const string Fornecedores_ValueMapper = "Fornecedores_ValueMapper";
         }
 
 
@@ -216,6 +232,22 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_VirtualizationComboBox_Read s_params_VirtualizationComboBox_Read = new ActionParamsClass_VirtualizationComboBox_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_VirtualizationComboBox_Read VirtualizationComboBox_ReadParams { get { return s_params_VirtualizationComboBox_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_VirtualizationComboBox_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_Fornecedores_ValueMapper s_params_Fornecedores_ValueMapper = new ActionParamsClass_Fornecedores_ValueMapper();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Fornecedores_ValueMapper Fornecedores_ValueMapperParams { get { return s_params_Fornecedores_ValueMapper; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Fornecedores_ValueMapper
+        {
+            public readonly string values = "values";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -231,14 +263,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
-                public readonly string PesquisarVarios = "PesquisarVarios";
+                public readonly string PesquisarComParametros = "PesquisarComParametros";
             }
             public readonly string _NovoOuEditar = "~/Areas/Comum/Views/Fornecedor/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Comum/Views/Fornecedor/Editar.cshtml";
             public readonly string Index = "~/Areas/Comum/Views/Fornecedor/Index.cshtml";
             public readonly string Novo = "~/Areas/Comum/Views/Fornecedor/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Comum/Views/Fornecedor/Pesquisar.cshtml";
-            public readonly string PesquisarVarios = "~/Areas/Comum/Views/Fornecedor/PesquisarVarios.cshtml";
+            public readonly string PesquisarComParametros = "~/Areas/Comum/Views/Fornecedor/PesquisarComParametros.cshtml";
         }
     }
 
@@ -381,6 +413,26 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             PesquisarIdOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void VirtualizationComboBox_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult VirtualizationComboBox_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VirtualizationComboBox_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            VirtualizationComboBox_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void Fornecedores_ValueMapperOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long[] values);
+
+        public override System.Web.Mvc.ActionResult Fornecedores_ValueMapper(long[] values)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fornecedores_ValueMapper);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "values", values);
+            Fornecedores_ValueMapperOverride(callInfo, values);
             return callInfo;
         }
 

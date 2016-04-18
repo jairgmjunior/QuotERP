@@ -20,7 +20,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
         public long? CentroCusto { get; set; }
 
         [Display(Name = "Requerente")]
-        public long? Requerente { get; set; }
+        public long? Funcionario { get; set; }
 
         [Display(Name = "Unidade Requisitada")]
         public long? UnidadeRequisitada { get; set; }

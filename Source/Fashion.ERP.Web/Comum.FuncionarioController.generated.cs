@@ -73,6 +73,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PesquisarComParametros()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarComParametros);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult PesquisarFiltro()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarFiltro);
@@ -88,6 +94,18 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public virtual System.Web.Mvc.ActionResult PesquisarId()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult VirtualizationComboBox_Read()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VirtualizationComboBox_Read);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Funcionarios_ValueMapper()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Funcionarios_ValueMapper);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,9 +130,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public readonly string EditarSituacao = "EditarSituacao";
             public readonly string VerificarCpfCnpj = "VerificarCpfCnpj";
             public readonly string Pesquisar = "Pesquisar";
+            public readonly string PesquisarComParametros = "PesquisarComParametros";
             public readonly string PesquisarFiltro = "PesquisarFiltro";
             public readonly string PesquisarCodigo = "PesquisarCodigo";
             public readonly string PesquisarId = "PesquisarId";
+            public readonly string VirtualizationComboBox_Read = "VirtualizationComboBox_Read";
+            public readonly string Funcionarios_ValueMapper = "Funcionarios_ValueMapper";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -127,9 +148,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             public const string EditarSituacao = "EditarSituacao";
             public const string VerificarCpfCnpj = "VerificarCpfCnpj";
             public const string Pesquisar = "Pesquisar";
+            public const string PesquisarComParametros = "PesquisarComParametros";
             public const string PesquisarFiltro = "PesquisarFiltro";
             public const string PesquisarCodigo = "PesquisarCodigo";
             public const string PesquisarId = "PesquisarId";
+            public const string VirtualizationComboBox_Read = "VirtualizationComboBox_Read";
+            public const string Funcionarios_ValueMapper = "Funcionarios_ValueMapper";
         }
 
 
@@ -182,6 +206,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_PesquisarComParametros s_params_PesquisarComParametros = new ActionParamsClass_PesquisarComParametros();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PesquisarComParametros PesquisarComParametrosParams { get { return s_params_PesquisarComParametros; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PesquisarComParametros
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_PesquisarFiltro s_params_PesquisarFiltro = new ActionParamsClass_PesquisarFiltro();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PesquisarFiltro PesquisarFiltroParams { get { return s_params_PesquisarFiltro; } }
@@ -207,6 +239,22 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_VirtualizationComboBox_Read s_params_VirtualizationComboBox_Read = new ActionParamsClass_VirtualizationComboBox_Read();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_VirtualizationComboBox_Read VirtualizationComboBox_ReadParams { get { return s_params_VirtualizationComboBox_Read; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_VirtualizationComboBox_Read
+        {
+            public readonly string request = "request";
+        }
+        static readonly ActionParamsClass_Funcionarios_ValueMapper s_params_Funcionarios_ValueMapper = new ActionParamsClass_Funcionarios_ValueMapper();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Funcionarios_ValueMapper Funcionarios_ValueMapperParams { get { return s_params_Funcionarios_ValueMapper; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Funcionarios_ValueMapper
+        {
+            public readonly string values = "values";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -222,12 +270,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 public readonly string Index = "Index";
                 public readonly string Novo = "Novo";
                 public readonly string Pesquisar = "Pesquisar";
+                public readonly string PesquisarComParametros = "PesquisarComParametros";
             }
             public readonly string _NovoOuEditar = "~/Areas/Comum/Views/Funcionario/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Comum/Views/Funcionario/Editar.cshtml";
             public readonly string Index = "~/Areas/Comum/Views/Funcionario/Index.cshtml";
             public readonly string Novo = "~/Areas/Comum/Views/Funcionario/Novo.cshtml";
             public readonly string Pesquisar = "~/Areas/Comum/Views/Funcionario/Pesquisar.cshtml";
+            public readonly string PesquisarComParametros = "~/Areas/Comum/Views/Funcionario/PesquisarComParametros.cshtml";
         }
     }
 
@@ -324,6 +374,16 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return callInfo;
         }
 
+        partial void PesquisarComParametrosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel model);
+
+        public override System.Web.Mvc.ActionResult PesquisarComParametros(Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarComParametros);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PesquisarComParametrosOverride(callInfo, model);
+            return callInfo;
+        }
+
         partial void PesquisarFiltroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel model);
 
         public override System.Web.Mvc.ActionResult PesquisarFiltro(Fashion.ERP.Web.Areas.Comum.Models.PesquisarFuncionarioModel model)
@@ -352,6 +412,26 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PesquisarId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             PesquisarIdOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void VirtualizationComboBox_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+
+        public override System.Web.Mvc.ActionResult VirtualizationComboBox_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VirtualizationComboBox_Read);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
+            VirtualizationComboBox_ReadOverride(callInfo, request);
+            return callInfo;
+        }
+
+        partial void Funcionarios_ValueMapperOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long[] values);
+
+        public override System.Web.Mvc.ActionResult Funcionarios_ValueMapper(long[] values)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Funcionarios_ValueMapper);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "values", values);
+            Funcionarios_ValueMapperOverride(callInfo, values);
             return callInfo;
         }
 
