@@ -58,7 +58,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
 
         [Display(Name = "Comprador")]
         [Required(ErrorMessage = "Informe o comprador")]
-        public long? Comprador { get; set; }
+        public long? Funcionario { get; set; }
 
         [Display(Name = "Fornecedor")]
         [Required(ErrorMessage = "Informe o fornecedor")]

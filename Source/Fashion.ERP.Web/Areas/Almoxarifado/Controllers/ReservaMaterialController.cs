@@ -283,7 +283,10 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
         [PopulateViewData("PopulateViewDataNovoEditar")]
         public virtual ActionResult Novo()
         {
-            return View(new ReservaMaterialModel());
+            return View(new ReservaMaterialModel
+            {
+                PermiteAlterar = true
+            });
         }
 
         [HttpPost, PopulateViewData("PopulateViewDataNovoEditar")]
@@ -296,6 +299,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                     var domain = Mapper.Unflat<ReservaMaterial>(model);
                     domain.Data = DateTime.Now;
                     domain.Numero = ProximoNumero();
+                    domain.Requerente = _pessoaRepository.Get(model.Funcionario);
 
                     IncluaNovosReservaMaterialItens(model, domain);
 
@@ -306,16 +310,16 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
                 }
                 catch (Exception exception)
                 {
-                    var errorMsg = "Não é possível salvar a reserva de material. Confira se os dados foram informados corretamente: " +
+                    var errorMsg = "Não é possível salvar a requisição de material. Confira se os dados foram informados corretamente: " +
                         exception.Message;
                     this.AddErrorMessage(errorMsg);
                     _logger.Info(exception.GetMessage());
 
-                    return new JsonResult { Data = "error" };
+                    return View(model);
                 }
             }
 
-            return new JsonResult { Data = "sucesso" };
+            return View(model);
         }
 
         private long ProximoNumero()
@@ -342,6 +346,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
             {
                 var model = Mapper.Flat<ReservaMaterialModel>(domain);
                 model.PermiteAlterar = PermiteAlterar(id);
+                model.Funcionario = domain.Requerente.Id.GetValueOrDefault();
 
                 model.GridItens = domain.ReservaMaterialItems.Select(x =>
                     new ReservaMaterialItemModel
@@ -385,7 +390,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     domain = Mapper.Unflat(model, domain);
 
-                    domain.Requerente = _pessoaRepository.Get(model.Requerente);
+                    domain.Requerente = _pessoaRepository.Get(model.Funcionario);
                     
                     ExcluaReservaMaterialItens(model, domain);
                     AtualizeReservaMaterialItens(model, domain);

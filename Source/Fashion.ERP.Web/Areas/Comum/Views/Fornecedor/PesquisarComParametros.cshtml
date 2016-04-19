@@ -52,10 +52,10 @@
                     $(this).children(':submit').button('reset');
                     
                     if ($("#SelecaoUnica").val() == "false") {
-                        selecaoMultipla(data);
+                        selecaoMultiplaFornecedor(data);
 
                     } else {
-                        selecaoUnica(data);
+                        selecaoUnicaFornecedor(data);
                     }
                 },
             });
@@ -77,7 +77,7 @@
         $('#selecionar-fornecedor').on('click', selecionarFornecedor);
     });
 
-    function obtenhaGrid() {
+    function obtenhaGridPesquisarFornecedor() {
         return $('#grid-pesquisa-fornecedor').data("kendoGrid");
     }
 
@@ -145,7 +145,7 @@
     });
 
     //Seleção Única
-    function selecaoUnica(data) {
+    function selecaoUnicaFornecedor(data) {
         var grid = $("#grid-pesquisa-fornecedor").kendoGrid({
             height: "380px",
             selectable: "row",
@@ -184,7 +184,7 @@
     }
 
     //Seleção Múltipla
-    function selecaoMultipla(data) {
+    function selecaoMultiplaFornecedor(data) {
         var novoDataItem = obtenhaDataItensSelecionados();
 
         $.merge(novoDataItem, data);
@@ -231,19 +231,19 @@
                 if (!$(event.target).is("input")) {
                     var checkbox = linha.find("td:last input");
                     checkbox.prop("checked", !checkbox.prop("checked"));
-                    obtenhaGrid().dataItem(linha).set('checked', checkbox.prop("checked"));
+                    obtenhaGridPesquisarFornecedor().dataItem(linha).set('checked', checkbox.prop("checked"));
                 }
             });
         }
 
-        var dataItensTodos = obtenhaGrid().dataSource.data();
+        var dataItensTodos = obtenhaGridPesquisarFornecedor().dataSource.data();
         for (var i in dataItensTodos) {
             var dataItem = dataItensTodos[i];
             if (dataItem.checked) {
-                var row = obtenhaGrid().tbody.find("tr[data-uid='" + dataItem.uid + "']");
+                var row = obtenhaGridPesquisarFornecedor().tbody.find("tr[data-uid='" + dataItem.uid + "']");
                 var checkb = row.find("td:last input");
                 checkb.prop("checked", true);
-                obtenhaGrid().dataItem(row).set('checked', true);
+                obtenhaGridPesquisarFornecedor().dataItem(row).set('checked', true);
             }
         }
     }
@@ -252,11 +252,11 @@
 
         $('#modal-fornecedor').modal('hide');
 
-        if (!obtenhaGrid()) return;
+        if (!obtenhaGridPesquisarFornecedor()) return;
 
         var itensSelecionados = obtenhaDataItensSelecionados();
 
-        var grid = obtenhaGrid();
+        var grid = obtenhaGridPesquisarFornecedor();
         if (grid != null)
             grid.dataSource.data([]);
 
@@ -264,7 +264,7 @@
     }
 
     function obtenhaDataItensSelecionados() {
-        var grid = obtenhaGrid();
+        var grid = obtenhaGridPesquisarFornecedor();
         if (!grid) {
             return [];
         }

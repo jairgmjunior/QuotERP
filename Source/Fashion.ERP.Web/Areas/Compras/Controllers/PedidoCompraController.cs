@@ -204,10 +204,10 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 filtros.AppendFormat("Material: {0}, ", _materialRepository.Get(model.Material.Value).Descricao);
             }
 
-            if (model.Comprador.HasValue)
+            if (model.Funcionario.HasValue)
             {
-                pedidoCompras = pedidoCompras.Where(p => p.Comprador.Id == model.Comprador);
-                filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Comprador.Value).Nome);
+                pedidoCompras = pedidoCompras.Where(p => p.Comprador.Id == model.Funcionario);
+                filtros.AppendFormat("Comprador: {0}, ", _pessoaRepository.Get(model.Funcionario.Value).Nome);
             }
 
             if (!string.IsNullOrWhiteSpace(model.ReferenciaExterna))
@@ -388,6 +388,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
 
                     var domain = Mapper.Unflat<PedidoCompra>(model);
                     domain.ValorDesconto = model.ValorDescontoTotal;
+                    domain.Comprador = _pessoaRepository.Get(model.Funcionario);
 
                     IncluirNovosPedidoCompralItens(model, domain);
                     RecalculeTotais(model, domain);
@@ -425,6 +426,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 model.ValorMercadorias = domain.ValorMercadoria;
                 model.ValorCompra = domain.ValorCompra;
                 model.ValorDescontoTotal = domain.ValorDesconto;
+                model.Funcionario = domain.Comprador.Id;
 
                 model.FuncionarioAutorizador = domain.FuncionarioAutorizador != null ? domain.FuncionarioAutorizador.Nome : "";
                 model.GridItens = new List<GridPedidoCompraItem>();
@@ -449,6 +451,8 @@ namespace Fashion.ERP.Web.Areas.Compras.Controllers
                 {
                     var domain = Mapper.Unflat(model, _pedidoCompraRepository.Get(model.Id));
                     domain.ValorDesconto = model.ValorDescontoTotal;
+                    domain.Comprador = _pessoaRepository.Get(model.Funcionario);
+
                     if (domain.SituacaoCompra == SituacaoCompra.Cancelado)
                     {
                         _pedidoCompraRepository.Evict(domain);

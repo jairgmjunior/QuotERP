@@ -26,7 +26,7 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Models
 
         [Display(Name = "Requerente")]
         [Required(ErrorMessage = "Informe o requerente")]
-        public long Requerente { get; set; }
+        public long? Funcionario { get; set; }
 
         [Display(Name = "Unidade")]
         [Required(ErrorMessage = "Informe a unidade")]

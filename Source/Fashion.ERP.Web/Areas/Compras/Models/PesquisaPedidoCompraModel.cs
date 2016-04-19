@@ -50,7 +50,7 @@ namespace Fashion.ERP.Web.Areas.Compras.Models
         public long? Material { get; set; }
 
         [Display(Name = "Comprador")]
-        public long? Comprador { get; set; }
+        public long? Funcionario { get; set; }
 
         [Display(Name = "Referência Externa")]
         public string ReferenciaExterna { get; set; }

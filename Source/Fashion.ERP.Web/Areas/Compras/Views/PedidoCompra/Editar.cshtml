@@ -14,7 +14,7 @@
     Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
     Html.RenderAction("PesquisarVarios", "Material", new { area = "Almoxarifado" });
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
     Html.RenderPartial("_ConfirmDelete");
 }
 

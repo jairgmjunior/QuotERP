@@ -516,7 +516,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                         transport.Read("VirtualizationComboBox_Read", "Funcionario", new { Area = "Comum" }))
                     .Schema(schema =>
                         schema.Data("Data").Total("Total")))
-                .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapper"));
+                .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapperFuncionario"));
 
             var divInputGroup = new TagBuilder("div");
             divInputGroup.AddCssClass("input-group");
@@ -545,7 +545,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
             var builder = new StringBuilder();
             builder.AppendLine(@"<script>");
 
-            builder.AppendLine(@"function valueMapper(options) {
+            builder.AppendLine(@"function valueMapperFuncionario(options) {
                 $.ajax({
                     url: '/Comum/Funcionario/Funcionarios_ValueMapper', 
                     data: convertValues(options.value),
