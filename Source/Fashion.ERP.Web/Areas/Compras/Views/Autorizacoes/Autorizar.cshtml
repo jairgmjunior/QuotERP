@@ -25,7 +25,7 @@
                 <div class="form-group form-group-sm">
                     @Html.LabelForRequired(x => x.Funcionarios)
                     <div class="col-sm-8 col-md-8 col-lg-7 ">
-                        @Html.HiddenFor(x => x.Funcionarios, new { id = "funcionario" })
+                        @Html.Hidden("funcionario")
                         <div class="col-lg-3 col-sm-5 col-md-4 padding0">
                             <div class="input-group">
                                 <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
@@ -39,6 +39,9 @@
                         <div class="col-lg-9 col-md-8 col-sm-12 padding0">
                             <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
                         </div>
+                        <button id="btn-add" class="btn btn-default btn-sm " type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
                         @Html.ValidationMessageFor(x => x.Funcionarios, string.Empty, new { @class = "help-block" })
                     </div>
                 </div>
@@ -61,7 +64,7 @@
                                                 @ViewBag.FuncionariosDicionario[funcionario]
                                                 <input type="hidden" name="Funcionarios" value="@funcionario"/>
                                             </td>
-                                            <td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td>
+                                            <td><a href="javascript:void(0)" onclick="Delete(this)"><button id="btn-remove" class="btn btn-default btn-sm " type="button"><span class="glyphicon glyphicon-minus"></span></button></a></td>
                                         </tr>
                                     }
                                 }
@@ -88,10 +91,10 @@
             $('#btn-add').on('click', function () {
 
                 var funcionarioId = $('#funcionario').val();
-                var funcionario = $('#descricao-funcionario').text();
+                var funcionario = $('#descricao-funcionario').val();
 
                 // Validar
-                if (funcionarioId == '') {
+                if (funcionario == "") {
                     $('#funcionario').addClass('input-validation-error');
                     alert('Selecione um funcionário');
                     $('#codigo-funcionario').focus();
@@ -115,11 +118,11 @@
                 if (cadastrado == false) {
                     $('#table-funcionario tbody').append(
                         '<tr><td>' + funcionario + '<input type="hidden" name="Funcionarios" value="' + funcionarioId + '"/></td>'+
-                        '<td><a href="javascript:void(0)" onclick="Delete(this)"><i class="icon-remove"></i></a></td></tr>');
+                        '<td><a href="javascript:void(0)" onclick="Delete(this)"><button id="btn-remove" class="btn btn-default btn-sm " type="button"><span class="glyphicon glyphicon-minus"></span></button></i></a></td></tr>');
                     
                     $('#funcionario').val('').trigger('change');
                     $('#codigo-funcionario').val('').focus();
-                    $('#descricao-funcionario').text('');
+                    $('#descricao-funcionario').val('');
                 }
             });
         });

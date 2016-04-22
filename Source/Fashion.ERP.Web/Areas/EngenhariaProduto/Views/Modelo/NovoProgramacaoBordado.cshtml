@@ -19,5 +19,5 @@
 }
 
 @{
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "ProgramadorBordado" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true", funcaoFuncionario = "ProgramadorBordado" });
 }

@@ -70,7 +70,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Estilista")]
         [Required(ErrorMessage = "Informe o estilista")]
-        public long Estilista { get; set; }
+        public long Funcionario { get; set; }
         
         [Display(Name = "Observação")]
         public string Observacao { get; set; }

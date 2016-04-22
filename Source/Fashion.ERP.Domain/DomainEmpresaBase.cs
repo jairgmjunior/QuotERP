@@ -1,8 +1,10 @@
-﻿using Fashion.Framework.Common.Base;
+﻿using System.Collections;
+using Fashion.Framework.Common.Base;
 using Fashion.Framework.Domain;
 
 namespace Fashion.ERP.Domain
 {
+    
     public abstract class DomainEmpresaBase<T> : DomainTenantBase<T>, IEmpresaObject where T : DomainObject
     {
         /// <summary>

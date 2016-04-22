@@ -40,7 +40,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Programador de Bordado")]
         [Required(ErrorMessage = "Informe o programador do bordado")]
-        public long? ProgramadorBordado { get; set; }
+        public long? Funcionario { get; set; }
 
         public long Modelo { get; set; }
 

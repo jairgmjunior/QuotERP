@@ -24,6 +24,6 @@
 
 @{
     Html.RenderPartial("_RecortarImagem");
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = "Estilista" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true", funcaoFuncionario = "Estilista" });
     Html.RenderPartial("_ConfirmDelete");
 }

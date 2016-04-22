@@ -245,6 +245,5 @@
 </script>
 @{
     Html.RenderAction("PesquisarComParametros", "Fornecedor", new { area = "Comum", SelecaoUnica = "true" });
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum", funcaoFuncionario = new[] { "Comprador", "GerenteCompra" } });
     Html.RenderAction("Pesquisar", "Material", new { area = "Almoxarifado" });
 }

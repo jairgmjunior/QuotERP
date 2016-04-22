@@ -22,7 +22,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Modelista")]
         [Required(ErrorMessage = "Informe o modelista")]
-        public long? Modelista { get; set; }
+        public long? Funcionario { get; set; }
 
         [Display(Name = "Data modelagem")]
         [Required(ErrorMessage = "Informe a data da modelagem")]

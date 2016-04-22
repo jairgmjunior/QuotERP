@@ -354,7 +354,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 
                 model.Grade = domain.FichaTecnicaMatriz.Grade.Id;
                 model.GridFichaTecnicaVariacao = new List<GridFichaTecnicaVariacaoModel>();
-                
+                model.Funcionario = domain.Estilista.Id.GetValueOrDefault();
+
                 domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(x => x.Cores.ForEach(y => model.GridFichaTecnicaVariacao.Add(new GridFichaTecnicaVariacaoModel()
                 {
                     Cor = y.Id.ToString(),
@@ -406,6 +407,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
             domain = Mapper.Unflat(model, domain);
             domain.FichaTecnicaMatriz = ObtenhaFichaTecnicaMatriz(model);
+            domain.Estilista = _pessoaRepository.Get(model.Funcionario);
 
             _fichaTecnicaJeansRepository.SaveOrUpdate(domain);
         }
@@ -415,7 +417,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var domain = Mapper.Unflat<FichaTecnicaJeans>(model);
             domain.DataCadastro = DateTime.Now;
             domain.FichaTecnicaMatriz = ObtenhaFichaTecnicaMatriz(model);
-
+            domain.Estilista = _pessoaRepository.Get(model.Funcionario);
             _fichaTecnicaJeansRepository.Save(domain);
             model.Id = domain.Id;
         }
