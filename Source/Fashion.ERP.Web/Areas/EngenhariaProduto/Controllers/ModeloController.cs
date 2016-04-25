@@ -363,7 +363,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 {
                     var domain = Mapper.Unflat<Modelo>(model);
                     domain.DataCriacao = DateTime.Now;
-
+                    
                     // Fotos
                     foreach (var foto in Fotos)
                         domain.AddFoto(new ModeloFoto
@@ -686,7 +686,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 ModeloDescricao = domain.Descricao,
                 ModeloEstilistaNome = domain.Estilista.Nome,
                 ModeloDataCriacao = domain.DataCriacao,
-                Modelista = domain.Modelista != null ? domain.Modelista.Id : null,
+                Funcionario = domain.Modelista != null ? domain.Modelista.Id : null,
                 DataModelagem = domain.DataModelagem,
                 Tecido = domain.Tecido,
                 Cos = domain.Cos,
@@ -713,7 +713,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = _modeloRepository.Get(model.ModeloId);
-                    domain.Modelista = _pessoaRepository.Load(model.Modelista);
+                    domain.Modelista = _pessoaRepository.Load(model.Funcionario);
                     domain.DataModelagem = model.DataModelagem;
                     domain.Tecido = model.Tecido;
                     domain.Cos = model.Cos;
@@ -752,7 +752,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public virtual ActionResult ProgramacaoBordado(long modeloId)
         {
             var modelo = _modeloRepository.Get(modeloId);
-
+            
             var grid = modelo.ProgramacaoBordados.Select(p => new GridProgramacaoBordadoModel
             {
                 Id = p.Id.GetValueOrDefault(),
@@ -796,7 +796,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = Mapper.Unflat<ProgramacaoBordado>(model);
-
+                    domain.ProgramadorBordado = _pessoaRepository.Get(model.Funcionario);
                     domain.Arquivo = null;
                     if (string.IsNullOrEmpty(model.NomeArquivoUpload) == false)
                     {
@@ -835,6 +835,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
         public virtual ActionResult EditarProgramacaoBordado(long modeloId, long id)
         {
             var domain = _programacaoBordadoRepository.Get(id);
+            
             if (domain != null)
             {
                 var model = Mapper.Flat<ProgramacaoBordadoModel>(domain);
@@ -861,6 +862,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     var programacaoBordado = modelo.ProgramacaoBordados.Single(pb => pb.Id == model.Id);
 
                     var domain = Mapper.Unflat(model, programacaoBordado);
+                    domain.ProgramadorBordado = _pessoaRepository.Get(model.Funcionario);
 
                     if (model.NomeArquivoUpload != null && model.NomeArquivo == null)
                     {

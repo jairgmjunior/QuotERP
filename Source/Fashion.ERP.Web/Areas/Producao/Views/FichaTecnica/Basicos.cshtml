@@ -169,9 +169,9 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group form-group-sm">
-                        @Html.LabelForRequired(x => x.Estilista)
+                        @Html.LabelForRequired(x => x.Funcionario)
                         <div class="col-sm-8 col-md-8 col-lg-7 ">
-                            @Html.HiddenFor(x => x.Estilista, new { id = "funcionario" })
+                            @Html.HiddenFor(x => x.Funcionario, new { id = "funcionario" })
                             <div class="col-lg-3 col-sm-5 col-md-4 padding0">
                                 <div class="input-group">
                                     <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
@@ -185,7 +185,7 @@
                             <div class="col-lg-9 col-md-8 col-sm-12 padding0">
                                 <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
                             </div>
-                            @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
+                            @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new { @class = "help-block" })
                         </div>
                     </div>
                 </div>
