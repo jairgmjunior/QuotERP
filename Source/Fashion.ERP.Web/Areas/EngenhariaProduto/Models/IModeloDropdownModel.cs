@@ -3,7 +3,7 @@
     public interface IModeloDropdownModel
     {
         long? Colecao { get; set; }
-        long? Estilista { get; set; }
+        long? Funcionario { get; set; }
         long? Natureza { get; set; }
         long? Classificacao { get; set; }
         long? Artigo { get; set; }

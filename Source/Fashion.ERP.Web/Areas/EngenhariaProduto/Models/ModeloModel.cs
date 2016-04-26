@@ -19,7 +19,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Required(ErrorMessage = "Informe o estilista")]
         [Display(Name = "Estilista")]
-        public long? Estilista { get; set; }
+        public long? Funcionario { get; set; }
         
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "Informe a descrição")]

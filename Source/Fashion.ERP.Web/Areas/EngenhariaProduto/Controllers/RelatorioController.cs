@@ -231,10 +231,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
                 }
 
-                if (model.Estilista.HasValue)
+                if (model.Funcionario.HasValue)
                 {
-                    modelos = modelos.Where(p => p.Estilista.Id == model.Estilista);
-                    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Estilista.Value).Nome);
+                    modelos = modelos.Where(p => p.Estilista.Id == model.Funcionario);
+                    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Funcionario.Value).Nome);
                 }
 
                 if (model.Modelista.HasValue)
@@ -577,7 +577,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 var estilistas = _pessoaRepository.Find(p => p.Funcionario != null
                     && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Estilista)
                     .OrderBy(p => p.Nome).ToList();
-                ViewData["Estilista"] = estilistas.ToSelectList("Nome", pesquisaModel.Estilista);
+                ViewData["Estilista"] = estilistas.ToSelectList("Nome", pesquisaModel.Funcionario);
 
                 var modelistas = _pessoaRepository.Find(p => p.Funcionario != null
                     && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Modelista)

@@ -10,8 +10,9 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Models
 
         [Display(Name = "Coleção")]
         public long? Colecao { get; set; }
-
-        public long? Estilista { get; set; }
+        
+        [Display(Name = "Estilista")]
+        public long? Funcionario { get; set; }
 
         public long? Modelista { get; set; }
 

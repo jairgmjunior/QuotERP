@@ -179,10 +179,10 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                     filtros.AppendFormat("Coleção: {0}, ", _colecaoRepository.Get(model.Colecao.Value).Descricao);
                 }
 
-                if (model.Estilista.HasValue)
+                if (model.Funcionario.HasValue)
                 {
-                    modelos = modelos.Where(p => p.Estilista.Id == model.Estilista);
-                    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Estilista.Value).Nome);
+                    modelos = modelos.Where(p => p.Estilista.Id == model.Funcionario);
+                    filtros.AppendFormat("Estilista: {0}, ", _pessoaRepository.Get(model.Funcionario.Value).Nome);
                 }
 
                 if (model.Modelista.HasValue)
@@ -412,6 +412,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<ModeloModel>(domain);
+                model.Funcionario = domain.Estilista.Id;
 
                 Fotos = ViewBag.Fotos = domain.Fotos.Select(p => new GridModeloFotoModel
                 {
@@ -443,6 +444,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 try
                 {
                     var domain = Mapper.Unflat(model, _modeloRepository.Get(model.Id));
+                    domain.Estilista = _pessoaRepository.Get(model.Funcionario);
 
                     // Fotos
                     var fotos = domain.Fotos.Where(p => Fotos.Any(q => p.Id == q.Id) == false).ToList();
@@ -839,6 +841,8 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
             if (domain != null)
             {
                 var model = Mapper.Flat<ProgramacaoBordadoModel>(domain);
+                model.Funcionario = domain.ProgramadorBordado.Id;
+
                 model.Modelo = modeloId;
 
                 if (domain.Arquivo != null)
@@ -1477,7 +1481,7 @@ namespace Fashion.ERP.Web.Areas.EngenhariaProduto.Controllers
                 var estilistas = _pessoaRepository.Find(p => p.Funcionario != null
                     && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Estilista)
                     .OrderBy(p => p.Nome).ToList();
-                ViewData["Estilista"] = estilistas.ToSelectList("Nome", pesquisaModel.Estilista);
+                ViewData["Funcionario"] = estilistas.ToSelectList("Nome", pesquisaModel.Funcionario);
 
                 var modelistas = _pessoaRepository.Find(p => p.Funcionario != null
                     && p.Funcionario.FuncaoFuncionario == FuncaoFuncionario.Modelista)

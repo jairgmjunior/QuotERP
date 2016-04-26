@@ -26,10 +26,10 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
-                @Html.LabelForRequired(x => x.Estilista)
+                @Html.LabelForRequired(x => x.Funcionario)
                 <div class="col-sm-8 col-md-8 col-lg-7 ">
-                    @Html.CustomKendoComboBoxForFuncionario(x => x.Estilista)
-                    @Html.ValidationMessageFor(x => x.Estilista, string.Empty, new { @class = "help-block" })
+                    @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                    @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new { @class = "help-block" })
                 </div>
             </div>
         </div>   
