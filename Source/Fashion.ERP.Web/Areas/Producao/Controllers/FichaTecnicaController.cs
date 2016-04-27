@@ -332,21 +332,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         public virtual ActionResult Novo()
         {
-            return View(new FichaTecnicaModel());
+            return View("Basicos", new FichaTecnicaBasicosModel());
         }
         #endregion
 
         #region Básicos
 
         [PopulateViewData("PopulateViewDataBasicos")]
-        public virtual ActionResult Basicos(long? fichaTecnicaId)
+        public virtual ActionResult Basicos(long id)
         {
-            if (!fichaTecnicaId.HasValue)
-            {
-                return PartialView("Basicos", new FichaTecnicaBasicosModel());
-            }
-
-            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+            var domain = _fichaTecnicaJeansRepository.Get(id);
 
             if (domain != null)
             {
@@ -364,12 +359,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                 model.Catalogo = domain.Catalogo.HasValue ? domain.Catalogo : false;
 
-                return PartialView("Basicos", model);
+                return View("Basicos", model);
             }
 
             this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
             
-            return PartialView("Basicos", new FichaTecnicaBasicosModel());
+            return View("Basicos", new FichaTecnicaBasicosModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataBasicos")]
@@ -463,14 +458,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Processos
 
         [PopulateViewData("PopulateViewDataProcessos")]
-        public virtual ActionResult Processos(long? fichaTecnicaId)
+        public virtual ActionResult Processos(long id)
         {
-            if (!fichaTecnicaId.HasValue)
-            {
-                return PartialView("Processos", new FichaTecnicaProcessosModel());
-            }
-
-            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+            var domain = _fichaTecnicaJeansRepository.Get(id);
 
             if (domain != null)
             {
@@ -489,12 +479,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     OperacaoProducao = y.OperacaoProducao.Id.ToString()
                 }));
 
-                return PartialView("Processos", model);
+                return View(model);
             }
 
             this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
 
-            return PartialView("Processos", new FichaTecnicaProcessosModel());
+            return View(new FichaTecnicaProcessosModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataProcessos")]
@@ -598,14 +588,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Materiais
 
         [PopulateViewData("PopulateViewDataMaterial")]
-        public virtual ActionResult Material(long? fichaTecnicaId)
+        public virtual ActionResult Material(long id)
         {
-            if (!fichaTecnicaId.HasValue)
-            {
-                return PartialView("Material", new FichaTecnicaMaterialModel());
-            }
-
-            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+            var domain = _fichaTecnicaJeansRepository.Get(id);
 
             if (domain != null)
             {
@@ -664,12 +649,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     }));
                 model.GridMaterialConsumoItem = model.GridMaterialConsumoItem.OrderBy(x => x.DepartamentoProducaoNome).ThenBy(x => x.Descricao).ToList();
 
-                return PartialView("Material", model);
+                return View(model);
             }
 
             this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
 
-            return PartialView("Material", new FichaTecnicaMaterialModel());
+            return View(new FichaTecnicaMaterialModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataMaterial")]
@@ -860,14 +845,9 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Modelagem
 
         [PopulateViewData("PopulateViewDataModelagem")]
-        public virtual ActionResult Modelagem(long? fichaTecnicaId)
+        public virtual ActionResult Modelagem(long id)
         {
-            if (!fichaTecnicaId.HasValue)
-            {
-                return PartialView("Modelagem", new FichaTecnicaModelagemModel());
-            }
-
-            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+            var domain = _fichaTecnicaJeansRepository.Get(id);
 
             if (domain != null)
             {
@@ -878,7 +858,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         Id = domain.Id,
                         GridMedidas = new List<GridFichaTecnicaModelagemMedidaModel>(),
                     };
-                    return PartialView("Modelagem", model);
+                    return View(model);
                 }
                 else
                 {
@@ -908,13 +888,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                             Tamanho = y.Tamanho.Id.ToString()
                         })));
 
-                    return PartialView("Modelagem", model);
+                    return View(model);
                 }
             }
 
             this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
 
-            return PartialView("Modelagem", new FichaTecnicaModelagemModel());
+            return View(new FichaTecnicaModelagemModel());
         }
 
         [HttpPost, ValidateAntiForgeryToken, PopulateViewData("PopulateViewDataModelagem")]
@@ -1014,18 +994,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         
         #region Fotos
         
-        public virtual ActionResult Fotos(long? fichaTecnicaId)
+        public virtual ActionResult Fotos(long id)
         {
-            if (!fichaTecnicaId.HasValue)
-            {
-                return PartialView("Fotos", new FichaTecnicaFotosModel());
-            }
-
-            var domain = _fichaTecnicaJeansRepository.Get(fichaTecnicaId);
+            var domain = _fichaTecnicaJeansRepository.Get(id);
 
             var model = new FichaTecnicaFotosModel()
             {
-                Id = fichaTecnicaId,
+                Id = id,
                 GridFotos = new List<GridFichaTecnicaFotosModel>()
             };
 
@@ -1045,7 +1020,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 });
             }
 
-            return PartialView("Fotos", model);
+            return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -1111,10 +1086,38 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         #region Editar
 
+        [PopulateViewData("PopulateViewDataBasicos")]
         public virtual ActionResult Editar(long id)
-        {            
-            var model = new FichaTecnicaModel {Id = id};
-            return View(model);
+        {
+            //if (!fichaTecnicaId.HasValue)
+            //{
+            //    return View(new FichaTecnicaBasicosModel());
+            //}
+
+            var domain = _fichaTecnicaJeansRepository.Get(id);
+
+            if (domain != null)
+            {
+                var model = Mapper.Flat<FichaTecnicaBasicosModel>(domain);
+
+                model.Grade = domain.FichaTecnicaMatriz.Grade.Id;
+                model.GridFichaTecnicaVariacao = new List<GridFichaTecnicaVariacaoModel>();
+                model.Funcionario = domain.Estilista.Id.GetValueOrDefault();
+
+                domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(x => x.Cores.ForEach(y => model.GridFichaTecnicaVariacao.Add(new GridFichaTecnicaVariacaoModel()
+                {
+                    Cor = y.Id.ToString(),
+                    Variacao = x.Variacao.Id.ToString()
+                })));
+
+                model.Catalogo = domain.Catalogo.HasValue ? domain.Catalogo : false;
+
+                return View("Basicos", model);
+            }
+
+            this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
+
+            return View("Basicos", new FichaTecnicaBasicosModel());
         }
         
         #region Excluir

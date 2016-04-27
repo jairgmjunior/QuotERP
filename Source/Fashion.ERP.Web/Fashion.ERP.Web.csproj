@@ -1241,9 +1241,7 @@
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Editar.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\SimboloConservacao\Index.cshtml" />
     <Content Include="Areas\Producao\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Producao\Views\FichaTecnica\_NovoOuEditar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Basicos.cshtml" />
-    <Content Include="Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Index.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Novo.cshtml" />
     <Content Include="Areas\Comum\Views\Variacao\_NovoOuEditar.cshtml" />

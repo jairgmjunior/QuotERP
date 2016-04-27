@@ -1,22 +1,22 @@
 ﻿@using Fashion.ERP.Web.Areas.Producao.Models
 @model FichaTecnicaModelagemModel
 
-<style>
-    * {
-        -webkit-box-sizing: border-box !important;
-        -moz-box-sizing: border-box !important;
-        box-sizing: border-box !important;
-    }
-</style>
-
 @using (Html.BeginForm(MVC.Producao.FichaTecnica.Modelagem(), FormMethod.Post, new {id = "formModelagem", @class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    <input type="hidden" id="TamanhosDicionario_Modelagem" data-value = "@ViewBag.TamanhosDicionarioJson_Modelagem" />
 
-    <hr/>
+    <ul class="nav nav-tabs">
+        <li>@Html.ActionLinkAuth("Básicos", MVC.Producao.FichaTecnica.Basicos(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Processos", MVC.Producao.FichaTecnica.Processos(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Materiais", MVC.Producao.FichaTecnica.Material(Model.Id.GetValueOrDefault()))</li>
+        <li class="active">@Html.ActionLinkAuth("Modelagem", MVC.Producao.FichaTecnica.Modelagem(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Fotos", MVC.Producao.FichaTecnica.Fotos(Model.Id.GetValueOrDefault()))</li>
+    </ul>
+    <br/>
+
+    <input type="hidden" id="TamanhosDicionario_Modelagem" data-value = "@ViewBag.TamanhosDicionarioJson_Modelagem" />
     <div class="container-fluid">
         <fieldset>
             <legend><small>Dados da Modelagem</small></legend>
@@ -158,3 +158,129 @@
 @{
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" }); 
 }
+
+@Scripts.Render("~/js/arquivoupload.js")
+
+<script>
+
+    $(document).ready(function () {
+
+        inicializeArquivoUpload();
+
+        $('#formModelagem').submit(function (ev) {
+
+            var formValido = formularioEhValido();
+
+            if (!$("#formModelagem").valid() || !formValido) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            var dataGridItens = $("#GridMedidas").data("kendoGrid").dataSource.data();
+
+            var mensagem = "";
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.DescricaoMedida == "" || dataItem.DescricaoMedida == null) {
+                    mensagem += "Insira a descrição da medida de modelagem.<br/>";
+                }
+            }
+
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Tamanho == "" || dataItem.Tamanho == null) {
+                    mensagem += "Insira o tamanho da medida de modelagem.<br/>";
+                }
+            }
+
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Medida == 0 || dataItem.Medida == null) {
+                    mensagem += "Insira o valor da medida de modelagem.<br/>";
+                }
+            }
+
+            if (mensagem != "") {
+                e.preventDefault();
+                exibaAlertaErro(mensagem);
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+
+            if (!$("#formModelagem").valid()) {
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            return true;
+        });
+
+        reparseFormModelagem();
+    });
+
+    function displayTamanho_Modelagem(id) {
+        var tamanhosDicionario = $("#TamanhosDicionario_Modelagem").data("value");
+        var nome = "";
+        $.each(tamanhosDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function indexModelagem(dataItem) {
+        var data = $("#GridMedidas").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function formularioEhValido() {
+        var retorno = true;
+
+        if ($("#codigo-funcionario").val() == false) {
+            $('#funcionario').val("");
+            $('#funcionario').valid();
+            $('#descricao-funcionario').text("");
+            retorno = false;
+        }
+
+        //// Fornecedor 
+        //if ($(".fileupload-preview").text() != "" && $("#NomeArquivo").val() == "") {
+        //    $('#NomeArquivo').addClass('input-validation-error');
+        //    exibaAlertaErro('Insira o nome do arquivo.');
+        //    retorno =  false;
+        //}
+
+        return retorno;
+    }
+
+    function onEditGridMedidas(e) {
+        //correção de um comportamento não esperado do kendo nessa página
+        $("#formModelagem #DescricaoMedida").blur(function (e) {
+            var row = $(e.target).closest("tr");
+            var grid = $('#GridMedidas').data("kendoGrid");
+            var item = grid.dataItem(row);
+            item.set("DescricaoMedida", $("#formModelagem #DescricaoMedida").val());
+        });
+    }
+
+    function reparseFormModelagem() {
+        var form = $("#formModelagem")
+            .removeData("validator")
+            .removeData("unobtrusiveValidation");
+
+        $.validator.unobtrusive.parse(form);
+    }
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return null;
+        }
+        return valor.toString().replace(".", ",");
+    }
+
+</script>

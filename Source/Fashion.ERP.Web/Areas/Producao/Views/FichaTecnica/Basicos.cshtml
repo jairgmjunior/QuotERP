@@ -1,24 +1,23 @@
 ﻿@using Fashion.ERP.Web.Areas.Producao.Models
 @model FichaTecnicaBasicosModel
 
-<style>
-    * {
-        -webkit-box-sizing: border-box !important;
-        -moz-box-sizing: border-box !important;
-        box-sizing: border-box !important;
-    }
-</style>
-
 @using (Html.BeginForm(MVC.Producao.FichaTecnica.Basicos(), FormMethod.Post, new {id = "formBasicos", @class = "form-horizontal"}))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummaryEx()
     @Html.HiddenFor(x => x.Id)
-    
+
+    <ul class="nav nav-tabs">
+        <li class="active">@Html.ActionLinkAuth("Básicos", MVC.Producao.FichaTecnica.Basicos(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Processos", MVC.Producao.FichaTecnica.Processos(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Materiais", MVC.Producao.FichaTecnica.Material(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Modelagem", MVC.Producao.FichaTecnica.Modelagem(Model.Id.GetValueOrDefault()))</li>
+        <li>@Html.ActionLinkAuth("Fotos", MVC.Producao.FichaTecnica.Fotos(Model.Id.GetValueOrDefault()))</li>
+    </ul>
+    <br/>
+   
     <input type="hidden" id="CorsDicionario" data-value = "@ViewBag.CorsDicionarioJson" />
     <input type="hidden" id="VariacaosDicionario" data-value = "@ViewBag.VariacaosDicionarioJson" />
-
-    <hr/>
 
     <div class="container-fluid">
         <fieldset>
@@ -357,7 +356,6 @@
             </div>     
         </div>
     </div>
-
 }
 
 @{
@@ -365,3 +363,73 @@
     Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
     Html.RenderPartial("_ConfirmDelete");
 }
+
+<script>
+    $(document).ready(function () {
+        $('#formBasicos').submit(function (ev) {
+            var dataGridItens = $("#GridFichaTecnicaVariacao").data("kendoGrid").dataSource.data();
+
+            if (dataGridItens.length == 0) {
+                alert("Insira pelo menos uma variação.");
+                $('#btnSubmitBasicos').button('reset');
+                e.preventDefault();
+                return false;
+            }
+
+            if (!$("#formBasicos").valid()) {
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            return true;
+        });
+
+        reparseFormBasicos();
+    });
+
+    function displayVariacao(id) {
+        var variacaosDicionario = $("#VariacaosDicionario").data("value");
+        var nome = "";
+        $.each(variacaosDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function displayCor(id) {
+        var corsDicionario = $("#CorsDicionario").data("value");
+        var nome = "";
+        $.each(corsDicionario, function (index) {
+            if (index == id) {
+                nome = this;
+                return false;
+            }
+            return true;
+        });
+        return nome;
+    }
+
+    function indexGridFichaTecnicaVariacao(dataItem) {
+        var data = $("#GridFichaTecnicaVariacao").data("kendoGrid").dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function reparseFormBasicos() {
+        var form = $("#formBasicos")
+            .removeData("validator")
+            .removeData("unobtrusiveValidation");
+
+        $.validator.unobtrusive.parse(form);
+    }
+
+    function formateDecimalGrid(valor) {
+        if (valor == null) {
+            return null;
+        }
+        return valor.toString().replace(".", ",");
+    }
+</script>
