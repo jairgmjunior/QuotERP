@@ -23,7 +23,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Modelista")]
         [Required(ErrorMessage = "Informe o modelista")]
-        public long? Modelista { get; set; }
+        public long? Funcionario { get; set; }
         
         // Nome do arquivo no disco
         [Display(Name = "Arquivo")]

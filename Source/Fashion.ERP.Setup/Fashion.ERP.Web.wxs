@@ -267,26 +267,6 @@
                                 <File Id="fil6A18F45239894B09863F2A753C5D02DC" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\MotivoCancelamentoPedidoCompra\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
-                        <Directory Id="dir3BB9DB75432E54CC1373B12209F7B7AD" Name="OrdemEntradaCompra">
-                            <Component Id="cmpD190BE522D2B1AF54B5AC74FFD963BF8" Guid="*">
-                                <File Id="fil1C8C2E26BA1B4AAA162508B531049E82" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\Detalhar.cshtml" />
-                            </Component>
-                            <Component Id="cmpF19061AFCDB1E88E70FD13CE85B16B2C" Guid="*">
-                                <File Id="fil32CD3F3ED5F799682C2ADEA760439249" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\Editar.cshtml" />
-                            </Component>
-                            <Component Id="cmp6EA9DC7DD202EA5E37B2B28A2D56637F" Guid="*">
-                                <File Id="fil3C979CE2F66CA9A9BD34E6FA246211EF" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\Index.cshtml" />
-                            </Component>
-                            <Component Id="cmp9ACBA7D9B5366E70A6DB0B11F8A67A88" Guid="*">
-                                <File Id="fil1163A1F33F1D5CE21D2088EA94E61065" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\Novo.cshtml" />
-                            </Component>
-                            <Component Id="cmpE926D8905D4037A81697C3D8B5956B93" Guid="*">
-                                <File Id="fil74E08D38452C29514B55AABCBAEAF0A9" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\SelecionarPedidoCompra.cshtml" />
-                            </Component>
-                            <Component Id="cmpB69E962C72D03ECE7643A61D40290284" Guid="*">
-                                <File Id="fil7104D2E87CD927E2DB58C11E9467BB33" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\OrdemEntradaCompra\_NovoOuEditar.cshtml" />
-                            </Component>
-                        </Directory>
                         <Directory Id="dirDB30EA47CB8DE270C07640C4AF7FF2CD" Name="ParametroModuloCompra">
                             <Component Id="cmpC1807BDCABDA535178210CEF6B442712" Guid="*">
                                 <File Id="filEBC90655E218C488A3F929B85F1AB871" KeyPath="yes" Source="SourceDir\Areas\Compras\Views\ParametroModuloCompra\Index.cshtml" />
@@ -605,6 +585,9 @@
                             </Component>
                             <Component Id="cmp55D1714BD63436335A3D271BE0A63814" Guid="*">
                                 <File Id="fil772C0553C8F4EC71A9D353F1E2BE38EE" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Funcionario\Pesquisar.cshtml" />
+                            </Component>
+                            <Component Id="cmpEFD9CD5BF7B56F7758692D2D682EC689" Guid="*">
+                                <File Id="fil7EA2DF4E7F50F4DA663E2E6D7970F690" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Funcionario\PesquisarComParametros.cshtml" />
                             </Component>
                             <Component Id="cmp216FE60EB4C56AE60DA9AA519F9AC4C5" Guid="*">
                                 <File Id="fil4A0B31B5C1AFFF1AA4133FFD3789B034" KeyPath="yes" Source="SourceDir\Areas\Comum\Views\Funcionario\_NovoOuEditar.cshtml" />
@@ -1167,9 +1150,6 @@
                             <Component Id="cmpF9D6CC2C4FBB47EE01D261AF973F9E57" Guid="*">
                                 <File Id="fil47A2893DB3C1DE9173C449D0CA749FEA" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Copiar.cshtml" />
                             </Component>
-                            <Component Id="cmp5A76138E085374B6A537CF8001EC860B" Guid="*">
-                                <File Id="fil8C9050A0307043E6588430072007B715" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Editar.cshtml" />
-                            </Component>
                             <Component Id="cmp73960FE3A9F1F6821608D64F28381D27" Guid="*">
                                 <File Id="fil22C8447AB157E2B56FD9ACA549805F68" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Fotos.cshtml" />
                             </Component>
@@ -1193,9 +1173,6 @@
                             </Component>
                             <Component Id="cmp4A5BE87560CDA72362BDD41E093D3C39" Guid="*">
                                 <File Id="fil26F429745001EDC9D88043007CD1E8D9" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
-                            </Component>
-                            <Component Id="cmp3AB4ED0A9AC05DE9CC9BE4E693FE4F40" Guid="*">
-                                <File Id="fil7EBE15D254969A9E59AF36D160263005" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dirA24A3614F2F5977A904A51A11E827680" Name="OrdemProducao">
@@ -1752,6 +1729,35 @@
                     </Directory>
                 </Directory>
             </Directory>
+            <Directory Id="dir21A808226B08DCA5F347A5FF8CAD32C0" Name="fonts">
+                <Component Id="cmpAC8891B44CE2CDA777AC046D29D4DB1B" Guid="*">
+                    <File Id="fil8DC5BA5748CEF2A7425C4031E0BA0905" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.eot" />
+                </Component>
+                <Component Id="cmpCD0AC7776B22C526FDB7C89583A3916C" Guid="*">
+                    <File Id="fil6F6269A67F09DB9DA42DFDFBD973A7B3" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.svg" />
+                </Component>
+                <Component Id="cmpB5D764EA5B9C10886B321A2161BC30FE" Guid="*">
+                    <File Id="fil3D80DC08EA7B794970B8908625638465" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.ttf" />
+                </Component>
+                <Component Id="cmpBE4DF9AD425DC3AB2075EE7E07935F87" Guid="*">
+                    <File Id="filBFB5F2C1BE25E07FD5939C2988992D79" KeyPath="yes" Source="SourceDir\fonts\fontawesome-webfont.woff" />
+                </Component>
+                <Component Id="cmp618E2ED6E4DE2973C5B46AB59E0F6E62" Guid="*">
+                    <File Id="fil0EBC82D958B79F0B08363BD4E270486A" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.eot" />
+                </Component>
+                <Component Id="cmp74152213EE9945A8A493E97E6A392C60" Guid="*">
+                    <File Id="filA689A65972145B4A2609E61180008DB3" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.svg" />
+                </Component>
+                <Component Id="cmpC47CCD09F4895FD91FD4028DECEE9866" Guid="*">
+                    <File Id="fil34BF6027D6A392A73D6D3BF7B05257B2" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.ttf" />
+                </Component>
+                <Component Id="cmp5374FF3BBF4349E79B493D2BB4D34C17" Guid="*">
+                    <File Id="filCA6220873D70AC659DB8080602101E4D" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.woff" />
+                </Component>
+                <Component Id="cmp13B5675818EB1B89A0C2DC7F95BDDC0A" Guid="*">
+                    <File Id="fil89C0CBE05AC4A2D572CEC38C796AB363" KeyPath="yes" Source="SourceDir\fonts\glyphicons-halflings-regular.woff2" />
+                </Component>
+            </Directory>
             <Directory Id="dirB87C6C8333363FFD9F1609ECA39D2CC4" Name="js">
                 <Component Id="cmp135FB7645C7CABBBCC46C495AAF92362" Guid="*">
                     <File Id="filAF0E4F6E0053696CFCD232521347A7C1" KeyPath="yes" Source="SourceDir\js\ajax.js" />
@@ -2248,12 +2254,6 @@
             <ComponentRef Id="cmpB27B276F8E4CB6FEB4312BA3F4DC09E3" />
             <ComponentRef Id="cmp21F61999C37D69412121EDB3490716DA" />
             <ComponentRef Id="cmp8240B4F813242AC53D58A61EA576AB75" />
-            <ComponentRef Id="cmpD190BE522D2B1AF54B5AC74FFD963BF8" />
-            <ComponentRef Id="cmpF19061AFCDB1E88E70FD13CE85B16B2C" />
-            <ComponentRef Id="cmp6EA9DC7DD202EA5E37B2B28A2D56637F" />
-            <ComponentRef Id="cmp9ACBA7D9B5366E70A6DB0B11F8A67A88" />
-            <ComponentRef Id="cmpE926D8905D4037A81697C3D8B5956B93" />
-            <ComponentRef Id="cmpB69E962C72D03ECE7643A61D40290284" />
             <ComponentRef Id="cmpC1807BDCABDA535178210CEF6B442712" />
             <ComponentRef Id="cmp5192F58C0A1E43DBF95FB0B111B73D66" />
             <ComponentRef Id="cmpF6D56B420C0765CB82E305DBBCC774C7" />
@@ -2342,6 +2342,7 @@
             <ComponentRef Id="cmpA5D13766B7244BD6B23FC255CAAD4481" />
             <ComponentRef Id="cmpECE9052DF101591F594C93A7EA01E1D7" />
             <ComponentRef Id="cmp55D1714BD63436335A3D271BE0A63814" />
+            <ComponentRef Id="cmpEFD9CD5BF7B56F7758692D2D682EC689" />
             <ComponentRef Id="cmp216FE60EB4C56AE60DA9AA519F9AC4C5" />
             <ComponentRef Id="cmpA9FD18D206DC1E2FAA18FD5C5BD1A12F" />
             <ComponentRef Id="cmpF320CB299EF2660EDDABB35262C6AA92" />
@@ -2495,7 +2496,6 @@
             <ComponentRef Id="cmp3B3898A3CDDA999DC7591066C78400FC" />
             <ComponentRef Id="cmpF8B11053552E29A1F9EAED18C6E6330D" />
             <ComponentRef Id="cmpF9D6CC2C4FBB47EE01D261AF973F9E57" />
-            <ComponentRef Id="cmp5A76138E085374B6A537CF8001EC860B" />
             <ComponentRef Id="cmp73960FE3A9F1F6821608D64F28381D27" />
             <ComponentRef Id="cmpEFDFD81337699AB1AE245A6FD3F04728" />
             <ComponentRef Id="cmp4DE3D0E6215319992C40E66608C9ECAF" />
@@ -2504,7 +2504,6 @@
             <ComponentRef Id="cmpD5C1962E09FFE4D991C73AEAECE7E7DA" />
             <ComponentRef Id="cmpC282E801AC01F6DC5EA3FF7423BBE834" />
             <ComponentRef Id="cmp4A5BE87560CDA72362BDD41E093D3C39" />
-            <ComponentRef Id="cmp3AB4ED0A9AC05DE9CC9BE4E693FE4F40" />
             <ComponentRef Id="cmp2780EFB35E4F2A108BDAB1FC5FD403CF" />
             <ComponentRef Id="cmp9493DE808224582CEE08702DB5390DA2" />
             <ComponentRef Id="cmp5FED0FD05CD87AB82FD5506FC38308D0" />
@@ -2666,6 +2665,15 @@
             <ComponentRef Id="cmpA620305681841805F1C7999633F61B52" />
             <ComponentRef Id="cmp12536C8ECA56140A6F472F1DEAF4F492" />
             <ComponentRef Id="cmpCE801C386CA0C2AAA2F8785DCA2D508C" />
+            <ComponentRef Id="cmpAC8891B44CE2CDA777AC046D29D4DB1B" />
+            <ComponentRef Id="cmpCD0AC7776B22C526FDB7C89583A3916C" />
+            <ComponentRef Id="cmpB5D764EA5B9C10886B321A2161BC30FE" />
+            <ComponentRef Id="cmpBE4DF9AD425DC3AB2075EE7E07935F87" />
+            <ComponentRef Id="cmp618E2ED6E4DE2973C5B46AB59E0F6E62" />
+            <ComponentRef Id="cmp74152213EE9945A8A493E97E6A392C60" />
+            <ComponentRef Id="cmpC47CCD09F4895FD91FD4028DECEE9866" />
+            <ComponentRef Id="cmp5374FF3BBF4349E79B493D2BB4D34C17" />
+            <ComponentRef Id="cmp13B5675818EB1B89A0C2DC7F95BDDC0A" />
             <ComponentRef Id="cmp135FB7645C7CABBBCC46C495AAF92362" />
             <ComponentRef Id="cmpF7AD717BC502E72642D8C6E4901F769F" />
             <ComponentRef Id="cmp4FB8D20B6038BE5CBA1DA1C1A584DC39" />

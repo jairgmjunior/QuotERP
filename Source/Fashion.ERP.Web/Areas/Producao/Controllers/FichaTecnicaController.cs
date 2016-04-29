@@ -330,6 +330,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
         #region Novo
 
+        [PopulateViewData("PopulateViewDataBasicos")]
         public virtual ActionResult Novo()
         {
             return View("Basicos", new FichaTecnicaBasicosModel());
@@ -384,7 +385,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         this.AddSuccessMessage("Dados básicos da ficha técnica atualizados com sucesso.");
                     }
 
-                    return RedirectToAction("Editar", new { model.Id });
+                    return RedirectToAction("Basicos", new { model.Id });
                 }
                 catch (Exception exception)
                 {
@@ -393,7 +394,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { model.Id });
+            return RedirectToAction("Basicos", new { model.Id });
         }
 
         protected virtual void EditarBasicos(FichaTecnicaBasicosModel model)
@@ -507,7 +508,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         this.AddSuccessMessage("Dados de processo da ficha técnica atualizados com sucesso.");
                     }
 
-                    return RedirectToAction("Editar", new { model.Id });
+                    return RedirectToAction("Basicos", new { model.Id });
                 }
                 catch (Exception exception)
                 {
@@ -516,7 +517,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { model.Id });
+            return RedirectToAction("Basicos", new { model.Id });
         }
 
         protected virtual void EditarProcessos(FichaTecnicaJeans domain, FichaTecnicaProcessosModel model)
@@ -674,7 +675,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     this.AddSuccessMessage("Dados de material da ficha técnica salvos/atualizados com sucesso.");
                     
-                    return RedirectToAction("Editar", new { domain.Id });
+                    return RedirectToAction("Basicos", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -683,7 +684,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { model.Id });
+            return RedirectToAction("Basicos", new { model.Id });
         }
 
         private void TrateMaterialConsumoMatriz(FichaTecnicaJeans domain, IEnumerable<GridMaterialConsumoMatrizModel> gridMaterialConsumoMatriz)
@@ -868,7 +869,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         DataModelagem = domain.FichaTecnicaModelagem.DataModelagem,
                         Observacao = domain.FichaTecnicaModelagem.Observacao,
                         Descricao = domain.FichaTecnicaModelagem.Descricao,
-                        Modelista = domain.FichaTecnicaModelagem.Modelista.Id,
+                        Funcionario = domain.FichaTecnicaModelagem.Modelista.Id,
                         NomeArquivoUpload =
                             domain.FichaTecnicaModelagem.Arquivo != null
                                 ? domain.FichaTecnicaModelagem.Arquivo.Nome
@@ -915,7 +916,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                         }
 
                         var fichaTecnicaModelagem = new FichaTecnicaModelagem();
-                        fichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
+                        fichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Funcionario);
                         fichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
                         fichaTecnicaModelagem.Observacao = model.Observacao;
                         fichaTecnicaModelagem.Descricao = model.Descricao;
@@ -926,7 +927,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     }
                     else
                     {
-                        domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Modelista);
+                        domain.FichaTecnicaModelagem.Modelista = _pessoaRepository.Load(model.Funcionario);
                         domain.FichaTecnicaModelagem.DataModelagem = model.DataModelagem.Value;
                         domain.FichaTecnicaModelagem.Observacao = model.Observacao;
                         domain.FichaTecnicaModelagem.Descricao = model.Descricao;
@@ -949,7 +950,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     this.AddSuccessMessage("Dados da modelagem da ficha técnica salvos/atualizados com sucesso.");
 
-                    return RedirectToAction("Editar", new { domain.Id });
+                    return RedirectToAction("Basicos", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -958,7 +959,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { model.Id });
+            return RedirectToAction("Basicos", new { model.Id });
         }
 
         private void AtualizeFichaTecnicaModelageMedida(FichaTecnicaModelagemModel model, FichaTecnicaJeans domain)
@@ -1070,7 +1071,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
 
                     this.AddSuccessMessage("Dados das fotos da ficha técnica salvos/atualizados com sucesso.");
 
-                    return RedirectToAction("Editar", new { domain.Id });
+                    return RedirectToAction("Basicos", new { domain.Id });
                 }
                 catch (Exception exception)
                 {
@@ -1079,46 +1080,46 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { model.Id });
+            return RedirectToAction("Basicos", new { model.Id });
         }
         
         #endregion
 
         #region Editar
 
-        [PopulateViewData("PopulateViewDataBasicos")]
-        public virtual ActionResult Editar(long id)
-        {
-            //if (!fichaTecnicaId.HasValue)
-            //{
-            //    return View(new FichaTecnicaBasicosModel());
-            //}
+        //[PopulateViewData("PopulateViewDataBasicos")]
+        //public virtual ActionResult Editar(long id)
+        //{
+        //    //if (!fichaTecnicaId.HasValue)
+        //    //{
+        //    //    return View(new FichaTecnicaBasicosModel());
+        //    //}
 
-            var domain = _fichaTecnicaJeansRepository.Get(id);
+        //    var domain = _fichaTecnicaJeansRepository.Get(id);
 
-            if (domain != null)
-            {
-                var model = Mapper.Flat<FichaTecnicaBasicosModel>(domain);
+        //    if (domain != null)
+        //    {
+        //        var model = Mapper.Flat<FichaTecnicaBasicosModel>(domain);
 
-                model.Grade = domain.FichaTecnicaMatriz.Grade.Id;
-                model.GridFichaTecnicaVariacao = new List<GridFichaTecnicaVariacaoModel>();
-                model.Funcionario = domain.Estilista.Id.GetValueOrDefault();
+        //        model.Grade = domain.FichaTecnicaMatriz.Grade.Id;
+        //        model.GridFichaTecnicaVariacao = new List<GridFichaTecnicaVariacaoModel>();
+        //        model.Funcionario = domain.Estilista.Id.GetValueOrDefault();
 
-                domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(x => x.Cores.ForEach(y => model.GridFichaTecnicaVariacao.Add(new GridFichaTecnicaVariacaoModel()
-                {
-                    Cor = y.Id.ToString(),
-                    Variacao = x.Variacao.Id.ToString()
-                })));
+        //        domain.FichaTecnicaMatriz.FichaTecnicaVariacaoMatrizs.ForEach(x => x.Cores.ForEach(y => model.GridFichaTecnicaVariacao.Add(new GridFichaTecnicaVariacaoModel()
+        //        {
+        //            Cor = y.Id.ToString(),
+        //            Variacao = x.Variacao.Id.ToString()
+        //        })));
 
-                model.Catalogo = domain.Catalogo.HasValue ? domain.Catalogo : false;
+        //        model.Catalogo = domain.Catalogo.HasValue ? domain.Catalogo : false;
 
-                return View("Basicos", model);
-            }
+        //        return View("Basicos", model);
+        //    }
 
-            this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
+        //    this.AddErrorMessage("Não foi possível encontrar a ficha técnica.");
 
-            return View("Basicos", new FichaTecnicaBasicosModel());
-        }
+        //    return View("Basicos", new FichaTecnicaBasicosModel());
+        //}
         
         #region Excluir
 
@@ -1142,7 +1143,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 }
             }
 
-            return RedirectToAction("Editar", new { id });
+            return RedirectToAction("Basicos", new { id });
         }
         #endregion
 

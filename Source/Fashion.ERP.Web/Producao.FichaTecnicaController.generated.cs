@@ -79,12 +79,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Editar()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Excluir()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Excluir);
@@ -197,7 +191,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Material = "Material";
             public readonly string Modelagem = "Modelagem";
             public readonly string Fotos = "Fotos";
-            public readonly string Editar = "Editar";
             public readonly string Excluir = "Excluir";
             public readonly string Copiar = "Copiar";
             public readonly string EditingInline_Read = "EditingInline_Read";
@@ -228,7 +221,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Material = "Material";
             public const string Modelagem = "Modelagem";
             public const string Fotos = "Fotos";
-            public const string Editar = "Editar";
             public const string Excluir = "Excluir";
             public const string Copiar = "Copiar";
             public const string EditingInline_Read = "EditingInline_Read";
@@ -310,14 +302,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string id = "id";
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Editar
-        {
-            public readonly string id = "id";
         }
         static readonly ActionParamsClass_Excluir s_params_Excluir = new ActionParamsClass_Excluir();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -621,16 +605,6 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Fotos);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             FotosOverride(callInfo, model);
-            return callInfo;
-        }
-
-        partial void EditarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
-
-        public override System.Web.Mvc.ActionResult Editar(long id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EditarOverride(callInfo, id);
             return callInfo;
         }
 

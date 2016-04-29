@@ -9,10 +9,15 @@
 
     <ul class="nav nav-tabs">
         <li class="active">@Html.ActionLinkAuth("Básicos", MVC.Producao.FichaTecnica.Basicos(Model.Id.GetValueOrDefault()))</li>
-        <li>@Html.ActionLinkAuth("Processos", MVC.Producao.FichaTecnica.Processos(Model.Id.GetValueOrDefault()))</li>
-        <li>@Html.ActionLinkAuth("Materiais", MVC.Producao.FichaTecnica.Material(Model.Id.GetValueOrDefault()))</li>
-        <li>@Html.ActionLinkAuth("Modelagem", MVC.Producao.FichaTecnica.Modelagem(Model.Id.GetValueOrDefault()))</li>
-        <li>@Html.ActionLinkAuth("Fotos", MVC.Producao.FichaTecnica.Fotos(Model.Id.GetValueOrDefault()))</li>
+        @{
+            if (ViewContext.RouteData.GetRequiredString("action") != "Novo")
+            {
+                <li>@Html.ActionLinkAuth("Processos", MVC.Producao.FichaTecnica.Processos(Model.Id.GetValueOrDefault()))</li>
+                <li>@Html.ActionLinkAuth("Materiais", MVC.Producao.FichaTecnica.Material(Model.Id.GetValueOrDefault()))</li>
+                <li>@Html.ActionLinkAuth("Modelagem", MVC.Producao.FichaTecnica.Modelagem(Model.Id.GetValueOrDefault()))</li>
+                <li>@Html.ActionLinkAuth("Fotos", MVC.Producao.FichaTecnica.Fotos(Model.Id.GetValueOrDefault()))</li>
+            }
+        }
     </ul>
     <br/>
    
@@ -170,20 +175,7 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelForRequired(x => x.Funcionario)
                         <div class="col-sm-8 col-md-8 col-lg-7 ">
-                            @Html.HiddenFor(x => x.Funcionario, new { id = "funcionario" })
-                            <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                                <div class="input-group">
-                                    <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
-                                    <span class="input-group-btn pull-left">
-                                        <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                                <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
-                            </div>
+                            @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
                             @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new { @class = "help-block" })
                         </div>
                     </div>
@@ -360,7 +352,7 @@
 
 @{
     
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true" });
     Html.RenderPartial("_ConfirmDelete");
 }
 
