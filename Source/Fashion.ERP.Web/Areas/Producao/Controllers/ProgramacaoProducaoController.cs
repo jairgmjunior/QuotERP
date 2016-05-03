@@ -127,7 +127,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     domain.RemessaProducao = _remessaProducaoRepository.Load(model.RemessaProducao);
                     domain.Data = DateTime.Now.Date;
                     domain.DataAlteracao = DateTime.Now.Date;
-                    domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
+                    domain.Funcionario = _pessoaRepository.Load(model.Funcionario);
                     domain.Quantidade = model.Quantidade;
                     domain.SituacaoProgramacaoProducao = SituacaoProgramacaoProducao.Iniciada;
 
@@ -256,7 +256,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             var domain = _programacaoProducaoRepository.Get(id);
             var model = Mapper.Flat<ProgramacaoProducaoModel>(domain);
-            model.Responsavel = domain.Funcionario.Id;
+            model.Funcionario = domain.Funcionario.Id;
             model.GridProgramacaoProducaoItens = new List<ProgramacaoProducaoItemModel>();
 
             domain.ProgramacaoProducaoItems.ForEach(programacaoProducaoItem =>
@@ -359,7 +359,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     domain.Lote = lote;
                     domain.Ano = ano;
                     domain.RemessaProducao = _remessaProducaoRepository.Load(model.RemessaProducao);
-                    domain.Funcionario = _pessoaRepository.Load(model.Responsavel);
+                    domain.Funcionario = _pessoaRepository.Load(model.Funcionario);
                     domain.Quantidade = model.Quantidade;
 
                     model.GridProgramacaoProducaoItens.ForEach(modelItem => EditarProgramacaoProducaoItem(domain, modelItem));
@@ -834,7 +834,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     {
                         var programacaoProducaoMaterial = domain.ProgramacaoProducaoMateriais.FirstOrDefault(x => x.Id == modelItem.Id);
                         var unidade = programacaoProducaoMaterial.ReservaMaterial.Unidade;
-
+                        
                         if (requisicoesMaterial.ContainsKey(unidade.Id.GetValueOrDefault()))
                         {
                             var requisicaoMaterial = requisicoesMaterial[unidade.Id.GetValueOrDefault()];
@@ -900,7 +900,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 Data = DateTime.Now,
                 Numero = ProximoNumeroRequisicaoMaterial(),
                 Origem = programacaoProducao.Lote + "/" + programacaoProducao.Ano,
-                Requerente = _pessoaRepository.Get(model.Requerente),
+                Requerente = _pessoaRepository.Get(model.Funcionario),
                 TipoItem = _tipoItemRepository.Find().FirstOrDefault(x => x.Descricao == "MATÉRIA-PRIMA"),
                 UnidadeRequisitada = unidade,
                 SituacaoRequisicaoMaterial = SituacaoRequisicaoMaterial.NaoAtendido,

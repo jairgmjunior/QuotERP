@@ -34,7 +34,7 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelForRequired(x => x.Funcionario)
                         <div class="col-sm-8 col-md-8 col-lg-7 ">
-                            @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                            @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario, "Modelista")
                             @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new { @class = "help-block" })
                         </div>
                     </div>
@@ -143,7 +143,7 @@
 }
 
 @{
-    Html.RenderAction("Pesquisar", "Funcionario", new { area = "Comum" }); 
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true", funcaoFuncionario = "Modelista" });
 }
 
 @Scripts.Render("~/js/arquivoupload.js")
@@ -156,11 +156,15 @@
 
         $('#formModelagem').submit(function (ev) {
 
+            $(".k-widget").removeClass("input-validation-error");
+            var validacaoTodoFormulario = $("#formModelagem").valid();
+
+            // Validar
             var formValido = formularioEhValido();
 
-            if (!$("#formModelagem").valid() || !formValido) {
-                e.preventDefault();
+            if (!validacaoTodoFormulario || !formValido) {
                 $('#btnSubmit').button('reset');
+                ev.preventDefault();
                 return false;
             }
 
@@ -228,10 +232,7 @@
     function formularioEhValido() {
         var retorno = true;
 
-        if ($("#codigo-funcionario").val() == false) {
-            $('#funcionario').val("");
-            $('#funcionario').valid();
-            $('#descricao-funcionario').text("");
+        if (!$('#Funcionario').valid()) {
             retorno = false;
         }
 

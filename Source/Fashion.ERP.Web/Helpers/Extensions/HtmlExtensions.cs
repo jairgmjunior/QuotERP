@@ -484,21 +484,21 @@ namespace Fashion.ERP.Web.Helpers.Extensions
         #endregion
 
         #region CustomKendoComboBoxFuncionario
-        public static MvcHtmlString CustomKendoComboBoxForFuncionario<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, String nome = "Funcionario", object htmlAttributes = null)
+        public static MvcHtmlString CustomKendoComboBoxForFuncionario<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, String funcoes = "", object htmlAttributes = null)
         {
-            var kendoComponenteHtml = html.Kendo().ComboBoxFor(expression).Name(nome);
+            var kendoComponenteHtml = html.Kendo().ComboBoxFor(expression);
 
-            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml);
+            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml, funcoes);
         }
 
-        public static MvcHtmlString CustomKendoComboBoxFuncionario(this HtmlHelper html, String nome = "Funcionario", object htmlAttributes = null)
+        public static MvcHtmlString CustomKendoComboBoxFuncionario(this HtmlHelper html, String funcoes = "", object htmlAttributes = null)
         {
-            var kendoComponenteHtml = html.Kendo().ComboBox().Name(nome);
+            var kendoComponenteHtml = html.Kendo().ComboBox().Name("Funcionario");
 
-            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml);
+            return ObtenhaEstruturaCustomKendoComboBoxFuncionario(kendoComponenteHtml, funcoes);
         }
 
-        private static MvcHtmlString ObtenhaEstruturaCustomKendoComboBoxFuncionario(ComboBoxBuilder kendoComponenteHtml)
+        private static MvcHtmlString ObtenhaEstruturaCustomKendoComboBoxFuncionario(ComboBoxBuilder kendoComponenteHtml, string funcoes)
         {
             kendoComponenteHtml = kendoComponenteHtml
                 .Placeholder("-- Selecione --")
@@ -513,7 +513,7 @@ namespace Fashion.ERP.Web.Helpers.Extensions
                     .PageSize(80)
                     .Type("aspnetmvc-ajax")
                     .Transport(transport =>
-                        transport.Read("VirtualizationComboBox_Read", "Funcionario", new { Area = "Comum" }))
+                        transport.Read("VirtualizationComboBox_Read", "Funcionario", new { Area = "Comum", funcoes }))
                     .Schema(schema =>
                         schema.Data("Data").Total("Total")))
                 .Virtual(v => v.ItemHeight(26).ValueMapper("valueMapperFuncionario"));

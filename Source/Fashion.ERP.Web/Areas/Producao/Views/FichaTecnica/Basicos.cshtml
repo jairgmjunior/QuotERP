@@ -175,7 +175,7 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelForRequired(x => x.Funcionario)
                         <div class="col-sm-8 col-md-8 col-lg-7 ">
-                            @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                            @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario, "Estilista")
                             @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new { @class = "help-block" })
                         </div>
                     </div>
@@ -352,7 +352,7 @@
 
 @{
     
-    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true" });
+    Html.RenderAction("PesquisarComParametros", "Funcionario", new { area = "Comum", SelecaoUnica = "true", funcaoFuncionario = "Estilista" });
     Html.RenderPartial("_ConfirmDelete");
 }
 

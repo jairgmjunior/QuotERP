@@ -246,6 +246,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public class ActionParamsClass_VirtualizationComboBox_Read
         {
             public readonly string request = "request";
+            public readonly string funcoes = "funcoes";
         }
         static readonly ActionParamsClass_Funcionarios_ValueMapper s_params_Funcionarios_ValueMapper = new ActionParamsClass_Funcionarios_ValueMapper();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -415,13 +416,14 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             return callInfo;
         }
 
-        partial void VirtualizationComboBox_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request);
+        partial void VirtualizationComboBox_ReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Kendo.Mvc.UI.DataSourceRequest request, string funcoes);
 
-        public override System.Web.Mvc.ActionResult VirtualizationComboBox_Read(Kendo.Mvc.UI.DataSourceRequest request)
+        public override System.Web.Mvc.ActionResult VirtualizationComboBox_Read(Kendo.Mvc.UI.DataSourceRequest request, string funcoes)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VirtualizationComboBox_Read);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "request", request);
-            VirtualizationComboBox_ReadOverride(callInfo, request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "funcoes", funcoes);
+            VirtualizationComboBox_ReadOverride(callInfo, request, funcoes);
             return callInfo;
         }
 

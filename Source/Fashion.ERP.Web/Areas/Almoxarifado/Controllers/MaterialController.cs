@@ -1076,33 +1076,35 @@ namespace Fashion.ERP.Web.Areas.Almoxarifado.Controllers
 
                     var userId = FashionSecurity.GetLoggedUserId();
                     var usuario = _usuarioRepository.Get(userId);
-                    
-                    model.GridItens.ForEach(modelItem =>
+                    if (model.GridItens != null)
                     {
-                        if (modelItem.Id.HasValue && modelItem.Id.Value != 0)
+                        model.GridItens.ForEach(modelItem =>
                         {
-                            var custoMaterial = material.CustoMaterials.First(x => x.Id == modelItem.Id);
-                            custoMaterial.Ativo = modelItem.Ativo;
-                            custoMaterial.Custo = modelItem.Custo;
-                            custoMaterial.CustoAquisicao = modelItem.CustoAquisicao;
-                        }
-                        else
-                        {
-                            var custoMaterial = new CustoMaterial()
+                            if (modelItem.Id.HasValue && modelItem.Id.Value != 0)
                             {
-                                Ativo = modelItem.Ativo,
-                                CadastroManual = true,
-                                Custo = modelItem.Custo,
-                                CustoAquisicao = modelItem.CustoAquisicao,
-                                Data = DateTime.Now,
-                                Fornecedor =_pessoaRepository.Find(p => p.Fornecedor != null 
-                                    && p.Fornecedor.Codigo == modelItem.CodigoFornecedor).First(),
-                                Funcionario = usuario.Funcionario
-                            };
+                                var custoMaterial = material.CustoMaterials.First(x => x.Id == modelItem.Id);
+                                custoMaterial.Ativo = modelItem.Ativo;
+                                custoMaterial.Custo = modelItem.Custo;
+                                custoMaterial.CustoAquisicao = modelItem.CustoAquisicao;
+                            }
+                            else
+                            {
+                                var custoMaterial = new CustoMaterial()
+                                {
+                                    Ativo = modelItem.Ativo,
+                                    CadastroManual = true,
+                                    Custo = modelItem.Custo,
+                                    CustoAquisicao = modelItem.CustoAquisicao,
+                                    Data = DateTime.Now,
+                                    Fornecedor = _pessoaRepository.Find(p => p.Fornecedor != null
+                                        && p.Fornecedor.Codigo == modelItem.CodigoFornecedor).First(),
+                                    Funcionario = usuario.Funcionario
+                                };
 
-                            material.CustoMaterials.Add(custoMaterial);
-                        }
-                    });
+                                material.CustoMaterials.Add(custoMaterial);
+                            }
+                        });
+                    }
 
                     ExcluaCustoMaterial(model, material);
 

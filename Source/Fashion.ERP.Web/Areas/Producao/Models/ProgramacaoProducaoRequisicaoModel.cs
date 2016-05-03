@@ -15,7 +15,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
         
         [Required(ErrorMessage = "Informe o requerente")]
         [Display(Name = "Requerente")]
-        public long? Requerente { get; set; }
+        public long? Funcionario { get; set; }
 
         [Required(ErrorMessage = "Informe o centro de custo")]
         [Display(Name = "Centro de Custo")]

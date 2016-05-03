@@ -29,7 +29,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Models
 
         [Display(Name = "Responsável")]
         [Required(ErrorMessage = "Informe o responsável")]
-        public long? Responsavel { get; set; }
+        public long? Funcionario { get; set; }
         
         [Display(Name = "Remessa")]
         [Required(ErrorMessage = "Informe a remessa de produção")]

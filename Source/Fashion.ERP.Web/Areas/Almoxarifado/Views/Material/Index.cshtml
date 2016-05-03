@@ -149,7 +149,7 @@
                             </div>
                             <div class="col-sm-offset-2 col-md-offset-1 col-sm-2 col-md-1 form-group">
                                 <button id="pesquisar-relatorio" class="btn btn-default pull-right" type="button" data-loading-text="Aguarde..." style="display: none;">Pesquisar</button>
-                                <button id="pesquisar-grid" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
+                                <button id="pesquisar-grid-ajax" class="btn btn-default pull-right" type="submit" data-loading-text="Aguarde...">Pesquisar</button>
                             </div>
                         </div>
                     </div>
@@ -207,7 +207,8 @@
     $(function () {
 
         // Seleciona o modo de consulta
-        $('button[name=btn-ModoConsulta]').on('click', function () {
+        // Seleciona o modo de consulta
+        $('button[name=btn-ModoConsulta]').on('click', function() {
 
             var $ModoConsulta = $('#ModoConsulta');
 
@@ -226,8 +227,10 @@
                 $('#row-imprimir').hide();
                 $('#pesquisar-relatorio').hide();
                 $('#pesquisar-grid').show();
+
             }
         });
+    });
         
         // Redefine o modo do agrupamento
         $('#TipoRelatorio').on("change", function() {

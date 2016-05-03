@@ -421,7 +421,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         
         #region ComboBox Pesquisa
 
-        IEnumerable<ComboBoxItemFuncionarioModel> ObtenhaFuncionariosFiltrados(string filtro)
+        IEnumerable<ComboBoxItemFuncionarioModel> ObtenhaFuncionariosFiltrados(string filtro, string funcoes)
         {
             var queryFuncionarios = _pessoaRepository.Find(p => p.Funcionario != null);
 
@@ -440,6 +440,12 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 }
             }
 
+            if (string.IsNullOrEmpty(funcoes) == false)
+            {
+                var funcoesFuncionario = funcoes.Split(',').Select(p => (FuncaoFuncionario)Enum.Parse(typeof(FuncaoFuncionario), p)).ToList();
+                queryFuncionarios = queryFuncionarios.Where(p => funcoesFuncionario.Contains(p.Funcionario.FuncaoFuncionario));
+            }
+
             var resultado = queryFuncionarios.OrderBy(x => x.Funcionario.Codigo).ToList();
 
             return resultado.Select(x => new ComboBoxItemFuncionarioModel
@@ -450,7 +456,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             });
         }
 
-        public virtual ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request)
+        public virtual ActionResult VirtualizationComboBox_Read([DataSourceRequest] DataSourceRequest request, string funcoes)
         {
             var filtro = "";
 
@@ -459,7 +465,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
                 filtro = ((Kendo.Mvc.FilterDescriptor)(request.Filters.ToList()[0])).ConvertedValue.ToString();
             }
 
-            var funcionarios = ObtenhaFuncionariosFiltrados(filtro);
+            var funcionarios = ObtenhaFuncionariosFiltrados(filtro, funcoes);
 
             return Json(funcionarios.ToDataSourceResult(request));
         }
@@ -471,7 +477,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
             if (values != null && values.Any())
             {
                 var index = 0;
-                foreach (var funcionario in ObtenhaFuncionariosFiltrados(""))
+                foreach (var funcionario in ObtenhaFuncionariosFiltrados("", ""))
                 {
                     if (values.Contains(funcionario.Id))
                     {

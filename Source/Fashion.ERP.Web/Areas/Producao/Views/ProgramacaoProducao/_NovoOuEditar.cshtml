@@ -71,23 +71,10 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
-                @Html.LabelForRequired(x => x.Responsavel)
+                @Html.LabelForRequired(x => x.Funcionario)
                 <div class="col-sm-8 col-md-8 col-lg-7 ">
-                    @Html.HiddenFor(x => x.Responsavel, new { id = "funcionario" })
-                    <div class="col-lg-3 col-sm-5 col-md-4 padding0">
-                        <div class="input-group">
-                            <input id="codigo-funcionario" class="numeric-only form-control" type="text" style="width: 70%;">
-                            <span class="input-group-btn pull-left">
-                                <button id="pesquisar-funcionario" class="btn btn-default btn-sm " type="button" data-toggle="modal" data-target="#modal-funcionario">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-12 padding0">
-                        <input id="descricao-funcionario" class="form-control" readonly="" data-toggle="tooltip">
-                    </div>
-                    @Html.ValidationMessageFor(x => x.Responsavel, string.Empty, new { @class = "help-block" })
+                    @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                    @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new {@class = "help-block"})
                 </div>
             </div>
         </div>
@@ -181,7 +168,7 @@
 
         if ($("#Id").val() != "" && $("#SituacaoProgramacaoProducao").val() != "Iniciada") {
             $("#RemessaProducao").prop("disabled", true);
-            $("#codigo-funcionario").prop("disabled", true);
+            $("#Funcionario").data("kendoComboBox").enable(false);
             $("#pesquisar-funcionario").prop("disabled", true);
             $("#Observacao").prop("disabled", true);
         }
@@ -189,14 +176,16 @@
         $('#form').submit(function(e) {
             limpeMensagensAlerta();
 
-            var formEValido = $("#form").valid();
+            $(".k-widget").removeClass("input-validation-error");
+            var validacaoTodoFormulario = $("#form").valid();
 
-            var formularioValido = formularioEhValido();
+            // Validar
+            var formValido = formularioEhValido();
 
-            if (!formEValido || !formularioValido) {
-                e.preventDefault();
+            if (!validacaoTodoFormulario || !formValido) {
                 $('#btnSubmit').button('reset');
-                return false;
+                e.preventDefault();
+                return true;
             }
 
             if (!$('#Quantidade').valid()) {
@@ -389,12 +378,8 @@
 
     function formularioEhValido() {
         var retorno = true;
-
-        // Responsavel 
-        if ($("#codigo-funcionario").val() == false) {
-            $('#funcionario').val("");
-            $('#funcionario').valid();
-            $('#descricao-funcionario').text("");
+        
+        if (!$('#Funcionario').valid()) {
             retorno = false;
         }
 
