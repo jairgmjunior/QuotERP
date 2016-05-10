@@ -197,7 +197,7 @@ namespace Fashion.ERP.Web.Areas.Comum.Controllers
         public virtual JsonResult SetoresDepartamento_(long? IdDepartamento /* Id do departamento de produção*/)
         {
             var setores = _setorProducaoRepository
-                .Find(p => p.DepartamentoProducao.Id == IdDepartamento)
+                .Find(p => p.DepartamentoProducao.Id == IdDepartamento && p.Ativo)
                 .Select(s => new { s.Id, s.Nome }).ToList().OrderBy(o => o.Nome);
 
             return Json(setores, JsonRequestBehavior.AllowGet);

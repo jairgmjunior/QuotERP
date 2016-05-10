@@ -107,7 +107,17 @@ namespace Fashion.ERP.Web.Filters
                     }
                     else
                     {
-                        filterContext.Controller.AddErrorMessage(exception.GetMessage());
+                        if (exception is NHibernate.Exceptions.GenericADOException &&
+                            exception.StackTrace.Contains("NHibernate.Persister.Entity.AbstractEntityPersister.Delete") &&
+                            _executingContext.ActionDescriptor.ActionName == "Excluir")
+                        {
+                            filterContext.Controller.AddErrorMessage(
+                                "Não foi possivel excluir. Verifique se a entidade está sendo referenciada em algum outro cadastro ou operação do sistema.");
+                        }
+                        else
+                        {
+                            filterContext.Controller.AddErrorMessage(exception.GetMessage());    
+                        }
                     }
                 }
             }
