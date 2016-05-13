@@ -171,7 +171,6 @@ namespace T4MVC
     {
         public readonly string Name = "Producao";
         public Fashion.ERP.Web.Areas.Producao.Controllers.FichaTecnicaController FichaTecnica = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_FichaTecnicaController();
-        public Fashion.ERP.Web.Areas.Producao.Controllers.OrdemProducaoController OrdemProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_OrdemProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.ProgramacaoProducaoController ProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_ProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioConsumoMaterialProgramadoController RelatorioConsumoMaterialProgramado = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioConsumoMaterialProgramadoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioEstimativaConsumoProgramadoController RelatorioEstimativaConsumoProgramado = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioEstimativaConsumoProgramadoController();
@@ -180,6 +179,7 @@ namespace T4MVC
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioMateriaisProgramacaoProducaoController RelatorioMateriaisProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioMateriaisProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RelatorioProgramacaoProducaoController RelatorioProgramacaoProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RelatorioProgramacaoProducaoController();
         public Fashion.ERP.Web.Areas.Producao.Controllers.RemessaProducaoController RemessaProducao = new Fashion.ERP.Web.Areas.Producao.Controllers.T4MVC_RemessaProducaoController();
+        public T4MVC.Producao.OrdemProducaoController OrdemProducao = new T4MVC.Producao.OrdemProducaoController();
     }
 }
 

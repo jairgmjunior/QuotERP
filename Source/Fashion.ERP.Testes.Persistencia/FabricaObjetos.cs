@@ -664,19 +664,6 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
-        public OrdemEntradaCompra ObtenhaOrdemEntradaCompra()
-        {
-            return new OrdemEntradaCompra
-            {
-                Data = new DateTime(2014, 1, 1),
-                DataAlteracao = new DateTime(2014, 1, 1),
-                Numero = 10,
-                Observacao = "OBSERVAÇÃO DA ORDEM ENTRADA",
-                SituacaoOrdemEntradaCompra = SituacaoOrdemEntradaCompra.Cancelada,
-
-            };
-        }
-
         public ParametroModuloCompra ObtenhaParametroModuloCompra()
         {
             return new ParametroModuloCompra

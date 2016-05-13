@@ -360,10 +360,7 @@
     <Compile Include="Areas\Compras\Models\PedidoCompraCancelamentoModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraItemCanceladoModel.cs" />
     <Compile Include="Areas\Compras\Models\GridItemPedidoCompraModel.cs" />
-    <Compile Include="Areas\Compras\Models\DetalharOrdemEntradaCompraModel.cs" />
-    <Compile Include="Areas\Compras\Models\GridDetalharOrdemEntrada.cs" />
     <Compile Include="Areas\Compras\Models\GridDetalharPedidoCompra.cs" />
-    <Compile Include="Areas\Compras\Models\GridOrdemEntradaCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\GridPedidoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\GridProcedimentoModuloComprasModel.cs" />
     <Compile Include="Areas\Compras\Models\GridMotivoCancelamentoPedidoCompraModel.cs" />
@@ -373,7 +370,6 @@
     <Compile Include="Areas\Compras\Models\PedidoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraRecebimentoModel.cs" />
     <Compile Include="Areas\Compras\Models\PedidoCompraReduzidoModel.cs" />
-    <Compile Include="Areas\Compras\Models\PesquisaOrdemEntradaCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\PesquisaPedidoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\PesquisaRecebimentoCompraModel.cs" />
     <Compile Include="Areas\Compras\Models\ProcedimentoModuloComprasModel.cs" />
@@ -509,10 +505,6 @@
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaModel.cs" />
     <Compile Include="Areas\Producao\Models\GridFichaTecnicaVariacaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaFichaTecnicaModel.cs" />
-    <Compile Include="Areas\Producao\Controllers\OrdemProducaoController.cs" />
-    <Compile Include="Areas\Producao\Models\GridOrdemProducaoModel.cs" />
-    <Compile Include="Areas\Producao\Models\OrdemProducaoModel.cs" />
-    <Compile Include="Areas\Producao\Models\PesquisaOrdemProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\RemessaProducaoModel.cs" />
     <Compile Include="Areas\Producao\ProducaoAreaRegistration.cs" />
     <Compile Include="Areas\Comum\Controllers\ArtigoController.cs" />
@@ -1250,10 +1242,6 @@
     <Content Include="Areas\Comum\Views\Variacao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
     <Content Include="Areas\Producao\Views\FichaTecnica\Material.cshtml" />
-    <Content Include="Areas\Producao\Views\OrdemProducao\Index.cshtml" />
-    <Content Include="Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
-    <Content Include="Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
-    <Content Include="Areas\Producao\Views\OrdemProducao\Editar.cshtml" />
     <Content Include="Areas\EngenhariaProduto\Views\RelatorioMateriaisModelosAprovados\MateriaisModelosAprovados.cshtml" />
     <Content Include="Areas\Producao\Views\RelatorioEstimativaConsumoProgramado\EstimativaConsumoProgramado.cshtml" />
     <Content Include="Areas\Almoxarifado\Views\Material\PesquisarVarios.cshtml" />
