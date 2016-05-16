@@ -1267,6 +1267,30 @@ namespace Fashion.ERP.Testes.Persistencia
             };
         }
 
+        public Domain.Producao.Producao ObtenhaProducao()
+        {
+            return new Domain.Producao.Producao()
+            {
+                Data = new DateTime(2015, 1, 1),
+                DataAlteracao = new DateTime(2015, 1, 1),
+                Lote = 1,
+                Ano = 2015,
+                Observacao = "OBSERVAÇÃO", 
+                Descricao = "DESCRIÇÃO"
+            };
+        }
+
+        public ProducaoProgramacao ObtenhaProducaoProgramacao()
+        {
+            return new ProducaoProgramacao()
+            {
+                Data = new DateTime(2015, 1, 1),
+                DataProgramada = new DateTime(2015, 1, 1),
+                Quantidade = 1,
+                Observacao = "OBSERVAÇÃO"
+            };
+        }
+
         public RemessaProducao ObtenhaRemessaProducao()
         {
             return new RemessaProducao
@@ -1296,17 +1320,45 @@ namespace Fashion.ERP.Testes.Persistencia
             };            
         }
 
+        public ProducaoItem ObtenhaProducaoItem()
+        {
+            return new ProducaoItem
+            {
+                QuantidadeProducao = 1,
+                QuantidadeProgramada = 1
+            };
+        }
+
         public ProgramacaoProducaoMaterial ObtenhaProducaoProducaoMaterial()
         {
             return new ProgramacaoProducaoMaterial
             {
                 Quantidade = 1
-            };            
+            };
         }
-        
+
+        public ProducaoItemMaterial ObtenhaProducaoItemMaterial()
+        {
+            return new ProducaoItemMaterial
+            {
+                QuantidadeProgramada = 1,
+                QuantidadeCancelada = 1,
+                QuantidadeNecessidade = 1,
+                QuantidadeUsada = 1
+            };
+        }
+
         public ProgramacaoProducaoMatrizCorte ObtenhaProgramacaoProducaoMatrizCorte()
         {
             return new ProgramacaoProducaoMatrizCorte
+            {
+                TipoEnfestoTecido = TipoEnfestoTecido.Folha
+            };
+        }
+
+        public ProducaoMatrizCorte ObtenhaProducaoMatrizCorte()
+        {
+            return new ProducaoMatrizCorte
             {
                 TipoEnfestoTecido = TipoEnfestoTecido.Folha
             };
@@ -1318,6 +1370,18 @@ namespace Fashion.ERP.Testes.Persistencia
             {
                 Quantidade = 1,
                 QuantidadeVezes = 1
+            };
+        }
+
+        public ProducaoMatrizCorteItem ObtenhaProducaoMatrizCorteItem()
+        {
+            return new ProducaoMatrizCorteItem
+            {
+                QuantidadeProgramada = 1,
+                QuantidadeVezes = 1,
+                QuantidadeProducao = 1,
+                QuantidadeAdicional = 1,
+                QuantidadeCorte = 1
             };
         }
 

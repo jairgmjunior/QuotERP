@@ -6,7 +6,7 @@ namespace Fashion.ERP.Domain.Producao
 {
     public class Producao : DomainEmpresaBase<Producao>, IPesquisavelPorData
     {
-        private readonly IList<ProducaoItem> _producaoItens = new List<ProducaoItem>();
+        private IList<ProducaoItem> _producaoItens = new List<ProducaoItem>();
         
         public virtual long Lote { get; set; }
         public virtual long Ano { get; set; }
@@ -22,6 +22,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual IList<ProducaoItem> ProducaoItens
         {
             get { return _producaoItens; }
+            set { _producaoItens = value; }
         }
     }
 }

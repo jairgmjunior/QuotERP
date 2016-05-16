@@ -6,7 +6,7 @@ namespace Fashion.ERP.Domain.Producao
 {
     public class ProducaoItemMaterial : DomainEmpresaBase<ProducaoItemMaterial>
     {
-        private readonly IList<ProducaoItemMaterial> _producaoItensMateriais = new List<ProducaoItemMaterial>();
+        private IList<ProducaoItemMaterial> _producaoItensMateriais = new List<ProducaoItemMaterial>();
 
         public virtual double QuantidadeProgramada { get; set; }
         public virtual double QuantidadeNecessidade { get; set; } // deve existir?
@@ -20,6 +20,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual IList<ProducaoItemMaterial> ProducaoItemMateriais
         {
             get { return _producaoItensMateriais; }
+            set { _producaoItensMateriais = value; }
         }
     }
 }

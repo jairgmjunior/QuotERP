@@ -42,7 +42,8 @@
     <Reference Include="Fashion.Framework.UnitOfWork">
       <HintPath>..\libraries\Fashion.Framework\Fashion.Framework.UnitOfWork.dll</HintPath>
     </Reference>
-    <Reference Include="HibernatingRhinos.Profiler.Appender">
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernateProfiler.2.0.2236.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
@@ -138,6 +139,8 @@
     <Compile Include="FabricaObjetosPersistidos.cs" />
     <Compile Include="Financeiro\DespesaReceitaPersistencia.cs" />
     <Compile Include="InitializeTests.cs" />
+    <Compile Include="Producao\ProducaoPersistencia.cs" />
+    <Compile Include="Producao\ProducaoProgramacaoPersistencia.cs" />
     <Compile Include="Producao\RemessaProducaoPersistencia.cs" />
     <Compile Include="Producao\ProgramacaoProducaoPersistencia.cs" />
     <Compile Include="Producao\FichaTecnicaJeansPersistencia.cs" />
