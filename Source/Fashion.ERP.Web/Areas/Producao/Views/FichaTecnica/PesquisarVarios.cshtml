@@ -45,7 +45,7 @@
                         return;
                     }
 
-                    var novoDataItem = obtenhaDataItensSelecionados();
+                    var novoDataItem = obtenhaDataItensSelecionadosFichaTecnica();
 
                     $.merge(novoDataItem, data);
 
@@ -139,7 +139,7 @@
 
             if (!obtenhaGrid()) return;
 
-            var itensSelecionados = obtenhaDataItensSelecionados();
+            var itensSelecionados = obtenhaDataItensSelecionadosFichaTecnica();
 
             var grid = obtenhaGrid();
             if (grid != null)
@@ -153,7 +153,7 @@
         return $('#grid-pesquisa-fichatecnica').data("kendoGrid");
     }
 
-    function obtenhaDataItensSelecionados() {
+    function obtenhaDataItensSelecionadosFichaTecnica() {
         var grid = obtenhaGrid();
         if (!grid) {
             return [];

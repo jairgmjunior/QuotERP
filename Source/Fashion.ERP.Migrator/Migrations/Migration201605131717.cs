@@ -65,7 +65,7 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("quantidadeproducao").AsInt64()
                 .WithColumn("fichatecnica_id").AsInt64()
                 .ForeignKey("FK_producaoitem_fichatecnica", "fichatecnica", "id")
-                .WithColumn("producaomatrizcorte_id").AsInt64()
+                .WithColumn("producaomatrizcorte_id").AsInt64().Nullable()
                 .ForeignKey("FK_producaoitem_producaomatrizcorte", "producaomatrizcorte", "id")
                 .WithColumn("producao_id").AsInt64()
                 .ForeignKey("FK_producaoitem_producao", "producao", "id");

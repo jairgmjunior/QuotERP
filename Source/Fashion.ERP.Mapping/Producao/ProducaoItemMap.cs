@@ -12,7 +12,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.QuantidadeProgramada);
 
             References(x => x.FichaTecnica);
-            References(x => x.ProducaoMatrizCorte).Cascade.All();
+            References(x => x.ProducaoMatrizCorte).Nullable().Cascade.All();
 
             HasMany(x => x.ProducaoItemMateriais)
                 .Not.KeyNullable()

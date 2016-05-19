@@ -447,6 +447,7 @@
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioModelosAprovadosController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioConsumoMaterialPorModeloController.cs" />
     <Compile Include="Areas\EngenhariaProduto\Controllers\RelatorioMateriaisModelosAprovadosController.cs" />
+    <Compile Include="Areas\Producao\Controllers\ProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RemessaProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Controllers\RelatorioFichaTecnicaController.cs" />
@@ -469,6 +470,10 @@
     <Compile Include="Areas\Producao\Controllers\RelatorioMateriaisProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\Producao\Models\CopiarFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\PesquisaProducaoModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\RemessaProducaoCapacidadeProdutivaItemModel.cs" />
     <Compile Include="Areas\Producao\Models\GridRemessaProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaRemessaProducaoModel.cs" />
@@ -972,7 +977,7 @@
     <Compile Include="Producao.FichaTecnicaController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Producao.OrdemProducaoController.generated.cs">
+    <Compile Include="Producao.ProducaoController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Producao.ProgramacaoProducaoController.generated.cs">
@@ -1275,6 +1280,10 @@
     <Content Include="Areas\Comum\Views\Fornecedor\PesquisarComParametros.cshtml" />
     <Content Include="App_Code\HtmlCustom.cshtml" />
     <Content Include="Areas\Comum\Views\Funcionario\PesquisarComParametros.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\_NovoOuEditar.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\Editar.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\Index.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\Novo.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

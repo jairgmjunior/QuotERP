@@ -1,0 +1,308 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model ProducaoModel
+
+@Html.HiddenFor(x => x.Id)
+
+<fieldset>
+    <legend><small>Dados da Produção</small></legend>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Lote)
+                <div class="col-sm-4 col-md-4 col-lg-3 campo-duplo-direito">
+                    @Html.TextBoxFor(x => x.Lote, new { @class = "numeric-only form-control" })
+                    @Html.ValidationMessageFor(x => x.Lote, null, new {@class = "help-block"})
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4  campo-duplo-esquerdo">
+                    @if (ViewContext.RouteData.GetRequiredString("action") != "Editar")
+                    {
+                        <div class="input-group">
+                            @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                            <div class="input-group-btn">
+                                <button id="editarlote" class="btn btn-default btn-sm" type="button"><span class="glyphicon glyphicon-edit"></span></button> 
+                            </div>
+                        </div>
+                    } else
+                    {
+                        @Html.TextBoxFor(x => x.Ano, new {@class = "numeric-only form-control"})
+                        @Html.ValidationMessageFor(x => x.Ano, null, new {@class = "help-block"})                      
+                    }
+                </div>
+            </div>
+        </div>
+        @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+        {
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Data)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.EditorFor(x => x.Data)
+                        @Html.HiddenFor(x => x.Data)
+                        @Html.ValidationMessageFor(x => x.Data, string.Empty, new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>  
+        }
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.RemessaProducao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownListFor(x => x.RemessaProducao, null, "-- Selecione --", new { @class = "form-control" })                    
+                    @Html.ValidationMessageFor(x => x.RemessaProducao, string.Empty, new { @class = "help-block" })
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.RemessaProducao)                    
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Funcionario)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                    @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new {@class = "help-block"})
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Observacao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.SituacaoProducao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.SituacaoProducao, Model.SituacaoProducao.ToSelectList(), "-- Selecione --", new { @class = "form-control" })                    
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.SituacaoProducao);
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend><small>Itens da Producao</small></legend>
+    <div class="table-responsive">
+        @(Html.Kendo().Grid(Model.GridProducaoItens)
+              .Name("GridProducaoItens")
+              .Editable(e => e.Mode(GridEditMode.InCell))
+              .Navigatable()
+              .Columns(columns =>
+              {
+                  columns.Bound(x => x.Id).Hidden()
+                      .ClientTemplate("<input type='hidden' name='GridProducaoItens[#= index(data)#].Id' value='#= Id #' />");
+                  columns.Bound(x => x.TagAno)
+                      .ClientTemplate("#= TagAno #<input type='hidden' name='GridProducaoItens[#= index(data)#].TagAno' value='#= TagAno #' />");
+                  columns.Bound(x => x.Referencia)
+                      .ClientTemplate("#= Referencia #<input type='hidden' name='GridProducaoItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                  columns.Bound(x => x.Descricao)
+                      .ClientTemplate("#= Descricao #<input type='hidden' name='GridProducaoItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                  columns.Bound(x => x.Estilista)
+                      .ClientTemplate("#= Estilista #<input type='hidden' name='GridProducaoItens[#= index(data)#].Estilista' value='#= Estilista #' />");
+                  columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
+                                                             "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
+                                                             "#}#" +
+                                                             "<input type='hidden' name='GridProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                  columns.Command(command => command.Destroy().Text("Excluir")).Width(105);
+              })
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Events(events => events.Error("onKendoGridError"))
+                  .Model(model =>
+                  {
+                      model.Id(item => item.Id);
+                      model.Field(item => item.Id).DefaultValue(0);
+                      model.Field(item => item.Foto).Editable(false); 
+                  })
+              )
+              .ToolBar(toolbar => toolbar.Custom().Text("Incluir").HtmlAttributes(new {@id = "pesquisarvarios-fichatecnica", @href = "javascript:void(0)", @class = "btn-primary"}))
+              .Events(events => events.Edit("onEdit").DataBound("onDataBound"))
+              )
+    </div>
+</fieldset>
+
+<hr/>
+
+@Html.FormActionAuth(this.IsEditar(), MVC.Producao.Producao.Excluir(Model.Id))
+
+<script>
+    $(document).ready(function() {
+
+        if ($("#Id").val() != "" && $("#SituacaoProducao").val() != "Iniciada") {
+            $("#RemessaProducao").prop("disabled", true);
+            $("#Funcionario").data("kendoComboBox").enable(false);
+            $("#pesquisar-funcionario").prop("disabled", true);
+            $("#Observacao").prop("disabled", true);
+        }
+
+        $('#form').submit(function(e) {
+            limpeMensagensAlerta();
+
+            $(".k-widget").removeClass("input-validation-error");
+            var validacaoTodoFormulario = $("#form").valid();
+
+            // Validar
+            var formValido = formularioEhValido();
+
+            if (!validacaoTodoFormulario || !formValido) {
+                $('#btnSubmit').button('reset');
+                e.preventDefault();
+                return true;
+            }
+
+            return true;
+        });
+
+        $("#selecionar-fichatecnica").on("pesquisar", function(ev, itens) {
+            if (itens.DataItemsSelecionados.length == 0) {
+                return;
+            }
+
+            var grid = obtenhaGridProducaoItens();
+            var model = grid.dataSource.options.schema.model;
+            var dadosAtuais = grid.dataSource.data();
+            var novosDados = itens.DataItemsSelecionados;
+
+            for (var i = 0; i < novosDados.length; i++) {
+                var dataItemNovo = novosDados[i];
+
+                for (var j = 0; j < dadosAtuais.length; j++) {
+                    var dataItemAtual = dadosAtuais[j];
+                    if (dataItemNovo.Referencia == dataItemAtual.Referencia) {
+                        dataItemNovo.Descartado = true;
+                    }
+                }
+                if (!dataItemNovo.Descartado) {
+                    var dataItemNovoFinal = {
+                        Referencia: dataItemNovo.Referencia,
+                        Descricao: dataItemNovo.Descricao,
+                        TagAno: dataItemNovo.Tag + '/' + dataItemNovo.Ano,
+                        Id: 0,
+                        Estilista: dataItemNovo.Estilista,
+                        Foto: dataItemNovo.Foto,
+                    };
+
+                    dadosAtuais.unshift(dataItemNovoFinal);
+                }
+            }
+
+            var dataSource = new kendo.data.DataSource({
+                data: dadosAtuais,
+                schema: {
+                    model: model
+                }
+            });
+            dataSource.read();
+            grid.setDataSource(dataSource);
+            grid.refresh();
+        });
+
+        $("#editarlote").click(function () {
+            if ($("#Lote").prop("disabled") == false) {
+                $("#Lote").prop("disabled", true);
+                $("#Ano").prop("disabled", true);
+                $("#Lote").val("");
+                $("#Ano").val("");
+
+                configureValidacaoLoteAno(false);
+
+            } else {
+                $("#Lote").prop("disabled", false);
+                $("#Lote").focus();
+                $("#Ano").prop("disabled", false);
+                $("#Ano").val(new Date().getFullYear());
+
+                configureValidacaoLoteAno(true);
+            }
+        });
+
+        $.validator.addMethod("loteCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o lote ou desabilite o campo.");
+
+        $.validator.addMethod("anoCondicional", function (value, element) {
+            if ($(element).prop("disabled") == false && value == "") {
+                return false;
+            }
+            return true;
+
+        }, "Informe o ano ou desabilite o campo.");
+
+        $("#Lote").prop("disabled", true);
+        $("#Ano").prop("disabled", true);
+
+        configureValidacaoLoteAno(false);
+    });
+
+    function configureValidacaoLoteAno(deveValidar) {
+        if (deveValidar) {
+            $("#Lote").rules("add", {
+                loteCondicional: true
+            });
+
+            $("#Ano").rules("add", {
+                anoCondicional: true
+            });
+            $("label[for='Lote']").removeClass("required-label");
+        } else {
+            $("#Lote").rules("remove", "loteCondicional");
+            $("#Ano").rules("remove", "anoCondicional");
+            $("label[for='Lote']").removeClass("required-label");
+
+            $("#Lote").valid();
+            $("#Ano").valid();
+        }
+    }
+   
+    function formularioEhValido() {
+        var retorno = true;
+        
+        if (!$('#Funcionario').valid()) {
+            retorno = false;
+        }
+
+        $(".k-input.k-invalid").parent(".k-numeric-wrap").css("border", "1px solid red");
+        return $("#Lote").valid() && $("#Ano").valid() && retorno;
+    }
+
+
+    function index(dataItem) {
+        var data = obtenhaGridProducaoItens().dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function onEdit(e) {
+        this.closeCell();
+    }
+
+    function onDataBound() {
+        if ($("#Id").val() != "" && $("#SituacaoProducao").val() != "Iniciada") {
+            
+            $("#pesquisarvarios-fichatecnica").addClass("k-state-disabled");
+            $(".k-grid-delete").addClass("k-state-disabled");
+        }
+    }
+
+    function obtenhaGridProducaoItens() {
+        return $("#GridProducaoItens").data("kendoGrid");
+    }
+</script>
