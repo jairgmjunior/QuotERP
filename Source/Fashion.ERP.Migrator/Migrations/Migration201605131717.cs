@@ -38,7 +38,7 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("unidade_id").AsInt64()
                 .ForeignKey("FK_producaoprogramacao_unidade", "pessoa", "id")
                 .WithColumn("funcionario_id").AsInt64()
-                .ForeignKey("FK_producaoprogramacao_responsavel", "pessoa", "id");
+                .ForeignKey("FK_producaoprogramacao_funcionario", "pessoa", "id");
 
             Create.Table("producao")
                 .WithColumn("id").AsInt64().PrimaryKey()
@@ -55,7 +55,9 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("producaoprogramacao_id").AsInt64().Nullable()
                 .ForeignKey("FK_producao_producaoprogramacao", "producaoprogramacao", "id")
                 .WithColumn("remessaproducao_id").AsInt64()
-                .ForeignKey("FK_producao_remessaproducao", "remessaproducao", "id");
+                .ForeignKey("FK_producao_remessaproducao", "remessaproducao", "id")
+                .WithColumn("funcionario_id").AsInt64()
+                .ForeignKey("FK_producao_funcionario", "pessoa", "id"); 
 
             Create.Table("producaoitem")
                 .WithColumn("id").AsInt64().PrimaryKey()
@@ -88,6 +90,8 @@ namespace Fashion.ERP.Migrator
                 .ForeignKey("FK_producaoitemmaterial_producaoitem", "producaoitem", "id")
                 .WithColumn("producaoitemmaterial_id").AsInt64().Nullable()
                 .ForeignKey("FK_producaoitemmaterial_producaoitemmaterial", "producaoitemmaterial", "id");
+
+            Execute.EmbeddedScript("Fashion.ERP.Migrator.Scripts._201605131717.permissao.sql");
         }
 
         public override void Down()

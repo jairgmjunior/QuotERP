@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fashion.ERP.Domain.Comum;
 using Fashion.Framework.Common.Base;
 
 namespace Fashion.ERP.Domain.Producao
@@ -15,6 +16,7 @@ namespace Fashion.ERP.Domain.Producao
         public virtual String Observacao { get; set; }
         public virtual DateTime DataAlteracao { get; set; }
         public virtual TipoProducao TipoProducao { get; set; }
+        public virtual Pessoa Funcionario { get; set; }
         public virtual SituacaoProducao SituacaoProducao{ get; set; }
         public virtual RemessaProducao RemessaProducao { get; set; }
         public virtual ProducaoProgramacao ProducaoProgramacao { get; set; }

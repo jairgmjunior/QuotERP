@@ -181,10 +181,9 @@
               columns.Bound(x => x.LoteAno);
               columns.Bound(x => x.RemessaProducao);
               columns.Bound(x => x.Data).Format("{0:dd/MM/yyyy}");
-              columns.Bound(x => x.Responsavel);
-              columns.Bound(x => x.QtdeFichasTecnicas);
-              columns.Bound(x => x.QtdeProgramada);
+              columns.Bound(x => x.TipoProducao).Template(s => s.TipoProducao.EnumToString());
               columns.Bound(x => x.SituacaoProducao).Template(s => s.SituacaoProducao.EnumToString());
+              columns.Bound(x => x.QtdeProgramada);
               columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "Producao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                           
           })
           .Resizable(resize => resize.Columns(true))

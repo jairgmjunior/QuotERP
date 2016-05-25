@@ -93,7 +93,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                     domain.Data = DateTime.Now.Date;
                     domain.DataAlteracao = DateTime.Now.Date;
                     domain.SituacaoProducao = SituacaoProducao.Iniciada;
-
+                    
                     if (model.Lote.HasValue)
                     {
                         domain.Lote = model.Lote.GetValueOrDefault();
@@ -140,7 +140,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var domain = _producaoRepository.Get(id);
             var model = Mapper.Flat<ProducaoModel>(domain);
             model.GridProducaoItens = new List<ProducaoItemModel>();
-
+            
             domain.ProducaoItens.ForEach(producaoItem =>
             {
                 var modelItem = new ProducaoItemModel

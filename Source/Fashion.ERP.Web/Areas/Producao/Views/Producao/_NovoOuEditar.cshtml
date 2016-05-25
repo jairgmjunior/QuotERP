@@ -30,6 +30,33 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.SituacaoProducao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.SituacaoProducao, Model.SituacaoProducao.ToSelectList(), "-- Selecione --", new { @class = "form-control" })                    
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.SituacaoProducao);
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.RemessaProducao)
+                <div class='col-sm-8 col-md-8 col-lg-7'>
+                    @Html.DropDownListFor(x => x.RemessaProducao, null, "-- Selecione --", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.RemessaProducao, string.Empty, new {@class = "help-block"})
+                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
+                    {
+                        @Html.HiddenFor(x => x.RemessaProducao)
+                    }
+                </div>
+            </div>
+        </div>
         @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
         {
             <div class="col-sm-6">
@@ -43,21 +70,6 @@
                 </div>
             </div>  
         }
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group form-group-sm">
-                @Html.LabelForRequired(x => x.RemessaProducao)
-                <div class='col-sm-8 col-md-8 col-lg-7'>
-                    @Html.DropDownListFor(x => x.RemessaProducao, null, "-- Selecione --", new { @class = "form-control" })                    
-                    @Html.ValidationMessageFor(x => x.RemessaProducao, string.Empty, new { @class = "help-block" })
-                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                    {
-                        @Html.HiddenFor(x => x.RemessaProducao)                    
-                    }
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -80,23 +92,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group form-group-sm">
-                @Html.LabelForRequired(x => x.SituacaoProducao)
-                <div class="col-sm-8 col-md-8 col-lg-7">
-                    @Html.DropDownListFor(x => x.SituacaoProducao, Model.SituacaoProducao.ToSelectList(), "-- Selecione --", new { @class = "form-control" })                    
-                    @if (ViewContext.RouteData.GetRequiredString("action") == "Editar")
-                    {
-                        @Html.HiddenFor(x => x.SituacaoProducao);
-                    }
-                </div>
-            </div>
-        </div>
     </div>
 </fieldset>
 
 <fieldset>
-    <legend><small>Itens da Producao</small></legend>
+    <legend><small>Itens de Produção</small></legend>
     <div class="table-responsive">
         @(Html.Kendo().Grid(Model.GridProducaoItens)
               .Name("GridProducaoItens")
