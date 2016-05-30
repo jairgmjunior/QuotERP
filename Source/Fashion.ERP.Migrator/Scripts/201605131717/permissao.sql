@@ -1,4 +1,8 @@
-﻿DECLARE @BASICOID AS BIGINT, @id_pai AS BIGINT;
+﻿delete permissaotousuario where permissao_id = 20433;
+delete permissao where controller = 'ColecaoProgramada';
+
+
+DECLARE @BASICOID AS BIGINT, @id_pai AS BIGINT;
 SET @BASICOID = (SELECT id FROM permissao WHERE area = 'Producao' AND controller is null AND descricao='Básicos');
 
 INSERT INTO [dbo].[permissao]
@@ -54,6 +58,26 @@ INSERT INTO [dbo].[permissao]
      VALUES
            ('Editar'
            ,'Editar'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Programação'
+           ,'Programacao'
            ,'Producao'
            ,'Producao'
            ,0

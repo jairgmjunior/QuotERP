@@ -470,6 +470,10 @@
     <Compile Include="Areas\Producao\Controllers\RelatorioMateriaisProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\Producao\Models\CopiarFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoProgramacaoMatrizCorteItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoProgramacaoMatrizCorteModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoProgramacaoItemModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoProgramacaoModel.cs" />
     <Compile Include="Areas\Producao\Models\GridProducaoModel.cs" />
     <Compile Include="Areas\Producao\Models\ProducaoItemModel.cs" />
     <Compile Include="Areas\Producao\Models\PesquisaProducaoModel.cs" />
@@ -1284,6 +1288,8 @@
     <Content Include="Areas\Producao\Views\Producao\Editar.cshtml" />
     <Content Include="Areas\Producao\Views\Producao\Index.cshtml" />
     <Content Include="Areas\Producao\Views\Producao\Novo.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\Programacao.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\MatrizCorte.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

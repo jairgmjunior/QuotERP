@@ -16,7 +16,6 @@ namespace Fashion.ERP.Testes.Persistencia.Producao
             var programacaoProducao = FabricaObjetos.ObtenhaProducaoProgramacao();
             
             programacaoProducao.Funcionario = _funcionario;
-            programacaoProducao.Unidade = _unidade;
 
             return programacaoProducao;
         }

@@ -14,7 +14,6 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.Quantidade);
 
             References(x => x.Funcionario);
-            References(x => x.Unidade);
         }
     }
 }

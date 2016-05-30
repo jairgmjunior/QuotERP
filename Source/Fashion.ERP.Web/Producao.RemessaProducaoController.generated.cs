@@ -67,6 +67,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult ObtenhaCapacidadeProdutivaDisponivelDaRemessa()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCapacidadeProdutivaDisponivelDaRemessa);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Book()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Book);
@@ -93,6 +99,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Index = "Index";
             public readonly string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public readonly string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
+            public readonly string ObtenhaCapacidadeProdutivaDisponivelDaRemessa = "ObtenhaCapacidadeProdutivaDisponivelDaRemessa";
             public readonly string Book = "Book";
         }
 
@@ -105,6 +112,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Index = "Index";
             public const string ObtenhaListaGridModel = "ObtenhaListaGridModel";
             public const string ObtenhaCapacidadeProdutivaDisponivel = "ObtenhaCapacidadeProdutivaDisponivel";
+            public const string ObtenhaCapacidadeProdutivaDisponivelDaRemessa = "ObtenhaCapacidadeProdutivaDisponivelDaRemessa";
             public const string Book = "Book";
         }
 
@@ -159,6 +167,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string idRemessa = "idRemessa";
             public readonly string idProgramacaoProducaoAtual = "idProgramacaoProducaoAtual";
+        }
+        static readonly ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivelDaRemessa s_params_ObtenhaCapacidadeProdutivaDisponivelDaRemessa = new ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivelDaRemessa();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivelDaRemessa ObtenhaCapacidadeProdutivaDisponivelDaRemessaParams { get { return s_params_ObtenhaCapacidadeProdutivaDisponivelDaRemessa; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ObtenhaCapacidadeProdutivaDisponivelDaRemessa
+        {
+            public readonly string idRemessa = "idRemessa";
+            public readonly string idProducao = "idProducao";
         }
         static readonly ActionParamsClass_Book s_params_Book = new ActionParamsClass_Book();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -282,6 +299,17 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idRemessa", idRemessa);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idProgramacaoProducaoAtual", idProgramacaoProducaoAtual);
             ObtenhaCapacidadeProdutivaDisponivelOverride(callInfo, idRemessa, idProgramacaoProducaoAtual);
+            return callInfo;
+        }
+
+        partial void ObtenhaCapacidadeProdutivaDisponivelDaRemessaOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, long? idRemessa, long? idProducao);
+
+        public override System.Web.Mvc.JsonResult ObtenhaCapacidadeProdutivaDisponivelDaRemessa(long? idRemessa, long? idProducao)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaCapacidadeProdutivaDisponivelDaRemessa);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idRemessa", idRemessa);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "idProducao", idProducao);
+            ObtenhaCapacidadeProdutivaDisponivelDaRemessaOverride(callInfo, idRemessa, idProducao);
             return callInfo;
         }
 

@@ -10,6 +10,5 @@ namespace Fashion.ERP.Domain.Producao
         public virtual String Observacao { get; set; }
         public virtual long Quantidade { get; set; }
         public virtual Pessoa Funcionario { get; set; }
-        public virtual Pessoa Unidade { get; set; }
     }
 }

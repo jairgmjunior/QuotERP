@@ -74,6 +74,15 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.Descricao)
+                <div class="col-sm-8 col-md-8 col-lg-7 ">
+                    @Html.TextBoxFor(x => x.Descricao, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Descricao, string.Empty, new {@class = "help-block"})
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Funcionario)
                 <div class="col-sm-8 col-md-8 col-lg-7 ">
                     @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
@@ -87,8 +96,16 @@
             <div class="form-group form-group-sm">
                 @Html.LabelForRequired(x => x.Observacao)
                 <div class="col-sm-8 col-md-8 col-lg-7">
-                    @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control"})
-                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new { @class = "help-block" })
+                    @Html.TextAreaFor(x => x.Observacao, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Observacao, string.Empty, new {@class = "help-block"})
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelForRequired(x => x.TipoProducao)
+                <div class="col-sm-8 col-md-8 col-lg-7">
+                    @Html.DropDownListFor(x => x.TipoProducao, Model.TipoProducao.ToSelectList(), new { @class = "form-control" })                                        
                 </div>
             </div>
         </div>

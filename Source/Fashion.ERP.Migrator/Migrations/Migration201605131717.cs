@@ -35,8 +35,6 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("dataprogramada").AsDate()
                 .WithColumn("observacao").AsString().Nullable()
                 .WithColumn("quantidade").AsInt64()
-                .WithColumn("unidade_id").AsInt64()
-                .ForeignKey("FK_producaoprogramacao_unidade", "pessoa", "id")
                 .WithColumn("funcionario_id").AsInt64()
                 .ForeignKey("FK_producaoprogramacao_funcionario", "pessoa", "id");
 

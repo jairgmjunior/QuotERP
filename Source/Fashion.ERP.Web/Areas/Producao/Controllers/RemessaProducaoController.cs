@@ -29,6 +29,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Variaveis
         private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<ProgramacaoProducao> _programacaoProducaoRepository;
+        private readonly IRepository<Domain.Producao.Producao> _producaoRepository;
         private readonly IRepository<ClassificacaoDificuldade> _classificacaoDificuldadeRepository;
         private readonly IRepository<Colecao> _colecaoRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
@@ -52,13 +53,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Construtores
         public RemessaProducaoController(ILogger logger, IRepository<RemessaProducao> remessaProducaoRepository,
             IRepository<Colecao> colecaoRepository, IRepository<ClassificacaoDificuldade> classificacaoDificuldadeRepository,
-            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<ProgramacaoProducao> programacaoProdutivaRepository)
+            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<ProgramacaoProducao> programacaoProdutivaRepository,
+            IRepository<Domain.Producao.Producao> producaoRepository)
         {
             _remessaProducaoRepository = remessaProducaoRepository;
             _classificacaoDificuldadeRepository = classificacaoDificuldadeRepository;
             _colecaoRepository = colecaoRepository;
             _ultimoNumeroRepository = ultimoNumeroRepository;
             _programacaoProducaoRepository = programacaoProdutivaRepository;
+            _producaoRepository = producaoRepository;
             
             _logger = logger;
         }
@@ -483,6 +486,31 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             else
             {
                 capacidadeProdutivaDisponivel = totalProgramado >= capacidadeProdutivaRemessa ? 0 : capacidadeProdutivaRemessa - totalProgramado;   
+            }
+
+            var result = new { capacidadeProdutivaDisponivel };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [AjaxOnly]
+        public virtual JsonResult ObtenhaCapacidadeProdutivaDisponivelDaRemessa(long? idRemessa, long? idProducao)
+        {
+            var producoes = _producaoRepository.Find(x => x.RemessaProducao.Id == idRemessa && x.Id != idProducao);
+
+            long totalProgramado = Enumerable.Sum(producoes, producao => producao.ProducaoItens.Sum(y => y.QuantidadeProgramada));
+
+            var remessaProdutiva = _remessaProducaoRepository.Get(idRemessa);
+            var capacidadeProdutivaRemessa = remessaProdutiva.RemessasProducaoCapacidadesProdutivas.Sum(x => x.Quantidade);
+
+            long capacidadeProdutivaDisponivel;
+
+            if (capacidadeProdutivaRemessa == 0)
+            {
+                capacidadeProdutivaDisponivel = -1;
+            }
+            else
+            {
+                capacidadeProdutivaDisponivel = totalProgramado >= capacidadeProdutivaRemessa ? 0 : capacidadeProdutivaRemessa - totalProgramado;
             }
 
             var result = new { capacidadeProdutivaDisponivel };

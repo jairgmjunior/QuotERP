@@ -15,7 +15,7 @@ namespace Fashion.ERP.Mapping.Producao
             Map(x => x.SituacaoProducao);
             Map(x => x.TipoProducao);
 
-            References(x => x.ProducaoProgramacao);
+            References(x => x.ProducaoProgramacao).Cascade.All();
             References(x => x.RemessaProducao);
             References(x => x.Funcionario);
             

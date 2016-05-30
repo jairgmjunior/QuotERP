@@ -15,6 +15,7 @@ using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
 using Fashion.Framework.Repository;
+using FluentNHibernate.Conventions;
 using Kendo.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -30,7 +31,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<Domain.Producao.Producao> _producaoRepository;
         private readonly IRepository<RemessaProducao> _remessaProducaoRepository;
         private readonly IRepository<FichaTecnica> _fichaTecnicaRepository;
-        
+        private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
 
@@ -40,13 +41,15 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         #region Construtores
         public ProducaoController(ILogger logger, IRepository<Domain.Producao.Producao> producaoRepository,
             IRepository<FichaTecnica> fichaTecnicaRepository, IRepository<Tamanho> tamanhoRepository, 
-            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<RemessaProducao> remessaProducaoRepository )
+            IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<RemessaProducao> remessaProducaoRepository,
+            IRepository<Pessoa> pessoaRepository)
         {
             _producaoRepository = producaoRepository;
             _fichaTecnicaRepository = fichaTecnicaRepository;
             _tamanhoRepository = tamanhoRepository;
             _ultimoNumeroRepository = ultimoNumeroRepository;
             _remessaProducaoRepository = remessaProducaoRepository;
+            _pessoaRepository = pessoaRepository;
             _logger = logger;
         }
         #endregion
@@ -194,8 +197,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             }
             return View(model);
         }
-
-
+        
         private void EditarProducaoItem(Domain.Producao.Producao domain, ProducaoItemModel modelItem)
         {
             if (!modelItem.Id.HasValue || modelItem.Id == 0)
@@ -449,7 +451,202 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         
         #endregion
 
-        #region PopulateViewDataPesquisa
+        #region Programação
+        
+        public virtual ActionResult Programacao(long id)
+        {
+            var domain = _producaoRepository.Get(id);
+            var model = Mapper.Flat<ProducaoProgramacaoModel>(domain);
+            
+            model.SituacaoProducao = domain.SituacaoProducao.EnumToString();
+            model.RemessaProducao = domain.RemessaProducao.Descricao;
+            model.IdRemessaProducao = domain.RemessaProducao.Id.GetValueOrDefault();
+            model.Observacao = domain.Observacao;
+            model.ResponsavelProducao = domain.Funcionario.Nome;
+            model.Descricao = domain.Descricao;
+            model.TipoProducao = domain.TipoProducao.EnumToString();
+            
+            if (domain.ProducaoProgramacao != null)
+            {
+                model.Funcionario =  domain.ProducaoProgramacao.Funcionario.Id;
+                model.ObservacaoProgramacao = domain.ProducaoProgramacao.Observacao;
+                model.DataProgramacao = domain.ProducaoProgramacao.DataProgramada;
+            }
+
+            model.GridProducaoItens = new List<ProducaoProgramacaoItemModel>();
+
+            domain.ProducaoItens.ForEach(producaoItem =>
+            {
+                var modelItem = new ProducaoProgramacaoItemModel
+                {
+                    Descricao = producaoItem.FichaTecnica.Descricao,
+                    Estilista = producaoItem.FichaTecnica.Estilista.Nome,
+                    Quantidade = producaoItem.QuantidadeProgramada,
+                    Foto = ObtenhaUrlFotoFichaTecnica(producaoItem.FichaTecnica),
+                    Id = producaoItem.Id,
+                    Referencia = producaoItem.FichaTecnica.Referencia,
+                    TagAno = producaoItem.FichaTecnica.Tag + '/' + producaoItem.FichaTecnica.Ano,
+                    MatrizCorteJson = ObtenhaMatrizCorteJson(producaoItem)
+                };
+                model.GridProducaoItens.Add(modelItem);
+            });
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Programacao(ProducaoProgramacaoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var domain = _producaoRepository.Get(model.Id);
+                    
+                    domain.ProducaoProgramacao = domain.ProducaoProgramacao ?? new ProducaoProgramacao()
+                    {
+                        Data = DateTime.Now
+                    };
+                    
+                    domain.ProducaoProgramacao.DataProgramada = model.DataProgramacao.GetValueOrDefault();
+                    domain.ProducaoProgramacao.Observacao = model.ObservacaoProgramacao;
+                    domain.ProducaoProgramacao.Funcionario = _pessoaRepository.Load(model.Funcionario);
+                    domain.ProducaoProgramacao.Quantidade = model.Quantidade;
+                    
+                    model.GridProducaoItens.ForEach(modelItem =>
+                    {
+                        var javaScriptSerializer = new JavaScriptSerializer();
+                        var producaoProgramacaoMatrizCorteModel = javaScriptSerializer.Deserialize<ProducaoProgramacaoMatrizCorteModel>(modelItem.MatrizCorteJson);
+
+                        var producaoItem = domain.ProducaoItens.First(x => x.Id == modelItem.Id);
+
+                        var producaoMatrizCorte = producaoItem.ProducaoMatrizCorte ?? new ProducaoMatrizCorte
+                        {
+                            TipoEnfestoTecido = (TipoEnfestoTecido)producaoProgramacaoMatrizCorteModel.TipoEnfestoTecido
+                        };
+
+                        producaoProgramacaoMatrizCorteModel.GridMatrizCorteItens.ForEach(modelMatrizCorteItem =>
+                        {
+                            var producaoMatrizCorteItem = producaoMatrizCorte.ProducaoMatrizCorteItens.FirstOrDefault(x => 
+                                x.Tamanho.Descricao == modelMatrizCorteItem.DescricaoTamanho) ?? new ProducaoMatrizCorteItem();
+
+                            producaoMatrizCorteItem.QuantidadeProgramada = modelMatrizCorteItem.Quantidade.GetValueOrDefault();
+                            producaoMatrizCorteItem.QuantidadeVezes = modelMatrizCorteItem.QuantidadeVezes.GetValueOrDefault();
+                            producaoMatrizCorteItem.Tamanho = _tamanhoRepository.Get(x => x.Descricao == modelMatrizCorteItem.DescricaoTamanho);
+                            
+                            producaoMatrizCorte.ProducaoMatrizCorteItens.Add(producaoMatrizCorteItem );
+                        });
+
+
+                        //producaoItem.QuantidadeProgramada = 0;
+                        //producaoItem.ProducaoMatrizCorte = null;
+
+                        producaoItem.QuantidadeProgramada = modelItem.Quantidade.GetValueOrDefault();
+                        producaoItem.ProducaoMatrizCorte = producaoMatrizCorte;
+                    });
+
+
+                    _producaoRepository.SaveOrUpdate(domain);
+
+                    this.AddSuccessMessage("Programação da produção cadastrada com sucesso.");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, "Não é possível salvar a programação da produção. Confira se os dados foram informados corretamente: " + exception.Message);
+                    _logger.Info(exception.GetMessage());
+                }
+            }
+
+            return View(model);
+        }
+
+        public virtual String ObtenhaMatrizCorteJson(ProducaoItem producaoItem)
+        {
+            if (producaoItem.ProducaoMatrizCorte == null)
+            {
+                return null;
+            }
+
+            var matrizCorteModel = new ProducaoProgramacaoMatrizCorteModel
+            {
+                QuantidadeItem = producaoItem.QuantidadeProgramada,
+                TipoEnfestoTecido = (int)producaoItem.ProducaoMatrizCorte.TipoEnfestoTecido,
+                GridMatrizCorteItens = new List<ProducaoProgramacaoMatrizCorteItemModel>()
+            };
+
+            var matrizCorte = producaoItem.ProducaoMatrizCorte;
+
+            matrizCorte = ObtenhaProducaoMatrizCorteCompleto(matrizCorte, producaoItem.FichaTecnica);
+
+            matrizCorte.ProducaoMatrizCorteItens.ForEach(
+                programacaoProducaoMatrizCorteItem =>
+                {
+                    var matrizCorteItemModel = new ProducaoProgramacaoMatrizCorteItemModel()
+                    {
+                        Quantidade = programacaoProducaoMatrizCorteItem.QuantidadeProgramada,
+                        QuantidadeVezes = programacaoProducaoMatrizCorteItem.QuantidadeVezes,
+                        DescricaoTamanho = programacaoProducaoMatrizCorteItem.Tamanho.Descricao
+                    };
+
+                    matrizCorteModel.GridMatrizCorteItens.Add(matrizCorteItemModel);
+                });
+
+            var javaScriptSerializer = new JavaScriptSerializer();
+            return javaScriptSerializer.Serialize(matrizCorteModel);
+        }
+
+        public virtual ProducaoMatrizCorte ObtenhaProducaoMatrizCorteCompleto(ProducaoMatrizCorte domain, FichaTecnica fichaTecnica)
+        {
+            var matrizCorteDomain = domain;
+
+            if (domain.ProducaoMatrizCorteItens.IsEmpty())
+            {
+                fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos.Keys.ForEach(tamanho =>
+                {
+                    var programacaoProducaoMatrizCorteItem = new ProducaoMatrizCorteItem
+                    {
+                        Tamanho = tamanho,
+                        QuantidadeProgramada = 0,
+                        QuantidadeVezes = 0
+                    };
+                    matrizCorteDomain.ProducaoMatrizCorteItens.Add(programacaoProducaoMatrizCorteItem);
+                });
+            }
+
+            return domain;
+        }
+        
+        [ChildActionOnly]
+        public virtual ActionResult MatrizCorte()
+        {
+            return PartialView(new ProducaoProgramacaoMatrizCorteModel());
+        }
+
+        public virtual JsonResult ObtenhaListaProgramacaoProducaoMatrizCorteItemModel(string referenciaFichaTecnica)
+        {
+            var retorno = new List<ProducaoProgramacaoMatrizCorteItemModel>();
+
+            var fichaTecnica = _fichaTecnicaRepository.Get(x => x.Referencia == referenciaFichaTecnica);
+
+            fichaTecnica.FichaTecnicaMatriz.Grade.Tamanhos.Keys.ForEach(tamanho =>
+            {
+                var modelItem = new ProducaoProgramacaoMatrizCorteItemModel
+                {
+                    DescricaoTamanho = tamanho.Descricao,
+                    Tamanho = tamanho.Id,
+                    Quantidade = 0,
+                    QuantidadeVezes = 0
+                };
+                retorno.Add(modelItem);
+            });
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+        
+        #endregion
+        
+        #region PopulateViewData
 
         protected void PopulateViewDataPesquisa(PesquisaProducaoModel model)
         {
@@ -457,15 +654,13 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             ViewBag.RemessaProducao = remessas.ToSelectList("Descricao", model.RemessaProducao);
             ViewBag.OrdenarPor = new SelectList(ColunasOrdenacaoRelatorio, "value", "key");
         }
-        #endregion
-
-        #region PopulateViewData
 
         protected void PopulateViewData(ProducaoModel model)
         {
             var remessas = _remessaProducaoRepository.Find().ToList();
             ViewBag.RemessaProducao = remessas.ToSelectList("Descricao", model.RemessaProducao);
         }
+
         #endregion
         
         private long ObtenhaProximoNumero()

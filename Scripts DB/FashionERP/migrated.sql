@@ -156,7 +156,7 @@ EXEC sp_executesql @sql;
 ALTER TABLE [dbo].[customaterial] DROP COLUMN [customedio];
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-05-25T14:41:42', 'Migration201603091702')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-05-30T12:32:42', 'Migration201603091702')
 /* Committing Transaction */
 /* 201603091702: Migration201603091702 migrated */
 
@@ -172,7 +172,7 @@ update permissao set permissaopai_id = @FICHATECNCIAINDEXID where controller = '
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Fotos', 'Producao', 'FichaTecnica', 'Fotos', 0, 1, 0, @FICHATECNCIAINDEXID);
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201604291434, '2016-05-25T14:41:42', 'Migration201604291434')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201604291434, '2016-05-30T12:32:42', 'Migration201604291434')
 /* Committing Transaction */
 /* 201604291434: Migration201604291434 migrated */
 
@@ -185,7 +185,7 @@ delete from uniquekeys where tablename = 'remessaproducao';
 /* ExecuteSqlStatement INSERT INTO uniquekeys (tablename, nexthi) VALUES ('remessaproducao', (SELECT ISNULL(MAX(id), 0) + 1 FROM remessaproducao)); */
 INSERT INTO uniquekeys (tablename, nexthi) VALUES ('remessaproducao', (SELECT ISNULL(MAX(id), 0) + 1 FROM remessaproducao));
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605021625, '2016-05-25T14:41:42', 'Migration201605021625')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605021625, '2016-05-30T12:32:42', 'Migration201605021625')
 /* Committing Transaction */
 /* 201605021625: Migration201605021625 migrated */
 
@@ -205,10 +205,7 @@ ALTER TABLE [dbo].[producaomatrizcorteitem] ADD CONSTRAINT [FK_producaomatrizcor
 ALTER TABLE [dbo].[producaomatrizcorteitem] ADD CONSTRAINT [FK_producaomatrizcorteitem_producaomatrizcorte] FOREIGN KEY ([producaomatrizcorte_id]) REFERENCES [dbo].[producaomatrizcorte] ([id])
 
 /* CreateTable producaoprogramacao */
-CREATE TABLE [dbo].[producaoprogramacao] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [data] DATE NOT NULL, [dataprogramada] DATE NOT NULL, [observacao] NVARCHAR(255), [quantidade] BIGINT NOT NULL, [unidade_id] BIGINT NOT NULL, [funcionario_id] BIGINT NOT NULL, CONSTRAINT [PK_producaoprogramacao] PRIMARY KEY ([id]))
-
-/* CreateForeignKey FK_producaoprogramacao_unidade producaoprogramacao(unidade_id) pessoa(id) */
-ALTER TABLE [dbo].[producaoprogramacao] ADD CONSTRAINT [FK_producaoprogramacao_unidade] FOREIGN KEY ([unidade_id]) REFERENCES [dbo].[pessoa] ([id])
+CREATE TABLE [dbo].[producaoprogramacao] ([id] BIGINT NOT NULL, [idtenant] BIGINT NOT NULL, [idempresa] BIGINT NOT NULL, [data] DATE NOT NULL, [dataprogramada] DATE NOT NULL, [observacao] NVARCHAR(255), [quantidade] BIGINT NOT NULL, [funcionario_id] BIGINT NOT NULL, CONSTRAINT [PK_producaoprogramacao] PRIMARY KEY ([id]))
 
 /* CreateForeignKey FK_producaoprogramacao_funcionario producaoprogramacao(funcionario_id) pessoa(id) */
 ALTER TABLE [dbo].[producaoprogramacao] ADD CONSTRAINT [FK_producaoprogramacao_funcionario] FOREIGN KEY ([funcionario_id]) REFERENCES [dbo].[pessoa] ([id])
@@ -255,7 +252,98 @@ ALTER TABLE [dbo].[producaoitemmaterial] ADD CONSTRAINT [FK_producaoitemmaterial
 /* CreateForeignKey FK_producaoitemmaterial_producaoitemmaterial producaoitemmaterial(producaoitemmaterial_id) producaoitemmaterial(id) */
 ALTER TABLE [dbo].[producaoitemmaterial] ADD CONSTRAINT [FK_producaoitemmaterial_producaoitemmaterial] FOREIGN KEY ([producaoitemmaterial_id]) REFERENCES [dbo].[producaoitemmaterial] ([id])
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605131717, '2016-05-25T14:41:42', 'Migration201605131717')
+/* ExecuteEmbeddedSqlScript Fashion.ERP.Migrator.Scripts._201605131717.permissao.sql */
+delete permissaotousuario where permissao_id = 20433;
+delete permissao where controller = 'ColecaoProgramada';
+
+
+DECLARE @BASICOID AS BIGINT, @id_pai AS BIGINT;
+SET @BASICOID = (SELECT id FROM permissao WHERE area = 'Producao' AND controller is null AND descricao='Básicos');
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Produção'
+           ,'Index'
+           ,'Producao'
+           ,'Producao'
+           ,1
+           ,1
+           ,@BASICOID
+           ,0
+		   )
+		   SET @id_pai = SCOPE_IDENTITY()
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Novo'
+           ,'Novo'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Editar'
+           ,'Editar'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Excluir'
+           ,'Excluir'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+
+
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605131717, '2016-05-30T12:32:43', 'Migration201605131717')
 /* Committing Transaction */
 /* 201605131717: Migration201605131717 migrated */
 

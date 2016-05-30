@@ -1,0 +1,338 @@
+﻿@using Fashion.ERP.Web.Areas.Producao.Models
+@model ProducaoProgramacaoModel
+
+@using (Html.BeginForm(MVC.Producao.Producao.Programacao(), FormMethod.Post, new {id = "form", @class = "form-horizontal", autocomplete = "off"}))
+{
+    @Html.HiddenFor(x => x.Id)
+
+    <fieldset>
+        <legend><small>Dados da Produção</small></legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Lote, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Lote)/@Html.ValueFor(x => x.Ano)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SituacaoProducao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.SituacaoProducao)
+                            @Html.HiddenFor(x => x.SituacaoProducao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Data, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.DisplayFor(x => x.Data)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.RemessaProducao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.RemessaProducao)
+                            @Html.HiddenFor(x => x.IdRemessaProducao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Descricao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Descricao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ResponsavelProducao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.ResponsavelProducao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Observacao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.Observacao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TipoProducao, new {@class = "control-label col-sm-4 col-md-3 font-bold"})
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        <div class="form-control-static no-gutter">
+                            @Html.ValueFor(x => x.TipoProducao)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend><small>Dados da Programação</small></legend>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Funcionario)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.CustomKendoComboBoxForFuncionario(x => x.Funcionario)
+                        @Html.ValidationMessageFor(x => x.Funcionario, string.Empty, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.DataProgramacao)
+                    <div class='col-sm-8 col-md-8 col-lg-7'>
+                        @Html.EditorFor(x => x.DataProgramacao)
+                        @Html.ValidationMessageFor(x => x.DataProgramacao, string.Empty, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.ObservacaoProgramacao)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextAreaFor(x => x.ObservacaoProgramacao,  new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ObservacaoProgramacao, string.Empty, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group form-group-sm">
+                    @Html.LabelForRequired(x => x.Quantidade)
+                    <div class="col-sm-8 col-md-8 col-lg-7">
+                        @Html.TextBoxFor(x => x.Quantidade,  new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Quantidade, string.Empty, new {@class = "help-block"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend><small>Itens de Produção</small></legend>
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.GridProducaoItens)
+                  .Name("GridProducaoItens")
+                  .Editable(e => e.Mode(GridEditMode.InCell))
+                  .Navigatable()
+                  .Columns(columns =>
+                  {
+                      columns.Bound(x => x.Id).Hidden()
+                          .ClientTemplate("<input type='hidden' name='GridProducaoItens[#= index(data)#].Id' value='#= Id #' />");
+                      columns.Bound(x => x.MatrizCorteJson).Hidden()
+                          .ClientTemplate("<input type='hidden' name='GridProducaoItens[#= index(data)#].MatrizCorteJson' value='#= MatrizCorteJson #' />");
+                      columns.Bound(x => x.TagAno)
+                          .ClientTemplate("#= TagAno #<input type='hidden' name='GridProducaoItens[#= index(data)#].TagAno' value='#= TagAno #' />");
+                      columns.Bound(x => x.Referencia)
+                          .ClientTemplate("#= Referencia #<input type='hidden' name='GridProducaoItens[#= index(data)#].Referencia' value='#= Referencia #' />");
+                      columns.Bound(x => x.Descricao)
+                          .ClientTemplate("#= Descricao #<input type='hidden' name='GridProducaoItens[#= index(data)#].Descricao' value='#= Descricao #' />");
+                      columns.Bound(x => x.Estilista)
+                          .ClientTemplate("#= Estilista #<input type='hidden' name='GridProducaoItens[#= index(data)#].Estilista' value='#= Estilista #' />");
+                      columns.Bound(x => x.Quantidade).Width(120)
+                          .ClientTemplate("#= Quantidade #<input type='hidden' name='GridProducaoItens[#= index(data)#].Quantidade' value='#= Quantidade #' />");
+                      columns.Bound(p => p.Foto).ClientTemplate("#if(Foto != null  && Foto != '') {#" +
+                                                                "<a href='" + "#= Foto #" + "' data-lightbox='foto' title='Foto'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>" +
+                                                                "#}#" +
+                                                                "<input type='hidden' name='GridProducaoItens[#= index(data)#].Foto' value='#= Foto #' />").Width(60);
+                      columns.Command(command => command.Custom("Matriz de Corte").Click("chamarMatrizCorteModal")).Width(135);
+                  })
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Events(events => events.Error("onKendoGridError"))
+                      .Model(model =>
+                      {
+                          model.Id(item => item.Id);
+                          model.Field(item => item.Id).DefaultValue(0);
+                          model.Field(item => item.Foto).Editable(false);
+                      })
+                  ))
+        </div>
+    </fieldset>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9">
+                    <button id="btnSubmit" class="btn btn-primary" type="submit" data-loading-text="Aguarde...">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{
+    Html.RenderAction("MatrizCorte", "Producao", new { area = "Producao" });   
+}
+
+<script>
+    $(document).ready(function() {
+        $('#Quantidade').attr('readonly', true);
+
+        $('#form').submit(function (e) {
+            limpeMensagensAlerta();
+
+            $(".k-widget").removeClass("input-validation-error");
+            var validacaoTodoFormulario = $("#form").valid();
+
+            // Validar
+            var formValido = formularioEhValido();
+
+            if (!validacaoTodoFormulario || !formValido) {
+                $('#btnSubmit').button('reset');
+                e.preventDefault();
+                return true;
+            }
+
+            if (!$('#Quantidade').valid()) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            var dataGridItens = obtenhaGridProducaoItens().dataSource.data();
+
+            var mensagem = "";
+            for (var i = 0; i < dataGridItens.length; i++) {
+                var dataItem = dataGridItens[i];
+                if (dataItem.Quantidade == 0 || dataItem.Quantidade == null) {
+                    mensagem += "A ficha técnica de referência " + dataItem.Referencia + " não possui valor para a coluna quantidade</br>";
+                }
+            }
+
+            if (!valideQuantidadeTotal()) {
+                e.preventDefault();
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            if (mensagem != "") {
+                e.preventDefault();
+                exibaAlertaErro(mensagem);
+                $('#btnSubmit').button('reset');
+                return false;
+            }
+
+            return true;
+        });
+
+        atualizeQuantidadeTotalProgramacao();
+    });
+
+    function formularioEhValido() {
+        return $('#Funcionario').valid();
+    }
+
+    function atualizeQuantidadeTotalProgramacao() {
+        var dataItens = window.obtenhaGridProducaoItens().dataSource.data();
+
+        var quantidade = 0;
+        for (var i = 0; i < dataItens.length; i++) {
+            var dataItem = dataItens[i];
+            quantidade += dataItem.Quantidade;
+        }
+
+        $('[id=Quantidade]').val(quantidade);
+    }
+
+    function valideQuantidadeTotal() {
+        var idProducao = $("#Id").val() == "" ? 0 : $("#Id").val();
+
+        $.ajaxSetup({
+            async: false
+        });
+
+        var capacidadeProdutivaDisponivel;
+
+        var url = "/Producao/RemessaProducao/ObtenhaCapacidadeProdutivaDisponivelDaRemessa?idRemessa=" + $("#IdRemessaProducao").val() + '&idProducao=' + idProducao;
+
+        $.getJSON(url, function (result) {
+            console.log(JSON.stringify(result));
+            capacidadeProdutivaDisponivel = result.capacidadeProdutivaDisponivel;
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            alert(errorThrown);
+        });
+
+        $.ajaxSetup({
+            async: true
+        });
+
+        //A capacidade produtiva da remessa não foi especificada.
+        if (capacidadeProdutivaDisponivel < 0) {
+            return true;
+        }
+
+        if (capacidadeProdutivaDisponivel == 0 || $("#Quantidade").val() > capacidadeProdutivaDisponivel) {
+            exibaAlertaErro("A quantidade programada não pode ser maior que a capacidade produtiva disponível da remessa. "
+                + "Capacidade produtiva disponível: " + capacidadeProdutivaDisponivel);
+            return false;
+        }
+
+        return true;
+
+    };
+
+
+    function index(dataItem) {
+        var data = obtenhaGridProducaoItens().dataSource.data();
+        return data.indexOf(dataItem);
+    }
+
+    function onEdit(e) {
+        this.closeCell();
+    }
+
+    function obtenhaGridProducaoItens() {
+        return $("#GridProducaoItens").data("kendoGrid");
+    }
+
+    function atualizeQuantidadeTotalProgramacao() {
+        var dataItensGridProgramacaoProducao = window.obtenhaGridProducaoItens().dataSource.data();
+
+        var quantidade = 0;
+        for (var i = 0; i < dataItensGridProgramacaoProducao.length; i++) {
+            var dataItem = dataItensGridProgramacaoProducao[i];
+            quantidade += dataItem.Quantidade;
+        }
+
+        $('[id=Quantidade]').val(quantidade);
+    }
+
+</script>

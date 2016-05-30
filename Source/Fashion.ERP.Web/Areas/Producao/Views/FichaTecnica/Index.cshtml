@@ -184,13 +184,13 @@
         columns.Bound(p => p.Foto).ClientTemplate( "#if(Foto != null  && Foto != '') {#" + 
                 "<a href='" + "#= Foto #" + "'' data-lightbox='foto' title='Material'><img src='" + "#= Foto #" + "' class='img-rounded' style='width: 48px; height: 48px;'/></a>"+ 
             "#}#").Width(60).Sortable(false).Groupable(false);
-        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Basicos", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
-        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Copiar", "Copiar", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
         columns.Template(@<text></text>).ClientTemplate("<ul class='myMenu'><li>Imprimir<ul><li>" + 
                 @Html.ActionLinkAuth("Estimativa de Custo", "FichaTecnicaEstimativaCusto", "RelatorioFichaTecnicaEstimativaCusto", new {Id = "#= Id #", Area = "Producao"}, new {target = "_blank"}).ToHtmlString()
             + "</li><li>"+
                 @Html.ActionLinkAuth("Ficha Técnica", "FichaTecnica", "RelatorioFichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {target = "_blank"}).ToHtmlString()
-            +"</li></ul></li></ul>").Width(105);          
+            +"</li></ul></li></ul>").Width(105);     
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Basicos", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");               
+        columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Copiar", "Copiar", "FichaTecnica", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                    
     })    
     .Events(events => events.DataBound("dataBound"))
     .Resizable(resize => resize.Columns(true))
@@ -202,6 +202,11 @@
 
 <style type="text/css">
     #Grid td
+    {
+        overflow: visible;
+    }
+
+    .k-menu .k-item
     {
         overflow: visible;
     }
