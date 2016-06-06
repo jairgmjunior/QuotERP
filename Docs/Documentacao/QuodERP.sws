@@ -6,7 +6,7 @@
 	<Local Expanded="Yes" Name="QuodERP">
 		<Model ID="{D3135C35-148D-4C59-9D25-3EB39258DD01}" Loaded="No" Name="EstoqueVestuario" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="EstoqueVestuario/EstoqueVestuario.oom"/>
 		<Model ID="{40838F6A-D772-4557-ABF1-E1A5E3743153}" Name="Comum" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Comum/Comum.oom"/>
-		<Model ID="{553BB7C9-DE8F-436B-9852-C717459ADC82}" Loaded="No" Name="Acesso" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Acesso/Acesso.oom"/>
+		<Model ID="{553BB7C9-DE8F-436B-9852-C717459ADC82}" Name="Acesso" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Acesso/Acesso.oom"/>
 		<Model ID="{54AAA00F-7257-4E88-9427-F7E4CF58FA74}" Name="Almoxarifado" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Almoxarifado/Almoxarifado.oom"/>
 		<Model ID="{D1E7C892-56D8-4109-9B34-97291123F771}" Loaded="No" Name="Compras" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Compras/Compras.oom"/>
 		<Model ID="{361063CB-736F-4E8B-B25C-65648D4E0503}" Loaded="No" Name="Financeiro" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Financeiro/Financeiro.oom"/>
