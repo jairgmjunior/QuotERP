@@ -186,6 +186,7 @@
               columns.Bound(x => x.QtdeProgramada);
               columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Editar", "Editar", "Producao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                           
               columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Programação", "Programacao", "Producao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                           
+              columns.Template(@<text></text>).ClientTemplate(@Html.ActionLinkAuth("Materiais", "Materiais", "Producao", new {Id = "#= Id #", Area = "Producao"}, new {@class = "btn btn-primary"}).ToHtmlString()).Width(80).Title("");                           
           })
           .Resizable(resize => resize.Columns(true))
           .Reorderable(reorder => reorder.Columns(true))

@@ -10,7 +10,7 @@ namespace Fashion.ERP.Mapping.Producao
         {
             Map(x => x.QuantidadeCancelada);
             Map(x => x.QuantidadeNecessidade);
-            Map(x => x.QuantidadeProgramada);
+            Map(x => x.Quantidade);
             Map(x => x.QuantidadeUsada);
             
             References(x => x.Material);

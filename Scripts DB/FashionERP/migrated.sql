@@ -156,7 +156,7 @@ EXEC sp_executesql @sql;
 ALTER TABLE [dbo].[customaterial] DROP COLUMN [customedio];
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-05-30T12:32:42', 'Migration201603091702')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201603091702, '2016-06-06T19:41:47', 'Migration201603091702')
 /* Committing Transaction */
 /* 201603091702: Migration201603091702 migrated */
 
@@ -172,7 +172,7 @@ update permissao set permissaopai_id = @FICHATECNCIAINDEXID where controller = '
 INSERT INTO permissao (Action, Area, Controller, Descricao, ExibeNoMenu, RequerPermissao, ordem, permissaopai_id) VALUES ('Fotos', 'Producao', 'FichaTecnica', 'Fotos', 0, 1, 0, @FICHATECNCIAINDEXID);
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201604291434, '2016-05-30T12:32:42', 'Migration201604291434')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201604291434, '2016-06-06T19:41:47', 'Migration201604291434')
 /* Committing Transaction */
 /* 201604291434: Migration201604291434 migrated */
 
@@ -185,7 +185,7 @@ delete from uniquekeys where tablename = 'remessaproducao';
 /* ExecuteSqlStatement INSERT INTO uniquekeys (tablename, nexthi) VALUES ('remessaproducao', (SELECT ISNULL(MAX(id), 0) + 1 FROM remessaproducao)); */
 INSERT INTO uniquekeys (tablename, nexthi) VALUES ('remessaproducao', (SELECT ISNULL(MAX(id), 0) + 1 FROM remessaproducao));
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605021625, '2016-05-30T12:32:42', 'Migration201605021625')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605021625, '2016-06-06T19:41:47', 'Migration201605021625')
 /* Committing Transaction */
 /* 201605021625: Migration201605021625 migrated */
 
@@ -331,6 +331,46 @@ INSERT INTO [dbo].[permissao]
            ,[permissaopai_id]
            ,[ordem])
      VALUES
+           ('Programação'
+           ,'Programacao'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
+           ('Materiais'
+           ,'Materiais'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
            ('Excluir'
            ,'Excluir'
            ,'Producao'
@@ -343,7 +383,7 @@ INSERT INTO [dbo].[permissao]
 
 
 
-INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605131717, '2016-05-30T12:32:43', 'Migration201605131717')
+INSERT INTO [dbo].[VersionInfo] ([Version], [AppliedOn], [Description]) VALUES (201605131717, '2016-06-06T19:41:48', 'Migration201605131717')
 /* Committing Transaction */
 /* 201605131717: Migration201605131717 migrated */
 

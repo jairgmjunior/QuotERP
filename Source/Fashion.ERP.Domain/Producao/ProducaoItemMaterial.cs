@@ -8,7 +8,7 @@ namespace Fashion.ERP.Domain.Producao
     {
         private IList<ProducaoItemMaterial> _producaoItensMateriais = new List<ProducaoItemMaterial>();
 
-        public virtual double QuantidadeProgramada { get; set; }
+        public virtual double Quantidade { get; set; }
         public virtual double QuantidadeNecessidade { get; set; } // deve existir?
         public virtual double QuantidadeCancelada { get; set; }
         public virtual double QuantidadeUsada { get; set; }

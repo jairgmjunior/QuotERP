@@ -96,6 +96,26 @@ INSERT INTO [dbo].[permissao]
            ,[permissaopai_id]
            ,[ordem])
      VALUES
+           ('Materiais'
+           ,'Materiais'
+           ,'Producao'
+           ,'Producao'
+           ,0
+           ,1
+           ,@id_pai
+           ,0
+		   )
+
+INSERT INTO [dbo].[permissao]
+           ([descricao]
+           ,[action]
+           ,[area]
+           ,[controller]
+           ,[exibenomenu]
+           ,[requerpermissao]
+           ,[permissaopai_id]
+           ,[ordem])
+     VALUES
            ('Excluir'
            ,'Excluir'
            ,'Producao'

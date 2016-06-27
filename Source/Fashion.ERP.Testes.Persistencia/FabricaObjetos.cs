@@ -1341,7 +1341,7 @@ namespace Fashion.ERP.Testes.Persistencia
         {
             return new ProducaoItemMaterial
             {
-                QuantidadeProgramada = 1,
+                Quantidade = 1,
                 QuantidadeCancelada = 1,
                 QuantidadeNecessidade = 1,
                 QuantidadeUsada = 1

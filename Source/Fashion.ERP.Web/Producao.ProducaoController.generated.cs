@@ -71,6 +71,12 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaListaProgramacaoProducaoMatrizCorteItemModel);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Materiais()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Materiais);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProducaoController Actions { get { return MVC.Producao.Producao; } }
@@ -95,6 +101,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string Programacao = "Programacao";
             public readonly string MatrizCorte = "MatrizCorte";
             public readonly string ObtenhaListaProgramacaoProducaoMatrizCorteItemModel = "ObtenhaListaProgramacaoProducaoMatrizCorteItemModel";
+            public readonly string Materiais = "Materiais";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -108,6 +115,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public const string Programacao = "Programacao";
             public const string MatrizCorte = "MatrizCorte";
             public const string ObtenhaListaProgramacaoProducaoMatrizCorteItemModel = "ObtenhaListaProgramacaoProducaoMatrizCorteItemModel";
+            public const string Materiais = "Materiais";
         }
 
 
@@ -170,6 +178,14 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             public readonly string referenciaFichaTecnica = "referenciaFichaTecnica";
         }
+        static readonly ActionParamsClass_Materiais s_params_Materiais = new ActionParamsClass_Materiais();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Materiais MateriaisParams { get { return s_params_Materiais; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Materiais
+        {
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -183,6 +199,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
                 public readonly string _NovoOuEditar = "_NovoOuEditar";
                 public readonly string Editar = "Editar";
                 public readonly string Index = "Index";
+                public readonly string Materiais = "Materiais";
                 public readonly string MatrizCorte = "MatrizCorte";
                 public readonly string Novo = "Novo";
                 public readonly string Programacao = "Programacao";
@@ -190,6 +207,7 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             public readonly string _NovoOuEditar = "~/Areas/Producao/Views/Producao/_NovoOuEditar.cshtml";
             public readonly string Editar = "~/Areas/Producao/Views/Producao/Editar.cshtml";
             public readonly string Index = "~/Areas/Producao/Views/Producao/Index.cshtml";
+            public readonly string Materiais = "~/Areas/Producao/Views/Producao/Materiais.cshtml";
             public readonly string MatrizCorte = "~/Areas/Producao/Views/Producao/MatrizCorte.cshtml";
             public readonly string Novo = "~/Areas/Producao/Views/Producao/Novo.cshtml";
             public readonly string Programacao = "~/Areas/Producao/Views/Producao/Programacao.cshtml";
@@ -316,6 +334,16 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ObtenhaListaProgramacaoProducaoMatrizCorteItemModel);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "referenciaFichaTecnica", referenciaFichaTecnica);
             ObtenhaListaProgramacaoProducaoMatrizCorteItemModelOverride(callInfo, referenciaFichaTecnica);
+            return callInfo;
+        }
+
+        partial void MateriaisOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        public override System.Web.Mvc.ActionResult Materiais(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Materiais);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            MateriaisOverride(callInfo, id);
             return callInfo;
         }
 

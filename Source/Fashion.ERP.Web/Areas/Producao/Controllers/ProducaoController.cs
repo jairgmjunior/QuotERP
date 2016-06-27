@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Fashion.ERP.Domain.Almoxarifado;
 using Fashion.ERP.Domain.Comum;
 using Fashion.ERP.Domain.Producao;
 using Fashion.ERP.Reporting.Helpers;
@@ -14,6 +15,8 @@ using Fashion.ERP.Web.Helpers;
 using Fashion.ERP.Web.Helpers.Attributes;
 using Fashion.ERP.Web.Helpers.Extensions;
 using Fashion.Framework.Common.Extensions;
+using Fashion.Framework.Common.Utils;
+using Fashion.Framework.Mvc.Security;
 using Fashion.Framework.Repository;
 using FluentNHibernate.Conventions;
 using Kendo.Mvc;
@@ -34,6 +37,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         private readonly IRepository<Pessoa> _pessoaRepository;
         private readonly IRepository<Tamanho> _tamanhoRepository;
         private readonly IRepository<UltimoNumero> _ultimoNumeroRepository;
+        private readonly IRepository<DepartamentoProducao> _departamentoProducaoRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
 
         private readonly ILogger _logger;
         #endregion
@@ -42,7 +47,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         public ProducaoController(ILogger logger, IRepository<Domain.Producao.Producao> producaoRepository,
             IRepository<FichaTecnica> fichaTecnicaRepository, IRepository<Tamanho> tamanhoRepository, 
             IRepository<UltimoNumero> ultimoNumeroRepository, IRepository<RemessaProducao> remessaProducaoRepository,
-            IRepository<Pessoa> pessoaRepository)
+            IRepository<Pessoa> pessoaRepository, IRepository<DepartamentoProducao> departamentoProducaoRepository,
+            IRepository<Usuario> usuarioRepository)
         {
             _producaoRepository = producaoRepository;
             _fichaTecnicaRepository = fichaTecnicaRepository;
@@ -50,6 +56,8 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
             _ultimoNumeroRepository = ultimoNumeroRepository;
             _remessaProducaoRepository = remessaProducaoRepository;
             _pessoaRepository = pessoaRepository;
+            _departamentoProducaoRepository = departamentoProducaoRepository;
+            _usuarioRepository = usuarioRepository;
             _logger = logger;
         }
         #endregion
@@ -646,6 +654,117 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         
         #endregion
         
+        #region Materiais
+
+        [PopulateViewData("PopulateViewDataMateriais")]
+        public virtual ActionResult Materiais(long id)
+        {
+            var domain = _producaoRepository.Get(id);
+
+            var userId = FashionSecurity.GetLoggedUserId();
+            var usuario = _usuarioRepository.Get(userId);
+            var funcionarioId = usuario.Funcionario != null ? usuario.Funcionario.Id : null;
+
+            if (funcionarioId == null)
+            {
+                this.AddErrorMessage("O usuário logado não possui funcionário associado a ele.");
+                return RedirectToAction("Index");
+            }
+
+            var pessoaLogada = _pessoaRepository.Get(funcionarioId);
+
+            var model = new ProducaoMateriaisModel
+            {
+                //DataProgramada = domain.ProducaoProgramacao != null ? domain.ProducaoProgramacao.DataProgramada : default(DateTime),
+                LoteAno = domain.Lote + "/" + domain.Ano,
+                RemessaProducao = domain.RemessaProducao.Descricao,
+                SituacaoProducao = domain.SituacaoProducao.EnumToString(),
+                GridItens = new List<GridProducaoMaterialModel>(),
+                Fotos = domain.ProducaoItens.SelectMany(x => x.FichaTecnica.FichaTecnicaFotos.Select(p => new FotoTituloModel
+                {
+                    Foto = p.Arquivo.Nome.GetFileUrl(),
+                    Titulo = x.FichaTecnica.Referencia
+                }))
+            };
+
+            var producaoItemMateriaisAgrupado = domain.ProducaoItens.SelectMany(x => x.ProducaoItemMateriais)
+                .GroupBy(x => new {x.Material, x.Responsavel, x.DepartamentoProducao})
+                .Select(x => new
+                {
+                    x.Key.Material,
+                    x.Key.Responsavel,
+                    x.Key.DepartamentoProducao,
+                    Quantidade = x.Sum(y => y.Quantidade),
+                    QuantidadeNecessidade = x.Sum(y => y.QuantidadeNecessidade)
+                });
+            
+            producaoItemMateriaisAgrupado.ForEach(x =>
+            {
+                var editavel = x.Responsavel == null || x.Responsavel.Id == pessoaLogada.Id;
+                
+                var modelMaterial = new GridProducaoMaterialModel
+                {
+                    DepartamentoProducao = x.DepartamentoProducao.Id.ToString(),
+                    Descricao = x.Material.Descricao,
+                    Referencia = x.Material.Referencia,
+                    UnidadeMedida = x.Material.UnidadeMedida.Sigla,
+                    Foto = x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty,
+                    GeneroCategoria = x.Material.Subcategoria.Categoria.GeneroCategoria,
+                    Necessitado = x.QuantidadeNecessidade != 0,
+                    Quantidade = x.Quantidade,
+                    Editavel = editavel
+                };
+
+                model.GridItens.Add(modelMaterial);
+            });
+
+            if (model.GridItens.Count == 0)
+            {
+                domain.ProducaoItens.ForEach(x =>
+                {
+                    x.FichaTecnica.MateriaisConsumo.ForEach(y =>
+                    {
+                        //y.Quantidade = y.Quantidade * x.QuantidadeProgramada;
+                        y.Quantidade = y.Quantidade * 100;
+                    });
+                });
+
+                var materiaisFichaTecnicaDomain = domain.ProducaoItens.SelectMany(x => x.FichaTecnica.MateriaisConsumo);
+
+                var materiaisDomainAgrupado = materiaisFichaTecnicaDomain.GroupBy(x => new {x.Material, x.DepartamentoProducao})
+                    .Select(x => new
+                    {
+                        x.Key.Material,
+                        x.Key.DepartamentoProducao,
+                        Quantidade = x.Sum(y => y.Quantidade)
+                    });
+
+                materiaisDomainAgrupado.ForEach(x =>
+                {
+                    var modelMaterial = new GridProducaoMaterialModel
+                    {
+                        DepartamentoProducao = x.DepartamentoProducao.Id.ToString(),
+                        Descricao = x.Material.Descricao,
+                        Referencia = x.Material.Referencia,
+                        UnidadeMedida = x.Material.UnidadeMedida.Sigla,
+                        Foto = x.Material.Foto != null ? x.Material.Foto.Nome.GetFileUrl() : string.Empty,
+                        GeneroCategoria = x.Material.Subcategoria.Categoria.GeneroCategoria,
+                        Necessitado = false,
+                        Quantidade = x.Quantidade,
+                        Editavel = true
+                    };
+
+                    model.GridItens.Add(modelMaterial);
+                });
+            }
+
+            model.GridItens = model.GridItens.OrderBy(x => x.Descricao).ToList();
+
+            return View(model);
+        }
+
+        #endregion
+        
         #region PopulateViewData
 
         protected void PopulateViewDataPesquisa(PesquisaProducaoModel model)
@@ -659,6 +778,19 @@ namespace Fashion.ERP.Web.Areas.Producao.Controllers
         {
             var remessas = _remessaProducaoRepository.Find().ToList();
             ViewBag.RemessaProducao = remessas.ToSelectList("Descricao", model.RemessaProducao);
+        }
+
+        protected void PopulateViewDataMateriais(ProducaoMateriaisModel model)
+        {
+            var generoCategorias = (from Enum e in Enum.GetValues(typeof(GeneroCategoria))
+                                    let d = e.GetDisplay()
+                                    select new { Id = Convert.ToInt32(e), Name = d != null ? d.Name : e.ToString() }).ToList();
+
+            ViewBag.GeneroCategoriaDicionarioJson = generoCategorias.ToDictionary(k => k.Id.ToString(), e => e.Name).FromDictionaryToJson();
+
+            var departamentoProducaos = _departamentoProducaoRepository.Find(p => p.Ativo).ToList();
+            ViewBag.DepartamentoProducaos = departamentoProducaos.Select(s => new { Id = s.Id.ToString(), s.Nome }).OrderBy(x => x.Nome);
+            ViewBag.DepartamentoProducaoDicionarioJson = departamentoProducaos.ToDictionary(k => k.Id.ToString(), e => e.Nome).FromDictionaryToJson();
         }
 
         #endregion

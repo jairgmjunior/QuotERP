@@ -74,7 +74,7 @@ namespace Fashion.ERP.Migrator
                 .WithColumn("id").AsInt64().PrimaryKey()
                 .WithColumn("idtenant").AsInt64()
                 .WithColumn("idempresa").AsInt64()
-                .WithColumn("quantidadeprogramada").AsInt64()
+                .WithColumn("quantidade").AsInt64()
                 .WithColumn("quantidadenecessidade").AsInt64()
                 .WithColumn("quantidadeusada").AsInt64()
                 .WithColumn("quantidadecancelada").AsInt64()
