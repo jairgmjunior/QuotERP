@@ -470,6 +470,8 @@
     <Compile Include="Areas\Producao\Controllers\RelatorioMateriaisProgramacaoProducaoController.cs" />
     <Compile Include="Areas\Producao\Models\ConsumoMaterialPorModeloModel.cs" />
     <Compile Include="Areas\Producao\Models\CopiarFichaTecnicaModel.cs" />
+    <Compile Include="Areas\Producao\Models\GridProducaoMaterialModel.cs" />
+    <Compile Include="Areas\Producao\Models\ProducaoMateriaisModel.cs" />
     <Compile Include="Areas\Producao\Models\ProducaoProgramacaoMatrizCorteItemModel.cs" />
     <Compile Include="Areas\Producao\Models\ProducaoProgramacaoMatrizCorteModel.cs" />
     <Compile Include="Areas\Producao\Models\ProducaoProgramacaoItemModel.cs" />
@@ -1290,6 +1292,7 @@
     <Content Include="Areas\Producao\Views\Producao\Novo.cshtml" />
     <Content Include="Areas\Producao\Views\Producao\Programacao.cshtml" />
     <Content Include="Areas\Producao\Views\Producao\MatrizCorte.cshtml" />
+    <Content Include="Areas\Producao\Views\Producao\Materiais.cshtml" />
     <None Include="CodeTemplates\MvcView\Editar.cs.t4">
       <LastGenOutput>Editar.cshtml</LastGenOutput>
     </None>

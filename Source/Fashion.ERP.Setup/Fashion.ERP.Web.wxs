@@ -1175,18 +1175,27 @@
                                 <File Id="fil26F429745001EDC9D88043007CD1E8D9" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\FichaTecnica\Processos.cshtml" />
                             </Component>
                         </Directory>
-                        <Directory Id="dirA24A3614F2F5977A904A51A11E827680" Name="OrdemProducao">
-                            <Component Id="cmp2780EFB35E4F2A108BDAB1FC5FD403CF" Guid="*">
-                                <File Id="filBEBDB5EB736FA95C22E847CC82AA7B29" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\OrdemProducao\Editar.cshtml" />
+                        <Directory Id="dir3E81DA0FE70844577B441239F7B7B95D" Name="Producao">
+                            <Component Id="cmp0CCABEECB9076B11DCBEF552BB31DAEA" Guid="*">
+                                <File Id="fil09468953DAFFD35388E403D2C06E52CF" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\Editar.cshtml" />
                             </Component>
-                            <Component Id="cmp9493DE808224582CEE08702DB5390DA2" Guid="*">
-                                <File Id="filFF3971D2F1F6AB4C6F831051701B2721" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\OrdemProducao\Index.cshtml" />
+                            <Component Id="cmp4C795FC27E2AA73CED2189E536D74DDD" Guid="*">
+                                <File Id="fil7FD0B62FDF2929C1407F3C0EA1A34E21" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\Index.cshtml" />
                             </Component>
-                            <Component Id="cmp5FED0FD05CD87AB82FD5506FC38308D0" Guid="*">
-                                <File Id="fil6A594F12569117A2758BACED7FF41710" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\OrdemProducao\Novo.cshtml" />
+                            <Component Id="cmpF1E93AB65D10153211FC77C80B91BF6C" Guid="*">
+                                <File Id="fil9FF56F0C70ABBBA149A5B23E1FA8A000" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\Materiais.cshtml" />
                             </Component>
-                            <Component Id="cmpDEBF9166FCEC2FC27B9F0E6A358CA982" Guid="*">
-                                <File Id="fil701782D03E8AEAAC283CCE108F7B728A" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\OrdemProducao\_NovoOuEditar.cshtml" />
+                            <Component Id="cmp267F4283340E09AA7C2FD4B24D7DE897" Guid="*">
+                                <File Id="fil23EF2FE92CF270C250094B41EAE01C6C" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\MatrizCorte.cshtml" />
+                            </Component>
+                            <Component Id="cmpFBE6E7A90F8D4BC55C23885D56CCADFB" Guid="*">
+                                <File Id="filEF5660FC2546F64AF636483EFB054EAD" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\Novo.cshtml" />
+                            </Component>
+                            <Component Id="cmp950E190525A65E282C7D27D7A4FEC501" Guid="*">
+                                <File Id="fil6458EBCCD6888EC0C2D2A4D69D2978F9" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\Programacao.cshtml" />
+                            </Component>
+                            <Component Id="cmpC421156FB44832A8B661CA31750E99F0" Guid="*">
+                                <File Id="fil3F4AAFCE3E93D16F27640C5D31B186AB" KeyPath="yes" Source="SourceDir\Areas\Producao\Views\Producao\_NovoOuEditar.cshtml" />
                             </Component>
                         </Directory>
                         <Directory Id="dirC6B2F1DC4626288C3115D1100305270F" Name="ProgramacaoProducao">
@@ -2504,10 +2513,13 @@
             <ComponentRef Id="cmpD5C1962E09FFE4D991C73AEAECE7E7DA" />
             <ComponentRef Id="cmpC282E801AC01F6DC5EA3FF7423BBE834" />
             <ComponentRef Id="cmp4A5BE87560CDA72362BDD41E093D3C39" />
-            <ComponentRef Id="cmp2780EFB35E4F2A108BDAB1FC5FD403CF" />
-            <ComponentRef Id="cmp9493DE808224582CEE08702DB5390DA2" />
-            <ComponentRef Id="cmp5FED0FD05CD87AB82FD5506FC38308D0" />
-            <ComponentRef Id="cmpDEBF9166FCEC2FC27B9F0E6A358CA982" />
+            <ComponentRef Id="cmp0CCABEECB9076B11DCBEF552BB31DAEA" />
+            <ComponentRef Id="cmp4C795FC27E2AA73CED2189E536D74DDD" />
+            <ComponentRef Id="cmpF1E93AB65D10153211FC77C80B91BF6C" />
+            <ComponentRef Id="cmp267F4283340E09AA7C2FD4B24D7DE897" />
+            <ComponentRef Id="cmpFBE6E7A90F8D4BC55C23885D56CCADFB" />
+            <ComponentRef Id="cmp950E190525A65E282C7D27D7A4FEC501" />
+            <ComponentRef Id="cmpC421156FB44832A8B661CA31750E99F0" />
             <ComponentRef Id="cmp27C6785671331940921282BFBB9C02C3" />
             <ComponentRef Id="cmpAF3F8161EAA56803B1E25759CB9235AA" />
             <ComponentRef Id="cmp4FE0D94BCE98CBDB6C16F8C2AB6918EC" />
